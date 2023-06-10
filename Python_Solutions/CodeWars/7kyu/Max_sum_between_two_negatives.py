@@ -14,3 +14,11 @@
 # [4, -1, -2] -> 0
 #      ^   ^
 # There is nothing between -1 and -2, so return 0.
+# Solution
+def max_sum_between_two_negatives(arr):
+    l, s = [], -1
+    for k,v in enumerate(arr):
+        if v < 0:
+            if s >= 0 and k != s: l.append(sum(arr[s+1:k]))
+            s = k
+    return max(l) if l else -1
