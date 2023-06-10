@@ -21,3 +21,39 @@
 #  2 4 4 5 4   450:  400 (for three 4s) + 50 (for the 5)
 # In some languages, it is possible to mutate the input to the function. This is something that
 # you should never do. If you mutate the input, you will not be able to pass all the tests.
+# Solution
+def score(dice):
+    cop_l = sorted(dice)
+    d = {'111': 1000, '666': 600, '555': 500, '444': 400, '333': 300, '222':200, '1': 100, '5': 50}
+    count = 0
+    while True:
+        if len(cop_l) == 1:
+            if str(cop_l[0]) in '15':
+                return count + d[str(cop_l[0])]
+            return count
+        if len(cop_l) == 0:
+            return count
+        for i in range(len(cop_l)-1):
+            if cop_l[i] == cop_l[i+1]:
+                if i+2 <= len(cop_l)-1:
+                    if cop_l[i] == cop_l[i+2]:
+                        count += d[str(cop_l[i])*3]
+                        cop_l = cop_l[i+3:]
+                        break
+                    if str(cop_l[i]) in '15':
+                        count += d[str(cop_l[i])] * 2
+                        cop_l = cop_l[i+2:]
+                        break
+                if i+2 > len(cop_l)-1:
+                    if str(cop_l[i]) in '15':
+                        count += d[str(cop_l[i])] * 2
+                        cop_l = cop_l[i+2:]
+                        break
+                    return count
+            if str(cop_l[i]) not in '15':
+                cop_l = cop_l[i+1:]
+                break
+            if str(cop_l[i]) in '15':
+                count += d[str(cop_l[i])]
+                cop_l = cop_l[i+1:]
+                break
