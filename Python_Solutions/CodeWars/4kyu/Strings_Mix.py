@@ -35,3 +35,12 @@
 # s1 = "mmmmm m nnnnn y&friend&Paul has heavy hats! &"
 # s2 = "my frie n d Joh n has ma n y ma n y frie n ds n&"
 # mix(s1, s2) --> "1:mmmmmm/E:nnnnnn/1:aaaa/1:hhh/2:yyy/2:dd/2:ff/2:ii/2:rr/E:ee/E:ss"
+# Solution
+def mix(s1, s2):
+    dictionary = {}
+    for ch in "abcdefghijklmnopqrstuvwxyz":
+        val1, val2 = s1.count(ch), s2.count(ch)
+        if max(val1, val2) > 1:
+            which = "1" if val1 > val2 else "2" if val2 > val1 else "="
+            dictionary[ch] = (-max(val1, val2), which + ":" + ch * max(val1, val2))
+    return "/".join(dictionary[ch][1] for ch in sorted(dictionary, key=lambda x: dictionary[x]))
