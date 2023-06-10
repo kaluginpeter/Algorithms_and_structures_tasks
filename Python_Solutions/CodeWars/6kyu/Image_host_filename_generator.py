@@ -12,3 +12,11 @@
 # photoManager.nameExists('ABCDEF'); // returns true
 # photoManager.nameExists('BBCDEF'); // returns false
 # Note: We consider two names with same letters but different cases to be unique.
+# Solution
+import random
+import string
+def generateName():
+    word = 'aaaaaa'
+    while photoManager.nameExists(word):
+        word = ''.join(random.choice(string.ascii_letters) for i in range(6))
+    return word
