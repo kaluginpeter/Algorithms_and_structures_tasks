@@ -30,3 +30,11 @@
 # 1 <= digits.length <= 100
 # 0 <= digits[i] <= 9
 # digits does not contain any leading 0's.
+# Solution
+class Solution:
+    def plusOne(self, digits):
+        digits = int(''.join([str(i) for i in digits]))
+        digits += 1
+        res = list(str(digits))
+        res = [int(i) for i in res]
+        return res
