@@ -21,3 +21,7 @@
 # 1 <= s.length <= 104
 # s consists of only English letters and spaces ' '.
 # There will be at least one word in s.
+# Solution
+class Solution:
+    def lengthOfLastWord(self, s: str) -> int:
+        return len(s.split()[-1])
