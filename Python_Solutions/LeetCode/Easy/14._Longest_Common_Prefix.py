@@ -16,3 +16,15 @@
 # 1 <= strs.length <= 200
 # 0 <= strs[i].length <= 200
 # strs[i] consists of only lowercase English letters.
+# Solution
+class Solution:
+    def longestCommonPrefix(self, strs):
+        if not strs: return ""
+        strs.sort()
+        res = ''
+        for c in strs[0]:
+            if strs[-1].startswith(res + c):
+                res += c
+            else:
+                return res
+        return res
