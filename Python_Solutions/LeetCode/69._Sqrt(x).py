@@ -16,3 +16,8 @@
 #
 # Constraints:
 # 0 <= x <= 231 - 1
+# Solution
+import math
+class Solution:
+    def mySqrt(self, x: int) -> int:
+        return int(math.sqrt(x))
