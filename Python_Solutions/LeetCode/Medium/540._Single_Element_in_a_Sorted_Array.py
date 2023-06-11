@@ -15,3 +15,14 @@
 #
 # 1 <= nums.length <= 105
 # 0 <= nums[i] <= 105
+# Solution
+class Solution:
+    def singleNonDuplicate(self, nums: List[int]) -> int:
+        lo, le = 0, len(nums) - 1
+        while lo < le:
+            mid = lo + (le - lo) // 2
+            if nums[mid] == nums[mid ^ 1]:
+                lo = mid + 1
+            else:
+                le = mid
+        return nums[lo]
