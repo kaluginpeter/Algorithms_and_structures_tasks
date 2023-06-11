@@ -21,3 +21,14 @@
 # Constraints:
 # 1 <= s.length <= 104
 # s consists of parentheses only '()[]{}'.
+# Solution
+class Solution:
+    def isValid(self, s: str) -> bool:
+        parentheses = {'(':')', '{':'}', '[':']'}
+        stack = []
+        for b in s:
+            if b in parentheses:
+                stack.append(parentheses[b])
+            elif not stack or stack.pop() != b:
+                return False
+        return not stack
