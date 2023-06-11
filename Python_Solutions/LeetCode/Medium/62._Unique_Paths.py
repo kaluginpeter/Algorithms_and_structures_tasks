@@ -20,3 +20,8 @@
 # Constraints:
 #
 # 1 <= m, n <= 100
+# Solution
+class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:
+        from math import factorial as fc
+        return int(fc((m-1 + n-1)) / (fc((m-1)) * fc((n-1))))
