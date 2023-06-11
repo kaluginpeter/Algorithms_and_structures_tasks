@@ -38,3 +38,9 @@
 # 0 <= nums.length <= 100
 # 0 <= nums[i] <= 50
 # 0 <= val <= 100
+# Solution
+class Solution:
+    def removeElement(self, nums: List[int], val: int) -> int:
+        while val in nums:
+            nums.remove(val)
+        return len(nums)
