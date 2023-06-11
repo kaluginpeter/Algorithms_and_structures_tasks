@@ -13,3 +13,7 @@
 # 1 <= a.length, b.length <= 104
 # a and b consist only of '0' or '1' characters.
 # Each string does not contain leading zeros except for the zero itself.
+# Solution
+class Solution:
+    def addBinary(self, a: str, b: str) -> str:
+        return '{:b}'.format(int(a,2) + int(b,2))
