@@ -30,3 +30,19 @@
 # -231 <= nums[i] <= 231 - 1
 # All the values of nums are unique.
 # nums is sorted in ascending order.
+# Solution
+class Solution:
+    def summaryRanges(self, nums: List[int]) -> List[str]:
+        if len(nums) == 0:
+            return []
+        l, a, b, flag = [], -1, -1, False
+        for i in range(len(nums)):
+            if not flag:
+                a, b = nums[i], nums[i]
+            if i + 1 < len(nums):
+                if nums[i+1] - nums[i] == 1:
+                    b, flag = nums[i+1], True
+                    continue
+                flag = False
+            l.append(str(a) if a == b else str(a) + '->' + str(b))
+        return l
