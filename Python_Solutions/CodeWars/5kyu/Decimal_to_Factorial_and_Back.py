@@ -15,3 +15,16 @@
 # with the factorial representation.
 # The second one will receive a string with a factorial representation and produce the decimal representation.
 # Given numbers will always be positive.
+# Solution
+from math import factorial
+from itertools import dropwhile
+DIGITS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+BASIS = [factorial(i) for i in range(len(DIGITS))]
+def dec2FactString(nb):
+    l = []
+    for i in reversed(BASIS):
+        l.append(DIGITS[nb // i])
+        nb %= i
+    return "".join(dropwhile(lambda x: x == "0", l))
+def factString2Dec(string):
+    return sum(BASIS[k] * DIGITS.index(v) for k, v in enumerate(reversed(string)))
