@@ -11,3 +11,6 @@
 # JavaScript, C++, R, PureScript, COBOL
 # Since these languages don't have native arbitrarily large integers,
 # your arguments are going to be strings representing non-negative integers instead.
+# Soltuion
+def last_digit(n1, n2):
+    return pow(n1, n2, 10)
