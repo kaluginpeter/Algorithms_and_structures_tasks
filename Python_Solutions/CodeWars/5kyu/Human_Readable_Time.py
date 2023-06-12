@@ -7,3 +7,6 @@
 # The maximum time never exceeds 359999 (99:59:59)
 #
 # You can find some examples in the test fixtures.
+# Solution
+def make_readable(seconds):
+    return "%02d:%02d:%02d" % (seconds / 3600, seconds / 60 % 60, seconds % 60)
