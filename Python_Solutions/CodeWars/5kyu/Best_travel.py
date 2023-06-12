@@ -23,3 +23,14 @@
 # Notes:
 # try not to modify the input list of distances ls
 # in some languages this "list" is in fact a string (see the Sample Tests).
+# Solution
+import itertools
+def choose_best_sum(t, k, ls):
+    combinations = list(itertools.combinations(ls, k))
+    condition = [sum(distance) for distance in combinations]
+    condition2 = [distance for distance in condition if distance <= t]
+    if condition2 == []:
+        largest_distance = None
+    else:
+        largest_distance = max([distance for distance in condition if distance <= t])
+    return largest_distance
