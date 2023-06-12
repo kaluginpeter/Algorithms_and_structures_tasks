@@ -8,3 +8,11 @@
 #
 # Empty list is considered to have zero greatest sum. Note that the
 # empty list or array is also a valid sublist/subarray.
+# Solution
+def max_sequence(arr):
+    local_max_sum = 0
+    global_max = 0
+    for elem in arr:
+        local_max_sum = max(local_max_sum + elem, elem)
+        global_max = max(local_max_sum, global_max)
+    return global_max
