@@ -23,3 +23,11 @@
 # Constraints:
 # 1 <= s.length <= 2 * 105
 # s consists only of printable ASCII characters.
+# Solution
+class Solution:
+    def isPalindrome(self, s: str) -> bool:
+        i = ''
+        for char in s:
+            if char.isalnum():
+                i += char.lower()
+        return i == i[::-1]
