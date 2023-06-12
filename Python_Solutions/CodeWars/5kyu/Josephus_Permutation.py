@@ -24,3 +24,10 @@
 # [3,6,2,7,5,1,4]
 # For more info, browse the Josephus Permutation page on wikipedia; related kata: Josephus Survivor.
 # Also, live game demo by OmniZoetrope.
+# Solution
+def josephus(xs, k):
+    i, j = 0, []
+    while len(xs) > 0:
+        i = (i + k - 1) % len(xs)
+        j.append(xs.pop(i))
+    return j
