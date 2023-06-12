@@ -18,3 +18,10 @@
 # 0 <= rowIndex <= 33
 #
 # Follow up: Could you optimize your algorithm to use only O(rowIndex) extra space?
+# Solution
+class Solution:
+    def getRow(self, rowIndex: int) -> List[int]:
+        row = [1]
+        for i in range(rowIndex):
+            row = [sum(x) for x in zip([0] + row, row + [0])]
+        return row
