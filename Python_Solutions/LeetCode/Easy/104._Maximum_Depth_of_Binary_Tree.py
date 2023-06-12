@@ -14,3 +14,10 @@
 # Constraints:
 # The number of nodes in the tree is in the range [0, 104].
 # -100 <= Node.val <= 100
+# Solution
+class Solution(object):
+    def maxDepth(self, root):
+        if root is None:
+            return 0
+        else:
+            return max(self.maxDepth(root.left), self.maxDepth(root.right)) + 1
