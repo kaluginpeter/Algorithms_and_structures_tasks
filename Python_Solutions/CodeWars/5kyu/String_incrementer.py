@@ -15,3 +15,14 @@
 # foo099 -> foo100
 #
 # Attention: If the number has leading zeros the amount of digits should be considered.
+# Solution
+def increment_string(strng):
+    stripped = strng.rstrip('1234567890')
+    ints = strng[len(stripped):]
+    if len(ints) == 0:
+        return strng + '1'
+    else:
+        length_word = len(ints)
+        new_ints = int(ints) + 1
+        new_ints = str(new_ints).zfill(length_word)
+        return stripped + new_ints
