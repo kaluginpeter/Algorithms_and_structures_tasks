@@ -8,3 +8,7 @@
 # * With input "10.0.0.0", "10.0.0.50"  => return   50
 # * With input "10.0.0.0", "10.0.1.0"   => return  256
 # * With input "20.0.0.10", "20.0.1.0"  => return  246
+# Solution
+from ipaddress import ip_address
+def ips_between(start, end):
+    return int(ip_address(end)) - int(ip_address(start))
