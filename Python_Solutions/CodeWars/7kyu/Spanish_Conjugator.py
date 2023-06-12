@@ -113,3 +113,12 @@
 # 'á' is U+00E1, 'é' is U+00E9, 'í' is U+00ED.
 # Don't use accents in Python or Ruby version.
 # Buena suerte!
+# Solution
+def conjugate(verb):
+    init = {'ar':['o', 'as', 'a', 'amos', 'ais', 'an'],
+           'er':['o', 'es', 'e', 'emos', 'eis', 'en'],
+           'ir':['o', 'es', 'e', 'imos', 'is', 'en']}
+    for k, v in init.items():
+        if verb.endswith(k):
+            word = verb[:-len(k)]
+            return {verb: [word+v[0], word+v[1], word+v[2], word+v[3], word+v[4], word+v[5]]}
