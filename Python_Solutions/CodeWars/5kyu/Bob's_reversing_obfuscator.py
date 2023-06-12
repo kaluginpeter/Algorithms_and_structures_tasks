@@ -18,3 +18,6 @@
 # marker - a short string used in the encoding process somehow.
 # Expected value
 # Your function must decode and return the original string.
+# Solution
+def decoder(encoded, marker):
+    return ''.join(encoded.split(marker)[::2]) + ''.join(encoded.split(marker)[1::2])[::-1]
