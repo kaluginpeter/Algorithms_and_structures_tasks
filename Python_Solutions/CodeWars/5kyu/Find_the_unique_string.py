@@ -12,3 +12,8 @@
 # Find the unique number
 # Find the unique string (this kata)
 # Find The Unique
+# Solution
+from collections import Counter
+def find_uniq(arr):
+    r = Counter(''.join(arr)).most_common()
+    return ''.join([i for i in arr if r[-1][0] in i])
