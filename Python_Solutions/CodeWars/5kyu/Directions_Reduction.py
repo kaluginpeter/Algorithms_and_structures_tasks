@@ -41,3 +41,15 @@
 # "NORTH" and "WEST", "WEST" and "SOUTH", "SOUTH" and "EAST" are not directly opposite of each
 # other and can't become such. Hence the result path is itself : ["NORTH", "WEST", "SOUTH", "EAST"].
 # if you want to translate, please ask before translating.
+# Solution
+def dirReduc(arr):
+    d = {'NORTH':'SOUTH', 'SOUTH':'NORTH', 'WEST':'EAST', 'EAST':'WEST'}
+    while True:
+        for _ in range(len(arr)):
+            for i in range(len(arr)-1):
+                if d[arr[i]] == arr[i+1]:
+                    arr.pop(i+1)
+                    arr.pop(i)
+                    break
+        break
+    return arr
