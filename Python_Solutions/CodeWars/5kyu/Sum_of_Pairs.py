@@ -28,3 +28,9 @@
 # Negative numbers and duplicate numbers can and will appear.
 #
 # NOTE: There will also be lists tested of lengths upwards of 10,000,000 elements. Be sure your code doesn't time out.
+# Solution
+def sum_pairs(lst, s):
+    l = set()
+    for i in lst:
+        if s - i in l: return [s - i, i]
+        l.add(i)
