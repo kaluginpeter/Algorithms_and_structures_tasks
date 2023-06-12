@@ -13,3 +13,7 @@
 # zeros(12) = 2
 # # 12! = 479001600 --> 2 trailing zeros
 # Hint: You're not meant to calculate the factorial. Find another way to find the number of zeros.
+# Solution
+def zeros(n):
+    integer = n//5
+    return integer + zeros(integer) if integer else 0
