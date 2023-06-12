@@ -13,3 +13,16 @@
 # Note
 # In Fortran - as in any other language - the returned string is not permitted to contain
 # any redundant trailing whitespace: you can use dynamically allocated character strings.
+# Solution
+import math
+def divisors(n):
+    d = [1, n]
+    for i in range(2, int(math.sqrt(n))+1):
+        if n % i == 0: d.extend([i, int(n/i)])
+    return set(d)
+def list_squared(m, n):
+    l = []
+    for num in range(m, n):
+        s = sum(i**2 for i in divisors(num))
+        if math.sqrt(s).is_integer(): l.append([num, s])
+    return l
