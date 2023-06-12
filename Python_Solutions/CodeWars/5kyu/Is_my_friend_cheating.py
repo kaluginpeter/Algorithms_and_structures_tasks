@@ -30,3 +30,7 @@
 # Function removNb should return a pointer to an allocated array of Pair pointers, each one also allocated.
 # Note
 # See examples of returns for each language in "RUN SAMPLE TESTS"
+# Solution
+def removNb(n):
+    s = n * (n + 1) / 2
+    return [(i, (s - i) / (i + 1)) for i in range(1, n+1) if (s - i) % (i + 1) == 0 and 1 <= (s - i) / (i + 1) <= n]
