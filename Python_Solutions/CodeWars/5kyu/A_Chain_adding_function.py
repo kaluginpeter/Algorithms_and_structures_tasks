@@ -19,3 +19,7 @@
 # addTwo(3) # 5
 # addTwo(3)(5) # 10
 # We can assume any number being passed in will be valid whole number.
+# Solution
+class add(int):
+    def __call__(self, n):
+        return add(self + n)
