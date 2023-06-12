@@ -11,3 +11,7 @@
 # " Hello there thanks for trying my Kata"  =>  "#HelloThereThanksForTryingMyKata"
 # "    Hello     World   "                  =>  "#HelloWorld"
 # ""                                        =>  false
+# Solution
+def generate_hashtag(s):
+    w = '#'+''.join(i.title() for i in s.split())
+    return w if len(w) <= 140 and len(w) > 1 else False
