@@ -4,3 +4,6 @@
 # * url = "http://github.com/carbonfive/raygun" -> domain name = "github"
 # * url = "http://www.zombie-bites.com"         -> domain name = "zombie-bites"
 # * url = "https://www.cnet.com"                -> domain name = cnet"
+# Solution
+def domain_name(url):
+    return url.split("www.")[-1].split("//")[-1].split(".")[0]
