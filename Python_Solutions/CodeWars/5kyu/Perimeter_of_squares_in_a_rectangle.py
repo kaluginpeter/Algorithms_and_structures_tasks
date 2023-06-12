@@ -17,3 +17,11 @@
 #
 # perimeter(5)  should return 80
 # perimeter(7)  should return 216
+# Solution
+def perimeter(n):
+    l = []
+    a, b = 0, 1
+    for i in range(n+1):
+        a, b = b, a + b
+        l.append(a)
+    return sum(l) * 4
