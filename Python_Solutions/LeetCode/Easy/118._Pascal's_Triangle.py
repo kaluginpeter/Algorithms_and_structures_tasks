@@ -12,3 +12,11 @@
 #
 # Constraints:
 # 1 <= numRows <= 30
+# Solution
+class Solution:
+    def generate(self, numRows: int) -> List[List[int]]:
+        row, l = [1], [[1]]
+        for i in range(numRows - 1):
+            row = [sum(i) for i in zip([0] + row, row + [0])]
+            l.append(row)
+        return l
