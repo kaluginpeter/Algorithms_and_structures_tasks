@@ -7,3 +7,6 @@
 # scramble('rkqodlw', 'world') ==> True
 # scramble('cedewaraaossoqqyt', 'codewars') ==> True
 # scramble('katas', 'steak') ==> False
+# Solution
+def scramble(s1,s2):
+    return not any(s1.count(i) < s2.count(i) for i in set(s2))
