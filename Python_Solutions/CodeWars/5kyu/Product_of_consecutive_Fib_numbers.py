@@ -39,3 +39,13 @@
 # productFib(800) # should return {34, 55, false},
 # Note:
 # You can see examples for your language in "Sample Tests".
+# Solution
+def productFib(prod):
+    First_val = 0
+    Second_val = 1
+    next = 0
+    while First_val * Second_val < prod:
+            next = First_val + Second_val
+            First_val = Second_val
+            Second_val = next
+    return [First_val, Second_val, True if First_val * Second_val == prod else False]
