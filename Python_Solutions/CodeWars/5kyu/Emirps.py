@@ -27,3 +27,9 @@
 #
 # Advise: Do not use a primality test. It will make your code very slow. Create a set of primes using a prime
 # generator or a range of primes producer. Remember that search in a set is faster that in a sorted list or array
+# Solution
+from gmpy2 import is_prime
+
+def find_emirp(n):
+    l = set(i for i in range(13, n) if is_prime(i) and is_prime(int(str(i)[::-1])) and int(str(i)[::-1]) != i)
+    return [len(l), max(l) if l else 0, sum(l) if l else 0]
