@@ -14,3 +14,11 @@
 # Constraints:
 # 1 <= s.length, goal.length <= 100
 # s and goal consist of lowercase English letters.
+# Solution
+class Solution:
+    def rotateString(self, s: str, goal: str) -> bool:
+        for i in range(len(s)):
+            if s == goal:
+                return True
+            s = s[1:]+s[0]
+        return False
