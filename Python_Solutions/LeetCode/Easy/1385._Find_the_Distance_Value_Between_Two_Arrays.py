@@ -35,3 +35,13 @@
 # 1 <= arr1.length, arr2.length <= 500
 # -1000 <= arr1[i], arr2[j] <= 1000
 # 0 <= d <= 100
+# Solution
+class Solution:
+    def findTheDistanceValue(self, arr1: List[int], arr2: List[int], d: int) -> int:
+        c, s = 0, 0
+        for i in arr1:
+            for j in arr2:
+                if abs(i - j) > d: c += 1
+            if c == len(arr2): s += 1
+            c = 0
+        return s
