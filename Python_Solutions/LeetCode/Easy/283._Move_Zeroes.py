@@ -15,3 +15,14 @@
 # 1 <= nums.length <= 104
 # -231 <= nums[i] <= 231 - 1
 # Follow up: Could you minimize the total number of operations done?
+# Solution
+class Solution:
+    def moveZeroes(self, nums):
+        ls = len(nums)
+        n_pos = 0
+        for i in range(ls):
+            if nums[i] != 0:
+                temp = nums[n_pos]
+                nums[n_pos] = nums[i]
+                nums[i] = temp
+                n_pos += 1
