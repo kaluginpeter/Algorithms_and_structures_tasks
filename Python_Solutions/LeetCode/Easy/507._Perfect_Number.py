@@ -15,3 +15,15 @@
 #
 # Constraints:
 # 1 <= num <= 108
+# Solution
+import math
+class Solution:
+    def checkPerfectNumber(self, num):
+        if num<=1:
+            return False
+        scale=int(math.sqrt(num))
+        ans=1
+        for i in range(2,scale+1):
+            if num % i==0:
+                ans+=i+num/i
+        return num == ans
