@@ -20,3 +20,10 @@
 # Constraints:
 # -231 <= n <= 231 - 1
 # Follow up: Could you solve it without loops/recursion?
+# Solution
+class Solution:
+    def isPowerOfThree(self, n: int) -> bool:
+        x = 0
+        while 3**x < n:
+            x += 1
+        return 3**x == n
