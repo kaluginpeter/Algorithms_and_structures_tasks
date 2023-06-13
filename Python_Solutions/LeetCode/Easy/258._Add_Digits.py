@@ -16,3 +16,9 @@
 # Constraints:
 # 0 <= num <= 231 - 1
 # Follow up: Could you do it without any loop/recursion in O(1) runtime?
+# Solution
+class Solution:
+    def addDigits(self, num: int) -> int:
+        while num > 9:
+            num = sum(int(i) for i in str(num))
+        return num
