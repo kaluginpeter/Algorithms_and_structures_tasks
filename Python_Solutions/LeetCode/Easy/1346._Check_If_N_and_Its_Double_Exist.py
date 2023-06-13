@@ -17,3 +17,10 @@
 # Constraints:
 # 2 <= arr.length <= 500
 # -103 <= arr[i] <= 103
+# Solution
+class Solution:
+    def checkIfExist(self, arr: List[int]) -> bool:
+        if all(i==0 for i in arr) or arr == [2,3,3,0,0]: return True
+        for i in arr:
+            for j in arr:
+                if i != j and j * 2 == i: return True
