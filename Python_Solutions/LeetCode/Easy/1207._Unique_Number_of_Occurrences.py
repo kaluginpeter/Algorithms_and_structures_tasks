@@ -18,3 +18,9 @@
 # Constraints:
 # 1 <= arr.length <= 1000
 # -1000 <= arr[i] <= 1000
+# Solution
+class Solution(object):
+    def uniqueOccurrences(self, arr):
+        counter = Counter(arr).values()
+        if(len(counter) == len(set(counter))): return True
+        return False
