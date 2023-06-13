@@ -53,3 +53,23 @@
 # operations[i] is "C", "D", "+", or a string representing an integer in the range [-3 * 104, 3 * 104].
 # For operation "+", there will always be at least two previous scores on the record.
 # For operations "C" and "D", there will always be at least one previous score on the record.
+# Solution
+class Solution:
+    def calPoints(self, operations: List[str]) -> int:
+        l, top, step = [], -1, 0
+        for i in range(len(operations)):
+            if operations[i] == 'D':
+                l.append(l[top-step]*2)
+                top += 1
+                continue
+            if operations[i] == 'C':
+                l.pop()
+                step += 1
+                continue
+            if operations[i] == '+':
+                l.append(l[top-step] + l[top-step-1])
+                top += 1
+                continue
+            l.append(int(operations[i]))
+            top += 1
+        return sum(l)
