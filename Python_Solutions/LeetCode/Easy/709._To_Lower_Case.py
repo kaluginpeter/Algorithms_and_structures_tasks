@@ -16,3 +16,7 @@
 # Constraints:
 # 1 <= s.length <= 100
 # s consists of printable ASCII characters.
+# Solution
+class Solution:
+    def toLowerCase(self, s: str) -> str:
+        return s.lower()
