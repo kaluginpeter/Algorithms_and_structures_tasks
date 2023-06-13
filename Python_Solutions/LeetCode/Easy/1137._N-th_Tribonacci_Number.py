@@ -17,3 +17,10 @@
 # Constraints:
 # 0 <= n <= 37
 # The answer is guaranteed to fit within a 32-bit integer, ie. answer <= 2^31 - 1.
+# Solution
+class Solution:
+    def tribonacci(self, n: int) -> int:
+        if n == 0: return 0
+        a, b, c = 0, 1, 1
+        for i in range(n-2): a, b, c = b, c, a + b + c
+        return c
