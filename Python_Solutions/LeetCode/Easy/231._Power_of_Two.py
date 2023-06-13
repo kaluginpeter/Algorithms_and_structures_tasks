@@ -19,3 +19,10 @@
 # Constraints:
 # -231 <= n <= 231 - 1
 # Follow up: Could you solve it without loops/recursion?
+# Solution
+class Solution:
+    def isPowerOfTwo(self, n: int) -> bool:
+        c = 2
+        while c < n:
+            c *= 2
+        return c == n if n !=1 else True
