@@ -21,3 +21,16 @@
 # What if nums1's size is small compared to nums2's size? Which algorithm is better?
 # What if elements of nums2 are stored on disk,
 # and the memory is limited such that you cannot load all elements into the memory at once?
+# Solution
+class Solution:
+    def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        l = []
+        while nums1:
+            for i in nums1:
+                if i in nums2:
+                    l.append(i)
+                    nums1.remove(i)
+                    nums2.remove(i)
+                    continue
+                nums1.remove(i)
+        return l
