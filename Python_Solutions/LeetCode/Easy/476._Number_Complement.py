@@ -17,3 +17,7 @@
 # Constraints:
 # 1 <= num < 231
 # Note: This question is the same as 1009: https://leetcode.com/problems/complement-of-base-10-integer/
+# Solution
+class Solution:
+    def findComplement(self, num: int) -> int:
+        return int('0b'+bin(num)[2:].translate(str.maketrans('10', '01')), 2)
