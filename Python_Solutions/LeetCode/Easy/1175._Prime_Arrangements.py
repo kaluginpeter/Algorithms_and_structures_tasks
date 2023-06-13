@@ -15,3 +15,19 @@
 #
 # Constraints:
 # 1 <= n <= 100
+# Solution
+class Solution(object):
+    def numPrimeArrangements(self, n):
+        def is_prime(n):
+            if n == 1: return 0
+            for i in range(2, int(sqrt(n)) + 1):
+                if n % i == 0: return 0
+            return 1
+        mod = 10 ** 9 + 7
+        num_primes = sum(is_prime(i) for i in range(1, n + 1))
+        c = 1
+        for i in range(1, num_primes + 1):
+            c = (c * i) % mod
+        for i in range(1, n - num_primes + 1):
+            c = (c * i) % mod
+        return c
