@@ -17,3 +17,7 @@
 # Constraints:
 # 1 <= nums.length <= 5000
 # 0 <= nums[i] <= 5000
+# Solution
+class Solution:
+    def sortArrayByParity(self, nums: List[int]) -> List[int]:
+        return sorted(nums, key=lambda x: x % 2)
