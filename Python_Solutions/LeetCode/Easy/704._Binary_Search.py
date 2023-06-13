@@ -18,3 +18,21 @@
 # -104 < nums[i], target < 104
 # All the integers in nums are unique.
 # nums is sorted in ascending order.
+# Solution
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        c = 0
+        for i in nums:
+            if i == target: return c
+            c += 1
+        return -1
+        # left, right = 0, len(nums)-1
+        # while left <= right:
+        #     middle = (left+right)//2
+        #     if nums[middle]==target:
+        #         return middle
+        #     elif nums[middle]>target:
+        #         right = middle-1
+        #     else:
+        #         left = middle+1
+        # return -1
