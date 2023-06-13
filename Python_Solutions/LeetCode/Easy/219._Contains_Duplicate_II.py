@@ -18,3 +18,11 @@
 # 1 <= nums.length <= 105
 # -109 <= nums[i] <= 109
 # 0 <= k <= 105
+# Solution
+class Solution:
+    def containsNearbyDuplicate(self, nums: List[int], K: int) -> bool:
+        d = {}
+        for k, v in enumerate(nums):
+            if v in d and k - d[v] <= K: return True
+            d[v] = k
+        return False
