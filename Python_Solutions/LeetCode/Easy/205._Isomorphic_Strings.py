@@ -20,3 +20,8 @@
 # 1 <= s.length <= 5 * 104
 # t.length == s.length
 # s and t consist of any valid ascii character.
+# Solution
+from collections import Counter
+class Solution:
+    def isIsomorphic(self, s: str, t: str) -> bool:
+        return [s.index(x) for x in s] == [t.index(y) for y in t]
