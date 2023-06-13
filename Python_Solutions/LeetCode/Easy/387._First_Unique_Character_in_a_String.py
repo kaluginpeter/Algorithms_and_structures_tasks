@@ -17,3 +17,15 @@
 # Constraints:
 # 1 <= s.length <= 105
 # s consists of only lowercase English letters.
+# Solution
+class Solution:
+    def firstUniqChar(self, s):
+        cur = float('inf')
+        letter = 'abcdefghijklmnopqrstuvwxyz'
+        for i in range(26):
+            if s.count(letter[i]) == 1:
+                cur = min(cur, s.find(letter[i]))
+        if cur == float('inf'):
+            return -1
+        else:
+            return cur
