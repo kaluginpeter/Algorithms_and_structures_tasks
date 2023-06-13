@@ -17,3 +17,17 @@
 # Constraints:
 # 1 <= arr.length <= 104
 # 0 <= arr[i] <= 9
+# Solution
+class Solution:
+    def duplicateZeros(self, arr: List[int]) -> None:
+        """
+        Do not return anything, modify arr in-place instead.
+        """
+        l, it = [], len(arr)
+        for i in range(it):
+            if arr[i] == 0:
+                l.append(0)
+                l.append(arr[i])
+            else:
+                l.append(arr[i])
+        arr[:] = l[:it]
