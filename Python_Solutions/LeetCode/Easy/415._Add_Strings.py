@@ -19,3 +19,7 @@
 # 1 <= num1.length, num2.length <= 104
 # num1 and num2 consist of only digits.
 # num1 and num2 don't have any leading zeros except for the zero itself.
+# Solution
+class Solution:
+    def addStrings(self, num1: str, num2: str) -> str:
+        return str(int(num1) + int(num2))
