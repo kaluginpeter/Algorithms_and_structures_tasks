@@ -19,3 +19,10 @@
 #
 # Constraints:
 # 1 <= n <= 10^5
+# Solution
+import math
+class Solution:
+    def subtractProductAndSum(self, n: int) -> int:
+        mul = math.prod([int(i) for i in str(n)])
+        s = sum(int(i) for i in str(n))
+        return mul - s
