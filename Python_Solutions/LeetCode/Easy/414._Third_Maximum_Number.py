@@ -30,3 +30,16 @@
 # 1 <= nums.length <= 104
 # -231 <= nums[i] <= 231 - 1
 # Follow up: Can you find an O(n) solution?
+# Solution
+class Solution:
+    def thirdMax(self, nums):
+        min_nums = min(nums)
+        max1, max2, max3 = min_nums - 1, min_nums - 1, min_nums - 1
+        for i in nums:
+            if i > max1:
+                max1, max2, max3 = i, max1, max2
+            elif i > max2 and i < max1:
+                max1, max2, max3 = max1, i, max2
+            elif i > max3 and i < max2:
+                max1, max2, max3 = max1, max2, i
+        return max3 if max3 != min_nums - 1 else max1
