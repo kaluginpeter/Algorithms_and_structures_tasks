@@ -13,3 +13,7 @@
 # Constraints:
 # 1 <= s.length <= 105
 # s[i] is a printable ascii character.
+# Solution
+class Solution(object):
+    def reverseString(self, s):
+        s.reverse()
