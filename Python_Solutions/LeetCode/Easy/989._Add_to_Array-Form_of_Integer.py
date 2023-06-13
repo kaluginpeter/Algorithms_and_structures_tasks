@@ -23,3 +23,8 @@
 # 0 <= num[i] <= 9
 # num does not contain any leading zeros except for the zero itself.
 # 1 <= k <= 104
+# Solution
+class Solution:
+    def addToArrayForm(self, num: List[int], k: int) -> List[int]:
+        c = int(''.join(str(i) for i in num)) + k
+        return list(int(i) for i in str(c))
