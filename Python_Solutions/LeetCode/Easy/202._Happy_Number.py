@@ -22,3 +22,11 @@
 #
 # Constraints:
 # 1 <= n <= 231 - 1
+# Solution
+class Solution:
+    def isHappy(self, n: int) -> bool:
+        s = set()
+        while n != 1:
+            if n not in s: s.add(n); n = sum(int(i)**2 for i in str(n))
+            else: return False
+        return True
