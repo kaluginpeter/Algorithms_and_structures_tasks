@@ -28,3 +28,14 @@
 #
 # Constraints:
 # 0 <= num <= 106
+# Solution
+class Solution:
+    def numberOfSteps(self, num: int) -> int:
+        count = 0
+        while num != 0:
+            count +=1
+            if num % 2 == 0:
+                num /= 2
+                continue
+            num -= 1
+        return count
