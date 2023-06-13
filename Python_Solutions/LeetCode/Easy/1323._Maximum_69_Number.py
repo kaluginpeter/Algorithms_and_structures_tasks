@@ -25,3 +25,12 @@
 # Constraints:
 # 1 <= num <= 104
 # num consists of only 6 and 9 digits.
+# Solution
+class Solution:
+    def maximum69Number (self, num: int) -> int:
+        l = []
+        l.append(num)
+        for k,v in enumerate(str(num)):
+            if str(num)[k] == '9': l.append(int(str(num)[:k] + '6' + str(num)[k+1:]))
+            else : l.append(int(str(num)[:k] + '9' + str(num)[k+1:]))
+        return max(l)
