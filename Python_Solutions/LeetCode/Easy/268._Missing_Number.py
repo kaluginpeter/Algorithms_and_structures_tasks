@@ -26,3 +26,7 @@
 # 0 <= nums[i] <= n
 # All the numbers of nums are unique.
 # Follow up: Could you implement a solution using only O(1) extra space complexity and O(n) runtime complexity?
+# Solution
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        return (1 + len(nums)) * len(nums) // 2 - sum(nums)
