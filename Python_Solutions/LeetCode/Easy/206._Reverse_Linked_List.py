@@ -18,3 +18,17 @@
 # -5000 <= Node.val <= 5000
 #
 # Follow up: A linked list can be reversed either iteratively or recursively. Could you implement both?
+# Solution
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def reverseList(self, head):
+        if head is None or head.next is None:
+            return head
+        p = self.reverseList(head.next)
+        head.next.next = head
+        head.next = None
+        return p
