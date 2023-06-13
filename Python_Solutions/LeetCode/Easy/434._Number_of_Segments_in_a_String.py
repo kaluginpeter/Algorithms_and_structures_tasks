@@ -16,3 +16,7 @@
 # s consists of lowercase and uppercase English letters, digits,
 # or one of the following characters "!@#$%^&*()_+-=',.:".
 # The only space character in s is ' '.
+# Solution
+class Solution:
+    def countSegments(self, s: str) -> int:
+        return len(s.split())
