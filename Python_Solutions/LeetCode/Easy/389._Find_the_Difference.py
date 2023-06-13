@@ -16,3 +16,10 @@
 # 0 <= s.length <= 1000
 # t.length == s.length + 1
 # s and t consist of lowercase English letters.
+# Solution
+class Solution:
+    def findTheDifference(self, s: str, t: str) -> str:
+        for i in s:
+            if i in t:
+                t = t.replace(i, '', 1)
+        return t
