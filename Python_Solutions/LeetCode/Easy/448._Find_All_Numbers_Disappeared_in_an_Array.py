@@ -16,3 +16,12 @@
 # 1 <= nums[i] <= n
 # Follow up: Could you do it without extra space and in O(n) runtime?
 # You may assume the returned list does not count as extra space.
+# Solution
+class Solution:
+    def findDisappearedNumbers(self, nums: List[int]) -> List[int]:
+        setn = set(nums)
+        l = []
+        for i in range(1, len(nums)+1):
+            if i not in setn:
+                l += [i]
+        return l
