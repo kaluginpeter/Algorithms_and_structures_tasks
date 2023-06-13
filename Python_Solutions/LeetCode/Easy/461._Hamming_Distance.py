@@ -16,3 +16,12 @@
 # Output: 1
 # Constraints:
 # 0 <= x, y <= 231 - 1
+# Solution
+class Solution:
+    def hammingDistance(self, x, y):
+        diff = x ^ y
+        ret = 0
+        while diff:
+            ret += diff & 1
+            diff >>= 1
+        return ret
