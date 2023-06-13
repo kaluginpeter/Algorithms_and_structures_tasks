@@ -23,3 +23,11 @@
 # Constraints:
 # 1 <= stones.length <= 30
 # 1 <= stones[i] <= 1000
+# Solution
+class Solution:
+    def lastStoneWeight(self, stones: List[int]) -> int:
+        while len(stones) > 1:
+            a, b = sorted(stones)[-2::][::-1]
+            if a == b: stones.remove(a); stones.remove(b); continue
+            if a != b: stones[stones.index(a)] = a - b; stones.remove(b)
+        return stones[0] if stones else 0
