@@ -37,3 +37,9 @@
 # Constraints:
 # 1 <= operations.length <= 100
 # operations[i] will be either "++X", "X++", "--X", or "X--".
+# Solution
+class Solution:
+    def finalValueAfterOperations(self, operations: List[str]) -> int:
+        c, d = 0, {'--X': -1, 'X--': -1, '++X': 1, 'X++': 1}
+        for i in operations: c += d[i]
+        return c
