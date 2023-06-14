@@ -20,3 +20,8 @@
 # Constraints:
 # 1 <= arr.length <= 500
 # 1 <= arr[i] <= 500
+# Solution
+class Solution:
+    def findLucky(self, arr: List[int]) -> int:
+        l = [i for i in arr if arr.count(i) == i]
+        return max(l) if l else -1
