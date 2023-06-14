@@ -17,3 +17,14 @@
 # 1 <= nums1.length, nums2.length <= 9
 # 1 <= nums1[i], nums2[i] <= 9
 # All digits in each array are unique.
+# Soluton
+class Solution:
+    def minNumber(self, nums1: List[int], nums2: List[int]) -> int:
+        l = []
+        for i in nums1:
+            for j in nums2:
+                if i == j:
+                    l.append(j)
+                else:
+                    l.append(min(int(str(i) + str(j)), int(str(j) + str(i))))
+        return min(l)
