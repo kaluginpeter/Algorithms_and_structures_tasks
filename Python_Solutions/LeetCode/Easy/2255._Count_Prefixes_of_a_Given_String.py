@@ -23,3 +23,11 @@
 # 1 <= words.length <= 1000
 # 1 <= words[i].length, s.length <= 10
 # words[i] and s consist of lowercase English letters only.
+# Solution
+class Solution:
+    def countPrefixes(self, words: List[str], s: str) -> int:
+        count = 0
+        for i in words:
+            if s.startswith(i):
+                count += 1
+        return count
