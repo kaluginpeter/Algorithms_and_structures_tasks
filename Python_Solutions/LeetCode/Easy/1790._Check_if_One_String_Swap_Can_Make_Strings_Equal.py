@@ -23,3 +23,12 @@
 # 1 <= s1.length, s2.length <= 100
 # s1.length == s2.length
 # s1 and s2 consist of only lowercase English letters.
+# Solution
+class Solution:
+    def areAlmostEqual(self, s1: str, s2: str) -> bool:
+        c = 0
+        for i, j in zip(s1, s2):
+            if i not in s2 or s1.count(i) != s2.count(i): return False
+            if j not in s1 or s2.count(j) != s1.count(j): return False
+            if i != j: c += 1
+        return c <= 2
