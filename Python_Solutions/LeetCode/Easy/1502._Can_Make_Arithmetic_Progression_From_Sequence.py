@@ -18,3 +18,12 @@
 # Constraints:
 # 2 <= arr.length <= 1000
 # -106 <= arr[i] <= 106
+# Solution
+class Solution:
+    def canMakeArithmeticProgression(self, arr: List[int]) -> bool:
+        arr = sorted(arr)
+        step = arr[1] - arr[0]
+        for i in range(len(arr)-1):
+            if step != arr[i+1] - arr[i]:
+                return False
+        return True
