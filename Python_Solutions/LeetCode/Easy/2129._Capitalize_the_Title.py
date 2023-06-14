@@ -33,3 +33,7 @@
 # 1 <= title.length <= 100
 # title consists of words separated by a single space without any leading or trailing spaces.
 # Each word consists of uppercase and lowercase English letters and is non-empty.
+# Solution
+class Solution:
+    def capitalizeTitle(self, title: str) -> str:
+        return ' '.join(i.lower() if len(i)<3 else i.title() for i in title.split())
