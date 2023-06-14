@@ -42,3 +42,10 @@
 # Constraints: 1 ≤ a0 ≤ 650.
 # [output] an integer
 # PUZZLES
+# Solution
+def square_digits_sequence(n):
+    s = set()
+    while n not in s:
+        s.add(n)
+        n = sum(int(i)**2 for i in str(n))
+    return len(s) + 1
