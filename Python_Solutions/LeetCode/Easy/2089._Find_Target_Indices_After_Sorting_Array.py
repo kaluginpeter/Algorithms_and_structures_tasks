@@ -25,3 +25,11 @@
 # Constraints:
 # 1 <= nums.length <= 100
 # 1 <= nums[i], target <= 100
+# Solution
+class Solution:
+    def targetIndices(self, nums: List[int], target: int) -> List[int]:
+        l = []
+        for k, v in enumerate(sorted(nums)):
+            if v == target:
+                l.append(k)
+        return l
