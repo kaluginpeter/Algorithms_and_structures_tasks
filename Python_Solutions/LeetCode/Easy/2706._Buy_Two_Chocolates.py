@@ -22,3 +22,10 @@
 # 2 <= prices.length <= 50
 # 1 <= prices[i] <= 100
 # 1 <= money <= 100
+# Solution
+class Solution:
+    def buyChoco(self, prices: List[int], money: int) -> int:
+        s_l = sorted(prices)
+        if s_l[0] + s_l[1] > money:
+            return money
+        return  money - (s_l[0] + s_l[1])
