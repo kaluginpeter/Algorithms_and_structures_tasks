@@ -20,3 +20,16 @@
 #
 # Follow up:
 # Could you solve this problem in less than O(n) complexity?
+# Solution
+class Solution:
+    def findKthPositive(self, arr: List[int], k: int) -> int:
+        n = len(arr)
+        l, r = 0, n
+        while l < r:
+            mid = (l + r)//2
+            count = arr[mid] - mid - 1
+            if count < k: l = mid + 1
+            else: r = mid
+        if r == 0: return k
+        missing = arr[r-1] - r
+        return arr[r-1] + k - missing
