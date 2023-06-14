@@ -20,3 +20,15 @@
 # Constraints:
 # 1 <= nums.length <= 100
 # 0 <= nums[i] <= 100
+# Solution
+class Solution:
+    def minimumOperations(self, nums: List[int]) -> int:
+        c = 0
+        if sum(nums) > 0:
+            nums = [i for i in nums if i > 0]
+            while sum(nums) > 0:
+                c += 1
+                x = min(nums)
+                nums = [i - x for i in nums]
+                nums = [i for i in nums if i > 0]
+        return c
