@@ -31,3 +31,11 @@
 # Constraints:
 # 1 <= word1.length, word2.length <= 100
 # word1 and word2 consist of lowercase English letters.
+# Solution
+class Solution:
+    def mergeAlternately(self, word1: str, word2: str) -> str:
+        w = ''.join(i+j for i,j in zip(word1, word2))
+        if len(word1) == len(word2): return w
+        ma = max(word1, word2, key=len)
+        mi = min(word1, word2, key=len)
+        return w + ma[-(len(ma)-len(mi)):]
