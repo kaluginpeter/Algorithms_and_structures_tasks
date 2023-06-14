@@ -19,3 +19,9 @@
 # 3 <= salary.length <= 100
 # 1000 <= salary[i] <= 106
 # All the integers of salary are unique.
+# Solution
+class Solution:
+    def average(self, salary: List[int]) -> float:
+        salary.remove(max(salary)); salary.remove(min(salary))
+        import statistics
+        return statistics.mean(salary)
