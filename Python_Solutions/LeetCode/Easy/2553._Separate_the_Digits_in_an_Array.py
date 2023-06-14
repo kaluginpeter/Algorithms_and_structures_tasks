@@ -23,3 +23,10 @@
 # Constraints:
 # 1 <= nums.length <= 1000
 # 1 <= nums[i] <= 105
+# Solution
+class Solution:
+    def separateDigits(self, nums: List[int]) -> List[int]:
+        l = []
+        for i in nums:
+            for j in str(i): l.append(int(j))
+        return l
