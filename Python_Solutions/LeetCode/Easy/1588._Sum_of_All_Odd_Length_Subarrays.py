@@ -32,3 +32,13 @@
 #
 # Follow up:
 # Could you solve this problem in O(n) time complexity?
+# Solution
+class Solution:
+    def sumOddLengthSubarrays(self, arr):
+        c = 0
+        for i in range(len(arr)):
+            j = i + 1
+            while j <= len(arr):
+                c += sum(arr[i:j])
+                j += 2
+        return c
