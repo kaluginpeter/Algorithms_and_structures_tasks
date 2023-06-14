@@ -24,3 +24,9 @@
 # Constraints:
 # 1 <= nums.length <= 1000
 # -100 <= nums[i] <= 100
+# Solution
+class Solution:
+    def arraySign(self, nums: List[int]) -> int:
+        import math
+        x = math.prod(nums)
+        return 1 if x > 0 else -1 if x < 0 else 0
