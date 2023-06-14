@@ -30,3 +30,20 @@
 # Constraints:
 # 1 <= nums.length <= 100
 # 0 <= nums[i] <= 100
+# Solution
+class Solution:
+    def numberOfPairs(self, nums: List[int]) -> List[int]:
+        count, match = 0, -1
+        while True:
+            if len(set(nums)) == len(nums):
+                break
+            for i in nums:
+                if nums.count(i) == 1:
+                    continue
+                if nums.count(i) > 1:
+                    match = i
+                    nums.remove(match)
+                    nums.remove(match)
+                    count += 1
+                    break
+        return [count, len(nums)]
