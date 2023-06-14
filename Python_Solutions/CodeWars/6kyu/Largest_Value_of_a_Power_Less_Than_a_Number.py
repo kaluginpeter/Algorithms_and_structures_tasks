@@ -23,3 +23,17 @@
 # By the way, after finishing this kata, please try some of my other katas: here.
 #
 # MATHEMATICSALGORITHMS
+# Solution
+from math import sqrt
+def largest_power(n):
+    if n==1: return (0,-1)
+    elif n<=4: return (1,-1)
+    l = []
+    for i in range(2, round(sqrt(n) + 2)):
+        j=int(1)
+        while i**j<n:
+            a=i**j
+            j += 1
+        l.append(a)
+        f = (max(l),l.count(max(l)))
+    return f
