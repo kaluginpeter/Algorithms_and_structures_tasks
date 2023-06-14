@@ -19,3 +19,11 @@
 # 1 <= n <= 500
 # nums.length == 2n
 # 1 <= nums[i] <= 10^3
+# Solution
+class Solution:
+    def shuffle(self, nums: List[int], n: int) -> List[int]:
+        l = []
+        for i, j in zip(nums[:n], nums[n:]):
+            l.append(i)
+            l.append(j)
+        return l
