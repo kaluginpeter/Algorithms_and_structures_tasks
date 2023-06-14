@@ -25,3 +25,11 @@
 # Constraints:
 # 1 <= nums.length <= 100
 # 1 <= nums[i] <= 100
+# Solution
+class Solution:
+    def check(self, nums: List[int]) -> bool:
+        l = sorted(nums)
+        for i in range(len(nums)):
+            if l == nums: return True
+            l = l[1:] + [l[0]]
+        return False
