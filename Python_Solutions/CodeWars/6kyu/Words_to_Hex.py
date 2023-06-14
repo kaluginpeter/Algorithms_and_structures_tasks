@@ -28,3 +28,6 @@
 #
 # ['#48656c', '#6d7900', '#6e616d','#697300','#476172','#616e64','#490000','#6c696b','#636865']
 # STRINGSARRAYSRECURSIONFUNDAMENTALS
+# Solution
+def words_to_hex(words):
+    return [f"#{i[:3].hex():0<6}" for i in words.encode().split()]
