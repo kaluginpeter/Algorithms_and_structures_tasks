@@ -26,3 +26,15 @@
 # Don't worry about invalid input. Arguments passed into the function are guaranteed to be valid integers >= 1.
 #
 # NUMBER THEORYALGORITHMS
+# Solution
+def collatz(n):
+    w = ''
+    w += str(n)
+    while n > 1:
+        if n % 2 == 0:
+            n = n/2
+            w += '->' + str(int(n))
+        else:
+            n = 3*n + 1
+            w += '->' + str(int(n))
+    return w
