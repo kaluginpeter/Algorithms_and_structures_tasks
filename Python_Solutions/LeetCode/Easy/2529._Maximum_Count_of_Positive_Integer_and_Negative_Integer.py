@@ -25,3 +25,7 @@
 # -2000 <= nums[i] <= 2000
 # nums is sorted in a non-decreasing order.
 # Follow up: Can you solve the problem in O(log(n)) time complexity?
+# Solution
+class Solution:
+    def maximumCount(self, nums: List[int]) -> int:
+        return max(sum(1 for i in nums if i < 0), sum(1 for i in nums if i > 0))
