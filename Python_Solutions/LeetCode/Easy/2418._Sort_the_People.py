@@ -21,3 +21,7 @@
 # 1 <= heights[i] <= 105
 # names[i] consists of lower and upper case English letters.
 # All the values of heights are distinct.
+# Solution
+class Solution:
+    def sortPeople(self, names: List[str], heights: List[int]) -> List[str]:
+        return [k[0] for k in sorted([[i, j] for i,j in zip(names, heights)], key=lambda x: x[1], reverse=True)]
