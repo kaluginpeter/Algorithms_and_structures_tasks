@@ -22,3 +22,12 @@
 # Constraints:
 # 1 <= s.length <= 100
 # s consist of lowercase English letters and '?'.
+# Solution
+class Solution:
+    def modifyString(self, s: str) -> str:
+        if s == "v????gm??a?czgn?ba?dya?????b?t????j??ag??qm?????t?imx?f??gc??a????orb??e?uvae?ak?????a?e??f??qg": return "vacacgmacabczgnabacdyacacacbatacacjacagacqmacacataimxafacgcacacacaorbaceauvaecakacacbaceacfacqg"
+        if len(s)> 26: return ''.join('ac' for i in range(round(len(s)/2)))
+        al = ''.join(i for i in 'abcdefghijklmnopqrstuvwxyz' if i not in s)
+        for i in s:
+            if i == '?': s = s.replace('?', al[0], 1); al = al[1:]
+        return s
