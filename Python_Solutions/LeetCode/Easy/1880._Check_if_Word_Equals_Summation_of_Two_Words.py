@@ -40,3 +40,11 @@
 # Constraints:
 # 1 <= firstWord.length, secondWord.length, targetWord.length <= 8
 # firstWord, secondWord, and targetWord consist of lowercase English letters from 'a' to 'j' inclusive.
+# Solution
+class Solution:
+    def isSumEqual(self, firstWord: str, secondWord: str, targetWord: str) -> bool:
+        al = 'abcdefghijklmnopqrstuvwxyz'
+        f = int([''.join(str(al.index(i)) for i in firstWord)][0])
+        s = int([''.join(str(al.index(i)) for i in secondWord)][0])
+        t = int([''.join(str(al.index(i)) for i in targetWord)][0])
+        return f + s == t
