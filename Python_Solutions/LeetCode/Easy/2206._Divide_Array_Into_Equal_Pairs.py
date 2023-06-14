@@ -22,3 +22,7 @@
 # nums.length == 2 * n
 # 1 <= n <= 500
 # 1 <= nums[i] <= 500
+# Solution
+class Solution:
+    def divideArray(self, nums: List[int]) -> bool:
+        return all(nums.count(i) % 2 == 0 for i in set(nums))
