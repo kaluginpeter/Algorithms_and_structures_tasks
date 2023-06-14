@@ -17,3 +17,8 @@
 # Constraints:
 # 1 <= s.length <= 1000
 # s consists of lowercase English letters.
+# Solution
+class Solution:
+    def areOccurrencesEqual(self, s: str) -> bool:
+        l = [s.count(i) for i in set(s)]
+        return all(i == j for i,j in zip(l, l[1:]))
