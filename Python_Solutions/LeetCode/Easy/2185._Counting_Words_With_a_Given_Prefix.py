@@ -17,3 +17,11 @@
 # 1 <= words.length <= 100
 # 1 <= words[i].length, pref.length <= 100
 # words[i] and pref consist of lowercase English letters.
+# Solution
+class Solution:
+    def prefixCount(self, words: List[str], pref: str) -> int:
+        count = 0
+        for i in range(len(words)):
+            if words[i].startswith(pref):
+                count += 1
+        return count
