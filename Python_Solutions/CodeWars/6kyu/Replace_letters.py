@@ -19,3 +19,6 @@
 # P.S. You work with lowercase letters only.
 #
 # FUNDAMENTALSSTRINGS
+# Solution
+def replace_letters(word):
+    return word.translate(str.maketrans('abcdefghijklmnopqrstuvwxyz', 'zeeediiihooooonuuuuutaaaaa'))
