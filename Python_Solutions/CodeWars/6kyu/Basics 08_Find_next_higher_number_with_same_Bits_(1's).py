@@ -12,3 +12,8 @@
 #
 # Hope you have fun! :-)
 # FUNDAMENTALSMATHEMATICSALGORITHMS
+# Solution
+from itertools import count
+def next_higher(value):
+    c = bin(value).count('1')
+    return next(i for i in count(value+1) if bin(i).count('1') == c)
