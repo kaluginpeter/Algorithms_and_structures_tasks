@@ -21,3 +21,10 @@
 # 20 <= arr.length <= 1000
 # arr.length is a multiple of 20.
 # 0 <= arr[i] <= 105
+# Solution
+class Solution:
+    def trimMean(self, arr: List[int]) -> float:
+        from statistics import mean
+        start, end = int(len(arr) * 0.05), int(len(arr) * 0.95)
+        arr.sort()
+        return mean(arr[start:end])
