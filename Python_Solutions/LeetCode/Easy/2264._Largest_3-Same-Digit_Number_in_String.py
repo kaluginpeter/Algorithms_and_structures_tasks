@@ -28,3 +28,12 @@
 # Constraints:
 # 3 <= num.length <= 1000
 # num only consists of digits.
+# Solution
+class Solution:
+    def largestGoodInteger(self, num: str) -> str:
+        l = ''
+        for i in range(len(num)-2):
+            if len(set(num[i:i+3])) == 1:
+                if num[i:i+3] > l:
+                    l = num[i:i+3]
+        return l
