@@ -15,3 +15,9 @@
 # 1 <= num.length <= 1000
 # num consists of only digits.
 # num doesn't have any leading zeros.
+# Solution
+class Solution:
+    def removeTrailingZeros(self, num: str) -> str:
+        while num.endswith('0'):
+            num = num[:-1]
+        return num
