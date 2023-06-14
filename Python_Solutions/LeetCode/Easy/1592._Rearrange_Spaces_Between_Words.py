@@ -23,3 +23,12 @@
 # 1 <= text.length <= 100
 # text consists of lowercase English letters and ' '.
 # text contains at least one word.
+# Solution
+class Solution:
+    def reorderSpaces(self, text: str) -> str:
+        if len(text.split()) == 1: return text.split()[0] + ' ' * text.count(' ')
+        sp, l = text.count(' '), len(text.split())
+        back = ' ' * (sp // (l - 1))
+        if sp % (l - 1) == 0:
+            return back.join(i for i in text.split())
+        return back.join(i for i in text.split()) + ' ' * (sp % (l - 1))
