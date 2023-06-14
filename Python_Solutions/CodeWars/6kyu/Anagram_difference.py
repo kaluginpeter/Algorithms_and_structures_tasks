@@ -9,3 +9,8 @@
 # When you're done with this kata, check out its
 # big brother/sister : https://www.codewars.com/kata/hardcore-anagram-difference
 # STRINGSALGORITHMSFUNDAMENTALS
+# Solution
+from collections import Counter
+def anagram_difference(w1, w2):
+    w1, w2 = Counter(w1), Counter(w2)
+    return sum(((w1 - w2) + (w2 - w1)).values())
