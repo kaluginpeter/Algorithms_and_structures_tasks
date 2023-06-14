@@ -22,3 +22,9 @@
 # a + k <= b and 100 <= k <= 1000000
 # amount of duplicates variable, according to the length of the array
 # FUNDAMENTALSMATHEMATICSARRAYSALGORITHMSSORTINGPERFORMANCE
+# Solution
+from collections import Counter
+def find_dups_miss(arr):
+    s = Counter(arr)
+    l = sum(i for i in range(sorted(s)[0], sorted(s)[-1]+1)) - sum(s)
+    return [l, sorted(k for k, v in s.items() if v > 1)]
