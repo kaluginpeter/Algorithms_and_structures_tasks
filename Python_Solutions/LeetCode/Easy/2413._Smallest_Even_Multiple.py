@@ -13,3 +13,10 @@
 #
 # Constraints:
 # 1 <= n <= 150
+# Solution
+class Solution:
+    def smallestEvenMultiple(self, n: int) -> int:
+        c = 1
+        while True:
+            if c % n == 0 and c % 2 == 0: return c
+            c += 1
