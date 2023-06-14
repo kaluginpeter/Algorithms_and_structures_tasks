@@ -26,3 +26,11 @@
 # number consists of digits from '1' to '9'.
 # digit is a digit from '1' to '9'.
 # digit occurs at least once in number.
+# Solution
+class Solution:
+    def removeDigit(self, number: str, digit: str) -> str:
+        l = []
+        for k,v in enumerate(number):
+            if v == digit:
+                l.append(number[:k] + number[k+1:])
+        return max(l)
