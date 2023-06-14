@@ -32,3 +32,7 @@
 # 2 <= n <= 100
 # 1 <= candies[i] <= 100
 # 1 <= extraCandies <= 50
+# Solution
+class Solution:
+    def kidsWithCandies(self, candies: List[int], extraCandies: int) -> List[bool]:
+        return [i + extraCandies >= max(candies) for i in candies]
