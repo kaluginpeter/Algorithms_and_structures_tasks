@@ -18,3 +18,11 @@
 # n == gain.length
 # 1 <= n <= 100
 # -100 <= gain[i] <= 100
+# Solution
+class Solution:
+    def largestAltitude(self, gain: List[int]) -> int:
+        l, c = [], 0
+        for i in gain:
+            l.append(c)
+            c += i
+        return max(l + [c])
