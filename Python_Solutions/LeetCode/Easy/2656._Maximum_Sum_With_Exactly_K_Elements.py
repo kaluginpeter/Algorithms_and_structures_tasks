@@ -30,3 +30,11 @@
 # 1 <= nums.length <= 100
 # 1 <= nums[i] <= 100
 # 1 <= k <= 100
+# Solution
+class Solution:
+    def maximizeSum(self, nums: List[int], k: int) -> int:
+        s = 0
+        for i in range(k):
+            s += max(nums)
+            nums[nums.index(max(nums))] = max(nums) + 1
+        return s
