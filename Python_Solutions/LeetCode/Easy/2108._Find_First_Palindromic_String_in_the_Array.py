@@ -23,3 +23,10 @@
 # 1 <= words.length <= 100
 # 1 <= words[i].length <= 100
 # words[i] consists only of lowercase English letters.
+# Solution
+class Solution:
+    def firstPalindrome(self, words: List[str]) -> str:
+        for i in range(len(words)):
+            if words[i] == words[i][::-1]:
+                return words[i]
+        return ''
