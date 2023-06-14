@@ -23,3 +23,16 @@
 # Courtesy of rosettacode.org
 #
 # ALGORITHMS
+# Solution
+def solution(roman):
+    dict = {"M": 1000,"D": 500,"C": 100,"L": 50,"X": 10,"V": 5,"I": 1}
+    l, t = 0, 0
+    for i in list(roman)[::-1]:
+        if l == 0:
+            t += dict[i]
+        elif l > dict[i]:
+            t -= dict[i]
+        else:
+            t += dict[i]
+        l = dict[i]
+    return t
