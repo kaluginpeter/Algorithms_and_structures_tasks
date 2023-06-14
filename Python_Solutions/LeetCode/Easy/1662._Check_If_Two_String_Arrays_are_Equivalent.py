@@ -24,3 +24,7 @@
 # 1 <= word1[i].length, word2[i].length <= 103
 # 1 <= sum(word1[i].length), sum(word2[i].length) <= 103
 # word1[i] and word2[i] consist of lowercase letters.
+# Solution
+class Solution:
+    def arrayStringsAreEqual(self, word1: List[str], word2: List[str]) -> bool:
+        return ''.join(word1) == ''.join(word2)
