@@ -23,3 +23,10 @@
 # dig_pow(695, 2) should return 2 since 6² + 9³ + 5⁴= 1390 = 695 * 2
 # dig_pow(46288, 3) should return 51 since 4³ + 6⁴+ 2⁵ + 8⁶ + 8⁷ = 2360688 = 46288 * 51
 # FUNDAMENTALSMATHEMATICS
+# Solution
+def dig_pow(n, p):
+    count = 0
+    for char in str(n):
+        count += int(char) ** p
+        p += 1
+    return count // n if count % n == 0 else -1
