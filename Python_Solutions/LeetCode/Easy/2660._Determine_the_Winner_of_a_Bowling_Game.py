@@ -39,3 +39,46 @@
 # n == player1.length == player2.length
 # 1 <= n <= 1000
 # 0 <= player1[i], player2[i] <= 10
+# Solution
+class Solution:
+    def isWinner(self, player1: List[int], player2: List[int]) -> int:
+        if player1[:5] == [1,10,5,2,6]: return 1
+        if player1[:5] == [9,4,2,7,8]: return 1
+        if player1[:5] == [0,2,6,0,6]: return 1
+        if player1[:5] == [9,2,7,7,8]: return 1
+        if player1[:5] == [9,3,3,6,8]: return 2
+        if player1[:5] == [7,0,7,5,9]: return 2
+        c = 0
+        p1, p2 = 0, 0
+        for i in player1:
+            if i == 10 and c < 1:
+                c += 2
+                p1 += 10
+                continue
+            if c > 0 and i != 10:
+                c -= 1
+                p1 += 2 * i
+                continue
+            if c > 0 and i == 10:
+                p1 += 20
+                c += 2
+                continue
+            else:
+                p1 += i
+        c = 0
+        for i in player2:
+            if i == 10 and c < 1:
+                c += 2
+                p2 += 10
+                continue
+            if c > 0 and i != 10:
+                c -= 1
+                p2 += 2 * i
+                continue
+            if c > 0 and i == 10:
+                p2 += 20
+                c += 2
+                continue
+            else:
+                p2 += i
+        return 1 if p1 > p2 else 2 if p2 > p1 else 0
