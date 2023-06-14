@@ -17,3 +17,13 @@
 # The output array SHOULD be the same length as the input string.
 # The function should return an emptry array with a 0 length string, '', as input.
 # FUNDAMENTALS
+# Solution
+def rotate(str_):
+    l = [i for i in str_]
+    result = []
+    for i in range(len(l)):
+        temp = l[0]
+        l.append(temp)
+        l.pop(0)
+        result.append(''.join(l))
+    return result
