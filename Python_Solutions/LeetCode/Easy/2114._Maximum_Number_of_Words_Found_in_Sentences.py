@@ -24,3 +24,7 @@
 # sentences[i] consists only of lowercase English letters and ' ' only.
 # sentences[i] does not have leading or trailing spaces.
 # All the words in sentences[i] are separated by a single space.
+# Solution
+class Solution:
+    def mostWordsFound(self, sentences: List[str]) -> int:
+        return max(len(i.split()) for i in sentences)
