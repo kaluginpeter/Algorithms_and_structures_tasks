@@ -23,3 +23,7 @@
 # The number of words in s is between 1 and 9.
 # The words in s are separated by a single space.
 # s contains no leading or trailing spaces.
+# Solution
+class Solution:
+    def sortSentence(self, s: str) -> str:
+        return ' '.join(i[:-1] for i in sorted(s.split(), key=lambda x: x[-1]))
