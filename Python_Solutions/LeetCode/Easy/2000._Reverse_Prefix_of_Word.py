@@ -28,3 +28,9 @@
 # 1 <= word.length <= 250
 # word consists of lowercase English letters.
 # ch is a lowercase English letter.
+# Solution
+class Solution:
+    def reversePrefix(self, word: str, ch: str) -> str:
+        if ch not in word: return word
+        for k,v in enumerate(word):
+            if v == ch: return word[:k+1][::-1] + word[k+1:]
