@@ -24,3 +24,12 @@
 # Constraints:
 # 1 <= nums.length <= 2000
 # 1 <= nums[i] <= 2000
+# Solution
+class Solution:
+    def differenceOfSum(self, nums: List[int]) -> int:
+        s = sum(nums)
+        c = 0
+        for i in nums:
+            for j in str(i):
+                c += int(j)
+        return s - c
