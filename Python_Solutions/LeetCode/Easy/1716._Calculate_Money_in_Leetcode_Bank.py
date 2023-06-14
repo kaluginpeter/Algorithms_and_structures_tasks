@@ -24,3 +24,18 @@
 #
 # Constraints:
 # 1 <= n <= 1000
+# Solution
+class Solution:
+    def totalMoney(self, n: int) -> int:
+        count, start, weeks, inp = 0, 1, 0, -1
+        for i in range(n):
+            if weeks == 7:
+                start += 1
+                weeks, inp = 0, 0
+                count += start
+                weeks += 1
+                continue
+            inp += 1
+            count += start + inp
+            weeks += 1
+        return count
