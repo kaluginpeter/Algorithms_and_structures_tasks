@@ -26,3 +26,7 @@
 # 1 <= words1.length, words2.length <= 1000
 # 1 <= words1[i].length, words2[j].length <= 30
 # words1[i] and words2[j] consists only of lowercase English letters.
+# Solution
+class Solution:
+    def countWords(self, words1: List[str], words2: List[str]) -> int:
+        return sum(words1.count(i) == 1 and words2.count(i) == 1 for i in words1)
