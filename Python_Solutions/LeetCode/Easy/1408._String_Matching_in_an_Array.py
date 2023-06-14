@@ -24,3 +24,11 @@
 # 1 <= words[i].length <= 30
 # words[i] contains only lowercase English letters.
 # All the strings of words are unique.
+# Solution
+class Solution:
+    def stringMatching(self, words: List[str]) -> List[str]:
+        l = []
+        w = ' '.join(i for i in words)
+        for i in words:
+            if w.count(i) > 1: l.append(i)
+        return l
