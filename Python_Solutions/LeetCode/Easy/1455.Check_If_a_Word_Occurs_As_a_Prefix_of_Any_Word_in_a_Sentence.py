@@ -27,3 +27,7 @@
 # 1 <= searchWord.length <= 10
 # sentence consists of lowercase English letters and spaces.
 # searchWord consists of lowercase English letters.
+# Solution
+class Solution:
+    def isPrefixOfWord(self, sentence: str, searchWord: str) -> int:
+        return [k + 1 if v.startswith(searchWord) else -1 for k,v in enumerate(sentence.split())][0]
