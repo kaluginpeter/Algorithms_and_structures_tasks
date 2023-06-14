@@ -21,3 +21,12 @@
 #
 # Constraints:
 # 1 <= n <= 1000
+# Solution
+class Solution:
+    def pivotInteger(self, n: int) -> int:
+        if n == 1: return 1
+        l = list(range(1, n+1))
+        for i in l:
+            if sum(l[:i+1]) == sum(l[i:]):
+                return i + 1
+        return -1
