@@ -22,3 +22,7 @@
 # n == nums.length
 # 1 <= n <= 1000
 # 1 <= nums[i] <= 1000
+# Solution
+class Solution:
+    def getConcatenation(self, nums: List[int]) -> List[int]:
+        return list(nums + nums)
