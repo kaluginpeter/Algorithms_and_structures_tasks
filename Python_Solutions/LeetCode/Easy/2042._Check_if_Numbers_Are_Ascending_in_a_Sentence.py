@@ -35,3 +35,11 @@
 # There are at least two numbers in s.
 # Each number in s is a positive number less than 100, with no leading zeros.
 # s contains no leading or trailing spaces.
+# Solution
+class Solution:
+    def areNumbersAscending(self, s: str) -> bool:
+        l = []
+        for i in s.split():
+            if i.isdigit():
+                l.append(int(i))
+        return all(i < j for i, j in zip(l, l[1:]))
