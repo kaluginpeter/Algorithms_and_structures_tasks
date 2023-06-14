@@ -17,3 +17,8 @@
 # Constraints:
 # 1 <= nums.length <= 1000
 # 1 <= nums[i] <= 1000
+# Solution
+class Solution:
+    def averageValue(self, nums: List[int]) -> int:
+        l = [i for i in nums if i % 2 == 0 and i % 3 == 0]
+        return int(sum(l)/len(l)) if l else 0
