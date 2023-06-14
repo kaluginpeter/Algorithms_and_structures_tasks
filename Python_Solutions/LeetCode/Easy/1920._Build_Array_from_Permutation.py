@@ -24,3 +24,7 @@
 # 0 <= nums[i] < nums.length
 # The elements in nums are distinct.
 # Follow-up: Can you solve it without using an extra space (i.e., O(1) memory)?
+# Solution
+class Solution:
+    def buildArray(self, nums):
+        return [nums[nums[i]] for i in range(len(nums))]
