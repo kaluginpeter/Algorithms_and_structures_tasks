@@ -18,3 +18,9 @@
 # 1 <= n <= 1000
 # 0 <= start <= 1000
 # n == nums.length
+# Solution
+class Solution:
+    def xorOperation(self, n, start):
+        c=0
+        for i in range(n): c^=(start+i*2)
+        return c
