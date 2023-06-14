@@ -22,3 +22,10 @@
 # 1 <= nums.length <= 1000
 # -1000 <= nums[i] <= 1000
 # nums[i] != 0
+# Solution
+class Solution:
+    def findMaxK(self, nums: List[int]) -> int:
+        l = []
+        for i in nums:
+            if -i in nums and abs(i) in nums: l.append(i)
+        return max(l) if l else -1
