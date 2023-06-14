@@ -35,3 +35,11 @@
 # 1 <= s.length <= 100
 # 1 <= k <= 10
 # s consists of lowercase English letters.
+# Solution
+class Solution:
+    def getLucky(self, s: str, k: int) -> int:
+        al = 'abcdefghijklmnopqrstuvwxyz'
+        w = ''.join(str(al.index(i)+1) for i in s)
+        for i in range(k):
+            w = sum(int(i) for i in str(w))
+        return w
