@@ -25,3 +25,9 @@
 # 1 <= strs.length <= 100
 # 1 <= strs[i].length <= 9
 # strs[i] consists of only lowercase English letters and digits.
+# Solution
+class Solution:
+    def maximumValue(self, strs: List[str]) -> int:
+        def f(s):
+            return int(s) if all(c.isdigit() for c in s) else len(s)
+        return max(f(s) for s in strs)
