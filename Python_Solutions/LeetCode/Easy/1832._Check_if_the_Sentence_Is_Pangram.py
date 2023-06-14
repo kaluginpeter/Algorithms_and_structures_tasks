@@ -15,3 +15,7 @@
 # Constraints:
 # 1 <= sentence.length <= 1000
 # sentence consists of lowercase English letters.
+# Solution
+class Solution:
+    def checkIfPangram(self, sentence: str) -> bool:
+        return all(i in sentence for i in 'abcdefghijklmnopqrstuvwxyz')
