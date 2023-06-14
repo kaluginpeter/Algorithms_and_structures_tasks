@@ -28,3 +28,18 @@
 # Constraints:
 # 2 <= nums.length <= 1000
 # 1 <= nums[i] <= 1000
+# Solution
+class Solution:
+    def canBeIncreasing(self, arr: List[int]) -> bool:
+        c, n = 0, len(arr)
+        for i in range(n):
+            flag = True
+            last = 0
+            for j in range(n):
+                if j == i: continue
+                if arr[j] <= last:
+                    flag = False
+                    break
+                last = arr[j]
+            if flag: c += 1
+        return c != 0
