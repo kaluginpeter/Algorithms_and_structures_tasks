@@ -13,3 +13,12 @@
 #
 # Constraints:
 # 0 <= low <= high <= 10^9
+# Solution
+class Solution:
+    def countOdds(self, low: int, high: int) -> int:
+        if low%2!=0 and high%2!=0:
+            return int((high - low)/2) + 1
+        if low%2==0 and high%2==0:
+            return int((high -low)/2)
+        if (low%2==0 and high%2!=0 ) or (low%2!=0 and high%2==0):
+            return int((high - low)/2)+1
