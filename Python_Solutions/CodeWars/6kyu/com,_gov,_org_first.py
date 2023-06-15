@@ -30,3 +30,10 @@
 # Sort each group: [["a.com", "b.com"], ["c.gov"]]
 # Flatten them: ["a.com", "b.com", "c.gov"]
 # FUNDAMENTALSALGORITHMSSORTING
+# Solution
+def sorting(address):
+    d = {"org": "aac", "gov": "aab", "com": "aaa"}
+    d1 = address.split('/?')[0].split('.')[-1]
+    return d1 if d1 not in d else d[d1]
+def order_by_domain(addresses):
+    return sorted(addresses, key=sorting)
