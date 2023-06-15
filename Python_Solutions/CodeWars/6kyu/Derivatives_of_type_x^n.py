@@ -45,3 +45,9 @@
 # "-x"    => "-1"
 # "42"    => "0"
 # MATHEMATICS
+# Solution
+def differentiate(x):
+    if 'x' not in x: return '0'
+    a, n = x.split('x', 2)
+    a = 1 if a == '' else -1 if a == '-' else int(a)
+    return f"{a}" if n == '' else f"{2*a}x" if n == "^2" else f"{a*int(n[1:])}x^{int(n[1:])-1}"
