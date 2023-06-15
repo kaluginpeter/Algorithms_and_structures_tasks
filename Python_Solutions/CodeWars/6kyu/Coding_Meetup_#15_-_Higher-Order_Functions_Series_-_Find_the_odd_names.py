@@ -68,3 +68,6 @@
 # Coding Meetup #17 - Higher-Order Functions Series - Sort by programming language
 #
 # FUNCTIONAL PROGRAMMINGDATA STRUCTURESARRAYSFUNDAMENTALSALGORITHMSSTRINGS
+# Solution
+def find_odd_names(lst):
+    return [i for i in lst if sum(map(ord, i["firstName"])) % 2]
