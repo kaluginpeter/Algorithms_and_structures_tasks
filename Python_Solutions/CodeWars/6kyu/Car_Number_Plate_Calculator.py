@@ -72,3 +72,6 @@
 #
 # Good luck!
 # ALGORITHMSLOGICMATHEMATICSFUNDAMENTALS
+# Solution
+def find_the_number_plate(i):
+    return f'{97+i//999%26:c}{97+i//999//26%26:c}{97+i//999//26//26:c}{1+i%999:03}'
