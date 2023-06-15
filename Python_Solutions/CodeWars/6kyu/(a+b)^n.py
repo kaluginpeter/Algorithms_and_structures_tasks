@@ -21,3 +21,7 @@
 # input n goes from -200 to 200.
 # You will need to use BigInt since otherewise it will not work for both JS and Java
 # MATHEMATICSALGEBRASTRINGS
+# Solution
+from math import comb as c
+def formula(n):
+    return f'1/({formula(-n)})' if n<0 else '+'.join(f"{[str(c(n,i)),''][c(n,i)==1]}{['','a',f'a^{n-i}'][(n-i>0)+(n-i>1)]}{['','b',f'b^{i}'][(i>0)+(i>1)]}" for i in range(n+1)) or '1'
