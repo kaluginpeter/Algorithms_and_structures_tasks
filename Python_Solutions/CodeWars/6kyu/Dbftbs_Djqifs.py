@@ -18,3 +18,21 @@
 # A message 'Caesar Cipher' and a key of -1 returns 'Bzdrzq Bhogdq'.
 #
 # FUNDAMENTALS
+# Solution
+def encryptor(key, message):
+    while key >= 26:
+        key -= 26
+    while key <= -26:
+        key += 26
+    l_al = 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz'
+    u_al = 'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    word = ''
+    for i in message:
+        if i in l_al:
+            word += l_al[l_al.index(i, 26) + key]
+            continue
+        if i in u_al:
+            word += u_al[u_al.index(i, 26) + key]
+            continue
+        word += i
+    return word
