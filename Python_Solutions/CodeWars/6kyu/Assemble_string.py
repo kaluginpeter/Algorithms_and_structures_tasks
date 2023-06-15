@@ -26,3 +26,10 @@
 # ]
 # result = "a#cd#"
 # STRINGSARRAYSFUNDAMENTALS
+# Solution
+def assemble(input):
+    w = list(input[0]) if input else []
+    for i in input:
+        for k, i in enumerate(i):
+            w[k] = i if w[k] == '*' else w[k]
+    return ''.join(w).replace('*', '#')
