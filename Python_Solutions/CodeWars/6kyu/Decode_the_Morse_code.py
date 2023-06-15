@@ -53,3 +53,6 @@
 # After you complete this kata, you may try yourself at Decode the Morse code, advanced.
 #
 # ALGORITHMS
+# Solution
+def decodeMorse(morseCode):
+    return ' '.join(''.join(MORSE_CODE[i] for i in j.split(' ')) for j in morseCode.strip().split('   '))
