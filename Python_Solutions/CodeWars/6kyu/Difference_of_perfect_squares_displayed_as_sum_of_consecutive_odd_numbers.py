@@ -28,3 +28,6 @@
 # squaresToOdd(100, 99) --> "100^2 - 99^2 = 199 = 199"
 #
 # ALGORITHMSMATHEMATICS
+# Solution
+def squares_to_odd(a, b):
+    return f'{a}^2 - {b}^2 = {" + ".join(map(str, range(2 * b + 1, 2 * a, 2)))} = {a ** 2 - b ** 2}'
