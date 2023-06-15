@@ -18,3 +18,7 @@
 # Mr. Khalkhoul is countin' on you :)
 #
 # ALGORITHMS
+# Solution
+def answer(question, information):
+    c, s = max((sum(j in i.lower().split() for j in question.lower().split()), i) for i in information)
+    return None if not c else s
