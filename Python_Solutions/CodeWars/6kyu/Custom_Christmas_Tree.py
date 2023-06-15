@@ -52,3 +52,8 @@
 # 4 5 6
 #   |
 # STRINGSASCII ARTPUZZLES
+# Solution
+from itertools import cycle, chain
+def custom_christmas_tree(chars, n):
+    c, l = cycle(chars), 2*n-1
+    return '\n'.join(chain((' '.join(next(c) for i in range(j)).center(l).rstrip() for j in range(1,n+1)), ('|'.center(l).rstrip() for k in range(n//3 or 1))))
