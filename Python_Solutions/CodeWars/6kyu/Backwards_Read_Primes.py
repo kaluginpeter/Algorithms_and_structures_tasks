@@ -20,3 +20,10 @@
 # Forth Return only the first backwards-read prime between start and end or 0 if you don't find any
 # Ruby Don't use Ruby Prime class, it's disabled.
 # MATHEMATICSALGORITHMS
+# Solution
+from gmpy2 import is_prime
+def backwards_prime(start, stop):
+    l = []
+    for i in range(start, stop+1):
+        if is_prime(i) and is_prime(int(str(i)[::-1])) and str(i) != str(i)[::-1]: l.append(i)
+    return l
