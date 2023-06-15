@@ -18,3 +18,6 @@
 # Happy coding!!
 #
 # MATHEMATICSALGORITHMS
+# Solution
+def even_digit_squares(a, b):
+    return [i**2 for i in range(int(a**0.5)+bool(a**0.5 % 1), int(b**0.5)+1) if not any(int(d) % 2 for d in str(i**2))]
