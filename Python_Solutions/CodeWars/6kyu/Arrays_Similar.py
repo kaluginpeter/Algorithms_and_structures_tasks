@@ -9,3 +9,8 @@
 # arrays_similar(arr2, arr3) # Should equal false
 # arrays_similar(arr3, arr4) # Should equal false
 # ARRAYSALGORITHMS
+# Solution
+def arrays_similar(seq1, seq2):
+    l1 = ''.join(str(i) for i in seq1)
+    l2 = ''.join(str(i) for i in seq2)
+    return set(seq1) == set(seq2) and sorted(l1) == sorted(l2)
