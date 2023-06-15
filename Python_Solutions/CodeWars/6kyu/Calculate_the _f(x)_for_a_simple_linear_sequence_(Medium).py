@@ -16,3 +16,9 @@
 # If a non-linear sequence simply return 'Non-linear sequence' for javascript, ruby,
 # and python. For C#, throw an ArgumentException.
 # MATHEMATICSFUNDAMENTALS
+# Solution
+def get_function(sequence):
+    s = sequence[1] - sequence[0]
+    for i in range(1, 5):
+        if sequence[i] - sequence[i-1] != s: return "Non-linear sequence"
+    return lambda a : s * a + sequence[0]
