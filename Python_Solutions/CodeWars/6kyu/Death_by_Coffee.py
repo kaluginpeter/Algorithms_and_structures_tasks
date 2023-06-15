@@ -51,3 +51,8 @@
 # *Note: A life-span prediction formula this accurate has got to be worth a lot of money to somebody!
 # I am willing to sell my copyright to the highest bidder. Contact me via the discourse section of this Kata.*
 # PUZZLES
+# Solution
+def coffee_limits(year, month, day):
+    health = int(f"{year:04d}{month:02d}{day:02d}")
+    drinks = (int(d, 16) for d in ("cafe", "decaf"))
+    return [next((i for i in range(1, 5001) if "dead" in f"{health + j*i:x}"), 0) for j in drinks]
