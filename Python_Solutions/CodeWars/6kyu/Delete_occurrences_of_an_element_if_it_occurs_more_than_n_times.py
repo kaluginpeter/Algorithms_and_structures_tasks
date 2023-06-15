@@ -15,3 +15,11 @@
 # With list [20,37,20,21] and number 1, the result would be [20,37,21].
 #
 # LISTSFUNDAMENTALS
+# Solution
+def delete_nth(order,max_e):
+    sort_list = []
+    for elem in order:
+        if sort_list.count(elem) >= max_e:
+            continue
+        sort_list.append(elem)
+    return sort_list
