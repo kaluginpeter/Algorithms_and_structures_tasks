@@ -19,3 +19,6 @@
 # [6, 7, 4, 8]
 # [7, 6, 5, 4, 3, 2, 1]
 # ALGORITHMSSORTING
+# Solution
+def circularly_sorted(arr):
+    return sum(i > j for i, j in zip(arr, arr[1:]+[arr[0]])) < 2
