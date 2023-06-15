@@ -65,3 +65,13 @@
 # findNb(91716553919377) --> -1
 #
 # MATHEMATICSALGORITHMS
+# Solution
+def find_nb(M):
+    m = 0
+    i = 0
+    while m < M:
+        m += i ** 3
+        if m == M:
+            return i
+        i += 1
+    return -1
