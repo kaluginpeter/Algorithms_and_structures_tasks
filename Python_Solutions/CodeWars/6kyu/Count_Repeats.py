@@ -8,3 +8,6 @@
 # 'abbcca'  => 'abca'   #  answer: 2
 # 'ab cca'  => 'ab ca'  #  answer: 1
 # STRINGSFUNDAMENTALS
+# Solution
+def count_repeats(txt):
+    return sum(1 if i == j else 0 for i, j in zip(txt, txt[1:]))
