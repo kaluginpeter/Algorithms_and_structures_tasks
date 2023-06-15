@@ -14,3 +14,6 @@
 # "Esham", "Esham" => 0
 # "dog", "god" => -1
 # STRINGSARRAYSALGORITHMS
+# Solution
+def shifted_diff(f, s):
+    return (s + s).find(f) if len(f) == len(s) else - 1
