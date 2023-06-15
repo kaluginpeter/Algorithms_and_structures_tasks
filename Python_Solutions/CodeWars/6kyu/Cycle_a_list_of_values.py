@@ -32,3 +32,8 @@
 # # Corner case: multiple instances of given value, picks next relative to first occurrence
 # cycle(1, [1,2,2,3], 2) # => 2
 # ALGORITHMS
+# Solution
+def cycle(d, v, c):
+    if c not in v: return None
+    l = v + v
+    return v[v.index(c) + d] if v.index(c) + d <= len(v)-1 else l[v.index(c) + d]
