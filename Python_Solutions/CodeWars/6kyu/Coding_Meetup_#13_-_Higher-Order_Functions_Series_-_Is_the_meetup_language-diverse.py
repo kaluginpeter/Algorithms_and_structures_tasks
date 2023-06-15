@@ -72,3 +72,8 @@
 # Coding Meetup #16 - Higher-Order Functions Series - Ask for missing details
 #
 # FUNCTIONAL PROGRAMMINGDATA STRUCTURESARRAYSFUNDAMENTALSALGORITHMSSTRINGS
+# Solution
+from collections import Counter
+def is_language_diverse(lst):
+    count = Counter(map(lambda x: x["language"], lst)).values()
+    return max(count) <= min(count) * 2
