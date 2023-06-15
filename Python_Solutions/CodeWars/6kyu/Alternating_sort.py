@@ -12,3 +12,16 @@
 # alternate_sort([5, 2, -3, -4, 8, -9]) == [-3, 2, -4, 5, -9, 8]
 # alternate_sort([5, 2, 9, 3, 8, 4]) == [2, 3, 4, 5, 8, 9]
 # ALGORITHMSARRAYSSORTING
+# Solution
+def alternate_sort(l):
+    l1 = sorted(i for i in l if i >= 0)[::-1]
+    l2 = sorted(i for i in l if i < 0)
+    f = []
+    while l1 or l2:
+        if l2:
+            f.append(l2.pop())
+            if l1: f.append(l1.pop())
+        elif l1:
+            f.append(l1.pop())
+            if l2: f.append(l2.pop())
+    return f
