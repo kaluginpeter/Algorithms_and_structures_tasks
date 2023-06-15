@@ -35,3 +35,7 @@
 # This kata is inspired by the Numberphile video
 #
 # MATHEMATICSALGORITHMS
+# Solution
+from math import sqrt
+def is_constructable(area):
+    return any(sqrt(area - i**2).is_integer() for i in range(int(sqrt(area)) + 1))
