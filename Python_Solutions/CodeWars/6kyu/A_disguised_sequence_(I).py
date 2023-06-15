@@ -14,3 +14,6 @@
 # your head around and find which sequence is hidden behind un.
 #
 # ALGORITHMSMATHEMATICS
+# Solution
+def fcn (n):
+    return 2**n
