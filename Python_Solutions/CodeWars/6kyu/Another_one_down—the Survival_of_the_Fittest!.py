@@ -25,3 +25,8 @@
 #
 # remove_smallest (2, [1,2,1,2,1]) = [2,2,1]
 # LISTSARRAYSFUNDAMENTALS
+# Solution
+def remove_smallest(n, a):
+    b = a[::]
+    while n>0 and b: b.remove(min(b)); n -= 1
+    return b
