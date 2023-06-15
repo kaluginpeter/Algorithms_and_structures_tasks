@@ -15,3 +15,6 @@
 # 1 <= N <= 10,000
 #
 # ALGORITHMSGEOMETRY
+# Solution
+def cumulative_triangle(n):
+    return (n**3+n)/2
