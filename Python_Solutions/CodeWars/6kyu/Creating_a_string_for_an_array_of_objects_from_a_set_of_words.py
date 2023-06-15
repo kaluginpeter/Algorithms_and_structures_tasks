@@ -16,3 +16,6 @@
 # fail searching for a typo and begin anew. This might come in handy with large lists.
 #
 # FUNDAMENTALSSTRINGSREGULAR EXPRESSIONS
+# Solution
+def words_to_object(s):
+    return '[' + ', '.join("{name : '%s', id : '%s'}" % (k, v) for k, v in zip(s.split()[::2], s.split()[1::2])) + ']'
