@@ -5,3 +5,6 @@
 # Example: The binary representation of 1234 is 10011010010, so the function should return 5 in this case
 #
 # BITSALGORITHMS
+# Solution
+def count_bits(n):
+    return bin(n)[2:].count('1')
