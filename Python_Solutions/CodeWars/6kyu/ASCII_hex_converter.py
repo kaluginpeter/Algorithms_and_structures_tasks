@@ -11,3 +11,11 @@
 # Converter.to_ascii("4c6f6f6b206d6f6d2c206e6f2068616e6473")
 # => "Look mom, no hands"
 # FUNDAMENTALSBITSSTRINGS
+# Solution
+class Converter():
+    @staticmethod
+    def to_ascii(h):
+        return bytes.fromhex(h).decode()
+    @staticmethod
+    def to_hex(s):
+        return ''.join(hex(ord(i))[2:] for i in s)
