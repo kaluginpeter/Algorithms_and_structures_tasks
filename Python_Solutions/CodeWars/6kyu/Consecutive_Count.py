@@ -11,3 +11,7 @@
 # "abcdaaadse", "a"  -->  3
 # "abcdaaadse", "z"  -->  0
 # FUNDAMENTALS
+# Solution
+import re
+def get_consective_items(item, key):
+    return len(max(re.findall(f'{key}+', str(item)) or ['']))
