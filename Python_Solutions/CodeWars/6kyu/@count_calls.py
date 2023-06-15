@@ -19,3 +19,12 @@
 #
 # multiply.call_count == 3  # True
 # FUNDAMENTALS
+# Solution
+from functools import wraps
+def count_calls(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        wrapper.call_count += 1
+        return func(*args, **kwargs)
+    wrapper.call_count = 0
+    return wrapper
