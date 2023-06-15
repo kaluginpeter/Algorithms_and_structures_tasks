@@ -10,3 +10,19 @@
 # So, for example the string "Cat30" would return "dbU30" (Cat30 --> Dbu30 --> dbU30)
 #
 # STRINGSFUNDAMENTALS
+# Solution
+def changer(s):
+    l = 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz'
+    word = ''
+    s = s.lower()
+    for i in s:
+        if i in l:
+            if l[l.index(i)+1] in 'aeoiu':
+                word += l[l.index(i)+1].upper()
+                continue
+            else:
+                word += l[l.index(i)+1]
+                continue
+        else:
+            word += i
+    return word
