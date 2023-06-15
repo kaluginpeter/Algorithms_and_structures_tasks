@@ -17,3 +17,7 @@
 # Note: if you need to use Pi in your code, use the native value of your language unless stated otherwise.
 #
 # MATHEMATICSGEOMETRYFUNDAMENTALS
+# Solution
+import math
+def area_of_polygon_inside_circle(r, n):
+    return float("{:.3f}".format((math.sin(2 * math.pi / n) * r * r * n) / 2))
