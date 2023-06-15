@@ -16,3 +16,6 @@
 # Good luck!
 #
 # STRINGSALGORITHMS
+# Solution
+def grabscrab(said, possible_words):
+    return [i for i in possible_words if sorted(i) == sorted(said)]
