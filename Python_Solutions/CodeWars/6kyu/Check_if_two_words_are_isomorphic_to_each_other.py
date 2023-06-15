@@ -19,3 +19,23 @@
 # XXY XYY
 # ABAB CD
 # ALGORITHMS
+# Solution
+from collections import Counter
+def isomorph(s: str, t: str) -> bool:
+        sc=len(Counter(s))
+        st=len(Counter(t))
+        if(sc!=st): return False
+        else:
+           s1=[]
+           t1=[]
+           m=[]
+           ans=[]
+           for i in s: s1.append(i)
+           for i in t: t1.append(i)
+           m.append(s1)
+           m.append(t1)
+        for i in s:
+              if i in m[0]:
+               a=m[0].index(i)
+               ans.append(m[1][a])
+        return "".join(ans) == t
