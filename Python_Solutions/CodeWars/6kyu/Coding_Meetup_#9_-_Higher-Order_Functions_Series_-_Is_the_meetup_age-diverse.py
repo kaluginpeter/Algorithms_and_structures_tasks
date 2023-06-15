@@ -70,3 +70,7 @@
 # Coding Meetup #16 - Higher-Order Functions Series - Ask for missing details
 #
 # FUNCTIONAL PROGRAMMINGDATA STRUCTURESARRAYSFUNDAMENTALSALGORITHMSSTRINGS
+# Solution
+def is_age_diverse(lst):
+    arr = list(map(lambda x: x["age"] // 10, lst))
+    return any(i >= 10 for i in arr) and all(j in arr for j in range(1, 10))
