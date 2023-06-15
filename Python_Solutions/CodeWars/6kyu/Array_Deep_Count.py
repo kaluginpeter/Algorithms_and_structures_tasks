@@ -9,3 +9,11 @@
 # The input will always be an array.
 #
 # ARRAYSRECURSIONFUNDAMENTALS
+# Solution
+from functools import reduce
+def deep_count(a):
+    if not isinstance(a, list):
+        return 0
+    if len(a) == 0:
+        return 0
+    return len(a) + reduce(lambda x,y : x + deep_count(y), a, 0)
