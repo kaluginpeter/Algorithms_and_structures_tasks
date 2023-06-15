@@ -9,3 +9,7 @@
 # Note: your solution should not modify the input array.
 #
 # FUNDAMENTALS
+# Solution
+from itertools import combinations
+def closest_sum(ints, num):
+    return sum(min(combinations(ints, 3), key=lambda x: abs(num - sum(x))))
