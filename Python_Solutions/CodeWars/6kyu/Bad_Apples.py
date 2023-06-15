@@ -42,3 +42,16 @@
 # 4.There can be packages with the same variety of apples, e.g [1,1], this is not a problem.
 #
 # ARRAYSALGORITHMS
+# Solution
+def bad_apples(a):
+    l, s = [], []
+    for i, j in enumerate(a):
+        if i not in s and sum(j) != 0:
+            if 0 in j:
+                c = next((k for k in range(i+1,len(a))if 0 in a[k]and sum(a[k])!=0), 0)
+                if c:
+                    su = [j[0]or j[1],a[c][0]or a[c][1]]
+                    s.append(c)
+                    l.append(su)
+            else : l.append(j)
+    return l
