@@ -16,3 +16,6 @@
 # Note: In the C and NASM languages you are given the third parameter which is the number of segment blocks.
 #
 # ARRAYSFUNDAMENTALS
+# Solution
+def data_reverse(data):
+    return [elem for i in range(len(data), -1, -8) for elem in data[i: i + 8]]
