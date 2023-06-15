@@ -34,3 +34,8 @@
 # Tidy up the room
 # Waiting for a Bus
 # PUZZLESGAMES
+# Solution
+def infect_apple(apple, n):
+    h, w = range(len(apple)), range(len(apple[0]))
+    v = [(i, j) for i in h for j in w if apple[i][j] == "V"]
+    return [["A" if all(n < abs(y - j) + abs(x - i) for y, x in v) else "V" for i in w] for j in h]
