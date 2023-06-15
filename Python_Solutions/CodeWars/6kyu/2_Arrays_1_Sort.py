@@ -30,3 +30,7 @@
 # Note: it is assumed that array are same length.
 #
 # ARRAYSALGORITHMSSORTING
+# Solution
+def linked_sort(a_to_sort, a_linked, key=str):
+    a_to_sort[:], a_linked[:] = zip(*sorted(zip(a_to_sort, a_linked), key=key))
+    return a_to_sort
