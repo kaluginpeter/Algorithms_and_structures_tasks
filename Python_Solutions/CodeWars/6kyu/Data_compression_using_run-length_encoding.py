@@ -8,3 +8,13 @@
 # consist of only uppercase characters, no numbers.
 #
 # ALGORITHMS
+# Solution
+import re
+
+
+def encode(s):
+    return "".join(f"{len(k)}{v}" for k, v in re.findall(r"((.)\2*)", s))
+
+
+def decode(s):
+    return "".join(int(k) * v for k, v in re.findall(r"(\d+)(\w)", s))
