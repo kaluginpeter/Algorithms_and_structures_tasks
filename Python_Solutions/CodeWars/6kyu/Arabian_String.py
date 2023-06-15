@@ -8,3 +8,7 @@
 # "your-NaMe-here" --> "YourNameHere"
 # "testing ABC" --> "TestingAbc"
 # STRINGSALGORITHMS
+# Solution
+import re
+def camelize(s):
+    return "".join(i.capitalize() for i in re.split("\W|_", s))
