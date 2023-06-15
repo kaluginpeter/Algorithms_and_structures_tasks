@@ -4,3 +4,11 @@
 # What if the string is empty? Then the result should be empty object literal, {}.
 #
 # STRINGSFUNDAMENTALS
+# Solution
+def count(string):
+    dict = {}
+    count = 0
+    for char in string:
+        count = string.count(char)
+        dict[f"{char}"] = count
+    return dict
