@@ -17,3 +17,11 @@
 # Good luck!
 #
 # STRINGSARRAYSALGORITHMS
+# Solution
+def solve(a):
+    a, b, l = [set(i) for i in a], [], []
+    for i in a:
+        if i not in b:b.append(i)
+    for i in b:
+        if a.count(i)>1:l.append(sum(j for j,k in enumerate(a) if k==i))
+    return sorted(l)
