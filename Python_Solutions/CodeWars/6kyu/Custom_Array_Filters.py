@@ -17,3 +17,35 @@
 # Note: List with non-numbers will be tested as well.
 #
 # ARRAYSFUNDAMENTALS
+# Solution
+class list(list):
+    def even(self):
+        res = []
+        for x in self:
+            if type(x) == int and x % 2 == 0:
+                res.append(x)
+        return res
+    def odd(self):
+        res = []
+        for x in self:
+            if type(x) == int and x % 2 == 1:
+                res.append(x)
+        return res
+    def under(self, r):
+        res = []
+        for x in self:
+            if type(x) == int and x < r:
+                res.append(x)
+        return res
+    def over(self, r):
+        res = []
+        for x in self:
+            if type(x) == int and x > r:
+                res.append(x)
+        return res
+    def in_range(self, r1, r2):
+        res = []
+        for x in self:
+            if type(x) == int and r1 <= x <= r2:
+                res.append(x)
+        return res
