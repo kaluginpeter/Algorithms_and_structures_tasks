@@ -8,3 +8,10 @@
 #
 # array_diff([1,2,2,2,3],[2]) == [1,3]
 # ARRAYSFUNDAMENTALSALGORITHMS
+# Solution
+def array_diff(a, b):
+    list =[]
+    for i in a:
+        if i not in b:
+            list.append(i)
+    return list
