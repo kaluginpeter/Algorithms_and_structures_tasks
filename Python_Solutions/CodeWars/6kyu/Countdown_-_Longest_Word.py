@@ -24,3 +24,11 @@
 # letters = "DVAVPALEM"
 # longest word = ["VAMPED", "VALVED", "PALMED"]
 # STRINGSARRAYSFUNDAMENTALS
+# Solution
+def longest_word(w):
+    l = []
+    for i in sorted(words, key=len)[::-1]:
+        if all(w.count(j) >= i.count(j) for j in i): l+=[i]
+    if not l: return None
+    m = len(l[0])
+    return sorted([i for i in l if len(i)==m])
