@@ -23,3 +23,7 @@
 # (Thanks to wthit56 for the suggestion!)
 #
 # STRINGSREGULAR EXPRESSIONSARRAYSFUNDAMENTALS
+# Solution
+def autocomplete(input_, dictionary):
+    input_ = ''.join(i for i in input_ if i.isalpha())
+    return [i for i in dictionary if i.lower().startswith(input_)][:5]
