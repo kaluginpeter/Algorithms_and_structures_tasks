@@ -17,3 +17,7 @@
 #
 # Hope you have fun! :-)
 # STRINGSFUNDAMENTALSMATHEMATICSARRAYS
+# Solution
+import re
+def calculate_string(st):
+    return str(int(round(eval(re.sub(r'[^-+*/\d.]', '', st)))))
