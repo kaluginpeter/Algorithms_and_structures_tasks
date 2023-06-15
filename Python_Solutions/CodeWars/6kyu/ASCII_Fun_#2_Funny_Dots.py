@@ -18,3 +18,6 @@
 # ASCII Fun #3: Puzzle Tiles
 # ASCII Fun #4: Build a pyramid
 # ASCII ART
+# Solution
+def dot(n, m):
+    return ("+---" * n + "+\n" + "| o " * n + "|\n") * m + ("+---" * n + "+")
