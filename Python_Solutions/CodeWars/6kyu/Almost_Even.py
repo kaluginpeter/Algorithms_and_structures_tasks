@@ -11,3 +11,8 @@
 # (Also, there is no reason to test for edge cases: the input to your function will always be valid for this kata.)
 #
 # ARRAYSALGORITHMS
+# Solution
+def split_integer(num, parts):
+    i = num // parts
+    c = num % parts
+    return [i] * (parts - c) + [i + 1] * c
