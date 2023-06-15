@@ -16,3 +16,6 @@
 # Notes
 # When in doubt, assume that the scattered bits are from the same ant. e.g. 2 heads and 1 body = 2 dead ants, not 3
 # ALGORITHMSSTRINGS
+# Solution
+def deadAntCount(ants):
+    return max(ants.replace("ant", "").count(i) for i in "ant")
