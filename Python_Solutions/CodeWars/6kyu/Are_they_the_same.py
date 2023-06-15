@@ -34,3 +34,8 @@
 # The two arrays have the same size (> 0) given as parameter in function comp.
 #
 # FUNDAMENTALS
+# Solution
+def comp(array1, array2):
+    if array1 == None or array2 == None:
+        return False
+    return sorted(number ** 2 for number in array1) == sorted(array2)
