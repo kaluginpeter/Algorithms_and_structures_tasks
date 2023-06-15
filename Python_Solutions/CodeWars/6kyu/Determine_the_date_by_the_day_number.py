@@ -16,3 +16,7 @@
 # calendar
 #
 # FUNDAMENTALSDATE TIMEALGORITHMS
+# Solution
+from datetime import *
+def get_day(day, is_leap):
+    return (date(2019 + is_leap, 1, 1) + timedelta(day - 1)).strftime("%B, %-d")
