@@ -10,3 +10,6 @@
 # be sorted to the end of the result in original order.
 #
 # STRINGSSORTINGALGORITHMS
+# Solution
+def sort_string(st, order):
+    return ''.join(sorted(list(st), key=lambda x: list(order).index(x) if x in order else len(order)))
