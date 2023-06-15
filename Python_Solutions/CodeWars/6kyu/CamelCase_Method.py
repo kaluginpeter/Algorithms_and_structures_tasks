@@ -8,3 +8,6 @@
 # Don't forget to rate this kata! Thanks :)
 #
 # FUNDAMENTALSALGORITHMSSTRINGS
+# Solution
+def camel_case(string):
+    return string.title().replace(' ', '')
