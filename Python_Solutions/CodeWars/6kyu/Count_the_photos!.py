@@ -15,3 +15,13 @@
 # For ">.<." -> 3 photos were taken
 # For ".><.>>.<<" -> 11 photos were taken
 # ALGORITHMSPERFORMANCEARRAYS
+# Solution
+def count_photos(road):
+    c, l, f = 0, 0, 0
+    for i in road:
+        if i == ">": l += 1
+        elif i == ".":
+            c += l
+            f += 1
+        elif i == "<": c += f
+    return c
