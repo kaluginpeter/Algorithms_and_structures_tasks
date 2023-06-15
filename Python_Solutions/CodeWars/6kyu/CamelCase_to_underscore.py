@@ -33,3 +33,7 @@
 # "_UnderscoreMarked_Test_Name_" => _Underscore_Marked_Test_Name_"
 #
 # FUNDAMENTALSREGULAR EXPRESSIONSALGORITHMS
+# Solution
+import re
+def toUnderScore(word):
+    return re.sub("(?<=[^_-])_?(?=[A-Z])|(?<=[^\\d_])_?(?=\\d)", "_", word)
