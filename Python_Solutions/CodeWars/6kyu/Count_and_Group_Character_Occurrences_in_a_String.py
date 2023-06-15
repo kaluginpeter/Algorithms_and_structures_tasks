@@ -14,3 +14,10 @@
 # get_char_count("abc123")                ==  {1: ["1", "2", "3", "a", "b", "c"]}
 # get_char_count("aaabbbccc")             ==  {3: ["a", "b", "c"]}
 # FUNDAMENTALS
+# Solution
+from collections import Counter
+def get_char_count(seq):
+    d = {}
+    for k, v in sorted(Counter(i for i in seq.lower() if i.isalnum()).items()):
+        d[v] = d.get(v, []) + [k]
+    return d
