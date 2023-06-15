@@ -7,3 +7,8 @@
 # #Have fun!
 #
 # FUNDAMENTALS
+# Solution
+from collections import Counter
+def balance(arr1, arr2):
+    s1, s2 = sorted(Counter(arr1).values()), sorted(Counter(arr2).values())
+    return all(i == j for i, j in zip(s1, s2)) and len(s1) == len(s2)
