@@ -19,3 +19,7 @@
 # "dog dog dog dog cat cat"  -->  2
 # "cat cat dog dog cat cat"  -->  3
 # STRINGSFUNDAMENTALS
+# Solution
+from itertools import groupby
+def count_adjacent_pairs(st):
+    return len([k for k, v in groupby(st.lower().split(' ')) if len(list(v)) >= 2])
