@@ -65,3 +65,6 @@
 # Coding Meetup #16 - Higher-Order Functions Series - Ask for missing details
 #
 # FUNCTIONAL PROGRAMMINGDATA STRUCTURESARRAYSFUNDAMENTALSALGORITHMSSTRINGS
+# Solution
+def find_senior(lst):
+    return [i for i in lst if i['age'] == max(i['age'] for i in lst)]
