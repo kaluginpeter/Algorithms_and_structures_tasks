@@ -14,3 +14,8 @@
 # alphabetnums = {'a': '1', 'b': '2', 'c': '3', ...}
 #
 # ALGORITHMSSTRINGS
+# Solution
+import re
+def AlphaNum_NumAlpha(s):
+    d = {v:k for k,v in alphabetnums.items()}
+    return ''.join(alphabetnums.get(i, d.get(i)) for i in re.findall(r'(\d+|[a-z])', s))
