@@ -25,3 +25,6 @@
 # Keep the efficiency of your code in mind.
 # Do not mutate the Input.
 # ALGORITHMSPERFORMANCEARRAYS
+# Solution
+def arrange(s):
+    return list(s[[i,-i,~i,i][i%4]//2]for i in range(len(s)))
