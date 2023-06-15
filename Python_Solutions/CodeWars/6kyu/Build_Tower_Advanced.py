@@ -39,3 +39,12 @@
 # Go take a look at Build Tower which is a more basic version :)
 #
 # STRINGSASCII ARTFUNDAMENTALS
+# Solution
+def tower_builder(n_floors, block_size):
+    w, h = block_size
+    l = []
+    n = n_floors
+    for i in range(n_floors):
+        n -= 1
+        for j in range(h): l.append(' '*n * w + '*' * (i * 2 + 1) * w + ' ' * n* w)
+    return l
