@@ -26,3 +26,11 @@
 #
 #
 # FUNDAMENTALS
+# Solution
+class DefaultList(list):
+    def __init__(self,it, defu):
+        super().__init__(it)
+        self.default = defu
+    def __getitem__(self,i):
+        try: return super().__getitem__(i)
+        except: return self.default
