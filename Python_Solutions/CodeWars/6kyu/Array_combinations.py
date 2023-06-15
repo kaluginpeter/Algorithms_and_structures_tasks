@@ -19,3 +19,9 @@
 # Sum of array singles
 #
 # FUNDAMENTALS
+# Solution
+def solve(lists):
+    res = 1
+    for list in lists:
+        res *= len(set(list))
+    return res
