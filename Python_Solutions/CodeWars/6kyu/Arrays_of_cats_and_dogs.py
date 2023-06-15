@@ -13,3 +13,15 @@
 # More examples in the test cases. Good luck!
 #
 # ALGORITHMS
+# Solution
+def solve(arr, n):
+    d = [i for i, x in enumerate(arr) if x == 'D']
+    c = {i for i, x in enumerate(arr) if x == 'C'}
+    s = 0
+    while d and c:
+        dog = d.pop()
+        cat = max((i for i in c if abs(dog - i) <= n), default=-1)
+        if cat >= 0:
+            s += 1
+            c.remove(cat)
+    return s
