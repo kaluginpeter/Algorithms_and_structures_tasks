@@ -13,3 +13,6 @@
 #
 # [4, 3, 1, 5, 6] should return [(1, 3), (3, 5), (4, 6)]
 # ARRAYSSORTINGALGORITHMS
+# Solution
+def twos_difference(lst):
+    return [(i, i+2) for i in sorted(lst) if i + 2 in lst]
