@@ -26,3 +26,9 @@
 # not be square, but it will always be "nice" (all rows will have the same number of columns, etc).
 #
 # FUNDAMENTALS
+# Solution
+def crashing_weights(weights):
+    l = [0] * len(weights[0])
+    for i in weights:
+        l = [b if a <= b else a+b for a,b in zip(l, i)]
+    return l
