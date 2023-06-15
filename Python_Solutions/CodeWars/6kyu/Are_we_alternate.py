@@ -7,3 +7,7 @@
 # Arguments consist of only lowercase letters.
 #
 # ALGORITHMSSTRINGS
+# Solution
+import re
+def is_alt(word):
+    return not re.search('[aeiou]{2}|[^aeiou]{2}', word)
