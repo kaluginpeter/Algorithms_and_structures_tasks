@@ -11,3 +11,10 @@
 # The goal is to come up with a function that can calculate inversions for any arbitrary array
 #
 # ALGORITHMSARRAYS
+# Solution
+def count_inversions(array):
+    c = 0
+    for i in range(len(array)):
+        for j in range(i + 1, len(array)):
+            if array[i] > array[j]: c += 1
+    return c
