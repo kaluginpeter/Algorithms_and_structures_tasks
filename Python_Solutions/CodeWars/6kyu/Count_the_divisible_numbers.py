@@ -10,3 +10,6 @@
 # Note: The test cases are very large. You will need a O(log n) solution or better
 # to pass. (A constant time solution is possible.)
 # FUNDAMENTALSALGORITHMS
+# Solution
+def divisible_count(x, y, k):
+    return y // k - (x - 1) // k
