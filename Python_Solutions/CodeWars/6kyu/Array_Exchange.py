@@ -14,3 +14,6 @@
 # my_list == [3, 2, 1]
 # other_list == ['c', 'b', 'a']
 # ARRAYSALGORITHMSFUNDAMENTALS
+# Solution
+def exchange_with(a, b):
+    a[:], b[:] = b[::-1], a[::-1]
