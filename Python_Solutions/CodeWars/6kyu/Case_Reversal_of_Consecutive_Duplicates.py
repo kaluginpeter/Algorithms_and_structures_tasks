@@ -13,3 +13,7 @@
 # Arguments passed will include only alphabetical letters A–Z or a–z.
 #
 # FUNDAMENTALS
+# Solution
+import re
+def reverse(s):
+    return re.sub(r'(.)\1+', lambda x: x.group().swapcase(), s)
