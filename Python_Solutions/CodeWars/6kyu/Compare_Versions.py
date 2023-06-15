@@ -22,3 +22,6 @@
 # It can be assumed that version strings are non empty and only contain numeric literals and the character '.'.
 #
 # STRINGSFUNDAMENTALS
+# Solution
+def compare_versions(ver1, ver2):
+    return [int(i) for i in ver1.split(".")] >= [int(j) for j in ver2.split(".")]
