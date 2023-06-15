@@ -65,3 +65,6 @@
 # Coding Meetup #16 - Higher-Order Functions Series - Ask for missing details
 #
 # FUNCTIONAL PROGRAMMINGDATA STRUCTURESARRAYSFUNDAMENTALSALGORITHMSSTRINGS
+# Solution
+def all_continents(lst):
+    return len(set(i["continent"] for i in lst)) == 5
