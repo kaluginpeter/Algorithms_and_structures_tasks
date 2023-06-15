@@ -26,3 +26,6 @@
 # The resulting sorted array.
 #
 # ALGORITHMS
+# Solution
+def merge_arrays(a, b):
+    return sorted([i for i in set(a+b) if a.count(i)==b.count(i) or a.count(i)*b.count(i)==0])
