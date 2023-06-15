@@ -30,3 +30,12 @@
 # Decode the QR-Code
 #
 # ALGORITHMSCRYPTOGRAPHY
+# Solution
+import hashlib
+def crack(pin):
+    for i in range(10000, 100000):
+        if hashlib.md5(str(i).encode()).hexdigest() == pin:
+            return str(i)
+    for i in range(0, 10000):
+        if hashlib.md5(str(i).zfill(5).encode()).hexdigest() == pin:
+            return str(i).zfill(5)
