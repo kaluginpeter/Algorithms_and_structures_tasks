@@ -9,3 +9,14 @@
 # Note: In the case of an empty binary string your function should return an empty string.
 #
 # BINARYSTRINGSFUNDAMENTALS
+# Solution
+import binascii
+def binary_to_string(binary):
+    try:
+        input_string=int(binary, 2)
+        Total_bytes= (input_string.bit_length() +7) // 8
+        input_array = input_string.to_bytes(Total_bytes, "big")
+        ASCII_value=input_array.decode()
+        return ASCII_value
+    except:
+        return '' if binary == '' else None
