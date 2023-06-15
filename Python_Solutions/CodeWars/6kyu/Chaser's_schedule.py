@@ -46,3 +46,7 @@
 # Enjoy!
 #
 # LOGICALGORITHMS
+# Solution
+def solution(s, t):
+    c = min((t-1)//2, s//3)
+    return t*s + (c+1)*s - 3*(c+1)*c//2 if t else 0
