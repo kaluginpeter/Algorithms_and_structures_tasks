@@ -38,3 +38,6 @@
 # less element than the argument (unless the argument is [], in which case [] is returned).
 #
 # MATHEMATICSARRAYSALGORITHMS
+# Solution
+def diff(poly):
+    return [k*v for k,v in enumerate(poly[::-1]) if k][::-1]
