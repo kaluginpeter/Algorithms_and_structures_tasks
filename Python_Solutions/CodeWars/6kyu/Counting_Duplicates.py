@@ -13,3 +13,11 @@
 # "ABBA" -> 2 # 'A' and 'B' each occur twice
 #
 # STRINGSFUNDAMENTALS
+# Solution
+def duplicate_count(text):
+    text = text.lower()
+    count = 0
+    for x in set(text):
+        if text.count(x) > 1:
+            count += 1
+    return count
