@@ -39,3 +39,19 @@
 # they appear in the message string
 # Check the test cases for samples
 # CIPHERSSTRINGSALGORITHMS
+# Solution
+def encode(message, key, shift, encode=True):
+    LOWER = "abcdefghijklmnopqrstuvwxyz"
+    key = sorted(LOWER, key=f"{key}{LOWER}".index)
+    l = []
+    for j in message:
+        if j in key:
+            i = key.index(j)
+            j = key[(i + shift) % 26]
+            shift = i + 1 if encode else -(key.index(j) + 1)
+        l.append(j)
+    return "".join(l)
+
+
+def decode(message, key, shift):
+    return encode(message, key, -shift, encode=False)
