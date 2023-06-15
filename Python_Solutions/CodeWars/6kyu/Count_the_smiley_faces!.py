@@ -20,3 +20,11 @@
 # (input will always be an array). Order of the face (eyes, nose, mouth) elements will always be the same.
 #
 # REGULAR EXPRESSIONSFUNDAMENTALS
+# Solution
+def count_smileys(arr):
+    count = 0
+    list = [':)', ':D', ';)', ';D', ':-)', ':~)', ';-)', ';~)', ':-D', ':~D', ';-D', ';~D']
+    for elem in range(len(arr)):
+        if arr[elem] in list:
+            count += 1
+    return count
