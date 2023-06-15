@@ -47,3 +47,15 @@
 # | t | e | r | n |
 # +---+---+---+---+
 # ASCII ARTPUZZLES
+# Solution
+def pattern(rows, col, s):
+    seperator, res, l, index = '+---'*col + '+', '', len(s), 0
+    for _ in range(rows):
+        res += seperator+'\n'
+        for c in range(col):
+            if index < l: res += f'| {s[index]} '
+            else: res += '|   '
+            index += 1
+        res += '|\n'
+    res += seperator
+    return res
