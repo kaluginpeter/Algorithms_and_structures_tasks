@@ -26,3 +26,7 @@
 # charCheck("Cara Hertz", 5, True) should return [ False, "Cara " ]
 # charCheck("Cara Hertz", 5, False) should return [ False, "CaraH" ]
 # FUNDAMENTALSSTRINGS
+# Solution
+def charCheck(text, mx, spaces):
+    if not spaces: text = text.replace(' ', '')
+    return [len(text) <= mx, text[:mx]]
