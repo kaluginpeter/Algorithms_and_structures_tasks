@@ -8,3 +8,10 @@
 # "#######"       ==>  ""
 # ""              ==>  ""
 # FUNDAMENTALSSTRINGSALGORITHMS
+# Solution
+def clean_string(s):
+    l = []
+    for i in s:
+        if i == '#' and l: l.pop()
+        elif i != '#': l.append(i)
+    return ''.join(l)
