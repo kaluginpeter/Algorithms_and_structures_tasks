@@ -10,3 +10,11 @@
 # 263  -->  true
 # 236  -->  false
 # ALGORITHMS
+# Solution
+def colorful(number):
+    l = []
+    for x in str(number): l.append(int(x))
+    for y in range(len(l) - 1):
+        temp = l[y] * l[y + 1]
+        l.append(temp)
+    return len(set(l)) == len(l)
