@@ -28,3 +28,8 @@
 # You can expect valid input for this kata
 #
 # ALGORITHMS
+# Solution
+def check_availability(schedule, current_time):
+    for i in schedule:
+        if i[0] <= current_time < i[1]: return i[1]
+    return True
