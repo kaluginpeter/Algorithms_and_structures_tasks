@@ -48,3 +48,6 @@
 # of repetitions passed in is 0 (i.e., no repetitions were completed), your function must return 0.
 #
 # MATHEMATICS
+# Solution
+def calculate_1RM(w, r):
+    return w if r == 1 else 0 if r == 0 else max(round(w * (1 + r/30)), round((100*w) / (101.3 - 2.67123*r)), round(w*r**0.10))
