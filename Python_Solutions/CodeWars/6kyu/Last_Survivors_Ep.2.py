@@ -19,3 +19,11 @@
 # If you like this kata, check out another one: Last Survivor Ep.3
 #
 # FUNDAMENTALSARRAYSREGULAR EXPRESSIONS
+# Solution
+def last_survivors(s):
+    w = "abcdefghijklmnopqrstuvwxyza"
+    for i in s:
+        if s.count(i) > 1:
+            s = s.replace(i, "", 2) + w[w.index(i) + 1]
+            return last_survivors(s)
+    return s
