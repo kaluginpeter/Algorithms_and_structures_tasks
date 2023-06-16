@@ -16,3 +16,6 @@
 # You can assume that the two inputs are ASCII strings of equal length.
 #
 # ALGORITHMS
+# Solution
+def hamming(a, b):
+    return sum(i != j for i, j in zip(a, b))
