@@ -20,3 +20,7 @@
 # Have fun :)
 #
 # BIG INTEGERSALGORITHMSMATHEMATICS
+# Solution
+import math
+def nth_catalan_number(n):
+    return math.factorial(2*n) // math.factorial(n+1) // math.factorial(n)
