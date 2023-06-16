@@ -10,3 +10,7 @@
 # findAdded('678', '876'); // ''
 # findAdded('678', '6'); // ''
 # FUNDAMENTALSSTRINGS
+# Solution
+from collections import Counter
+def findAdded(st1, st2):
+    return ''.join(sorted((Counter(st2) - Counter(st1)).elements()))
