@@ -19,3 +19,11 @@
 # All function inputs will be positive integers, with the exponent being between 2 and 4.
 #
 # ALGORITHMS
+# Solution
+def isHappy(n, pow):
+    l = []
+    while True:
+        l.append(n)
+        n = sum([i**pow for i in map(int, str(n))])
+        if n == 1: return [1]
+        if n in l: return l[l.index(n):] + [n]
