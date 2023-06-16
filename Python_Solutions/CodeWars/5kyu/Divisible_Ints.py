@@ -40,3 +40,13 @@
 # #Output: The number of times you found an integer that was evenly divisible with N.
 #
 # ALGORITHMS
+# Solution
+def get_count(n):
+    sn = str(n)
+    count = 0
+    for i in range(1, len(sn)):
+        for j in range(len(sn) - i + 1):
+            sub = int(sn[j:j+i])
+            if sub and n % sub == 0:
+                count += 1
+    return count
