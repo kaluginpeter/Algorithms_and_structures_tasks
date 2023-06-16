@@ -13,3 +13,6 @@
 # top of another stack i.e. a disk can only be moved if it is the uppermost disk on a stack.
 # No disk may be placed on top of a smaller disk.
 # FUNDAMENTALSALGORITHMSMATHEMATICSPUZZLES
+# Solution
+def hanoi(disks):
+    return 2**disks - 1
