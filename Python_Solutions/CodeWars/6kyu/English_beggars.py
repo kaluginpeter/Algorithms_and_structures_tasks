@@ -19,3 +19,6 @@
 # Note 2: do not modify the input array.
 #
 # QUEUESARRAYSLISTSRECURSIONFUNDAMENTALS
+# Solution
+def beggars(values, n):
+    return [sum(values[i::n]) for i in range(n)]
