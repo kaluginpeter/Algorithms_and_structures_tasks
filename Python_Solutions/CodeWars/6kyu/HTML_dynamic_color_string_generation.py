@@ -12,3 +12,7 @@
 # cafebabe
 # #a567567676576756A7
 # PUZZLES
+# Solution
+import random
+def generate_color_rgb():
+    return ['#%06X' % random.randint(0, 0xFFFFFF)][0]
