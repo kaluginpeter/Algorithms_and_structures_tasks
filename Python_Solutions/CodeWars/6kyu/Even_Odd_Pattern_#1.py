@@ -8,3 +8,10 @@
 # even_odd([1,0,3]) => 3
 # even_odd([3,2])   => 6
 # LOGICARRAYSMATHEMATICSPUZZLES
+# Solution
+def even_odd(arr):
+    c = 0
+    for k, v in enumerate(arr):
+        if k % 2: c *= v
+        else: c += v
+    return c
