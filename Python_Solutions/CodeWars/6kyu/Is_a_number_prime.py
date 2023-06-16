@@ -16,3 +16,20 @@
 # is_prime(2)  /* true  */
 # is_prime(-1) /* false */
 # MATHEMATICSALGORITHMS
+# Solution
+from math import sqrt
+def is_prime(num):
+    flag = True
+    prime_flag = 0
+    if(num > 1):
+	    for i in range(2, int(sqrt(num)) + 1):
+		    if (num % i == 0):
+			    prime_flag = 1
+			    break
+	    if prime_flag == 0:
+		    flag = True
+	    else:
+		    flag = False
+    else:
+	    flag = False
+    return flag
