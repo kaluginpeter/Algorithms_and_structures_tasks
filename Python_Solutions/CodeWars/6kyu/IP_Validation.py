@@ -14,3 +14,10 @@
 # Leading zeros (e.g. 01.02.03.04) are considered invalid
 # Inputs are guaranteed to be a single string
 # REGULAR EXPRESSIONSALGORITHMS
+# Solution
+import ipaddress
+def is_valid_IP(s):
+    try:
+        return bool(ipaddress.ip_address(s))
+    except:
+        return False
