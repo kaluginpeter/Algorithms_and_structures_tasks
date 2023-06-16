@@ -48,3 +48,17 @@
 # words ending with y
 # words ending with u, i
 # STRINGSFUNDAMENTALS
+# Solution
+def instrumental(word):
+    d = {"e": u"é", "i": u"í", u"ö": u"ő", u"ü": u"ű", "a": u"á", "o": u"ó", "u": u"ú"}
+    for i in word[::-1]:
+        if i in u"aáoóuú":
+            suf = "val"
+            break
+        elif i in u"eéiíöőüű":
+            suf = "vel"
+            break
+    if i == word[-1]: return word[:-1] + d.get(i, word[-1]) + suf
+    if word[-2:] in ("sz", "zs", "cs"): word = word[:-1] + word[-2:]
+    else: word += word[-1]
+    return word + suf[1:]
