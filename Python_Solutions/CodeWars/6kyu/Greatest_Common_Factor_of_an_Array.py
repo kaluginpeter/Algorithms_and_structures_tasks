@@ -3,3 +3,9 @@
 #
 # greatest_common_factor([46, 14, 20, 88]) # == 2
 # FUNDAMENTALSALGORITHMS
+# Solution
+def greatest_common_factor(seq):
+    l = []
+    for i in range(1, min(seq)+1):
+        if all(j % i == 0 for j in seq): l.append(i)
+    return max(l)
