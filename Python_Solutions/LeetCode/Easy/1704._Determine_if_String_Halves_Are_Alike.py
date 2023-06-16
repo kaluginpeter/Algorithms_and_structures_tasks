@@ -22,3 +22,14 @@
 # 2 <= s.length <= 1000
 # s.length is even.
 # s consists of uppercase and lowercase letters.
+# Solution
+class Solution:
+    def halvesAreAlike(self, s: str) -> bool:
+        a, b, top_a, top_b = s[:len(s)//2], s[len(s)//2:], 0, 0
+        vowels = 'aeiouAEIOU'
+        for i in range(len(a)):
+            if a[i] in vowels:
+                top_a += 1
+            if b[i] in vowels:
+                top_b += 1
+        return top_a == top_b
