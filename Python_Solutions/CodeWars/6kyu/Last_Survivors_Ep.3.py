@@ -23,3 +23,6 @@
 # If you like this kata, check out another one: Survivors Ep.4
 #
 # FUNDAMENTALSARRAYS
+# Solution
+def last_survivors(a, n):
+    return ''.join(i[j:] for i,j in zip([''.join(k for k in i if k!=' ')[::-1] for i in zip(*a)], n))
