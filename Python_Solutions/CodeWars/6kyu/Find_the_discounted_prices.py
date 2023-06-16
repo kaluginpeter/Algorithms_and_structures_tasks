@@ -20,3 +20,7 @@
 # Code Jam for ladies, as I find it rather discriminating...).
 #
 # ARRAYSLISTSALGORITHMS
+# Solution
+def find_discounted(prices):
+    l = [int(n) for n in prices.split()]
+    return ' '.join(l.remove(round(i*4/3)) or str(i) for i in l)
