@@ -14,3 +14,7 @@
 # Life without primes
 #
 # ALGORITHMS
+# Solution
+def palin(a,b):
+    wor = str(10**((a-1)//2) + b-1)
+    return int(wor+wor[::-1][a%2:])
