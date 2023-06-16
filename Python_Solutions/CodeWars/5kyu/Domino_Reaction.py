@@ -18,3 +18,6 @@
 # since the reaction would stop as soon as it gets to a space.
 #
 # FUNDAMENTALS
+# Solution
+def domino_reaction(s):
+    return s.replace('|', '/', min(len(s.split(' ')[0]), len(s.split('/')[0])))
