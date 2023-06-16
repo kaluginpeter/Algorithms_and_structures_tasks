@@ -9,3 +9,6 @@
 # last_fib_digit(1000) == 5
 # last_fib_digit(1000000) == 5
 # ALGORITHMS
+# Solution
+def last_fib_digit(n):
+    return int('011235831459437077415617853819099875279651673033695493257291'[n % 60])
