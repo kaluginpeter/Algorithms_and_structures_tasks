@@ -24,3 +24,6 @@
 # The parameter n will always be a number >= 1.
 #
 # LOGICMATHEMATICSSORTINGARRAYSPUZZLES
+# Solution
+def off(n):
+    return [i*i for i in range(1, int(n ** .5) + 1)]
