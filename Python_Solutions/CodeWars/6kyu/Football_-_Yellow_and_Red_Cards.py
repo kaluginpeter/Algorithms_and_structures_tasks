@@ -18,3 +18,11 @@
 # Note for the random tests: If a player that has already been sent off receives another card - ignore it.
 #
 # LISTSFUNDAMENTALS
+# Solution
+def men_still_standing(cards):
+    a, b = [0] * 11, [0] * 11
+    for c in cards:
+        if c[0] == 'A': a[int(c[1:-1])-1] += (1 if c[-1] == 'Y' else 2)
+        else: b[int(c[1:-1])-1] += (1 if c[-1] == 'Y' else 2)
+        if sum(i < 2 for i in a) < 7 or sum(i < 2 for i in b) < 7: break
+    return (sum(i < 2 for i in a), sum(i < 2 for i in b))
