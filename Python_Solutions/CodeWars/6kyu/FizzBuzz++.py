@@ -27,3 +27,8 @@
 # Hint: What is the relation to the numbers given in the list and the length of the list?
 #
 # ALGORITHMS
+# Solution
+from functools import reduce
+
+def fizzbuzz_plusplus(nums, words):
+    return ["".join(b for a, b in zip(nums, words) if not i % a) or i for i in range(1, reduce(lambda a, b: a * b, nums, 1) + 1)]
