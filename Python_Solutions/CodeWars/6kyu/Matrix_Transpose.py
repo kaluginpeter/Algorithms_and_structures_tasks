@@ -14,3 +14,6 @@
 # You can assume that each row has the same length, and that the height and width of the matrix are both positive.
 #
 # MATHEMATICSALGEBRAMATRIXALGORITHMS
+# Solution
+def transpose(matrix):
+    return list(map(list, zip(*matrix)))
