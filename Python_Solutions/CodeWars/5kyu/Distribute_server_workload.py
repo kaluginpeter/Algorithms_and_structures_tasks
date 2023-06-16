@@ -25,3 +25,7 @@
 # Don't worry about invalid inputs. That is, nodes > 0 and workload > 0 and both will always be integers.
 #
 # ARRAYSLISTSALGORITHMS
+# Solution
+def distribute(nodes, workload):
+    l = list(range(workload))[::-1]
+    return [[l.pop() for _ in range(workload // nodes + (workload % nodes > i))] for i in range(nodes)]
