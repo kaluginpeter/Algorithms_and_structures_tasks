@@ -27,3 +27,6 @@
 #     [6, 4, 4],
 #     [2, 2, 4] ]
 # MATRIXARRAYSALGORITHMS
+# Solution
+def matrix_addition(a, b):
+    return [[sum(i) for i in zip(j, k)] for j, k in zip(a, b)]
