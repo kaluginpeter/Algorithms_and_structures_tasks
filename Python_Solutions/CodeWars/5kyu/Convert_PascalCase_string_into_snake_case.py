@@ -7,3 +7,20 @@
 # "App7Test"        -->  "app7_test"
 # 1                 -->  "1"
 # STRINGSALGORITHMS
+# Solution
+def to_underscore(string):
+    if type(string) == int:
+        return str(string)
+    l, word, flag = [], '', False
+    for i in string:
+        if i.isupper():
+            if not flag:
+                flag = True
+                word += i
+                continue
+            l.append(word)
+            flag, word = True, i
+            continue
+        word += i
+    l.append(word)
+    return '_'.join(i.lower() for i in l)
