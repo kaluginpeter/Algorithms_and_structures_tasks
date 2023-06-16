@@ -18,3 +18,8 @@
 # Trivia: "22" is the only element that can keep the series constant.
 #
 # STRINGSREGULAR EXPRESSIONSFUNDAMENTALS
+# Solution
+from itertools import groupby
+from functools import reduce
+def look_and_say_sequence(first_element, n):
+    return reduce(lambda i, j: ''.join('%d%s' % (len(list(v)), k) for k, v in groupby(i)), range(n - 1), first_element)
