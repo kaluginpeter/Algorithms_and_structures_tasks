@@ -10,3 +10,6 @@
 # [1,2,2,3,3,3,4,3,3,3,2,2,1] should return 4, because it appears 1 time (which is odd).
 #
 # FUNDAMENTALS
+# Solution
+def find_it(seq):
+    return min([i for i in seq if seq.count(i) % 2 != 0])
