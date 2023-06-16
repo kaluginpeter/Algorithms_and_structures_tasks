@@ -15,3 +15,8 @@
 # numeric_formatter("+555 aaaa bbbb") == "+555 1234 5678"
 # numeric_formatter("xxxx yyyy zzzz") == "1234 5678 9012"
 # REGULAR EXPRESSIONSSTRINGSALGORITHMS
+# Solution
+from itertools import cycle
+def numeric_formatter(template, data='1234567890'):
+    data = cycle(data)
+    return ''.join(next(data) if i.isalpha() else i for i in template)
