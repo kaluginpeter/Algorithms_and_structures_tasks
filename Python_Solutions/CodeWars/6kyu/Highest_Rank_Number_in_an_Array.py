@@ -8,3 +8,9 @@
 # [12, 10, 8, 12, 7, 6, 4, 10, 12, 10]          -->  12
 # [12, 10, 8, 8, 3, 3, 3, 3, 2, 4, 10, 12, 10]  -->   3
 # ARRAYSFUNDAMENTALS
+# Solution
+from collections import Counter
+def highest_rank(arr):
+    c = Counter(arr)
+    m = max(c.values())
+    return max(k for k, v in c.items() if v == m)
