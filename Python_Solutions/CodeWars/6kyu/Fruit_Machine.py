@@ -143,3 +143,27 @@
 # Car Park Escape
 #
 # ARRAYSGAMESFUNDAMENTALS
+# Solution
+def fruit(reels, spins):
+    triple = {
+        'Wild Wild Wild':100, 'Star Star Star': 90, 'Bell Bell Bell': 80,
+        'Shell Shell Shell': 70, 'Seven Seven Seven': 60, 'Cherry Cherry Cherry': 50,
+        'Bar Bar Bar': 40, 'King King King': 30, 'Queen Queen Queen': 20, 'Jack Jack Jack': 10
+    }
+    double = {
+        'Wild': 10, 'Star': 9, 'Bell': 8, 'Shell': 7, 'Seven': 6, 'Cherry': 5, 'Bar': 4, 'King': 3,
+        'Queen': 2, 'Jack': 1
+    }
+    l = [reels[0][spins[0]], reels[1][spins[1]], reels[2][spins[2]]]
+    if l[0] == l[1] or l[0] == l[2] or l[1] ==l[2]:
+        if l[0]==l[1]==l[2]:
+            return triple[' '.join(sorted(l))]
+        elif (l.count(l[0]) == 2 or l.count(l[1]) == 2) and l.count('Wild') !=1:
+            for elem in l:
+                if l.count(elem) == 2:
+                    return double[elem]
+        elif (l.count(l[0]) == 2 or l.count(l[1]) == 2) and l.count('Wild') == 1:
+            for elem in l:
+                if l.count(elem) == 2:
+                    return double[elem] * 2
+    return 0
