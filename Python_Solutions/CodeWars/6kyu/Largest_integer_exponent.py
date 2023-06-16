@@ -3,3 +3,11 @@
 # return null/None (throw an ArgumentOutOfRange exception in C#).
 #
 # MATHEMATICSFUNDAMENTALS
+# Solution
+def get_exponent(n, p):
+    if p > 1:
+        c = 0
+        while not n % p:
+            c += 1
+            n //= p
+        return c
