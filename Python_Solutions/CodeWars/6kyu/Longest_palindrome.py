@@ -10,3 +10,8 @@
 # it should return 9 because one possible palindrome would be "abcyxycba".
 #
 # ARRAYSSTRINGSALGORITHMS
+# Solution
+from collections import Counter
+def longest_palindrome(s):
+    co = Counter(filter(str.isalnum, s.lower()))
+    return sum(v // 2 * 2 for v in co.values()) + any(v % 2 for v in co.values())
