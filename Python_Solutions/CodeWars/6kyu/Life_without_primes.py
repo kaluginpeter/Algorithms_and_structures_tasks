@@ -14,3 +14,12 @@
 # If you like Prime Katas, you will enjoy this Kata: Simple Prime Streaming
 #
 # ALGORITHMS
+# Solution
+from gmpy2 import is_prime
+def solve(n):
+    l = []
+    c = 1
+    while len(l) <= n:
+        if not is_prime(c) and all(not is_prime(int(i)) for i in str(c)): l.append(c)
+        c += 1
+    return l[n]
