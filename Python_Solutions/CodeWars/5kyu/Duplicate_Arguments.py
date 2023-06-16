@@ -9,3 +9,6 @@
 # solution(1, 2, 3, 2)          -->  true
 # solution('1', '2', '3', '2')  -->  true
 # ALGORITHMS
+# Solution
+def solution(*args):
+    return len(set(args)) != len(args)
