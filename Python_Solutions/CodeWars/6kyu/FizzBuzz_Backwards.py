@@ -18,3 +18,6 @@
 # Fizz = 1, Buzz = 6:
 # ["Fizz", "Fizz", "Fizz", "Fizz", "Fizz", "FizzBuzz"]  ==>  [1, 6]
 # FUNDAMENTALS
+# Solution
+def reverse_fizz_buzz(array):
+    return tuple(next(i for i, j in enumerate(array, 1) if j == k or j == "FizzBuzz") for k in ["Fizz", "Buzz"])
