@@ -25,3 +25,11 @@
 # Divisor harmony
 #
 # FUNDAMENTALS
+# Solution
+from gmpy2 import next_prime as np, is_prime as ip
+def solve(a,b):
+    c, l, g = 1, [], 0
+    while c<=b:
+        c, g = np(c), g+1
+        if c>=a and c<=b and ip(g): l.append(c)
+    return sum(l)
