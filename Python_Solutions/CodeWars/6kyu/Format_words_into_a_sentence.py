@@ -12,3 +12,6 @@
 # ['ninja', '', 'ronin'] --> "ninja and ronin"
 # [] -->""
 # STRINGSALGORITHMS
+# Solution
+def format_words(words):
+    return ', '.join(i for i in words if i)[::-1].replace(',', 'dna ', 1)[::-1] if words else ''
