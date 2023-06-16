@@ -15,3 +15,8 @@
 # mineLocation( [ [0, 0, 0], [0, 0, 0], [0, 1, 0] ] ) => returns [2, 1]
 #
 # ARRAYSALGORITHMS
+# Solution
+def mineLocation(field):
+    for i in field:
+        for j in i:
+            if j == 1: return [field.index(i), i.index(j)]
