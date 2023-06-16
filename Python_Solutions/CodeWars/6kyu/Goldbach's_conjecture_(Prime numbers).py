@@ -25,3 +25,11 @@
 #
 # [[3, 31], [5, 29], [11, 23], [17, 17]] # even_number = 34
 # MATHEMATICSFUNDAMENTALS
+# Solution
+from gmpy2 import is_prime
+def goldbach(even_number):
+    l, s = [i for i in range(2, even_number+1) if is_prime(i)], []
+    for i in l:
+        for j in l:
+            if i + j == even_number and i <= j: s.append([i, j])
+    return s
