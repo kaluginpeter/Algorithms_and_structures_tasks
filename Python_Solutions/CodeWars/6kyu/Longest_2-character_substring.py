@@ -17,3 +17,12 @@
 # It's easy to think that you have a solution and then get hung up on the implementation.
 #
 # ALGORITHMS
+# Solution
+def substring(strng):
+    w, count_w = '', ''
+    for i in strng:
+        count_w += i
+        while len(set(count_w + i)) > 2:
+            count_w = count_w[1:]
+        if len(count_w) > len(w): w = count_w
+    return w
