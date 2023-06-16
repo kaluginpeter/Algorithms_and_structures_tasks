@@ -8,3 +8,8 @@
 # Usual builtins have been deactivated. Don't count on them.
 # You'll have to do it fast enough, so think about performances
 # ARRAYSALGORITHMS
+# Solution
+def reverse(seq):
+    l = list()
+    for _ in range(len(seq)): l.append(seq.pop())
+    seq.extend(l)
