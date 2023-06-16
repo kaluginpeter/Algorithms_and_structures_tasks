@@ -12,3 +12,6 @@
 # Don't forget to rate this kata and leave your feedback!! Thanks
 #
 # STRINGSFUNDAMENTALS
+# Solution
+def longer(s):
+    return ' '.join(sorted(s.split(' '), key = lambda x: (len(x),x)))
