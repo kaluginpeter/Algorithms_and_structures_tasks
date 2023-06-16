@@ -56,3 +56,7 @@
 #   "432": ["A", "B", "D"],
 # }
 # ARRAYSSETSSORTINGFUNDAMENTALS
+# Solution
+def remove_duplicate_ids(d):
+    s = set()
+    return {j:[s.add(i) or i for i in d[j] if i not in s] for j in sorted(d, key=int)[::-1]}
