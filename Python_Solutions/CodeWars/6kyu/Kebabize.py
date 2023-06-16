@@ -7,3 +7,7 @@
 #
 # the returned string should only contain lowercase letters
 # FUNDAMENTALSSTRINGSREGULAR EXPRESSIONS
+# Solution
+import re
+def kebabize(string):
+    return '-'.join(re.split('(?<=.)(?=[A-Z])', re.sub(r'[0-9]+', '', string))).lower()
