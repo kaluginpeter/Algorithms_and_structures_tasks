@@ -18,3 +18,9 @@
 # make_change(91)  #-->  {"H":1, "Q":1, "D":1, "N":1, "P":1}
 # If you liked this kata, check out Part 2.
 # MATHEMATICSALGORITHMS
+# Solution
+def make_change(amount):
+    d = {}
+    for k, v in (('H', 50), ('Q', 25), ('D', 10), ('N', 5), ('P', 1)):
+        if amount >= v: d[k], amount = divmod(amount, v)
+    return d
