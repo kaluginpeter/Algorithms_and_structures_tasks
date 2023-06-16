@@ -13,3 +13,6 @@
 # add a new Kata for others to enjoy. There are no tricks in this one, good luck!
 #
 # ALGORITHMS
+# Solution
+def greatest_distance(arr):
+    return max(k - arr.index(v) for k, v in enumerate(arr))
