@@ -33,3 +33,6 @@
 # All emotions will be valid
 # Enjoy! (づ｡◕‿‿◕｡)づ
 # ARRAYSFUNDAMENTALSSORTING
+# Solution
+def sort_emotions(arr, bool):
+    return sorted(arr, key=[':D',':)',':|',':(','T_T'].index, reverse = not bool)
