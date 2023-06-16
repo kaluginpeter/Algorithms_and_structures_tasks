@@ -16,3 +16,12 @@
 # Return an empty list if no such sequence exists.
 #
 # MATHEMATICSALGORITHMS
+# Solution
+def longest_sequence(n):
+    for i in range(1, int(n**0.5)+1):
+        x, j = 0, i
+        while x < n:
+            x += j*j
+            j += 1
+        if x == n: return list(range(i, j))
+    return []
