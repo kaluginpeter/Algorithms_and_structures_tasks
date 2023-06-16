@@ -13,3 +13,7 @@
 # Note: Assume all the cows are alive after n years.
 #
 # MATHEMATICSPUZZLES
+# Solution
+def count_cows(n):
+    if not isinstance(n, int): return None
+    return count_cows(n-1) + count_cows(n-3) if n > 2 else 1
