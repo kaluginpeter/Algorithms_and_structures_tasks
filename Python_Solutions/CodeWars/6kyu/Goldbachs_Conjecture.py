@@ -15,3 +15,7 @@
 #
 # 7   -->  []
 # MATHEMATICSALGORITHMS
+# Solution
+from gmpy2 import is_prime as np
+def goldbach_partitions(n):
+    return not n % 2 and [f'{i}+{n-i}' for i in range(2,int(n/2)+1) if np(i) and np(n-i)] or []
