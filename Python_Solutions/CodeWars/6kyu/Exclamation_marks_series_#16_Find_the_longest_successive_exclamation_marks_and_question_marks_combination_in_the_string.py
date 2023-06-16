@@ -20,3 +20,7 @@
 # javascript some regex or loops, depending on how they tackle this problem. --matt c
 #
 # FUNDAMENTALS
+# Solution
+import re
+def find(seq):
+    return max(re.findall(r'(?=(!+\?+|\?+!+))', seq), key=len, default='')
