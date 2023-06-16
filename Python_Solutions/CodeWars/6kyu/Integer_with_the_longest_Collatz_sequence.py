@@ -33,3 +33,22 @@
 # In this case, our function returns 5, because 5 comes before 32 in our array.
 #
 # ALGORITHMSMATHEMATICSFUNDAMENTALS
+# Solution
+def longest_collatz(input_array):
+    def iseven(n):
+        return n / 2
+    def isodd(n):
+        return 3 * n + 1
+    l = []
+    c = 0
+    for i in input_array:
+        while i != 1:
+            if i % 2 == 0:
+                c += 1
+                i = iseven(i)
+            elif i % 2 != 0:
+                c += 1
+                i = isodd(i)
+        l.append(c)
+        c = 0
+    return input_array[l.index(max(l))]
