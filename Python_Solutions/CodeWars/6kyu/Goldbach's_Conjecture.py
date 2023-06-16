@@ -29,3 +29,11 @@
 # checkGoldbach(14)/check_goldbach(14) should return [3, 11]
 #
 # ALGORITHMSNUMBER THEORY
+# Solution
+from gmpy2 import is_prime
+def check_goldbach(n):
+    if n <= 2 or n % 2 != 0: return []
+    l = [i for i in range(2, n) if is_prime(i)]
+    for i in l:
+        for j in l:
+            if i + j == n: return [i, j]
