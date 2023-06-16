@@ -10,3 +10,6 @@
 # The results will be large so make sure to return a string.
 #
 # STRINGSARRAYSALGORITHMS
+# Solution
+def biggest(nums):
+    return str(int(''.join(sorted(map(str,nums),key=lambda x:3*x)[::-1])))
