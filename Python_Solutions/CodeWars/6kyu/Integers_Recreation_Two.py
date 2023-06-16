@@ -31,3 +31,8 @@
 # ##Hint Take a sheet of paper and with a bit of algebra try to write the product of squared numbers in another way.
 #
 # FUNDAMENTALSMATHEMATICSPUZZLES
+# Solution
+def prod2sum(a, b, c, d):
+    e = sorted([abs(a*d-b*c), abs(a*c+b*d)])
+    f = sorted([abs(a*c-b*d), abs(a*d+b*c)])
+    return sorted([e, f]) if e != f else [e]
