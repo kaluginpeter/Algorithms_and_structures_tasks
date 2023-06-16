@@ -26,3 +26,10 @@
 # Fun with lists: map
 # Fun with lists: reduce
 # LISTSFUNCTIONAL PROGRAMMINGFUNDAMENTALS
+# Solution
+def count_if(head, func):
+    c = 0
+    while head:
+        c += func(head.data)
+        head = head.next
+    return c
