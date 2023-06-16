@@ -7,3 +7,8 @@
 # "acba", "baac", "baca", "bcaa", "caab", "caba", "cbaa"]
 #
 # PUZZLES
+# Solution
+import itertools
+def get_words(hash):
+    s = ''.join(k * v for k, v in hash.items() for v in v)
+    return sorted({''.join(i) for i in itertools.permutations(s)})
