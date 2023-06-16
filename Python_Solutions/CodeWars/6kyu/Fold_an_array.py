@@ -31,3 +31,10 @@
 # I have created other katas. Have a look if you like coding and challenges.
 #
 # FUNDAMENTALSLOGICMATHEMATICSALGORITHMS
+# Solution
+def fold_array(array, runs):
+    nums = list(array)
+    for i in range(runs):
+        for j in range(len(nums) // 2):
+            nums[j] += nums.pop()
+    return nums
