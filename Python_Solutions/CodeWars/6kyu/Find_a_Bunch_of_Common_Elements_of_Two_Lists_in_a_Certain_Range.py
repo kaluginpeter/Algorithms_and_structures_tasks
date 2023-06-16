@@ -41,3 +41,11 @@
 # Enjoy it!! Very Important: For javascript run the tests only in Node v6.6.0 and Node v6.6.0/Babel.
 #
 # FUNDAMENTALSDATA STRUCTURESALGORITHMSMATHEMATICSLOGICSTRINGS
+# Solution
+from collections import Counter
+def find_arr(arrA, arrB, rng, wanted):
+    cA, cB = Counter(arrA), Counter(arrB)
+    m, n = rng
+    m += (m % 2 == 1) == (wanted == 'even')
+    r = range(m, n+1, 2)
+    return [i for i in r if cA[i] > 1 and cB[i] > 1]
