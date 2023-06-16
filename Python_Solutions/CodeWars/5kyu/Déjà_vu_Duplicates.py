@@ -24,3 +24,12 @@
 # You can assume that the employees parameter passed in to findDuplicates is always an array.
 # You can also assume that the employees array is a flat array.
 # ALGORITHMS
+# Solution
+def find_duplicates(emp):
+    l, l1, s = [], [], set()
+    for i in emp:
+        if i in s: l.append(i)
+        else: l1.append(i); s.add(i)
+    emp.clear()
+    emp.extend(l1)
+    return l
