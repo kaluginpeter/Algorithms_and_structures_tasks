@@ -39,3 +39,9 @@
 # Digital cypher vol 2
 # Digital cypher vol 3 - missing key
 # FUNDAMENTALSCIPHERSCRYPTOGRAPHY
+# Solution
+def find_the_key(message, code):
+    w = "".join(str(code[k] + 96 - ord(v)) for k, v in enumerate(message))
+    l = len(w)
+    for i in range(1, l + 1):
+        if (w[:i] * l)[:l] == w: return int(w[:i])
