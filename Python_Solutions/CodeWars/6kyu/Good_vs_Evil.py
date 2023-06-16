@@ -43,3 +43,9 @@
 # on this battle field" if it ends in a tie.
 #
 # ALGORITHMS
+# Solution
+def good_vs_evil(good, evil):
+    good = sum([int(x) * y for x, y in zip(list(good.split(' ')), [1, 2, 3, 3, 4, 10])])
+    evil = sum([int(x) * y for x, y in zip(list(evil.split(' ')), [1, 2, 2, 2, 3, 5, 10])])
+    res = ['Battle Result: No victor on this battle field', 'Battle Result: Good triumphs over Evil', 'Battle Result: Evil eradicates all trace of Good']
+    return res[0] if good == evil else res[1] if good > evil else res[2]
