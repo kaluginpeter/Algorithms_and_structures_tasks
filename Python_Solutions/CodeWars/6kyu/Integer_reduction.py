@@ -14,3 +14,7 @@
 # Good luck!
 #
 # ALGORITHMS
+# Solution
+from itertools import combinations
+def solve(n, c):
+    return ''.join(min(combinations(str(n), len(str(n))-c)))
