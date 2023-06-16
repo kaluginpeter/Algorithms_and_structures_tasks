@@ -28,3 +28,12 @@
 # If you're up for a challenge, you may want to try a performance version of this kata by FArekkusu.
 #
 # RECURSIONARRAYSALGORITHMS
+# Solution
+def happy_numbers(n):
+    def is_happy(n):
+        stop = {1}
+        while n not in stop:
+            stop.add(n)
+            n = sum(int(d)**2 for d in str(n))
+        return n == 1
+    return [i for i in range(1, n+1) if is_happy(i)]
