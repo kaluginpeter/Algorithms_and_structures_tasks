@@ -13,3 +13,13 @@
 # If you read "...It Should encode XXX", the "XXX" is the expected result, not the input!
 #
 # STRINGSARRAYSFUNDAMENTALS
+# Solution
+def duplicate_encode(word):
+    new_word = ''
+    word = word[0].lower() + word[1:].lower()
+    for char in word:
+        if word.count(char) > 1:
+            new_word += ')'
+        else:
+            new_word += '('
+    return new_word
