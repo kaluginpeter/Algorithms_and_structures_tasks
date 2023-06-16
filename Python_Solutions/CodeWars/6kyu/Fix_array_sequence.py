@@ -13,3 +13,15 @@
 # More examples in the test cases. Good luck!
 #
 # FUNDAMENTALS
+# Solution
+def solve(lst):
+    return sorted(lst, key=factors_count)
+
+
+def factors_count(n):
+    l = []
+    for i in (2, 3):
+        while n % i == 0:
+            n //= i
+            l.append(i)
+    return -l.count(3), l.count(2)
