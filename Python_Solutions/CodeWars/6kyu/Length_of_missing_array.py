@@ -18,3 +18,7 @@
 # I have created other katas. Have a look if you like coding and challenges.
 #
 # ARRAYSALGORITHMS
+# Solution
+def get_length_of_missing_array(a):
+    l = a and all(a) and list(map(len, a))
+    return bool(l) and sum(range(min(l), max(l) + 1)) - sum(l)
