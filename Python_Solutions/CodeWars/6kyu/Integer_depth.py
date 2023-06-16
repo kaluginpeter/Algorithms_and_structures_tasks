@@ -21,3 +21,14 @@
 # numbers greater than zero will be passed as an input.
 #
 # FUNDAMENTALS
+# Solution
+def compute_depth(n):
+    l = []
+    count = 1
+    while len(l)<10:
+        s = n*count
+        for i in str(s):
+            if i not in l:
+                l.append(i)
+        count+=1
+    return count-1
