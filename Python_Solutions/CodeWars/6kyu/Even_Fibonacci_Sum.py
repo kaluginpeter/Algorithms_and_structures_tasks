@@ -14,3 +14,12 @@
 # eve_fib(33)==10
 # eve_fib(25997544)==19544084
 # ALGORITHMS
+# Solution
+def even_fib(m):
+    a, b = 0, 1
+    c = 0
+    while b < m:
+        if b % 2 == 0:
+            c += b
+        a, b = b, a + b
+    return c
