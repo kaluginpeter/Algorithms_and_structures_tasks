@@ -73,3 +73,8 @@
 # which is indeed equal to sum(cs) * sum(rs) = 14 * 20 = 280
 #
 # FUNDAMENTALSALGORITHMSPUZZLESMATHEMATICS
+# Solution
+def white_black_areas(cs, rs):
+    r, rc = sum(rs[1::2]), sum(rs[::2])
+    c, cs = sum(cs[1::2]), sum(cs[::2])
+    return (cs * rc + c * r, r * cs + rc * c)
