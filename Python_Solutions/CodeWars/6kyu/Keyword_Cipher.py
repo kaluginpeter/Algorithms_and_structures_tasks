@@ -17,3 +17,9 @@
 # Good Luck.
 #
 # CRYPTOGRAPHYSTRINGSALGORITHMS
+# Solution
+def keyword_cipher(s, keyword, key=""):
+    w = "abcdefghijklmnopqrstuvwxyz"
+    for i in keyword + w:
+        if i not in key: key += i
+    return s.lower().translate(str.maketrans(w, key))
