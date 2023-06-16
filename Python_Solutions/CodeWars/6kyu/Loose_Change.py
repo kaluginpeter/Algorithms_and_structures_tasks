@@ -16,3 +16,15 @@
 # loose_change(-435)  ==>  {'Nickels': 0, 'Pennies': 0, 'Dimes': 0, 'Quarters': 0}
 # loose_change(4.935) ==>  {'Nickels': 0, 'Pennies': 4, 'Dimes': 0, 'Quarters': 0}
 # MATHEMATICSFUNDAMENTALS
+# Solution
+def loose_change(cents):
+    d = {'Nickels': 0, 'Pennies': 0, 'Dimes': 0, 'Quarters': 0}
+    if cents > 0:
+        d['Quarters'] = cents//25
+        cents = cents- 25*(cents//25)
+        d['Dimes'] = cents // 10
+        cents = cents-10*(cents//10)
+        d['Nickels'] = cents // 5
+        cents = cents-5*(cents//5)
+        d['Pennies'] = cents // 1
+    return d
