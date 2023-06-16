@@ -6,3 +6,9 @@
 # returns true  / True if array is empty.
 # returns false / False for every other input.
 # ARRAYSFUNDAMENTALS
+# Solution
+def is_int_array(arr):
+    try:
+        return arr == list(map(int, arr))
+    except:
+        return False
