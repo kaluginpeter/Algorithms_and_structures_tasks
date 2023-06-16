@@ -31,3 +31,15 @@
 # Harshad.get_series(3)        ==>  [ 1, 2, 3 ]
 # Harshad.get_series(3, 1000)  ==>  [ 1002, 1008, 1010 ]
 # FUNDAMENTALSMATHEMATICS
+# Solution
+from itertools import count, islice
+class Harshad:
+    @staticmethod
+    def is_valid(number):
+        return number % sum(int(i) for i in str(number)) == 0
+    @classmethod
+    def get_next(self, number):
+        return next(i for i in count(number+1) if self.is_valid(i))
+    @classmethod
+    def get_series(self, c, start = 0):
+        return list(islice(filter(self.is_valid, (i for i in count(start+1))), c))
