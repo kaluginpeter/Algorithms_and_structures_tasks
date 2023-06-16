@@ -88,3 +88,19 @@
 # Car Park Escape
 #
 # ARRAYSFUNDAMENTALS
+# Solution
+def maze_runner(maze, directions):
+    startX = 0 ; startY = 0
+    for y in range(len(maze)):
+        for x in range(len(maze)):
+            if maze[x][y] == 2:
+                startX = y
+                startY = x
+    for dire in directions:
+        if dire == "N": startY = startY - 1
+        if dire == "E": startX = startX + 1
+        if dire == "S": startY = startY + 1
+        if dire == "W": startX = startX -1
+        if startY < 0 or startY > len(maze)-1 or startX < 0 or startX > len(maze)-1 or maze[startY][startX] == 1: return "Dead"
+        if maze[startY][startX] == 3: return "Finish"
+    return "Lost"
