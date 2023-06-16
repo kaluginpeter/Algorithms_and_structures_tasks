@@ -14,3 +14,10 @@
 # Example
 # "128.32.10.1" => 2149583361
 # NETWORKSALGORITHMSBITSBINARYFUNDAMENTALS
+# Solution
+def ip_to_int32(ip):
+    res = ''
+    for part in ip.split('.'):
+        b = bin(int(part))[2:]
+        res += "%08d" % (int(b))
+    return(int(res, 2))
