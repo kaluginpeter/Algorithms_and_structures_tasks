@@ -8,3 +8,7 @@
 # Example
 # "#FF9933" --> {r: 255, g: 153, b: 51}
 # PARSINGSTRINGSALGORITHMS
+# Solution
+def hex_string_to_RGB(hex_string):
+    colors = [int(hex_string.lstrip('#')[i:i+2], 16) for i in (0, 2, 4)]
+    return {'r':colors[0], 'g':colors[1], 'b':colors[2]}
