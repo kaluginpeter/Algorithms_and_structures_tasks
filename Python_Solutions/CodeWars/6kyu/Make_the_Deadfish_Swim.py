@@ -10,3 +10,13 @@
 #
 # parse("iiisdoso")  ==>  [8, 64]
 # PARSINGALGORITHMS
+# Solution
+def parse(data):
+    l = []
+    c = 0
+    for i in data:
+        if i == 'i': c += 1
+        elif i == 'd': c -= 1
+        elif i == 's': c **= 2
+        elif i == 'o': l.append(c)
+    return l
