@@ -27,3 +27,11 @@
 # You may see more example tests in the Example Tests Cases Box.
 #
 # FUNDAMENTALSDATA STRUCTURESARRAYSMATHEMATICS
+# Solution
+def shortest_arrang(n):
+    r = n // 2 + 2
+    l = [i for i in range(r, 0, -1)]
+    for i in range(r):
+        for j in range(r + 1):
+            if sum(l[i:j]) == n: return l[i:j]
+    return [-1]
