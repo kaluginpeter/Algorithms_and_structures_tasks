@@ -15,3 +15,7 @@
 # Note: if only one argument is passed return only that string. If no arguments are passed return an empty string.
 #
 # FUNDAMENTALS
+# Solution
+from itertools import zip_longest
+def combine_strings(*args):
+    return ''.join(''.join(i) for i in zip_longest(*args, fillvalue=''))
