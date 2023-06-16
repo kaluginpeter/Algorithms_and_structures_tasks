@@ -19,3 +19,6 @@
 # non-zero integers will be passed into the function.
 #
 # ALGORITHMS
+# Solution
+def narcissistic( value ):
+    return sum(int(i)**len(str(value)) for i in str(value)) == value
