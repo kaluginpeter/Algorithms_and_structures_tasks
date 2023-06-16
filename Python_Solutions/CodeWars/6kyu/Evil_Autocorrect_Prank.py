@@ -17,3 +17,7 @@
 # "u" at the beginning, middle, or end of a string, but NOT part of a word
 # "you" but NOT as part of another word like youtube or bayou
 # STRINGSREGULAR EXPRESSIONSALGORITHMS
+# Solution
+import re
+def autocorrect(input):
+    return re.sub(r'(?i)\b(u|you+)\b', "your sister", input)
