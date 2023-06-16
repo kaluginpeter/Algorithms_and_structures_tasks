@@ -14,3 +14,6 @@
 # I found it quite fun to solve on paper using math, derive the algo that way. Have fun!
 #
 # ALGORITHMSMATHEMATICS
+# Solution
+def find_missing(sequence):
+    return (sequence[-1] + sequence[0]) * (len(sequence) + 1) / 2 - sum(sequence)
