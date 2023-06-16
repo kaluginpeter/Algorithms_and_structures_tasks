@@ -30,3 +30,13 @@
 # ..P...O..... as input should yield 001234321000 as output
 #
 # STATE MACHINESFUNDAMENTALS
+# Solution
+def controller(events):
+    out, s, dir, moving = [], 0, 1, False
+    for i in events:
+        if i == 'O': dir *= -1
+        elif i == 'P': moving = not moving
+        if moving: s += dir
+        if s in [0,5]: moving, dir = False, 1 if s == 0 else -1
+        out.append(str(s))
+    return ''.join(out)
