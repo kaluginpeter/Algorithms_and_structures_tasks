@@ -26,3 +26,26 @@
 # parameter a number that determines the length of the returned array.
 #
 # ARRAYSALGORITHMSFUNDAMENTALS
+# Solution
+def squares(n):
+    return [i**2 for i in range(1, n+1)]
+def num_range(n, start, step):
+    l = []
+    for i in range(n):
+        l.append(start)
+        start += step
+    return l
+def rand_range(n, mn, mx):
+    from random import randint
+    l = []
+    for i in range(n):
+        l.append(randint(mn, mx))
+    return l
+def primes(n):
+    from gmpy2 import is_prime
+    l = []
+    c = 1
+    while len(l) < n:
+        if is_prime(c): l.append(c)
+        c += 1
+    return l
