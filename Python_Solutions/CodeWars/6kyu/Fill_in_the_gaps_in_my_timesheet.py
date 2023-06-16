@@ -39,3 +39,12 @@
 # changed task. But that's not something you need to worry about in this kata.
 #
 # ARRAYSALGORITHMS
+# Solution
+def fill_gaps(timesheet):
+    n, l = None, timesheet[:]
+    for k,v in enumerate(l):
+        if v is not None:
+            if v == n:
+                l[j+1:k] = [v]*(k-j-1)
+            j, n = k, v
+    return l
