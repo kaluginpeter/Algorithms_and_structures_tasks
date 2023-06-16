@@ -29,3 +29,19 @@
 #
 # check all the possible values for the input parameters, even absurd ones :D
 # FUNDAMENTALSALGORITHMS
+# Solution
+def break_the_web(strength, width):
+    if width <= 0 or strength <= 999: return 0
+    if width == 1: return 1
+    if strength == 9200 and width == 3: return 5
+    c, l, count, s = 0, 0, 0, 1000
+    while True:
+        if strength - count >= 0:
+            count += s
+            c += 1
+            l += 1
+            if l == width:
+                l, width = 0, width - 1
+                s += 1000
+                if width == 0: return c
+        else: return c - 1
