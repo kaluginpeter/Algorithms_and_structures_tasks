@@ -17,3 +17,6 @@
 # * Input [5, 4], [3, 2] => Output 4
 # * Input [1, 1], [0, 3] => Output 3
 # ARRAYSALGORITHMS
+# Solution
+def manhattan_distance(pointA, pointB):
+    return sum(abs(x - y) for x, y in zip(pointA, pointB))
