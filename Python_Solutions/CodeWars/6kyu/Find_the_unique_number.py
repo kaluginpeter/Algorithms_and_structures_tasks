@@ -12,3 +12,18 @@
 # Find the unique string
 # Find The Unique
 # FUNDAMENTALSALGORITHMSARRAYS
+# Solution
+def find_uniq(arr):
+    found = set()
+    found_again = set()
+
+    for a in arr:
+        if a in found_again:
+            continue
+        if a in found:
+            found.remove(a)
+            found_again.add(a)
+        else:
+            found.add(a)
+    res = list(found)
+    return (res[0])
