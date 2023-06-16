@@ -116,3 +116,10 @@
 # Esolang Interpreters #3 - Custom Paintfuck Interpreter
 # Esolang Interpreters #4 - Boolfuck Interpreter
 # INTERPRETERSESOTERIC LANGUAGESALGORITHMSTUTORIALS
+# Solution
+def my_first_interpreter(code):
+    c, w = 0, ""
+    for i in code:
+        if i == "+": c += 1
+        elif i == ".": w += chr(c % 256)
+    return w
