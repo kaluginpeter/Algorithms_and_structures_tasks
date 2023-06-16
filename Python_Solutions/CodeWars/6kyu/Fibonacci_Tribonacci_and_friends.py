@@ -17,3 +17,13 @@
 # xbonacci {1,0,0,0,0,0,1} 10 = {1,0,0,0,0,0,1,2,3,6}
 # xbonacci {1,1} produces the Fibonacci sequence
 # ARRAYSLISTSNUMBER THEORYFUNDAMENTALS
+# Solution
+def Xbonacci(signature,n):
+    result = signature[:]
+    for x in range(n-len(signature)):
+        current_fib = 0
+        start = len(result) - len(signature)
+        for y in result[start:]:
+            current_fib += y
+        result.append(current_fib)
+    return result[:n]
