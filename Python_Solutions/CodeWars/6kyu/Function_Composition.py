@@ -14,3 +14,8 @@
 # This kata is not available in haskell; that would be too easy!
 #
 # FUNCTIONAL PROGRAMMINGFUNDAMENTALS
+# Solution
+def compose(f, g):
+    def wrapper(*args):
+        return f(g(*args))
+    return wrapper
