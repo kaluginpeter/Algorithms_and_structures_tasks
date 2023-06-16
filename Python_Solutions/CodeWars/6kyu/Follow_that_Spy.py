@@ -20,3 +20,9 @@
 # There are no empty routes.
 # There will be at least one (1) route (from one waypoint to another).
 # ALGORITHMS
+# Solution
+def find_routes(routes):
+    d = dict(routes)
+    r = list(d.keys() - d.values())
+    while r[-1] in d: r.append(d[r[-1]])
+    return ', '.join(r)
