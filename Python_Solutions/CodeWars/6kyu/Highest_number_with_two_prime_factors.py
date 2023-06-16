@@ -36,3 +36,12 @@
 # Enjoy it and happy coding!
 #
 # FUNDAMENTALSMATHEMATICS
+# Solution
+from math import log
+
+def highest_biPrimefac(a, b, m):
+    l = []
+    for i in range(1, int(log(m, b)) + 1):
+        c = int(round(log(m / b**i, a), 9))
+        if c: l.append([a**c * b**i, c, i])
+    return max(l)
