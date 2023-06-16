@@ -14,3 +14,10 @@
 # Here's the opposite kata, which is more complex (Paginating a huge book)
 #
 # PUZZLESALGORITHMS
+# Solution
+def amount_of_pages(summary):
+    nu, ri = 1, 0
+    while ri < summary:
+        ri += len(str(nu))
+        nu += 1
+    return nu - 1
