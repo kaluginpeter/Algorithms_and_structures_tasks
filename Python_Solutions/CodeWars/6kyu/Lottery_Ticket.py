@@ -17,3 +17,12 @@
 # All inputs will be in the correct format. Strings on tickets are not always the same length.
 #
 # FUNDAMENTALSSTRINGSARRAYS
+# Solution
+def bingo(ticket,win):
+    count = 0
+    for i in ticket:
+        for j in i[0]:
+            if ord(j)==i[1]:
+                count += 1
+                break
+    return 'Winner!' if count >= win else 'Loser!'
