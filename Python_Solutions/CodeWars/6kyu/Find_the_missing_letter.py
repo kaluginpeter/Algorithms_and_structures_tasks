@@ -17,3 +17,8 @@
 # I have also created other katas. Take a look if you enjoyed this kata!
 #
 # MATHEMATICSALGORITHMS
+# Solution
+def find_missing_letter(chars):
+    al = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    for i in al[al.index(chars[0]):al.index(chars[-1])+1]:
+        if i not in chars: return i
