@@ -34,3 +34,12 @@
 # Enjoy it!
 #
 # PERFORMANCEALGORITHMSMATHEMATICSDATA STRUCTURESARRAYS
+# Solution
+def longest_bouncy_list(arr):
+    l, s = [], []
+    for v in arr:
+        if not l or v!=l[-1] and (len(l)==1 or (l[-1]-l[-2]) * (l[-1]-v) > 0):
+            l.append(v)
+        else: l = l[-1:] + [v] if v != l[-1] else [v]
+        if len(l)>len(s): s = l
+    return s
