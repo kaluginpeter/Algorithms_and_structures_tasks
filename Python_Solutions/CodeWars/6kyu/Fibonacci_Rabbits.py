@@ -22,3 +22,8 @@
 # Any Fibonacci number can be computed using the following equation: F(n) = F(n-1) + F(n-2)
 #
 # ALGORITHMS
+# Solution
+def fib_rabbits(n, b):
+    x, y = 0, 1
+    for i in range(n): x, y = y, y + b * x
+    return x
