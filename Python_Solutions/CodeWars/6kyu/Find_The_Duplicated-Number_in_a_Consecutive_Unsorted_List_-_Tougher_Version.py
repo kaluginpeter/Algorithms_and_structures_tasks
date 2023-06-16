@@ -6,3 +6,7 @@
 # search for duplicates that can run in O(n²) time won't work.
 #
 # LISTSARRAYSALGORITHMS
+# Solution
+def find_dup(arr):
+    for i in arr:
+        if arr.count(i) > 1: return i
