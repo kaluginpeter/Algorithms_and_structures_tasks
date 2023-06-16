@@ -33,3 +33,8 @@
 # bucketize(77,3,40,40,40) ========> [None, [3,77], None, [40], None, None]
 # bucketize(16,7,5,3,6,23) ========> [None, [3,5,6,7,16,23], None, None, None, None, None]
 # FUNDAMENTALSARRAYSSORTING
+# Solution
+from collections import Counter
+def bucketize(*arr):
+    c = {i: sorted([k for k, v in Counter(arr).items() if v == i]) for i in Counter(arr).values()}
+    return [c[i] if i in c else None for i in range(len(arr) + 1)]
