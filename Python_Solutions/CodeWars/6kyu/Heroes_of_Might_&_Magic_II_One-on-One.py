@@ -38,3 +38,15 @@
 #    killing 0 but leaving the first one with only 1/40 hitpoints.
 # 3) Repeat until one of the groups is left with 0 units in total.
 # FUNDAMENTALS
+# Solution
+from math import ceil
+def who_would_win(m1, m2):
+    m1['allhit'] = m1['hitpoints'] * m1['number']
+    m2['allhit'] = m2['hitpoints'] * m2['number']
+    while True:
+        m2['allhit'] = m2['allhit'] - m1['number'] * m1['damage']
+        m2['number'] = ceil(m2['allhit'] / m2['hitpoints'])
+        if not m2['number'] > 0: return f"{m1['number']} {m1['type']}(s) won"
+        m1['allhit'] = m1['allhit'] - m2['number'] * m2['damage']
+        m1['number'] = ceil(m1['allhit'] / m1['hitpoints'])
+        if not m1['number'] > 0: return f"{m2['number']} {m2['type']}(s) won"
