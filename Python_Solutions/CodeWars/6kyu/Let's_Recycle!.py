@@ -27,3 +27,10 @@
 #   ["out of date yogurt"]
 # ]
 # ARRAYSFUNDAMENTALS
+# Solution
+def recycle(a):
+    dic = {'paper': [], 'glass': [], 'organic': [], 'plastic': []}
+    for i in a:
+        dic[i['material']].append(i['type'])
+        if 'secondMaterial' in i: dic[i['secondMaterial']].append(i['type'])
+    return tuple(dic.values())
