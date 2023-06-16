@@ -25,3 +25,10 @@
 # Please don't post issue about difficulty or duplicate.
 #
 # FUNDAMENTALS
+# Solution
+import re
+def convert(s):
+    n = int("".join(str(len(e)) for e in re.findall("!+|\?+", s)))
+    for i in range(2, int(n**0.5) + 1):
+        while n > i and n % i == 0: n //= i
+    return n
