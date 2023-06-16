@@ -15,3 +15,10 @@
 # a small number and number of iterations would always be integers.
 #
 # ALGORITHMS
+# Solution
+def create_iterator(func, n):
+    def first_fun(x):
+        for i in range(n):
+            x = func(x)
+        return x
+    return first_fun
