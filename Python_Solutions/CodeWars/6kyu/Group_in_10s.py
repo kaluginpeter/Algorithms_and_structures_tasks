@@ -15,3 +15,13 @@
 # grouped[4]     # None
 # grouped[5]     # [50]
 # ARRAYSLISTSFUNDAMENTALS
+# Solution
+def group_in_10s(*args):
+    if len(args) == 0: return []
+    s = sorted(args)
+    l = [None for _ in range(max(s)//10 + 1)]
+    for j in s:
+        i = j // 10
+        if l[i] is None: l[i] = [j]
+        else: l[i].append(j)
+    return l
