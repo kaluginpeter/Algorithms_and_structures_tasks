@@ -23,3 +23,8 @@
 # Too easy ? Try Range of Integers in an Unsorted String
 #
 # MATHEMATICSPUZZLESALGORITHMSLOGIC
+# Solution
+from collections import Counter
+def find_number(start, stop, string):
+    c = Counter(i for i in range(start, stop + 1) for i in str(i)) - Counter(string)
+    return [i for i in range(start, stop + 1) if Counter(str(i)) == c]
