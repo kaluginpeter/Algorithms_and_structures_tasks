@@ -28,3 +28,12 @@
 # +++++++++++++++++++++++++++++++++++*<<<<*>>>>>++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # ++++++++++++++++++++++++++++++++*>+++++++++++++++++++++++++++++++++*'
 # ESOTERIC LANGUAGESINTERPRETERSSTRINGSARRAYSFUNDAMENTALS
+# Solution
+def interpreter(tape):
+    d, c, w = {}, 0, ""
+    for i in tape:
+        if i == ">":  c += 1
+        elif i == "<":  c -= 1
+        elif i == "+":  d[c] = (d.get(c, 0) + 1) % 256
+        elif i == "*":  w += chr(d[c])
+    return w
