@@ -35,3 +35,10 @@
 # I might need a better solution to turn them all shining white...
 #
 # MATHEMATICSFUNDAMENTALS
+# Solution
+def how_to_find_them(right_triangle):
+    d = dict(**right_triangle)
+    if "a" not in d: d["a"] = (d["c"] ** 2 - d["b"] ** 2) ** 0.5
+    elif "b" not in d: d["b"] = (d["c"] ** 2 - d["a"] ** 2) ** 0.5
+    else: d["c"] = (d["a"] ** 2 + d["b"] ** 2) ** 0.5
+    return d
