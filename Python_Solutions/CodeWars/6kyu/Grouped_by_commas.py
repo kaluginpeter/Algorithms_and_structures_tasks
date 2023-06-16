@@ -13,3 +13,6 @@
 #  1000000  ->   "1,000,000"
 # 35235235  ->  "35,235,235"
 # ALGORITHMS
+# Solution
+def group_by_commas(n):
+    return "{:,}".format(n)
