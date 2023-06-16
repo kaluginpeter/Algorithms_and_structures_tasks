@@ -36,3 +36,10 @@
 # [5, 0, 0, 0] => true
 # [1, 1] => false
 # ALGORITHMSARRAYSGAMES
+# Solution
+def can_jump(arr):
+    if arr[0] == 0 or len(arr) == 1:return False
+    if arr[0] >= len(arr):return True
+    for i in range(1, arr[0] +1):
+        if can_jump(arr[i:]):return True
+    return False
