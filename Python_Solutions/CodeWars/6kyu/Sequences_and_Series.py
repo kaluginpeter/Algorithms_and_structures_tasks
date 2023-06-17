@@ -12,3 +12,10 @@
 # Note Real test cases consists of 100 random cases where 1 <= n <= 10000
 #
 # MATHEMATICSALGORITHMSPUZZLES
+# Solution
+def get_score(n):
+    count, s = 50, 0
+    for i in range(n):
+        s += count
+        count += 50
+    return s
