@@ -13,3 +13,8 @@
 # numbersOfLetters(60) --> ["sixzero", "seven", "five", "four"]
 # numbersOfLetters(1) --> ["one", "three", "five", "four"]
 # FUNDAMENTALS
+# Solution
+def numbers_of_letters(n):
+    l = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
+    s = ''.join(l[i] for i in map(int, str(n)))
+    return [s] + (numbers_of_letters(len(s)) if len(s) != n else [])
