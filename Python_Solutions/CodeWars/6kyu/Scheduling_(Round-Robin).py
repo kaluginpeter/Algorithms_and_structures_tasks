@@ -29,3 +29,12 @@
 # **You can assume that the processor can switch jobs between cc so it does not add to the total time.
 #
 # ALGORITHMS
+# Solution
+def roundRobin(jobs, slice, index):
+    c = 0
+    while True:
+        for i in range(len(jobs)):
+            cc = min(jobs[i], slice)
+            jobs[i] -= cc
+            c += cc
+            if i == index and jobs[i] == 0: return c
