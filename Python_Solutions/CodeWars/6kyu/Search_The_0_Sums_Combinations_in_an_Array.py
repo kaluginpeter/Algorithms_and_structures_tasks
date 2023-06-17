@@ -30,3 +30,8 @@
 # As you have seen the solutions may have a value occurring only once. Enjoy it!
 #
 # FUNDAMENTALSDATA STRUCTURESALGORITHMSMATHEMATICSLOGIC
+# Solution
+from itertools import combinations
+def find_zero_sum_groups(arr, n):
+    l = sorted(sorted(i) for i in combinations(set(arr), n) if sum(i) == 0)
+    return l if len(l) > 1 else l[0] if l else "No combinations" if arr else "No elements to combine"
