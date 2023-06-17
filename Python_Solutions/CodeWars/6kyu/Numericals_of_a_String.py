@@ -14,3 +14,11 @@
 # Take note of performance
 #
 # PUZZLESPERFORMANCEALGORITHMS
+# Solution
+def numericals(s):
+    d = {}
+    w = ""
+    for i in s:
+        d[i] = d.get(i, 0) + 1
+        w += str(d[i])
+    return w
