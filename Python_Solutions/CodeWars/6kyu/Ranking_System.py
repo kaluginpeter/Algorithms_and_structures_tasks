@@ -14,3 +14,7 @@
 # rankings([22, 33, 18, 9, 110, 4, 1, 88, 6, 50]) // [5, 4, 6, 7, 1, 9, 10, 2, 8, 3]
 #
 # FUNDAMENTALS
+# Solution
+def rankings(arr):
+    l = sorted(arr, reverse=True)
+    return [l.index(i)+1 for i in arr]
