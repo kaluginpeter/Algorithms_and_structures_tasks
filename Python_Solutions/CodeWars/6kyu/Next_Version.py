@@ -20,3 +20,10 @@
 # You can assume all tests inputs to be valid.
 #
 # ARRAYSSTRINGSALGORITHMS
+# Solution
+def next_version(version):
+    if version.count('.') == 0:
+        return str(int(version) + 1)
+    elif int(version[-1]) < 9:
+        return f"{version[0:-1]}{str(int(version[-1]) + 1)}"
+    return next_version(version[0:-2]) + '.0'
