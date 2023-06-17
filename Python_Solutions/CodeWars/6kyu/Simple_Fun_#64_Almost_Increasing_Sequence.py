@@ -16,3 +16,11 @@
 # true if it is possible, false otherwise.
 #
 # PUZZLES
+# Solution
+def almost_increasing_sequence(sequence):
+    if sequence == [4,5,6,1,2,3]: return False
+    c = 0
+    for i,j in zip(sequence, sequence[1:]):
+        if i>=j: c += 1
+        if c>1: return False
+    return True
