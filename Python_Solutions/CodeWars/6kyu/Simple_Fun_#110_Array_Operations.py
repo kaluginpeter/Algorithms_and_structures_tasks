@@ -39,3 +39,11 @@
 # The array after k operations.
 #
 # PUZZLES
+# Solution
+def array_operations(a, k):
+    c = max(a)
+    a = [c - i for i in a]
+    for i in range((k-1) % 2):
+        c = max(a)
+        a = [c - i for i in a]
+    return a
