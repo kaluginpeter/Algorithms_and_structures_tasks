@@ -24,3 +24,8 @@
 # name and marks which should be an array of numbers.
 #
 # ARRAYSPUZZLES
+# Solution
+def calculate_improved(students):
+    for i in students: i['marks'] = [j if j != None else 0 for j in i['marks']]
+    l = [{'name': i['name'], 'improvement': round((i['marks'][-1]-i['marks'][0])*100/i['marks'][0]) if i['marks'][0] else 0} for i in students]
+    return sorted(l, key=lambda x: (-x['improvement'], x['name'][0].islower(), x['name']))
