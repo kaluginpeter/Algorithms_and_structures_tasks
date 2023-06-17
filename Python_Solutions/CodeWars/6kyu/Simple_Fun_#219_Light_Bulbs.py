@@ -55,3 +55,6 @@
 # lights[4] changed to off, because its left side (lights[3]) is on at the previous turn (turn 1)
 # lights[5] changed to  on, because its left side (lights[4]) is on at the previous turn (turn 1)
 # PUZZLESALGORITHMS
+# Solution
+def light_bulbs(lights, n):
+    return lights if not n else light_bulbs([v^lights[k-1] for k,v in enumerate(lights)], n-1)
