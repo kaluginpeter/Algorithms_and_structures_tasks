@@ -30,3 +30,13 @@
 # A decrypted message.
 #
 # PUZZLES
+# Solution
+def cipher26(message):
+    l, al, step, sum = [], 'abcdefghijklmnopqrstuvwxyz', 0, 0
+    for i in message:
+        while (sum + step) % 26 != al.index(i):
+            step += 1
+        sum += step
+        l.append(al[step])
+        step = 0
+    return ''.join(l)
