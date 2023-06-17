@@ -8,3 +8,7 @@
 # Do not try to cheat returning repeating non-random sequences. There is a randomness test especially for this case.
 #
 # PROBABILITYPUZZLES
+# Solution
+def one_two_three():
+    i, j = one_two(),one_two()-1
+    return one_two_three() if i == j else i + j
