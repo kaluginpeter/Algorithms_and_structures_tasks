@@ -7,3 +7,5 @@
 # There is 50 characters limit for this regex to avoid hardcoding and keep the "puzzle" status :) Good luck!
 #
 # REGULAR EXPRESSIONSPUZZLES
+# Solution
+div_4 = '^[048]$|(\d*([02468][048]|[13579][26]))$'
