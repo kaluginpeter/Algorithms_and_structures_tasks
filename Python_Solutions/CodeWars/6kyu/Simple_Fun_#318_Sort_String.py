@@ -31,3 +31,7 @@
 # For s = "Codewars", the output should be "aCdeorsw".
 #
 # ALGORITHMSSTRINGSSORTING
+# Solution
+def sort_string(s):
+    l = iter(sorted((c for c in s if c.isalpha()), key=str.lower))
+    return ''.join(next(l) if i.isalpha() else i for i in s)
