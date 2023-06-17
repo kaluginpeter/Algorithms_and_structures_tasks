@@ -24,3 +24,8 @@
 # Numerical Palindrome #4
 # Numerical Palindrome #5
 # FUNDAMENTALS
+# Solution
+def palindrome(num):
+    if not isinstance(num, int) or num < 0: return 'Not valid'
+    s = str(num)
+    return sum(sum(s[i:i+j] == s[i:i+j][::-1] for i in range(len(s)-j+1)) for j in range(2, len(s)+1))
