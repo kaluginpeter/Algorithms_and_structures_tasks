@@ -27,3 +27,9 @@
 # n = 11       =>    [5, 1, 2, 3, 4]
 # n = 12478    =>    [3, 4, 5, 1, 2]
 # ARRAYSALGORITHMS
+# Solution
+def rotate(data, n):
+    if data:
+        c = -n % len(data)
+        return data[c:] + data[:c]
+    return []
