@@ -30,3 +30,19 @@
 # Enjoy Learning !!
 # Zizou
 # FUNDAMENTALSARRAYSNUMBER THEORY
+# Solution
+import functools
+def num_primorial(n):
+    def sieveOfEratosthenes(n):
+        if n <= 2:
+            return []
+        sieve = list(range(3, n, 2))
+        top = len(sieve)
+        for si in sieve:
+            if si:
+                bottom = (si*si - 3) // 2
+                if bottom >= top:
+                    break
+                sieve[bottom::si] = [0] * -((bottom - top) // si)
+        return [2] + [el for el in sieve if el]
+    return functools.reduce(lambda a, b: a*b, sieveOfEratosthenes(10000)[:n])
