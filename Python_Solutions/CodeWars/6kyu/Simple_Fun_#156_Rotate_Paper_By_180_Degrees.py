@@ -21,3 +21,6 @@
 # true if you rotate the given sheet of paper by 180 degrees then the number still look exactly the same. false otherwise.
 #
 # PUZZLES
+# Solution
+def rotate_paper(n):
+    return n == n.translate(str.maketrans('69', '96', '1347'))[::-1]
