@@ -12,3 +12,15 @@
 # You may assume that there won't be exceptional situations (like stack underflow or division by zero).
 #
 # ALGORITHMSMATHEMATICSINTERPRETERSPARSINGSTRINGS
+# Solution
+import operator
+def calc(expr):
+    OPERATORS = {'+': operator.add, '-': operator.sub, '*': operator.mul, '/': operator.truediv}
+    s = [0]
+    for token in expr.split(" "):
+        if token in OPERATORS:
+            op2, op1 = s.pop(), s.pop()
+            s.append(OPERATORS[token](op1,op2))
+        elif token:
+            s.append(float(token))
+    return s.pop()
