@@ -16,3 +16,6 @@
 # remember("pippi") => returns ["p","i"]   # show "p" only once
 # remember('Pippi') => returns ["p","i"]   # "p" is repeated first
 # LOGICSTRINGSARRAYSALGORITHMS
+# Solution
+def remember(str_):
+    return list(v for k, v in enumerate(str_) if str_[:k].count(v) == 1)
