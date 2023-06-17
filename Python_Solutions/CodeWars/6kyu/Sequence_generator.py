@@ -28,3 +28,9 @@
 # Any feedback/suggestions would much appreciated.
 #
 # FUNDAMENTALS
+# Solution
+def sequence_gen(*args):
+    l = list(args)
+    while True:
+        yield l[0]
+        l = l[1:] + [sum(l)]
