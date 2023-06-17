@@ -67,3 +67,22 @@
 # Happy coding!!
 #
 # FUNDAMENTALSMATHEMATICS
+# Solution
+import math
+def sec_deg_solver(a, b, c):
+    if a == 0:
+        if b != 0 and c != 0: return f'It is a first degree equation. Solution: {round(-c/float(b), 10)}'
+        elif a == 0 and b == 0 and c == 0: return 'The equation is indeterminate'
+        elif a == 0 and b == 0 and c != 0: return 'Impossible situation. Wrong entries'
+        elif a == 0 and c == 0 and b != 0: return 'It is a first degree equation. Solution: 0.0'
+    elif a != 0:
+        d = b**2 - 4 * a * c
+        if d < 0: return 'There are no real solutions'
+        x1 = round((-b - math.sqrt(d)) / (2 * a), 10)
+        x2 = round((-b + math.sqrt(d)) / (2 * a), 10)
+        if x2 < x1:
+            t = x1
+            x1 = x2
+            x2 = t
+        if d == 0: return f"It has one double solution: {max(x1, x2)}"
+        elif d > 0: return f"Two solutions: {min(x1, x2)}, {max(x1, x2)}"
