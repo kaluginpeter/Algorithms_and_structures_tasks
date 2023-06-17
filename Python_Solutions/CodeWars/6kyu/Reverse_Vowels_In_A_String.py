@@ -9,3 +9,7 @@
 # Good luck!
 #
 # STRINGSFUNDAMENTALS
+# Solution
+def reverse_vowels(s):
+    vowels = [i for i in s if i in 'aeouiAEOIU']
+    return ''.join(i if i not in 'aeoiuAEOIU' else vowels.pop() for i in s)
