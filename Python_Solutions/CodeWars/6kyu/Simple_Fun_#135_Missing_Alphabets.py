@@ -34,3 +34,6 @@
 # Find the letters contained in each alphabet but not in the string(s). Output them by the order a-z. If missing alphabet is repeated, please repeat them like "bbccdd", not "bcdbcd"
 #
 # PUZZLES
+# Solution
+def missing_alphabets(s):
+    return ''.join(sorted(i * (max(s.count(j) for j in s) - s.count(i)) for i in 'abcdefghijklmnopqrstuvwxyz'))
