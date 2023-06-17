@@ -24,3 +24,6 @@
 # (Your code should be fast. Many moderate high values will be waiting to test it.)
 #
 # FUNDAMENTALSMATHEMATICSALGORITHMSPERFORMANCEDYNAMIC PROGRAMMING
+# Solution
+def count_odd_pentaFib(l):
+    return 2 * (l // 6) + [0, 1, 2, 2, 2, 2][l % 6] - (l >= 2)
