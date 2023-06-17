@@ -17,3 +17,10 @@
 # rAvg(11) = 10.5;
 # rAvg(12) = 11;
 # FUNDAMENTALS
+# Solution
+def running_average():
+    l = []
+    def mean(n):
+        l.append(n)
+        return round(sum(l) / len(l), 2)
+    return mean
