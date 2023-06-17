@@ -47,3 +47,23 @@
 # In OCaml arrays are replaced by lists.
 #
 # MATHEMATICSARRAYSFUNCTIONAL PROGRAMMINGLISTSDATA STRUCTURES
+# Solution
+def gcdi(x,y):
+    x, y = abs(x), abs(y)
+    while (y != 0):
+        x, y = y, x % y
+    return x
+def lcmu(a, b):
+    return abs(a * b) // gcdi(a, b)
+def som(a, b):
+    return (a + b)
+def maxi(a, b):
+    return max(a, b)
+def mini(a, b):
+    return min(a, b)
+def oper_array(fct, arr, init):
+    n, res = init, []
+    for i in arr:
+        n = fct(n, i)
+        res.append(n)
+    return res
