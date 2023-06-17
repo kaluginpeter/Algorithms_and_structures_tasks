@@ -47,3 +47,8 @@
 # Enjoy it and happy coding!!
 #
 # FUNDAMENTALSALGORITHMSMATHEMATICS
+# Solution
+def sumDig_nthTerm(f, ds, n):
+    c, pos = divmod(n - 1, len(ds))
+    res = f + sum(ds) * c + sum(ds[:pos])
+    return sum(map(int, str(res)))
