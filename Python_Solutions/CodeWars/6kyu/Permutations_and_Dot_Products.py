@@ -24,3 +24,6 @@
 # Note: This kata is inspired by GCJ 2008.
 #
 # LINEAR ALGEBRAALGORITHMS
+# Solution
+def min_dot(a, b):
+    return sum(i * j for (i, j) in zip(sorted(a), sorted(b, reverse = True)))
