@@ -9,3 +9,6 @@
 # Example: He haD iEght ShOTs of CAffIEne. --> He had eight shots of caffeine.
 #
 # STRINGSFUNDAMENTALS
+# Solution
+def proofread(s):
+    return '. '.join(_.lower().replace('ie', 'ei').capitalize() for _ in s.split('. '))
