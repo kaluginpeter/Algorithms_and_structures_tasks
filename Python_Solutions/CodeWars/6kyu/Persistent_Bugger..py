@@ -8,3 +8,14 @@
 # 999 --> 4 (because 9*9*9 = 729, 7*2*9 = 126, 1*2*6 = 12, and finally 1*2 = 2)
 # 4 --> 0 (because 4 is already a one-digit number)
 # FUNDAMENTALS
+# Solution
+def persistence(n):
+    count = 0
+    integer = 1
+    while len(str(n)) > 1:
+        count += 1
+        for elem in str(n):
+            integer *= int(elem)
+        n = integer
+        integer = 1
+    return count
