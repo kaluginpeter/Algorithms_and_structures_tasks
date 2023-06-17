@@ -28,3 +28,8 @@
 # "123456789012345678901234567890"]```
 # As you can see, the masked number may be very large ;-)
 # PUZZLES
+# Solution
+import sys
+sys.set_int_max_str_digits(0)
+def is_divisible_by_6(s):
+    return [str(int(s.replace('*',str(i)))) for i in range(10) if int(s.replace('*',str(i)))%6==0]
