@@ -21,3 +21,39 @@
 # "833998"                -->  "text"
 # "000"                   -->  "   "
 # STRINGSFUNDAMENTALS
+# Solution
+def phone_words(text):
+    d = {
+        222: 'c',
+        22: 'b',
+        2: 'a',
+        333: 'f',
+        33: 'e',
+        3: 'd',
+        444: 'i',
+        44: 'h',
+        4: 'g',
+        555: 'l',
+        55: 'k',
+        5: 'j',
+        666: 'o',
+        66: 'n',
+        6: 'm',
+        7777: 's',
+        777: 'r',
+        77: 'q',
+        7: 'p',
+        888: 'v',
+        88: 'u',
+        8: 't',
+        9999: 'z',
+        999: 'y',
+        99: 'x',
+        9: 'w',
+        0: ' ',
+        1: ''
+    }
+    while (text.isdigit()):
+        for i in d:
+            text = text.replace(str(i), d[i])
+    return text
