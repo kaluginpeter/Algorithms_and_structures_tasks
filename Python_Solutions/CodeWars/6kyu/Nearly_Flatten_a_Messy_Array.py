@@ -15,3 +15,10 @@
 # If you receive [[[1,2,3],[4,5]],[6,7]], your answer should be [[1,2,3],[4,5],[6,7]].
 #
 # FUNDAMENTALS
+# Solution
+def near_flatten(a):
+    l = []
+    for i in a:
+        if isinstance(i[0], int): l.append(i)
+        else: l.extend(near_flatten(i))
+    return sorted(l)
