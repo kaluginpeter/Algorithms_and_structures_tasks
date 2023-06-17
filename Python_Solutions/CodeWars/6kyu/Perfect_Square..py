@@ -23,3 +23,6 @@
 #  ..
 #  ...`
 # REGULAR EXPRESSIONSFUNDAMENTALS
+# Solution
+def perfect_square(square):
+    return all("." * len(square.split("\n")) == i for i in square.split("\n"))
