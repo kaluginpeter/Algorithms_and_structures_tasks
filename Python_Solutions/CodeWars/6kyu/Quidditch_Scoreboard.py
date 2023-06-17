@@ -32,3 +32,11 @@
 # Good luck!
 #
 # FUNDAMENTALSSTRINGSALGORITHMS
+# Solution
+def quidditch_scoreboard(teams, actions):
+    d = {t: 0 for t in teams.split(' vs ')}
+    for t, a in map(lambda x: x.split(': '), actions.split(', ')):
+        if 'goal' in a: d[t] += 10
+        elif 'foul' in a: d[t] -= 30
+        elif 'Caught Snitch' in a: d[t] += 150; break
+    return ', '.join('{}: {}'.format(k, v) for k,v in d.items())
