@@ -20,3 +20,7 @@
 # If there's a current score of 20:20, the winner will be the first player to reach 2-point lead.
 #
 # ALGORITHMS
+# Solution
+def service(score):
+    c = sum(int(i) for i in score.split(":"))
+    return "first" if ((c%10 < 5) if c < 40 else (c%4 < 2)) else "second"
