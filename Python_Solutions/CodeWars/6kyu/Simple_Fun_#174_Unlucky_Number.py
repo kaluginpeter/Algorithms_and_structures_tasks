@@ -12,3 +12,6 @@
 #
 # [output] an integer
 # PUZZLES
+# Solution
+def unlucky_number(n):
+    return sum((i % 13 == 0 and '4' not in str(i) and '7' not in str(i)) for i in range(n+1))
