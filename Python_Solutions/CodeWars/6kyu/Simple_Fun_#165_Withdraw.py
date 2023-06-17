@@ -14,3 +14,6 @@
 # [input] integer n Amount of money to withdraw. Assume that n is always exchangeable with [100, 50, 20] bills.
 # [output] integer array An array of number of 100, 50 and 20 dollar bills needed to complete the withdraw (in that order).
 # PUZZLES
+# Solution
+def withdraw(price):
+    return [price//100, 0, price%100//20] if price % 20==0 else [(price-50)//100,1, (price-50)%100//20]
