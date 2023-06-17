@@ -39,3 +39,8 @@
 #
 # output: "0365327"
 # ALGORITHMS
+# Solution
+def add_check_digit(number):
+    l = [2, 3, 4, 5, 6, 7]
+    s = sum(x*y for x,y in zip(map(int, number[::-1]), l * (len(number) // 6 + 1))) % 11
+    return number + ('0' if s == 0 else 'X' if s == 1 else str(11 - s))
