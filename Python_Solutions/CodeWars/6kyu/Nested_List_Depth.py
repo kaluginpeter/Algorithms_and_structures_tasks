@@ -23,3 +23,7 @@
 # list_depth([2.0, [2, 0], 3.7, [3, 7], 6.7, [6, 7]])
 # return 2
 # LISTSALGORITHMS
+# Solution
+def list_depth(lst):
+    l = [list_depth(i) for i in lst if isinstance(i, list)]
+    return max(l)+1 if l else 1
