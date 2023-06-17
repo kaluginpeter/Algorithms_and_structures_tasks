@@ -27,3 +27,11 @@
 # The number of commands after which students face the same direction.
 #
 # PUZZLES
+# Solution
+def line_up(c):
+    co = x = 0
+    for i in c:
+        if i=='L': x+=1
+        if i=='R': x-=1
+        co += (not x%2)
+    return co
