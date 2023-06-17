@@ -46,3 +46,10 @@
 # The ouput strings should be separated by \r instead of \n. See "Sample Tests".
 #
 # ALGORITHMSSTRINGS
+# Solution
+def rot(strng):
+    return strng[::-1]
+def selfie_and_rot(strng):
+    return '\n'.join(i+'.'*len(i) for i in strng.split('\n')) + '\n' +'\n'.join('.'*len(i)+i[::-1] for i in strng.split('\n')[::-1])
+def oper(fct, s):
+    return fct(s)
