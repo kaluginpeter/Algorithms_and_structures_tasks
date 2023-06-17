@@ -13,3 +13,12 @@
 # 0 <= n <= 10^12
 #
 # PUZZLES
+# Solution
+from functools import reduce
+def find_max(n):
+    l = [1, 2, 3, 5, 7, 11, 13, 17, 19, 23]
+    s = set()
+    while n not in s:
+        s.add(n)
+        n = reduce(lambda x, d: x * l[int(d)], str(n), 1)
+    return max(s)
