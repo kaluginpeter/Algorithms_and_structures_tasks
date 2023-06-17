@@ -14,3 +14,7 @@
 # [output] a string
 #
 # ALGORITHMS
+# Solution
+import re
+def replace_dashes_as_one(word):
+    return re.sub(r'-[ -]+-|-+',r'-', word)
