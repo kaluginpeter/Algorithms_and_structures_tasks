@@ -18,3 +18,6 @@
 # [1, 2, 3]  =>  4
 # [4, 2, 3]  =>  1
 # ALGORITHMSPERFORMANCEMATHEMATICS
+# Solution
+def find_missing_number(numbers):
+    return sum([i for i in range(1, len(numbers) + 2)]) - sum(numbers)
