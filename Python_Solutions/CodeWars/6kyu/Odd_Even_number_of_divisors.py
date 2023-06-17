@@ -10,3 +10,6 @@
 # For n = 4 the divisors are [1, 2, 4] – "odd".
 #
 # MATHEMATICSPERFORMANCEALGORITHMS
+# Solution
+def oddity(n):
+    return 'odd' if n **.5 == int(n **.5) else 'even'
