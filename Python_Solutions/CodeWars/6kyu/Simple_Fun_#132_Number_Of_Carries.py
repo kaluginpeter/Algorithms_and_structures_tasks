@@ -23,3 +23,9 @@
 #
 # [output] an integer
 # PUZZLES
+# Solution
+def number_of_carries(a: int, b: int) -> int:
+    s = sum(int(i) for i in str(a))
+    s2 = sum(int(i) for i in str(b))
+    s3 = sum(int(i) for i in str(a + b))
+    return (s + s2 - s3) // 9
