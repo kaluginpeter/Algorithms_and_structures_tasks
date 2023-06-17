@@ -14,3 +14,9 @@
 # [output] an integer
 #
 # PUZZLES
+# Solution
+def delete_digit(n):
+    l = []
+    for k, v in enumerate(str(n)):
+        l.append(int(str(n).replace(str(n)[k], '', 1)))
+    return max(l)
