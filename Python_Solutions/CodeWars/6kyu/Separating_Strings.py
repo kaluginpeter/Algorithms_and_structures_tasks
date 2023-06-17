@@ -32,3 +32,6 @@
 # # => [ '', 'i', '', '', '', '', '', '' ],
 # # => [ '', 'a', '', '', '', '', '', '' ]]
 # FUNDAMENTALS
+# Solution
+def sep_str(st):
+    return [[j[i] if len(j) > i else '' for j in st.split()] for i in range(max(map(len, st.split())))] if st else []
