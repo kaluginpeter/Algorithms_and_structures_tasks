@@ -22,3 +22,18 @@
 # 2 <= n <= 1e12
 #
 # PUZZLES
+# Solution
+from gmpy2 import is_prime
+def mobius(n):
+  c = 0
+  for i in range(2, int(n ** .5) + 1):
+    if n % i == 0:
+      if is_prime(i):
+        if n % (i*i) == 0:return 0
+        c += 1
+      n = n // i
+      if is_prime(n):
+        c += 1
+        break
+  if c > 0 and c % 2 == 0:return 1
+  return -1
