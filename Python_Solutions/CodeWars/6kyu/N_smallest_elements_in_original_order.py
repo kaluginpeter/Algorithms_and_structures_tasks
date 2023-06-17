@@ -18,3 +18,7 @@
 # Performance version by FArekkusu also available.
 #
 # ARRAYSLISTSDATA STRUCTURESALGORITHMS
+# Solution
+def first_n_smallest(arr, n):
+    l = sorted(arr)[:n]
+    return [l.pop(l.index(i)) for i in arr if i in l]
