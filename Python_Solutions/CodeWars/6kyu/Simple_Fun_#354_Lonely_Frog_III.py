@@ -53,3 +53,11 @@
 #   2:     4  --> 8       double
 #   3:     8  --> 16      double
 # ALGORITHMS
+# Solution
+def jump_to(x, y):
+    c = 0
+    while y!=x:
+        if y % 2 == 0 and y / 2 >= x: y /= 2
+        else: y-=1
+        c+=1
+    return c
