@@ -14,3 +14,10 @@
 #   1   2   1
 # 1   3   3   1
 # ARRAYSALGORITHMS
+# Solution
+def pascal(p):
+    row, l = [1], [[1]]
+    for i in range(p-1):
+        row = [sum(i) for i in zip([0] + row, row + [0])]
+        l.append(row)
+    return l
