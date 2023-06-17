@@ -28,3 +28,13 @@
 # the maximum number of "odd".
 #
 # PUZZLES
+# Solution
+def odd(s):
+    s, c, g = ''.join(i for i in s if i in 'od'), 0, 2
+    for i,j in enumerate(s):
+        if j=='o' and s[i:].count('d')>=g:
+            c+=1
+            g+=2
+        if j=='d': g-=1
+        if g<2: g=2
+    return c
