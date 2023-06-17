@@ -69,3 +69,9 @@
 # ["UGC AC","Cys"]
 #
 # FUNDAMENTALS
+# Solution
+def protein_synthesis(dna):
+    word = str.maketrans("ACGT", "UGCA")
+    rna = dna.translate(word)
+    l = [rna[i:i+3] for i in range(0, len(rna), 3)]
+    return " ".join(l), " ".join(CODON_DICT[i] for i in l if i in CODON_DICT)
