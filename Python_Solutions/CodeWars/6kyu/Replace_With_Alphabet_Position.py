@@ -11,3 +11,6 @@
 # Should return "20 8 5 19 21 14 19 5 20 19 5 20 19 1 20 20 23 5 12 22 5 15 3 12 15 3 11" ( as a string )
 #
 # STRINGSFUNDAMENTALS
+# Solution
+def alphabet_position(text):
+    return ' '.join([str(ord(char) - 96) for char in text.lower() if char >= 'a' and char<= 'z'])
