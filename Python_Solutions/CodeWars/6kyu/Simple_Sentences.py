@@ -14,3 +14,6 @@
 #
 # makeSentence(['hello', ',', 'my', 'dear']) // returns 'hello, my dear.'
 # STRINGSREGULAR EXPRESSIONSFUNDAMENTALS
+# Solution
+def make_sentences(parts):
+    return ' '.join(parts).replace(' ,', ',').rstrip(' .') + '.'
