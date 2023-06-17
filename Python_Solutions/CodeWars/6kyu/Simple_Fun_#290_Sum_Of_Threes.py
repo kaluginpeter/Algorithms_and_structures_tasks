@@ -22,3 +22,13 @@
 # There is no way to represent 2 as a sum of distinct powers of 3.
 #
 # ALGORITHMS
+# Solution
+import math
+def sum_of_threes(n):
+    l = []
+    for i in range(round(math.log(n, 3)), -1, -1):
+        if 3**i <= n:
+            l.append(i)
+            n -= 3**i
+            if n == 0: return '+'.join('3^{}'.format(i) for i in l)
+    return 'Impossible'
