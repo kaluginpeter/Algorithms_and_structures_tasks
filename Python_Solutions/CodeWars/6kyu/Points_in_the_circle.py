@@ -10,3 +10,9 @@
 #
 #
 # GEOMETRYALGORITHMSLOGICMATHEMATICSFUNDAMENTALS
+# Solution
+def points(n):
+    count = 0
+    for i in range(1, n + 1):
+        count += int((n**2 - i**2) ** (1/2))
+    return 1 + int((count + n) * 4)
