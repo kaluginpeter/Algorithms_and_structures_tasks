@@ -11,3 +11,6 @@
 # If the length and the score are the same for two elements, return the index of the first one.
 #
 # ARRAYSALGORITHMS
+# Solution
+def get_best_word(points, words):
+    return max(range(len(words)), key=lambda i: (sum(points[ord(j)-65] for j in words[i]), -len(words[i]), -i))
