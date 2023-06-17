@@ -17,3 +17,6 @@
 # (c)RSS
 #
 # PUZZLES
+# Solution
+def get_most_profit_from_stock_quotes(quotes):
+    return sum(max(quotes[k:]) - v for k, v in enumerate(quotes))
