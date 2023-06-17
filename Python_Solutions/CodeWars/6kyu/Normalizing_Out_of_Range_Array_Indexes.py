@@ -19,3 +19,6 @@
 # # And so on...
 # norm_index_test(seq, -len(seq)) # Returns first element
 # ARRAYSALGORITHMS
+# Solution
+def norm_index_test(seq, ind):
+    return seq[ind % len(seq)] if seq else None
