@@ -23,3 +23,6 @@
 # 1 2 3 4 5 6 7 8 9 1 0 1 1 1 2 1 3
 # each label cost $1, so the output should be 17.
 # ALGORITHMS
+# Solution
+def rocks(n):
+    return int(n + 1 - 10**(len(str(n))-1)) * len(str(n)) + sum(9 * i * 10**(i - 1) for i in range(len(str(n))))
