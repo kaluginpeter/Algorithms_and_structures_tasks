@@ -26,3 +26,7 @@
 # Enjoy it and happy coding!!
 #
 # ALGORITHMSDATA STRUCTURESPERMUTATIONSMATHEMATICSFUNDAMENTALS
+# Solution
+from collections import Counter
+def search_perm_mult(n_max, k):
+    return sum(Counter(str(i)) == Counter(str(i * k)) for i in range(1035, n_max // k))
