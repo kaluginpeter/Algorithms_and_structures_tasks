@@ -60,3 +60,6 @@
 # Interlocking Binary Pairs
 # Is Sator Square?
 # LOGICARRAYSGAMESPUZZLESGEOMETRYALGORITHMS
+# Solution
+def build_square(l):
+    return (l.count(4)+min(l.count(3), l.count(1))+((l.count(1)-min(l.count(3), l.count(1)))/4)+(l.count(2)/2))>=4
