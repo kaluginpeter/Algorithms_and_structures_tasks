@@ -22,3 +22,11 @@
 # The number of different digit products in a.
 #
 # PUZZLES
+# Solution
+import math
+def unique_digit_products(a):
+    l = []
+    for i in a:
+        s = math.prod(int(j) for j in str(i))
+        if s != i and s not in l: l.append(s)
+    return len(l)
