@@ -14,3 +14,7 @@
 # invalid: e.g. "hello5" and "2hi2" are invalid
 # If the message is an empty string, you should return true
 # ALGORITHMS
+# Solution
+import re
+def is_a_valid_message(message):
+    return all(k and int(k) == len(v) for k, v in re.findall("(\d*)(\D*)", message)[:-1])
