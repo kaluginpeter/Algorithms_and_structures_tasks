@@ -23,3 +23,9 @@
 # If you liked it, please rate :D
 #
 # STRINGSALGORITHMS
+# Solution
+def shortest_to_char(s, c):
+    if not s or not c:return []
+    l = [k for k, v in enumerate(s) if v == c]
+    if not l: return []
+    return [min(abs(i - j) for j in l) for i in range(len(s))]
