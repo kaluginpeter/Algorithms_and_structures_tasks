@@ -10,3 +10,6 @@
 # because there is one 1st place value, a five-way tie for 2nd place, and one in 7th place.
 #
 # ARRAYSSORTINGALGORITHMS
+# Solution
+def ranks(a):
+    return [sorted(a, reverse = True).index(i) + 1 for i in a]
