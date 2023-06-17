@@ -13,3 +13,12 @@
 # There is a preloaded function equals(x,y) that will check if objects are same regardless of property order.
 #
 # ALGORITHMS
+# Solution
+def hashify(string):
+    d = dict()
+    for f, s in zip(string, string[1:] + string[0]):
+        try:
+            try: d[f].append(s)
+            except: d[f] = [d[f], s]
+        except: d[f] = s
+    return d
