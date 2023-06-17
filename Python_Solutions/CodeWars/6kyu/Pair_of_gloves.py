@@ -13,3 +13,14 @@
 # input = ["red", "red", "red", "red", "red", "red"]
 # result = 3 (3 red pairs)
 # ARRAYSPUZZLES
+# Solution
+def number_of_pairs(gloves):
+    c = 0
+    l = []
+    for i in gloves:
+        if i not in l:
+            l.append(i)
+            continue
+        c += 1
+        l.remove(i)
+    return c
