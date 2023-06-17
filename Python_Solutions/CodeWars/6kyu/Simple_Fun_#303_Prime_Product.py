@@ -28,3 +28,7 @@
 # 20 can split into two primes 7 and 13 or 3 and 17. The maximum product is 7 x 13 = 91
 #
 # FUNDAMENTALS
+# Solution
+from gmpy2 import is_prime
+def prime_product(n):
+    return next((i*(n-i) for i in range(n>>1,1,-1) if is_prime(i) and is_prime(n-i)),0)
