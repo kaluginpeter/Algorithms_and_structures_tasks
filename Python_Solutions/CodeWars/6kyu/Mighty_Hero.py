@@ -29,3 +29,9 @@
 #   60 heads appearead after the third swing: 33 - 1 + 2 * 3 * 10 = 92
 #   Zmey has 92 heads in the end
 # FUNDAMENTALSALGORITHMSMATHEMATICS
+# Solution
+import math
+def count_of_heads(initial, n, swings):
+    for i in range(1, swings+1):
+        initial = initial - 1 + n * math.factorial(i)
+    return initial
