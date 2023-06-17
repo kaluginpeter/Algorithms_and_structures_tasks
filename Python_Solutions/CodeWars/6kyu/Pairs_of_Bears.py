@@ -17,3 +17,7 @@
 # of bears(=4) is lesser than the given value of x(=6)
 #
 # FUNDAMENTALSSTRINGSARRAYS
+# Solution
+from re import findall
+def bears(x, s):
+    return ["".join(findall("8B|B8", s)), len("".join(findall("8B|B8", s))) >= x]
