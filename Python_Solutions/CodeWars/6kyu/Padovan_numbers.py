@@ -11,3 +11,8 @@
 # Your task is to write a method that returns nth Padovan number
 #
 # ALGORITHMS
+# Solution
+def padovan(n):
+    x = y = z = 1
+    for _ in range(n - 2): x, y, z = y, z, x + y
+    return z
