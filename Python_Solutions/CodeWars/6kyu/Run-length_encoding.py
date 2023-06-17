@@ -13,3 +13,7 @@
 # run_length_encoding("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbb")
 # # => [[34,'a'], [3,'b']]
 # STRINGSALGORITHMS
+# Solution
+from itertools import groupby
+def run_length_encoding(s):
+    return [[sum(1 for i in v), k] for k, v in groupby(s)]
