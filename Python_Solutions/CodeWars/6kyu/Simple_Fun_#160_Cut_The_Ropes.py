@@ -20,3 +20,11 @@
 # number of ropes before each step.
 #
 # ALGORITHMS
+# Solution
+def cut_the_ropes(arr):
+    l = []
+    while arr:
+        l.append(len(arr))
+        m = min(arr)
+        arr = [i - m for i in arr if i > m]
+    return l
