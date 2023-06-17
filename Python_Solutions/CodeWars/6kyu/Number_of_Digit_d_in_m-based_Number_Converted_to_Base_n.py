@@ -29,3 +29,8 @@
 # count_digit("10", "a", base=11) == 1
 # count_digit("1100101110101", "d", base=15, from_base=2) == 1
 # FUNDAMENTALS
+# Solution
+def count_digit(number, digit, base=10, from_base=10):
+    c = '0123456789abcdefghijklmnopqrstuvwxyz'
+    f = lambda x: c[x] if x<base else f(x//base) + c[x%base]
+    return f(int(number, from_base)).count(digit)
