@@ -9,3 +9,7 @@
 # If you get back to beginning, return an empty array.
 #
 # FUNDAMENTALS
+# Solution
+def directions(goal):
+    y, x = goal.count("N") - goal.count("S"), goal.count("E") - goal.count("W")
+    return ["N"] * y + ["S"] * (-y) + ["E"] * x + ["W"] * (-x)
