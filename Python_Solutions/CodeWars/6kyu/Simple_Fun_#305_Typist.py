@@ -34,3 +34,6 @@
 # John hit button Caps Lock, A, Caps Lock, a.
 #
 # FUNDAMENTALS
+# Solution
+def typist(s):
+    return sum(i.islower()^j.islower() for i, j in zip('a'+s, s)) + len(s)
