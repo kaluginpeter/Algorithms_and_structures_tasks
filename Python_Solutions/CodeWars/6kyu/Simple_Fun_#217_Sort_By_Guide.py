@@ -40,3 +40,7 @@
 # Thus, the final answer is:
 # [78, 4, 3, 45, 56, 66, 2, 2, 4].
 # ALGORITHMSARRAYSSORTING
+# Solution
+def sort_by_guide(arr, guide):
+    l = iter(sorted((y,x) for x,y in zip(arr, guide) if y > 0))
+    return [next(l)[1] if b > 0 else a for a, b in zip(arr, guide)]
