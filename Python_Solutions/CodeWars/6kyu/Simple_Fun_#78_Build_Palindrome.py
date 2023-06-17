@@ -14,3 +14,8 @@
 # [output] a string
 #
 # PUZZLES
+# Solution
+def build_palindrome(w):
+    n = 0
+    while w[n:] != w[n:][::-1]: n += 1
+    return w + w[:n][::-1]
