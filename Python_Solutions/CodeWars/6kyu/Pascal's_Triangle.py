@@ -39,3 +39,9 @@
 # n = 2: [1,  1, 1]
 # n = 4: [1,  1, 1,  1, 2, 1,  1, 3, 3, 1]
 # ARRAYSMATHEMATICSALGORITHMS
+# Solution
+def pascals_triangle(n):
+    if n == 1:
+        return [1]
+    pr = pascals_triangle(n - 1)
+    return pr + [1 if i == 0 or i == n - 1 else pr[-i] + pr[-(i + 1)] for i in range(n)]
