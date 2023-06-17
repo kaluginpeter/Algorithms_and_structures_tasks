@@ -46,3 +46,8 @@
 # Have fun! And if you enjoy this kata, check out the sequel: Piano Kata, Part 2
 #
 # FUNDAMENTALS
+# Solution
+def black_or_white_key(key_press_count):
+    count = (key_press_count - 1) % 88 % 12
+    l = [0, 2, 3, 5, 7, 8, 10]
+    return 'white' if count in l else 'black'
