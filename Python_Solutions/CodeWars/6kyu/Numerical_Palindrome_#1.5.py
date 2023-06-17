@@ -27,3 +27,15 @@
 # Numerical Palindrome #4
 # Numerical Palindrome #5
 # ARRAYSFUNDAMENTALS
+# Solution
+def palindrome(num,s):
+    if type(num) != int or num <= 0 or type(s) != int or s < 0:
+        return 'Not valid'
+    l = []
+    c = 0
+    while c < s:
+        if str(num) == str(num)[::-1] and len(str(num)) > 1:
+            l.append(num)
+            c += 1
+        num += 1
+    return l
