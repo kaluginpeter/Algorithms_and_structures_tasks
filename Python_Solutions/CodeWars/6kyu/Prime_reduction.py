@@ -16,3 +16,14 @@
 # Domainant primes
 #
 # ALGORITHMS
+# Solution
+from gmpy2 import is_prime
+def check(n):
+    l = []
+    while n not in l:
+        l += [n]
+        n = sum(int(i)**2 for i in str(n))
+        if n==1: return True
+    return False
+def solve(a,b):
+    return len([i for i in range(a,b) if is_prime(i) and check(i)])
