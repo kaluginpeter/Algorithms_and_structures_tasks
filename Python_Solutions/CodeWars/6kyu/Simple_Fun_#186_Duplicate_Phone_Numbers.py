@@ -46,3 +46,7 @@
 #
 # ["739-9425:6"]
 # ALGORITHMS
+# Solution
+def find_duplicate_phone_numbers(phone_numbers):
+    l  = [a.upper().translate(str.maketrans('ABCDEFGHIJKLMNOPRSTUVWXY', '222333444555666777888999')).replace('-','') for a in phone_numbers]
+    return sorted(['{}-{}:{}'.format(i[:3], i[3:], l.count(i)) for i in set(l) if l.count(i)>1])
