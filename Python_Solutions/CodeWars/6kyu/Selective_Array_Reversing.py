@@ -15,3 +15,6 @@
 # Note : if the length argument exceeds the array length, reverse all of them, if the length argument is zero do not reverse at all.
 #
 # ALGORITHMSLOGICARRAYS
+# Solution
+def sel_reverse(arr, l):
+    return [j for i in range(0, len(arr), l) for j in arr[i:i+l][::-1]] if l != 0 else arr
