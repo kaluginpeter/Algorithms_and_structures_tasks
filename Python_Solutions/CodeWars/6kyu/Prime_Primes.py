@@ -16,3 +16,10 @@
 #
 # Thus, the function should return 3 and 1.
 # ALGORITHMS
+# Solution
+from gmpy2 import is_prime
+import itertools
+def prime_primes(N):
+    primes = [2] + [i for i in range(3, 1000, 2) if is_prime(i)]
+    pairs = list(itertools.combinations((i for i in primes if i < N), 2))
+    return len(pairs), int(sum(a/b for a, b in pairs))
