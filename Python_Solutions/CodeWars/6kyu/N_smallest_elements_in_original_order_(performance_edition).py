@@ -21,3 +21,6 @@
 # n = 3
 # result = [1, 2, 1]
 # ALGORITHMSARRAYSPERFORMANCE
+# Solution
+def performant_smallest(arr, n):
+    return [arr[i] for i in sorted(sorted(range(len(arr)), key=lambda k: arr[k])[:n])]
