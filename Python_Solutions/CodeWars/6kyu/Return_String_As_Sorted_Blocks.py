@@ -19,3 +19,13 @@
 # Good luck!
 #
 # STRINGSALGORITHMSSORTING
+# Solution
+from collections import Counter
+def blocks(w):
+    s = lambda c: (c.isdigit(), c.isupper(), c)
+    l, c = [], Counter(w)
+    while c:
+        i = ''.join(sorted(c, key=s))
+        l.append(i)
+        c = c - Counter(i)
+    return '-'.join(l)
