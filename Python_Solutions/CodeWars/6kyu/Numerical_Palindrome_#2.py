@@ -30,3 +30,8 @@
 # Numerical Palindrome #4
 # Numerical Palindrome #5
 # FUNDAMENTALS
+# Solution
+import re
+def palindrome(integer):
+    if not isinstance(integer, int) or integer < 0: return 'Not valid'
+    return re.search(r'(.)\1|(.).\2', str(integer)) is not None
