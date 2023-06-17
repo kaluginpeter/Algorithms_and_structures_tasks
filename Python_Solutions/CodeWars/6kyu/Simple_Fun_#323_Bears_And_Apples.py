@@ -51,3 +51,6 @@
 # 5th bear took 1 pile of apples, 1020 apples left.
 # 1276 - 1 - 255 = 1020
 # PUZZLES
+# Solution
+def how_many_apples(n):
+    return 7 if n == 2 else n**n - n + 1
