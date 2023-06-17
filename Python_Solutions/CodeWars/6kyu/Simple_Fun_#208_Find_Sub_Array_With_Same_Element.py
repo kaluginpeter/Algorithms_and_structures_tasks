@@ -33,3 +33,21 @@
 # the output should be (-1, -1).
 #
 # FUNDAMENTALS
+# Solution
+def find_subarray_with_same_element(a, target):
+    if target not in a: return (-1, -1)
+    l, start, end, flag = [], 0, 0, False
+    for k, v in enumerate(a):
+        if v == target:
+            if not flag:
+                start = k
+                flag = True
+            if k == len(a) - 1: l.append((start, k))
+            continue
+        if flag:
+            l.append((start, k - 1))
+            start, end, flag = 0, 0, False
+    steps, top, s = [abs(i - j) for i, j in l], 0, 0
+    for k, v in enumerate(steps):
+        if v >= s: top = k; s = v
+    return l[top]
