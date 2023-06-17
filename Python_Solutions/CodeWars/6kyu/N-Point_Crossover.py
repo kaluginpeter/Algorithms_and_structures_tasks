@@ -38,3 +38,7 @@
 # (length xs) == (length ys)
 # crossover indices will never exceed the length of xs or ys.
 # ALGORITHMSFUNDAMENTALS
+# Solution
+def crossover(ns, xs, ys):
+    for x in sorted(set(ns)): xs, ys = xs[:x] + ys[x:], ys[:x] + xs[x:]
+    return xs, ys
