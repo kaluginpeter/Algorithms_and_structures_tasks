@@ -22,3 +22,6 @@
 # For text = "The cat does not like the fire" and forbiddenWords = ["cat","fire"], the output should be "The *** does not like the ****".
 #
 # FUNDAMENTALS
+# Solution
+def censor_this(text, forbidden_words):
+    return ' '.join(i if i.lower() not in forbidden_words else '*'*len(i) for i in text.split())
