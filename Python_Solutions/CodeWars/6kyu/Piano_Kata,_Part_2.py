@@ -37,3 +37,6 @@
 # Have fun!
 #
 # FUNDAMENTALS
+# Solution
+def which_note(count):
+    return ['A','A#','B','C','C#','D','D#','E','F','F#','G','G#'][(count - 1) % 88 % 12]
