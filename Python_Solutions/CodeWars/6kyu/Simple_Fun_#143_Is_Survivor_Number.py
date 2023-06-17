@@ -17,3 +17,11 @@
 # true if the number is a survivor else false.
 #
 # ALGORITHMS
+# Solution
+def survivor(n):
+    count = 2
+    while count <= n:
+        if n % count == 0: return False
+        n -= n // count
+        count += 1
+    return True
