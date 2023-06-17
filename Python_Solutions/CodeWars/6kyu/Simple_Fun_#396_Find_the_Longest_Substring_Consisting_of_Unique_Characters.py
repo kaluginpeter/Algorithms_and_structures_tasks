@@ -35,3 +35,10 @@
 # The longest substring are "!@#$%^&" and "&^%$#@!", their length both are 7.
 #
 # ALGORITHMSSTRINGSFUNDAMENTALS
+# Solution
+def longest_substring(s : str) -> int:
+    f, d, co = 0, {}, 0
+    for i,c in enumerate(s):
+        if c in d and d[c] >= f: f, co =  d[c]+1, max(co, i-f)
+        d[c] = i
+    return max(co, len(s)-f)
