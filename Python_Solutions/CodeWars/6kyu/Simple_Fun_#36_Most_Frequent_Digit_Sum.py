@@ -30,3 +30,10 @@
 # The most frequent number in the sequence s(n), s(step(n)), s(step(step(n))), etc.
 #
 # PUZZLES
+# Solution
+def most_frequent_digit_sum(n):
+    l = []
+    while n:
+        l.append(sum(int(i) for i in str(n)))
+        n = n - l[-1]
+    return max(sorted(l, reverse=True), key=l.count)
