@@ -41,3 +41,14 @@
 # your attack power
 # the opponent's defense
 # ARRAYSGAMESSTRINGSPUZZLES
+# Solution
+def calculate_damage(your_type, opponent_type, attack, defense):
+    d = {('fire', 'water'): (0.5, 2), ('water', 'fire'): (2, 0.5),
+        ('fire', 'grass'): (2, 0.5), ('grass', 'fire'): (0.5, 2),
+        ('fire', 'electric'): (1, 1), ('electric', 'fire'): (1, 1),
+        ('water', 'grass'): (0.5, 2), ('grass', 'water'): (2, 0.5),
+        ('water', 'electric'): (0.5, 2), ('electric', 'water'): (2, 0.5),
+        ('grass', 'electric'): (1, 1), ('electric', 'grass'): (1, 1),
+        ('fire', 'fire'): (0.5, 0.5), ('water', 'water'): (0.5, 0.5),
+        ('grass', 'grass'): (0.5, 0.5), ('electric', 'electric'): (0.5, 0.5)}
+    return 50 * (attack / defense) * d[(your_type, opponent_type)][0]
