@@ -24,3 +24,9 @@
 #     prefill("xyz", 1)
 #       --> throws TypeError with message "xyz is invalid"
 # ARRAYSFUNDAMENTALS
+# Solution
+def prefill(n,v='undefined'):
+    if str(n).isdigit()==True:
+        return [v for _ in range(int(n))]
+    else:
+        raise TypeError('%s is invalid'%(n))
