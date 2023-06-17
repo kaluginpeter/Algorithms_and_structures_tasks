@@ -9,3 +9,7 @@
 # There are 2 anagrams in the array ["dell", "ledl", "abc", "cba"]
 # There are 7 anagrams in the array ["dell", "ledl", "abc", "cba", "bca", "bac"]
 # ALGORITHMS
+# Solution
+from collections import Counter
+def anagram_counter(words):
+    return sum(i *(i-1)// 2 for i in Counter(''.join(sorted(j)) for j in words).values())
