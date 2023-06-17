@@ -28,3 +28,13 @@
 # First element 1 means: from first "c" to last "c" need a width of 1.
 #
 # PUZZLES
+# Solution
+def the_janitor(word):
+    l = []
+    w = 'abcdefghijklmnopqrstuvwxyz'
+    for i in w:
+        if i not in word:
+            l.append(0)
+            continue
+        l.append(word.rindex(i) + 1 - word.index(i))
+    return l
