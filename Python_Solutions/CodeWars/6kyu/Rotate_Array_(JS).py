@@ -36,3 +36,7 @@
 # rotate(data, 11)    # => [5, 1, 2, 3, 4]
 # rotate(data, 12478) # => [3, 4, 5, 1, 2]
 # ARRAYSALGORITHMS
+# Solution
+def rotate(arr, n):
+    n = n % len(arr)
+    return arr[-n:] + arr[:-n]
