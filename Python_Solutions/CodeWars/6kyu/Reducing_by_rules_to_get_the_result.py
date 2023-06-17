@@ -28,3 +28,9 @@
 # I have also created other katas. Take a look if you enjoyed this kata!
 #
 # ARRAYSLOGICALGORITHMS
+# Solution
+def reduce_by_rules(lst, rules):
+    l, r = len(rules), lst[0]
+    for k, v in enumerate(lst[1:]):
+        r = rules[k % l](r, v)
+    return r
