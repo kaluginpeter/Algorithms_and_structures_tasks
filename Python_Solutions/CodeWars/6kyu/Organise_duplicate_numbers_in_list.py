@@ -12,3 +12,6 @@
 # If the input is an empty array, an empty array should be returned.
 #
 # ARRAYSSORTINGFUNDAMENTALS
+# Solution
+def group(arr):
+    return [[v] * arr.count(v) for k, v in enumerate(arr) if arr.index(v) == k]
