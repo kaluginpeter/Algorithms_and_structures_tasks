@@ -22,3 +22,32 @@
 # Have fun coding it and please don't forget to vote and rank this kata! :-)
 #
 # CRYPTOGRAPHYALGORITHMSSTRINGSARRAYSFUNDAMENTALS
+# Solution
+def encrypt(text, n):
+    for i in range(n):
+        text = text[1::2] + text[::2]
+    return text
+
+
+def decrypt_one_rep(encrypted_text):
+    word1 = ""
+    word2 = ""
+    lenght = int(len(encrypted_text) / 2)
+    word1 += encrypted_text[0:lenght]
+    word2 += encrypted_text[lenght:]
+    final_word = ""
+    for i in range(0, lenght):
+        final_word += word2[i] + word1[i]
+
+    if len(encrypted_text) % 2 != 0:
+        final_word += word2[lenght]
+    return final_word
+
+
+def decrypt(encrypted_text, n):
+    if n < 0:
+        return encrypted_text
+    list = [encrypted_text]
+    for i in range(1, n + 1):
+        list.append(decrypt_one_rep(list[i - 1]))
+    return list[n]
