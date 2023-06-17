@@ -13,3 +13,28 @@
 # "1111"      -->  ""                # no characters to repeat
 # ""          -->  ""                # empty string
 # STRINGSREGULAR EXPRESSIONSFUNDAMENTALS
+# Solution
+import re
+def string_expansion(s):
+    result = str()
+    regex = re.compile(r'(\d)?([a-zA-Z]+)+')
+    mo = regex.findall(s)
+    print(mo)
+    for item in mo:
+        if len(item[1]) > 1:
+            lst = list(item[1])
+            for letter in lst:
+                if item[0] == '':
+                    number = 1
+                else:
+                    number = item[0]
+                letters = letter*int(number)
+                result += ''.join(letters)
+        else:
+            if item[0] == '':
+                number = 1
+            else:
+                number = item[0]
+            letters = item[1]*int(number)
+            result += ''.join(letters)
+    return result
