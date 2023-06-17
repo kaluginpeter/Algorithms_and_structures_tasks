@@ -22,3 +22,6 @@
 # nth Chando's number
 #
 # ALGORITHMSNUMBER THEORY
+# Solution
+def nth_chandos_number(number):
+    return int((bin(number) + "0")[2:], 5)
