@@ -23,3 +23,13 @@
 # Note
 # Numbers up to 1e10 will be tested, so you need to come up with something smart.
 # ALGORITHMSLOGICPERFORMANCE
+# Solution
+def next_multiple_of_five(n):
+    s = n % 5
+    if n == 0:return 5
+    elif s == 0:c = '0'
+    elif s == 1:c = '01'
+    elif s == 2:c = '1'
+    elif s == 3:c = '11'
+    elif s == 4:c = '011'
+    return int(bin(n)[2:]+c,2)
