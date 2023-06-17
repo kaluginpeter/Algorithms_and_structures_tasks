@@ -13,3 +13,6 @@
 # Alphabet symmetry
 #
 # STRINGSFUNDAMENTALS
+# Solution
+def solve(s):
+    return sum(int(j) % 2 for i in range(len(s)) for j in s[i:])
