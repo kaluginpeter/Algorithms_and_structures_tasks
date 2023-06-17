@@ -19,3 +19,10 @@
 # Hint
 # Click here.
 # PUZZLESALGORITHMS
+# Solution
+def oddest(a):
+    f = lambda x: 1e6 if x == -1 else x % 2 and 1 + f(x // 2) or 0
+    a = [(i, f(i)) for i in a]
+    n = max((v for k, v in a), default=-1)
+    a = [k for k, v in a if v == n]
+    if len(a) == 1: return a[0]
