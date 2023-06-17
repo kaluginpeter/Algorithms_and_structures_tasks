@@ -27,3 +27,11 @@
 # because for this string "abcde" the minimum substring t, such that s is t repeated k times, is itself.
 #
 # ALGORITHMS
+# Solution
+def f(s):
+    c = min([s.count(i) for i in s])
+    w = ''
+    for i in s:
+        w += i
+        if w * c == s: return (w, c)
+    return (s, 1)
