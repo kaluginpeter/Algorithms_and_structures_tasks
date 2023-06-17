@@ -23,3 +23,7 @@
 # The desired length.
 #
 # PUZZLES
+# Solution
+def avoid_obstacles(a):
+    for i in range(2, max(a) + 2):
+        if all(j % i != 0 for j in a): return i
