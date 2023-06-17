@@ -22,3 +22,11 @@
 # For a = 0, b = 0 and n = 100000000 the output should be 0, because all the digits in this sequence are 0.
 #
 # PUZZLESFUNDAMENTALS
+# Solution
+def find(a,b,n):
+    s = str(a) + str(b)
+    if n > 20: n = n % 20 + 20
+    while len(s) <= n:
+        ns = int(s[-1]) + int(s[-2])
+        s = s + str(ns)
+    return int(s[n])
