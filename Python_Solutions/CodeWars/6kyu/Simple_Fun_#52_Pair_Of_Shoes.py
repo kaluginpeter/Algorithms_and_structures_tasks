@@ -33,3 +33,6 @@
 # true if it is possible to pair the shoes, false otherwise.
 #
 # PUZZLES
+# Solution
+def pair_of_shoes(shoes):
+    return sorted(v for k, v in shoes if k == 1) == sorted(v for k, v in shoes if k == 0)
