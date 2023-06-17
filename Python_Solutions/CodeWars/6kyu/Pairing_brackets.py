@@ -8,3 +8,12 @@
 # In this kata we care only about the positions of round brackets '()', other types of brackets should be ignored.
 #
 # STRINGSPARSINGALGORITHMS
+# Solution
+def bracket_pairs(string):
+    d, l = {}, []
+    for k, v in enumerate(string):
+        if v == '(':l.append(k)
+        elif v == ')':
+            if not l:return False
+            d[l.pop()] = k
+    return False if l else d
