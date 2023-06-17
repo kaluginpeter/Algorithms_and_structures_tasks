@@ -53,3 +53,11 @@
 #
 # 101005000020000000040
 # STRINGSALGORITHMS
+# Solution
+from collections import Counter
+def shake_tree(tree):
+    l = [k for k,v in enumerate(tree[0]) if v == 'o']
+    for char in tree[1:]:
+        l = [i+1 if char[i] == '\\' else i-1 if char[i] == '/' else i for i in l if char[i] != '_']
+    d = Counter(l)
+    return [d[i] for i in range(len(tree[0]))]
