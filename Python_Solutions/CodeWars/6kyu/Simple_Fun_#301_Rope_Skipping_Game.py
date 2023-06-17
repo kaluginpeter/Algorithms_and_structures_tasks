@@ -33,3 +33,11 @@
 # Tidy up the rope and continue.                    --> 54 seconds past.
 # When he jumped 51 times                           --> 60 seconds past.
 # PUZZLES
+# Solution
+def tiaosheng(failed_counter):
+    c, s = 0, 0
+    while c < 60:
+        c += 1
+        s += 1
+        if s in failed_counter: c += 3
+    return s
