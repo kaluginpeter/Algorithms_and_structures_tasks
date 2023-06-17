@@ -27,3 +27,12 @@
 # Numerical Palindrome #4
 # Numerical Palindrome #5
 # FUNDAMENTALS
+# Solution
+def palindrome(num):
+    if not isinstance(num, int) or num < 0: return 'Not valid'
+    if num < 10: num = 11
+    if str(num) == str(num)[::-1]: return num
+    r, l, d = 0, 0, num
+    while str(num)!=str(num)[::-1]: num, l = num+1, l+1
+    while str(d)!=str(d)[::-1]: d, r = d-1, r+1
+    return d if r<l else num
