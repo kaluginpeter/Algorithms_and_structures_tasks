@@ -14,3 +14,11 @@
 # Try to achieve a good solution that runs in linear time; also, do it functionally, meaning you need to build a pure function or, in even poorer words, do NOT modify the initial input!
 #
 # ALGORITHMS
+# Solution
+def sequence_classifier(l):
+    if all(l[i] == l[i+1] for i in range(len(l)-1)): return 5
+    if all(l[i] <  l[i+1] for i in range(len(l)-1)): return 1
+    if all(l[i] <= l[i+1] for i in range(len(l)-1)): return 2
+    if all(l[i] >  l[i+1] for i in range(len(l)-1)): return 3
+    if all(l[i] >= l[i+1] for i in range(len(l)-1)): return 4
+    return 0
