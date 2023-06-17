@@ -61,3 +61,7 @@
 # Enjoy, and don't forget to check out my other Kata Series :D
 #
 # LINKED LISTSRECURSIONALGORITHMS
+# Solution
+from functools import reduce
+def linked_list_from_string(s, split=" -> "):
+    return reduce(lambda i, j: Node(j, i), map(int, s.split(split)[-2::-1]), None)
