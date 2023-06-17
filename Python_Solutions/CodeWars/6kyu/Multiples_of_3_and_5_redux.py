@@ -20,3 +20,7 @@
 # solution (10) # => 23 = 3 + 5 + 6 + 9
 # solution (20) # => 78 = 3 + 5 + 6 + 9 + 10 + 12 + 15 + 18
 # ALGORITHMSMATHEMATICS
+# Solution
+def solution(number):
+    a, b, c = (number - 1) // 5, (number - 1) // 3, (number - 1) // 15
+    return (((a * (a + 1)) // 2) * 5) + (((b * (b + 1)) // 2) * 3) - (((c * (c + 1)) // 2) * 15)
