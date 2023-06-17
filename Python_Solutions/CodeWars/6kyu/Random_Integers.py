@@ -33,3 +33,11 @@
 # (especially for JavaScript), do not hesitate to report an issue or suggestion. Enjoy!
 #
 # ARRAYSFUNDAMENTALS
+# Solution
+from random import randint
+def random_ints(n, total):
+    l = []
+    for i in range(n-1):
+        l.append(randint(0, total))
+        total -= l[-1]
+    return [*l, total]
