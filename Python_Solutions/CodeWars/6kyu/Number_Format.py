@@ -6,3 +6,6 @@
 # For n = 5678545 the function should return '5,678,545';
 # for n = -420902 the function should return '-420,902'.
 # REGULAR EXPRESSIONSFUNDAMENTALS
+# Solution
+def number_format(n):
+    return format(n, ',d')
