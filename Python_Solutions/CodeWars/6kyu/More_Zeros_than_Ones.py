@@ -16,3 +16,11 @@
 # All input will be valid strings of length > 0. Leading zeros in binary should not be counted.
 #
 # FUNDAMENTALS
+# Solution
+def more_zeros(s):
+    l = []
+    for i in s:
+        c = format(ord(i), 'b')
+        if c.count('1') < c.count('0') and i not in l:
+            l.append(i)
+    return l
