@@ -19,3 +19,13 @@
 # 048665088X   -->  true
 # X123456788   -->  false
 # REGULAR EXPRESSIONSALGORITHMS
+# Solution
+def valid_ISBN10(isbn):
+    if len(isbn) != 10:
+        return False
+    try:
+        if isbn.endswith('X'):
+            return (sum(int(isbn[i]) * (i+1) for i in range(len(isbn)-1)) + 10*10) % 11 == 0
+        return sum(int(isbn[i]) * (i+1) for i in range(len(isbn))) % 11 == 0
+    except:
+        return False
