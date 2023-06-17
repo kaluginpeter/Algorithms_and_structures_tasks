@@ -16,3 +16,6 @@
 # The idea for this kata was taken from this kata: Sum of odd numbers
 #
 # ALGORITHMSPERFORMANCE
+# Solution
+def odd_row(n):
+    return list(range(n**2 - n + 1, n**2 + n, 2))
