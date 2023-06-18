@@ -15,3 +15,20 @@
 # Constraints:
 # 1 <= s.length <= 500
 # s consists of only lowercase English letters.
+# Solution
+class Solution:
+    def maxPower(self, s: str) -> int:
+        if len(s) == 1:
+            return 1
+        w, count, flag = s[0], 0, False
+        for i in range(1, len(s)):
+            if s[i] == w[0]:
+                w += s[i]
+                flag = True
+                continue
+            if len(w) > count:
+                count = len(w)
+            w, flag = s[i], False
+        if flag:
+            count = len(w) if len(w) > count else count
+        return count
