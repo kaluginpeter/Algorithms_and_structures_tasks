@@ -3,3 +3,11 @@
 # Note: You shouldn't try to compute the value of this function at the poles. Please return null/NULL/nil/None (C#: throw an ArgumentException, Java: throw an ArithmeticException) if this happens.
 #
 # MATHEMATICSALGORITHMS
+# Solution
+from cmath import log as clog
+def log(real, imag):
+    try:
+        lg = clog(complex(real, imag))
+        return lg.real, lg.imag
+    except:
+        pass
