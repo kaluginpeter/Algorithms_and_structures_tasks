@@ -6,3 +6,9 @@
 #
 # 1, 1, 2, 3, 5, 8, 13, ..., 89, 144, 233, 377, ...
 # ALGORITHMS
+# Solution
+def all_fibonacci_numbers():
+    a, b = 0, 1
+    for i in range(10000):
+        yield b
+        a, b = b, a + b
