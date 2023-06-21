@@ -34,3 +34,14 @@
 # [output] a positive integer
 #
 # PUZZLES
+# Solution
+import math
+def digits_product(product):
+    j = 10
+    l = math.prod([int(i) for i in str(j)])
+    while j < 9999:
+        if l == product:
+            return j
+        j += 1
+        l = math.prod([int(i) for i in str(j)])
+    return -1
