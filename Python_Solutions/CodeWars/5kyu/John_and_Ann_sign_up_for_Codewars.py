@@ -23,3 +23,22 @@
 # Keep an eye on performance.
 #
 # MATHEMATICS ALGORITHMS
+# Solution
+def john_ann(n):
+    john, ann = [0], [1]
+    for i in range(1, n):
+        john.append(i - ann[john[i - 1]])
+        ann.append(i - john[ann[i - 1]])
+    return john, ann
+
+def john(n):
+    return john_ann(n)[0]
+
+def ann(n):
+    return john_ann(n)[1]
+
+def sum_john(n):
+    return sum(john(n))
+
+def sum_ann(n):
+    return sum(ann(n))
