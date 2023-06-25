@@ -38,3 +38,43 @@
 # Caesar Cipher : http://en.wikipedia.org/wiki/Caesar_cipher
 #
 # FUNDAMENTALSCIPHERSSTRINGS
+# Solution
+from math import ceil
+from string import ascii_lowercase as al_l, ascii_uppercase as al_u
+def moving_shift(s, shift):
+    l, w = [], ''
+    for i in range(len(s)):
+        if s[i].isupper():
+            if s[i] not in al_u:
+                w += s[i]
+                continue
+            w += al_u[(al_u.index(s[i]) + i * 1 + shift) % len(al_u)]
+            continue
+        if s[i].islower():
+            if s[i] not in al_l:
+                w += s[i]
+                continue
+            w += al_l[(al_l.index(s[i]) + i * 1 + shift) % len(al_l)]
+            continue
+        w += s[i]
+    count = int(ceil(len(w) / 5))
+    for i in range(0, 5 * count, count):
+        l.append(w[i:i + count])
+    return l
+def demoving_shift(s, shift):
+    w, out = ''.join(s), ''
+    for i in range(len(w)):
+        if w[i].isupper():
+            if w[i] not in al_u:
+                out += w[i]
+                continue
+            out += al_u[(al_u.index(w[i]) + i * -1 - shift) % len(al_u)]
+            continue
+        if w[i].islower():
+            if w[i] not in al_l:
+                out += w[i]
+                continue
+            out += al_l[(al_l.index(w[i]) + i * -1 - shift) % len(al_l)]
+            continue
+        out += w[i]
+    return out
