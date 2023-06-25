@@ -22,3 +22,20 @@
 #
 # 1 <= num <= 231 - 1
 # Solution
+class Solution:
+    def isPerfectSquare(self, num: int) -> bool:
+        l, r = 1, num
+        while l <= r:
+            mid = (l + r) // 2
+            if mid * mid == num:
+                return mid
+            if mid * mid > num:
+                r = mid - 1
+            if mid * mid < num:
+                l = mid + 1
+        return False
+        # Solution 2
+        # i = 1
+        # while i*i < num:
+        #     i += 1
+        # return i*i == num
