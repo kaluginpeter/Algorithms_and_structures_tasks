@@ -19,3 +19,12 @@
 # 1 <= jewels.length, stones.length <= 50
 # jewels and stones consist of only English letters.
 # All the characters of jewels are unique.
+# Solution
+class Solution:
+    def numJewelsInStones(self, jewels: str, stones: str) -> int:
+        count = 0
+        for i in range(len(jewels)):
+            for j in range(len(stones)):
+                if jewels[i] == stones[j]:
+                    count += 1
+        return count
