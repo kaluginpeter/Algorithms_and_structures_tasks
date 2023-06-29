@@ -8,3 +8,8 @@
 # abc() # should return 'c' on this third call
 # abc() # should return 'a' again on this fourth call
 # ITERATORSALGORITHMS
+# Solution
+from itertools import cycle
+def make_looper(string):
+    x = cycle(string)
+    return lambda: next(x)
