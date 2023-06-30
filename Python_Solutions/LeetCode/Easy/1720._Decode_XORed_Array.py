@@ -25,3 +25,10 @@
 # encoded.length == n - 1
 # 0 <= encoded[i] <= 105
 # 0 <= first <= 105
+# Solution
+class Solution:
+    def decode(self, encoded: List[int], first: int) -> List[int]:
+        l = [first]
+        for i in encoded:
+            l.append(l[-1] ^ i)
+        return l
