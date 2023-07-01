@@ -37,3 +37,7 @@
 # s consist of only lowercase and uppercase English letters and spaces.
 # The words in s are separated by a single space.
 # There are no leading or trailing spaces.
+# Solution
+class Solution:
+    def truncateSentence(self, s: str, k: int) -> str:
+        return ' '.join(s.split()[:k])
