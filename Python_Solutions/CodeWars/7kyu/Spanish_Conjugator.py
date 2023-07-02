@@ -122,3 +122,11 @@ def conjugate(verb):
         if verb.endswith(k):
             word = verb[:-len(k)]
             return {verb: [word+v[0], word+v[1], word+v[2], word+v[3], word+v[4], word+v[5]]}
+
+# Solution 2
+def conjugate(verb):
+    v = verb[:-2]
+    d = {'ar':[v + 'o', v + 'as', v + 'a', v + 'amos', v + 'ais', v + 'an'],
+         'er':[v + 'o', v + 'es', v + 'e', v + 'emos', v + 'eis', v + 'en'],
+         'ir':[v + 'o', v + 'es', v + 'e', v + 'imos', v + 'is', v + 'en']}
+    return {verb:d[verb[-2:]]}
