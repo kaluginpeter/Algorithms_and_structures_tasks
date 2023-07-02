@@ -30,3 +30,13 @@
 # Friends and towns can have other names than in the examples.
 # Function "tour" returns an int which is the floor of the total distance.
 # FUNDAMENTALSMATHEMATICS
+# Solution
+from math import sqrt
+def tour(friends, friend_towns, distTable1):
+    a, count, true_fr = lambda c, b: sqrt(c**2 - b**2), 0, []
+    for i in friend_towns:
+        if i[0] in friends:
+            true_fr.append(i)
+    for b,c in zip(true_fr, true_fr[1:]):
+        count += a(distTable1[c[1]], distTable1[b[1]])
+    return int(count + distTable1[true_fr[0][1]] + distTable1[true_fr[-1][1]])
