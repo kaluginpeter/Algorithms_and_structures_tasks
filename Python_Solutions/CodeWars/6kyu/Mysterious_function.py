@@ -8,3 +8,6 @@
 # The archaeologists were totally stuck with this challenge. They were all in desperation but then.... came YOU the SUPER-AWESOME programmer. Will you be able to understand the mystery of this function and rewrite it?
 #
 # PUZZLES
+# Solution
+def get_num(n):
+    return sum(str(n).count(i) for i in "98860")
