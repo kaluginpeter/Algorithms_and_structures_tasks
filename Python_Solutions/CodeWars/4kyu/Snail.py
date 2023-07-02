@@ -19,3 +19,10 @@
 # NOTE 2: The 0x0 (empty matrix) is represented as en empty array inside an array [[]].
 #
 # ARRAYSALGORITHMS
+# Solution
+def snail(snail_map):
+    l = []
+    while len(snail_map):
+        l += snail_map.pop(0)
+        snail_map = list(zip(*snail_map))[::-1]
+    return l
