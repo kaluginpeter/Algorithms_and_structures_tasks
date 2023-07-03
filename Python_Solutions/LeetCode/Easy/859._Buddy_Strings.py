@@ -26,3 +26,17 @@
 #
 # 1 <= s.length, goal.length <= 2 * 104
 # s and goal consist of lowercase letters.
+# Solution
+class Solution:
+    def buddyStrings(self, s: str, goal: str) -> bool:
+        if len(s) != len(goal):
+            return False
+        if s == goal and len(set(s)) < len(s):
+            return True
+        count = []
+        for i in range(len(s)):
+            if s[i] != goal[i]:
+                count.append([s[i], goal[i]])
+        if len(count) == 2 and count[0] == count[-1][::-1]:
+            return True
+        return False
