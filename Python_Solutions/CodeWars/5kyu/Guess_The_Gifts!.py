@@ -25,3 +25,16 @@
 #
 # guess_gifts(wishlist, presents) # => must return ["Toy Car", "Mini Puzzle"]
 # ALGORITHMS
+# Solution
+def guess_gifts(wishlist, presents):
+    gift = []
+    for i in presents:
+        for j in range(len(wishlist)):
+            count = 0
+            for k,v in i.items():
+                if wishlist[j][k] == v:
+                    count += 1
+            if count == 3:
+                if wishlist[j]['name'] not in gift:
+                    gift.append(wishlist[j]['name'])
+    return gift
