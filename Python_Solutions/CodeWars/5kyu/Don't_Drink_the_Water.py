@@ -23,3 +23,28 @@
 # it floats to the top and to the left.
 #
 # ALGORITHMSARRAYSSORTINGLISTS
+# Solution
+def separate_liquids(glass):
+    if len(glass) < 1:
+        return []
+    length = max(len(i) for i in glass)
+    l, out = [], []
+    liq = ['O', 'A', 'W', 'H']
+    for liq_ in liq:
+        for row in glass:
+            for li in row:
+                if li == liq_:
+                    out.append(li)
+        if len(out) == length:
+            l.append(out)
+            out = []
+        if len(out) > length:
+            l.append(out[:length])
+            out = out[length:]
+    while out:
+        if len(out) >= length:
+            l.append(out[:length])
+            out = out[length:]
+            continue
+        l.append(out)
+    return l
