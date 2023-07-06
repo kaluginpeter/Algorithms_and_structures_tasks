@@ -19,3 +19,7 @@
 # 1 <= s.length <= 100
 # s[i]​​​​ is either '0' or '1'.
 # s[0] is '1'.
+# Solution
+class Solution:
+    def checkOnesSegment(self, s):
+        return not s.strip('0').strip('1')
