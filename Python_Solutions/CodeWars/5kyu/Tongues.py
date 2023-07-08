@@ -18,3 +18,7 @@
 # For each string passed to the decode function return its translation.
 #
 # STRINGSCIPHERSALGORITHMS
+# Solution
+import string
+def tongues(code):
+    return code.translate(str.maketrans('aiyeouAIYEOUbkxznhdcwgpvjqtsrlmfBKXZNHDCWGPVJQTSRLMF', 'eouaiyEOUAIYpvjqtsrlmfbkxznhdcwgPVJQTSRLMFBKXZNHDCWG'))
