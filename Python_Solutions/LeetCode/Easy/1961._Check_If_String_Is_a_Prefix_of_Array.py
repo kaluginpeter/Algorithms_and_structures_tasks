@@ -26,3 +26,12 @@
 # 1 <= words[i].length <= 20
 # 1 <= s.length <= 1000
 # words[i] and s consist of only lowercase English letters.
+# Solution
+class Solution:
+    def isPrefixString(self, s: str, words: List[str]) -> bool:
+        word = ''
+        for i in range(0, len(words)):
+            word += words[i]
+            if s == word:
+                return True
+        return False
