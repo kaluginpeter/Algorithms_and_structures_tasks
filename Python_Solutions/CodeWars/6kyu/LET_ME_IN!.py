@@ -33,3 +33,16 @@
 # The numbers up to the 0 get "consumed", as no more swapping is required
 # With 0 in front, it took 6 minutes for you to get seated, so the answer is 6
 # FUNDAMENTALSPERFORMANCE
+# Solution
+from itertools import count
+def get_in_line(l):
+    l.sort(key=lambda x: x if 0 < x < 3 else 3)
+    for n in count(1):
+        x = l.pop(0)
+        if x == 0:
+            return n
+        elif x == 1:
+            for i in range(len(l)//2):
+                j = len(l) - 1 - i
+                if l[i] not in (1,3) and l[j] not in (1,3):
+                    l[i], l[j] = l[j], l[i]
