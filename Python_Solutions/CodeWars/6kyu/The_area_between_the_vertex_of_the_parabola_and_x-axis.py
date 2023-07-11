@@ -49,3 +49,12 @@
 #
 # -founded by theprotagonist
 # MATHEMATICS
+# Solution
+def area(a, b, c):
+    d = b**2 - 4 * a * c
+    if d <= 0:
+        return 0
+    # calculate x1 and x2
+    x1, x2 = (-b + d**.5) / (2 * a), (-b - d**.5) / (2 * a)
+    # calculate integral by formula: ∫[a, b] f(x) dx >= ∫(((a/3)(x)^3 + (b/2)(x)^2 + c*(x)))dx
+    return abs(((a/3) * (x1)**3 + (b/2) * (x1)**2 + c * (x1)) - ((a/3) * (x2)**3 + (b/2) * (x2)**2 + c * (x2)))
