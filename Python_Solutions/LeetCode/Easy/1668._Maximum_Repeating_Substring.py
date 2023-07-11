@@ -28,3 +28,13 @@
 # 1 <= sequence.length <= 100
 # 1 <= word.length <= 100
 # sequence and word contains only lowercase English letters.
+# Solution
+class Solution:
+    def maxRepeating(self, sequence: str, word: str) -> int:
+        if word not in sequence:
+            return 0
+        count, total = 0, ''
+        while total in sequence:
+            total += word
+            count += 1
+        return count - 1
