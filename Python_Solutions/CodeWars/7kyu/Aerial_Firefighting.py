@@ -18,3 +18,7 @@
 # "xxxxYxYx" and w = 5   -->  3
 # "xxxxxYxYx" and w = 2  -->  5
 # STRINGSALGORITHMSPUZZLES
+# Solution
+from math import ceil
+def waterbombs(fire, w):
+    return sum(ceil(len(i) / w) for i in fire.split('Y'))
