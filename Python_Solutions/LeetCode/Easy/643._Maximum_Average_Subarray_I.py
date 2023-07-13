@@ -21,3 +21,11 @@
 # n == nums.length
 # 1 <= k <= n <= 105
 # -104 <= nums[i] <= 104
+# Solution
+class Solution:
+    def findMaxAverage(self, nums: List[int], k: int) -> float:
+        top = res = sum(nums[:k])
+        for i in range(len(nums)-k):
+            top += nums[i+k] - nums[i]
+            res = max(top, res)
+        return res / k
