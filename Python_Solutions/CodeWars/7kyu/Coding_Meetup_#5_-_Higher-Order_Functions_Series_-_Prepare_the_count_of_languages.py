@@ -59,3 +59,7 @@
 # Coding Meetup #16 - Higher-Order Functions Series - Ask for missing details
 #
 # FUNCTIONAL PROGRAMMINGDATA STRUCTURESARRAYSFUNDAMENTALSALGORITHMS
+# Solution
+from collections import Counter
+def count_languages(lst):
+    return Counter(i['language'] for i in lst)
