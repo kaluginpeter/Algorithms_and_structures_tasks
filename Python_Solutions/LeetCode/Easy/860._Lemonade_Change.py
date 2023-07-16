@@ -61,3 +61,18 @@ class Solution:
                 cash.remove(5)
                 cash.append(20)
         return True
+
+# Second solution
+        five, ten = 0, 0
+        for i in range(len(bills)):
+            if bills[i] == 5:
+                five += 1
+            elif bills[i] == 10:
+                five, ten = five - 1, ten + 1
+            elif ten > 0:
+                five, ten = five - 1, ten - 1
+            else:
+                five -= 3
+            if five < 0:
+                return False
+        return True
