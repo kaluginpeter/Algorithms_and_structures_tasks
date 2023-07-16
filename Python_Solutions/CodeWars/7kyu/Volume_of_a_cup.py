@@ -18,3 +18,8 @@
 # You will only be passed positive numbers.
 #
 # GEOMETRYFUNDAMENTALS
+# Solution
+import math
+def cup_volume(d1, d2, h):
+    Rv, Rd = d1 / 2, d2 / 2
+    return round((1/3) * math.pi * h * (Rv**2 + Rv * Rd + Rd**2), 2)
