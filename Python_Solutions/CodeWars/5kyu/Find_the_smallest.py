@@ -21,3 +21,14 @@
 # Have a look at "Sample Tests" to see the input and output in each language
 #
 # FUNDAMENTALS
+# Solution
+def smallest(n):
+    n, l = str(n), [n, 0, 0]
+    for i in range(len(n)):
+        top, copy = (int(n), -1), n[:i] + n[i+1:]
+        for j in range(len(copy) + 1):
+            sec = int(copy[:j] + n[i] + copy[j:])
+            if top[0] > sec:
+                top = (sec, j)
+        l = [top[0], i, top[1]] if l[0] > top[0] else l
+    return l
