@@ -30,3 +30,7 @@
 # Constraints:
 #
 # 1 <= n <= 231 - 1
+# Solution
+class Solution:
+    def canWinNim(self, n: int) -> bool:
+        return n % 4 != 0
