@@ -26,3 +26,13 @@
 # Note that no matter what ingredients are passed, our taco will always have a shell.
 #
 # FUNDAMENTALS
+# Solution
+def tacofy(word):
+    l = []
+    d = {'t':'tomato','l':'lettuce','c':'cheese','g':'guacamole','s':'salsa'}
+    for i in word:
+        if i.lower() in 'aeoiu':
+            l.append('beef')
+        if i.lower() in d:
+            l.append(d[i.lower()])
+    return ['shell'] + l + ['shell']
