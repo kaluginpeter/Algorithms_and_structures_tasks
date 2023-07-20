@@ -23,3 +23,13 @@
 # 2 <= nums.length <= 50
 # 0 <= nums[i] <= 100
 # The largest element in nums is unique.
+# Solution
+class Solution:
+    def dominantIndex(self, nums: List[int]) -> int:
+        hi, hi_i = max(nums), 0
+        for i in range(len(nums)):
+            if nums[i] == hi:
+                hi_i = i
+            if nums[i] != hi and nums[i] * 2 > hi:
+                return -1
+        return hi_i
