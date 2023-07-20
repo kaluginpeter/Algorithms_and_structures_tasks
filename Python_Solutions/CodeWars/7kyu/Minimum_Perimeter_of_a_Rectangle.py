@@ -20,3 +20,9 @@
 # 1 <= area <= 5 x 10 ^ 10
 #
 # FUNDAMENTALSALGORITHMS
+# Solution
+def minimum_perimeter(area):
+    i = int(area ** .5)
+    while area % i:
+        i -= 1
+    return 2 * i + 2 * (area // i)
