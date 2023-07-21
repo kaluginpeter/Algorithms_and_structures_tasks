@@ -27,3 +27,21 @@
 # 0 <= banned.length <= 100
 # 1 <= banned[i].length <= 10
 # banned[i] consists of only lowercase English letters.
+# Solution
+class Solution:
+    def mostCommonWord(self, letters: str, ban: List[str]) -> str:
+        d, word = {}, ''
+        for i in letters.lower():
+            if not i.isalpha():
+                if word and word not in ban:
+                    if word not in d:
+                        d[word] = 0
+                    d[word] += 1
+                word = ''
+            else:
+                word += i
+        if word and word not in ban:
+            if word not in d:
+                d[word] = 0
+            d[word] += 1
+        return sorted(d.items(), key=lambda x: -x[1])[0][0]
