@@ -9,3 +9,6 @@
 # two_are_positive(4, 6, 10) == False
 # two_are_positive(-14, -3, -4) == False
 # FUNDAMENTALS
+# Solution
+def two_are_positive(*args):
+    return sum(i > 0 for i in args) == 2
