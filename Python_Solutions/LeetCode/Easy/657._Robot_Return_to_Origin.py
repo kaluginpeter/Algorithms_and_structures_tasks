@@ -24,3 +24,17 @@
 #
 # 1 <= moves.length <= 2 * 104
 # moves only contains the characters 'U', 'D', 'L' and 'R'.
+# Solution
+class Solution:
+    def judgeCircle(self, moves: str) -> bool:
+        l, u = 0, 0
+        for i in moves:
+            if i == 'U':
+                u += 1
+            if i == 'D':
+                u -= 1
+            if i == 'L':
+                l += 1
+            if i == 'R':
+                l -= 1
+        return u == 0 and l == 0
