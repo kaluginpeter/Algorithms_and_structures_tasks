@@ -11,3 +11,11 @@
 # isPP(9) => [3,2]
 # isPP(5) => None
 # MATHEMATICSFUNDAMENTALS
+# Solution
+def isPP(n):
+    for i in range(2, n):
+        for j in range(2, n):
+            if i ** j > n:
+                break
+            if i ** j == n:
+                return [i, j]
