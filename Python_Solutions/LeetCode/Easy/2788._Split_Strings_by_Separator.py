@@ -43,3 +43,12 @@
 # 1 <= words[i].length <= 20
 # characters in words[i] are either lowercase English letters or characters from the string ".,|$#@" (excluding the quotes)
 # separator is a character from the string ".,|$#@" (excluding the quotes)
+# Solution
+class Solution:
+    def splitWordsBySeparator(self, words: List[str], separator: str) -> List[str]:
+        l = []
+        for i in words:
+            for j in i.split(separator):
+                if j:
+                    l.append(j)
+        return l
