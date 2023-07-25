@@ -15,3 +15,13 @@
 # Since the number of passengers inside the tram never exceeds 6, a capacity of 6 is sufficient. Furthermore it is not possible for the tram to have a capacity less than 6. Hence, 6 is the correct answer.
 #
 # FUNDAMENTALSALGORITHMS
+# Solution
+def tram(stops, d, o):
+    top = o[0] - d[0]
+    max = top
+    for i in range(1, stops):
+        top -= d[i]
+        top += o[i]
+        if top > max:
+            max = top
+    return max
