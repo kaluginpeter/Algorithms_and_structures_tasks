@@ -15,3 +15,13 @@
 # If you notice any issues or have any suggestions/comments whatsoever, please don't hesitate to mark an issue or just comment. Thanks!
 #
 # FUNDAMENTALS
+# Solution
+def keep_order(ary, val):
+    l, r = 0, len(ary) - 1
+    while l <= r:
+        mid = l + (r - l) // 2
+        if ary[mid] >= val:
+            r = mid - 1
+        else:
+            l = mid + 1
+    return l
