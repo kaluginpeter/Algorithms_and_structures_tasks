@@ -14,3 +14,18 @@
 # You may assume that the board passed in is valid in the context of a game of Tic-Tac-Toe.
 #
 # ARRAYSALGORITHMS
+# Solution
+def is_solved(board):
+    moves = [board[0], board[1], board[2], [i[0] for i in board],
+            [i[1] for i in board], [i[2] for i in board],
+            [board[i][i] for i in range(len(board))],
+             [board[i][-(i + 1)] for i in range(len(board))]
+            ]
+    if any(i.count(1) == 3 for i in moves):
+        return 1
+    if any(i.count(2) == 3 for i in moves):
+        return 2
+    if all(i.count(0) == 0 for i in moves):
+        return 0
+    else:
+        return -1
