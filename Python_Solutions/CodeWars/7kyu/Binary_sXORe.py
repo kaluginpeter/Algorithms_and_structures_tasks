@@ -10,3 +10,6 @@
 # 50	51
 # 1000000	1000000
 # BINARYALGORITHMS
+# Solution
+def sxore(n):
+    return [n, 1, n + 1, 0][n % 4]
