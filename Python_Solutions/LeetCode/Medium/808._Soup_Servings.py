@@ -29,3 +29,22 @@
 # Constraints:
 #
 # 0 <= n <= 109
+# Solution
+class Solution:
+    def soupServings(self, n: int) -> float:
+        if n > 4800:
+            return 1
+        n = (n + 24) // 25
+        d = {}
+        def dyn_prog(x, y):
+            if (x, y) in d:
+                return d[(x,y)]
+            if x <= 0 and y <= 0:
+                return 0.5
+            if x <= 0:
+                return 1
+            if y <= 0:
+                return 0
+            d[(x, y)] = 0.25 * (dyn_prog(x-4, y) + dyn_prog(x-3, y-1) + dyn_prog(x-2, y-2) + dyn_prog(x-1, y-3))
+            return d[(x,y)]
+        return dyn_prog(n, n)
