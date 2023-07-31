@@ -29,3 +29,11 @@
 #
 #
 # Follow up: If this function is called many times, how would you optimize it?
+# Solution
+class Solution:
+    def hammingWeight(self, n: int) -> int:
+        c = 0
+        while n:
+            c += 1
+            n &= n - 1
+        return c
