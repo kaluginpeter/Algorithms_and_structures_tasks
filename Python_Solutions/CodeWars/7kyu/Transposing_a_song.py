@@ -27,3 +27,8 @@
 # ['Db'] -> -4 steps -> ['A']
 # ['E', 'F'] -> 1 step -> ['F', 'F#']
 # FUNDAMENTALSALGORITHMSSTRINGSLISTS
+# Solution
+def transpose(song, interval):
+    d = {"Bb": "A#", "Db": "C#", "Eb": "D#", "Gb": "F#", "Ab": "G#"}
+    l = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#']
+    return [l[(l.index(d.get(i, i)) + interval) % 12] for i in song]
