@@ -21,3 +21,17 @@
 #
 # 1 <= n <= 20
 # 1 <= k <= n
+# Solution
+class Solution:
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        def backtrack(start, current_comb):
+            if len(current_comb) == k:
+                all_comb.append(list(current_comb))
+                return
+            for i in range(start, n + 1):
+                current_comb.append(i)
+                backtrack(i+1, current_comb)
+                current_comb.pop()
+        all_comb = []
+        backtrack(1, [])
+        return all_comb
