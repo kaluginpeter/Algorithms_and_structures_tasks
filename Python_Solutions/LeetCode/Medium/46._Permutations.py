@@ -21,3 +21,8 @@
 # 1 <= nums.length <= 6
 # -10 <= nums[i] <= 10
 # All the integers of nums are unique.
+# Solution
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        import itertools
+        return list(itertools.permutations(nums))
