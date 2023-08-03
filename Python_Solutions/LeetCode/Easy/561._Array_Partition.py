@@ -23,3 +23,8 @@
 # 1 <= n <= 104
 # nums.length == 2 * n
 # -104 <= nums[i] <= 104
+# Solution
+class Solution:
+    def arrayPairSum(self, nums: List[int]) -> int:
+        nums = sorted(nums)
+        return sum(i for i in nums[::2])
