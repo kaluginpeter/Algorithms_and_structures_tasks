@@ -28,3 +28,14 @@
 # 1 <= wordDict[i].length <= 20
 # s and wordDict[i] consist of only lowercase English letters.
 # All the strings of wordDict are unique.
+# Solution
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        l = [False] * (len(s) + 1)
+        l[0] = True
+        for i in range(1, len(s) + 1):
+            for j in range(i):
+                if l[j] and s[j:i] in wordDict:
+                    l[i] = True
+                    break
+        return l[-1]
