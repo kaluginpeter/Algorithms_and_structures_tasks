@@ -13,3 +13,14 @@
 # - 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 # Shift (subtract)
 #   p | a | s | s | w | o | r | d # Plaintext
 # ALGORITHMS
+# Solution
+def ascii_encrypt(plaintext):
+    if not plaintext:
+        return plaintext
+    return ''.join(chr(ord(plaintext[i]) + i) for i in range(len(plaintext)))
+
+
+def ascii_decrypt(encrypted):
+    if not encrypted:
+        return encrypted
+    return ''.join(chr(ord(encrypted[i]) - i) for i in range(len(encrypted)))
