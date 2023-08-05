@@ -15,3 +15,9 @@
 # 6  ->   [2, 3, 1]
 # 10 ->   [4, 5, 1]
 # ALGORITHMSMATHEMATICS
+# Solution
+from math import ceil
+def race_podium(b):
+    x = ceil((b) / 3) + 1
+    y = min(x - 1, b - x - 1)
+    return y, x, b - x - y
