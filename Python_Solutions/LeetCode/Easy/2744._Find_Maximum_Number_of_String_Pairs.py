@@ -38,3 +38,20 @@
 # words[i].length == 2
 # words consists of distinct strings.
 # words[i] contains only lowercase English letters.
+# Solution
+class Solution:
+    def maximumNumberOfStringPairs(self, words: List[str]) -> int:
+        count = 0
+        while True:
+            top = 0
+            for i in range(len(words)):
+                for j in range(i + 1, len(words)):
+                    if words[i][::-1] == words[j]:
+                        count += 1
+                        top += 1
+                        words.pop(j)
+                        words.pop(i)
+                        break
+            if top == 0:
+                break
+        return count
