@@ -27,3 +27,17 @@
 # Constraints:
 #
 # 1 <= n <= 1000
+# Solution
+class Solution:
+    def evenOddBit(self, n: int) -> List[int]:
+        odd, even, flag = 0, 0, True
+        for i in bin(n)[2:][::-1]:
+            if flag:
+                flag = False
+                if i == '1':
+                    even += 1
+            else:
+                flag = True
+                if i == '1':
+                    odd += 1
+        return [even, odd]
