@@ -23,3 +23,8 @@
 # Given the input as a string - Return the sum of the two variables as int.
 #
 # PUZZLES
+# Solution
+def the_var(the_variables):
+    en_al = 'abcdefghijklmnopqrstuvwxyz'
+    op = the_variables.split('+')
+    return en_al.index(op[0]) + en_al.index(op[1]) + 2
