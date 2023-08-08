@@ -7,3 +7,8 @@
 # Hence the asnwer will be 2 (=13-11)
 #
 # FUNDAMENTALS
+# Solution
+from functools import reduce
+def min_distance(n):
+    factor = sorted(set(reduce(list.__add__, ([i, n // i] for i in range(1, int(n**.5)+1) if n % i == 0))))
+    return min(factor[i+1] - factor[i] for i in range(len(factor)) if i + 1 < len(factor))
