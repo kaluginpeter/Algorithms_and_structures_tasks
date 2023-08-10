@@ -14,3 +14,11 @@
 # 25 -> [1, 2, 3, 4, 6, 7, 8, 9, 11, 12, 13, 14, 16, 17, 18, 19, 21, 22, 23, 24]
 # 30 -> [1, 7, 11, 13, 17, 19, 23, 29]
 # MATHEMATICSALGORITHMS
+# Solution
+import math
+def coprimes(n):
+    ans = []
+    for i in range(1, n):
+        if math.gcd(n, i) == 1:
+            ans.append(i)
+    return ans
