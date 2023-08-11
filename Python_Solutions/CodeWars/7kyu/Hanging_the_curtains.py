@@ -13,3 +13,9 @@
 #
 # P.S. I hope this kata will change the number of curtain hooks you use when hanging your own curtains :)
 # PUZZLESMATHEMATICSALGORITHMSLOGIC
+# Solution
+def number_of_hooks(length, max_hook_dist):
+    out = 1
+    while length / out > max_hook_dist:
+        out = out * 2
+    return out + 1
