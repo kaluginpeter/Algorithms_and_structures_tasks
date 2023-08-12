@@ -45,3 +45,11 @@
 # sentence consist of only lowercase and uppercase English letters and spaces.
 # The words in sentence are separated by a single space.
 # There are no leading or trailing spaces.
+# Solution
+class Solution:
+    def isCircularSentence(self, sentence: str) -> bool:
+        sen = sentence.split()
+        for i in range(len(sen)):
+            if sen[i-1][-1] != sen[i][0]:
+                return False
+        return True
