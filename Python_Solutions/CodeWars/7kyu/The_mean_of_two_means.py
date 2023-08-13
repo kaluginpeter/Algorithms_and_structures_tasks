@@ -9,3 +9,8 @@
 # getMean([1,3,2,4], 2, 8) should return -1 because 8 is higher than the array's length.
 #
 # ARRAYSFUNDAMENTALS
+# Solution
+def get_mean(arr,x,y):
+    if (x <= 1 or y <= 1) or (x > len(arr) or y > len(arr)):
+        return -1
+    return (sum(arr[:x]) / x + sum(arr[-y:]) / y) / 2
