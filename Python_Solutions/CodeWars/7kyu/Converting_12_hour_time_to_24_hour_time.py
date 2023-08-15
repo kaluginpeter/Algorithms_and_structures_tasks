@@ -8,3 +8,9 @@
 # By convention, noon is 12:00 pm, and midnight is 12:00 am.
 # On 12-hours clock, there is no 0 hour, and time just after midnight is denoted as, for example, 12:15 am. On 24-hour clock, this translates to 0015.
 # DATE TIMEALGORITHMS
+# Solution
+from datetime import datetime
+def to24hourtime(hour, minute, period):
+    start = str(hour) + ':' + str(minute) + period
+    start = datetime.strptime(start, '%I:%M%p')
+    return datetime.strftime(start, '%H%M')
