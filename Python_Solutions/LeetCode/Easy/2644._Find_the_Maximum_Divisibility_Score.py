@@ -38,3 +38,17 @@
 #
 # 1 <= nums.length, divisors.length <= 1000
 # 1 <= nums[i], divisors[i] <= 109
+# Solution
+class Solution:
+    def maxDivScore(self, nums: List[int], divisors: List[int]) -> int:
+        count, top, top_n = 0, 0, divisors[0]
+        for i in divisors:
+            count = 0
+            for j in nums:
+                if j % i == 0:
+                    count += 1
+            if count > top:
+                top_n, top = i, count
+            if count == top:
+                top_n = min(i, top_n)
+        return top_n if top > 0 else min(divisors)
