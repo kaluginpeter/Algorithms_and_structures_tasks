@@ -34,3 +34,13 @@
 # inspirers
 #
 # ALGORITHMS
+# Solution
+def solution(start, finish):
+    count = 0
+    while finish > start:
+        count += 1
+        if start + 3 <= finish:
+            start += 3
+        else:
+            start += 1
+    return count
