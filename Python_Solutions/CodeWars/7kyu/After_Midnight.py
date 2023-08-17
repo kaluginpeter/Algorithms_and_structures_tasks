@@ -13,3 +13,11 @@
 #  259180  =>  should return 'Thursday 23:40'
 # -349000  =>  should return 'Tuesday 15:20'
 # DATE TIMEALGORITHMS
+# Solution
+def day_and_time(mins):
+    days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    total_minutes = mins % (7 * 24 * 60)
+    day_index = total_minutes // (24 * 60)
+    hour = (total_minutes % (24 * 60)) // 60
+    minute = total_minutes % 60
+    return f"{days[day_index]} {hour:02d}:{minute:02d}"
