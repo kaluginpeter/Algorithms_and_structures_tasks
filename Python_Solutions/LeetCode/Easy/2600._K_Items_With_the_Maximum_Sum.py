@@ -29,3 +29,23 @@
 #
 # 0 <= numOnes, numZeros, numNegOnes <= 50
 # 0 <= k <= numOnes + numZeros + numNegOnes
+# Solution
+class Solution:
+    def kItemsWithMaximumSum(self, numOnes: int, numZeros: int, numNegOnes: int, k: int) -> int:
+        # Solution 1
+        # count = 0
+        # while k > 0:
+        #     k -= 1
+        #     if numOnes > 0:
+        #         count += 1
+        #         numOnes -= 1
+        #         continue
+        #     if numZeros > 0:
+        #         numZeros -= 1
+        #         continue
+        #     if numNegOnes > 0:
+        #         count += -1
+        #         numNegOnes -= 1
+        #         continue
+        # return count
+        return k if k <= numOnes else numOnes - max(0, k - numOnes - numZeros)
