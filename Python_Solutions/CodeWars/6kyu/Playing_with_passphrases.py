@@ -21,3 +21,15 @@
 # https://en.wikipedia.org/wiki/Passphrase
 #
 # STRINGSALGORITHMS
+# Solution
+def play_pass(s, n):
+    al = 'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    for i in range(len(s)):
+        if s[i] in al:
+            if i % 2 != 0:
+                s = s[:i] + al[al.index(s[i]) + n % 26].lower() + s[i+1:]
+            else:
+                s = s[:i] + al[al.index(s[i]) + n % 26].upper() + s[i+1:]
+        if s[i].isdigit():
+            s = s[:i] + str(9 - int(s[i])) + s[i+1:]
+    return s[::-1]
