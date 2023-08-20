@@ -20,3 +20,15 @@
 #
 # 1 <= s.length <= 2000
 # s consists of lowercase and/or uppercase English letters only.
+# Solution
+class Solution(object):
+    def longestPalindrome(self, s):
+        d, count = {}, 0
+        for i in s:
+            if i in d:
+                d[i] += 1
+                if d[i] % 2 == 0:
+                    count += 2
+            else:
+                d[i] = 1
+        return count + 1 if len(s) - count != 0 else count
