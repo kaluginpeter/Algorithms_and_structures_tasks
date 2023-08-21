@@ -70,3 +70,17 @@ class Solution:
                 if pos == m:
                     return True
         return False
+
+# Solution 3
+class Solution(object):
+    def repeatedSubstringPattern(self, s):
+        if len(s) == 1:
+            return False
+        for i in range(len(s) // 2):
+            count = s[:i+1]
+            cop = ''
+            while len(cop) < len(s):
+                cop += count
+            if cop == s:
+                return True
+        return False
