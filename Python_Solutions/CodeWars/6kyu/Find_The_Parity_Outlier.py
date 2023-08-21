@@ -7,3 +7,14 @@
 # [160, 3, 1719, 19, 11, 13, -21]
 # Should return: 160 (the only even number)
 # ALGORITHMS
+# Solution
+def find_outlier(inter):
+    odd, even = sum(inter[i] % 2 != 0 for i in range(3)), sum(inter[i] % 2 == 0 for i in range(3))
+    flag = odd > even
+    if flag:
+        for i in inter:
+            if i % 2 == 0:
+                return i
+    for i in inter:
+        if i % 2 != 0:
+            return i
