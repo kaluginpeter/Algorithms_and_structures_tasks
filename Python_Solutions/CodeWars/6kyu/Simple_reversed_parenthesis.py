@@ -12,3 +12,14 @@
 # Good luck.
 #
 # FUNDAMENTALS
+# Solution
+def solve(s):
+    if len(s) % 2: return -1
+    l, c = 0, 0
+    for i in s:
+        if i == '(': l += 1
+        else: l -= 1
+        if l < 0:
+            c += 1
+            l += 2
+    return c + l // 2
