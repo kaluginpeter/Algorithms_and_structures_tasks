@@ -7,3 +7,7 @@
 # Good luck!
 #
 # ALGORITHMS
+# Solution
+from itertools import combinations
+def solve(arr):
+    return sum(a - b == b - c for a, b, c in combinations(arr, 3))
