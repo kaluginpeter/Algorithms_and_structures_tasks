@@ -67,3 +67,10 @@
 # sortArrays([5,6,9,2,6,5],[3,6,7,4,8,1]) should return
 # [[5,5,2,6,9,6],[4,3,1,6,8,7]]
 # PUZZLESFUNDAMENTALSSORTINGALGORITHMSARRAYS
+# Solution
+def sort_two_arrays(arr1, arr2):
+    l1 = sorted([[arr1[i],i] for i in range(len(arr1))])
+    l2 = sorted([[arr2[i],i] for i in range(len(arr2))])
+    r1 = [arr1[i[1]] for i in l2]
+    r2 = [arr2[i[1]] for i in l1]
+    return [r1,r2]
