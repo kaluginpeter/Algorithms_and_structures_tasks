@@ -16,3 +16,11 @@
 # The router should also handle modifying existing routes. See the example tests for more details.
 #
 # OBJECT-ORIENTED PROGRAMMINGARRAYSFUNDAMENTALS
+# Solution
+class Router:
+    def __init__(self):
+        self._routes = {}
+    def bind(self, url, method, a):
+        self._routes[(url, method)] = a
+    def runRequest(self, url, method):
+        return self._routes.get((url, method), lambda: "Error 404: Not Found")()
