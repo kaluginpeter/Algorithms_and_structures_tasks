@@ -8,3 +8,10 @@
 # "The_Stealth-Warrior" gets converted to "TheStealthWarrior"
 #
 # REGULAR EXPRESSIONSALGORITHMSSTRINGS
+# Solution
+import re
+def to_camel_case(text):
+    if len(text) == 0:
+        return ''
+    w = re.split('_|-| ', text)
+    return (w[0].lower() if w[0][0].islower() else w[0].title()) + ''.join(i.title() for i in w[1:])
