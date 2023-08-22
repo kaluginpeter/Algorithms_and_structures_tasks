@@ -29,3 +29,11 @@
 # Constraints:
 #
 # 1 <= columnNumber <= 231 - 1
+# Soluiton
+class Solution(object):
+    def convertToTitle(self, columnNumber):
+        l = []
+        while columnNumber:
+            columnNumber, i = (columnNumber - 1) // 26, (columnNumber - 1) % 26
+            l.append(chr(i + ord('A')))
+        return ''.join(l)[::-1]
