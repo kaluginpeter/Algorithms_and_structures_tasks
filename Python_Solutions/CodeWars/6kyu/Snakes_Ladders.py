@@ -58,3 +58,9 @@
 # :-)
 #
 # ARRAYSFUNDAMENTALS
+# Solution
+def snakes_and_ladders(board, dice):
+    c = 0
+    for i in dice:
+        if c + i < len(board): c += i + board[c + i]
+    return c
