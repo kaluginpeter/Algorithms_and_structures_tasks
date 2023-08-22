@@ -9,3 +9,7 @@
 # If two or more strings in the array have maximum sub-strings of the same length, then the strings should remain in the order in which they were found in the orginal array.
 #
 # FUNDAMENTALSSTRINGSSORTING
+# Solution
+import re
+def sort_strings_by_vowels(seq):
+    return sorted(seq, reverse=True, key=lambda _: max((len(i) for i in re.findall(r'[aeiouAEIOU]+', _)), default=0))
