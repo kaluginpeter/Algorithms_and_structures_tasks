@@ -18,3 +18,6 @@
 # Note: You can assume that each lowercase letter will appears a maximum of 9 times in the input string.
 #
 # STRINGSFUNDAMENTALS
+# Solution
+def decrypt(w):
+    return ''.join(str(w.count(i)) for i in "abcdefghijklmnopqrstuvwxyz")
