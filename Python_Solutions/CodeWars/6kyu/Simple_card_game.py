@@ -19,3 +19,13 @@
 # So you should return: "Steve wins 2 to 1"
 #
 # ARRAYSGAMESALGORITHMS
+# Solution
+def winner(deck_steve, deck_josh):
+    ranks = ['2','3','4','5','6','7','8','9','T','J','Q','K','A']
+    steve, josh = 0, 0
+    for i in range(len(deck_steve)):
+        if ranks.index(deck_steve[i]) > ranks.index(deck_josh[i]):
+            steve += 1
+        elif ranks.index(deck_steve[i]) < ranks.index(deck_josh[i]):
+            josh += 1
+    return f"Steve wins {steve} to {josh}" if steve > josh else f"Josh wins {josh} to {steve}" if josh > steve else 'Tie'
