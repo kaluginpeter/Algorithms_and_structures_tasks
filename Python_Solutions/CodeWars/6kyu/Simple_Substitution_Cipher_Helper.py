@@ -16,3 +16,8 @@
 # If a character provided is not in the opposing alphabet, simply leave it as be.
 #
 # CIPHERSSECURITYOBJECT-ORIENTED PROGRAMMINGSTRINGSALGORITHMS
+# Solution
+class Cipher(object):
+    def __init__(self, map1, map2):
+        self.encode = lambda s: s.translate(str.maketrans(map1, map2))
+        self.decode = lambda s: s.translate(str.maketrans(map2, map1))
