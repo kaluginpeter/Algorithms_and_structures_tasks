@@ -13,3 +13,6 @@
 # Note: input >= 0
 #
 # FUNDAMENTALS
+# Solution
+def simplify(n):
+    return "".join(["+"+str(n)[i]+("*1"+"0"*(len(str(n))-i-1) if len(str(n))-i-1>0 else "") for i in range(0, len(str(n))) if str(n)[i]!="0"])[1:]
