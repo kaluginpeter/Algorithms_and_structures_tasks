@@ -11,3 +11,7 @@
 # If you like Prime Katas, you will enjoy this Kata: Simple Prime Streaming
 #
 # ALGORITHMS
+# Solution
+from gmpy2 import is_prime
+def solve(n, i=0):
+    return is_prime(n-i) and n-i or is_prime(n+i) and n+i or solve(n,i+1)
