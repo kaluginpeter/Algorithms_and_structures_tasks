@@ -9,3 +9,8 @@
 # odd numbers ascending:   [1, 3,       5   ]
 # even numbers descending: [      8, 4,    2]
 # ARRAYSFUNDAMENTALSSORTING
+# Solution
+def sort_array(l):
+    e = sorted(i for i in l if i % 2 == 0)
+    o = sorted((i for i in l if i % 2 != 0), reverse=True)
+    return [(e if i % 2 == 0 else o).pop() for i in l]
