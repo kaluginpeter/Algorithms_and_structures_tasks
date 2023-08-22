@@ -14,3 +14,7 @@
 # Good luck!
 #
 # FUNDAMENTALS
+# Solution
+def solve(n):
+    c = int('0' + '9' * (len(str(n)) - 1))
+    return sum(int(i) for i in str(c) + str(n - c))
