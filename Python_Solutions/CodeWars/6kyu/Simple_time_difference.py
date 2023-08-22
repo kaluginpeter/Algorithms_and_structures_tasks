@@ -8,3 +8,9 @@
 # More examples in test cases. Good luck!
 #
 # ALGORITHMSDATE TIMESTRINGS
+# Solution
+from datetime import datetime
+def solve(arr):
+    l = [datetime(2000, 1, 1, *map(int, x.split(':'))) for x in sorted(arr)]
+    c = max(int((j - i).total_seconds() - 60) for i, j in zip(l, l[1:] + [l[0].replace(day=2)]))
+    return '{:02}:{:02}'.format(*divmod(c//60, 60))
