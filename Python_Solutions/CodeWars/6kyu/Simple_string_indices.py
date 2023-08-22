@@ -14,3 +14,12 @@
 # Good luck!
 #
 # STRINGSALGORITHMS
+# Solution
+def solve(s, idx):
+    l = []
+    for k, v in enumerate(s):
+        if v == '(': l += [k]
+        if v == ')':
+            if not l: break
+            if l.pop() == idx: return k
+    return -1
