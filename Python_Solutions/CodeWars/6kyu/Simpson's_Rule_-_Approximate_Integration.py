@@ -118,3 +118,8 @@
 # Complement: you can see: https://www.codewars.com/kata/5562ab5d6dca8009f7000050/ about rectangle method and trapezoidal rule.
 #
 # MATHEMATICS
+# Solution
+from math import pi, sin
+def simpson(n, f=lambda x: 3 / 2 * sin(x) ** 3, a=0, b=pi):
+    h = (b - a) / n
+    return h / 3 * (f(a) + f(b)+ 4 * sum(f(a + i * h) for i in range(1, n, 2))+ 2 * sum(f(a + i * h) for i in range(2, n, 2)))
