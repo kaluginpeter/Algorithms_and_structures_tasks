@@ -8,3 +8,10 @@
 # Good luck!
 #
 # ALGORITHMS
+# Solution
+def solve(xs):
+    c = 0
+    for i in sorted(xs):
+        if i > c + 1: break
+        c += i
+    return c + 1
