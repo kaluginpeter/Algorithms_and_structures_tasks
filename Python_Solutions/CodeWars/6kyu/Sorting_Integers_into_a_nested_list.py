@@ -33,3 +33,7 @@
 # Good luck guys/gals!
 #
 # FUNDAMENTALSALGORITHMSSORTING
+# Solution
+from itertools import groupby
+def group_ints(lst, key=0):
+    return [list(v) for k, v in groupby(lst, lambda x: x < key)]
