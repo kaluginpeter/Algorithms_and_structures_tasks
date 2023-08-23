@@ -11,3 +11,6 @@
 # All letters will be lowercase and all inputs will be valid.
 #
 # FUNDAMENTALSSTRINGSARRAYS
+# Solution
+def high(x):
+    return max(x.split(), key=lambda k: sum(ord(c) - 96 for c in k))
