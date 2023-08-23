@@ -24,3 +24,11 @@
 # 600.3K
 # Acceptance Rate
 # 54.2%
+# Solution
+class Solution(object):
+    def reorganizeString(self, s):
+        n, c = len(s), Counter(s)
+        arr = sorted([ch for ch in c], key = lambda x: -c[x])
+        if c[arr[0]] > (len(s)+1)//2: return ''
+        chars = list(chain(*[[ch]*c[ch] for ch in arr]))
+        return ''.join([chars[(n+i)//2] if i%2 else chars[i//2] for i in range(n)])
