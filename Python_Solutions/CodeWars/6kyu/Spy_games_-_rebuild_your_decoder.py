@@ -21,3 +21,6 @@
 #
 # "x20*6<xY y875_r97L" --> "8 36" --> "8 9" --> "hi"
 # FUNDAMENTALS
+# Solution
+def decrypt(code):
+    return ''.join(' abcdefghijklmnopqrstuvwxyz'[sum(int(i) for i in j if i.isdigit()) % 27] for j in code.split())
