@@ -45,3 +45,9 @@
 #
 # Result: [10, 18]
 # ARRAYSALGORITHMS
+# Solution
+def split_and_add(arr, n):
+    for _ in range(n):
+        le = len(arr) // 2
+        arr = [i + j for i, j in zip([0] * (len(arr) % 2) + arr[:le], arr[le:])]
+    return arr
