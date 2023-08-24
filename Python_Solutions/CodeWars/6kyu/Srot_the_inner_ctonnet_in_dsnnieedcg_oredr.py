@@ -16,3 +16,13 @@
 # I have also created other katas. Take a look if you enjoyed this kata!
 #
 # STRINGSLOGICALGORITHMS
+# Solution
+def sort_the_inner_content(str):
+    w = str.split()
+    f = []
+    for i in w:
+        if len(i) > 2:
+            f.append(i[0] + ''.join(sorted(i[1:-1], reverse=True)) + i[-1])
+            continue
+        f.append(i)
+    return ' '.join(f)
