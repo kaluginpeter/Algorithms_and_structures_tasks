@@ -28,3 +28,14 @@
 # Constraints:
 #
 # 1 <= num, t <= 50
+# Soluiton
+class Solution(object):
+    def theMaximumAchievableX(self, num, t):
+        # top = 0
+        # for i in range(num // 2, num * 2 + t * 2):
+        #     x, y = num + t, i - t
+        #     if x == y:
+        #         if top < i:
+        #             top = i
+        # return top
+        return num + t + t
