@@ -69,3 +69,10 @@
 # Street Fighter 2 - selection theme
 #
 # ARRAYSLISTSFUNDAMENTALSGRAPH THEORY
+# Solution
+def street_fighter_selection(fighters, pos, moves):
+    l, row, col, m = [], pos[0], pos[1], {"up":(-1, 0), "down":(1, 0), "right":(0, 1), "left":(0,-1)}
+    for i in moves:
+        row, col = min(max(row + m[i][0], 0), 1), (col + m[i][1]) % 6
+        l.append(fighters[row][col])
+    return l
