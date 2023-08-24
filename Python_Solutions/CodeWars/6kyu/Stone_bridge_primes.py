@@ -17,3 +17,15 @@
 # If you like Prime Katas, you will enjoy this Kata: Simple Prime Streaming
 #
 # ALGORITHMS
+# Solution
+from gmpy2 import is_prime
+def solve(x,y):
+    p, c = 1, 0
+    while p+1<y:
+        q = 1
+        while (p*q+1)<y:
+            s = p*q + 1
+            c = c + 1 if s>=x and is_prime(s) else c
+            q = q*2
+        p = p*3
+    return c
