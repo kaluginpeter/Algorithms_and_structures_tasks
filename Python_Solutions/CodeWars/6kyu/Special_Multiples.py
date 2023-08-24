@@ -12,3 +12,10 @@
 # Happy coding!!
 #
 # MATHEMATICSALGORITHMSFUNDAMENTALS
+# Solution
+from gmpy2 import next_prime as np
+from math import prod
+def count_specMult(n, maxval):
+    a, b = 2, []
+    while n > 0: b, a, n = b+[a], np(a), n-1
+    return maxval // prod(b)
