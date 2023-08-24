@@ -36,3 +36,22 @@
 # For Go: nil slice is expected when there are no step between m and n. Example: step(2,4900,4919) --> nil
 #
 # MATHEMATICSNUMBER THEORY
+# Solution
+def step(g, m, n):
+    prime_list = []
+    for num in range(m, n):
+        number_prime = isPrime(num)
+        prime_list.append(number_prime)
+        if number_prime == True:
+            if len(prime_list) > g:
+                if prime_list[num-g-m] == True:
+                    return [num-g, num]
+            else:
+                previous_prime = num
+def isPrime(num):
+    for i in range(2, num):
+        if num % i == 0:
+            return False
+        elif i*i > num:
+            return True
+    return True
