@@ -11,3 +11,25 @@
 # Courtesy of rosettacode.org
 #
 # ALGORITHMS
+# Solution
+def solution(args):
+    if len(args) == 1:
+        return str(args)
+    l = []
+    while args:
+        cop = [args[0]]
+        for i in args[1:]:
+            if cop[-1] + 1 == i:
+                cop.append(i)
+            else:
+                break
+        if cop[0] != cop[-1]:
+            if len(cop) > 2:
+                l.append(str(cop[0])+'-'+str(cop[-1]))
+            else:
+                l.append(str(cop[0]))
+                l.append(str(cop[-1]))
+        else:
+            l.append(str(cop[0]))
+        args = args[args.index(cop[-1]) + 1:]
+    return ','.join(l)
