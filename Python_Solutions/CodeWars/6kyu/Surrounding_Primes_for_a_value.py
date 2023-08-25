@@ -25,3 +25,7 @@
 # Happy coding!!
 #
 # FUNDAMENTALSMATHEMATICS
+# Solution
+from gmpy2 import is_prime, next_prime
+def prime_bef_aft(i):
+    return [next(filter(is_prime, range(i-1, 1, -1))), next_prime(i)]
