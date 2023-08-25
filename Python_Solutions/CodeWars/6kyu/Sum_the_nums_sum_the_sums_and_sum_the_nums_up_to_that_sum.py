@@ -17,3 +17,7 @@
 # Best of luck!
 #
 # MATHEMATICSFUNDAMENTALS
+# Solution
+def sum_of_sums(x):
+    x = x * (x+1) * (x+2) // 6
+    return x * (x+1) // 2
