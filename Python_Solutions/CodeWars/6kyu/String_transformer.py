@@ -10,3 +10,6 @@
 # You may assume the input only contain English alphabet and spaces.
 #
 # FUNDAMENTALS
+# Solution
+def string_transformer(s):
+    return " ".join(s.swapcase().split(' ')[::-1])
