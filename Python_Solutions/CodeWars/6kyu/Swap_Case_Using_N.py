@@ -16,3 +16,8 @@
 # swap("", 11345)                   -->  ""
 # swap("the lord of the rings", 0)  -->  "the lord of the rings"
 # FUNDAMENTALS
+# Solution
+from itertools import cycle
+def swap(s, n):
+    word = cycle(bin(n)[2:])
+    return "".join(i.swapcase() if i.isalpha() and next(word) == '1' else i for i in s)
