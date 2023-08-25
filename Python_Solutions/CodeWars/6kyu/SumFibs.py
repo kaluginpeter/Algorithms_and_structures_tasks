@@ -8,3 +8,7 @@
 # sum_fibs(9) == 44 # (0, 1, 1, 2, 3, 5, 8, 13, 21, 34)
 # # 2 + 8 + 34 = 44
 # ALGORITHMS
+# Solution
+from gmpy2 import fib
+def sum_fibs(n):
+    return sum(i for i in map(fib, range(n + 1)) if i % 2 == 0)
