@@ -12,3 +12,6 @@
 # If you liked it, go for the next kata of the series!
 #
 # STRINGSREGULAR EXPRESSIONSFUNDAMENTALS
+# Solution
+def has_subpattern(string):
+    return (string * 2).find(string, 1) != len(string)
