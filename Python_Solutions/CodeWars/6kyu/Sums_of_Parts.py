@@ -24,3 +24,9 @@
 # Take a look at performance: some lists have thousands of elements.
 # Please ask before translating.
 # FUNDAMENTALSPERFORMANCEALGORITHMS
+# Solution
+def parts_sums(ls):
+    res = [sum(ls)]
+    for i in ls:
+        res.append(res[-1] - i)
+    return res
