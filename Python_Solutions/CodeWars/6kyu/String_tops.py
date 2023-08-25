@@ -16,3 +16,6 @@
 # Check the test cases for more samples.
 #
 # FUNDAMENTALSSTRINGS
+# Solution
+def tops(msg):
+    return ''.join(msg[i * (2 * i -1)] for i in range(int(((8 * len(msg) + 1)**.5 + 1) / 4), 0, -1))
