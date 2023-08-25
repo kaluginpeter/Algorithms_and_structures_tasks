@@ -14,3 +14,11 @@
 # Note : Each string will have at least one character - no need to check for empty strings :)
 #
 # STRINGSLOGICARRAYSALGORITHMS
+# Solution
+def string_suffix(str):
+    c = 0
+    for i in range(len(str)):
+        for a, b in zip(str, str[i:]):
+            if a != b: break
+            c += 1
+    return c
