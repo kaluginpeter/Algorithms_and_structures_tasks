@@ -17,3 +17,6 @@
 # Vowel consonant lexicon
 #
 # STRINGSARRAYSALGORITHMS
+# Solution
+def dup(arry):
+    return [''.join(i if i!= j else '' for i,j in zip(k, k[1:])) + k[-1] for k in arry]
