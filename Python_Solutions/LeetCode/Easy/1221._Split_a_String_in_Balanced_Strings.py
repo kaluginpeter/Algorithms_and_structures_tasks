@@ -30,3 +30,43 @@
 # 2 <= s.length <= 1000
 # s[i] is either 'L' or 'R'.
 # s is a balanced string.
+# Solutions
+# Solution 1 by Stack
+class Solution(object):
+    def balancedStringSplit(self, s):
+        stack, count, top = [], 0, s[0]
+        for i in range(len(s)):
+            if len(stack) == 0:
+                count += 1
+                top = s[i]
+            if s[i] == top:
+                stack.append(s[i])
+            elif len(stack) != 0:
+                stack.pop()
+        return count
+# Solution 2 by count (best solution)
+class Solution(object):
+    def balancedStringSplit(self, s):
+        top, count = 0, 0
+        for i in range(len(s)):
+            if s[i] == 'L':
+                top += 1
+            else:
+                top -= 1
+            if top == 0:
+                count += 1
+        return count
+# Solution 3 - My initial solution
+class Solution(object):
+    def balancedStringSplit(self, s):
+        count, left, right = 0, 0, 0
+        for i in s:
+            if i == 'R':
+                right += 1
+            else:
+                left += 1
+            if left == right:
+                count += 1
+                left = 0
+                right = 0
+        return count
