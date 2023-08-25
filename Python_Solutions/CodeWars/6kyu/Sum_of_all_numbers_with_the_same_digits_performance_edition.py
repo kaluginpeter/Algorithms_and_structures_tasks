@@ -8,3 +8,8 @@
 #                    + 1851 + 1518 + 1581 + 8115 + 8151 + 8115 + 8151 + 8511 + 8511 +
 #                    + 5118 + 5181 + 5118 + 5181 + 5811 + 5811  =  99990
 # PERFORMANCEPERMUTATIONSFUNDAMENTALS
+# Solution
+from math import factorial
+def sum_arrangements(n):
+    w = str(n)
+    return (10**len(w)-1)//9*sum(map(int,w))*factorial(len(w)-1)
