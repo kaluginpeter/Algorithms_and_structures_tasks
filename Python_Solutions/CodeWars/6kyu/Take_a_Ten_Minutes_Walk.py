@@ -3,3 +3,14 @@
 # Note: you will always receive a valid array containing a random assortment of direction letters ('n', 's', 'e', or 'w' only). It will never give you an empty array (that's not a walk, that's standing still!).
 #
 # ARRAYSFUNDAMENTALS
+# Solution
+def is_valid_walk(walk):
+    list = []
+    dict = {'n': 's', 's': 'n',
+           'e': 'w', 'w': 'e'}
+    if len(walk) == 10:
+        for elem in walk:
+            list.append(walk.count(elem) == walk.count(dict[elem]))
+        print(list)
+        return False not in list
+    return False
