@@ -14,3 +14,12 @@
 # Sum of prime-indexed elements
 #
 # ARRAYSFUNDAMENTALS
+# Solution
+def find(arr,n,l = -1):
+    if l < 0: l = len(arr)
+    if n == 0: return 1
+    if l == 0: return 0
+    c = 0
+    for k, v in enumerate(arr):
+        c += find(arr[0 : k + 1], n - v, l - 1)
+    return c
