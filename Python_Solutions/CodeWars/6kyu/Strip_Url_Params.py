@@ -6,3 +6,14 @@
 # strip_url_params('www.codewars.com?a=1&b=2&a=2', ['b']) == 'www.codewars.com?a=1'
 # strip_url_params('www.codewars.com', ['b']) == 'www.codewars.com'
 # STRINGSALGORITHMS
+# Solution
+def strip_url_params(url, remove=[]):
+    if '?' not in url: return url
+    check = []
+    result = []
+    para = url.split('?')[1]
+    for i in para.split('&'):
+        if i.split('=')[0] not in check and i.split('=')[0] not in remove:
+            check += [i.split('=')[0]]
+            result += [i]
+    return (url[:url.index('?')+1] + '&'.join(result)).strip('?')
