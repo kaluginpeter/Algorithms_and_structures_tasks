@@ -4,3 +4,7 @@
 # From Project Euler's Problem #10.
 #
 # ALGORITHMSMATHEMATICS
+# Solution
+from gmpy2 import is_prime
+def summationOfPrimes(primes):
+    return sum(i for i in range(2, primes+1) if is_prime(i))
