@@ -15,3 +15,7 @@
 #
 # splitOddAndEven(123456)  ===  [1,2,3,4,5,6]
 # PUZZLESGAMES
+# Solution
+import re
+def split_odd_and_even(n):
+    return [int(i) for i in re.findall(r"([2468]+|[13579]+)", str(n))]
