@@ -9,3 +9,6 @@
 # Good luck!
 #
 # FUNDAMENTALS
+# Solution
+def solve(a, b):
+    return len(a) - len(b) if all(a.count(i) >= b.count(i) for i in set(b)) else 0
