@@ -20,3 +20,6 @@
 #
 # [False, True, True, True]
 # STRINGSALGORITHMS
+# Solution
+def string_evaluation(s, w):
+    return [eval(f"{(s.count(i[0]), i[0])[i[0].isdigit()]} {i[1:-1]} {(s.count(i[-1]), i[-1])[i[-1].isdigit()]}") for i in w]
