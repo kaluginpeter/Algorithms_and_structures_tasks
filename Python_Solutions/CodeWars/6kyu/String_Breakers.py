@@ -15,3 +15,12 @@
 #
 # Return value as a string: 'Thisi'+'\n'+'sanex'+'\n'+'ample'+'\n'+'strin'+'\n'+'g'
 # STRINGSFUNDAMENTALS
+# Solution
+def string_breakers(n, st):
+    st = st.replace(' ', '')
+    l = []
+    s = len(st)//n if len(st) % n == 0 else len(st)// n + 1
+    for i in range(s):
+        l.append(st[:n])
+        st = st[n:]
+    return '\n'.join(l)
