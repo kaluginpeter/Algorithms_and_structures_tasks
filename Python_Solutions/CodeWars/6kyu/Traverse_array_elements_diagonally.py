@@ -26,3 +26,7 @@
 # You can assume the test cases are well formed.
 #
 # ARRAYSLOGICALGORITHMS
+# Solution
+def diagonal(arr):
+    l = sorted(((i, j) for j in range(len(arr)) for i in range(len(arr))), key=sum)[::-1]
+    return [arr[i][j] for i, j in l]
