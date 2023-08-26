@@ -21,3 +21,12 @@
 # Have fun coding it and please don't forget to vote and rank this kata! :-)
 #
 # FUNDAMENTALSLOGICMATHEMATICSALGORITHMS
+# Solution
+def find_number(compare):
+    a, b = 0, 100
+    while True:
+        count = (a+b)/2
+        if compare(count) == -1: a = count
+        elif compare(count) == 1: b = count
+        else: break
+    return count
