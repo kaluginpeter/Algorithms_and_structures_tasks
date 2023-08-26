@@ -21,3 +21,15 @@
 #
 # mult_primefactor_sum(1, 60) == [1, 4, 16, 27, 30, 60]
 # ALGORITHMS
+# Solution
+from gmpy2 import is_prime as ip, next_prime as np
+def ok(n):
+    l, b, k = [], 2, n
+    while n>1 and not ip(n):
+        while not n % b:
+            l, n = l+[b], int(n/b)
+        b = np(b)
+    if ip(n): l+=[n]
+    return k % sum(l) == 0
+def mult_primefactor_sum(a, b):
+    return [i for i in range(a, b+1) if not ip(i) and ok(i)]
