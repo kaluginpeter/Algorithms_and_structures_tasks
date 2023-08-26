@@ -5,3 +5,11 @@
 #
 # { 'a': 1, 'b': 2, 'c': 3, 'd': 4}
 # PARSINGALGORITHMS
+# Solution
+def str_to_hash(st):
+    d = {}
+    if st:
+        for i in st.split(', '):
+            a, b = i.split('=')
+            d[a] = int(b)
+    return d
