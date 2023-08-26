@@ -30,3 +30,8 @@
 # P.S. The situation in this kata can be likened to the more-computer-science-related idea of a thread pool, with relation to running multiple processes at the same time: https://en.wikipedia.org/wiki/Thread_pool
 #
 # ARRAYSFUNDAMENTALS
+# Solution
+def queue_time(customers, n):
+    time=[0]*n
+    for custom in customers: time[time.index(min(time))]+=custom
+    return max(time)
