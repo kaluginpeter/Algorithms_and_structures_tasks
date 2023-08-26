@@ -10,3 +10,6 @@
 # # N = 12
 # 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + (1 + 0) + (1 + 1) + (1 + 2) = 51
 # MATHEMATICSALGORITHMS
+# Solution
+def compute_sum(n):
+    return sum(sum(int(i) for i in str(j)) for j in range(1, n + 1))
