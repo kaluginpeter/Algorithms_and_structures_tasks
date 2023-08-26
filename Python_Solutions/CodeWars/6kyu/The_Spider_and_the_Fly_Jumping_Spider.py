@@ -29,3 +29,8 @@
 # Good Luck!
 # DM
 # ALGORITHMS
+# Solution
+from math import cos, pi
+def spider_to_fly(spider, fly):
+    x, y = int(spider[1]), int(fly[1])
+    return (x**2 + y**2 - 2 * x * y * cos((ord(spider[0]) - ord(fly[0])) * pi / 4))**0.5
