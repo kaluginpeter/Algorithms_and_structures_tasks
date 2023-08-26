@@ -23,3 +23,6 @@
 # You can assume that string2 will aways be larger than string1, and there will always be three added characters in string2.
 #
 # LOGICSTRINGS
+# Solution
+def added_char(s1, s2):
+    return [i for i in s2 if s2.count(i) >= 3 and s1.count(i) == s2.count(i)-3][0]
