@@ -13,3 +13,20 @@
 # title_case('THE WIND IN THE WILLOWS', 'The In') # should return: 'The Wind in the Willows'
 # title_case('the quick brown fox') # should return: 'The Quick Brown Fox'
 # STRINGSFUNDAMENTALS
+# Solution
+def title_case(title, minor_words=''):
+    list2 = []
+    list = [x.title() for x in title.split()]
+    exam = [x.title() for x in minor_words.split()]
+    if not list:
+        return ''
+    list2.append(list[0])
+    list.pop(0)
+    for elem in list:
+        for i in range(len(exam)):
+            if elem.lower() == exam[i].lower():
+                list2.append(elem.lower())
+                continue
+        if elem not in exam:
+            list2.append(elem.title())
+    return ' '.join(list2)
