@@ -24,3 +24,11 @@
 # 0 and 1 are triangle numbers.
 #
 # MATHEMATICSALGORITHMS
+# Solution
+def is_triangle_number(number):
+    if not type(number) == int: return False
+    c = 1
+    while number > 0:
+        number -= c
+        c += 1
+    return number == 0
