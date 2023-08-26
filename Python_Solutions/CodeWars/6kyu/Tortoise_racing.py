@@ -24,3 +24,7 @@
 # Think of calculation by hand using only integers (in your code use or simulate integer division)
 # or Google: "convert decimal time to hours minutes seconds"
 # FUNDAMENTALSMATHEMATICSALGORITHMS
+# Solution
+def race(v1, v2, g):
+    t = 3600 * g/(v2-v1)
+    return None if v2 < v1 else [int(t/3600), int(t/60%60), int(t%60)]
