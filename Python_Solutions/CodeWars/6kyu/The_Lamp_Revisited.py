@@ -5,3 +5,12 @@
 # Define another instance method called state that will return "The lamp is on." if it's on and "The lamp is off." otherwise.
 #
 # FUNDAMENTALS
+# Solution
+class Lamp():
+    def __init__(self, color, on=False):
+        self.color = color
+        self.on = on
+    def toggle_switch(self):
+        self.on = not self.on
+    def state(self):
+        return 'The lamp is on.' if self.on else 'The lamp is off.'
