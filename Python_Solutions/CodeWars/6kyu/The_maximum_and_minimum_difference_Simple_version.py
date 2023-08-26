@@ -18,3 +18,7 @@
 # maxAndMin([3,10,5],[3,10,5]) === [7,0]
 # maxAndMin([1,2,3,4,5],[6,7,8,9,10]) === [9,1]
 # FUNDAMENTALS
+# Solution
+def max_and_min(arr1,arr2):
+    l = [abs(i-j) for i in arr1 for j in arr2]
+    return [max(l), min(l)]
