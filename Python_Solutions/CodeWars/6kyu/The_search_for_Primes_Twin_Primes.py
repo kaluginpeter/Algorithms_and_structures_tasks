@@ -9,3 +9,7 @@
 # Twin Primes are (3,5) (5,7) so your function should return 2!
 #
 # FUNDAMENTALS
+# Solution
+from gmpy2 import is_prime
+def twin_prime(n):
+    return sum(is_prime(x) and is_prime(x + 2) for x in range(n))
