@@ -13,3 +13,10 @@
 # There aren't necessarily only three cups in this game, but there will be at least two. You can assume all swaps are valid, and involve two distinct indices.
 #
 # FUNDAMENTALS
+# Solution
+def find_the_ball(start, swaps):
+    pos = start
+    for (a, b) in swaps:
+        if a == pos: pos = b
+        elif b == pos: pos = a
+    return pos
