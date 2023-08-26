@@ -26,3 +26,14 @@
 # There is a very small chance of random test to fail due to round-off error, in such case resubmit your solution.
 #
 # GEOMETRYMATHEMATICSALGORITHMS
+# Solution
+import math
+def triangle_type(a, b, c):
+    if a + b <= c or b + c <= a or a + c <= b: return 0
+    angle_a = math.degrees(math.acos((b**2 + c**2 - a**2) / (2 * b * c)))
+    angle_b = math.degrees(math.acos((a**2 + c**2 - b**2) / (2 * a * c)))
+    angle_c = math.degrees(math.acos((a**2 + b**2 - c**2) / (2 * a * b)))
+    l = [angle_a, angle_b, angle_c]
+    if all(i < 90 for i in l): return 1
+    if any(i == 90 for i in l): return 2
+    if any(i > 90 for i in l): return 3
