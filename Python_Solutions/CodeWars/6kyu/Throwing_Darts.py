@@ -16,3 +16,11 @@
 # scoreThrows( [15, 20, 30] )  =>  0
 # scoreThrows( [1, 2, 3, 4] )  =>  140
 # ALGORITHMS
+# Solution
+def score_throws(radii):
+    c = 0
+    if all(i < 5 for i in radii): c += 100
+    for i in radii:
+        if 5 <= i <= 10: c += 5
+        elif i < 5: c += 10
+    return c if radii else 0
