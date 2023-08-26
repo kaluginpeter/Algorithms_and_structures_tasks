@@ -32,3 +32,12 @@
 # Please don't do that...
 #
 # ALGORITHMS
+# Solution
+def freeway_game(km, kph, cars):
+    t = km / kph
+    c = 0
+    for k, v in cars:
+        d = km - (t - k/60) * v
+        if k <= 0: c += d > 0
+        else: c -= d < 0
+    return c
