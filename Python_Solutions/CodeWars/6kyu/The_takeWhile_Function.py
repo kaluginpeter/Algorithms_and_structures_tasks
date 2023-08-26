@@ -9,3 +9,12 @@
 # If you've got a span function lying around, this is a one-liner! Also, if you liked this problem, you'll surely love the dropWhile function.
 #
 # FUNCTIONAL PROGRAMMINGARRAYSALGORITHMSLISTSDATA STRUCTURES
+# Solution
+def take_while(arr, pred_fun):
+    l = []
+    print(pred_fun)
+    for i in arr:
+        if not pred_fun(i):
+            return l
+        l.append(i)
+    return l
