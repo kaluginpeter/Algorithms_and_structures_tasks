@@ -16,3 +16,7 @@
 # 953 + 2 = 955, which is not prime
 # hence, 953 is not a Twin Prime
 # MATHEMATICSFUNDAMENTALS
+# Solution
+from gmpy2 import is_prime
+def is_twinprime(n):
+    return is_prime(n) and (is_prime(n - 2) or is_prime(n + 2))
