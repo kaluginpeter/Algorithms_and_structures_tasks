@@ -22,3 +22,19 @@
 # The Office IV - Find a Meeting Room
 #
 # FUNDAMENTALSARRAYSSTRINGS
+# Solution
+def meeting(rooms, need):
+    if need == 0:
+        return 'Game On'
+    count = []
+    for room in rooms:
+        if room[1] - len(room[0]) >0:
+            if room[1] - len(room[0]) >= need:
+                count.append(need)
+                return count
+            else:
+                count.append(room[1] - len(room[0]))
+                need -= room[1] - len(room[0])
+        else:
+            count.append(0)
+    return "Not enough!"
