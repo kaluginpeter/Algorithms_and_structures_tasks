@@ -51,3 +51,6 @@
 # Play FlappyBird : Advance Bravely
 #
 # PUZZLESGAMES
+# Solution
+def test_it(a, b):
+    return sum(map(int, str(a))) * sum(map(int, str(b)))
