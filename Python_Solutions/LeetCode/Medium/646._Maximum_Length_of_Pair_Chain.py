@@ -25,3 +25,16 @@
 # n == pairs.length
 # 1 <= n <= 1000
 # -1000 <= lefti < righti <= 1000
+# Solution
+class Solution(object):
+    def findLongestChain(self, pairs):
+        if len(pairs) == 1:
+            return 1
+        lenght = 1
+        pairs = sorted(pairs, key=lambda x: x[1])
+        top = pairs[0][1]
+        for i in range(1, len(pairs)):
+            if top < pairs[i][0]:
+                lenght += 1
+                top = pairs[i][1]
+        return lenght
