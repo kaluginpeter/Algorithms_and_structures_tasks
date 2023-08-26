@@ -17,3 +17,13 @@
 # [Personal thanks to Professor Jim Fowler on Coursera for his awesome classes that I really recommend to any math enthusiast and for showing me this mathematical curiosity too with his usual contagious passion :)]
 #
 # NUMBER THEORYARRAYSLISTSFUNDAMENTALS
+# Solution
+def tribonacci(signature, n):
+    if n == 0:
+        return []
+    def fib(n):
+        a, b, c = signature[0], signature[1], signature[2]
+        for _ in range(n):
+            yield a
+            a, b, c = b, c, a+b+c
+    return list(fib(n))
