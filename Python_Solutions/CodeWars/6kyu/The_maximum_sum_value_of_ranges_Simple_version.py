@@ -22,3 +22,6 @@
 #  maxSum([1,-2,3,4,-5,-4,3,2,1],[[1,3]]) === 5
 #  maxSum([1,-2,3,4,-5,-4,3,2,1],[[1,4],[2,5]]) === 0
 # FUNDAMENTALS
+# Solution
+def max_sum(arr,ranges):
+    return max([sum(arr[i] for i in range(j[0], j[1]+1)) for j in ranges])
