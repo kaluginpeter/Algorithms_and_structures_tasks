@@ -23,3 +23,7 @@
 # Enjoy it! This kata will be translated in another languages soon
 #
 # MATHEMATICSDATA STRUCTURESFUNDAMENTALS
+# Soltuion
+def mult_triangle(n):
+    s, o = (n * (n + 1) / 2)**2, ((n + 1) // 2)**4
+    return [s, s - o, o]
