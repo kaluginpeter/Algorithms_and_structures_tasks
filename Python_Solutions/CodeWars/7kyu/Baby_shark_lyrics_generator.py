@@ -32,3 +32,10 @@
 # Good Luck!
 #
 # STRINGSLISTSFUNDAMENTALSRESTRICTED
+# Solution
+def baby_shark_lyrics():
+    l = ['Baby shark', 'Mommy shark', 'Daddy shark', 'Grandma shark', 'Grandpa shark', "Let's go hunt"]
+    res = ''
+    for i in l:
+        res += f"{i}, doo doo doo doo doo doo\n"*3 + i+'!\n'
+    return res + "Run away,…"
