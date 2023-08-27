@@ -67,3 +67,13 @@
 # Enjoy it!!
 #
 # FUNDAMENTALSMATHEMATICS
+# Solution
+def sum_dig_pow(a, b):
+    l = []
+    for i in range(a, b + 1):
+        count = 0
+        for j in range(len(str(i))):
+            count += int(str(i)[j]) ** (j + 1)
+        if count == i:
+            l.append(i)
+    return l
