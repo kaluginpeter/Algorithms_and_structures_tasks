@@ -33,3 +33,6 @@
 # The person to guess his hat's color first, 1 for a, 2 for b, 3 for c and 4 for d.
 #
 # PUZZLES
+# Solution
+def guess_hat_color(a,b,c,d):
+    return 1 if b == c else 2
