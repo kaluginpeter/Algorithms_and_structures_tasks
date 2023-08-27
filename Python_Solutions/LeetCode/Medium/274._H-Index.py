@@ -43,3 +43,21 @@ class Solution(object):
             if citations[-i] < i:
                 return i - 1
         return len(citations)
+# Solution 3 O(N)
+class Solution(object):
+    def hIndex(self, citations):
+        cop, n = [0] * (len(citations) + 1), len(citations)
+        for num in citations:
+            if num >= n:
+                cop[n] += 1
+            else:
+                cop[num] += 1
+        pos = 0
+        for i in range(n + 1):
+            for j in range(cop[i]):
+                citations[pos] = i
+                pos += 1
+        for i in range(1, n+1):
+            if citations[-i] < i:
+                return i - 1
+        return n
