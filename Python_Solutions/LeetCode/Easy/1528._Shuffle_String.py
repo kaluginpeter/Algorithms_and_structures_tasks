@@ -24,3 +24,10 @@
 # s consists of only lowercase English letters.
 # 0 <= indices[i] < n
 # All values of indices are unique.
+# Solution
+class Solution(object):
+    def restoreString(self, s, indices):
+        word = [0] * len(s)
+        for i in range(len(indices)):
+            word[indices[i]] = s[i]
+        return ''.join(word)
