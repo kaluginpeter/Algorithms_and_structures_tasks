@@ -28,3 +28,76 @@
 # Constraints:
 #
 # nums is a permutation of [1, 2, 3].
+# Solution 1 - slow solution by while loop
+class Foo(object):
+    def __init__(self):
+        self.flag1 = False
+        self.flag2 = False
+
+    def first(self, printFirst):
+        """
+        :type printFirst: method
+        :rtype: void
+        """
+
+        # printFirst() outputs "first". Do not change or remove this line.
+        printFirst()
+        self.flag1 = True
+
+    def second(self, printSecond):
+        """
+        :type printSecond: method
+        :rtype: void
+        """
+        while not self.flag1:
+            continue
+        self.flag1 = True
+        # printSecond() outputs "second". Do not change or remove this line.
+        printSecond()
+        self.flag2 = True
+
+    def third(self, printThird):
+        """
+        :type printThird: method
+        :rtype: void
+        """
+        while not self.flag2:
+            continue
+        # printThird() outputs "third". Do not change or remove this line.
+        printThird()
+# Solution 2 - by events
+import threading
+
+
+class Foo(object):
+    def __init__(self):
+        self.flag1 = threading.Event()
+        self.flag2 = threading.Event()
+
+    def first(self, printFirst):
+        """
+        :type printFirst: method
+        :rtype: void
+        """
+        # printFirst() outputs "first". Do not change or remove this line.
+        printFirst()
+        self.flag1.set()
+
+    def second(self, printSecond):
+        """
+        :type printSecond: method
+        :rtype: void
+        """
+        self.flag1.wait()
+        # printSecond() outputs "second". Do not change or remove this line.
+        printSecond()
+        self.flag2.set()
+
+    def third(self, printThird):
+        """
+        :type printThird: method
+        :rtype: void
+        """
+        self.flag2.wait()
+        # printThird() outputs "third". Do not change or remove this line.
+        printThird()
