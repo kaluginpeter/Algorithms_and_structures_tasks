@@ -20,3 +20,6 @@
 # Hint: https://youtu.be/9KABcmczPdg
 #
 # GAMESALGORITHMSMATHEMATICSGAME SOLVERS
+# Solution
+def make_move(sticks):
+    return sticks%4
