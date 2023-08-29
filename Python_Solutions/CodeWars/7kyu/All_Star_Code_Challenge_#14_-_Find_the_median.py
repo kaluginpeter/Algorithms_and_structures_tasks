@@ -13,3 +13,7 @@
 # Median of [3,2,1] is 2.
 #
 # FUNDAMENTALS
+# Solution
+def median(array):
+    l = len(array) % 2 != 0
+    return sorted(array)[len(array)//2] if l else (sorted(array)[len(array)//2-1] + sorted(array)[len(array)//2])/2
