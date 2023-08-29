@@ -24,3 +24,11 @@
 # seven(1603) should return [7, 2]
 # seven(477557101) should return [28, 7]
 # FUNDAMENTALS
+# Solution
+def seven(m):
+    steps = 0
+    while True:
+        if m < 100:
+            return (m, steps)
+        m = m // 10 - 2 * (m % 10)
+        steps += 1
