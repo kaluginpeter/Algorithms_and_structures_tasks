@@ -41,3 +41,7 @@
 # I have created other katas. Have a look if you like coding and challenges.
 #
 # MATHEMATICSARRAYSALGORITHMS
+# Solution
+def sum_arrays(arrays, shift):
+    sh = [[0]*i*shift + a + [0]*(len(arrays)-i-1)*shift  for i, a in enumerate(arrays)]
+    return list(map(sum, zip(*sh)))
