@@ -20,3 +20,15 @@
 # Ref: https://en.wikipedia.org/wiki/String_(computer_science)#Rotations
 #
 # FUNDAMENTALSSTRINGS
+# Solution
+def contain_all_rots(strng, arr):
+    rotate = strng
+    if not len(arr) or not strng:
+        return True
+    for index in range(len(strng)):
+        if rotate  not in arr:
+            return False
+        first_letter = rotate[0]
+        rotate = rotate[1:]
+        rotate += first_letter
+    return True
