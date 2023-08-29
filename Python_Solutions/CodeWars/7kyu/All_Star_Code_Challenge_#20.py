@@ -13,3 +13,6 @@
 #
 # addArrays(["a"],["b"]) // => ["ab"]
 # FUNDAMENTALS
+# Solution
+def add_arrays(array1, array2):
+    return [array1[k] + array2[k] for k, v in enumerate(array1)] if len(array1) == len(array2) else Error
