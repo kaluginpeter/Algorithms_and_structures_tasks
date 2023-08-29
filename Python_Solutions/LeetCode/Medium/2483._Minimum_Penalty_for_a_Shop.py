@@ -39,3 +39,13 @@
 #
 # 1 <= customers.length <= 105
 # customers consists only of characters 'Y' and 'N'.
+# Solution
+class Solution(object):
+    def bestClosingTime(self, customers):
+        score, top, time = 0, 0, -1
+        for i in range(len(customers)):
+            top += 1 if customers[i] == "Y" else -1
+            if top > score:
+                score = top
+                time = i
+        return time + 1
