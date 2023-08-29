@@ -104,3 +104,6 @@
 # ​
 #
 # ALGORITHMSMATHEMATICS
+# Solution
+def add(a ,b):
+    return int(str(add(a // 10, b // 10)) + str(a % 10 + b % 10)) if bool(a*b) else a+b
