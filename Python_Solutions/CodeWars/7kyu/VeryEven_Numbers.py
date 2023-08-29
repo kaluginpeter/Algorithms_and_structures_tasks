@@ -16,3 +16,8 @@
 # Note: The numbers will always be 0 or positive integers!
 #
 # FUNDAMENTALSMATHEMATICSALGORITHMS
+# Solution
+def is_very_even_number(n):
+    while len(str(n))!= 1:
+        n = sum(int(i) for i in str(n))
+    return n % 2 == 0
