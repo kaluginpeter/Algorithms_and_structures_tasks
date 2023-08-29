@@ -12,3 +12,13 @@
 # Output - Word representation of the result of the addition. Should be in lower case
 #
 # MATHEMATICSFUNDAMENTALS
+# Solution
+integer = ['zero', 'one', 'two', 'three', 'four', 'five',
+           'six', 'seven', 'eight', 'nine', 'ten','eleven',
+           'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen',
+           'seventeen', 'eighteen', 'nineteen', 'twenty']
+class Arith():
+    def __init__(self, int):
+        self.i = integer.index(int)
+    def add(self, int):
+         return integer[integer.index(int) + self.i]
