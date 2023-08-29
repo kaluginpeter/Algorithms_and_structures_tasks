@@ -16,3 +16,6 @@
 # Note: random tests check lists containing up to 10000 elements.
 #
 # FUNDAMENTALS
+# Solution
+def solve(nums,div):
+    return [x + x % div for x in nums]
