@@ -7,3 +7,6 @@
 # In languages that do not have an empty option, just return None
 #
 # LISTSFUNDAMENTALS
+# Solution
+def last(lst):
+    return lst[-1] if lst else None
