@@ -20,3 +20,8 @@
 # You do not have to verify if the input values are "proper", assume them to be non-zero integers
 #
 # FUNDAMENTALS
+# Solution
+def hypotenuse(a, b):
+    return (a**2 + b**2)**.5
+def leg(c, a):
+    return (c**2 - a**2)**.5
