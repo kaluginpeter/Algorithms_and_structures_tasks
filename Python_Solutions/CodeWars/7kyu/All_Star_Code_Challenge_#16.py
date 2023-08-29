@@ -10,3 +10,6 @@
 # Note: ONLY letters from the english alphabet will be used as input There will ALWAYS be at least one non-repeating letter in the input string
 #
 # FUNDAMENTALS
+# Solution
+def no_repeat(string):
+    return [i for i in string if string.count(i) == 1][0]
