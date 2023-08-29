@@ -11,3 +11,6 @@
 # "John Doe hs seven red pples under his bsket"          =>  0  ; missing: "a"
 # "Bb Smith sent us six neatly arranged range bicycles"  =>  3  ; missing: "o"
 # ARRAYSSTRINGS
+# Solution
+def absent_vowel(x):
+    return ['aeiou'.index(i) for i in 'aeiou' if i not in x][0]
