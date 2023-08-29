@@ -18,3 +18,7 @@
 # Alan Partridge II - Apple Turnover
 #
 # FUNDAMENTALSARRAYSSTRINGS
+# Solution
+def alan(arr):
+    stations = ['Rejection','Disappointment','Backstabbing Central','Shattered Dreams Parkway']
+    return 'Smell my cheese you mother!' if all(i in arr for i in stations) else 'No, seriously, run. You will miss it.'
