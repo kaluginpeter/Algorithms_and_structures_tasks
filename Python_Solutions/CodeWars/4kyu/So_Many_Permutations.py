@@ -20,3 +20,16 @@
 # Good luck!
 #
 # PERMUTATIONSSTRINGSALGORITHMS
+# Solution
+def permutations(s):
+    l = []
+    def permute(data, i, length):
+        if i == length:
+            l.append(''.join(data) )
+        else:
+            for j in range(i, length):
+                data[i], data[j] = data[j], data[i]
+                permute(data, i + 1, length)
+                data[i], data[j] = data[j], data[i]
+    permute(list(s), 0, len(s))
+    return set(l)
