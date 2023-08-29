@@ -13,3 +13,10 @@
 # Good Luck!
 #
 # FUNDAMENTALS
+# Solution
+def convert(number):
+    word = ''
+    while number:
+        word += chr(int(number[:2]))
+        number = number[2:]
+    return word
