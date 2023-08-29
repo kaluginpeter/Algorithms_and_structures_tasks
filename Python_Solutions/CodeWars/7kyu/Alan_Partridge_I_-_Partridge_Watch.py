@@ -22,3 +22,8 @@
 # Alan Partridge III - London
 #
 # FUNDAMENTALSARRAYSSTRINGS
+# Solution
+def part(arr):
+    l = ['Partridge', 'PearTree', 'Chat', 'Dan', 'Toblerone', 'Lynn', 'AlphaPapa', 'Nomad']
+    s = sum(1 for i in arr if i in l)
+    return f"Mine's a Pint{'!'*s}" if any(i in l for i in arr) else "Lynn, I've pierced my foot on a spike!!"
