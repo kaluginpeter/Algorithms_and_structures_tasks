@@ -36,3 +36,6 @@
 #   [ '', 'a', '', '', '', '', '', '' ]
 # ] // => "The Mitochondria is the powerhouse of the cell"
 # FUNDAMENTALS
+# Solution
+def arr_adder(arr):
+    return ' '.join(map(''.join, zip(*arr)))
