@@ -6,3 +6,15 @@
 # to_weird_case('String'); # => returns 'StRiNg'
 # to_weird_case('Weird string case') # => returns 'WeIrD StRiNg CaSe'
 # STRINGSALGORITHMS
+# Solution
+def to_weird_case(words):
+    words, ans = words.split(), []
+    for i in words:
+        top = ''
+        for j in range(len(i)):
+            if j % 2 == 0:
+                top += i[j].upper()
+            else:
+                top += i[j].lower()
+        ans.append(top)
+    return ' '.join(ans)
