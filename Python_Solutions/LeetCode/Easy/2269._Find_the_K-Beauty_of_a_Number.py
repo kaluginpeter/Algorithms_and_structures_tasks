@@ -37,3 +37,13 @@
 #
 # 1 <= num <= 109
 # 1 <= k <= num.length (taking num as a string)
+# Solution
+class Solution:
+    def divisorSubstrings(self, num: int, k: int) -> int:
+        count = 0
+        num = str(num)
+        for i in range(len(num) - k + 1):
+            if num[i:i+k] != '0' * k:
+                if int(num) % int(num[i:i+k]) == 0:
+                    count += 1
+        return count
