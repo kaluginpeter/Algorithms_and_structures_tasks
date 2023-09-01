@@ -7,3 +7,10 @@
 # Help Johnny by writing a function, that takes the amount of handshakes and returns the minimal amount of people needed to perform these handshakes (a pair of farmers handshake only once).
 #
 # ALGORITHMS
+# Solution
+def get_participants(handshakes):
+    count = 0
+    while handshakes > 0:
+        handshakes -= count
+        count += 1
+    return count
