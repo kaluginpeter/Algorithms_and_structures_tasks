@@ -34,3 +34,25 @@
 #
 # 1 <= nums.length <= 100
 # 1 <= num[i] <= 200
+# Solution 1
+class Solution:
+    def isGood(self, nums: List[int]) -> bool:
+        m = max(nums)
+        if len(nums) != m + 1:
+            return False
+        nums.sort()
+        for i in range(1, m + 1):
+            if i != nums[i-1]:
+                return False
+        return m == nums[-1]
+# Solution 2
+class Solution:
+    def isGood(self, nums: List[int]) -> bool:
+        m = max(nums)
+        l = list(range(1, m+1)) + [m]
+        return l == sorted(nums)
+# Solution 3
+class Solution:
+    def isGood(self, nums: List[int]) -> bool:
+        n = max(nums)
+        return sum(nums) == (n * (n + 1) // 2) + n and len(set(nums)) == n
