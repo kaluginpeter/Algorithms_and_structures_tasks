@@ -32,3 +32,8 @@
 # 1 <= nums.length <= 1000
 # -105 <= nums[i] <= 105
 # 1 <= k <= nums.length
+# Solution
+class Solution:
+    def maxSubsequence(self, nums: List[int], k: int) -> List[int]:
+        ans = sorted(enumerate(nums), key=lambda x: x[1])[-k:]
+        return [v for k, v in sorted(ans)]
