@@ -9,3 +9,12 @@
 # 111 ==> -1
 # 531 ==> -1
 # STRINGSREFACTORING
+# Solution
+def next_bigger(n):
+    m = int(''.join(sorted(str(n))[::-1]))
+    count = 1
+    while m >= n + count:
+        if sorted(str(n + count)) == sorted(str(n)):
+            return n + count
+        count += 1
+    return -1
