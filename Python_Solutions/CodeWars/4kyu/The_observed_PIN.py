@@ -22,3 +22,11 @@
 # Detective, we are counting on you!
 #
 # ALGORITHMS
+# Solution
+import itertools
+def get_pins(observed):
+    d = {1:[2,4], 2:[1,3,5], 3:[2,6],4:[1,5,7],
+         5:[4,2,6,8], 6:[9,5,3], 7:[4,8], 8:[7,5,9,0], 9:[8,6], 0:[8]}
+    l = [list(map(str, d[int(i)])) + [i] for i in observed]
+    ans = [''.join(i) for i in itertools.product(*l)]
+    return ans
