@@ -27,3 +27,11 @@
 # 1 <= startTime.length <= 100
 # 1 <= startTime[i] <= endTime[i] <= 1000
 # 1 <= queryTime <= 1000
+# Solution
+class Solution:
+    def busyStudent(self, startTime: List[int], endTime: List[int], queryTime: int) -> int:
+        count = 0
+        for i in range(len(startTime)):
+            if endTime[i] >= queryTime and startTime[i] <= queryTime:
+                count += 1
+        return count
