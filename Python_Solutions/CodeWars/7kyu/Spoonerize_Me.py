@@ -11,3 +11,7 @@
 # Once you have completed this kata, a slightly more challenging take on the idea can be found here: http://www.codewars.com/kata/56dbed3a13c2f61ae3000bcd
 #
 # STRINGSALGORITHMS
+# Solution
+def spoonerize(words):
+    w = words.split()
+    return w[1][0] + w[0][1:] + ' ' + w[0][0] + w[1][1:]
