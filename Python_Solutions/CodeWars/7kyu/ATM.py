@@ -7,3 +7,13 @@
 # Good Luck!!!
 #
 # FUNDAMENTALSMATHEMATICSALGORITHMS
+# Solution
+def solve(n):
+    d = {500:0, 200:0, 100:0, 50:0, 20:0, 10:0}
+    for i in d:
+        while n >= i:
+            d[i] = n // i
+            n %= i
+    if n > 0:
+        return -1
+    return sum(v for v in d.values())
