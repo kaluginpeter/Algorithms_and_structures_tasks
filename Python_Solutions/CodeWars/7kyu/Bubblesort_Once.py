@@ -18,3 +18,10 @@
 # Given an array of integers, your function bubblesortOnce/bubblesort_once/BubblesortOnce (or equivalent, depending on your language's naming conventions) should return a new array equivalent to performing exactly 1 complete pass on the original array. Your function should be pure, i.e. it should not mutate the input array.
 #
 # ALGORITHMSTUTORIALSSORTING
+# Solution
+def bubblesort_once(l):
+    l = l.copy()
+    for i in range(1, len(l)):
+        if l[i-1] > l[i]:
+            l[i-1], l[i] = l[i], l[i-1]
+    return l
