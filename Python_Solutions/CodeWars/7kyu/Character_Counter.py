@@ -9,3 +9,9 @@
 # "abcabcd" is NOT a valid word because "a" appears twice, "b" appears twice, "c" appears twice, but "d" only appears once!
 # "123abc!" is a valid word because all of the characters only appear once in the word.
 # STRINGSALGORITHMS
+# Solution
+def validate_word(word):
+    d = {}
+    for i in word.lower():
+        d[i] = d.get(i, 0) + 1
+    return all(x == y for x, y in zip(d.values(), list(d.values())[1:]))
