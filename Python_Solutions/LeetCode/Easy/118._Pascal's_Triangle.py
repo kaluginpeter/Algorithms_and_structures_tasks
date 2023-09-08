@@ -20,3 +20,11 @@ class Solution:
             row = [sum(i) for i in zip([0] + row, row + [0])]
             l.append(row)
         return l
+# Solution 2
+class Solution:
+    def generate(self, numRows: int) -> List[List[int]]:
+        row, triangle = [1], [[1]]
+        for i in range(numRows-1):
+            row = [x + y for x, y in zip([0] + row, row + [0])]
+            triangle.append(row)
+        return triangle
