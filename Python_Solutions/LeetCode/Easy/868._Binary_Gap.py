@@ -29,3 +29,16 @@
 # Constraints:
 #
 # 1 <= n <= 109
+# Solution
+class Solution:
+    def binaryGap(self, n: int) -> int:
+        integer, flag, ans = bin(n)[2:], False, 0
+        for ch in range(len(integer)):
+            if integer[ch] == '1' and not flag:
+                flag, ind = True, ch
+                continue
+            elif integer[ch] == '1' and flag:
+                if ans < ch - ind:
+                    ans = ch - ind
+                ind = ch
+        return ans
