@@ -25,3 +25,25 @@
 #
 # s1.length == s2.length == 4
 # s1 and s2 consist only of lowercase English letters.
+# Solution 1
+class Solution:
+    def canBeEqual(self, s1: str, s2: str) -> bool:
+        if s1 == s2:
+            return True
+        if s1[2] + s1[1] + s1[0] + s1[3] == s2:
+            return True
+        if s1[2] + s1[3] + s1[0] + s1[1] == s2:
+            return True
+        return s1[0] + s1[3] + s1[2] + s1[1] == s2
+# Solution 2
+class Solution:
+    def canBeEqual(self, s1: str, s2: str) -> bool:
+        if s1 == s2:
+            return True
+        cop = s1[2] + s1[1] + s1[0] + s1[3]
+        for i in range(2):
+            if cop == s2:
+                return True
+            else:
+                cop = cop[0] + cop[3] + cop[2] + cop[1]
+        return s1[0] + s1[3] + s1[2] + s1[1] == s2
