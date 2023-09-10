@@ -31,3 +31,15 @@
 # ➕ For maps without "0" and "1" return 0 as there is no population.
 #
 # STRINGSPUZZLES
+# Solution
+def infected(s):
+    if '0' not in s and '1' not in s:
+        return 0
+    if 'X' not in s:
+        return 100 if '1' in s else 0
+    total, vir = 0, 0
+    for i in s.split('X'):
+        total += len(i)
+        if '1' in i:
+            vir += len(i)
+    return 100 * vir / total
