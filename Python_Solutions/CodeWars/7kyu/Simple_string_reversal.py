@@ -19,3 +19,10 @@
 # Simple remove duplicates
 #
 # ALGORITHMS
+# Solution
+def solve(s):
+    l = [k for k,v in enumerate(list(s)) if v == ' ']
+    word = list(s.replace(' ', ''))[::-1]
+    for i in l:
+        word.insert(i, ' ')
+    return ''.join(word)
