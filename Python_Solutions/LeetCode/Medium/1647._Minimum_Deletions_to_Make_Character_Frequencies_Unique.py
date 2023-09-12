@@ -29,3 +29,16 @@
 #
 # 1 <= s.length <= 105
 # s contains only lowercase English letters.
+# Solution
+class Solution:
+    def minDeletions(self, s: str) -> int:
+        d, se, de = {}, set(), 0
+        for i in s:
+            d[i] = d.get(i, 0) + 1
+        for k,v in d.items():
+            while v in se:
+                v -= 1
+                de += 1
+            if v > 0:
+                se.add(v)
+        return de
