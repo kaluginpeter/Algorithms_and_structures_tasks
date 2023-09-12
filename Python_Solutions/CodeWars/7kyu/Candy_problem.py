@@ -20,3 +20,8 @@
 #
 # candies ([6]) # return -1 (because only one kid)
 # LISTSALGORITHMS
+# Solution
+def candies(s):
+    if len(s) < 2:
+        return -1
+    return sum(max(s) - i for i in s)
