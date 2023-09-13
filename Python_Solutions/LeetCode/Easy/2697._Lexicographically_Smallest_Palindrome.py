@@ -29,3 +29,16 @@
 #
 # 1 <= s.length <= 1000
 # s consists of only lowercase English letters.
+# Solution
+class Solution:
+    def makeSmallestPalindrome(self, s: str) -> str:
+        a, b, word = 0, len(s) - 1, list(s)
+        while a < b:
+            if s[a] != s[b]:
+                if s[a] < s[b]:
+                    word[b] = word[a]
+                else:
+                    word[a] = s[b]
+            a += 1
+            b -= 1
+        return ''.join(word)
