@@ -39,3 +39,48 @@
 # value consists only of lowercase letters.
 # Each call to insert will have a unique id.
 # Exactly n calls will be made to insert.
+# Solution 1
+class OrderedStream:
+
+    def __init__(self, n: int):
+        self.ptr = 1
+        self.l = [0] * n
+
+    def insert(self, idKey: int, value: str) -> List[str]:
+        self.l[idKey-1] = value
+        if self.ptr == idKey:
+            ans = []
+            for i in self.l[idKey-1:]:
+                if i == 0:
+                    break
+                else:
+                    ans.append(i)
+            if 0 in self.l:
+                self.ptr = self.l.index(0) + 1
+            return ans
+        return []
+
+
+# Your OrderedStream object will be instantiated and called as such:
+# obj = OrderedStream(n)
+# param_1 = obj.insert(idKey,value)
+
+# Solution 2
+class OrderedStream:
+
+    def __init__(self, n: int):
+        self.ptr = 0
+        self.l = [None] * n
+
+    def insert(self, idKey: int, value: str) -> List[str]:
+        self.l[idKey-1] = value
+        if self.ptr == idKey - 1:
+            while self.ptr < len(self.l) and self.l[self.ptr]:
+                self.ptr += 1
+            return self.l[idKey-1:self.ptr]
+        return []
+
+
+# Your OrderedStream object will be instantiated and called as such:
+# obj = OrderedStream(n)
+# param_1 = obj.insert(idKey,value)
