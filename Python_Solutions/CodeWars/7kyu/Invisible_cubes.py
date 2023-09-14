@@ -10,3 +10,8 @@
 # For a visual representation: --> https://imgur.com/a/AN8A5DJ
 #
 # PUZZLES
+# Solution
+def not_visible_cubes(n):
+    if n - 2 <= 0:
+        return 0
+    return (n - 2) ** 3
