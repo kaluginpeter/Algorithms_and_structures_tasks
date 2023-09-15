@@ -17,3 +17,17 @@
 #
 # 1 <= nums.length <= 105
 # nums[i] is either 0 or 1.
+# Solution
+class Solution:
+    def findMaxConsecutiveOnes(self, nums: List[int]) -> int:
+        top, count = 0, 0
+        for i in nums:
+            if i == 1:
+                count += 1
+            else:
+                if count > top:
+                    top = count
+                count = 0
+        if count > top:
+            return count
+        return top
