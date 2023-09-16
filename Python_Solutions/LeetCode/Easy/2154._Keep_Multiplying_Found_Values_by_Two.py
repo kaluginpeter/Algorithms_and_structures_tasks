@@ -30,3 +30,10 @@
 #
 # 1 <= nums.length <= 1000
 # 1 <= nums[i], original <= 1000
+# Solution
+class Solution:
+    def findFinalValue(self, nums: List[int], original: int) -> int:
+        nums = set(nums)
+        while original in nums:
+            original *= 2
+        return original
