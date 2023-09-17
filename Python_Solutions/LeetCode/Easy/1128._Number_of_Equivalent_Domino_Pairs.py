@@ -19,3 +19,16 @@
 # 1 <= dominoes.length <= 4 * 104
 # dominoes[i].length == 2
 # 1 <= dominoes[i][j] <= 9
+# Solution
+class Solution:
+    def numEquivDominoPairs(self, dominoes: List[List[int]]) -> int:
+        d = {}
+        count = 0  
+        for i in dominoes:
+            t = (min(i), max(i))
+            if t in d:
+                count += d[t]
+                d[t] += 1
+            else:
+                d[t] = 1
+        return count
