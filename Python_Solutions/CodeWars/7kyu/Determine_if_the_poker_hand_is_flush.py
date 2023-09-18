@@ -11,3 +11,6 @@
 #
 # ["AD", "4S", "7H", "KS", "10S"] ==> false
 # ARRAYSALGORITHMSLOGICSTRINGSGAMES
+# Solution
+def is_flush(cards):
+    return all(i[-1] == j[-1] for i,j in zip(cards, cards[1:]))
