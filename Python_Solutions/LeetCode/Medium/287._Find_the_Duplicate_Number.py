@@ -28,3 +28,35 @@
 #
 # How can we prove that at least one duplicate number must exist in nums?
 # Can you solve the problem in linear runtime complexity?
+# Solution 1 - HashTable
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        d = {}
+        for i in nums:
+            if i in d:
+                return i
+            else:
+                d[i] = 1
+
+# Solution 2 - HashSet
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        s = set()
+        for i in nums:
+            if i in s:
+                return i
+            else:
+                s.add(i)
+# Solution 3 - Floyd Circle Algorithm
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        slow, fast = nums[0], nums[0]
+        while True:
+            slow = nums[slow]
+            fast = nums[nums[fast]]
+            if slow == fast:
+                break
+        slow = nums[0]
+        while slow != fast:
+            slow, fast = nums[slow], nums[fast]
+        return slow
