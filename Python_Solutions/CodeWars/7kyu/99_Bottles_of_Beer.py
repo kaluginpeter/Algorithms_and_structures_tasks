@@ -40,3 +40,12 @@
 #   "No more bottles of beer on the wall, no more bottles of beer.",
 #   "Go to the store and buy some more, 99 bottles of beer on the wall." ]
 # STRINGSALGORITHMS
+# Solution
+def sing():
+    l = []
+    for i in range(99, 1, -1):
+        l.append(f'{i} bottles of beer on the wall, {i} bottles of beer.')
+        l.append(f'Take one down and pass it around, {i-1} {"bottles" if i-1 != 1 else "bottle"} of beer on the wall.')
+    l.append('1 bottle of beer on the wall, 1 bottle of beer.')
+    l.append(f'Take one down and pass it around, no more bottles of beer on the wall.')
+    return l + ['No more bottles of beer on the wall, no more bottles of beer.', 'Go to the store and buy some more, 99 bottles of beer on the wall.']
