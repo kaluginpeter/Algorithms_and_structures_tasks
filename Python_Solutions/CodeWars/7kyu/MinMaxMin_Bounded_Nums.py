@@ -14,3 +14,12 @@
 # minMinMax([1, 3, -3, -2, 8, -1]); //[-3, 0, 8]
 # minMinMax([2, -4, 8, -5, 9, 7]); //[-5, -3,9]
 # ARRAYS
+# Solution
+def min_min_max(arr):
+    mi, ma = min(arr), max(arr)
+    mid = mi
+    while True:
+        mid += 1
+        if mid not in arr:
+            break
+    return [mi, mid, ma]
