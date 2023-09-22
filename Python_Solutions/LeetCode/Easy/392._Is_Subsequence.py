@@ -27,3 +27,23 @@ class Solution:
             return True
         except:
             return False
+
+# Solution 2
+class Solution:
+    def isSubsequence(self, s: str, t: str) -> bool:
+        if len(s) == 0:
+            return True
+        for i in range(len(t)):
+            if s:
+                if t[i] == s[0]:
+                    s = s[1:]
+        return len(s) == 0
+# Solution 3 Two Pointers
+class Solution:
+    def isSubsequence(self, s: str, t: str) -> bool:
+        x, y = 0, 0
+        while x < len(s) and y < len(t):
+            if t[y] == s[x]:
+                x += 1
+            y += 1
+        return x == len(s)
