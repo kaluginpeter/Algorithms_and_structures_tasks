@@ -10,3 +10,11 @@
 # least_larger( [4, 1, 3, 5, 6], 0 )  ->  3
 # least_larger( [4, 1, 3, 5, 6], 4 )  -> -1
 # ALGORITHMSARRAYS
+# Solution
+def least_larger(a, i):
+    top, ans = float('inf'), -1
+    for x in range(len(a)):
+        if a[x] > a[i]:
+            if top > abs(a[i] - a[x]):
+                top, ans = abs(a[i] - a[x]), x
+    return ans
