@@ -32,3 +32,11 @@
 # 1 <= words.length <= 1000
 # 1 <= words[i].length <= 16
 # words[i] only consists of lowercase English letters.
+# Solution
+class Solution:
+    def longestStrChain(self, words: List[str]) -> int:
+        d = {}
+        words.sort(key=len)
+        for i in words:
+            d[i] = max(d.get(i[:j] + i[j + 1:], 0) + 1 for j in range(len(i)))
+        return max(d.values())
