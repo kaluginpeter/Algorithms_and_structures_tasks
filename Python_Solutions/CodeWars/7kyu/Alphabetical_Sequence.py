@@ -8,3 +8,6 @@
 # Each sequence is separated with a comma.
 # Return value needs to be a string.
 # FUNDAMENTALSSTRINGSARRAYS
+# Solution
+def alpha_seq(s):
+    return ",".join((char*(ord(char)-96)).capitalize() for char in sorted(s.lower()))
