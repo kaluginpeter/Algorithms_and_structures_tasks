@@ -13,3 +13,8 @@
 # Even-odd disparity
 #
 # STRINGSFUNDAMENTALS
+# Solution
+def capitalize(s):
+    even = ''.join([word.capitalize()  if i % 2 == 0 else word for i, word in enumerate(s)])
+    odd = ''.join([word.capitalize()  if i % 2 == 1 else word for i, word in enumerate(s)])
+    return [even, odd]
