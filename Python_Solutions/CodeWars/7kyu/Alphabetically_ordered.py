@@ -16,3 +16,6 @@
 # Find your caterer
 #
 # STRINGSFUNDAMENTALS
+# Solution
+def alphabetic(s):
+    return s == "".join(sorted(s))
