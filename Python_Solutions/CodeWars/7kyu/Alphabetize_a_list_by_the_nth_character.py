@@ -8,3 +8,6 @@
 # The length of all words provided in the list will be >= n. The format will be "x, x, x". In Haskell you'll get a list of Strings instead.
 #
 # LISTSSTRINGSSORTINGARRAYSFUNDAMENTALS
+# Solution
+def sort_it(list, n):
+    return ', '.join(sorted(list.split(', '), key=lambda x: x[n-1]))
