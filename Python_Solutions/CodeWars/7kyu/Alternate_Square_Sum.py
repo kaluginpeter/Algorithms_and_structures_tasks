@@ -17,3 +17,6 @@
 # Elements at indices 1, 3 are 12 and 14 and they are at even position. So we need to add 11, 13, 15 as they are and square of 12 and 14
 #
 # FUNDAMENTALSARRAYSLISTS
+# Solution
+def alternate_sq_sum(arr):
+    return sum(v ** 2 if k % 2 else v for k, v in enumerate(arr))
