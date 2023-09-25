@@ -23,3 +23,15 @@ class Solution:
             if i in t:
                 t = t.replace(i, '', 1)
         return t
+# Solution 2
+class Solution:
+    def findTheDifference(self, s: str, t: str) -> str:
+        x, y = {}, {}
+        for i in s:
+            x[i] = x.get(i, 0) + 1
+        for i in t:
+            if i not in x:
+                return i
+            y[i] = y.get(i, 0) + 1
+            if y[i] > x[i]:
+                return i
