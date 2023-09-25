@@ -55,7 +55,7 @@ class User(object):
     #Happy coding
     def withdraw(self, money):
         if money > self.balance:
-            raise VallueError
+            raise ValueError
         self.balance -= money
         return f'{self.name} has {self.balance}.'
     def check(self, user, money):
