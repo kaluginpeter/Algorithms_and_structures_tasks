@@ -16,3 +16,6 @@
 # Remember that first is in the index 0 .. just saying ...
 #
 # MATHEMATICSFUNDAMENTALS
+# Solution
+def nthterm(first, n, c):
+    return first + n * c
