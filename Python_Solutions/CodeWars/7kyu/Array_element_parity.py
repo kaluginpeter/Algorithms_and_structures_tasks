@@ -17,3 +17,9 @@
 # Good luck!
 #
 # ARRAYSALGORITHMS
+# Solution
+def solve(arr):
+    for i in arr:
+        if i > 0:
+            if -i not in arr: return i
+        elif abs(i) not in arr: return i
