@@ -10,3 +10,6 @@
 # a + (a+r) + (a+r+r) + (a+r+r+r) + (a+r+r+r+r)
 # 2 + (2+3) + (2+3+3) + (2+3+3+3) + (2+3+3+3+3) = 40
 # FUNDAMENTALS
+# Solution
+def arithmetic_sequence_sum(a, r, n):
+    return sum(a + r * i for i in range(n))
