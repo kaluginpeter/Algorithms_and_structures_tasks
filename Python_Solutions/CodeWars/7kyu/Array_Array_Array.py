@@ -9,3 +9,7 @@
 # if (x) == ['a', 3] you should return [['a', 3], ['a', 3], ['a', 3]].
 #
 # FUNDAMENTALSSTRINGSARRAYS
+# Solution
+def explode(arr):
+    numbers = [i for i in arr if type(i) == int]
+    return [arr] * sum(numbers) if numbers else "Void!"
