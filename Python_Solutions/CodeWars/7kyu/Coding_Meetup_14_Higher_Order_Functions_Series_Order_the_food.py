@@ -60,3 +60,13 @@
 # Coding Meetup #16 - Higher-Order Functions Series - Ask for missing details
 #
 # FUNCTIONAL PROGRAMMINGDATA STRUCTURESARRAYSFUNDAMENTALSALGORITHMSSTRINGS
+# Solution
+from typing import List
+def order_food(lst):
+    meals = {}
+    for i in lst:
+        if i['meal'] not in meals:
+            meals[i['meal']] = 1
+        else:
+            meals[i['meal']] += 1
+    return meals
