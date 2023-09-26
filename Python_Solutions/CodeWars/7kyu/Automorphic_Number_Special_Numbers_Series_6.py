@@ -44,3 +44,6 @@
 # Enjoy Learning !!
 # Zizou
 # FUNDAMENTALSMATHEMATICS
+# Solution
+def automorphic(n):
+    return 'Automorphic' if str(n**2).count(str(n)) else 'Not!!'
