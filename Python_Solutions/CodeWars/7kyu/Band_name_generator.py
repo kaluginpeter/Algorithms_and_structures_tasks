@@ -9,3 +9,9 @@
 # Complete the function that takes a noun as a string, and returns her preferred band name written as a string.
 #
 # FUNDAMENTALS
+# Solution
+def band_name_generator(name):
+    name = name.lower()
+    if name[0] == name[-1]:
+        return (name[:-1] + name).capitalize()
+    return "The {}".format(name.capitalize())
