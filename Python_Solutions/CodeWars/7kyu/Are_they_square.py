@@ -12,3 +12,8 @@
 #
 # is_square([]) --> None
 # ARRAYSFUNDAMENTALS
+# Solution
+from math import isqrt
+def is_square(a):
+    if a:
+        return all(isqrt(x)**2 == x for x in a)
