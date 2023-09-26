@@ -65,3 +65,6 @@
 # Tidy up the room
 # Waiting for a Bus
 # PUZZLESGAMES
+# Solution
+def sc(s):
+    return len(s)*2 - 1 + 5 * (s.count('+-') + s.count('-+'))
