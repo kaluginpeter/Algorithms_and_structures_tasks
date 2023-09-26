@@ -9,3 +9,8 @@
 # Keep in mind, you cannot divide by zero. If an attempt to divide by zero is made, return null (throw an ArgumentException in C#)/(None in Python).
 #
 # FUNDAMENTALS
+# Solution
+def calculate(num1, operation, num2):
+    dict = {'+': num1 + num2, '-': num1 - num2,
+           '*': num1 * num2, '/': num1 / num2 if num1 !=0 and num2 !=0 else None}
+    return dict[operation] if operation in dict else None
