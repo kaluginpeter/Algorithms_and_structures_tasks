@@ -13,3 +13,10 @@
 # 5 --> 5
 # 10 --> 10
 # MATHEMATICSALGORITHMS
+# Solution
+def cooking_time(eggs):
+    c = 0
+    while eggs > 0:
+        c += 1
+        eggs -= 8
+    return c * 5
