@@ -13,3 +13,12 @@
 # Your function should only return a number, not the explanation about how you get that number.
 #
 # FUNDAMENTALSALGORITHMS
+# Solution
+def get_sum(a,b):
+    if a == b:
+        return a
+    list = []
+    step = 1 if a < b else -1
+    for i in range(a, b + step, step):
+        list.append(i)
+    return sum(list)
