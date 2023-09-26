@@ -7,3 +7,6 @@
 # When they disagree but one has said '?', he gets 0.5 points.
 # When they disagree completely, he gets 0 points.
 # FUNDAMENTALS
+# Solution
+def correctness(bob, exp):
+    return sum(b == e or .5*(b == '?' or e == '?') for b,e in zip(bob, exp))
