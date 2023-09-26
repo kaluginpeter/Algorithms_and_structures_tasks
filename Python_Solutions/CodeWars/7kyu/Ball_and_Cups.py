@@ -23,3 +23,9 @@
 # The ball is under cup number : 3
 #
 # ARRAYSFUNDAMENTALS
+# Solution
+def cup_and_balls(чашка_с_мячем, массив):
+    for перемещений in массив:
+        if чашка_с_мячем in перемещений:
+            чашка_с_мячем = sum(перемещений) - чашка_с_мячем
+    return чашка_с_мячем
