@@ -12,3 +12,8 @@
 # -5  -->  [0, -1, -3, -6, -10, -15]
 #  7  -->  [0,  1,  3,  6,  10,  15,  21,  28]
 # FUNDAMENTALS
+# Solution
+def sum_of_n(n):
+    if n < 0:
+        return sorted([sum(x for x in range(i,1)) for i in range(n, 1)])[::-1]
+    return [sum([x for x in range(i+1)]) for i in range(n+1)]
