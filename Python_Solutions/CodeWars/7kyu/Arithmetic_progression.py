@@ -6,3 +6,6 @@
 # # first element: 1, difference: 2, how many: 5
 # arithmetic_sequence_elements(1, 2, 5) == "1, 3, 5, 7, 9"
 # ARRAYSFUNDAMENTALS
+# Solution
+def arithmetic_sequence_elements(a, d, n):
+	return ', '.join(str(a + i * d) for i in range(n))
