@@ -21,3 +21,29 @@
 #
 # 1 <= word.length <= 100
 # word consists of lowercase and uppercase English letters.
+# Solution 1
+class Solution:
+    def detectCapitalUse(self, word: str) -> bool:
+        flag = False
+        for i in word:
+            if ord(i) > 90:
+                flag = False
+                break
+            else:
+                flag = True
+        if flag:
+            return True
+        for i in range(1, len(word)):
+            if ord(word[i]) < 97:
+                return False
+        return True
+# Solution 2
+class Solution:
+    def detectCapitalUse(self, word: str) -> bool:
+        if word == word.upper():
+            return True
+        if word == word.title():
+            return True
+        if word == word.lower():
+            return True
+        return False
