@@ -7,3 +7,6 @@
 # C...m returns 'Caught!' <-- as there are three characters between the two, the cat can jump.
 #
 # FUNDAMENTALSSTRINGS
+# Solution
+def cat_mouse(x):
+    return 'Escaped!' if x.count('.') > 3 else 'Caught!'
