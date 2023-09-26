@@ -3,3 +3,6 @@
 # The array will never be empty.
 #
 # MATHEMATICSFUNDAMENTALS
+# Solution
+def average(array):
+    return round(sum(array) / len(array))
