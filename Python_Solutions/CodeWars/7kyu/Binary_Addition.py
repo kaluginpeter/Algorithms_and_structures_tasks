@@ -7,3 +7,7 @@
 # 1, 1 --> "10" (1 + 1 = 2 in decimal or 10 in binary)
 # 5, 9 --> "1110" (5 + 9 = 14 in decimal or 1110 in binary)
 # BINARYFUNDAMENTALS
+# Solution
+def add_binary(a,b):
+    sum = bin(int(a) + int(b))
+    return ''.join(list(sum)[2:])
