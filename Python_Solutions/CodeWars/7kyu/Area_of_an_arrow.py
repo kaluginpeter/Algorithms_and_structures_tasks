@@ -8,3 +8,6 @@
 # Write a function which returns the area of the arrow.
 #
 # MATHEMATICS
+# Solution
+def arrow_area(a, b):
+    return a * b / 4
