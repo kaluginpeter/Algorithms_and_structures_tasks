@@ -7,3 +7,6 @@
 # For an input String: "hey You, Sort me Already!" the function should return: "You, Sort Already! hey me"
 #
 # STRINGSFUNDAMENTALS
+# Solution
+def capitals_first(string):
+    return ' '.join([i for i in string.split() if i[0].isupper()] + [i for i in string.split() if i[0].islower()])
