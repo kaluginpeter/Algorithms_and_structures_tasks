@@ -9,3 +9,8 @@
 # chain(50, [add10, mul30])
 # # returns 1800
 # FUNDAMENTALS
+# Solution
+def chain(init_val, functions):
+    for func in functions:
+        init_val = func(init_val)
+    return init_val
