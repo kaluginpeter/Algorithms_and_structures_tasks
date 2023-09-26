@@ -12,3 +12,11 @@
 # Try to avoid using the % (modulo) operator.
 #
 # ARRAYSSTRINGSFUNDAMENTALS
+# Solution
+def divisible_by_three(st):
+    s = sum(int(i) for i in st)
+    while s != 0:
+        s = s-3
+        if s < 0:
+            return False
+    return True
