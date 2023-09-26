@@ -7,3 +7,6 @@
 # char_concat("abcdef")    == 'af1be2cd3'
 # char_concat("abc!def")   == 'af1be2cd3' # same result
 # FUNDAMENTALS
+# Solution
+def char_concat(word):
+    return ''.join((word[x] + word[-1-x] + str(x+1)) for x in range(len(word)//2))
