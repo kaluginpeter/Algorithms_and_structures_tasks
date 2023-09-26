@@ -12,3 +12,11 @@
 # A list may contain multiple flicks.
 # Switch the boolean value on the same element as the flick itself.
 # FUNDAMENTALSLISTS
+# Solution
+def flick_switch(lst):
+    ans, flag = [], True
+    for i in lst:
+        if i == 'flick':
+            flag = not flag
+        ans.append(flag)
+    return ans
