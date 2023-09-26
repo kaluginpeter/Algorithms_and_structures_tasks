@@ -16,3 +16,11 @@
 # if there are no candles to begin with, the carpet cannot catch fire;
 # as this is not reality, you may have more candles falling from the cake than the total...
 # FUNDAMENTALSARRAYSMATHEMATICS
+# Solution
+import string
+def cake(candles, debris):
+    fallen_candles = sum(
+        string.ascii_letters.index(char) if index % 2 else ord(char)
+        for index, char in enumerate(debris)
+    )
+    return "Fire!" if candles and fallen_candles > candles * 0.7 else "That was close!"
