@@ -7,3 +7,6 @@
 # arr2bin([1,2]) == '11'
 # arr2bin([1,2,'a']) == False
 # FUNDAMENTALS
+# Solution
+def arr2bin(arr):
+    return bin(sum(arr))[2:] if all(type(i) == int for i in arr) else False
