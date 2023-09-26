@@ -14,3 +14,6 @@
 # N.B. If your solution passes all fixed tests but fails at the random tests, make sure you aren't mutating the input array.
 #
 # FUNDAMENTALSMATHEMATICSALGORITHMS
+# Solution
+def in_asc_order(arr):
+    return arr == sorted(arr)
