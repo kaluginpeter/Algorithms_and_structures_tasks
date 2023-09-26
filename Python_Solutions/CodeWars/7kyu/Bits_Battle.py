@@ -19,3 +19,8 @@
 # If you enjoyed this kata, you can find a nice variation of it here.
 #
 # FUNDAMENTALSBINARYBITS
+# Solution
+def bits_battle(numbers):
+    numbers = list(filter(lambda x:x!=0, numbers))
+    odds, evens = sum(bin(i).count('1') for i in numbers if i%2), sum(bin(i)[2:].count('0') for i in numbers if not i%2)
+    return 'tie' if odds==evens else ['odds win','evens win'][odds<evens]
