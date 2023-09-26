@@ -8,3 +8,10 @@
 # Hint: You are guaranteed that the number in the passed in string is placed somewhere after the first character of the string. The quotes either belong to "Batman", "Robin", or "Joker".
 #
 # ARRAYSFUNDAMENTALS
+# Solution
+class BatmanQuotes(object):
+    l = ['Batman', 'Robin', 'Joker']
+    @staticmethod
+    def get_quote(quotes, hero):
+        i = next((int(x) for x in hero if x.isdigit()))
+        return BatmanQuotes.l[i] + ": " + quotes[i]
