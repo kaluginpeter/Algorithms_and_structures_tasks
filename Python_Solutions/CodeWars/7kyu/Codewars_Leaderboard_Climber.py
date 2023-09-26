@@ -13,3 +13,9 @@
 # Note: You are looking to complete as few kata as possible to get to your target.
 #
 # FUNDAMENTALSSTRINGSMATHEMATICS
+# Solution
+def leader_b(u, us, ys):
+    if ys > us: return 'Winning!'
+    if ys == us: return 'Only need one!'
+    s = f"To beat {u}'s score, I must complete {(us-ys)//3} Beta kata and {(us-ys)%3//1} 8kyu kata."
+    return s + ' Dammit!' if ((us-ys)//3) + ((us-ys)%3//1) > 1000 else s
