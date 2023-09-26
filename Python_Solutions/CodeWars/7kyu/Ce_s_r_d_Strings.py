@@ -15,3 +15,6 @@
 # Discovered letters will match the number of censored ones.
 # Any character can be censored.
 # PUZZLESSTRINGSFUNDAMENTALS
+# Solution
+def uncensor(infected, discovered):
+	return infected.replace('*', '{}').format(*discovered)
