@@ -23,3 +23,6 @@
 #               v    v     v     v     v
 # average:   [22.5, 11, 38.75, 38.25, 19.5]
 # FUNDAMENTALS
+# Solution
+def avg_array(arrs):
+    return [sum(i) / len(i) for i in zip(*arrs)]
