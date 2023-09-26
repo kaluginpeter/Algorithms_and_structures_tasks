@@ -23,3 +23,6 @@
 #   [-3,  2,  1, -5,  1 ]
 # ]
 # ARRAYSALGORITHMSFUNDAMENTALS
+# Solution
+def matrix(m):
+    return [[v if i != k else int(v >= 0) for k,v in enumerate(r)] for i, r in enumerate(m)]
