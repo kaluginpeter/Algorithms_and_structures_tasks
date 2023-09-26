@@ -11,3 +11,6 @@
 # 11 --> true
 # 12 --> false
 # ALGORITHMSMATHEMATICS
+# Solution
+def is_prime(n):
+    return pow(2, n - 1, n) == 1 if n > 2 else n == 2
