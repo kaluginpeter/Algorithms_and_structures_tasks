@@ -62,3 +62,7 @@
 # Coding Meetup #16 - Higher-Order Functions Series - Ask for missing details
 #
 # FUNCTIONAL PROGRAMMINGDATA STRUCTURESARRAYSFUNDAMENTALSALGORITHMSSTRINGS
+# Solution
+from typing import List
+def find_admin(lst, lang):
+    return [i for i in lst if i['language'] == lang and i['githubAdmin'] == 'yes']
