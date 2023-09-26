@@ -10,3 +10,6 @@
 # Don't forget about the indexing pitfall ;)
 #
 # ARRAYSFUNDAMENTALS
+# Solution
+def seqlist(first,c,l):
+    return list(range(first,first+l*c,c))
