@@ -57,3 +57,9 @@
 # Coding Meetup #16 - Higher-Order Functions Series - Ask for missing details
 #
 # DATA STRUCTURESFUNDAMENTALSALGORITHMSSTRINGSREGULAR EXPRESSIONSARRAYSFUNCTIONAL PROGRAMMING
+# Solution
+def is_ruby_coming(lst):
+    for human in lst:
+        if human['language'] == 'Ruby':
+            return True
+    return False
