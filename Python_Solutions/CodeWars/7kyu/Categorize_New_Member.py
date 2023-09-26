@@ -12,3 +12,6 @@
 # input =  [[18, 20], [45, 2], [61, 12], [37, 6], [21, 21], [78, 9]]
 # output = ["Open", "Open", "Senior", "Open", "Open", "Senior"]
 # FUNDAMENTALS
+# Solution
+def open_or_senior(data):
+    return ['Senior' if elem[0] >= 55 and elem[1] > 7 else 'Open' for elem in data]
