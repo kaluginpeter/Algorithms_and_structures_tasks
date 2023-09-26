@@ -3,3 +3,10 @@
 # Each number corresponds to their alphabetical order letter (e.g. 1 = A. 2 = B, etc). Write a function where you will win the game if your numbers can spell "BINGO". They do not need to be in the right order in the input array. Otherwise you will lose. Your outputs should be "WIN" or "LOSE" respectively.
 #
 # GAMESARRAYSFUNDAMENTALS
+# Solution
+import string
+def bingo(array):
+    lst = []
+    for elem in array:
+        lst.append(string.ascii_lowercase[elem-1])
+    return 'WIN' if all(i in lst for i in 'bingo') else 'LOSE'
