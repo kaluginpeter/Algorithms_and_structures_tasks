@@ -33,3 +33,12 @@
 # Tidy up the room
 # Waiting for a Bus
 # PUZZLESGAMES
+# Solution
+def sc(apple):
+    c = 0
+    c1 = 0
+    for i in apple:
+        if 'B' in i:
+            c += i.index('B')
+            c1 += apple.index(i)
+    return [c1, c]
