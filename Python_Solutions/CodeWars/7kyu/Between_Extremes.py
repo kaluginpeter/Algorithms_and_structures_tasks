@@ -9,3 +9,6 @@
 # The array will contain a minimum of two elements. Input data range guarantees that max-min will cause no integer overflow.
 #
 # ALGORITHMSFUNDAMENTALSARRAYS
+# Solution
+def between_extremes(numbers):
+    return max(numbers) - min(numbers)
