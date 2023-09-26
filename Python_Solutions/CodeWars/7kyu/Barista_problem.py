@@ -37,3 +37,6 @@
 # Special Thanks to the great Discord community for helping with the creation of this kata and also to the programmers that helped a lot in the " discuss " section.
 #
 # FUNDAMENTALSSORTING
+# Solution
+def barista(coffees):
+    return sum(v * (k + 1) + 2 * k for k,v in enumerate(sorted(coffees, reverse=True)))
