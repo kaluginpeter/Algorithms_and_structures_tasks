@@ -20,3 +20,8 @@
 # The function passTheDoorMan with a given string word shall return the right number.
 #
 # FUNDAMENTALS
+# Solution
+def pass_the_door_man(word):
+    for char in word:
+        if char*2 in word:
+            return (ord(char)-96) * 3
