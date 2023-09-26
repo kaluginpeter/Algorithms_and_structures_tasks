@@ -17,3 +17,6 @@
 # Tell me your zodiac sign and element in the comments. Happy coding :)
 #
 # FUNDAMENTALSARRAYS
+# Solution
+def chinese_zodiac(year):
+    return f"{elements[(year-4)%10//2]} {animals[(year-4)%12]}"
