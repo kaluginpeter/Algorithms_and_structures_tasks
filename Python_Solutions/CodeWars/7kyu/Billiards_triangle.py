@@ -14,3 +14,12 @@
 # Write a function that takes number of balls (≥ 1) and calculates how many levels you can build a triangle.
 #
 # MATHEMATICSFUNDAMENTALS
+# Solution
+def pyramid(balls):
+    s = 0
+    i=1
+    while balls >= i:
+        balls -= i
+        i += 1
+        s+=1
+    return s
