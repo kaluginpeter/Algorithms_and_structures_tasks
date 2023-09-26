@@ -14,3 +14,15 @@
 # 6   -->  "JavaScript"
 # 12  -->  "CoffeeScript"
 # FUNDAMENTALSSTRINGS
+# Solution
+def caffeine_buzz(n):
+    i = ''
+    if n % 3 == 0 and n % 4 == 0:
+        i += 'Coffee'
+    elif n % 3 == 0:
+        i += 'Java'
+    else:
+        return "mocha_missing!"
+    if n % 2 == 0:
+        i += 'Script'
+    return i
