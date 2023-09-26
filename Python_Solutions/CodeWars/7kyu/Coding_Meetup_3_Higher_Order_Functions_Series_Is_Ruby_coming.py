@@ -63,3 +63,6 @@ def is_ruby_coming(lst):
         if human['language'] == 'Ruby':
             return True
     return False
+# Solution 2
+def is_ruby_coming(lst):
+    return any(x["language"] == "Ruby" for x in lst)
