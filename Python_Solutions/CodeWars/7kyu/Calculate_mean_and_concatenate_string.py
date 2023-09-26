@@ -9,3 +9,6 @@
 # In C# and Java the mean return is a double.
 #
 # FUNDAMENTALS
+# Solution
+def mean(lst):
+    return [sum(int(i) for i in lst if i.isdigit())/10, ''.join(j for j in lst if j.isalpha())]
