@@ -9,3 +9,6 @@
 # Names in the full name are separated by exactly one space (' ' ) ; without leading or trailing spaces. Names will always be lowercase, except optionally their first letter.
 #
 # STRINGSREGULAR EXPRESSIONSFUNDAMENTALS
+# Solution
+def initials(name):
+    return '.'.join(i.upper()[0] if i.lower() != name.split()[-1].lower() else i.capitalize() for i in name.split())
