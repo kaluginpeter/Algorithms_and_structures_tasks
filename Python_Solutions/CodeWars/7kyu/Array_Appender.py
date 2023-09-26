@@ -7,3 +7,6 @@
 # ['a','b','c'], [1,2,3]     --> ['a','b','c',1,2,3]
 # [['x','x'],'B'], ['c','D'] --> [['x','x'],'B','c','D']
 # ARRAYSFUNDAMENTALS
+# Solution
+def append_arrays(seq1, seq2):
+    return seq1 + seq2
