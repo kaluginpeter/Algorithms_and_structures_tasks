@@ -53,3 +53,6 @@
 # Coding Meetup #16 - Higher-Order Functions Series - Ask for missing details
 #
 # FUNCTIONAL PROGRAMMINGDATA STRUCTURESARRAYSFUNDAMENTALSALGORITHMSSTRINGS
+# Solution
+def get_average(lst):
+    return round(sum(i['age'] for i in lst) / len(lst))
