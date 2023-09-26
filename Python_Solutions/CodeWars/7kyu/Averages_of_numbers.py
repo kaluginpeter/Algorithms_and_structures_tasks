@@ -11,3 +11,6 @@
 # Have fun coding it and please don't forget to vote and rank this kata! :-)
 #
 # FUNDAMENTALSLOGICALGORITHMS
+# Solution
+def averages(arr):
+    return [(arr[x] + arr[x + 1]) / 2 for x in range(len(arr or []) - 1)]
