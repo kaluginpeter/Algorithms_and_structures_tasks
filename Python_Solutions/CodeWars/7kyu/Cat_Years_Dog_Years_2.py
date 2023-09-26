@@ -23,3 +23,8 @@
 # http://www.catster.com/cats-101/calculate-cat-age-in-cat-years
 # http://www.slate.com/articles/news_and_politics/explainer/2009/05/a_dogs_life.html
 # FUNDAMENTALS
+# Solution
+def owned_cat_and_dog(cy, dy):
+    cat = 0 if cy < 15 else 1 if cy < 24 else 2 + (cy - 24) // 4
+    dog = 0 if dy < 15 else 1 if dy < 24 else 2 + (dy - 24) // 5
+    return [cat, dog]
