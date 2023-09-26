@@ -9,3 +9,7 @@
 # cartesian_neighbor(2,2) -> [(1,1),(1,2),(1,3),(2,1),(2,3),(3,1),(3,2),(3,3)]
 # cartesian_neighbor(5,7) -> [(6,7),(6,6),(6,8),(4,7),(4,6),(4,8),(5,6),(5,8)]
 # FUNDAMENTALSMATHEMATICS
+# Solution
+def cartesian_neighbor(x, y):
+    return [(x - 1, y - 1), (x - 1, y), (x - 1, y + 1), (x, y - 1), (x, y + 1), (x + 1, y - 1), (x + 1, y),
+            (x + 1, y + 1)]
