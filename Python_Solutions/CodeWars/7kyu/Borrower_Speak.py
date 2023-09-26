@@ -7,3 +7,6 @@
 # Change the input text s to new borrower speak. Help save the next generation!
 #
 # FUNDAMENTALSSTRINGS
+# Solution
+def borrow(s):
+    return s.replace(' ', '').replace('!', '').replace('?', '').replace('.', '').replace(',', '').replace(';', '').replace(':', '').lower()
