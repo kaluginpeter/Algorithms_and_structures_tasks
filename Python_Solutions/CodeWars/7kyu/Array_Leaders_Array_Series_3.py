@@ -55,3 +55,10 @@
 # Enjoy Learning !!
 # Zizou
 # FUNDAMENTALSARRAYS
+# Solution
+def array_leaders(numbers):
+    output = []
+    for i in range(0, len(numbers)):
+        if numbers[i] > sum(numbers[i+1:]):
+            output.append(numbers[i])
+    return output
