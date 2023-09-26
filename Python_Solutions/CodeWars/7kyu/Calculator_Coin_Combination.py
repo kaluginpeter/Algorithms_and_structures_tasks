@@ -10,3 +10,6 @@
 # coinCombo(6) --> [1, 1, 0, 0]
 #
 # FUNDAMENTALSALGORITHMS
+# Solution
+def coin_combo(cents):
+    return [cents % 5, ((cents % 25) % 10) // 5, (cents % 25) // 10, cents // 25]
