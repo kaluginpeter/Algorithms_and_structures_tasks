@@ -69,3 +69,8 @@ A# You will be given an array of objects (associative arrays in PHP, tables in C
 # Coding Meetup #16 - Higher-Order Functions Series - Ask for missing details
 #
 # DATA STRUCTURESFUNDAMENTALSALGORITHMSSTRINGSREGULAR EXPRESSIONSARRAYSFUNCTIONAL PROGRAMMING
+# Solution
+def greet_developers(lst):
+    for x in lst:
+        x["greeting"] = f"Hi {x['firstName']}, what do you like the most about {x['language']}?"
+    return lst
