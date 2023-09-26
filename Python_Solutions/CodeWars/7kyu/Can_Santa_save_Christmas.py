@@ -14,3 +14,7 @@
 # #3 Can Santa save Christmas?
 # #4 Christmas Present Calculator
 # DATE TIMEFUNDAMENTALS
+# Solution
+def determineTime(arr):
+    total_sec = sum(h * 3600 + m * 60 + s for h, m, s in [list(map(int, elem.split(':'))) for elem in arr])
+    return total_sec <= 86400
