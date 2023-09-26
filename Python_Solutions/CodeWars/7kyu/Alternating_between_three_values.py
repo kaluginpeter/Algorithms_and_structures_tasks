@@ -11,3 +11,6 @@
 #   f(20, a=10, b=20, c=100) -> 100
 #   f(100, a=10, b=20, c=100) -> 10
 # FUNDAMENTALS
+# Solution
+def f(x, a, b, c):
+    return {a: b, b: c, c: a}[x]
