@@ -6,3 +6,6 @@
 #
 # solution({"a": 1, "b": '2'}) # should return "a = 1,b = 2"
 # STRINGSFUNDAMENTALS
+# Solution
+def solution(pairs):
+    return ",".join(sorted(["{} = {}".format(k,v) for k,v in pairs.items()]))
