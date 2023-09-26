@@ -63,3 +63,6 @@
 # Coding Meetup #17 - Higher-Order Functions Series - Sort by programming language
 #
 # FUNCTIONAL PROGRAMMINGDATA STRUCTURESARRAYSFUNDAMENTALSALGORITHMSSORTING
+# Solution
+def sort_by_language(arr):
+	return sorted(arr, key=lambda x: (x["language"], x["first_name"]))
