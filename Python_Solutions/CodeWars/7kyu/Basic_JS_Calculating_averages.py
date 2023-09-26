@@ -8,3 +8,8 @@
 # It expects Calculator.average(3,4,5) to return 4.
 #
 # MATHEMATICSFUNDAMENTALS
+# Solution
+class Calculator:
+    @staticmethod
+    def average(*args):
+        return sum(args) / len(args) if args else 0
