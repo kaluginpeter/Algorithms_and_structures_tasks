@@ -37,3 +37,6 @@
 # List of all my katas
 #
 # STRINGSASCII ARTPUZZLES
+# Solution
+def pattern(n):
+    return '\n'.join(f"{i}"*i for i in range(1, n+1))
