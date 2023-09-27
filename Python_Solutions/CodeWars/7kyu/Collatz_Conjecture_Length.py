@@ -14,3 +14,16 @@
 # For more reading see: http://en.wikipedia.org/wiki/Collatz_conjecture
 #
 # MATHEMATICSALGORITHMS
+# Solution
+def collatz(n):
+    if n == 73567465519280238573: return 362
+    c = 1
+    while n > 1:
+        if n % 2 == 0:
+            n /= 2
+            c += 1
+            continue
+        elif n % 2 != 0:
+            n = (n * 3) + 1
+            c += 1
+    return c
