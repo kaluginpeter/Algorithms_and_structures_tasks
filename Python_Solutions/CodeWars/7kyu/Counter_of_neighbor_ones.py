@@ -6,3 +6,6 @@
 # [1, 1, 1, 1, 1] -> [5]
 # [0, 0, 0, 0, 0] -> []
 # ALGORITHMSFUNDAMENTALS
+# Solution
+def ones_counter(input):
+    return [ch.count('1') for ch in ''.join(map(str, input)).split('0') if ch]
