@@ -15,3 +15,9 @@
 # Have Fun!
 #
 # MATHEMATICSALGORITHMS
+# Solution
+def describe_the_shape(angles):
+    각도의합 = int(180*(angles - 2)/angles)
+    if 각도의합 > 0: 답변 = f"This shape has {angles} sides and each angle measures {각도의합}"
+    else: 답변 = "this will be a line segment or a dot"
+    return 답변
