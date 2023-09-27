@@ -13,3 +13,9 @@
 # Good luck!
 #
 # STRINGSFUNDAMENTALS
+# Solution
+def get_the_vowels(word):
+    c = 0
+    for i in word:
+        if i == "aeiou"[c % 5]: c += 1
+    return c
