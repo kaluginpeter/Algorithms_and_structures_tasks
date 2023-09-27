@@ -16,3 +16,12 @@
 # ijkl    yz12       ijkuv
 # mnop    3456       mnopq
 # FUNDAMENTALS
+# Solution
+def compose(s1, s2):
+    s1 = s1.split("\n")
+    s2 = s2.split("\n")[::-1]
+    count = len(s1)
+    out = []
+    for i in range(count):
+        out.append(s1[i][:i+1] + s2[i][:(count-i)])
+    return "\n".join(out)
