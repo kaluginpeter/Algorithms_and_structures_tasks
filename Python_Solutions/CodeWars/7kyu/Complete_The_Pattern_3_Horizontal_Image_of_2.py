@@ -31,3 +31,6 @@
 # Hint: Use \n in string to jump to next line
 #
 # ASCII ARTFUNDAMENTALS
+# Solution
+def pattern(integer):
+    return "\n".join("".join(str(j) for j in range(integer, integer - i, -1)) for i in range(1, integer + 1))
