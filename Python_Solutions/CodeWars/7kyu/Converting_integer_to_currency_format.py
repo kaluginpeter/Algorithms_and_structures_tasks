@@ -8,3 +8,6 @@
 # Input will always be an positive integer, so don't worry about type checking or negative/float values.
 #
 # FUNDAMENTALS
+# Solution
+def to_currency(price):
+    return '{:,}'.format(price)
