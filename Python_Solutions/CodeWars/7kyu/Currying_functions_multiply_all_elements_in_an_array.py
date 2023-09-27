@@ -10,3 +10,8 @@
 # Here's a nice Youtube video about currying, which might help you if this is new to you.
 #
 # FUNCTIONAL PROGRAMMINGFUNDAMENTALS
+# Solution
+def multiply_all(arr):
+    def multiply(num):
+        return [num * elem for elem in arr]
+    return multiply
