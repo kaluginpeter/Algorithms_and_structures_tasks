@@ -15,3 +15,6 @@
 # Check my another kata here!! http://www.codewars.com/kata/555b73a81a6285b6ce000047
 #
 # ARRAYSFUNDAMENTALS
+# Solution
+def add(*args):
+    return round(sum(v / (k+1) for k,v in enumerate(args)))
