@@ -27,3 +27,7 @@
 # n will always be > 0.
 #
 # ALGORITHMS
+# Solution
+def cyclops(n):
+    i = bin(n)[2:]
+    return i.count("0") == 1 and i == i[::-1]
