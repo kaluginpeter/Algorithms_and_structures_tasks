@@ -10,3 +10,6 @@
 # Be Ready for Large Numbers. Happy Coding ^_^
 #
 # BINARYFUNDAMENTALS
+# Solution
+def to_binary(n):
+    return bin(2 ** 32 + n if n < 0 else n)[2:]
