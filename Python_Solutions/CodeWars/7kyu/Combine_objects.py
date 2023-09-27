@@ -10,3 +10,7 @@
 # The combine function should be a good citizen, so should not mutate the input objects.
 #
 # ARRAYSFUNDAMENTALS
+# Solution
+from collections import Counter
+def combine(*args):
+    return sum((Counter(i) for i in args), Counter())
