@@ -17,3 +17,6 @@
 # You can assume no punctuation or capitals, only lower case letters, but remember spaces!
 #
 # PUZZLESALGORITHMSCRYPTOGRAPHYSECURITYGAMES
+# Solution
+def decode(message):
+    return message.translate(str.maketrans('abcdefghijklmnopqrstuvwxyz', 'abcdefghijklmnopqrstuvwxyz'[::-1]))
