@@ -58,3 +58,6 @@
 # Coding Meetup #16 - Higher-Order Functions Series - Ask for missing details
 #
 # FUNCTIONAL PROGRAMMINGDATA STRUCTURESARRAYSFUNDAMENTALSALGORITHMSSTRINGS
+# Solution
+def is_same_language(lst):
+    return len(set(i['language'] for i in lst)) == 1
