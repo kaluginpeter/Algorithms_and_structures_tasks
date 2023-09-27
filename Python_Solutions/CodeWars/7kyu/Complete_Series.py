@@ -15,3 +15,6 @@
 # [3,4,5] ->    [0,1,2,3,4,5]
 # [0,1,0] ->    [0]
 # LISTSARRAYSFUNDAMENTALS
+# Solution
+def complete_series(seq):
+    return [i for i in range(max(seq)+1)] if len(set(seq)) == len(seq) else [0]
