@@ -22,3 +22,6 @@
 # https://en.wikipedia.org/wiki/Arara_people
 #
 # PUZZLESFUNDAMENTALS
+# Solution
+def count_arara(n):
+    return ('adak ' * (n // 2) + 'anane' * (n % 2)).strip()
