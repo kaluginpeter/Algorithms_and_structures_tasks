@@ -9,3 +9,14 @@
 # Kind of a fork (not steal :)) of Basic Calculator kata by TheDoctor.
 #
 # FUNDAMENTALSDEBUGGING
+# Solution
+def calculate(a, o, b):
+    if o == "+":
+        return a + b
+    elif o == "-":
+        return a - b
+    elif o == "/" and b != 0:
+        return a / b
+    elif o == "*":
+        return a * b
+    return None
