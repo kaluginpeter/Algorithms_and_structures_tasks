@@ -25,3 +25,7 @@
 # Hint: Use \n in string to jump to next line
 #
 # ASCII ARTFUNDAMENTALS
+# Solution
+def pattern(n):
+    c = n if n % 2 == 0 else n + 1
+    return '\n'.join(str(i)*i for i in range(1, c, 2))
