@@ -14,3 +14,12 @@
 # "kl", "lz"  -> not equal
 # null, ""    -> equal
 # MATHEMATICSSTRINGSFUNDAMENTALS
+# Solution
+def compare(s1,s2):
+    if not s1 and not s2:
+        return True
+    if any(x for x in s1 if not x.isalpha()):
+        s1 = ''
+    if any(x for x in s2 if not x.isalpha()):
+        s2 = ''
+    return sum(ord(x.upper()) for x in s1) == sum(ord(x.upper()) for x in s2)
