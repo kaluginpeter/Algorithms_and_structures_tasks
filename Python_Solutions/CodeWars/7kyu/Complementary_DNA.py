@@ -11,3 +11,16 @@
 # "ATTGC" --> "TAACG"
 # "GTAT" --> "CATA"
 # STRINGSFUNDAMENTALS
+# Solution
+def DNA_strand(dna):
+    dnk =''
+    for char in dna:
+        if char == 'A':
+            dnk += 'T'
+        elif char == 'T':
+            dnk += 'A'
+        elif char == 'G':
+            dnk += 'C'
+        elif char == 'C':
+            dnk += 'G'
+    return dnk
