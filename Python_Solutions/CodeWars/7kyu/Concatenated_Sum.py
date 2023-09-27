@@ -11,3 +11,6 @@
 # Write a function named check_concatenated_sum that tests if a number has this generalized property.
 #
 # FUNDAMENTALS
+# Solution
+def check_concatenated_sum(n, r):
+    return abs(n) == sum(int(i * r) for i in str(abs(n)) if r)
