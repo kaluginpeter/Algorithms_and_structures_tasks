@@ -6,3 +6,6 @@
 #
 # var array = [["white", "goodness"], ...] returns [{'white': 'goodness'}, ...]
 # FUNDAMENTALS
+# Solution
+def colour_association(arr):
+    return [{i[0]: i[1]} for i in arr]
