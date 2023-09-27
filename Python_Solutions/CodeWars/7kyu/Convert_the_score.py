@@ -17,3 +17,11 @@
 # Please rate and enjoy!
 #
 # FUNDAMENTALSARRAYS
+# Solution
+def scoreboard(string):
+    d = {'one':1, 'two':2, 'three':3, 'four':4, 'five':5, 'six':6, 'seven':7, 'eight':8, 'nine': 9 , 'nil':0}
+    score = []
+    for elem in string.split():
+        if elem in d:
+            score.append(d[elem])
+    return score
