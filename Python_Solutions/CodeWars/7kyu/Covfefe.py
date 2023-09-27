@@ -4,3 +4,7 @@
 # For the languages where the string is mutable (such as ruby), don't modify the given string, otherwise this will break the test cases.
 #
 # STRINGS
+# Solution
+def covfefe(s):
+    if 'coverage' in s: return s.replace('coverage', 'covfefe')
+    return s + ' covfefe'
