@@ -34,3 +34,21 @@
 # 1 <= k <= 109
 # It is guaranteed that k is less than or equal to the length of the decoded string.
 # The decoded string is guaranteed to have less than 263 letters.
+# Solution
+class Solution:
+    def decodeAtIndex(self, s: str, k: int) -> str:
+        n, i = 0, 0
+        while n < k:
+            if s[i].isalpha():
+                n += 1
+            else:
+                n *= int(s[i])
+            i += 1
+        for i in range(i-1, -1, -1):
+            if s[i].isdigit():
+                n //= int(s[i])
+                k %= n
+            else:
+                if k == 0 or k == n:
+                    return s[i]
+                n -= 1
