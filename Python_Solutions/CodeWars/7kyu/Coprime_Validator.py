@@ -16,3 +16,7 @@
 # Greatest shared factor: 3
 # Result: 12 and 39 are not coprimes
 # ALGORITHMSMATHEMATICS
+# Solution
+from math import gcd
+def are_coprime(n, m):
+    return gcd(n, m) == 1
