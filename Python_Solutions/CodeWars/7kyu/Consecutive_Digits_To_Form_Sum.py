@@ -22,3 +22,7 @@
 # Enjoy Learning !!
 # Zizou
 # FUNDAMENTALSMATHEMATICSPUZZLES
+# Solution
+import math
+def consecutive_ducks(n):
+    return not math.log2(n).is_integer()
