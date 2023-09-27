@@ -3,3 +3,6 @@
 # It is guaranteed that a and b are both present in arr.
 #
 # FUNDAMENTALS
+# Solution
+def consecutive(arr, a, b):
+    return arr.index(a) == arr.index(b)-1 or arr.index(a) == arr.index(b)+1
