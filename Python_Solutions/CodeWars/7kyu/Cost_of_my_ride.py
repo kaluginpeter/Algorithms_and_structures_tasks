@@ -17,3 +17,8 @@
 # insurance(21,"economy",-10); // => 0
 # insurance(42,"my custom car",7); // => 455
 # FUNDAMENTALS
+# Solution
+def insurance(age, size, num_of_days):
+    d = {'economy': 0, 'medium': 10, 'full-size': 15}
+    if age < 25: return max(num_of_days * (60 + d[size] if size in d else 60 + d['full-size']), 0)
+    return max(num_of_days * (50 + d[size] if size in d else 50 + d['full-size']), 0)
