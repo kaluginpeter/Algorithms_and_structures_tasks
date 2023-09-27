@@ -8,3 +8,7 @@
 # (This Kata is a joke, there is no such grammar rule!)
 #
 # FUNDAMENTALS
+# Solution
+def der_die_das(wort):
+    c = sum(i in "aAeEiIoOuUäöü" for i in wort)
+    return f'{"das" if c < 2 else "die" if c < 4 else "der"} {wort}'
