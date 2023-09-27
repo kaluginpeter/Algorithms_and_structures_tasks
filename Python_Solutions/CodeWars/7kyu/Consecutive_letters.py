@@ -13,3 +13,6 @@
 # More examples in test cases. Good luck!
 #
 # FUNDAMENTALS
+# Solution
+def solve(st):
+    return ''.join(sorted(list(st))) in 'abcdefghijklmnopqrstuvwxyz'
