@@ -17,3 +17,6 @@
 # Do not expect any negative or invalid inputs.
 #
 # LISTSARRAYSFUNDAMENTALS
+# Solution
+def save(sizes, hd):
+    return sum([sum(sizes[:i+1]) <= hd for i in range(len(sizes))])
