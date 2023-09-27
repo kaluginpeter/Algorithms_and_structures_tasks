@@ -14,3 +14,8 @@
 # "yams"  -->  true
 # "test"  -->  false
 # STRINGSALGORITHMS
+# Solution
+def comfortable_word(word):
+    left = [c in 'qwertasdfgzxcvb' for c in word[::2]]
+    right = [c in 'yuiophjklnm' for c in word[1::2]]
+    return bool((all(left) and all(right)) or (not any(left) and not any(right)))
