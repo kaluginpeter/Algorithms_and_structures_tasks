@@ -10,3 +10,10 @@
 # Note you should only return a number, the count of divisors. The numbers between parentheses are shown only for you to see which numbers are counted in each case.
 #
 # NUMBER THEORYMATHEMATICSFUNDAMENTALS
+# Solution
+def divisors(n):
+    count = 0
+    for i in range(1, n+1):
+        if n % i == 0:
+            count+=1
+    return count
