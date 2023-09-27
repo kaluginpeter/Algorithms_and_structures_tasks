@@ -15,3 +15,16 @@
 # I have created other katas. Have a look if you like coding and challenges.
 #
 # PARSINGSTRINGSFUNDAMENTALS
+# Solution
+def time_correct(t):
+    if not t:
+        return t
+    try:
+        h, m, s = map(int, t.split(":"))
+        s = h * 3600 + m * 60 + s
+        _, s = divmod(s, 86400)
+        h, s = divmod(s, 3600)
+        m, s = divmod(s, 60)
+        return "{:02}:{:02}:{:02}".format(h, m, s)
+    except ValueError:
+        return None
