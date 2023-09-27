@@ -8,3 +8,11 @@
 # Input: 123456789 Output: 987654321
 #
 # FUNDAMENTALS
+# Solution
+def descending_order(num):
+    order = []
+    if num >= 0:
+        for i in str(num):
+            order.append(int(i))
+    order.sort(reverse=True)
+    return int(''.join(map(str, order)))
