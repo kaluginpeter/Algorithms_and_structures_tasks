@@ -16,3 +16,6 @@
 # #Input: Two strings with both lower and upper cases. #Output: A boolean value determining if there is a common substring between the two inputs.
 #
 # STRINGSALGORITHMS
+# Solution
+def substring_test(s1, s2):
+    return any(s1.lower()[i:i+2] in s2.lower() for i in range(len(s1)-2))
