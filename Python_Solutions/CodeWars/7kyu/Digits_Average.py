@@ -20,3 +20,9 @@
 # p.s. for a bigger challenge, check out the one line version of this kata by myjinxin2015!
 #
 # ALGORITHMS
+# Solution
+def digits_average(input):
+    l = [int(c) for c in str(input)]
+    while len(l) > 1:
+        l = [(a + b + 1)//2 for a, b in zip(l, l[1:])]
+    return l[0]
