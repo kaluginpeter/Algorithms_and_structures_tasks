@@ -8,3 +8,14 @@
 # There are no duplicate names in the array and the name passed in will be a single string with a space between the first and last name i.e. Jane Doe or just a name.
 #
 # FUNDAMENTALSARRAYS
+# Solution
+def find_employees_role(name):
+    for i in employees:
+        if len(name.split()) > 1:
+            if name.split()[0] == i['first_name']:
+                if name.split()[1] == i['last_name']:
+                    return i['role']
+        elif len(name.split()) == 0:
+            if name.split()[0] == i['first_name']:
+                return i['role']
+    return 'Does not work here!'
