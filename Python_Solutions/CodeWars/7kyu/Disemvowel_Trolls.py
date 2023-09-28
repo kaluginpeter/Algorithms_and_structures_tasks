@@ -9,3 +9,10 @@
 # Note: for this kata y isn't considered a vowel.
 #
 # STRINGSREGULAR EXPRESSIONSFUNDAMENTALS
+# Solution
+def disemvowel(string_):
+    list = ['a','e','i','o','u', 'A','E','I','O','U']
+    for char in string_:
+        if char in list:
+            string_ = string_.replace(char, '')
+    return string_
