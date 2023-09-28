@@ -13,3 +13,6 @@
 # Note: times will always be a valid array of 5 positive floats (representing seconds)
 #
 # FUNDAMENTALS
+# Solution
+def cube_times(times):
+    return round(sum(sorted(times)[1:4])/3, 2), min(times)
