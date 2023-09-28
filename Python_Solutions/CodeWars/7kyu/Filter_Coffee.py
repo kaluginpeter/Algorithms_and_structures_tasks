@@ -9,3 +9,6 @@
 # The search function should return a string of prices for the coffees beans you can afford. The prices in this string are to be sorted in ascending order.
 #
 # ARRAYSFUNDAMENTALS
+# Solution
+def search(budget, prices):
+    return ','.join(str(i) for i in sorted(list(filter(lambda x: x<= budget, prices))))
