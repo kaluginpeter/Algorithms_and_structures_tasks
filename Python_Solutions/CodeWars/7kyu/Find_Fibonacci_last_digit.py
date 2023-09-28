@@ -3,3 +3,11 @@
 # Hardcore version of this kata, no bruteforce will work here ;)
 #
 # ALGORITHMS
+# Solution
+import sys
+sys.set_int_max_str_digits(maxdigits=0)
+def get_last_digit(index):
+    a, b = 0, 1
+    for i in range(index):
+        a, b = b, a + b
+    return int(str(a)[-1])
