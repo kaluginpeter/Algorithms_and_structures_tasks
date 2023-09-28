@@ -21,3 +21,15 @@
 class Solution:
     def sortArrayByParity(self, nums: List[int]) -> List[int]:
         return sorted(nums, key=lambda x: x % 2)
+
+# Solution 2 - Two Pointers
+class Solution:
+    def sortArrayByParity(self, nums: List[int]) -> List[int]:
+        x, y = 0, len(nums) - 1
+        while x < y:
+            while x < y and nums[x] & 0x1 == 0:
+                x += 1
+            while x < y and nums[y] & 0x1 != 0:
+                y -= 1
+            nums[x], nums[y] = nums[y], nums[x]
+        return nums
