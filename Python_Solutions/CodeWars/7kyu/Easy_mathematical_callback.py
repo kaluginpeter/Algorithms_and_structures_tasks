@@ -13,3 +13,6 @@
 # will be [ 12, 13, 14, 6, 7 ].
 #
 # ALGORITHMS
+# Solution
+def process_array(arr, callback):
+    return [callback(i) for i in arr]
