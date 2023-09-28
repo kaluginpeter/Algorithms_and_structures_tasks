@@ -13,3 +13,7 @@
 # All elements will be the same datatype.
 # All used elements will be hashable.
 # LISTSFUNDAMENTALS
+# Solution
+def duplicate_sandwich(arr):
+    start, end = [k for k, v in enumerate(arr) if arr.count(v) > 1]
+    return arr[start+1:end]
