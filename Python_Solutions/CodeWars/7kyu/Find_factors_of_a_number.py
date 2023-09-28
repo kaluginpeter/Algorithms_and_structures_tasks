@@ -5,3 +5,7 @@
 # For Example: factors(54) should return [54, 27, 18, 9, 6, 3, 2, 1]
 #
 # SORTINGARRAYSFUNDAMENTALS
+# Solution
+def factors(x):
+    if not isinstance(x, int) or x < 1: return -1
+    return [i for i in range(x, 0, -1) if x % i == 0]
