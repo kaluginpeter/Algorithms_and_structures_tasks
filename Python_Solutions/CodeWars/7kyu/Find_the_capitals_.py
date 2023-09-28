@@ -4,3 +4,6 @@
 # Example (Input --> Output)
 # "CodEWaRs" --> [0,3,4,6]
 # STRINGSARRAYSFUNDAMENTALS
+# Solution
+def capitals(word):
+    return [value for value, i in enumerate(word) if i.isupper()]
