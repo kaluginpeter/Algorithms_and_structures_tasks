@@ -5,3 +5,9 @@
 # More details about factorial can be found here.
 #
 # ALGORITHMSFUNDAMENTALS
+# Solution
+import math
+def factorial(n):
+    if n > 12:
+        raise ValueError
+    return math.factorial(n)
