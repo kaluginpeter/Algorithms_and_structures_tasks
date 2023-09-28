@@ -6,3 +6,7 @@
 # 5  -->  "9-4"
 # 7  -->  "16-9"
 # MATHEMATICSALGORITHMS
+# Solution
+def find_squares(n):
+    i = (n - 1) // 2
+    return f'{(i + 1)**2}-{i**2}'
