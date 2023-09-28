@@ -9,3 +9,6 @@
 #
 # difference = [a, e, g, j, k]
 # FUNDAMENTALSARRAYSALGORITHMS
+# Solution
+def diff(a, b):
+    return sorted(list(set([i for i in a if i not in b] + [i for i in b if i not in a])))
