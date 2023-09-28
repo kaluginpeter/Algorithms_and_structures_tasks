@@ -6,3 +6,6 @@
 # At this level, you don't need validate months and days to calculate the difference.
 #
 # STRINGSREGULAR EXPRESSIONSFUNDAMENTALS
+# Solution
+def how_many_years (date1,date2):
+    return abs(int(date1[:4]) - int(date2[:4]))
