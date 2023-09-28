@@ -9,3 +9,11 @@
 # remove("Hi! Hi!") === "Hi Hi"
 # remove("!!!Hi !!hi!!! !hi") === "!!!Hi !!hi !hi"
 # STRINGSREGULAR EXPRESSIONSFUNDAMENTALS
+# Solution
+def remove(s):
+    l = []
+    for i in s.split():
+        while i.endswith('!'):
+            i = i[:-1]
+        l.append(i)
+    return ' '.join(l)
