@@ -8,3 +8,6 @@
 # DiscoverOriginalPrice(75, 25) => 100.00M where 75 is the sale price (discounted price), 25 is the sale percentage and 100 is the original price
 #
 # FUNDAMENTALSMATHEMATICS
+# Solution
+def discover_original_price(discounted_price, sale_percentage):
+    return round(discounted_price / (100 - sale_percentage) * 100, 2)
