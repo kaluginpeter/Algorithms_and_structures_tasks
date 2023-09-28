@@ -9,3 +9,6 @@
 # 8675309 => [8,6,7,5,3,0,9]
 #
 # LISTSALGORITHMS
+# Solution
+def digitize(n):
+    return [int(i) for i in str(n)]
