@@ -10,3 +10,10 @@
 # 625 --> 676
 # 114 --> -1 since 114 is not a perfect square
 # ALGEBRAFUNDAMENTALS
+# Solution
+def find_next_square(sq):
+    perfect_sq = sq ** .5
+    if perfect_sq.is_integer():
+        return (perfect_sq + 1) ** 2
+    else:
+        return -1
