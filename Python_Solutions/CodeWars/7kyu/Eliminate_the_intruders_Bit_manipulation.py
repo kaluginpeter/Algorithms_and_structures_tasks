@@ -10,3 +10,7 @@
 # eliminate_unset_bits("1000000") -> 1
 # eliminate_unset_bits("000") -> 0
 # BITSSTRINGSFUNDAMENTALS
+# Solution
+def eliminate_unset_bits(number):
+    i = number.replace('0', '')
+    return int(i, 2) if i  else 0
