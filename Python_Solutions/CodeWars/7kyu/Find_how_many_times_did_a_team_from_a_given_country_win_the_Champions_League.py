@@ -14,3 +14,6 @@
 # countWins(winnerList1, 'Sportland') => should return 0
 #
 # STRINGSARRAYSDATA STRUCTURESALGORITHMS
+# Solution
+def countWins(winnerList, country):
+    return sum(i.get('country') == country for i in winnerList)
