@@ -9,3 +9,7 @@
 # *** Remember 0 is evenly divisible by all integers but not the other way around ***
 #
 # ALGORITHMS
+# Solution
+def divisible_by_last(n):
+    l = list(map(int, f"0{n}"))
+    return [i and not j%i for i,j in zip(l, l[1:])]
