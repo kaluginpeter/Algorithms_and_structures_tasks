@@ -15,3 +15,6 @@
 # Don't use this to actually exchange messages in private.
 #
 # FUNDAMENTALS
+# Solution
+def reverse_by_center(s):
+    return s[len(s)//2:] + s[:len(s)//2] if len(s) % 2 == 0 else s[len(s)//2+1:] + s[len(s)//2] + s[:len(s)//2]
