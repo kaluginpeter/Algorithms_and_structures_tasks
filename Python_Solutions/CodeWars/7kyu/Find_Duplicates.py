@@ -6,3 +6,14 @@
 # [1, 2, 4, 4, 3, 3, 1, 5, 3, "5"]  ==>  [4, 3, 1]
 # [0, 1, 2, 3, 4, 5]                ==>  []
 # ARRAYSFUNDAMENTALS
+# Solution
+def duplicates(array):
+    l = []
+    d = []
+    for elem in array:
+        if elem not in l:
+            l.append(elem)
+            continue
+        elif elem in l and elem not in d:
+            d.append(elem)
+    return d
