@@ -9,3 +9,6 @@
 # Return the resulting lamps string. See example tests for more clarity.
 #
 # FUNDAMENTALSSTRINGSARRAYS
+# Solution
+def fly_by(lamps, drone):
+    return 'o'*len(drone) + lamps[len(drone):] if len(drone) <= len(lamps) else 'o'*len(lamps)
