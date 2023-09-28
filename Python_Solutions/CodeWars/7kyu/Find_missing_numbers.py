@@ -9,3 +9,7 @@
 #
 # [-1,0,2,3,4]
 # ARRAYSFUNDAMENTALS
+# Solution
+def find_missing_numbers(arr):
+    if arr: return [i for i in list(range(min(arr), max(arr)+1)) if i not in arr]
+    return []
