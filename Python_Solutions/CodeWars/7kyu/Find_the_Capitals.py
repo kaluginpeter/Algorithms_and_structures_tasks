@@ -7,3 +7,6 @@
 # [{'country' : 'Spain', 'capital' : 'Madrid'}] --> ["The capital of Spain is Madrid"]
 # [{"state" : 'Maine', 'capital': 'Augusta'}, {'country': 'Spain', "capital" : "Madrid"}] --> ["The capital of Maine is Augusta", "The capital of Spain is Madrid"]
 # FUNDAMENTALS
+# Solution
+def capital(capitals):
+    return [f"The capital of {c.get('state') or c['country']} is {c['capital']}" for c in capitals]
