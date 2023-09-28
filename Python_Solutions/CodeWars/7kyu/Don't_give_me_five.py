@@ -15,3 +15,6 @@
 # I have also created other katas. Take a look if you enjoyed this kata!
 #
 # MATHEMATICSARRAYSALGORITHMS
+# Solution
+def dont_give_me_five(start, end):
+    return sum('5' not in str(i) for i in range(start, end + 1))
