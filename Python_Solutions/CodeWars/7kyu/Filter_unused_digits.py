@@ -7,3 +7,7 @@
 # Note: the digits in the resulting string should be sorted.
 #
 # FUNDAMENTALSFILTERINGARRAYS
+# Solution
+def unused_digits(*numbers):
+    w = ''.join(str(i) for i in numbers)
+    return ''.join(i for i in '0123456789' if i not in w)
