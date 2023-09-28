@@ -7,3 +7,8 @@
 # If the total of both even and odd numbers are identical return: "Even and Odd are the same"
 #
 # FUNDAMENTALS
+# Solution
+def even_or_odd(s):
+    a = sum(int(i) for i in s if int(i)%2 != 0)
+    b = sum(int(i) for i in s if int(i)%2 == 0)
+    return 'Even is greater than Odd' if b > a else 'Odd is greater than Even' if a>b else 'Even and Odd are the same'
