@@ -9,3 +9,6 @@
 #
 # [1,4,3,8]
 # FUNDAMENTALSLISTSARRAYSALGORITHMS
+# Solution
+def double_every_other(lst):
+    return [i*2 if lst.index(i)%2!=0 else i for i in lst]
