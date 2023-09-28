@@ -6,3 +6,8 @@
 # Note: The calculated height should be represented as an integer. If the height is fractional, truncate it.
 #
 # FUNDAMENTALSSTRINGS
+# Solution
+def find_screen_height(width, ratio):
+    lhs, rhs = list(map(int, ratio.split(':')))
+    height = int(width * rhs/lhs)
+    return str(width) + 'x' + str(height)
