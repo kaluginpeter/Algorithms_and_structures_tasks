@@ -19,3 +19,14 @@
 # Word values
 #
 # FUNDAMENTALS
+# Solution
+def solve(a):
+    count_e = 0
+    count_o = 0
+    for elem in a:
+        if str(elem).isdigit():
+            if elem %2==0:
+                count_e += 1
+            elif elem %2!=0:
+                count_o += 1
+    return count_e - count_o
