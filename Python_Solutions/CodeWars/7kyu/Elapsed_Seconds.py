@@ -4,3 +4,6 @@
 # The start/end times are given as Date (JS/CoffeeScript), DateTime (C#), Time (Nim), datetime(Python) and Time (Ruby) instances.
 # The start time will always be before the end time.
 # DATE TIMEFUNDAMENTALS
+# Solution
+def elapsed_seconds(start, end):
+    return (end - start).total_seconds()
