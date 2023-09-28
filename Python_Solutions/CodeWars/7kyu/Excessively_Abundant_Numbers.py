@@ -5,3 +5,6 @@
 # Derive function abundantNumber(num)/abundant_number(num) which returns true/True/.true. if num is abundant, false/False/.false. if not.
 #
 # FUNDAMENTALSMATHEMATICSALGORITHMS
+# Solution
+def abundant_number(num):
+    return sum([i for i in range(1, num) if num % i == 0]) > num
