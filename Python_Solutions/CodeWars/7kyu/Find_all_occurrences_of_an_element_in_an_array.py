@@ -9,3 +9,6 @@
 # find_all([6, 9, 3, 4, 3, 82, 11], 3)
 # > [2, 4]
 # FUNDAMENTALS
+# Solution
+def find_all(array, n):
+    return [e for e,i in enumerate(array) if i == n]
