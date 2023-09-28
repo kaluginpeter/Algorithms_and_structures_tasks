@@ -10,3 +10,7 @@
 # [10,10,10,18,20,20] --> 12
 #
 # FUNDAMENTALS
+# Solution
+from statistics import mean
+def passed(lst):
+    return int(round(mean([i for i in lst if i < 19] or [0]))) or 'No pass scores registered.'
