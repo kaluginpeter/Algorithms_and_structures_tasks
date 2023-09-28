@@ -7,3 +7,6 @@
 # You should return the duplicate value as a single integer.
 #
 # ARRAYSALGORITHMS
+# Solution
+def find_dup(arr):
+    return sum(arr) - sum(set(arr))
