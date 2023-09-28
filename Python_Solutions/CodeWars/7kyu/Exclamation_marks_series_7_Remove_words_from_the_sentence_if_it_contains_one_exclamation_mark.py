@@ -10,3 +10,6 @@
 # remove("Hi! Hi!! Hi!") === "Hi!!"
 # remove("Hi! !Hi! Hi!") === "!Hi!"
 # FUNDAMENTALSSTRINGSALGORITHMS
+# Solution
+def remove(s):
+    return ' '.join(filter(lambda word: word.count('!') != 1, s.split(' ')))
