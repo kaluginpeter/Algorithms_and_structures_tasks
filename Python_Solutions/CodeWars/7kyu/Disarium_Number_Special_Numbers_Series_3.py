@@ -24,3 +24,6 @@
 # Enjoy Learning !!
 # Zizou
 # FUNDAMENTALSMATHEMATICS
+# Solution
+def disarium_number(number):
+    return 'Disarium !!' if sum(int(i)**(int(j) + 1) for j, i in enumerate(str(number))) == number else 'Not !!'
