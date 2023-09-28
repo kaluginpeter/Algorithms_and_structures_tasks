@@ -5,3 +5,10 @@
 # Look tests for more examples, good luck :)
 #
 # OBJECT-ORIENTED PROGRAMMING
+# Solution
+class Class:
+    count = 1
+    def get_number():
+        res = Class.count
+        Class.count *= 2
+        return res
