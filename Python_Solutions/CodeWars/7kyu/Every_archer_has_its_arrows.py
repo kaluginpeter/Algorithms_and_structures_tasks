@@ -11,3 +11,6 @@
 # archersReady([5, 6, 7, 8]) returns true.
 #
 # FUNDAMENTALS
+# Solution
+def archers_ready(archers):
+    return all(i > 4 for i in archers) if archers else False
