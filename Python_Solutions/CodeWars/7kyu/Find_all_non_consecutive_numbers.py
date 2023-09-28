@@ -21,3 +21,6 @@
 # If you like this kata, maybe try this one next: https://www.codewars.com/kata/represent-array-of-numbers-as-ranges
 #
 # ARRAYSFUNDAMENTALS
+# Solution
+def all_non_consecutive(a):
+    return [{"i": i, "n": y} for i, (x, y) in enumerate(zip(a, a[1:]), 1) if x != y - 1]
