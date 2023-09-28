@@ -3,3 +3,6 @@
 # This kata is meant for beginners. Rank and upvote to bring it out of beta!
 #
 # FUNDAMENTALSMATHEMATICS
+# Solution
+def area(d, l):
+    return "Not a rectangle" if d <= l else round(l * (d**2 - l**2) **.5, 2)
