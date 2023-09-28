@@ -8,3 +8,6 @@
 # You will be given a string of numbers and letters mixed up, you have to return all the numbers in that string in the order they occur.
 #
 # STRINGSFUNDAMENTALS
+# Solution
+def filter_string(string):
+    return int(''.join(i for i in string if i.isdigit()))
