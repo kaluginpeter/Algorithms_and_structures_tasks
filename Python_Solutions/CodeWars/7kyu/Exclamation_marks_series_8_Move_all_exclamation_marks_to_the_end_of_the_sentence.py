@@ -8,3 +8,7 @@
 # "Hi! !Hi Hi!"  ---> "Hi Hi Hi!!!"
 # "Hi! Hi!! Hi!" ---> "Hi Hi Hi!!!!"
 # FUNDAMENTALS
+# Solution
+def remove(s):
+    count = s.count('!')
+    return s.replace('!', '') + '!'*count
