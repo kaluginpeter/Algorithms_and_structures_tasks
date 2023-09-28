@@ -7,3 +7,6 @@
 # The first array will always have at least one element.
 #
 # ARRAYSALGORITHMS
+# Solution
+def find_missing(arr1, arr2):
+    return sum(arr1) - sum(arr2)
