@@ -13,3 +13,6 @@
 # "!???!!"    --->   9
 # "!????!!!?" --->  20
 # FUNDAMENTALS
+# Solution
+def product(s):
+    return int(s.count('!'))*int(s.count('?'))
