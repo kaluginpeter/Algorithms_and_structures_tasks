@@ -7,3 +7,7 @@
 # Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions
 #
 # FUNDAMENTALS
+# Solution
+def find_function(func,arr):
+    for i in func:
+        if not type(i) in (str, int): return [j for j in arr if i(j)]
