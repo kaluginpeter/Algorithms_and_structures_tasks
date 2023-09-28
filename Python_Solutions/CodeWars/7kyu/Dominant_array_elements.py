@@ -9,3 +9,10 @@
 # Good luck!
 #
 # ARRAYSFUNDAMENTALS
+# Solution
+def solve(arr):
+    l = []
+    for i in range(len(arr)):
+        if max(arr[i:]) == arr[i] and arr[i] not in l:
+            l.append(arr[i])
+    return l
