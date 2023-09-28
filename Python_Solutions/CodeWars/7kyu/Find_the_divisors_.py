@@ -5,3 +5,7 @@
 # divisors(25); #should return [5]
 # divisors(13); #should return "13 is prime"
 # MATHEMATICSALGORITHMS
+# Solution
+def divisors(integer):
+    l =  [i for i in range(2, integer) if integer % i == 0]
+    return l if l else f"{integer} is prime"
