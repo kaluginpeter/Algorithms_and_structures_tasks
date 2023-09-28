@@ -11,3 +11,6 @@
 # values = [1, 2, 3, 4]
 # createDict(keys, values) # returns {'a': 1, 'b': 2, 'c': 3}
 # FUNDAMENTALS
+# Solution
+def createDict(keys, values):
+    return {k:(values[e] if e<len(values) else None) for e,k in enumerate(keys)}
