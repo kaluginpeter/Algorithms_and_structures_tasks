@@ -21,3 +21,14 @@
 # * ". // .."                 => ""
 # * ".. - .."                 => ""
 # STRINGSFUNDAMENTALS
+# Solution
+def calculator(txt):
+    l = txt.split()
+    if '+' in l:
+        return l[0] + l[2]
+    elif '-' in l:
+        return l[0][:len(l[0])-len(l[2])]
+    elif '*' in l:
+        return l[0] * len(l[2])
+    elif '//' in l:
+        return l[0][:len(l[0])//len(l[2])]
