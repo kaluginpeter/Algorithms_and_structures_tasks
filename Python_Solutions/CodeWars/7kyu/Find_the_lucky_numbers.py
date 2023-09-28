@@ -7,3 +7,6 @@
 # Don't worry about bad input, you will always receive a finite list of integers.
 #
 # FUNDAMENTALS
+# Solution
+def filter_lucky(lst):
+    return list(filter(lambda x: '7' in str(x), lst))
