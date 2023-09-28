@@ -11,3 +11,6 @@
 # Note: you will be provided atleast one word and should take string as input and return string as output.
 #
 # ARRAYSSTRINGSREGULAR EXPRESSIONSFUNDAMENTALS
+# Solution
+def drop_cap(str_):
+    return ' '.join(i.capitalize() if len(i) > 2 else i for i in str_.split(' '))
