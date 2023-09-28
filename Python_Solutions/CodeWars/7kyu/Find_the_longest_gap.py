@@ -8,3 +8,8 @@
 # The function should return 0 if num doesn't contain a binary gap.
 #
 # REGULAR EXPRESSIONSSTRINGSFUNDAMENTALS
+# Solution
+def gap(num):
+    binary = str(bin(num)).strip('0').split('b')[1]
+    binary = binary.split('1')
+    return max(list(map(lambda x: len(x), binary)))
