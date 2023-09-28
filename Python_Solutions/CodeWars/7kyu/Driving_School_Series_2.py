@@ -11,3 +11,7 @@
 # For a given lesson time in minutes (min) , write a function cost to calculate how much the lesson costs. Input is always > 0.
 #
 # MATHEMATICSFUNDAMENTALS
+# Solution
+import math
+def cost(mins):
+    return 30 + 10 * math.ceil(max(0, mins - 60 - 5) / 30)
