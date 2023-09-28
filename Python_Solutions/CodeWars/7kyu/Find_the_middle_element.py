@@ -13,3 +13,6 @@
 # 10 is the number that fits between 5 and 14 and the index of 10 in the input array is 1.
 #
 # ARRAYSFUNDAMENTALS
+# Solution
+def gimme(input_array):
+    return [input_array.index(i) for i in input_array if min(input_array) < i < max(input_array)][0]
