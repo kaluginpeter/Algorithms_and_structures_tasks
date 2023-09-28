@@ -3,3 +3,6 @@
 # Round your answers to two decimal places.
 #
 # MATHEMATICSALGORITHMSFUNDAMENTALS
+# Solution
+def euclidean_distance(point1, point2):
+    return round(sum((j - i)**2 for i, j in zip(point1, point2)) ** 0.5, 2)
