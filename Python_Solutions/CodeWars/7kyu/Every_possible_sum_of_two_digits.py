@@ -7,3 +7,7 @@
 #
 # [ 3, 4, 5, 6, 5, 6, 7, 7, 8, 9 ]
 # ALGORITHMS
+# Solution
+from itertools import combinations
+def digits(num):
+    return list(map(sum, combinations(map(int,str(num)),2)))
