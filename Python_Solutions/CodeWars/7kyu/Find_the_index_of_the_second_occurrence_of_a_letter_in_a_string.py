@@ -7,3 +7,6 @@
 # Good luck ;) And don't forget to rate this Kata if you liked it.
 #
 # FUNDAMENTALSSTRINGS
+# Solution
+def second_symbol(s, sym):
+    return [i for i in range(len(s)) if s[i] == sym][1] if sym in s and s.count(sym) > 1 else -1
