@@ -30,3 +30,6 @@
 # easyLine(4) => 4
 # easyLine(50) => 67
 # FUNDAMENTALSMATHEMATICS
+# Solution
+def easyline(n):
+    return easyline(n - 1) * (4 * n - 2) // n if n else 1
