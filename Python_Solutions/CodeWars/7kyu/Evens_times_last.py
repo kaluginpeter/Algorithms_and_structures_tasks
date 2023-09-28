@@ -5,3 +5,11 @@
 # If the sequence is empty, you should return 0.
 #
 # ARRAYSFUNDAMENTALS
+# Solution
+def even_last(numbers):
+    total = 0
+    if numbers:
+        last = numbers[-1]
+        numbers = [num for i, num in enumerate(numbers) if i % 2 ==0]
+        total = sum(numbers) * last
+    return total
