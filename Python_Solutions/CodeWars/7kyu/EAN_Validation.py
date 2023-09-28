@@ -30,3 +30,8 @@
 # Good Luck and have fun.
 #
 # ALGORITHMSFUNDAMENTALSMATHEMATICSSTRINGS
+# Solution
+def validate_ean(code):
+    code1 = sum(int(i) for i in code[0::2])
+    code = sum(int(i) for i in code[1::2])
+    return (code1 + code * 3) % 10 == 0
