@@ -5,3 +5,6 @@
 # Note that numbers written as strings are strings and must be sorted with the other strings.
 #
 # FUNDAMENTALSSTRINGSARRAYSSORTING
+# Solution
+def db_sort(arr):
+    return sorted([i for i in arr if type(i) == int]) + sorted([i for i in arr if type(i) == str])
