@@ -4,3 +4,6 @@
 # "312" should return "333122"
 # "102269" should return "12222666666999999999"
 # STRINGSREGULAR EXPRESSIONSFUNDAMENTALS
+# Solution
+def explode(s):
+    return ''.join(i * int(i) for i in s)
