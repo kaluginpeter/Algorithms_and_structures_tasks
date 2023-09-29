@@ -3,3 +3,7 @@
 # For example, solution(20) should return [5, 2, 1]
 #
 # MATHEMATICSALGORITHMS
+# Solution
+def solution(number):
+    A, B, C = (number - 1) // 3, (number - 1) // 5, (number - 1) // 15
+    return [A - C, B - C, C]
