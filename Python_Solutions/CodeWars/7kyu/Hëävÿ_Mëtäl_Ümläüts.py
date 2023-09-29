@@ -14,3 +14,6 @@
 # Second, along the same lines, don't bother trying to use string translate() and maketrans() to solve this in Python 2.7.6, because maketrans will see the character-mapping strings as being different lengths. Use a different approach instead.
 #
 # STRINGSFUNDAMENTALS
+# Solution
+def heavy_metal_umlauts(boring_text):
+    return boring_text.translate(str.maketrans('AOaoEUeuIYiy', 'ÄÖäöËÜëüÏŸïÿ'))
