@@ -14,3 +14,8 @@
 # Given a string, you must decide whether or not it contains a valid phone number. If it does, return the corrected phone number as a string ie. '02078834982' with no whitespace or special characters, else return "Not a phone number".
 #
 # STRINGSREGULAR EXPRESSIONSFUNDAMENTALS
+# Solution
+def is_it_a_num(s: str) -> str:
+    n = ''.join(i for i in s if i.isdigit())
+    res = n.startswith('0') and len(n) == 11
+    return n if res else 'Not a phone number'
