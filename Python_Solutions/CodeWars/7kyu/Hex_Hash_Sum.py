@@ -7,3 +7,6 @@
 # "Hello, World!"  ==> 91
 # "Forty4Three"    ==> 113
 # MATHEMATICSSECURITYFUNDAMENTALS
+# Solution
+def hex_hash(code):
+    return sum(int(i) for j in code for i in hex(ord(j)) if i.isdigit())
