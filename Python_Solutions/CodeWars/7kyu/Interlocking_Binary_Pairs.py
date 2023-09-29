@@ -37,3 +37,6 @@
 # This kata is accepting of translations for any languages other than: Java, JavaScript, CoffeeScript, TypeScript, Go, Groovy, Julia, Dart, and Kotlin; as those are currently underway by the author. Thank you!
 #
 # BINARYBITSALGORITHMS
+# Solution
+def interlockable(a, b):
+    return not a & b
