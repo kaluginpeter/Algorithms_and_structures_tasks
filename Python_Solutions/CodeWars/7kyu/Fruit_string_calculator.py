@@ -14,3 +14,7 @@
 # Should be a nice little kata for you :)
 #
 # STRINGSREGULAR EXPRESSIONSFUNDAMENTALS
+# Solution
+def calculate(string):
+    d = {'gains': int(string.split()[2]) + int(string.split()[-1]), 'loses': int(string.split()[2]) - int(string.split()[-1])}
+    return d['gains'] if 'gains' in string else d['loses']
