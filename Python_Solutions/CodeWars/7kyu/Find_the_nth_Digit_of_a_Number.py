@@ -13,3 +13,6 @@
 # 65, 0 --> -1
 # 24, -8 --> -1
 # FUNDAMENTALS
+# Solution
+def find_digit(num, nth):
+    return int(str(num)[-nth]) if nth <= len(str(num)) and nth > 0 else -1 if nth <= 0 else 0
