@@ -7,3 +7,7 @@
 # Obviously the words should be Caps, Every word should end with '!!!!', Any letter 'a' or 'A' should become '@', Any other vowel should become '*'.
 #
 # FUNDAMENTALSSTRINGSARRAYS
+# Solution
+def gordon(a):
+    trans = a.lower().maketrans({'a':'@', 'e':'*', 'o':'*','u':'*','i':'*'})
+    return '!!!! '.join(a.translate(trans).upper().split()) + '!!!!'
