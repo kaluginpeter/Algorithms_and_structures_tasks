@@ -8,3 +8,6 @@
 # Write a program that shows how many grains were on each square.
 #
 # ALGORITHMS
+# Solution
+def square(number):
+    return 2**(number-1)
