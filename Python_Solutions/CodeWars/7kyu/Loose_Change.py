@@ -24,3 +24,6 @@
 # Warning, some change may amount to over $10.00!
 #
 # FUNDAMENTALS
+# Solution
+def change_count(s):
+    return f"${sum(CHANGE[i] for i in s.split()):.2f}"
