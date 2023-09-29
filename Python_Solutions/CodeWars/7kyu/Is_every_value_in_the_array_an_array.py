@@ -8,3 +8,6 @@
 # ['1','2'] => false
 # [{1:1},{2:2}] => false
 # ARRAYSFUNDAMENTALS
+# Solution
+def arr_check(arr):
+    return all(type(i) == list for i in arr)
