@@ -19,3 +19,14 @@
 # movie(100, 10, 0.95) should return 24
 #     (with card the total price is 235, with tickets 240)
 # FUNDAMENTALS
+# Solution
+import math
+def movie(card, ticket, perc):
+    total_card = card
+    total_tickets = 0
+    i = 1
+    while math.ceil(total_card) >= total_tickets:
+        total_card += ticket *(perc**i)
+        total_tickets += ticket
+        i += 1
+    return i - 1
