@@ -9,3 +9,8 @@
 # Vowel-consonant lexicon
 #
 # STRINGSFUNDAMENTALS
+# Solution
+import re
+def solve(s):
+    matches = re.findall('[aeiou]+', s)
+    return max(list(map(len, matches)))
