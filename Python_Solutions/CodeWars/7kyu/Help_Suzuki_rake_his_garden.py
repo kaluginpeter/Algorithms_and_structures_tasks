@@ -19,3 +19,7 @@
 # Suzuki needs help lining up his students!
 # How many stairs will Suzuki climb in 20 years?
 # FUNDAMENTALS
+# Solution
+VALID = {'gravel', 'rock'}
+def rake_garden(garden):
+    return ' '.join(a if a in VALID else 'gravel' for a in garden.split())
