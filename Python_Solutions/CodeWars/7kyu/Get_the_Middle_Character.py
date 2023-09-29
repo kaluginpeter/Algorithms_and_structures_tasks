@@ -18,3 +18,12 @@
 # The middle character(s) of the word represented as a string.
 #
 # FUNDAMENTALSSTRINGS
+# Solution
+def get_middle(s):
+    if len(s) % 2:
+        index = int(len(s) / 2)
+        return s[index]
+    elif len(s) % 2 == 0:
+        x = len(s) // 2
+        y = len(s) // 2 - 1
+        return (f'{s[y]}{s[x]}')
