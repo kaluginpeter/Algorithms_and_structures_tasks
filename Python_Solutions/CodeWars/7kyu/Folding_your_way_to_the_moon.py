@@ -8,3 +8,13 @@
 # Also, if somebody is giving you a negative distance, it's clearly bogus and you should yell at them by returning null (or whatever equivalent in your language). In Shell please return None. In C and COBOL please return -1.
 #
 # MATHEMATICSFUNDAMENTALS
+# Solution
+def fold_to(distance):
+    if distance < 0:
+        return None
+    count = 0
+    paper = 0.0001
+    while paper < distance:
+        count += 1
+        paper = paper * 2
+    return count
