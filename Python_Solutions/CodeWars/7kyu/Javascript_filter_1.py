@@ -10,3 +10,6 @@
 #
 # https://docs.python.org/3/library/functions.html#filter
 # REGULAR EXPRESSIONSFUNDAMENTALS
+# Solution
+def search_names(logins):
+    return list(filter(lambda x: x[0].endswith('_'), logins))
