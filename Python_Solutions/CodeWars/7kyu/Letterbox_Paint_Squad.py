@@ -35,3 +35,11 @@
 # 0 < start <= end
 # In C, the returned value will be free'd.
 # FUNDAMENTALS
+# Solution
+def paint_letterboxes(start, finish):
+    squad = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    for i in range(start,finish+1):
+        while i != 0:
+            squad[i % 10]+=1
+            i //= 10
+    return squad
