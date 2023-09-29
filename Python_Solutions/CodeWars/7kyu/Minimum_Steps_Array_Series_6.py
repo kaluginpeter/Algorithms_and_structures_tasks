@@ -45,3 +45,11 @@
 # Enjoy Learning !!
 # Zizou
 # FUNDAMENTALSARRAYS
+# Solution
+def minimum_steps(numbers, value):
+    numbers = sorted(numbers)
+    count = 0
+    for i in range(len(numbers)):
+        count+=numbers[i]
+        if count >= value:
+            return i
