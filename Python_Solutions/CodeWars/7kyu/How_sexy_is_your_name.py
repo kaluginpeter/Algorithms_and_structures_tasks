@@ -13,3 +13,7 @@
 # 301 <= score <= 599:  'VERY SEXY'
 #        score >= 600:  'THE ULTIMATE SEXIEST'
 # FUNDAMENTALS
+# Solution
+def sexy_name(name):
+    s = sum(SCORES[i.upper()] for i in name.replace(' ', ''))
+    return 'THE ULTIMATE SEXIEST' if s >=600 else 'VERY SEXY' if 301 <= s <= 599 else 'PRETTY SEXY' if 61 <= s <= 300 else 'NOT TOO SEXY'
