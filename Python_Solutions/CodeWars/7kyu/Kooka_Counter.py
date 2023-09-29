@@ -24,3 +24,7 @@
 # ^ Kata Note : No validation is necessary; only valid input will be passed :-)
 #
 # STRINGSALGORITHMS
+# Solution
+import re
+def kooka_counter(laughing):
+    return len(re.findall(r'(ha)+|(Ha)+',laughing))
