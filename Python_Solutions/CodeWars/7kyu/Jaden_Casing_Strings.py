@@ -9,3 +9,6 @@
 # Link to Jaden's former Twitter account @officialjaden via archive.org
 #
 # STRINGSFUNDAMENTALS
+# Solution
+def to_jaden_case(string):
+    return " ".join(w.capitalize() for w in string.split())
