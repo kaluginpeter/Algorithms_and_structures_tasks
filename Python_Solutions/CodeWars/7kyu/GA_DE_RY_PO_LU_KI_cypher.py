@@ -30,3 +30,8 @@
 # GADERYPOLUKI cypher vol 3 - Missing Key
 # GADERYPOLUKI cypher vol 4 - Missing key madness
 # FUNDAMENTALSCIPHERSCRYPTOGRAPHY
+# Solution
+def encode(str):
+    return str.translate(str.maketrans("GDRPLKAEYOUIgdrplkaeyoui","AEYOUIGDRPLKaeyouigdrplk"))
+def decode(str):
+    return encode(str)
