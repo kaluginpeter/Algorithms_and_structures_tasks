@@ -13,3 +13,6 @@
 # Adapted from ProjectEuler.net
 #
 # ALGORITHMS
+# Solution
+def solution(digits):
+    return max(int(digits[i:i+5]) for i in range(0,len(digits)-4))
