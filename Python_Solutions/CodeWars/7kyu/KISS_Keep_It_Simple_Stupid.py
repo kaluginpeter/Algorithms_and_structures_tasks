@@ -22,3 +22,7 @@
 #
 # "jump always mostly is touchy dancing choice is pineapples mostly"
 # STRINGSFUNDAMENTALS
+# Solution
+def is_kiss(words):
+    if all(len(i) <= len(words.split()) for i in words.split()): return 'Good work Joe!'
+    return 'Keep It Simple Stupid'
