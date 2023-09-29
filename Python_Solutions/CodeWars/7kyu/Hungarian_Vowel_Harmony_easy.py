@@ -17,3 +17,10 @@
 # All strings are unicode strings.
 # There are no grammatical exceptions in the tests.
 # STRINGSFUNDAMENTALS
+# Solution
+def dative(word):
+    for letter in word[::-1]:
+        if letter in "eéiíöőüű":
+            return word + "nek"
+        elif letter in "aáoóuú":
+            return word + "nak"
