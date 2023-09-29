@@ -10,3 +10,6 @@
 # P.S. If n < 0, return false
 #
 # FUNDAMENTALSSTRINGS
+# Solution
+def check_vowel(string, position):
+    return string[position].lower() in 'aeoiu' if position >= 0 and position <= len(string) else False
