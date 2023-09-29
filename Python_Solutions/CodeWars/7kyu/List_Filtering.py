@@ -5,3 +5,7 @@
 # filter_list([1,'a','b',0,15]) == [1,0,15]
 # filter_list([1,2,'aasf','1','123',123]) == [1,2,123]
 # LISTSFILTERINGDATA STRUCTURESFUNDAMENTALS
+# Solution
+def filter_list(l):
+    new_list = [elem for elem in l if isinstance(elem, (int))]
+    return new_list
