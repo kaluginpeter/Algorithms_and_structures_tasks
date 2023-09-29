@@ -11,3 +11,6 @@
 # my_array = [1, 2, 3]
 # fives(my_array)             # returns [5, 10, 15]
 # FUNDAMENTALSFUNCTIONAL PROGRAMMINGARRAYS
+# Solution
+def factory(x):
+    return lambda i: [x * j for j in i]
