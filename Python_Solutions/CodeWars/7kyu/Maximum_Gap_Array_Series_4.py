@@ -41,3 +41,8 @@
 # Enjoy Learning !!
 # Zizou
 # FUNDAMENTALSARRAYS
+# Solution
+import numpy as np
+def max_gap(numbers):
+    numbers = np.array(sorted(numbers))
+    return np.max(numbers[1:]-numbers[:-1])
