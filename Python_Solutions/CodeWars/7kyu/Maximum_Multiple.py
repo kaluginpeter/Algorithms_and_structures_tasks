@@ -32,3 +32,6 @@
 # Enjoy Learning !!
 # Zizou
 # FUNDAMENTALS
+# Solution
+def max_multiple(divisor, bound):
+    return max(i for i in range(bound + 1) if i % divisor == 0)
