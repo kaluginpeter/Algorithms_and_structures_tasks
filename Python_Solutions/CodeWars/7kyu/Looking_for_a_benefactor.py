@@ -32,3 +32,11 @@
 # should raise an error (ValueError or invalid_argument or argument-error or DomainError or ... )
 # or return `-1` or ERROR or Nothing or None depending on the language.
 # FUNDAMENTALSARRAYS
+# Solution
+from math import ceil
+def new_avg(arr, newavg):
+    ndon = float(newavg) * (len(arr) + 1) - sum(arr)
+    if ndon >= 0:
+        return ceil(ndon)
+    else:
+        raise ValueError('Negative number found')
