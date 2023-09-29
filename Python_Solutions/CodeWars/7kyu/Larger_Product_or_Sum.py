@@ -17,3 +17,9 @@
 # The product of the 3 lowest numbers is higher than the sum of the 3 highest numbers so the function returns "product"
 #
 # FUNDAMENTALSMATHEMATICSALGORITHMS
+# Solution
+import functools
+def sum_or_product(array, n):
+    big = sum(sorted(array)[-n:])
+    small = functools.reduce(lambda a, b : a * b, sorted(array)[:n])
+    return 'sum' if big > small else 'product' if small > big else 'same'
