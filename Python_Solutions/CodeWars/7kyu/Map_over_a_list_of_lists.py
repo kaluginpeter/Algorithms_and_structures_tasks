@@ -18,3 +18,6 @@
 # grid_map(x, lambda x: x.upper())
 # -- returns [['H', 'E', 'L', 'L', 'O'], ['W', 'O', 'R', 'L', 'D']]
 # FUNDAMENTALSLISTS
+# Solution
+def grid_map(inp, op):
+    return [list(map(op, i)) for i in inp]
