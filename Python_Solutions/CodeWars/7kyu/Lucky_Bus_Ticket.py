@@ -7,3 +7,6 @@
 # isLucky('22') => false // :(
 # isLucky('abcdef') => false // :(
 # FUNDAMENTALS
+# Solution
+def is_lucky(ticket):
+    return len(ticket) == 6 and ticket.isdigit() and sum(map(int, ticket[:3])) == sum(map(int, ticket[3:]))
