@@ -3,3 +3,6 @@
 # args_count(1, 2, 3) -> 3
 # args_count(1, 2, 3, 10) -> 4
 # FUNDAMENTALS
+# Solution
+def args_count(*args, **kwargs):
+    return len(args) + len(kwargs)
