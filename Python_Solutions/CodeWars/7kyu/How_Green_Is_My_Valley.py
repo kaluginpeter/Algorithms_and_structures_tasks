@@ -54,3 +54,7 @@
 # (17-17)+(15-14)+(8-7)+(7-5)+(4-4) = 4
 # The right wing is nearly as steep as the right one.
 # FUNDAMENTALS
+# Solution
+def make_valley(l):
+    l = sorted(l, reverse = True)
+    return l[::2] + l[1::2][::-1]
