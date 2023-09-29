@@ -19,3 +19,7 @@
 # All inputs will be valid.
 #
 # LISTSFUNDAMENTALS
+# Solution
+def grid_index(grid, indexes):
+    l = [i for j in grid for i in j]
+    return ''.join(l[i - 1] for i in indexes)
