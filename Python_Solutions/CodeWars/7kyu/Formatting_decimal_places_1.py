@@ -10,3 +10,8 @@
 # 32.8493 is 32.85
 # 14.3286 is 14.33
 # FUNDAMENTALS
+# Solution
+from math import trunc
+def two_decimal_places(number):
+    factor = float(10 ** 2)
+    return trunc(number * factor) / factor
