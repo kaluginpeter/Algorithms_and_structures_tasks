@@ -9,3 +9,6 @@
 # time_for_milk_and_cookies(date(2013, 1, 23))   # False
 # time_for_milk_and_cookies(date(3000, 12, 24))  # True
 # DATE TIMEFUNDAMENTALS
+# Solution
+def time_for_milk_and_cookies(dt):
+    return str(dt)[-5:-3] == '12' and str(dt)[-2:] == '24'
