@@ -12,3 +12,6 @@
 # Note: There will be at least two words in the given string!
 #
 # FUNDAMENTALS
+# Solution
+def to_acronym(inp):
+    return ''.join(i[0].upper() for i in inp.split())
