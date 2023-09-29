@@ -24,3 +24,10 @@
 # Enjoy Learning !!
 # Zizou
 # FUNDAMENTALS
+# Solution
+def min_value(digits):
+    list = sorted(set(digits))
+    integer = ''
+    for elem in list:
+        integer += str(elem)
+    return int(integer)
