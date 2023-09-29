@@ -13,3 +13,7 @@
 # t = [1, 7, 3, 4]
 # t_copy = [1, 2, 3, 4]
 # LISTSFUNDAMENTALS
+# Solution
+def copy_list(l):
+    copy = [i for i in l]
+    return copy
