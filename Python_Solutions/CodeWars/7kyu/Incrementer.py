@@ -11,3 +11,6 @@
 # [4, 6, 9, 1, 3]  -->  [5, 8, 2, 5, 8]  #  [4+1, 6+2, 9+3, 1+4, 3+5]
 #                                        #  9+3 = 12  -->  2
 # FUNDAMENTALS
+# Solution
+def incrementer(nums):
+    return [i+j+1 if i+j+1<10 else int(str(i+j+1)[-1]) for i,j in enumerate(nums)]
