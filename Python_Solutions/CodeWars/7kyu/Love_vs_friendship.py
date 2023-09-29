@@ -11,3 +11,6 @@
 # The input will always be made of only lowercase letters and will never be empty.
 #
 # FUNDAMENTALS
+# Solution
+def words_to_marks(s):
+    return sum(ord(char) - 96 for char in s)
