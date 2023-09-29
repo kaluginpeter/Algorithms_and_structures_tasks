@@ -7,3 +7,6 @@
 # Go to work!
 #
 # FUNDAMENTALSARRAYSSTRINGS
+# Solution
+def fire_fight(s):
+    return s.replace('Fire', '~~')
