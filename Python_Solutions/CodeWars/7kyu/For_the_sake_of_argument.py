@@ -11,3 +11,6 @@
 # numbers(1, 3, None); # False
 # numbers(1.23, 5.6, 3.2) # True
 # ARRAYSFUNDAMENTALS
+# Solution
+def numbers(*l):
+    return all(type(i) in (int, float) for i in l)
