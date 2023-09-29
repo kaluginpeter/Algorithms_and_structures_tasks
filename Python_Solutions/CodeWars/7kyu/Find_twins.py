@@ -5,3 +5,8 @@
 # If there are no twins in the city - return None or the equivalent in the language that you are using.
 #
 # ALGORITHMS
+# Solution
+def elimination(arr):
+    for x in arr:
+        if arr.count(x) == 2:
+            return x
