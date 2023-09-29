@@ -9,3 +9,6 @@
 # The number passed to two_count (twoCount) will always be a positive integer greater than or equal to 1.
 #
 # ALGORITHMS
+# Solution
+def two_count(n):
+    return bin(n)[::-1].index('1')
