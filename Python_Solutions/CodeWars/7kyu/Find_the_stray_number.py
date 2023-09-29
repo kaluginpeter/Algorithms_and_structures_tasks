@@ -8,3 +8,9 @@
 # [1, 1, 2] ==> 2
 # [17, 17, 3, 17, 17, 17, 17] ==> 3
 # FUNDAMENTALSALGORITHMS
+# Solution
+def stray(arr):
+    for i in arr:
+        if arr.count(i)==1:
+            elem = i
+    return elem
