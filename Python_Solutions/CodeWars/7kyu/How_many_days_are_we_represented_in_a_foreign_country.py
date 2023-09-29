@@ -12,3 +12,9 @@
 # Happy coding and rank this kata if you wish ;-)
 #
 # LISTSFUNDAMENTALS
+# Solution
+def days_represented(trips):
+    s = set()
+    for i in trips:
+        s.update(range(i[0], i[1] + 1))
+    return len(s)
