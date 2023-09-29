@@ -3,3 +3,6 @@
 # Your code must handle any value within the range of a 32-bit integer, and must be capable of handling either array being empty (which is a false result, as there are no duplicated elements).
 #
 # ARRAYSFUNDAMENTALS
+# Solution
+def duplicate_elements(m, n):
+    return bool(set(m) & set(n))
