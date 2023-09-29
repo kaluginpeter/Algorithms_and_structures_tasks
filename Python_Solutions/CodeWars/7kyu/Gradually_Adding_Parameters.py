@@ -12,3 +12,6 @@
 #   add(1,2,3) #=> 14
 #   add(1,4,-5,5) #=> 14
 # FUNDAMENTALS
+# Solution
+def add(*args):
+    return sum(v * (k + 1) for k,v in enumerate(args))
