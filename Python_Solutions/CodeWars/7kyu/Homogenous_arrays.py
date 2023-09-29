@@ -15,3 +15,6 @@
 # No implicit type casting is allowed. A subarray [1, '2'] would be considered illegal and should be filtered out.
 #
 # ARRAYSFUNDAMENTALSFUNCTIONAL PROGRAMMING
+# Solution
+def filter_homogenous(arrays):
+    return [i for i in arrays if (all(type(a) == int for a in i) or all(type(a) == str for a in i)) and i]
