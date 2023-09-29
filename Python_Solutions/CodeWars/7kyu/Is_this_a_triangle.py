@@ -3,3 +3,6 @@
 # (In this case, all triangles must have surface greater than 0 to be accepted).
 #
 # MATHEMATICSFUNDAMENTALS
+# Solution
+def is_triangle(a, b, c):
+    return max(a, b ,c) < a + b + c - max(a, b ,c)
