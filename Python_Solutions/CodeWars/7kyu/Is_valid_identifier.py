@@ -13,3 +13,7 @@
 # wo rd
 # !b2h
 # FUNDAMENTALSREGULAR EXPRESSIONSSTRINGS
+# Solution
+import re
+def is_valid(word):
+    return re.compile('^[a-z_\$][a-z0-9_\$]*$', re.IGNORECASE).match(word) != None
