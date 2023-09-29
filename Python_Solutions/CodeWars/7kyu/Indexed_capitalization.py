@@ -15,3 +15,10 @@
 # String array revisal
 #
 # FUNDAMENTALS
+# Solution
+def capitalize(s,ind):
+    list = [j for j in s]
+    for i in ind:
+        if i <= len(list):
+            list[i] = list[i].upper()
+    return ''.join(list)
