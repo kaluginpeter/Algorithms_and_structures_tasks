@@ -20,3 +20,8 @@
 #
 # X in the middle of Y repeated N times = '*****A*****';
 # FUNDAMENTALSSTRINGS
+# Solution
+def middle_me(N, X, Y):
+    if N % 2 == 1:
+        return X
+    return Y * (N // 2) + X + Y * (N // 2)
