@@ -11,3 +11,6 @@
 # 1 <= x <= 105
 #
 # FUNDAMENTALS
+# Solution
+def minimum(a, x):
+    return min(a % x, -a % x)
