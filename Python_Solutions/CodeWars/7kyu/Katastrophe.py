@@ -11,3 +11,9 @@
 # Given an earthquake and the age of a building, write a function that returns "Safe!" if the building is strong enough, or "Needs Reinforcement!" if it falls.
 #
 # MATHEMATICSFUNDAMENTALS
+# Solution
+from functools import reduce
+def strong_enough(earthquake, age):
+    strength = 1000 * 0.99 ** age
+    shockwave = reduce(lambda x, y: x*y, [sum(i) for i in earthquake])
+    return "Needs Reinforcement!" if strength <= shockwave else "Safe!"
