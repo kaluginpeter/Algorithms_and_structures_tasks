@@ -3,3 +3,6 @@
 # Quadratic equation - https://en.wikipedia.org/wiki/Quadratic_equation
 #
 # MATHEMATICSFUNDAMENTALS
+# Solution
+def roots(a,b,c):
+    return round(-b / a, 2) if b ** 2 >= 4 * a * c else None
