@@ -14,3 +14,6 @@
 # Assume all inputs are valid lists with at least one value. For the purpose of simplicity, all values will be either numbers, strings, or Booleans.
 #
 # DATA STRUCTURESARRAYSFUNDAMENTALS
+# Solution
+def list_to_array(lst):
+    return ([lst.value] + list_to_array(lst.next)) if lst else []
