@@ -9,3 +9,9 @@
 # capital X's do not count as an occurrence of "x".
 # if there are no "x"'s then return false
 # STRINGSREGULAR EXPRESSIONSFUNDAMENTALS
+# Solution
+def triple_x(s):
+    for i, elem in enumerate(s[:-2]):
+        if elem == 'x':
+            return elem == s[i+1] and elem == s[i+2]
+    return False
