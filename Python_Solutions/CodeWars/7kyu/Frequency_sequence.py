@@ -6,3 +6,6 @@
 # "19999999"   , ":" --> "1:7:7:7:7:7:7:7"
 # "^^^**$"     , "x" --> "3x3x3x2x2x1"
 # STRINGSFUNDAMENTALS
+# Solution
+def freq_seq(s, sep):
+    return sep.join(str(s.count(i)) for i in s)
