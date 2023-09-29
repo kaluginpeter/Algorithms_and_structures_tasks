@@ -5,3 +5,6 @@
 # "riley" --> "Hello Riley!"
 # "JACK"  --> "Hello Jack!"
 # STRINGSFUNDAMENTALS
+# Solution
+def greet(name):
+    return f"Hello {name.title()}!"
