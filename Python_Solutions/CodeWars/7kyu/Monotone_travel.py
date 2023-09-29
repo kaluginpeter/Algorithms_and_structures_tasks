@@ -18,3 +18,6 @@
 # Such a sequence is also called monotone or monotonic sequence, hence the name isMonotone.
 #
 # LISTSFUNDAMENTALS
+# Solution
+def is_monotone(heights):
+    return heights == sorted(heights) if heights else True
