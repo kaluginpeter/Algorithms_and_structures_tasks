@@ -11,3 +11,6 @@
 # Vowels in this context refers to: a e i o u y (including upper case)
 # This is indexed from [1..n] (not zero indexed!)
 # FUNDAMENTALS
+# Solution
+def vowel_indices(word):
+    return [index + 1 for index, elem in enumerate(word) if elem.lower() in 'aeoiuy']
