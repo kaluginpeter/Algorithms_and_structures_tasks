@@ -15,3 +15,6 @@
 # Good luck!
 #
 # ALGORITHMSFUNDAMENTALSARRAYS
+# Solution
+def mirror(data: list) -> list:
+    return sorted(data) + sorted(data, reverse=True)[1:]
