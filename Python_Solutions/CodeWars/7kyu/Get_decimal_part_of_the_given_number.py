@@ -6,3 +6,6 @@
 # get_decimal(2.4)  # 0.4
 # get_decimal(-0.2) # 0.2
 # FUNDAMENTALS
+# Solution
+def get_decimal(n):
+    return abs(n) % 1
