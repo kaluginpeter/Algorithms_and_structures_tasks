@@ -9,3 +9,7 @@
 # Examples can be found in the test fixture.
 #
 # DATE TIMEALGORITHMS
+# Solution
+import calendar
+def isLeapYear(year):
+    return calendar.isleap(year)
