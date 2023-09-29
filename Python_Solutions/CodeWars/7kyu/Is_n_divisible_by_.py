@@ -9,3 +9,7 @@
 # This kata is following kata: http://www.codewars.com/kata/is-n-divisible-by-x-and-y
 #
 # FUNDAMENTALS
+# Solution
+def is_divisible(*args):
+    l =[*args]
+    return all(l[0] % i == 0 for i in l[1:])
