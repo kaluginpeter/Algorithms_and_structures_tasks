@@ -9,3 +9,6 @@
 #   5  -->  0 (false) because none of the odd bits are 1 (5 = 0b101)
 # 170  -->  1 (true) because all of the odd bits are 1 (170 = 0b10101010)
 # BITSFUNDAMENTALS
+# Solution
+def any_odd(x):
+    return '1' in list(bin(x))[-2::-2]
