@@ -12,3 +12,19 @@
 # Good luck and happy coding!
 #
 # FUNDAMENTALS
+# Solution
+class Dictionary():
+    def __init__(self):
+        self.d = {}
+
+    def newentry(self, word, definition):
+        self.word = word
+        self.definition = definition
+        self.d[self.word] = self.definition
+
+    def look(self, key):
+        self.key = key
+        try:
+            return self.d[self.key]
+        except:
+            return f"Can't find entry for {self.key}"
