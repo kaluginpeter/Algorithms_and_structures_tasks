@@ -7,3 +7,6 @@
 # Input sequence contains minimum two elements and every element is an integer.
 #
 # FUNDAMENTALS
+# Solution
+def largest_pair_sum(numbers):
+    return sorted(numbers)[-1] + sorted(numbers)[-2]
