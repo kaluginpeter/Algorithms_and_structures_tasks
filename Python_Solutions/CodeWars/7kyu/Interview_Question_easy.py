@@ -16,3 +16,12 @@
 # Have fun! ;)
 #
 # FUNDAMENTALSSTRINGS
+# Solution
+def get_strings(city):
+    letters = {}
+    for letter in city:
+        if letter.lower() not in letters:
+            letters[letter.lower()] = 1
+        else:
+            letters[letter.lower()] += 1
+    return ",".join(key + ":" + "*"*value for key, value in letters.items() if key != " ")
