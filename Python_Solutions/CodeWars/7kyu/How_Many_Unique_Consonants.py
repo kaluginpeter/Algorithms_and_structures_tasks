@@ -14,3 +14,6 @@
 # "abcdefghijklmnopqrstuvwxyz" ==> 21
 # "Count my unique consonants!!" ==> 7
 # STRINGSFUNDAMENTALSALGORITHMS
+# Solution
+def count_consonants(text):
+    return len(set(filter(str.isalpha, text.lower())) - set("aeiou"))
