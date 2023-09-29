@@ -21,3 +21,6 @@
 # This kata is a piece of Binary Genetic Algorithm
 #
 # ALGORITHMSGENETIC ALGORITHMSARRAYS
+# Solution
+def mapPopulationFit(population, fitness):
+    return [ChromosomeWrap(i, fitness(i)) for i in population]
