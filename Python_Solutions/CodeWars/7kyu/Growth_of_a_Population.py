@@ -25,3 +25,10 @@
 # Don't forget to convert the percent parameter as a percentage in the body of your function: if the parameter percent is 2 you have to convert it to 0.02.
 #
 # FUNDAMENTALS
+# Solution
+def nb_year(p0, percent, aug, p):
+    count = 0
+    while p0 < p:
+        p0 += int(p0 * (percent / 100) + aug)
+        count += 1
+    return count
