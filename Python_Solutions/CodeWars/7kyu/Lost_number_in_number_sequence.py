@@ -10,3 +10,6 @@
 # Note: N may be 1 or less (in the latter case, the first array will be []).
 #
 # ARRAYSALGORITHMS
+# Solution
+def find_deleted_number(arr, mixed_arr):
+    return sum(arr) - sum(mixed_arr)
