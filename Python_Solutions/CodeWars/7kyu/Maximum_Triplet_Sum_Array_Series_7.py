@@ -34,3 +34,6 @@
 # Enjoy Learning !!
 # Zizou
 # FUNDAMENTALSARRAYS
+# Solution
+def max_tri_sum(numbers):
+    return sum(list(sorted(set(numbers), reverse = True))[:3])
