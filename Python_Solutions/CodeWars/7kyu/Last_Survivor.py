@@ -17,3 +17,8 @@
 # If you like this kata, check out the next one: Last Survivors Ep.2
 #
 # FUNDAMENTALSARRAYS
+# Solution
+def last_survivor(letters, coords):
+    for i in coords:
+        letters = letters[:i] + letters[i+1:]
+    return letters
