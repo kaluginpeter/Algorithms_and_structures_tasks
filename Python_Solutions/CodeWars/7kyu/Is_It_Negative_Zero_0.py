@@ -7,3 +7,6 @@
 # In Python / Java / C / NASM / Haskell / the input will be a float.
 #
 # FUNDAMENTALS
+# Solution
+def is_negative_zero(n):
+    return str(n) == '-0.0'
