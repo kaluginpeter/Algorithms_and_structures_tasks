@@ -15,3 +15,6 @@
 # Notice the grid is a monodimensional array, good luck!
 #
 # FUNDAMENTALSARRAYS
+# Solution
+def fire(x,y):
+    return grid[y*3+x]
