@@ -13,3 +13,10 @@
 # If there are less or more than two occurrences of the number to search for, return 0, or in Haskell, Nothing.
 #
 # ARRAYSALGORITHMS
+# Solution
+def length_of_sequence(arr, n):
+    if arr.count(n) == 2:
+        a = arr.index(n)
+        b = arr.index(n, a + 1)
+        return b - a + 1
+    return 0
