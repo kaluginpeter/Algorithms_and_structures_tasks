@@ -42,3 +42,7 @@
 # Output should have 2 digits precision.
 #
 # FUNDAMENTALS
+# Solution
+def heron(a, b, c):
+    i=(a+b+c)/2
+    return round((i*(i-a)*(i-b)*(i-c))**.5, 2)
