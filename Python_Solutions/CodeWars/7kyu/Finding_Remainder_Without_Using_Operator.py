@@ -10,3 +10,6 @@
 # divmod has also been disabled.
 #
 # MATHEMATICSRESTRICTEDALGORITHMS
+# Solution
+def remainder(dividend,divisor):
+	return dividend - (dividend//divisor) * divisor
