@@ -27,3 +27,12 @@
 # Most tests consist of 100 randomly generated arrays, each with four tests, one for each operation. There are 400 tests overall. No empty arrays will be given. Haskell has QuickCheck tests
 #
 # ARRAYSLISTSFUNDAMENTALS
+# Solution
+def head(lst):
+    return lst[0]
+def tail(lst):
+    return lst[1:]
+def init(lst):
+    return lst[:-1]
+def last(lst):
+    return lst[-1]
