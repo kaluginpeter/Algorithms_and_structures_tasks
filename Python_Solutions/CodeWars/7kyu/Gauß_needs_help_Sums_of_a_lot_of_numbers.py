@@ -14,3 +14,6 @@
 # Credits: this kata was inspired by the farzher's kata 'Sum of large ints' . In fact, it can be seen as a sort of prep kata for that one.
 #
 # FUNDAMENTALSMATHEMATICSPERFORMANCE
+# Solution
+def f(n):
+    return sum(list(range(n+1))) if type(n) == int and n > 0 else None
