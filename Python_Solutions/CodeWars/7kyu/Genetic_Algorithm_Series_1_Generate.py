@@ -18,3 +18,7 @@
 # This kata is a piece of Binary Genetic Algorithm
 #
 # STRINGSFUNDAMENTALSGENETIC ALGORITHMSALGORITHMS
+# Solution
+from random import choice
+def generate(length):
+    return "".join(choice("01") for i in range(length))
