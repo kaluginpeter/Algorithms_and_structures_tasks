@@ -5,3 +5,6 @@
 # Pak should not be the first or last word. Strings of just spaces should return an empty string.
 #
 # FUNDAMENTALSSTRINGSARRAYS
+# Solution
+def pak(s):
+    return ' pak '.join(s.split())
