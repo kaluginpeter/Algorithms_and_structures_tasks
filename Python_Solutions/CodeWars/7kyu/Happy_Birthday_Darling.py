@@ -16,3 +16,8 @@
 #
 # Translations are welcome!
 # MATHEMATICSFUNDAMENTALS
+# Solution
+def womens_age(n):
+    base = n // 2
+    remainder = n % 2
+    return "{}? That's just {}, in base {}!".format(n, 20 + remainder, base)
