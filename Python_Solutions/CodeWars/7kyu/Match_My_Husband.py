@@ -13,3 +13,9 @@
 # Given the number of months since sign up, write a function that returns "Match!" if the husband is useful enough, or "No match!" if he's not.
 #
 # FUNDAMENTALSMATHEMATICSALGORITHMS
+# Solution
+def match(usefulness, months):
+    c = 100
+    for i in range(months):
+        c = c - (c/100)*15
+    return 'Match!' if sum(usefulness) >= c else 'No match!'
