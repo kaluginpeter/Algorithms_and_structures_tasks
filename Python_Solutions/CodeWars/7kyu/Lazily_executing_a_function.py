@@ -20,3 +20,6 @@
 # Please note: The functions that are passed to make_lazy may take one or more arguments and the number of arguments is not fixed.
 #
 # FUNDAMENTALS
+# Solution
+def make_lazy(*args):
+    return lambda: args[0](*args[1:])
