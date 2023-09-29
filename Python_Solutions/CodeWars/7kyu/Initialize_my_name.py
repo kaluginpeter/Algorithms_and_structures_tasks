@@ -8,3 +8,14 @@
 # 'Dimitri'                     => 'Dimitri'
 # 'Alice Betty Catherine Davis' => 'Alice B. C. Davis'
 # STRINGSFUNDAMENTALS
+# Solution
+def initialize_names(name):
+    arr = name.split()
+    l = []
+    if len(arr)>2:
+        l.append(arr[0])
+        for i in arr[1:-1]:
+            l.append(i[0].upper()+'.')
+        l.append(arr[-1])
+        return ' '.join(l)
+    return name
