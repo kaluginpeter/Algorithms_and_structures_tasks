@@ -38,3 +38,12 @@
 # I'm aware that there are better ways to create linked lists (class methods, reference pointers, etc.), but not all languages have the same features. I'd like to keep the basic API consistent between language translations for this kata.
 #
 # LINKED LISTSFUNDAMENTALS
+# Solution
+class Node(object):
+    def __init__(self, data, next=None):
+        self.data = data
+        self.next = next
+def push(head, data):
+    return Node(data, head)
+def build_one_two_three():
+    return Node(1, Node(2, Node(3)))
