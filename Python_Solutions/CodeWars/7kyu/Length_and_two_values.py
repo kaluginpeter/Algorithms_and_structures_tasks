@@ -7,3 +7,10 @@
 # Good luck!
 #
 # FUNDAMENTALSARRAYS
+# Solution
+def alternate(n, first_value, second_value):
+    l = []
+    while len(l) < n:
+        l.append(first_value)
+        l.append(second_value)
+    return l[:-1] if n % 2 != 0 else l
