@@ -8,3 +8,6 @@
 # add_three = add(3)
 # add_three(3) # 6
 # FUNCTIONAL PROGRAMMINGFUNDAMENTALS
+# Solution
+def add(n):
+    return lambda a: a + n
