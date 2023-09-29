@@ -13,3 +13,9 @@
 # If no button is currently active, return Nothing.
 # If the list is empty, return Nothing.
 # ARRAYSALGORITHMS
+# Solution
+def like_or_dislike(lst):
+	choice = 'Nothing'
+	for choi in lst:
+		choice = 'Nothing' if choi == choice else choi
+	return choice
