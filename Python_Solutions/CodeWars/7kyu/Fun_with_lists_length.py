@@ -23,3 +23,13 @@
 # Fun with lists: map
 # Fun with lists: reduce
 # LISTSFUNDAMENTALS
+# Solution
+def length(head):
+    if head == None:
+        return 0
+    elif head:
+        number = 1
+        while head.next:
+              head = head.next
+              number += 1
+        return number
