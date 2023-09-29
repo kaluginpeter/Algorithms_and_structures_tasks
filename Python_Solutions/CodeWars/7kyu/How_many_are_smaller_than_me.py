@@ -7,3 +7,13 @@
 # If you've completed this one and you feel like testing your performance tuning of this same kata, head over to the much tougher version How many are smaller than me II?
 #
 # ARRAYSALGORITHMS
+# Solution
+def smaller(arr):
+    c = 0
+    l = []
+    for i in range(len(arr)):
+        for j in arr[i:]:
+            if arr[i] > j: c+=1
+        l.append(c)
+        c = 0
+    return l
