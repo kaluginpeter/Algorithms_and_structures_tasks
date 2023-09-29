@@ -12,3 +12,8 @@
 # If the word does not meet the rules, we return "Invalid word".
 #
 # FUNDAMENTALS
+# Solution
+def i(word):
+    if not word or word[0].islower() or word[0].upper() == 'I' or sum(1 for i in word.lower() if i in 'aeoiu') >= sum(1 for i in word.lower() if i not in 'aeoiu'):
+        return 'Invalid word'
+    return 'i' + word
