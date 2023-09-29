@@ -23,3 +23,12 @@
 # Fun with lists: map
 # Fun with lists: reduce
 # LISTSFUNDAMENTALS
+# Solution
+def last_index_of(head, search_val):
+    count = pos = -1
+    while head:
+        count += 1
+        if head.data == search_val:
+            pos = count
+        head = head.next
+    return pos
