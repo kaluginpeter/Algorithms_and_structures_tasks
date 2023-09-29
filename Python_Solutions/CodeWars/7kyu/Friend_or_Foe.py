@@ -10,3 +10,12 @@
 # Note: keep the original order of the names in the output.
 #
 # FUNDAMENTALS
+# Solution
+def friend(x):
+    true_friends = []
+    for name in x:
+        if len(name) == 4 and name.isalpha():
+            true_friends.append(name)
+        else:
+            pass
+    return true_friends
