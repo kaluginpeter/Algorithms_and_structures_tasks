@@ -26,3 +26,12 @@
 # Don't use the double bitwise NOT ~~ at each iteration if you want to have the same results as in the tests and the other languages.
 #
 # FUNDAMENTALS
+# Solution
+def int_rac(n, guess):
+    count = 0
+    while True:
+        count += 1
+        next = (guess + n // guess) // 2
+        if next == guess:
+            return count
+        guess = next
