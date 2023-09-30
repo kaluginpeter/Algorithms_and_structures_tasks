@@ -31,3 +31,11 @@
 # Enjoy Learning !!
 # Zizou
 # FUNDAMENTALS
+# Solution
+def next_happy_year(year):
+    happy_year = False
+    while happy_year == False:
+        year += 1
+        if len(set(list(str(year)))) == 4:
+            happy_year = True
+    return year
