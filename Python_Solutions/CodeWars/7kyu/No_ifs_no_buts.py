@@ -35,3 +35,7 @@
 # Ascii Art Generator
 #
 # RESTRICTEDFUNDAMENTALS
+# Solution
+def no_ifs_no_buts(a, b):
+    dictionary = {a < b:'smaller than', a == b:'equal to', a > b: 'greater than'}
+    return f'{a} is {dictionary[True]} {b}'
