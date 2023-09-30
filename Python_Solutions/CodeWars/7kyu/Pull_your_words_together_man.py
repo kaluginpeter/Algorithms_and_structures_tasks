@@ -22,3 +22,6 @@
 # (Any translations (eg: to Java/C#/C++/Typescript) would be greatly appreciated!)
 #
 # STRINGSALGORITHMS
+# Solution
+def sentencify(words):
+    return words[0][0].upper() + ' '.join(words)[1:] + '.'
