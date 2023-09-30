@@ -1,0 +1,3 @@
+# Your task is to write a function that takes a number as an argument and returns some number. But what's the problem? You need to guess what number should be returned. See the example test case. Good luck. Hint: You should be a bit careful when counting...
+#
+# ALGORITHMSLOGICPUZZLESFUNDAMENTALS
