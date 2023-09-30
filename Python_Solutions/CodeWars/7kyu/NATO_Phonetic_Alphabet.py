@@ -10,3 +10,6 @@
 # "babble"  -->  "Bravo Alpha Bravo Bravo Lima Echo"
 # "Banana"  -->  "Bravo Alpha November Alpha November Alpha"
 # STRINGSFUNDAMENTALS
+# Solution
+def nato(word):
+    return ' '.join(LETTERS[i.upper()] for i in word)
