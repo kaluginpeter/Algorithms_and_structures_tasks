@@ -8,3 +8,5 @@
 # 5   =>  7
 # 12  =>  13
 # ALGORITHMS
+# Solution
+from gmpy2 import next_prime
