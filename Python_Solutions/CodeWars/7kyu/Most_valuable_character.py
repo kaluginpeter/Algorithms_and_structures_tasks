@@ -9,3 +9,6 @@
 # More examples in test cases. Good luck!
 #
 # FUNDAMENTALS
+# Solution
+def solve(st):
+    return sorted((st.find(i) - st.rfind(i), i) for i in set(st))[0][1]
