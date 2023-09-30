@@ -8,3 +8,6 @@
 # greet("")    --> None # Return None if input is empty string
 # greet(None)  --> None # Return None if input is None
 # FUNDAMENTALS
+# Solution
+def greet(name):
+    return f"hello {name}!" if name else None
