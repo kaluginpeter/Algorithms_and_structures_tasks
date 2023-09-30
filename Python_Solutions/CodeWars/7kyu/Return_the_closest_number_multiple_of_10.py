@@ -11,3 +11,6 @@
 # 30
 # 40
 # MATHEMATICSFUNDAMENTALS
+# Solution
+def closest_multiple_10(i):
+    return int(round(i, -1))
