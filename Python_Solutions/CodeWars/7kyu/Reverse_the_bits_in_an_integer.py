@@ -5,3 +5,6 @@
 # You can assume that the number is not negative.
 #
 # BITSFUNDAMENTALS
+# Solution
+def reverse_bits(n):
+    return int(str(bin(n).replace("0b", ""))[::-1], 2)
