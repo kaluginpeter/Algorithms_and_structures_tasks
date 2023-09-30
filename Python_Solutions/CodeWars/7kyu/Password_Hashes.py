@@ -12,3 +12,7 @@
 # As a side note, md5 can be exploited, so never use it for anything secure. The reason I used it in this kata is simply because it is a very common hashing algorithm and many people will recognize the name.
 #
 # SECURITYFUNDAMENTALS
+# Solution
+from hashlib import md5
+def pass_hash(str):
+    return md5(str.encode()).hexdigest()
