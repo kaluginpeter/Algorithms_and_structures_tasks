@@ -12,3 +12,6 @@
 # Note: Always return a boolean value, even if there're no negations.
 #
 # LOGICALGORITHMSFUNDAMENTALS
+# Solution
+def negation_value(str, val):
+    return bool(not val if str.count('!') % 2 else val)
