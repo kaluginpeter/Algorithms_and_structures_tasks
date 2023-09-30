@@ -17,3 +17,17 @@
 # ] )
 # # => returns [ 'Warrior reading this kata', 'Santa' ]
 # ARRAYSFUNDAMENTALS
+# Solution
+def get_nice_names(people):
+    l = []
+    for d in people:
+        if d['was_nice']:
+            l.append(d['name'])
+    return l if l else []
+
+def get_naughty_names(people):
+    l = []
+    for d in people:
+        if not d['was_nice']:
+            l.append(d['name'])
+    return l if l else []
