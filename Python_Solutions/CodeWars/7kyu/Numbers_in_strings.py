@@ -7,3 +7,7 @@
 # Please also try Simple remove duplicates
 #
 # STRINGSALGORITHMS
+# Solution
+def solve(s):
+    l = ''.join(' ' if i.isalpha() else i for i in s)
+    return max(int(i) for i in l.split())
