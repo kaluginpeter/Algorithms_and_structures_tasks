@@ -25,3 +25,10 @@
 # Some interesting information on the problem can be found in this Wikipedia article on Lychrel numbers.
 #
 # ALGORITHMS
+# Solution
+def palindrome_chain_length(n):
+    c = 0
+    while str(n) != str(n)[::-1]:
+        c += 1
+        n = n + int(str(n)[::-1])
+    return c
