@@ -21,3 +21,10 @@
 # As you can see in the example: The first changed is the 2nd 'a'. So the start is always at the nth suitable char and not at the first!
 #
 # ALGORITHMSSTRINGS
+# Solution
+def replace_nth(text, n, old, new):
+    if n <= 0: return text
+    s = list(text)
+    l = [i for i, c in enumerate(s) if c == old]
+    for i in l[n-1::n]: s[i] = new
+    return ''.join(s)
