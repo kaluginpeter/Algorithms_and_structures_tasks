@@ -8,3 +8,6 @@
 #
 # modify_multiply ("This is a string", 3 ,5)
 # STRINGSALGORITHMSFUNDAMENTALSARRAYS
+# Solution
+def modify_multiply(st, loc, num):
+    return '-'.join(st.split()[loc] for i in range(num))
