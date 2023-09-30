@@ -7,3 +7,6 @@
 # If an object is missing the property, you should just leave it as undefined/None in the output array.
 #
 # FUNCTIONAL PROGRAMMINGARRAYSFUNDAMENTALS
+# Solution
+def pluck(objs, name):
+    return [d[name] if name in d else None for d in objs]
