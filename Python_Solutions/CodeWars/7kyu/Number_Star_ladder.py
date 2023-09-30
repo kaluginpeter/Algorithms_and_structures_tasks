@@ -22,3 +22,7 @@
 # 1********9
 # 1*********10
 # ASCII ARTFUNDAMENTALS
+# Solution
+def pattern(n):
+    OUTPUT = '1{}{}'.format
+    return '\n'.join(OUTPUT('*' * a, a + 1 if a else '') for a in range(n))
