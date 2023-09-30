@@ -6,3 +6,9 @@
 # More Info: Generators (JS), Generators (Python), Generators (PHP), Generators (Java)
 #
 # FUNDAMENTALS
+# Solution
+def generator(a):
+    count = 1
+    while True:
+        yield f"{a} x {count} = {a * count}"
+        count += 1
