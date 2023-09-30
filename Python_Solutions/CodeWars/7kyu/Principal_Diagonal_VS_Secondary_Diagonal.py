@@ -19,3 +19,10 @@
 # Note: You will always receive matrices of the same dimension.
 #
 # FUNDAMENTALSMATRIXALGORITHMS
+# Solution
+def diagonal(m):
+    principal  = sum(v[k] for k, v in enumerate(m))
+    secondary  = sum(v[-k] for k, v in enumerate(m, 1))
+    if principal  > secondary : return 'Principal Diagonal win!'
+    if secondary  > principal : return 'Secondary Diagonal win!'
+    return 'Draw!'
