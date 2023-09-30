@@ -22,3 +22,6 @@
 # You can see other examples for each language in "Your test cases"
 #
 # ARRAYSLISTSDATA STRUCTURESALGORITHMS
+# Solution
+def partlist(arr):
+    return [(" ".join(arr[:i]), " ".join(arr[i:])) for i in range(1, len(arr))]
