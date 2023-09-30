@@ -8,3 +8,6 @@
 # Write a function that returns this sequence given a number N. Try generating the elements of the resulting list in ascending order, i.e., without resorting to a list reversal or prependig the elements to a list.
 #
 # FUNDAMENTALS
+# Solution
+def climb(n):
+    return  [n >> n.bit_length() - i - 1 for i in range(n.bit_length())]
