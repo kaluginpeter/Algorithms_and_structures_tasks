@@ -5,3 +5,6 @@
 # For any given binary number,formatted as a string, return the Ones' Complement of that number.
 #
 # FUNDAMENTALS
+# Solution
+def ones_complement(binary_number):
+    return ''.join('1' if i == '0' else '0' for i in binary_number)
