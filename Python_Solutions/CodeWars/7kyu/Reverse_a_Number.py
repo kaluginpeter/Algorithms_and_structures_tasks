@@ -7,3 +7,6 @@
 # -456 -> -654
 # 1000 ->    1
 # ALGORITHMSFUNDAMENTALS
+# Solution
+def reverseNumber(n):
+    return int(str(abs(n))[::-1]) * (-1 if n < 0 else 1)
