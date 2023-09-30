@@ -15,3 +15,6 @@
 # However, the arrays can have varying lengths, not just limited to 4.
 #
 # FUNDAMENTALSARRAYS
+# Solution
+def binary_array_to_number(arr):
+    return int("".join([str(i) for i in arr]), 2)
