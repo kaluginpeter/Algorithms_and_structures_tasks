@@ -3,3 +3,6 @@
 # Ex: Input: 105 --> Output: "BangBoom" Ex: Input: 9 --> Output: "Bang" Ex:Input: 25 --> Output: "Boom"
 #
 # FUNDAMENTALS
+# Solution
+def multiple(x):
+    return 'Bang' if x%3==0 and x%5!=0 else 'Boom' if x%3!=0 and x%5==0 else 'BangBoom' if x%3==0 and x%5==0 else 'Miss'
