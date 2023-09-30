@@ -18,3 +18,6 @@
 # Enjoy it !!
 #
 # FUNDAMENTALSMATHEMATICSDATA STRUCTURES
+# Solution
+def eq_sum_powdig(hMax, exp):
+    return [i for i in range(2, hMax + 1) if sum(int(j) ** exp for j in str(i)) == i]
