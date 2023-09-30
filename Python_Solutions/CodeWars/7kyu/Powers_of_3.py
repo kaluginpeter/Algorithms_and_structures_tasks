@@ -7,3 +7,9 @@
 # You may assume that the input to your function is always a positive integer.
 #
 # MATHEMATICSALGORITHMS
+# Solution
+def largest_power(N):
+    c = 0
+    while 3**c < N:
+        c += 1
+    return c - 1
