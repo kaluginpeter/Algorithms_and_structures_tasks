@@ -5,3 +5,6 @@
 # "abcdefghijklm" --> ["b", "d", "f", "h", "j", "l"]
 # "a"             --> "invalid string"
 # FUNDAMENTALSSTRINGSARRAYS
+# Solution
+def even_chars(st):
+    return [i for i in st[1::2]] if 1 < len(st) < 100 else 'invalid string'
