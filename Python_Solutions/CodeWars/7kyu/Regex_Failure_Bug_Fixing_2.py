@@ -19,3 +19,7 @@
 # Input: "You're MEAN! timmy!"
 # Output: "You're awesome! timmy!"
 # DEBUGGING
+# Solution
+import re
+def filter_words(phrase):
+    return re.sub("(bad|mean|ugly|horrible|hideous)","awesome", phrase, flags=re.IGNORECASE)
