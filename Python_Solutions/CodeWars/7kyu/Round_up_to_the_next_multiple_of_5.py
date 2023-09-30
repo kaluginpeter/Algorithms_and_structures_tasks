@@ -17,3 +17,12 @@
 # You can assume that all inputs are valid integers.
 #
 # FUNDAMENTALS
+# Solution
+def round_to_next5(n):
+    if n == 0:
+        pass
+    elif abs(n)%5 == 0:
+        pass
+    else:
+        n =  n - n%5 + 5
+    return n
