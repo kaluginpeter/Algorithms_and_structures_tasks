@@ -5,3 +5,10 @@
 #   only_one(True, False, False, True) == False
 #   only_one(False, False, False, False) == False
 # ALGORITHMS
+# Solution
+def only_one(*args):
+    c = 0
+    if len(args) == 0: return False
+    for i in args:
+        if i == True: c += 1
+    return c == 1
