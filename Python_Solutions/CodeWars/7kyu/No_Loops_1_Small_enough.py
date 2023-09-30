@@ -13,3 +13,6 @@
 # https://www.codewars.com/kata/no-loops-3-copy-within
 #
 # FUNDAMENTALSARRAYS
+# Solution
+def small_enough(a, limit):
+    return max(a) <= limit
