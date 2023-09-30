@@ -11,3 +11,9 @@
 # 24 will return "4!"
 # 150 will return "None"
 # FUNDAMENTALS
+# Solution
+from math import factorial
+def reverse_factorial(num):
+    c = 1
+    while factorial(c) < num: c += 1
+    return str(c) + '!' if factorial(c) == num else 'None'
