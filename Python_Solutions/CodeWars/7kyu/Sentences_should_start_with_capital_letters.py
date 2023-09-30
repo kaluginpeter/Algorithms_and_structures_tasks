@@ -19,3 +19,6 @@
 # all but the last full stop will be followed by a space and at least one word
 #
 # STRINGSFUNDAMENTALS
+# Solution
+def fix(paragraph):
+    return '. '.join(i.capitalize() for i in paragraph.split('. '))
