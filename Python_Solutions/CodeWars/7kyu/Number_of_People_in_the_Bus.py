@@ -11,3 +11,10 @@
 # The second value in the first pair in the array is 0, since the bus is empty in the first bus stop.
 #
 # FUNDAMENTALS
+# Solution
+def number(*bus_stops):
+    count = 0
+    for stations in bus_stops:
+        for add, leave in stations:
+            count += add - leave
+    return count
