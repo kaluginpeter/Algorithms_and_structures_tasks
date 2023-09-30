@@ -16,3 +16,10 @@
 # Good luck!
 #
 # STRINGSARRAYSFUNDAMENTALS
+# Solution
+def scrolling_text(text):
+    lst = []
+    for i in range(len(text)):
+        lst.append(text.upper())
+        text = text[1:] + text[0]
+    return lst
