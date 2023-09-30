@@ -33,3 +33,30 @@
 # "st re et"    --> 6
 # "ca bba g  e" --> 14
 # FUNDAMENTALSSTRINGS
+# Solution
+def scrabble_score(st):
+    w1 = 'A,E,I,O,U,L,N,R,S,T'
+    w2 = 'D,G'
+    w3 = 'B,C,M,P'
+    w4 = 'F,H,V,W,Y'
+    w5 = 'K'
+    w6 = 'JX'
+    w7 = 'QZ'
+    count = 0
+    st.replace(' ', '')
+    for i in st.upper():
+        if i in w1:
+            count +=1
+        elif i in w2:
+            count += 2
+        elif i in w3:
+            count += 3
+        elif i in w4:
+            count += 4
+        elif i in w5:
+            count += 5
+        elif i in w6:
+            count += 8
+        elif i in w7:
+            count += 10
+    return count
