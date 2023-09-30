@@ -7,3 +7,7 @@
 # Enjoy it!!
 #
 # FUNDAMENTALSALGORITHMSDATA STRUCTURES
+# Solution
+class List:
+    def remove_(self, integer_list, values_list):
+        return [a for a in integer_list if a not in values_list]
