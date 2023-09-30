@@ -25,3 +25,7 @@
 # Constraints:
 #
 # 1 <= n <= 1000
+# Solution
+class Solution:
+    def divisorGame(self, n: int) -> bool:
+        return n % 2 == 0
