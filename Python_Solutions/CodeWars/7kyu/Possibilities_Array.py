@@ -6,3 +6,6 @@
 # a.length-1=3
 # a includes [0,3] ,hence the function should return true
 # ARRAYSFUNDAMENTALS
+# Solution
+def is_all_possibilities(arr):
+    return sorted(arr) == list(range(0, max(arr)+1)) if arr else False
