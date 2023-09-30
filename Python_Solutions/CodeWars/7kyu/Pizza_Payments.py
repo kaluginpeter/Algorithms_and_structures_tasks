@@ -5,3 +5,6 @@
 # How much is Michael going to pay? Calculate the amount with two decimals, if necessary.
 #
 # FUNDAMENTALS
+# Solution
+def michael_pays(cost):
+    return round(cost if cost < 5 else max(cost * 2 / 3, cost - 10), 2)
