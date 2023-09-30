@@ -15,3 +15,6 @@
 # s="aaaxbbbbyyhwawiwjjjwwm"
 # printer_error(s) => "8/22"
 # FUNDAMENTALS
+# Solution
+def printer_error(s):
+    return f"{len([n for n in s if n in 'nopqrstuvwxyz'])}/{len(s)}"
