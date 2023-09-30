@@ -21,3 +21,6 @@
 # Edit (3/17/2017): Added random tests
 #
 # ALGORITHMS
+# Solution
+def procedure(n):
+    return sum(int(j) for i in range(n, 101, n) for j in str(i))
