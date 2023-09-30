@@ -19,3 +19,7 @@
 # relatively_prime(210, [15, 100, 2222222, 6, 4, 12369, 99])
 # >> []
 # FUNDAMENTALSALGORITHMS
+# Solution
+from math import gcd
+def relatively_prime(n, l):
+    return [i for i in l if gcd(n, i) == 1]
