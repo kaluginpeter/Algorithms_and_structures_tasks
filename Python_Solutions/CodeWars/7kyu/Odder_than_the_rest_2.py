@@ -15,3 +15,6 @@
 # Hint
 # Click here.
 # PUZZLESALGORITHMS
+# Solution
+def oddest(a):
+    return max(a, key=lambda x: f'{x+2**32:b}'[::-1])
