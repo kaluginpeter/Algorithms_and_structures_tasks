@@ -14,3 +14,7 @@
 # To keep the things simple, we'll consider that any "numbered thing" in the string is a drink. Even "1 bear" -> "1 glass of water"; or "1 chainsaw and 2 pools" -> "3 glasses of water"...
 #
 # FUNDAMENTALS
+# Solution
+def hydrate(drink_string):
+    s = sum([int(i) if i.isdigit() else 0 for i in drink_string])
+    return f"{s} {'glass' if s == 1 else 'glasses'} of water"
