@@ -29,3 +29,10 @@
 # Enjoy it!!
 #
 # FUNDAMENTALSDATA STRUCTURESSTRINGSMATHEMATICSALGEBRASORTINGCOMBINATORICS
+# Solution
+def find_lowest_int(k1):
+    k2, c = k1 + 1, 1
+    def digits(c):
+        return sorted(str(c))
+    while digits(c*k1) != digits(c*k2): c += 1
+    return c
