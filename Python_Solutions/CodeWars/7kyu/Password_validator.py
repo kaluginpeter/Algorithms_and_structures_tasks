@@ -22,3 +22,7 @@
 # The string can contain any standard keyboard character.
 # Accepted strings can be any length, as long as they are 8 characters or more.
 # FUNDAMENTALSREGULAR EXPRESSIONSALGORITHMS
+# Solution
+import re
+def password(s):
+    return bool(re.match(r'(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8}', s))
