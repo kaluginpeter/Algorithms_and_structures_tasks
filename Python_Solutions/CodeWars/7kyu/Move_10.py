@@ -5,3 +5,7 @@
 # Input will be a string with length > 0.
 #
 # FUNDAMENTALSSTRINGSARRAYS
+# Solution
+def move_ten(st):
+    d = 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz'
+    return ''.join(d[d.index(i)+10] for i in st)
