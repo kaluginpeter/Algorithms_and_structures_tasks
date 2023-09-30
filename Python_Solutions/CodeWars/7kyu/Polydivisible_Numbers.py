@@ -34,3 +34,6 @@
 # Note: All inputs will be valid numbers between 0 and 2^53-1 (9,007,199,254,740,991) (inclusive). Note: All single digit numbers (including 0) are trivially polydivisible. Except for 0, no numbers will start with 0.
 #
 # ALGORITHMS
+# Solution
+def polydivisible(j):
+    return all(int(str(j)[:i+1])%(i+1)==0 for i in range(len(str(j))))
