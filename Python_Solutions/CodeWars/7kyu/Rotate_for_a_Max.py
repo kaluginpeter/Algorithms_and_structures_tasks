@@ -24,3 +24,13 @@
 # max_rot(38458215) should return 85821534
 #
 # ALGORITHMS
+# Solution
+def max_rot(n):
+    maximum = n
+    s = list(str(n))
+    for i in range(len(s) - 1):
+        s.append(s.pop(i))
+        current = int(''.join(s))
+        if current > maximum:
+            maximum = current
+    return maximum
