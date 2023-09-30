@@ -3,3 +3,7 @@
 # All inputs will be valid.
 #
 # FUNDAMENTALSSTRINGSARRAYS
+# Solution
+def switcher(arr):
+    letters = ' ?!abcdefghijklmnopqrstuvwxyz'
+    return ''.join(letters[::-1][int(idx) - 1] for idx in arr)
