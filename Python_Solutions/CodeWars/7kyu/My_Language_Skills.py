@@ -12,3 +12,6 @@
 #
 # Translations are welcome!
 # SORTINGARRAYSALGORITHMS
+# Solution
+def my_languages(results):
+    return sorted((k for k,v in results.items() if v >= 60), reverse=True, key=results.get)
