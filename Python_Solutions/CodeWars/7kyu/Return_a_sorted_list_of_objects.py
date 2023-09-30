@@ -20,3 +20,6 @@
 # The values will always be numbers, and the properties will always exist.
 #
 # ARRAYSSORTINGFUNDAMENTALS
+# Solution
+def sort_list(sort_key, l):
+    return sorted(l, key=lambda x: x[sort_key], reverse=True)
