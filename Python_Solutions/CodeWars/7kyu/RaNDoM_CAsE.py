@@ -12,3 +12,7 @@
 # The letters MUST be selected randomly - filters are set to make sure there is no cheating!
 #
 # FUNDAMENTALS
+# Solution
+import random
+def random_case(x):
+    return "".join([random.choice([i.lower(), i.upper()]) for i in x])
