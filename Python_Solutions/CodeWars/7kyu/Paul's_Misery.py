@@ -13,3 +13,8 @@
 # < 100 >= 70 = 'Sad!'
 # > 100 = 'Miserable!'
 # FUNDAMENTALSARRAYS
+# Solution
+def paul(x):
+    d = {'kata':5, 'Petes kata':10, 'life':0, 'eating':1}
+    count = sum(d[i] for i in x)
+    return 'Super happy!' if count < 40 else 'Happy!' if 40 <= count < 70 else 'Sad!' if 70 <= count < 100 else 'Miserable!'
