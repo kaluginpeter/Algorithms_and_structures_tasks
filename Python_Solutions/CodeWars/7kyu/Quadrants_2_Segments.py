@@ -27,3 +27,6 @@
 # Quadrants
 # Quadrants 2: Segments (this kata)
 # FUNDAMENTALSMATHEMATICSGEOMETRY
+# Solution
+def quadrant_segment(A, B):
+    return (A[0] < 0, A[1] < 0) != (B[0] < 0, B[1] < 0)
