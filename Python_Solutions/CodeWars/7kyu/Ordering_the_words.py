@@ -15,3 +15,6 @@
 # Good luck! Hope you enjoy it
 #
 # STRINGSSORTINGFUNDAMENTALS
+# Solution
+def order_word(s):
+    return ''.join(sorted(s, key=ord)) if s else 'Invalid String!'
