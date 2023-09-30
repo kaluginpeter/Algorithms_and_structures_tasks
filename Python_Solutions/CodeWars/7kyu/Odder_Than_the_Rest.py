@@ -9,3 +9,9 @@
 # odd_one([4,-8,98,-12,-7,90,100]) # => 4
 # odd_one([2,4,6,8]) # => -1
 # FUNDAMENTALS
+# Solution
+def odd_one(arr):
+    try:
+        return arr.index(max([i for i in arr if i%2!=0]))
+    except:
+        return -1
