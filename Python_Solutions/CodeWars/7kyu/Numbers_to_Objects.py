@@ -9,3 +9,6 @@
 # All inputs will be arrays of numbers. All character codes are valid lower case letters. The input array will not be empty.
 #
 # FUNDAMENTALSSTRINGSARRAYS
+# Solution
+def num_obj(s):
+    return [{str(i): chr(i)} for i in s]
