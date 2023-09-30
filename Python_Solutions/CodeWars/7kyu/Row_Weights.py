@@ -28,3 +28,6 @@
 # Enjoy Learning !!
 # Zizou
 # FUNDAMENTALSARRAYS
+# Solution
+def row_weights(array):
+    return sum(i for i in array[::2]), sum(i for i in array[1::2])
