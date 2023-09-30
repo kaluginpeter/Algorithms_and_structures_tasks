@@ -14,3 +14,7 @@
 # 5. 6 / 2 = 3
 # 6. 3 / 2 = 1 remainder 1
 # ALGORITHMS
+# Solution
+from math import log
+def divisions(n, divisor):
+    return int(log(n, divisor))
