@@ -16,3 +16,8 @@
 # day_plan(8, 5, 30) == [ 30, 82, 30, 82, 30, 82, 30, 82, 30 ]
 # day_plan(3, 5, 60) == "You're not sleeping tonight!"
 # ARRAYSALGORITHMSMATHEMATICSFUNDAMENTALS
+# Solution
+def day_plan(hours, tasks, duration):
+    c = (hours * 60 - tasks * duration) / (tasks - 1) if tasks > 1 else 0
+    if c < 0: return "You're not sleeping tonight!"
+    return ([duration, round(c)] * tasks)[:-1]
