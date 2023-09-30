@@ -3,3 +3,6 @@
 # All inputs will be valid.
 #
 # STRINGSFUNDAMENTALS
+# Solution
+def digits(n):
+    return len(str(n))
