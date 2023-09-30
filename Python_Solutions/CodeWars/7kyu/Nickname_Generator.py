@@ -21,3 +21,6 @@
 # Input will always have the first letter capitalised and the rest lowercase (e.g. Sam).
 # The input can be modified
 # STRINGSREGULAR EXPRESSIONSFUNDAMENTALS
+# Solution
+def nickname_generator(name):
+    return 'Error: Name too short' if len(name) < 4 else name[:4] if name[2] in ('a', 'e', 'i', 'o', 'u') else name[:3]
