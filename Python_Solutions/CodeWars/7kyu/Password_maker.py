@@ -9,3 +9,8 @@
 # "Give me liberty or give me death"  --> "Gml0gmd"
 # "Keep Calm and Carry On"            --> "KCaC0"
 # STRINGSREGULAR EXPRESSIONSFUNDAMENTALS
+# Solution
+def make_password(phrase):
+    d = {'i': '1', 'o': '0', 's':'5'}
+    word = [i[0] for i in phrase.split()]
+    return ''.join(d[i.lower()] if i.lower() in d else i for i in word)
