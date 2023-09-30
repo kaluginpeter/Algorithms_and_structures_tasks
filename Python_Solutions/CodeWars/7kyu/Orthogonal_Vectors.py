@@ -9,3 +9,6 @@
 # [1, 1, 1], [2, 5, 7]        --> false
 # [1, 0, 0, 1], [0, 1, 1, 0]  --> true
 # PHYSICSMATHEMATICSALGORITHMS
+# Solution
+def is_orthogonal(u, v):
+    return sum(a * b for a, b in zip(u, v)) == 0
