@@ -11,3 +11,9 @@
 # Beware of certain edge cases - for example, 1 is a power of 2 since 2^0 = 1 and 0 is not a power of 2.
 #
 # MATHEMATICSALGORITHMSFUNDAMENTALS
+# Solution
+def power_of_two(n: int) -> list:
+    i = 2
+    while i < n:
+        i=i*2
+    return i == n if n!=1 else True
