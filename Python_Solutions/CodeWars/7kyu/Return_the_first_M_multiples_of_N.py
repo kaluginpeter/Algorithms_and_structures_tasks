@@ -7,3 +7,6 @@
 #
 # [5.0, 10.0, 15.0]
 # MATHEMATICSFUNDAMENTALS
+# Solution
+def multiples(m, n):
+    return [n * i for i in range(1,m+1)]
