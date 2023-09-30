@@ -6,3 +6,6 @@
 # Strings will only contain letters and spaces, with exactly 1 space between words, and no leading/trailing spaces.
 #
 # STRINGSREGULAR EXPRESSIONSFUNDAMENTALS
+# Solution
+def make_string(s):
+    return ''.join(i[0] for i in s.split())
