@@ -13,3 +13,10 @@
 #   bool: [False]
 # }
 # FUNDAMENTALS
+# Solution
+def separate_types(seq):
+    d = {}
+    for i in seq:
+        if type(i) not in d: d[type(i)] = [i]
+        else: d[type(i)].append(i)
+    return d
