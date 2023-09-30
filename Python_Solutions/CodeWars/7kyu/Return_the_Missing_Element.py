@@ -8,3 +8,6 @@
 # [0, 5, 1, 3, 2, 9, 7, 6, 4] --> 8
 # [9, 2, 4, 5, 7, 0, 8, 6, 1] --> 3
 # ARRAYSFUNDAMENTALS
+# Solution
+def get_missing_element(seq):
+    return [i for i in range(10) if i not in seq][0]
