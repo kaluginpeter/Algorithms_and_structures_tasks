@@ -21,3 +21,6 @@
 # Write a function named isNice/IsNice that returns true if its array argument is a Nice array, else false. An empty array is not considered nice.
 #
 # ARRAYSMATHEMATICSFUNDAMENTALS
+# Solution
+def is_nice(arr):
+    return all(i+1 in arr or i-1 in arr for i in arr) if arr else 0
