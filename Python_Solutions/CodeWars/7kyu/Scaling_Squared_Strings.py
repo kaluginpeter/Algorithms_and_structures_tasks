@@ -31,3 +31,6 @@
 # Task:
 # Write function scale(strng, k, v) k and v will be positive integers. If strng == "" return "".
 # FUNDAMENTALSSTRINGS
+# Solution
+def scale(strng, k, n):
+    return '\n'.join(''.join(b * k for b in a) for a in strng.split('\n') for _ in range(n)) if strng else ''
