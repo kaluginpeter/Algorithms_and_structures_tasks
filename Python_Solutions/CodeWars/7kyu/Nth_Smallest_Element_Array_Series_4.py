@@ -18,3 +18,6 @@
 #
 # Enjoy Learning !!
 # FUNDAMENTALSARRAYS
+# Solution
+def nth_smallest(arr, pos):
+    return sorted(arr)[pos - 1]
