@@ -21,3 +21,6 @@
 # To solve this, you need to think of a way to do the kata without making massive lists or huge for loops. Read the discourse for some inspiration :)
 #
 # FUNDAMENTALSMATHEMATICSPERFORMANCE
+# Solution
+def over_the_road(address, n):
+    return (n * 2) - address + 1
