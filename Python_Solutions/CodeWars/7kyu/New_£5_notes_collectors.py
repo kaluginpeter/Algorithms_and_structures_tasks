@@ -5,3 +5,6 @@
 # £££ GOOD LUCK! £££
 #
 # ARRAYSLISTSALGORITHMS
+# Solution
+def get_new_notes(salary,bills):
+    return (salary - sum(bills)) // 5 if sum(bills) <= salary else 0
