@@ -6,3 +6,7 @@
 #
 # ordered_count("abracadabra") == [('a', 5), ('b', 2), ('r', 2), ('c', 1), ('d', 1)]
 # FUNDAMENTALS
+# Solution
+import collections
+def ordered_count(inp):
+    return list(collections.Counter(inp).items())
