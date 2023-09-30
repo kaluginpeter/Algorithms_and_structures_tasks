@@ -8,3 +8,9 @@
 # joe.greet('Kate') # should return 'Hello Kate, my name is Joe'
 # joe.name          # should == 'Joe'
 # OBJECT-ORIENTED PROGRAMMINGREFACTORING
+# Solution
+class Person:
+    def __init__(self, name):
+        self.name = name
+    def greet(self, other):
+        return f"Hello {other}, my name is {self.name}"
