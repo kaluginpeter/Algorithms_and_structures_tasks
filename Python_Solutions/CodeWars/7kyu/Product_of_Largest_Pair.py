@@ -8,3 +8,9 @@
 # max_product([7, 8, 9])                       # => 72
 # max_product([33, 231, 454, 11, 9, 99, 57])   # => 104874
 # FUNDAMENTALSARRAYSALGORITHMSSORTING
+# Solution
+def max_product(a):
+    max1 = max(a)
+    a.remove(max1)
+    max2 = max(a)
+    return max1 * max2
