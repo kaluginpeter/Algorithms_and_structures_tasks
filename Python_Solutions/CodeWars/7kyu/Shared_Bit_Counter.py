@@ -10,3 +10,6 @@
 # Hint: you can do this with just string manipulation, but binary operators will make your life much easier.
 #
 # FUNDAMENTALSBINARYBITS
+# Solution
+def shared_bits(a, b):
+    return bin(a & b).count('1') > 1
