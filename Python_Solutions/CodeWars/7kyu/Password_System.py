@@ -24,3 +24,6 @@
 # Since the given password isn't symmetric along centre point, so the answer is No.
 #
 # FUNDAMENTALS
+# Solution
+def help_zoom(key):
+    return 'Yes' if key == key[::-1] else 'No'
