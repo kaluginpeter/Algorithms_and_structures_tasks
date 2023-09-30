@@ -3,3 +3,6 @@
 # Example
 # ["draft", "completed"], 0   # should return {"draft": 0, "completed: 0}
 # ARRAYSFUNDAMENTALS
+# Solution
+def populate_dict(keys, default):
+    return {i:default for i in keys}
