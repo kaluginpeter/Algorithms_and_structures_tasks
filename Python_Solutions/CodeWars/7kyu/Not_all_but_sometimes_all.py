@@ -10,3 +10,9 @@
 # remove('apples and bananas',{'a':50, 'n':1}) == 'pples d bnns'
 # # we don't have 50 a's, so just remove it till we hit end of string.
 # STRINGSFUNDAMENTALS
+# Solution
+def remove(text, what):
+    for k,v in what.items():
+        if k in text:
+            text = text.replace(k, '', v)
+    return text
