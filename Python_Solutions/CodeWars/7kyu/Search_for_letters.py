@@ -8,3 +8,7 @@
 #
 # "a   **&  cZ"  =>  "10100000000000000000000001"
 # STRINGSFUNDAMENTALS
+# Solution
+def change(st):
+    alp = "abcdefghijklmnopqrstuvwxyz"
+    return "".join(["1" if c in st or c.upper() in st else "0" for c in alp]) if len(st) else "00000000000000000000000000"
