@@ -14,3 +14,7 @@
 # 1 + 5 = 6 therefore 25 is not a perfect number, so you should return False
 #
 # ALGORITHMS
+# Solution
+def is_perfect(n):
+    list = [6, 28, 496, 8128, 33550336, 8589869056, 137438691328]
+    return n in list
