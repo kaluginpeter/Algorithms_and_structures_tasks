@@ -10,3 +10,9 @@
 # solution(data, -1, 'd') # should == 'c'
 # solution(data, -5, 'd') # should == 'd'
 # ARRAYSFUNDAMENTALS
+# Solution
+def solution(items, index, default_value):
+    try:
+        return items[index]
+    except:
+        return default_value
