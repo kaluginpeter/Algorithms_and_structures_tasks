@@ -10,3 +10,6 @@
 # Please upvote and enjoy!
 #
 # ARRAYSFUNDAMENTALS
+# Solution
+def binary_cleaner(lst):
+    return [i for i in lst if i < 2], [k for k, v in enumerate(lst) if v > 1]
