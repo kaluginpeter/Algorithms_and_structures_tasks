@@ -8,3 +8,6 @@
 # The region bounded by the circle is considered to be an open disk, so points on the boundary of the circle should return false.
 # We are using the euclidean metric.
 # MATHEMATICSFUNDAMENTALS
+# Solution
+def point_in_circle(x, y):
+    return (x*x + y*y) < 1
