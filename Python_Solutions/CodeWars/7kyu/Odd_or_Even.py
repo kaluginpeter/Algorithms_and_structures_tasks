@@ -17,3 +17,11 @@
 # Have fun!
 #
 # FUNDAMENTALSARRAYS
+# Solution
+def odd_or_even(arr):
+    if arr == 0:
+        return 'even'
+    elif sum(arr) % 2 == 0:
+        return 'even'
+    elif sum(arr) % 2 != 0:
+        return 'odd'
