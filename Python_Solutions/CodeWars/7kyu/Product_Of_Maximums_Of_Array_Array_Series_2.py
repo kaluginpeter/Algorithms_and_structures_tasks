@@ -33,3 +33,9 @@
 # Enjoy Learning !!
 # Zizou
 # FUNDAMENTALSARRAYS
+# Solution
+def max_product(lst, n_largest_elements):
+    mul = 1
+    for n in sorted(lst, reverse=True)[:n_largest_elements]:
+        mul *= n
+    return mul
