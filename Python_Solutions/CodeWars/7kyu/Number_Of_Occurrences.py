@@ -7,3 +7,6 @@
 # number_of_occurrences(2, sample) == 2
 # number_of_occurrences(3, sample) == 1
 # ARRAYSFUNDAMENTALS
+# Solution
+def number_of_occurrences(element, sample):
+    return sample.count(element)
