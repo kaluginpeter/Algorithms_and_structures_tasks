@@ -9,3 +9,10 @@
 # 1244   => 12
 # 952406 => 9
 # FUNDAMENTALS
+# Solution
+def prev_mult_of_three(n):
+    while n % 3 != 0:
+        if len(str(n)) == 1 and n % 3 != 0:
+            return None
+        n = int(str(n)[:-1])
+    return n
