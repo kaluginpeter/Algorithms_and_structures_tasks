@@ -120,3 +120,9 @@
 # #41: Regular Expression--""
 # #42: Regular Expression--(?:), (?=) and (?!)
 # FUNDAMENTALSTUTORIALS
+# Solution
+def split_and_merge(string_, separator):
+    t = string_.split()
+    for i in t:
+        t[t.index(i)] = separator.join(i)
+    return ' '.join(t)
