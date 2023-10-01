@@ -5,3 +5,6 @@
 # Function should return true if it is possible and false if not.
 #
 # MATHEMATICSFUNDAMENTALS
+# Solution
+def zero_fuel(distance_to_pump, mpg, fuel_left):
+    return mpg * fuel_left >= distance_to_pump
