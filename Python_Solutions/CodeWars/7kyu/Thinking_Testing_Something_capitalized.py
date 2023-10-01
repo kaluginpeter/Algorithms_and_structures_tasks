@@ -51,3 +51,6 @@
 # Play FlappyBird : Advance Bravely
 #
 # PUZZLESGAMES
+# Solution
+def testit(s):
+    return ' '.join([i[:-1].lower() + i[-1].upper() for i in s.split()])
