@@ -11,3 +11,8 @@
 # Zero alone is fine, don't worry about it. Poor guy anyway
 #
 # FUNDAMENTALS
+# Solution
+def no_boring_zeros(n):
+    while str(n).endswith('0'):
+        n = str(n)[:-1]
+    return int(n) if n else 0
