@@ -6,3 +6,10 @@
 # You can assume the array will always be valid, and there will always be one correct answer.
 #
 # ARRAYSSORTINGFUNDAMENTALS
+# Solution
+def is_sorted_and_how(arr):
+    if sorted(arr, key = int) == arr:
+        return 'yes, ascending'
+    elif sorted(arr, key = int, reverse = True) == arr:
+        return 'yes, descending'
+    return 'no'
