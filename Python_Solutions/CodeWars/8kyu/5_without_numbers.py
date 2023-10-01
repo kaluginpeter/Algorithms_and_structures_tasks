@@ -5,3 +5,6 @@
 # Good luck :)
 #
 # RESTRICTEDFUNDAMENTALSPUZZLES
+# Solution
+def unusual_five():
+    return len('     ')
