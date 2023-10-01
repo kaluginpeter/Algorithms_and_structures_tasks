@@ -20,3 +20,7 @@
 # The value of x * x * y
 #
 # PUZZLES
+# Solution
+import math
+def missing_values(seq):
+    return math.prod([i**2 for i in seq if seq.count(i)==1]) * [i for i in seq if seq.count(i)==2][0]
