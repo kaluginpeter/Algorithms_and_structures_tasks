@@ -7,3 +7,8 @@
 # The solution should be case insensitive (ie good, GOOD and gOOd all count as a good idea). All inputs may not be strings.
 #
 # FUNDAMENTALSARRAYSSTRINGS
+# Solution
+def well(arr):
+    l = [j.lower() if type(j) == str else j for i in arr for j in i]
+    con = l.count('good')
+    return 'Fail!' if con == 0 else 'Publish!' if 1 <= con <= 2 else 'I smell a series!'
