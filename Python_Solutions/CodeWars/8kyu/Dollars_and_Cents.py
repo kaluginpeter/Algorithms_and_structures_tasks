@@ -12,3 +12,6 @@
 # Good luck! Your team knows they can count on you!
 #
 # FUNCTIONAL PROGRAMMINGSTRINGSALGORITHMS
+# Solution
+def format_money(amount):
+    return '$%.2f' % amount
