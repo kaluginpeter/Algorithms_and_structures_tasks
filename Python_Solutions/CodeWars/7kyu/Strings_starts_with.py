@@ -16,3 +16,6 @@
 # No characters should be ignored and/or omitted during the test, e.g. whitespace characters should not be ignored.
 #
 # STRINGSFUNDAMENTALS
+# Solution
+def starts_with(st, prefix):
+    return st.startswith(prefix)
