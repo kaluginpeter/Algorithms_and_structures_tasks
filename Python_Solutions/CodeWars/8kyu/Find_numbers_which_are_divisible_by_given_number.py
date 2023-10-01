@@ -3,3 +3,6 @@
 # Example(Input1, Input2 --> Output)
 # [1, 2, 3, 4, 5, 6], 2 --> [2, 4, 6]
 # ARRAYSALGORITHMS
+# Solution
+def divisible_by(numbers, divisor):
+    return [i for i in numbers if i % divisor == 0]
