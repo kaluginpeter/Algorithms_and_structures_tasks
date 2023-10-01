@@ -10,3 +10,6 @@
 # Your function should be case insensitive to the vowels.
 #
 # STRINGSREGULAR EXPRESSIONSFUNDAMENTALS
+# Solution
+def vowel_2_index(string):
+    return ''.join(str(i+1) if j.lower() in 'aeiou' else j for i, j in enumerate(string))
