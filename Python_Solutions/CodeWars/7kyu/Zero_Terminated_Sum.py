@@ -12,3 +12,9 @@
 # A substring can have length 0. For example, 123004560 has three substrings, and the middle one has length 0.
 # All inputs will be valid strings of digits, and the last digit will always be 0.
 # FUNDAMENTALS
+# Solution
+def largest_sum(s):
+    l = []
+    for i in s.split('0'):
+        l.append(sum(int(j) for j in i))
+    return max(l)
