@@ -13,3 +13,7 @@
 # Good luck! (I think you're going to need it.)
 #
 # GAMESFUNDAMENTALS
+# Solution
+def zombie_shootout(z, r, a):
+    count = min(r * 2, a)
+    return f"You shot all {z} zombies." if count >= z else f"You shot {count} zombies before being eaten: { 'overwhelmed' if count == 2 * r else 'ran out of ammo'}."
