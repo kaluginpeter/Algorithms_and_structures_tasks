@@ -15,3 +15,7 @@
 # This is a kata that I made, among other things, to let some of my trainees familiarize with the euclidean algorithm, a really neat tool to have on your belt ;)
 #
 # ARRAYSLISTSFUNDAMENTALS
+# Solution
+from math import lcm
+def sum_differences_between_products_and_LCMs(pairs):
+    return sum((x*y)-lcm(x,y) for x, y in pairs)
