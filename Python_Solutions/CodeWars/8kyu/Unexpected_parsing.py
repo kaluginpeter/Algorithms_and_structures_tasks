@@ -9,3 +9,5 @@
 # But as you will see after clicking RUN or ATTEMPT this code has several bugs, please fix them.
 #
 # DEBUGGING
+# Solution
+def get_status(is_busy): return {'status': ("busy" if is_busy else "available")}
