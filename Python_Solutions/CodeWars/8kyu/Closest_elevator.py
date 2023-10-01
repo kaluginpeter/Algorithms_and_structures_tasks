@@ -17,3 +17,10 @@
 # elevator(0, 0, 0) # => "right"
 # elevator(0, 2, 1) # => "right"
 # ALGORITHMS
+# Solution
+def elevator(left, right, call):
+    left_distance = abs(call-left)
+    right_distance = abs(call-right)
+    if right_distance <= left_distance:
+        return 'right'
+    return 'left'
