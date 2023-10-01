@@ -6,3 +6,6 @@
 # sum_of_a_beach("gOfIshsunesunFiSh")             ==>  4
 # sum_of_a_beach("cItYTowNcARShoW")               ==>  0
 # FUNDAMENTALSALGORITHMSSTRINGSREGULAR EXPRESSIONS
+# Solution
+def sum_of_a_beach(beach):
+    return sum(beach.lower().count(i) for i in ["sand", "water", "fish", "sun"])
