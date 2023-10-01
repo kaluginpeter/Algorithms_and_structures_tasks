@@ -20,3 +20,6 @@
 # .      .       .      .      ---> should return 4.5
 #
 # MATHEMATICSFUNDAMENTALS
+# Solution
+def t_area(s):
+    return (s.count('\n') - 2) ** 2 / 2
