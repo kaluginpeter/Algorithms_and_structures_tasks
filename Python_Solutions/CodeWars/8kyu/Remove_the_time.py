@@ -12,3 +12,6 @@
 # Output will be the shortened string, e.g., "Friday May 2".
 #
 # DATE TIMEPARSINGFUNDAMENTALS
+# Solution
+def shorten_to_date(long_date):
+    return long_date.split(',')[0]
