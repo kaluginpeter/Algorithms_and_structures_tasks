@@ -5,3 +5,11 @@
 # Example (Speed=100, Signals=[110,100,80]-> 250)
 #
 # ARRAYS
+# Solution
+def speed_limit(speed, signals):
+    c = 0
+    for i in signals:
+        if 10 <= speed - i <= 19: c += 100
+        if 20 <= speed - i <= 29: c += 250
+        if 30 <= speed - i: c += 500
+    return c
