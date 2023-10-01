@@ -15,3 +15,8 @@
 # If the sum of the three parameters (as described above) is > 22, return 'Sabbatical! Boom!', else return 'Back to your desk, boy.'.
 #
 # FUNDAMENTALSSTRINGSARRAYSMATHEMATICS
+# Solution
+import re
+def sabb(s, value, happiness):
+    letters = re.findall('[sabatical]', s)
+    return 'Sabbatical! Boom!' if len(letters) + value + happiness > 22 else 'Back to your desk, boy.'
