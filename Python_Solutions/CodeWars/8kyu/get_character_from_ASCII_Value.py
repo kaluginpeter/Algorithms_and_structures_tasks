@@ -8,3 +8,6 @@
 # For ASCII table, you can refer to http://www.asciitable.com/
 #
 # FUNDAMENTALS
+# Solution
+def get_char(c):
+    return chr(c)
