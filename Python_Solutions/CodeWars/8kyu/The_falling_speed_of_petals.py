@@ -10,3 +10,6 @@
 # Pay attention to the data types.
 # If the initial velocity is non-positive, the return value should be 0
 # ALGORITHMS
+# Solution
+def sakura_fall(v):
+    return 400/v if v> 0 else 0
