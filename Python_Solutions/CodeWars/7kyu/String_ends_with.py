@@ -5,3 +5,6 @@
 # solution('abc', 'bc') # returns true
 # solution('abc', 'd') # returns false
 # STRINGSFUNDAMENTALS
+# Solution
+def solution(string, ending):
+    return string[::-1][:len(ending)] == ending[::-1]
