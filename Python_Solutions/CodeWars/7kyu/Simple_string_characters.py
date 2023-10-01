@@ -7,3 +7,12 @@
 # Good luck!
 #
 # FUNDAMENTALS
+# Solution
+def solve(s):
+    uc, lc, num, sp = 0, 0, 0, 0
+    for i in s:
+        if i.isupper(): uc += 1
+        elif i.islower(): lc += 1
+        elif i.isdigit(): num += 1
+        else: sp += 1
+    return [uc, lc, num, sp]
