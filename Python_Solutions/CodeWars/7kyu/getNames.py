@@ -9,3 +9,8 @@
 # ]
 # get_names(data) # should return ['Joe', 'Bill', 'Kate']
 # DEBUGGING
+# Solution
+def itemgetter(item):
+    return item['name']
+def get_names(data):
+    return list(map(itemgetter,data))
