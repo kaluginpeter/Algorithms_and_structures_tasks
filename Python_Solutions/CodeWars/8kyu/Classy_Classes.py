@@ -7,3 +7,7 @@
 # Reference: https://docs.python.org/3/tutorial/classes.html
 #
 # FUNDAMENTALSOBJECT-ORIENTED PROGRAMMING
+# Solution
+class Person:
+    def __init__(self, name, age):
+        self.info = f"{name}s age is {age}"
