@@ -14,3 +14,6 @@
 # The Office V - Find a Chair
 #
 # FUNDAMENTALSARRAYS
+# Solution
+def meeting(rooms):
+    return rooms.index('O') if 'O' in rooms else 'None available!'
