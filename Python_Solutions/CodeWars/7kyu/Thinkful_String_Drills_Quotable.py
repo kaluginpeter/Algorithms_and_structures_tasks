@@ -9,3 +9,6 @@
 # Click the "Train" button to get started, and be careful with your quotation marks.
 #
 # DEBUGGING
+# Solution
+def quotable(name, quote):
+    return f'{name} said: "{quote}"'
