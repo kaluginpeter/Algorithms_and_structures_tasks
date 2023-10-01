@@ -19,3 +19,6 @@
 # Non-even substrings
 #
 # ALGORITHMS
+# Solution
+def solve(a,b):
+    return [a.count(i) for i in b]
