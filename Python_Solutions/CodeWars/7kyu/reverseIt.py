@@ -10,3 +10,6 @@
 #
 # [1,2,3] -> [1,2,3]
 # FUNDAMENTALS
+# Solution
+def reverse_it(data):
+    return type(data)(str(data)[::-1]) if type(data) in [int, str, float] else data
