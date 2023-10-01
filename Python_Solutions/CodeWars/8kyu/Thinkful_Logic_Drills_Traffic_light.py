@@ -5,3 +5,11 @@
 # For example, when the input is green, output should be yellow.
 #
 # FUNDAMENTALS
+# Solution
+def update_light(current):
+    if current == 'green':
+        return 'yellow'
+    elif current == 'yellow':
+        return 'red'
+    elif current == 'red':
+        return 'green'
