@@ -4,3 +4,6 @@
 # 6, "I"     -> "IIIIII"
 # 5, "Hello" -> "HelloHelloHelloHelloHello"
 # FUNDAMENTALSSTRINGS
+# Solution
+def repeat_str(repeat, string):
+    return string * repeat
