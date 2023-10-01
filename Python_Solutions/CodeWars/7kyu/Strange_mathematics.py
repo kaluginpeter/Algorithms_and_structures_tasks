@@ -17,3 +17,6 @@
 # strange_math(15, 5) == 11
 # strange_math(15, 15) == 7
 # SORTINGARRAYSFUNDAMENTALS
+# Solution
+def strange_math(n, k):
+    return sorted(range(n + 1), key=str).index(k)
