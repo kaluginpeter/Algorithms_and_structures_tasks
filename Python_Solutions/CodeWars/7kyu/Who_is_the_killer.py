@@ -14,3 +14,8 @@
 # return the name of the one killer, in our case 'James' because he is the only person that saw both 'Lucas' and 'Bill'
 #
 # LISTSFUNDAMENTALS
+# Solution
+def killer(suspect_info, dead):
+    for k,v in suspect_info.items():
+        if all(i in v for i in dead):
+            return k
