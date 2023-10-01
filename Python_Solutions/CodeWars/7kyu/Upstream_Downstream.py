@@ -9,3 +9,7 @@
 # The output returned should be the time taken to cover the distance. If the result has decimal places, round them to 2 fixed positions.
 #
 # FUNDAMENTALS
+# Solution
+def time(distance,boat_speed,stream):
+    boat_speed = boat_speed + int(stream.split()[1]) if stream[0] == 'D' else boat_speed - int(stream.split()[1])
+    return round(distance / boat_speed, 2)
