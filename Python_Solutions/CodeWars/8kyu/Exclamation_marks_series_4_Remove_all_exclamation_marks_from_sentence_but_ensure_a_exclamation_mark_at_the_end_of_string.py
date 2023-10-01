@@ -9,3 +9,6 @@
 # "Hi! Hi!" ---> "Hi Hi!"
 # "Hi"      ---> "Hi!"
 # FUNDAMENTALS
+# Solution
+def remove(s):
+    return s.replace('!', '') + '!'
