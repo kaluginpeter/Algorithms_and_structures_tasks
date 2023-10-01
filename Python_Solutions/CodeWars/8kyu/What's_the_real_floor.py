@@ -15,3 +15,10 @@
 # 15  =>  13
 # -3  =>  -3
 # FUNDAMENTALS
+# Solution
+def get_real_floor(n):
+    if n >= 13:
+        return n -2
+    elif n > 0:
+        return n - 1
+    return n
