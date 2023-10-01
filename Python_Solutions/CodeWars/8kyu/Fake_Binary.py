@@ -3,3 +3,12 @@
 # Note: input will never be an empty string
 #
 # FUNDAMENTALSSTRINGSARRAYS
+# Solution
+def fake_bin(x):
+    word = []
+    for elem in x:
+        if elem in '56789':
+            word.append('1')
+            continue
+        word.append('0')
+    return ''.join(word)
