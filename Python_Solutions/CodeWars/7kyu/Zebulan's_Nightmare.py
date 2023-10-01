@@ -8,3 +8,7 @@
 # zebulansNightmare('convert_to_uppercase') == 'convertToUppercase'
 # zebulansNightmare('main') == 'main'
 # FUNDAMENTALS
+# Solution
+def zebulans_nightmare(function):
+    l = function.split('_')
+    return l[0].lower() + ''.join(i.title() for i in l[1:])
