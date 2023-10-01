@@ -22,3 +22,9 @@
 # Help Suzuki rake his garden!
 # Suzuki needs help lining up his students!
 # FUNDAMENTALSARRAYS
+# Solution
+def stairs_in_20(stairs):
+    total = []
+    for list in stairs:
+        total += list
+    return sum(total) * 20
