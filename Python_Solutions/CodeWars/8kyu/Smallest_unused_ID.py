@@ -9,3 +9,10 @@
 # Go on and code some pure awesomeness!
 #
 # FUNDAMENTALSALGORITHMS
+# Solution
+def next_id(arr):
+    arr = set(arr)
+    t = 0
+    while t in arr:
+        t += 1
+    return t
