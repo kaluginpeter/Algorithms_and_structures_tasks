@@ -8,3 +8,9 @@
 # Notes
 # You may consider that there will not be any empty arrays/vectors.
 # FUNDAMENTALS
+# Solution
+def minimum(arr):
+    return min(arr)
+
+def maximum(arr):
+    return max(arr)
