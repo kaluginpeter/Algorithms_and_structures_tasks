@@ -11,3 +11,6 @@
 # The size will always be positive and will only use whole numbers.
 #
 # STRINGSBINARYALGORITHMS
+# Solution
+def stringy(size):
+    return ("10" * size)[:size]
