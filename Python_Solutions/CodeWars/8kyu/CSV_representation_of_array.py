@@ -18,3 +18,6 @@
 # More details here: https://en.wikipedia.org/wiki/Comma-separated_values
 #
 # FUNDAMENTALSARRAYSSTRINGS
+# Solution
+def to_csv_text(array):
+    return '\n'.join([','.join(map(str, elem)) for elem in array])
