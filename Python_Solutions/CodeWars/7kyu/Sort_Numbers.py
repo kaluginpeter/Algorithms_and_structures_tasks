@@ -5,3 +5,9 @@
 # solution([1,2,3,10,5]) # should return [1,2,3,5,10]
 # solution(None) # should return []
 # FUNDAMENTALS
+# Solution
+def solution(nums):
+    if not nums:
+        return []
+    nums.sort()
+    return nums
