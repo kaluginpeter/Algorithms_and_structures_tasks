@@ -5,3 +5,6 @@
 # Valid data will always be passed in and n will always be >= 1.
 #
 # FUNDAMENTALS
+# Solution
+def fillable(stock, merch, n):
+    return merch in stock and stock[merch] >= n
