@@ -14,3 +14,7 @@
 # So the years 0, -64 and 2016 will return 366 days. Whilst 1974, -10 and 666 will return 365 days.
 #
 # DATE TIMEFUNDAMENTALS
+# Solution
+import calendar
+def year_days(year):
+    return f"{year} has {366 if calendar.isleap(abs(year)) else 365} days"
