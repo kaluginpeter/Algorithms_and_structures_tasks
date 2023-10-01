@@ -12,3 +12,6 @@
 # Note: In COBOL, it should return "found the needle at position 6"
 #
 # ARRAYSFUNDAMENTALS
+# Solution
+def find_needle(haystack):
+    if 'needle' in haystack: return(f"found the needle at position {haystack.index('needle')}")
