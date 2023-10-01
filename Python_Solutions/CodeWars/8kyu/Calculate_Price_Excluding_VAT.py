@@ -11,3 +11,6 @@
 # Round the result to 2 decimal places.
 # If null value given then return -1
 # MATHEMATICSFUNDAMENTALS
+# Solution
+def excluding_vat_price(price):
+    return round(price - price / 115 * 15, 2) if price else -1
