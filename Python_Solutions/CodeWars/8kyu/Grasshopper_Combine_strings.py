@@ -8,3 +8,6 @@
 #
 # 'James Stevens'
 # FUNDAMENTALS
+# Solution
+def combine_names(first, last):
+    return first + ' ' + last
