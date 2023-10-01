@@ -15,3 +15,6 @@
 # 40, 3  -->  "10x^4"
 # 90, 2  -->  "30x^3"
 # FUNDAMENTALS
+# Solution
+def integrate(coefficient, exponent):
+    return f"{int(coefficient / (exponent+1))}x^{exponent+1}"
