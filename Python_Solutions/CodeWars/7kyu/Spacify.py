@@ -2,3 +2,6 @@
 #
 # spacify("hello world") # returns "h e l l o   w o r l d"
 # FUNDAMENTALSSTRINGSARRAYS
+# Solution
+def spacify(string):
+    return ' '.join(string)
