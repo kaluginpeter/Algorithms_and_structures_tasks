@@ -9,3 +9,6 @@
 # Note: String will have at least one element; words will always be separated by a space.
 #
 # ARRAYSLISTSFUNDAMENTALS
+# Solution
+def add_length(str_):
+    return [f"{i} {len(i)}" for i in str_.split()]
