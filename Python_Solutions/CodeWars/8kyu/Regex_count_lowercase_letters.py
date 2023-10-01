@@ -13,3 +13,6 @@
 #
 # "abcdefghijklmnopqrstuvwxyz" ===> 26
 # FUNDAMENTALSREGULAR EXPRESSIONSALGORITHMS
+# Solution
+def lowercase_count(strng):
+    return len(list(i for i in strng if i.islower()))
