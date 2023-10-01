@@ -10,3 +10,8 @@
 # - `roll_dice`
 # - `move`
 # FUNDAMENTALS
+# Solution
+from preloaded import *
+health, position, coins = 100, 0, 0
+def main(): pass
+log = 'roll_dice move combat get_coins buy_health print_status'.split()
