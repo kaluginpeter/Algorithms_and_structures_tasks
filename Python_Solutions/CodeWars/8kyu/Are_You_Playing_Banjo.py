@@ -8,3 +8,10 @@
 # Names given are always valid strings.
 #
 # STRINGSFUNDAMENTALS
+# Solution
+def are_you_playing_banjo(name):
+    n_lst = ['r', 'R']
+    if name[0] in n_lst:
+        return name + ' plays banjo'
+    else:
+        return name + ' does not play banjo'
