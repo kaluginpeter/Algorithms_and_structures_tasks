@@ -13,3 +13,7 @@
 # Good luck!
 #
 # FUNDAMENTALS
+# Solution
+import re
+def solve(a, b):
+    return bool(re.fullmatch(a.replace('*', '.*'), b))
