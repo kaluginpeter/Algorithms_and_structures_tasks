@@ -4,3 +4,6 @@
 # 5.5589 is rounded 5.56
 # 3.3424 is rounded 3.34
 # FUNDAMENTALS
+# Solution
+def two_decimal_places(n):
+    return round(n, 2)
