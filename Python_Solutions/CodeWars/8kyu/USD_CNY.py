@@ -6,3 +6,6 @@
 # The conversion rate you should use is 6.75 CNY for every 1 USD. All numbers should be represented as a string with 2 decimal places. (e.g. "21.00" NOT "21.0" or "21")
 #
 # FUNDAMENTALS
+# Solution
+def usdcny(usd):
+    return f'{usd * 6.75:.2f} Chinese Yuan'
