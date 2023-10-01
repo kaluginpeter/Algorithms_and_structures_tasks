@@ -7,3 +7,6 @@
 # https://en.wikipedia.org/wiki/Triangle
 #
 # FUNDAMENTALS
+# Solution
+def other_angle(a, b):
+    return 180 - a - b
