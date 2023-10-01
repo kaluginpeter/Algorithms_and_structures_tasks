@@ -11,3 +11,6 @@
 # S: codefights.com
 #
 # ALGORITHMS
+# Solution
+def split_by_value(k, elements):
+    return sorted(elements, key=lambda x: x >= k)
