@@ -8,3 +8,6 @@
 # [1, 5, 87, 45, 8, 8] --> [45, 87]
 # [1, 3, 10, 0]) --> [3, 10]
 # ARRAYSALGORITHMS
+# Solution
+def two_oldest_ages(ages):
+    return sorted(ages)[-2:]
