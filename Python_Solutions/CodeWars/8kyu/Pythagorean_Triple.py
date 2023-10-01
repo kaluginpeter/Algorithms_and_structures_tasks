@@ -18,3 +18,6 @@
 # For JavaScript: return true or false
 # Other languages: return 1 or 0 or refer to Sample Tests.
 # ALGEBRAMATHEMATICSFUNDAMENTALS
+# Solution
+def pythagorean_triple(integers):
+    return sorted(integers)[0]**2 + sorted(integers)[1]**2 == sorted(integers)[2]**2
