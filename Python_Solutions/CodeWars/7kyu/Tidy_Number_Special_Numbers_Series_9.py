@@ -39,3 +39,6 @@
 # Enjoy Learning !!
 # Zizou
 # FUNDAMENTALSARRAYSSTRINGS
+# Solution
+def tidyNumber(n):
+    return sorted([int(i) for i in str(n)]) == [int(i) for i in str(n)]
