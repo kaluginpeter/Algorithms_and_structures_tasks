@@ -13,3 +13,9 @@
 # If you like sequence Katas, you will enjoy this Kata: Simple Prime Streaming
 #
 # ALGORITHMS
+# Solution
+def solve(n):
+    a, b = '0', '01'
+    for i in range(n):
+        a, b = b, b + a
+    return a
