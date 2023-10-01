@@ -3,3 +3,7 @@
 # Make sure that your function does not return a false positive by only checking the day.
 #
 # DATE TIMEPUZZLES
+# Solution
+from datetime import datetime
+def is_today(date):
+    return date.date() == datetime.today().date()
