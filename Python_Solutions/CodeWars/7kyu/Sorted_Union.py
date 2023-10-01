@@ -9,3 +9,10 @@
 # Courtesy of FreeCodeCamp, a great place to learn web-dev; plus, its founder Quincy Larson is pretty cool and amicable. I made the original one slightly more tricky ;)
 #
 # ARRAYSLISTSALGORITHMSSORTING
+# Solution
+def unite_unique(*args):
+    l = []
+    for i in args:
+        for j in i:
+            if j not in l: l.append(j)
+    return l
