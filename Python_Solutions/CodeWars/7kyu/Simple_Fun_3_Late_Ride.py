@@ -28,3 +28,6 @@
 # The sum of the digits the digital timer would show.
 #
 # PUZZLES
+# Solution
+def late_ride(n):
+    return sum(map(int, str(n // 60)+str(n % 60)))
