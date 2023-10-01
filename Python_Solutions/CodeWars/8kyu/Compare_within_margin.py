@@ -28,3 +28,8 @@
 # This is because the distance between a and b is greater than 0, and a is less than b.
 #
 # FUNDAMENTALSLOGIC
+# Solution
+def close_compare(a, b, margin=0):
+    if a < b and b - a > margin: return -1
+    elif a - b > margin and a > b: return 1
+    elif a - b <= margin: return 0
