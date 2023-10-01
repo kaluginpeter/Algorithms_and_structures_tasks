@@ -5,3 +5,6 @@
 # The arguments will always be non empty strings, and normal letters.
 #
 # DEBUGGING
+# Solution
+def correct_tail(body, tail):
+    return tail in body[-1]
