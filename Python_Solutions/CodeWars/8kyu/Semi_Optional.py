@@ -10,3 +10,6 @@
 # Unfortunately, the code is not working as designed. Please fix the code so that it behaves as specified.
 #
 # DEBUGGING
+# Solution
+def wrap(value):
+    return {'value':value}
