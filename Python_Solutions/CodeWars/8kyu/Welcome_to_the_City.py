@@ -6,3 +6,6 @@
 # This example will return the string Hello, John Smith! Welcome to Phoenix, Arizona!
 #
 # STRINGSFUNDAMENTALS
+# Solution
+def say_hello(name, city, state):
+    return f"Hello, {' '.join(i for i in name)}! Welcome to {city}, {state}!"
