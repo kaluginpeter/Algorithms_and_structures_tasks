@@ -18,3 +18,6 @@
 # age = 5    =>   4-5
 # age = 17   =>   15-20
 # FUNDAMENTALS
+# Solution
+def dating_range(age):
+    return f"{int(age/2+7) if age > 14 else int(age - 0.10 * age)}-{int((age-7)*2) if age > 14 else int(age + 0.10 * age)}"
