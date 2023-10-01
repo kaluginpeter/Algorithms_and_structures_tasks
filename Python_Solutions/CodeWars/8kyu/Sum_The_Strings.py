@@ -14,3 +14,15 @@
 # Inputs and the expected output will never exceed the signed 32-bit integer limit (2^31 - 1)
 #
 # FUNDAMENTALS
+# Solution
+def sum_str(a, b):
+    if a and b:
+        c = int(a) + int(b)
+        return str(c)
+    elif a == '' and b == '':
+        return '0'
+    else:
+        if a:
+            return a
+        else:
+            return b
