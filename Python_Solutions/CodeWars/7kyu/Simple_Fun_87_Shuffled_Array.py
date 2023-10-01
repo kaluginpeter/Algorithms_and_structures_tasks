@@ -28,3 +28,7 @@
 # A sorted array of shuffled.length - 1 elements.
 #
 # PUZZLES
+# Solution
+def shuffled_array(l):
+    l.pop(l.index(sum(l) / 2))
+    return sorted(l)
