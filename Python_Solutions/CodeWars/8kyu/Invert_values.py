@@ -6,3 +6,6 @@
 # You can assume that all values are integers. Do not mutate the input array/list.
 #
 # LISTSFUNDAMENTALSARRAYS
+# Solution
+def invert(lst):
+    return [i * -1 for i in lst]
