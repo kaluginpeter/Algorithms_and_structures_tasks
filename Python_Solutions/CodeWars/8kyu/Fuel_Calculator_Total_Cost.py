@@ -8,3 +8,7 @@
 # 1 Dollar = 100 Cents
 #
 # MATHEMATICSFUNDAMENTALSLOGIC
+# Solution
+def fuel_price(litres, pricePerLiter):
+    discount = min(litres // 2, 5) * .05
+    return round(litres * (pricePerLiter - discount), 2)
