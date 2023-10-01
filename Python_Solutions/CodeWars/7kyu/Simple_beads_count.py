@@ -6,3 +6,6 @@
 # If there are less than 2 blue beads return 0.
 #
 # FUNDAMENTALS
+# Solution
+def count_red_beads(n):
+    return 0 if n < 2 else n*2-2
