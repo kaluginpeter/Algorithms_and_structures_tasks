@@ -8,3 +8,6 @@
 # don't worry about uppercase vowels
 # y is not considered a vowel for this kata
 # STRINGSFUNDAMENTALS
+# Solution
+def shortcut( s ):
+    return ''.join([i if i not in 'aeoiu' else '' for i in s])
