@@ -30,3 +30,17 @@
 # Good luck!
 #
 # FUNDAMENTALSOBJECT-ORIENTED PROGRAMMING
+# Solution
+class Song:
+    def __init__(self, title, artist):
+        self.title = title
+        self.artist = artist
+        self.listeners = list(map(lambda listener: listener.lower(), artist))
+    def how_many(self, listeners):
+        listens = 0
+        for listener in listeners:
+            listener = listener.lower()
+            if listener not in self.listeners:
+                self.listeners.append(listener)
+                listens += 1
+        return listens
