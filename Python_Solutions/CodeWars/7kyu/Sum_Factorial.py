@@ -16,3 +16,11 @@
 # Also, you must write your own implementation of factorial, as you cannot use the built-in math.factorial() method.
 #
 # ALGORITHMS
+# Solution
+def sum_factorial(lst):
+    def fac(n):
+        c = 1
+        for i in range(n, 0, -1):
+            c *= i
+        return c
+    return sum(fac(i) for i in lst)
