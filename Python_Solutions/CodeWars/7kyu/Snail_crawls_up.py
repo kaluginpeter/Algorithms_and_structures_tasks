@@ -8,3 +8,12 @@
 # Calculate number of day when the snail will reach the top of the column.
 #
 # FUNDAMENTALSMATHEMATICS
+# Solution
+def snail(column, day, night):
+    count = 0
+    while column > 0:
+        count += 1
+        if column - day <= 0:
+            return count
+        column -= day - night
+    return count
