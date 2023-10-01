@@ -5,3 +5,6 @@
 # All inputs will be valid.
 #
 # FUNDAMENTALSSTRINGSARRAYSSORTING
+# Solution
+def last(s):
+    return sorted(s.split(), key = lambda x: x[-1])
