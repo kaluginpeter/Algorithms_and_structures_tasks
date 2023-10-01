@@ -9,3 +9,7 @@
 # You should check for correct length and no spaces.
 #
 # REGULAR EXPRESSIONSDATE TIMEFUNDAMENTALS
+# Solution
+import re
+def validate_time(timestamp):
+    return bool(re.match(r'(2[0-3]|[01]?\d):[0-5]\d$', timestamp))
