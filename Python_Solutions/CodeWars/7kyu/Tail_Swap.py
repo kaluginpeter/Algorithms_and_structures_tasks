@@ -6,3 +6,13 @@
 # ["abc:123", "cde:456"]  -->  ["abc:456", "cde:123"]
 # ["a:12345", "777:xyz"]  -->  ["a:xyz", "777:12345"]
 # FUNDAMENTALS
+# Solution
+def tail_swap(strings):
+    l = []
+    final = []
+    for i in strings:
+        for elem in i.split(':'):
+            l.append(elem)
+    final.append(l[0] + ':' + l[3])
+    final.append(l[2] + ':' + l[1])
+    return final
