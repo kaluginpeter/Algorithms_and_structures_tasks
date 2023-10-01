@@ -14,3 +14,7 @@
 # Given the scrollY integer (always non-negative) and an array of non-negative integers (with at least one element), calculate the index (starting at 0) or -1 if scrollY falls beyond last section (indication of an error).
 #
 # FUNDAMENTALSALGORITHMS
+# Solution
+from itertools import accumulate
+def get_section_id(scroll, sizes):
+    return next((k for k,v in enumerate(accumulate(sizes)) if v > scroll), -1)
