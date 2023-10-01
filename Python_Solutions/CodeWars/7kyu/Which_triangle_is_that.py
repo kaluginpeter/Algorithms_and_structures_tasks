@@ -5,3 +5,11 @@
 #
 # type_of_triangle(2, 2, 1) --> "Isosceles"
 # GEOMETRYALGORITHMS
+# Solution
+def type_of_triangle(a, b, c):
+    if any(not isinstance(i, int) for i in (a, b, c)): return "Not a valid triangle"
+    a, b, c = sorted((a, b, c))
+    if a + b <= c: return "Not a valid triangle"
+    if a == b and b == c: return "Equilateral"
+    if a == b or a == c or b == c: return "Isosceles"
+    return "Scalene"
