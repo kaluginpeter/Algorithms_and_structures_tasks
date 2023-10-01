@@ -9,3 +9,6 @@
 # Happy coding!
 #
 # FUNDAMENTALSSTRINGS
+# Solution
+def reverse(st):
+    return ' '.join(list(st.split())[::-1])
