@@ -9,3 +9,13 @@
 # ('*', 5, 5) --> 25
 # ('/', 49, 7) --> 7
 # MATHEMATICSFUNDAMENTALS
+# Solution
+def basic_op(operator, value1, value2):
+    if operator == '+':
+        return value1 + value2
+    elif operator == '-':
+        return value1 - value2
+    elif operator == '*':
+        return value1 * value2
+    elif operator == '/':
+        return value1 / value2
