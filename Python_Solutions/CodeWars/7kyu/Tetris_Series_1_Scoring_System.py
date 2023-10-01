@@ -55,3 +55,6 @@
 # 4 kyu
 # Tetris Series #5 — Complex Block Types (TBA?)
 # FUNDAMENTALSGAMESALGORITHMSARRAYS
+# Solution
+def get_score(arr) -> int:
+    return sum([0, 40, 100, 300, 1200][v] * (1 + (sum(arr[:k]) // 10)) for k, v in enumerate(arr))
