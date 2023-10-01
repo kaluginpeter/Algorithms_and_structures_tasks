@@ -9,3 +9,9 @@
 #
 # list_animals(animals) == '1. dog\n2. cat\n3. elephant\n'
 # DEBUGGINGFUNDAMENTALS
+# Solution
+def list_animals(animals):
+    w = ''
+    for i in range(len(animals)):
+        w += str(i + 1) + '. ' + animals[i] + '\n'
+    return w
