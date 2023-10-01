@@ -11,3 +11,7 @@
 # "trend"  returns "t" (all the characters are unique)
 # "aabbcc" returns null (all the characters are repeated)
 # ALGORITHMSSTRINGSFUNDAMENTALS
+# Solution
+def first_non_repeated(s):
+    result = [i for i in s if s.count(i) == 1]
+    return result[0] if result else None
