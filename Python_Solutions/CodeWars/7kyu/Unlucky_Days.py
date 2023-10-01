@@ -11,3 +11,7 @@
 # unluckyDays(2015) == 3
 # unluckyDays(1986) == 1
 # DATE TIME
+# Solution
+import calendar
+def unlucky_days(year):
+	return sum(calendar.weekday(year, m, 13) == 4 for m in range(1, 13))
