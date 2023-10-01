@@ -14,3 +14,6 @@
 # 2 --> 1 + 1/4 --> "1.25"
 # 5 --> 1 + 1/4 + 1/7 + 1/10 + 1/13 --> "1.57"
 # FUNDAMENTALS
+# Solution
+def series_sum(n):
+    return '{:.2f}'.format(sum(1.0/(3 * i + 1) for i in range(n)))
