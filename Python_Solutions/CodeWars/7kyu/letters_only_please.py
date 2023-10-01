@@ -15,3 +15,6 @@
 #
 # remove_chars("0123456789(.)+,|[]{}=@/~;^$'<>?-!*&:#%_")  ==> '' (empty string)
 # REGULAR EXPRESSIONSFUNDAMENTALS
+# Solution
+def remove_chars(s):
+    return ''.join(i for i in s if i.isalpha() or i == ' ')
