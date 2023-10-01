@@ -14,3 +14,6 @@
 # http://www.rubycuts.com/enum-all
 #
 # ARRAYSFUNDAMENTALS
+# Solution
+def _all(seq, fun):
+    return all(fun(i) for i in seq)
