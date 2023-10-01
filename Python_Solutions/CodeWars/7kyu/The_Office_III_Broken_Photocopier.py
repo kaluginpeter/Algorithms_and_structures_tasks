@@ -10,3 +10,6 @@
 # The Office V - Find a Chair
 #
 # FUNDAMENTALSSTRINGSARRAYS
+# Solution
+def broken(inp):
+    return inp.translate(inp.maketrans({'0':'1', '1':'0'}))
