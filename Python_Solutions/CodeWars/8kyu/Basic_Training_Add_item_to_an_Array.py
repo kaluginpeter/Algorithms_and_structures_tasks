@@ -5,3 +5,5 @@
 #
 # websites = []
 # ARRAYSFUNDAMENTALS
+# Solution
+websites.append('codewars')
