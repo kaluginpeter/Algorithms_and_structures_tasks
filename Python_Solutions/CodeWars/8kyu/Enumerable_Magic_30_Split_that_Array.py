@@ -15,3 +15,6 @@
 # http://www.rubycuts.com/enum-partition
 #
 # FUNDAMENTALS
+# Solution
+def partition(arr, classifier_method):
+    return [i for i in arr if classifier_method(i)], [i for i in arr if not classifier_method(i)]
