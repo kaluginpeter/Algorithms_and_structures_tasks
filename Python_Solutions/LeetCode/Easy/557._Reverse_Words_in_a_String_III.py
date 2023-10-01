@@ -20,3 +20,8 @@
 class Solution:
     def reverseWords(self, s: str) -> str:
         return ' '.join(i[::-1] for i in s.split())
+
+# Solution 2 - Choising whitespace in split() method. Works faster
+class Solution:
+    def reverseWords(self, s: str) -> str:
+        return ' '.join(i[::-1] for i in s.split(' '))
