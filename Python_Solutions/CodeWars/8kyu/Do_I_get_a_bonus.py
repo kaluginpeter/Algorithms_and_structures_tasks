@@ -7,3 +7,6 @@
 # Return the total figure the individual will receive as a string prefixed with "£" (= "\u00A3", JS, Go, Java, Scala, and Julia), "$" (C#, C++, Ruby, Clojure, Elixir, PHP, Python, Haskell, and Lua) or "¥" (Rust).
 #
 # STRINGSLOGIC
+# Solution
+def bonus_time(salary, bonus):
+    return f"${salary*10 if bonus else salary}"
