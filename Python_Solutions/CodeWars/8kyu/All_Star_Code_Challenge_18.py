@@ -12,3 +12,6 @@
 # The first argument can be an empty string
 # In languages with no distinct character data type, the second argument will be a string of length 1
 # FUNDAMENTALSSTRINGS
+# Solution
+def str_count(strng, letter):
+    return strng.count(letter)
