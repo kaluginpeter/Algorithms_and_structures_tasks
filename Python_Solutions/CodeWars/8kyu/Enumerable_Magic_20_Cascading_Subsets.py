@@ -9,3 +9,6 @@
 # As you can see, the lists are cascading; ie, they overlap, but never out of order.
 #
 # FUNDAMENTALSLISTSDATA STRUCTURESARRAYSALGORITHMS
+# Solution
+def each_cons(lst, n):
+    return [lst[i:i+n] for i in range(len(lst) - n + 1)]
