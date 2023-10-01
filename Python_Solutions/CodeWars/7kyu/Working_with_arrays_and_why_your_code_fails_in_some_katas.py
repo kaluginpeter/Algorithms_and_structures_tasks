@@ -7,3 +7,6 @@
 # Some good reading: Python Lists
 #
 # FUNDAMENTALSARRAYSREFACTORING
+# Solution
+def without_last(lst):
+    return lst[:-1]
