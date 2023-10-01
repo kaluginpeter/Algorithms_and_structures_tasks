@@ -6,3 +6,8 @@
 # Note! The input is a Real number (actual type is language dependent) and is >= 0. The result should be an Integer.
 #
 # FUNDAMENTALS
+# Solution
+import math
+def cockroach_speed(s):
+    distance = (s * 1000 * 100) / 60 / 60
+    return math.floor(distance)
