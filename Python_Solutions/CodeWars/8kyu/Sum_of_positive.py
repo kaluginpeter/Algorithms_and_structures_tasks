@@ -5,3 +5,11 @@
 # Note: if there is nothing to sum, the sum is default to 0.
 #
 # ARRAYSFUNDAMENTALS
+# Solution
+def positive_sum(arr):
+    # Your code here
+    count = 0
+    for i in arr:
+        if i > 0:
+            count += i
+    return count
