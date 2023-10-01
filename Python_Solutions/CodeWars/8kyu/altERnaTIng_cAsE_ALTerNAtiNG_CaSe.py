@@ -11,3 +11,6 @@
 # As usual, your function/method should be pure, i.e. it should not mutate the original string.
 #
 # FUNDAMENTALS
+# Solution
+def to_alternating_case(string):
+    return ''.join([char.lower() if char.isupper() else char.upper() for char in string])
