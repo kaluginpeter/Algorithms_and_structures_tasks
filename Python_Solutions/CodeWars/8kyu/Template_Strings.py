@@ -9,3 +9,6 @@
 # Reference: https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/template_strings
 #
 # STRINGSFUNDAMENTALS
+# Solution
+def temple_strings(obj, feature):
+    return f"{obj} are {feature}"
