@@ -15,3 +15,6 @@
 # 3. The mean (or average) of this list is 4
 #
 # ARRAYSLISTSFUNDAMENTALS
+# Solution
+def find_average(nums):
+    return (sum(nums) / len(nums) if nums else 0)
