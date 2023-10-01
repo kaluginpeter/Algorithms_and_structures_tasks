@@ -3,3 +3,6 @@
 # Example : n=5 --> [5,4,3,2,1]
 #
 # FUNDAMENTALS
+# Solution
+def reverse_seq(n):
+    return list(range(n, 0, -1))
