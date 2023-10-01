@@ -11,3 +11,9 @@
 # the minimum year number that is strictly larger than the input number year and all its digits are distinct.
 #
 # ALGORITHMS
+# Solution
+def distinct_digit_year(year):
+    year += 1
+    while any(str(year).count(i) != 1 for i in str(year)):
+        year += 1
+    return year
