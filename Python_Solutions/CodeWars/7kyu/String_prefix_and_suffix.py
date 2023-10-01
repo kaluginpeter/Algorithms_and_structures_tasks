@@ -12,3 +12,6 @@
 # More examples in test cases. Good luck!
 #
 # FUNDAMENTALS
+# Solution
+def solve(st):
+    return next((i for i in range(len(st) // 2, 0, -1) if st[:i] == st[-i:]), 0)
