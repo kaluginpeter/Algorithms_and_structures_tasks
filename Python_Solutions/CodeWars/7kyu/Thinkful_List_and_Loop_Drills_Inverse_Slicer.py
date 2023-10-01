@@ -14,3 +14,6 @@
 # The input will always be a valid list, a and b will always be different integers equal to or greater than zero, but they may be zero or be larger than the length of the list.
 #
 # FUNDAMENTALSLISTS
+# Solution
+def inverse_slice(items, a, b):
+    return items[:a] + items[b:] if b <= len(items)-1 else items[:a]
