@@ -11,3 +11,18 @@
 # Good luck :D
 #
 # FUNDAMENTALSSTRINGS
+# Solution
+def html_special_chars(formData):
+    word = ''
+    for i in range(len(formData)):
+        if formData[i] == '<':
+            word += '&lt;'
+        elif formData[i] == '>':
+            word +='&gt;'
+        elif formData[i] == '"':
+            word +='&quot;'
+        elif formData[i] == '&':
+            word +='&amp;'
+        else:
+            word += formData[i]
+    return word
