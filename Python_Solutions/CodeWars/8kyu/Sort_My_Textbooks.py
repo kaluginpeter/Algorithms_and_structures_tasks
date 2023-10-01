@@ -3,3 +3,6 @@
 # The sorting should NOT be case sensitive
 #
 # LISTSSORTINGFUNDAMENTALSARRAYS
+# Solution
+def sorter(textbooks):
+    return sorted(textbooks,key=str.lower)
