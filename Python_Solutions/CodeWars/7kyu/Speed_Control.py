@@ -20,3 +20,11 @@
 # Happy coding!
 #
 # FUNDAMENTALSMATHEMATICS
+# Solution
+def gps(s, x):
+    speed = []
+    lenght = 0
+    for elem in x:
+        speed.append(3600 * (elem - lenght) / s)
+        lenght = elem
+    return max(speed) if len(x) > 0 else 0
