@@ -9,3 +9,6 @@
 # patrick feeney => P.F
 #
 # STRINGSFUNDAMENTALS
+# Solution
+def abbrev_name(name):
+    return ('.'.join([e[0] for e in name.split()]).upper())
