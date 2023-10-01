@@ -10,3 +10,6 @@
 #   or `name` = ""        => return "Hello, World!"
 # FUNDAMENTALS
 # SIMILAR KATA:
+# Solution
+def hello(name=None):
+    return ('Hello, World!' if not name else f"Hello, {name.title()}!")
