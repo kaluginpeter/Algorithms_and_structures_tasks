@@ -9,3 +9,6 @@
 # "Hi! Hi!" ---> "Hi! Hi"
 # "Hi"      ---> "Hi"
 # FUNDAMENTALSSTRINGS
+# Solution
+def remove(s):
+    return s[:-1] if s.endswith('!') else s
