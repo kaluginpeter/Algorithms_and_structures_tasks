@@ -12,3 +12,12 @@
 # Good luck!
 #
 # FUNDAMENTALS
+# Solution
+def calculator(x,y,op):
+    if type(x) == int and type(y) == int:
+        dict_op = {'+': x+y, '-': x-y, '*': x*y, '/': x/y}
+        if op in dict_op and x !=0 and y !=0:
+            return dict_op[op]
+        else:
+            return 'unknown value'
+    return 'unknown value'
