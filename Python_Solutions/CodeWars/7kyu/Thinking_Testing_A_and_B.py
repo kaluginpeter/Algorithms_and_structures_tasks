@@ -48,3 +48,6 @@
 # Play Tetris : Shape anastomosis
 # Play FlappyBird : Advance Bravely
 # PUZZLES
+# Solution
+def testit (a, b):
+    return a | b
