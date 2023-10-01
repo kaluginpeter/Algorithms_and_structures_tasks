@@ -9,3 +9,16 @@
 # good luck :)
 #
 # MATHEMATICSFUNDAMENTALS
+# Solution
+def evil(n):
+    bin = "{0:b}".format(n)
+    count = {}
+    for s in bin:
+    	if s in count:
+    		count[s] += 1
+    	else:
+    		count[s] = 1
+    if(count['1']%2 == 0):
+    	return "It's Evil!"
+    else:
+    	return "It's Odious!"
