@@ -8,3 +8,6 @@
 # # 8th root of 256 is 2
 # perfect_roots(256) # returns True
 # ALGORITHMS
+# Solution
+def perfect_roots(n):
+    return (((n**.5)**0.5)**0.5) == int((((n**.5)**0.5)**0.5))
