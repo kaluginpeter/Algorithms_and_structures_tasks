@@ -31,3 +31,7 @@
 # One last thing: x and y are integers (no decimals).
 #
 # ALGORITHMS
+# Solution
+def sum_and_multiply(sum, multiply):
+    for i in range(sum + 1):
+            if i * (sum - i) == multiply: return [i, sum - i]
