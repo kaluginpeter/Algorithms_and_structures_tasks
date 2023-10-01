@@ -16,3 +16,6 @@
 # D = 6
 # result = [6, 3, 7, 5, 4, 7]
 # FUNDAMENTALS
+# Solution
+def solution(n,d):
+    return [int(i) for i in str(n)[-d:]] if d > 0 else []
