@@ -10,3 +10,6 @@
 # step > 0
 # the range does not HAVE to include max (depending on the step)
 # ALGORITHMS
+# Solution
+def generate_range(min, max, step):
+    return list(range(min, max+1, step))
