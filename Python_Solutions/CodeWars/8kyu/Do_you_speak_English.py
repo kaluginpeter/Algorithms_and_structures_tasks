@@ -7,3 +7,6 @@
 # Return value as boolean values, true for the string to contains "English", false for it does not.
 #
 # FUNDAMENTALS
+# Solution
+def sp_eng(sentence):
+    return 'english' in sentence.lower()
