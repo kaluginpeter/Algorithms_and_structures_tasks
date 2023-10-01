@@ -9,3 +9,9 @@
 # Your task is to implement the dropWhile function. If you've got a span function lying around, this is a one-liner! Alternatively, if you have a takeWhile function on your hands, then combined with the dropWhile function, you can implement the span function in one line. This is the beauty of functional programming: there are a whole host of useful functions, many of which can be implemented in terms of each other.
 #
 # FUNCTIONAL PROGRAMMINGARRAYSALGORITHMS
+# Solution
+def drop_while(arr, pred):
+    for k,v in enumerate(arr):
+        if not pred(v):
+            return arr[k:]
+    return []
