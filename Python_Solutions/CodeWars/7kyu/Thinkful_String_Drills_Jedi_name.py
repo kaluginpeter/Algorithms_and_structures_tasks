@@ -13,3 +13,6 @@
 # If you're stuck, check out the python.org tutorial section on strings and search "slice".
 #
 # FUNDAMENTALS
+# Solution
+def greet_jedi(first, last):
+    return f'Greetings, master {last[:3].title() + first[:2].title()}'
