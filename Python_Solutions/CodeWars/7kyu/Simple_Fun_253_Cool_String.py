@@ -22,3 +22,6 @@
 # For s = "q q", the output should be false.
 #
 # FUNDAMENTALS
+# Solution
+def cool_string(s):
+    return all(i.isalpha() for i in s) and all(i.isupper() and j.islower() if i.isupper() else i.islower() and j.isupper() for i,j in zip(s, s[1:]))
