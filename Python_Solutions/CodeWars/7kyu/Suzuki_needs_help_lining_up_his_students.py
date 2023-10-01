@@ -32,3 +32,6 @@
 # Help Suzuki rake his garden!
 # How many stairs will Suzuki climb in 20 years?
 # STRINGSSORTINGFUNDAMENTALS
+# Solution
+def lineup_students(s):
+    return sorted(s.split(), key=lambda i:(len(i), i), reverse=True)
