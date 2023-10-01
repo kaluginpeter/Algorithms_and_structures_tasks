@@ -3,3 +3,8 @@
 # Can you help her?
 #
 # DEBUGGING
+# Solution
+def greet(name):
+    if name == "Johnny":
+        return "Hello, my love!"
+    return "Hello, {name}!".format(name=name)
