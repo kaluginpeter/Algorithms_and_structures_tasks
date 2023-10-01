@@ -7,3 +7,6 @@
 # P.S. You have to create a new list and add a new item to that. (This Kata is originally designed for C# language and it shows that adding a new item to the input list is not going to work, even though the parameter is passed by value, but the value is poining to the reference of list and any change on parameter will be seen by caller)
 #
 # FUNDAMENTALS
+# Solution
+def add_extra(list_of_numbers):
+    return list_of_numbers + [1]
