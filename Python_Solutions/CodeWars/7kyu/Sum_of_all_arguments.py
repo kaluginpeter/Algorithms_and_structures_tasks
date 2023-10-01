@@ -13,3 +13,6 @@
 # C: https://www.geeksforgeeks.org/variadic-functions-in-c/
 #
 # FUNDAMENTALS
+# Solution
+def sum_args(*args):
+    return sum([*args])
