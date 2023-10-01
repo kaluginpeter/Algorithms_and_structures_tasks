@@ -9,3 +9,6 @@
 # first(arr, 3) # --> ['a', 'b', 'c']
 # first(arr, 0) # --> []
 # ARRAYSFUNDAMENTALS
+# Solution
+def first(seq, n=1):
+    return seq[:n] if seq else []
