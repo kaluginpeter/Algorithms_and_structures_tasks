@@ -12,3 +12,6 @@
 #
 # [output] a string
 # FUNDAMENTALS
+# Solution
+def reverse_letter(string):
+    return ''.join(reversed(list(i for i in string if i in 'qwertyuiopasdfghjklzxcvbnm')))
