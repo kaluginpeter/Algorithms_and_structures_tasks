@@ -5,3 +5,6 @@
 # to_binary(5)  # should return 101
 # to_binary(11) # should return 1011
 # MATHEMATICSALGORITHMSFUNDAMENTALS
+# Solution
+def to_binary(n):
+    return int(bin(n)[2:])
