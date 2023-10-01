@@ -20,3 +20,6 @@
 #  =9.
 #
 # ARRAYSLISTSFUNDAMENTALS
+# Solution
+def square_sum(numbers):
+    return sum([integer*integer for integer in numbers])
