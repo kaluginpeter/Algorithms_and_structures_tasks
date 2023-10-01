@@ -122,3 +122,6 @@
 # 99-apple
 # 100-pineapple
 # PUZZLESSTRINGSNUMBER THEORYMATHEMATICS
+# Solution
+def subtract_sum(n):
+    return 'apple'
