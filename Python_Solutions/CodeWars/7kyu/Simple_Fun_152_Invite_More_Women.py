@@ -16,3 +16,6 @@
 # true if Arthur need to invite more women, false otherwise.
 #
 # PUZZLES
+# Solution
+def invite_more_women(arr):
+    return sum(arr) > 0
