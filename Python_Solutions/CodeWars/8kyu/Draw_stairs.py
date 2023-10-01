@@ -18,3 +18,10 @@
 #      I
 #       I
 # ASCII ARTALGORITHMS
+# Solution
+def draw_stairs(n):
+    output_string = ''
+    for num in range(0,n-1):
+        output_string += ' '*num + 'I\n'
+    output_string +=  ' '*(n-1) + 'I'
+    return output_string
