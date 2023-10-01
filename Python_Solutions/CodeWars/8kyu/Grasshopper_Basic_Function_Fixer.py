@@ -4,3 +4,6 @@
 # Can you help me fix the function?
 #
 # FUNDAMENTALS
+# Solution
+def add_five(num):
+    return num + 5
