@@ -5,3 +5,7 @@
 # Note: use the π value provided in your language (Math::PI, M_PI, math.pi, etc)
 #
 # FUNDAMENTALSMATHEMATICSGEOMETRY
+# Solution
+import math
+def square_area(A):
+    return round((A * 4 / (math.pi * 2)) ** 2, 2)
