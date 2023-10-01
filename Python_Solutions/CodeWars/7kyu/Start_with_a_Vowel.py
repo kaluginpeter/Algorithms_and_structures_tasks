@@ -5,3 +5,10 @@
 # 'Coding is great' => 'c od ing isgr e at'
 # 'my number is 0208-533-2325' => 'myn umb er is02085332325'
 # REGULAR EXPRESSIONSALGORITHMS
+# Solution
+def vowel_start(s):
+    w = ''
+    for i in s:
+        if i in 'aeiouAEIOU': w += ' ' + i.lower()
+        elif i.isalnum(): w += i.lower()
+    return w.lstrip(' ')
