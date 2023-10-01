@@ -5,3 +5,11 @@
 # next_item([1, 2, 3, 4, 5, 6, 7], 3) # => 4
 # next_item(['Joe', 'Bob', 'Sally'], 'Bob') # => "Sally"
 # FUNDAMENTALSDATA STRUCTURESLOGIC
+# Solution
+def next_item(xs, item):
+    flag = False
+    for  i in xs:
+        if flag:
+            return i
+        if i == item:
+            flag = True
