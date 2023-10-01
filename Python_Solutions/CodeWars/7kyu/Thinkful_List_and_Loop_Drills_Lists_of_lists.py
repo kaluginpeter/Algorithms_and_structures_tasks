@@ -13,3 +13,7 @@
 # For input, you can trust that neither the main list nor the sublists will be empty.
 #
 # FUNDAMENTALS
+# Solution
+import math
+def process_data(data):
+    return math.prod(i-j for i,j in data)
