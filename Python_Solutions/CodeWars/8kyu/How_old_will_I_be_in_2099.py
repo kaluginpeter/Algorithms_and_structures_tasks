@@ -9,3 +9,6 @@
 # Good Luck!
 #
 # FUNDAMENTALS
+# Solution
+def calculate_age(year_of_birth, current_year):
+    return f"You are {current_year - year_of_birth} {'year' if current_year - year_of_birth == 1 else 'years'} old." if year_of_birth < current_year else f"You will be born in {year_of_birth - current_year} {'year' if year_of_birth - current_year == 1 else 'years'}." if year_of_birth > current_year else 'You were born this very year!'
