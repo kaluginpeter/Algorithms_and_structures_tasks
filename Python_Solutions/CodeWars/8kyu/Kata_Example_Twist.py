@@ -3,3 +3,7 @@
 # Add the value "codewars" to the array websites 1,000 times.
 #
 # FUNDAMENTALS
+# Solution
+websites = []
+for i in range(1000):
+    websites.append('codewars')
