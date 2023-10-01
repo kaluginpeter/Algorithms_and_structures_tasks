@@ -7,3 +7,7 @@
 # ball1.ball_type  #=> "regular"
 # ball2.ball_type  #=> "super"
 # FUNDAMENTALS
+# Solution
+class Ball:
+    def __init__(self, ball_type='regular'):
+        self.ball_type = ball_type
