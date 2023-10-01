@@ -7,3 +7,7 @@
 # Good luck!
 #
 # FUNDAMENTALSALGORITHMS
+# Solution
+def reverse(a):
+    l = reversed(''.join(a))
+    return [''.join(next(l) for k in i) for i in a]
