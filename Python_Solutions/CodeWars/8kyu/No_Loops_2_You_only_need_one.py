@@ -9,3 +9,6 @@
 # No Loops 1 - Small enough?
 #
 # FUNDAMENTALSARRAYS
+# Solution
+def check(a, x):
+    return x in a
