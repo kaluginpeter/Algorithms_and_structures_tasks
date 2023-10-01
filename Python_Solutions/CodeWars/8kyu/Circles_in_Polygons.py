@@ -5,3 +5,8 @@
 # As a result you decide to add this information on your boxes: The largest (diameter) circular object that can fit into a given box.
 #
 # MATHEMATICSPUZZLES
+# Solution
+import math
+def circle_diameter(sides, side_length):
+    tan = math.tan(math.pi / sides)
+    return side_length / (2 * tan) * 2
