@@ -18,3 +18,11 @@
 # greek_comparator('psi', 'psi')      == 0
 # greek_comparator('upsilon', 'rho')  >  0
 # FUNDAMENTALSSORTING
+# Solution
+def greek_comparator(lhs, rhs):
+    if greek_alphabet.index(lhs) == greek_alphabet.index(rhs):
+        return 0
+    elif greek_alphabet.index(lhs) < greek_alphabet.index(rhs):
+        return -1
+    elif greek_alphabet.index(lhs) > greek_alphabet.index(rhs):
+        return 1
