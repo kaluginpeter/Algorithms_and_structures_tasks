@@ -12,3 +12,6 @@
 # _if(True, truthy, falsey)
 # # prints 'True' to the console
 # FUNCTIONAL PROGRAMMINGFUNDAMENTALS
+# Solution
+def _if(bool, func1, func2):
+    return func1() if bool == True else func2()
