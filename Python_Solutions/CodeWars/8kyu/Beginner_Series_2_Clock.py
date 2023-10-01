@@ -14,3 +14,10 @@
 # 0 <= m <= 59
 # 0 <= s <= 59
 # FUNDAMENTALS
+# Solution
+def past(h, m, s):
+    hour = h * 60 *60 *1000
+    min = m * 60 * 1000
+    sec = s * 1000
+    all = hour + min + sec
+    return all
