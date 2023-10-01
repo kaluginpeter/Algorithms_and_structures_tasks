@@ -12,3 +12,6 @@
 # Input:  1,3,5,6,7,8 Output: 1,2,3,4,5,6,7,8
 #
 # LISTSFUNDAMENTALS
+# Solution
+def pipe_fix(nums):
+    return [i for i in range(min(nums), max(nums) + 1)]
