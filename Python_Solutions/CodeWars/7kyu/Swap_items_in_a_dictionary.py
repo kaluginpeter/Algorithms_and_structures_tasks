@@ -11,3 +11,9 @@
 # The dictionary given will not be empty
 # You do not have to sort the items in the lists
 # FUNDAMENTALSARRAYSLOGIC
+# Solution
+def switch_dict(dic):
+    res = {}
+    for key, value in dic.items():
+        res.setdefault(value, []).append(key)
+    return res
