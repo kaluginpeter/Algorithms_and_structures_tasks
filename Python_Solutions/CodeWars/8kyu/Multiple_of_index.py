@@ -7,3 +7,6 @@
 #
 # [-56,-85,72,-26,-14,76,-27,72,35,-21,-67,87,0,21,59,27,-92,68] => [-85, 72, 0, 68]
 # FUNDAMENTALSARRAYS
+# Solution
+def multiple_of_index(arr):
+    return [arr[i] for i in range(1, len(arr)) if arr[i] % i == 0]
