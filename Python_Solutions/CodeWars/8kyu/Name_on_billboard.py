@@ -5,3 +5,6 @@
 # If your name would be Jeong-Ho Aristotelis, ad would cost £600. 20 leters * 30 = 600 (Space counts as a character).
 #
 # FUNDAMENTALSRESTRICTEDSTRINGS
+# Solution
+def billboard(name, price=30):
+    return sum(price for i in range(len(name)))
