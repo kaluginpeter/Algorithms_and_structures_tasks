@@ -13,3 +13,6 @@
 # Input is always going to be valid/reasonable: ie: a non negative number; extra cookie for not using a loop to compute square-by-square (at least not directly) and instead trying a smarter approach [hint: some peculiar operator]; a trick converting the number might also work: impress me!
 #
 # MATHEMATICSRECURSIONPUZZLES
+# Solution
+def squares_needed(grains):
+    return grains.bit_length()
