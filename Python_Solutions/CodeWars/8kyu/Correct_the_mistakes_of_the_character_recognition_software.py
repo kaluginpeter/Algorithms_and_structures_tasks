@@ -10,3 +10,9 @@
 # The test cases contain numbers only by mistake.
 #
 # FUNDAMENTALSSTRINGS
+# Solution
+def correct(s):
+    s = s.replace('5', 'S')
+    s = s.replace('0', 'O')
+    s = s.replace('1', 'I')
+    return s
