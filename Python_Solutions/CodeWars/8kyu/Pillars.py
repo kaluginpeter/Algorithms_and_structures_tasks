@@ -6,3 +6,6 @@
 # Calculate the distance between the first and the last pillar in centimeters (without the width of the first and last pillar).
 #
 # FUNDAMENTALSMATHEMATICS
+# Solution
+def pillars(num_pill, dist, width):
+    return (num_pill - 2) * width + (100 * dist) * (num_pill - 1) if num_pill > 1 else 0
