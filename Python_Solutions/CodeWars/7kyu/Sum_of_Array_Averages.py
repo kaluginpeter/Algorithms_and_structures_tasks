@@ -17,3 +17,8 @@
 # import math
 # math.floor(44.2) = 44
 # ARRAYSMATHEMATICSALGORITHMS
+# Solution
+from statistics import mean
+from math import floor
+def sum_average(arr):
+    return floor(sum(mean(i) for i in arr))
