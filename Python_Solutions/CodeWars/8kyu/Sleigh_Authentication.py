@@ -11,3 +11,7 @@
 # sleigh.authenticate('Santa Claus', 'Ho Ho!') # must return False
 # sleigh.authenticate('jhoffner', 'CodeWars') # Nope, even Jake is not allowed to use the sleigh ;)
 # FUNDAMENTALS
+# Solution
+class Sleigh(object):
+    def authenticate(self, name, password):
+        return name == 'Santa Claus' and password == 'Ho Ho Ho!'
