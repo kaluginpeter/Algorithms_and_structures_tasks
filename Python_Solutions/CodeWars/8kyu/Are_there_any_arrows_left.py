@@ -10,3 +10,6 @@
 # Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions
 #
 # FUNDAMENTALS
+# Solution
+def any_arrows(arrows):
+    return any(not arrow.get('damaged', False) for arrow in arrows)
