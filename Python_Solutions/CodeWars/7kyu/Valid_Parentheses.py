@@ -15,3 +15,11 @@
 # Protip: If you are trying to figure out why a string of parentheses is invalid, paste the parentheses into the code editor, and let the code highlighting show you!
 #
 # STRINGSPARSINGALGORITHMS
+# Solution
+def valid_parentheses(paren_str):
+    c = 0
+    for i in paren_str:
+        if i == ')': c -=1
+        elif c < 0: return False
+        elif i == '(': c += 1
+    return c == 0
