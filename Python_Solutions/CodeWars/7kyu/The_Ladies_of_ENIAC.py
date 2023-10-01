@@ -8,3 +8,7 @@
 # Result should be all in uppercase.
 #
 # STRINGSREGULAR EXPRESSIONSFUNDAMENTALS
+# Solution
+import re
+def rad_ladies(name):
+    return "".join(re.findall("[A-Z\s!]+", name.upper()))
