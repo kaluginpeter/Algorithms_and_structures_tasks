@@ -15,3 +15,10 @@
 # Because you're a nice person, you always round up the tip, regardless of the service.
 #
 # FUNDAMENTALS
+# Solution
+import math
+def calculate_tip(amount, rating):
+    rating_dict = {'poor': 5, 'good': 10, 'great': 15, 'excellent': 20, 'terrible': 0}
+    if rating.lower() in rating_dict:
+        return math.ceil(rating_dict[rating.lower()] * amount / 100)
+    return 'Rating not recognised'
