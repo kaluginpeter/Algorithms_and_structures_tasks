@@ -9,3 +9,6 @@
 # 1 Imperial Gallon = 4.54609188 litres
 # 1 Mile = 1.609344 kilometres
 # ALGORITHMS
+# Solution
+def converter(mpg):
+    return round(mpg * 1.609344 / 4.54609188, 2)
