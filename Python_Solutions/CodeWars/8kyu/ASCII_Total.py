@@ -5,3 +5,6 @@
 # uniTotal("a") == 97
 # uniTotal("aaa") == 291
 # FUNDAMENTALS
+# Solution
+def uni_total(s):
+    return sum(ord(i) for i in s)
