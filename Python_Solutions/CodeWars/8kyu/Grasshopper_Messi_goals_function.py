@@ -12,3 +12,6 @@
 #
 # 5, 10, 2  -->  17
 # FUNDAMENTALS
+# Solution
+def goals(laLiga, copaDelRey, championsLeague):
+    return laLiga + copaDelRey + championsLeague
