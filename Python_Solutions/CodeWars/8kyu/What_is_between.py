@@ -6,3 +6,9 @@
 # b = 4
 # --> [1, 2, 3, 4]
 # FUNDAMENTALSALGORITHMS
+# Solution
+def between(a,b):
+    list = []
+    for i in range(a, b+1):
+        list.append(i)
+    return list
