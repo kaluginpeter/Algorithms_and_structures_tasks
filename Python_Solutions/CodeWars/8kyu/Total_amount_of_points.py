@@ -17,3 +17,12 @@
 # 0 <= x <= 4
 # 0 <= y <= 4
 # FUNDAMENTALSARRAYSSTRINGS
+# Solution
+def points(games):
+    point = 0
+    for match in games:
+        if int(match[0]) > int(match[2]):
+            point+=3
+        elif int(match[0]) == int(match[2]):
+            point +=1
+    return point
