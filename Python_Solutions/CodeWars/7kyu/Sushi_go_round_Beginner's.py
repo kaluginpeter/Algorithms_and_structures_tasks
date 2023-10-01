@@ -13,3 +13,6 @@
 # "rr rrr"       -->  8     # 5 plates, 1 free
 # "rrrrr rrrrr"  -->  16    # 10 plates, 2 free
 # FUNDAMENTALSSTRINGSLOGIC
+# Solution
+def total_bill(s):
+    return s.count('r') * 2 if s.count('r') < 5 else (s.count('r') - (s.count('r')//5)) * 2
