@@ -7,3 +7,7 @@
 # Tests round answers to 6 decimal places.
 #
 # GEOMETRYFUNDAMENTALS
+# Solution
+import math
+def circle_circumference(circle):
+    return 2*(math.pi * circle.radius)
