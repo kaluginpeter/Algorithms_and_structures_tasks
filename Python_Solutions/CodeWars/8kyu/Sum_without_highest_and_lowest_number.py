@@ -12,3 +12,9 @@
 # If an empty value ( null, None, Nothing etc. ) is given instead of an array, or the given array is an empty list or a list with only 1 element, return 0.
 #
 # FUNDAMENTALS
+# Solution
+def sum_array(arr):
+    if arr == [] or arr is None or len(arr) == 1:
+        return 0
+    integer = sum(arr)
+    return integer - max(arr) - min(arr)
