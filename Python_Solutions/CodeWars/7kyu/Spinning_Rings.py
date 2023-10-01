@@ -18,3 +18,11 @@
 # for a bigger challenge, check out the Performance Version of this kata by @Voile
 #
 # FUNDAMENTALS
+# Solution
+def spinning_rings(inner_max, outer_max):
+    a, b, c = inner_max, 1, 1
+    while a != b:
+        a = (a + inner_max) % (inner_max+1)
+        b = (b + 1) % (outer_max+1)
+        c += 1
+    return c
