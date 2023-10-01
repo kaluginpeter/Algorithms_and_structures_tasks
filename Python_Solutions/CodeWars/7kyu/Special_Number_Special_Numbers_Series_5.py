@@ -38,3 +38,6 @@
 # Enjoy Learning !!
 # Zizou
 # FUNDAMENTALSMATHEMATICS
+# Solution
+def special_number(number):
+    return "Special!!" if max(str(number)) <= "5" else "NOT!!"
