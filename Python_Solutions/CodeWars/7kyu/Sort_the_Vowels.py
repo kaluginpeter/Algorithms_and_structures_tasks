@@ -23,3 +23,9 @@
 # Each line is seperated with \n
 # Invalid input ( undefined / null / integer ) should return an empty string
 # FUNDAMENTALSALGORITHMSSTRINGS
+# Solution
+def sort_vowels(s):
+    try:
+        return '\n'.join(i+'|' if i.lower() not in 'aeoiu' else '|'+i for i in s)
+    except:
+        return ''
