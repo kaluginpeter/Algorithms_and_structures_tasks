@@ -25,3 +25,6 @@
 # More Challenge
 # Are you a One-Liner? Please try to complete the kata in one line(no test for it) ;-)
 # PUZZLES
+# Solution
+def array_packing(arr):
+	return sum(v * 256 ** k for k, v in enumerate(arr))
