@@ -25,3 +25,13 @@
 #     def __str__(self): return "Fighter({}, {}, {})".format(self.name, self.health, self.damage_per_attack)
 #     __repr__=__str__
 # GAMESALGORITHMSLOGICFUNDAMENTALS
+# Solution
+def declare_winner(fighter1, fighter2, first_attacker):
+    while fighter1.health > 0 or fighter2.health > 0:
+        if first_attacker == fighter1.name:
+            fighter2.health -= fighter1.damage_per_attack
+            first_attacker = fighter2.name
+        elif first_attacker == fighter2.name:
+            fighter1.health -= fighter2.damage_per_attack
+            first_attacker = fighter1.name
+    return first_attacker
