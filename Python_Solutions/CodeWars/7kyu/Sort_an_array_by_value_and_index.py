@@ -24,3 +24,6 @@
 # I have also created other katas. Take a look if you enjoyed this kata!
 #
 # ARRAYSALGORITHMSSORTING
+# Solution
+def sort_by_value_and_index(arr):
+    return [i[1] for i in sorted(enumerate(arr), key=lambda x:(x[0] + 1) * x[1])]
