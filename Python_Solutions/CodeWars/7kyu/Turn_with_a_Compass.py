@@ -13,3 +13,7 @@
 #
 # Translations are welcome!
 # ALGORITHMS
+# Solution
+def direction(facing, turn):
+    d = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']
+    return d[(turn // 45 + d.index(facing)) % 8]
