@@ -21,3 +21,12 @@
 # A Boolean value (True or False).
 #
 # ARRAYSFUNDAMENTALS
+# Solution
+from functools import reduce
+def logical_calc(array, op):
+    if op == "AND":
+        return all(array)
+    elif op == "OR":
+        return any(array)
+    elif op == "XOR":
+        return reduce(lambda x, y: x ^ y, array)
