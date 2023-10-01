@@ -24,3 +24,6 @@
 # true if the person contradicts Mary's belief, false otherwise.
 #
 # PUZZLES
+# Solution
+def will_you(young, beautiful, loved):
+    return (young and beautiful) != loved
