@@ -13,3 +13,9 @@
 # Triangular Numbers cannot be negative so return 0 if a negative number is given.
 #
 # MATHEMATICSFUNDAMENTALS
+# Solution
+def sum_triangular_numbers(n):
+    if n < 0:
+        return 0
+    sum = sum_triangular_numbers(n-1)
+    return sum + (n * (n + 1)) / 2
