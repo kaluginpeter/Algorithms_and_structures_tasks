@@ -9,3 +9,12 @@
 # Your points are not included in the array of your class's points. For calculating the average point you may add your point to the given array!
 #
 # FUNDAMENTALS
+# Solution
+from statistics import mean
+def better_than_average(class_points, your_points):
+    class_points.insert(0, your_points)
+    avr = mean(class_points)
+    if your_points > avr:
+        return True
+    else:
+        return False
