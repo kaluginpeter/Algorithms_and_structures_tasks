@@ -52,3 +52,7 @@
 # The number of days that it will take for the plant to reach/pass desiredHeight (including the last day in the total count).
 #
 # ALGORITHMS
+# Solution
+from math import ceil
+def growing_plant(up, down, h):
+    return max(ceil((h - down) / (up - down)), 1)
