@@ -9,3 +9,11 @@
 # [] --> []
 # ["a", "b", "c"] --> ["1: a", "2: b", "3: c"]
 # ARRAYSFUNDAMENTALS
+# Solution
+def number(lines):
+    list = []
+    i = 1
+    for elem in lines:
+        list.append(f"{i}: {elem}")
+        i += 1
+    return list
