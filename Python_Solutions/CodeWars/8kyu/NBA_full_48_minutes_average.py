@@ -13,3 +13,9 @@
 # Follow your dreams!
 #
 # FUNDAMENTALSMATHEMATICS
+# Solution
+def nba_extrap(ppg, mpg):
+    if mpg == 0:
+        return 0
+    else:
+        return round((float(ppg) / mpg) * 48, 1)
