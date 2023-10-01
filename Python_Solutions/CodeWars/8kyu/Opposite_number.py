@@ -6,3 +6,6 @@
 # 14: -14
 # -34: 34
 # FUNDAMENTALS
+# Solution
+def opposite(number):
+    return number * -1
