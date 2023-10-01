@@ -9,3 +9,7 @@
 # //         bri    first half (lower-cased)
 # //            AN second half (upper-cased)
 # STRINGSFUNDAMENTALS
+# Solution
+def sillycase(silly):
+    half_life = (len(silly) + 1) // 2
+    return silly[:half_life].lower() + silly[half_life:].upper()
