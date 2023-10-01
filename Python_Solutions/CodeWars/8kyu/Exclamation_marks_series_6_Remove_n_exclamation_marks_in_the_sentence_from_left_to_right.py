@@ -14,3 +14,6 @@
 # remove("!!!Hi !!hi!!! !hi",5) === "Hi hi!!! !hi"
 # remove("!!!Hi !!hi!!! !hi",100) === "Hi hi hi"
 # FUNDAMENTALS
+# Solution
+def remove(s, n):
+    return s.replace('!', '', n)
