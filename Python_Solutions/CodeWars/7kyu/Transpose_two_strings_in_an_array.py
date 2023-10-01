@@ -15,3 +15,7 @@
 # You don't have to modify the case (i.e. no need to change to upper or lower)
 # If one string is longer than the other, there should be a space where the character would be
 # ARRAYSSTRINGSFUNDAMENTALS
+# Solution
+import itertools
+def transpose_two_strings(arr):
+    return '\n'.join(' '.join(i) for i in itertools.zip_longest(arr[0], arr[1], fillvalue=' '))
