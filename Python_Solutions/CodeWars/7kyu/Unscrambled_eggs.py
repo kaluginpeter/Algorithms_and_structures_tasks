@@ -8,3 +8,6 @@
 # Kata is supposed to be for beginners to practice regular expressions, so commenting would be appreciated.
 #
 # FUNDAMENTALS
+# Solution
+def unscramble_eggs(word):
+    return word.replace('egg', '')
