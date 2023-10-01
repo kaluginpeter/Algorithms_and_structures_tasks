@@ -7,3 +7,6 @@
 # You can assume, for the purpose of this kata, that the supplied array will not be empty.
 #
 # FUNDAMENTALS
+# Solution
+def find_smallest_int(arr):
+    return min(arr)
