@@ -140,3 +140,8 @@
 # #41: Regular Expression--""
 # #42: Regular Expression--(?:), (?=) and (?!)
 # FUNDAMENTALSTUTORIALS
+# Solution
+def shuffle_it(arr, *args):
+    for k,v in args:
+        arr[k], arr[v] = arr[v], arr[k]
+    return arr
