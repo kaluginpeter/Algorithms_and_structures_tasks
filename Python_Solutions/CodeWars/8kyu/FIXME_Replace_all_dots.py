@@ -9,3 +9,6 @@
 # String str will never be null.
 #
 # DEBUGGING
+# Solution
+def replace_dots(str):
+    return str.replace('.', '-')
