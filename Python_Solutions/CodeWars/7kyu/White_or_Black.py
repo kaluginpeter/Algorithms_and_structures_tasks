@@ -7,3 +7,6 @@
 # "b", 2  ==>  "black"
 # "f", 5  ==>  "white"
 # ALGORITHMS
+# Solution
+def square_color(file, c):
+    return 'white' if (ord(file) + c) % 2 else 'black'
