@@ -8,3 +8,10 @@
 # [1, 1, 2] -> [1, 2]
 # [1, 2, 1, 1, 3, 2] -> [1, 2, 3]
 # FUNDAMENTALSARRAYSLISTS
+# Solution
+def distinct(seq):
+    new_list = []
+    for elem in seq:
+        if elem not in new_list:
+            new_list.append(elem)
+    return new_list
