@@ -3,3 +3,6 @@
 # You can assume the input will always be a number.
 #
 # REGULAR EXPRESSIONSFUNDAMENTALS
+# Solution
+def validate_code(code):
+    return str(code)[0] in '123'
