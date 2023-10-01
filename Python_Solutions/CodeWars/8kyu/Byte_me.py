@@ -31,3 +31,6 @@
 # [1,2]      72      Lists have more info stored (e.g index).
 # (1,2)      56      Tuples are (kind of) just bowls of data.
 # PUZZLES
+# Solution
+import sys
+def total_bytes(object): return sys.getsizeof(object)
