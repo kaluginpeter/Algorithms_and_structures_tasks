@@ -11,3 +11,8 @@
 # Create a function that can receive two 'fangs' and determine if the product of the two is a valid vampire number.
 #
 # FUNDAMENTALS
+# Solution
+def vampire_test(x, y):
+    l = [i for i in str(x * y)]
+    w = str(x) + str(y)
+    return all(i in l for i in w) and len(w) == len(l)
