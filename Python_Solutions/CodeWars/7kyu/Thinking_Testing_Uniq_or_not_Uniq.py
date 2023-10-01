@@ -48,3 +48,6 @@
 # Play Tetris : Shape anastomosis
 # Play FlappyBird : Advance Bravely
 # PUZZLESGAMES
+# Solution
+def testit(a, b):
+    return sorted(list(set(a)) + list(set(b)))
