@@ -15,3 +15,9 @@
 # Sum of a sequence (this kata)
 # Sum of a Sequence [Hard-Core Version]
 # FUNDAMENTALSALGORITHMSMATHEMATICS
+# Solution
+def sequence_sum(begin_number, end_number, step):
+    sum = 0
+    for i in range(begin_number, end_number + 1, step):
+        sum += i
+    return sum
