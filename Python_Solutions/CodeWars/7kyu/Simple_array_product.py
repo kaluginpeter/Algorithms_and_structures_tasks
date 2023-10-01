@@ -7,3 +7,9 @@
 # More examples in test cases. Good luck!
 #
 # FUNDAMENTALS
+# Solution
+def solve(arr):
+    l = arr[0]
+    for k in range(1, len(arr)):
+        l = [x * y for x in l for y in arr[k]]
+    return max(l)
