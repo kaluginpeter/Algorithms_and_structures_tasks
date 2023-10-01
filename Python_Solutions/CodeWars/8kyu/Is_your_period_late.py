@@ -11,3 +11,7 @@
 # Return true if the number of days passed from last to today is greater than cycleLength. Otherwise, return false.
 #
 # FUNDAMENTALSDATE TIME
+# Solution
+from datetime import *
+def period_is_late(last, today, cycle_length):
+    return last + timedelta(days = cycle_length) < today
