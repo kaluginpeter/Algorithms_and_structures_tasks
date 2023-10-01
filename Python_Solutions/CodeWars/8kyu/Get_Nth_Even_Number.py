@@ -9,3 +9,6 @@
 # The input will not be 0.
 #
 # MATHEMATICSPUZZLESALGORITHMS
+# Solution
+def nth_even(n):
+    return n * 2 - 2
