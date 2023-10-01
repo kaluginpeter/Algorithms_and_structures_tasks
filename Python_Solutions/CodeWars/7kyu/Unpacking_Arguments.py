@@ -6,3 +6,6 @@
 # # is the same as...
 # someFunction(1, true, "Foo", "bar")
 # FUNCTIONAL PROGRAMMINGFUNDAMENTALS
+# Solution
+def spread(func, args):
+    return func(*args)
