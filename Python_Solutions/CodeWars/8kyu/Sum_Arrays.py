@@ -19,3 +19,6 @@
 # Advanced users may find this extremely easy and can easily write this in one line.
 #
 # ARRAYSFUNDAMENTALS
+# Solution
+def sum_array(a):
+    return sum(a)
