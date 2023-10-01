@@ -16,3 +16,8 @@
 # 'Showing 1 to 8 of 8 Products.'
 #
 # ALGORITHMS
+# Solution
+def pagination_text(page_number, page_size, total_products):
+    f = page_size * (page_number - 1) + 1
+    c = min(total_products, f + page_size - 1)
+    return "Showing %d to %d of %d Products." % (f, c, total_products)
