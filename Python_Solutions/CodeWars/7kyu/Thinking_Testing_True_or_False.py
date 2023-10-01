@@ -51,3 +51,6 @@
 # Play FlappyBird : Advance Bravely
 #
 # PUZZLES
+# Solution
+def testit(n):
+    return bin(n).count('1')
