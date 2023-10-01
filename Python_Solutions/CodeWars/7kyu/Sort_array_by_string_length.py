@@ -11,3 +11,7 @@
 # All of the strings in the array passed to your function will be different lengths, so you will not have to decide how to order multiple strings of the same length.
 #
 # SORTINGARRAYSFUNDAMENTALS
+# Solution
+def sort_by_length(arr):
+    arr.sort(key=len)
+    return sorted(arr, key=len)
