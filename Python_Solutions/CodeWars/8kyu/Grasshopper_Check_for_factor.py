@@ -14,3 +14,6 @@
 # Note: base is a non-negative number, factor is a positive number.
 #
 # MATHEMATICSFUNDAMENTALS
+# Solution
+def check_for_factor(base, factor):
+    return base % factor == 0
