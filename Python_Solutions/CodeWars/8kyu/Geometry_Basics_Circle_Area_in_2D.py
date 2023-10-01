@@ -22,3 +22,7 @@
 # Tests round answers to 6 decimal places.
 #
 # GEOMETRYFUNDAMENTALS
+# Solution
+import math
+def circle_area(circle):
+    return circle.radius**2 * math.pi
