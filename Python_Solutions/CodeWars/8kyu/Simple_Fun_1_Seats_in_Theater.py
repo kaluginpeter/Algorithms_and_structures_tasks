@@ -41,3 +41,6 @@
 # The number of people who sit strictly behind you and in your column or to the left.
 #
 # PUZZLESMATHEMATICS
+# Solution
+def seats_in_theater(tot_cols, tot_rows, col, row):
+    return (tot_cols - col + 1) * (tot_rows - row)
