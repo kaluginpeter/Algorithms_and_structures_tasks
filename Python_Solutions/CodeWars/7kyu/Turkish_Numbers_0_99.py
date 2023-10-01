@@ -42,3 +42,8 @@
 # Good luck, or iyi şanslar :)
 #
 # FUNDAMENTALS
+# Solution
+def get_turkish_number(n):
+    units = ' bir iki üç dört beş altı yedi sekiz dokuz'.split(' ')
+    tens  = ' on yirmi otuz kırk elli altmış yetmiş seksen doksan'.split(' ')
+    return f'{tens[n // 10]} {units[n % 10]}'.strip() or 'sıfır'
