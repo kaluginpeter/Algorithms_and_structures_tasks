@@ -8,3 +8,6 @@
 # Assume there will always be a sum of x consecutive integers that totals to y and n will never be indexed out of bounds.
 #
 # MATHEMATICSALGORITHMS
+# Solution
+def position(x, y, n):
+    return y//x - x//2 + (x % 2 == 0) + n
