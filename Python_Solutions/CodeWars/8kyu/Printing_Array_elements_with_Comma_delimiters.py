@@ -9,3 +9,6 @@
 # Note: if this seems too simple for you try the next level
 #
 # ARRAYSFUNDAMENTALS
+# Solution
+def print_array(arr):
+    return ','.join([str(i) for i in arr])
