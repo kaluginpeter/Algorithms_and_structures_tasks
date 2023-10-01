@@ -9,3 +9,6 @@ A# Find the second-to-last element of a list.
 # (courtesy of haskell.org)
 #
 # LISTSFUNDAMENTALS
+# Solution
+def penultimate(a):
+    return a[-2]
