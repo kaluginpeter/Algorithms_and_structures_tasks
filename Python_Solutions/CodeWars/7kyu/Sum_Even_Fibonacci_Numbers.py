@@ -9,3 +9,10 @@
 # Example:
 # sumEvenFibonacci(8) // returns 10 by adding the even values 2 and 8
 # FUNDAMENTALS
+# Solution
+def SumEvenFibonacci(limit):
+    a, b, c = 1, 1, 0
+    while a <= limit:
+        if not a % 2: c += a
+        a, b = b, a + b
+    return c
