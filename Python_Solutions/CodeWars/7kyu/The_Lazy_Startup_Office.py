@@ -27,3 +27,13 @@
 #
 # ["Stefan", "Raj", "Marie", "Edward", "Amy", "Alexa", "Liz", "Claire", "Juan", "Katie", "Luke", "Dee"])
 # ARRAYSMATRIXFUNDAMENTALS
+# Solution
+def bin_rota(arr):
+    l = []
+    for i in range(len(arr)):
+        if i % 2 == 0:
+            l += arr[i]
+            continue
+        else:
+            l += arr[i][::-1]
+    return l
