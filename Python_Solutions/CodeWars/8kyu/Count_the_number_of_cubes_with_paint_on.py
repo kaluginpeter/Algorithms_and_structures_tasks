@@ -8,3 +8,6 @@
 # If we cut the cube 2 times, the function should return 26
 # If we cut the cube 4 times, the function should return 98
 # PUZZLES
+# Solution
+def count_squares(cuts):
+    return (cuts+1) ** 3 - (cuts-1) ** 3
