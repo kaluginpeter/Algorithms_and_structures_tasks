@@ -14,3 +14,7 @@
 # Please also try Simple remove duplicates
 #
 # STRINGSFUNDAMENTALS
+# Solution
+def solve(a,b):
+    return ''.join(i if i not in b else '' for i in a) + ''.join(i if i not in a else '' for i in b)
+#set(a)^(set(b))
