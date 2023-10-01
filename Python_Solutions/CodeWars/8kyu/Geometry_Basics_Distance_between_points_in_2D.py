@@ -7,3 +7,6 @@
 # Tests compare expected result and actual answer with tolerance of 1e-6.
 #
 # GEOMETRYFUNDAMENTALS
+# Solution
+def distance_between_points(a, b):
+    return ((b.x - a.x) ** 2 + (b.y - a.y) ** 2) ** 0.5
