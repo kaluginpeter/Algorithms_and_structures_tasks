@@ -23,3 +23,12 @@
 # Job Matching #2
 # Job Matching #3
 # ALGORITHMS
+# Solution
+def match(candidate, job):
+    value = 0
+    value1 = 0
+    for k,v in candidate.items():
+        value = v
+    for k,v in job.items():
+        value1 = v
+    return value - value/10 <= value1
