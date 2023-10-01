@@ -2,3 +2,6 @@
 #
 # ◄PREVIOUS KATANEXT KATA►
 # STRINGSDEBUGGING
+# Solution
+def build_string(*args):
+    return "I like {}!".format(", ".join(i for i in args))
