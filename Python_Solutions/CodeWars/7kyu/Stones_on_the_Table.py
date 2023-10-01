@@ -8,3 +8,12 @@
 # "RGGRGBBRGRR"  => 3
 # "RRRRGGGGBBBB" => 9
 # FUNDAMENTALS
+# Solution
+import re
+def solution(stones):
+    res = 0
+    for i in 'RGB':
+        matches = re.findall(rf'{i}+', stones)
+        for match in matches:
+            res += len(match)-1
+    return res
