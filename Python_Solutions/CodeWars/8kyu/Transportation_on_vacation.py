@@ -7,3 +7,12 @@
 # Write a code that gives out the total amount for different days(d).
 #
 # FUNDAMENTALS
+# Solution
+def rental_car_cost(d):
+    cost = 40
+    if d <4:
+        return d * cost
+    elif 4 <= d < 7:
+        return d * cost - 20
+    elif d >= 7:
+        return d * cost - 50
