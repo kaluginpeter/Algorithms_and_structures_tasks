@@ -6,3 +6,8 @@
 # If a and b have the same length treat a as the longer producing b+reverse(a)+b
 #
 # STRINGSFUNDAMENTALS
+# Solution
+def shorter_reverse_longer(a, b):
+    if len(a) < len(b):
+        return f'{a}{b[::-1]}{a}'
+    return f'{b}{a[::-1]}{b}'
