@@ -7,3 +7,10 @@
 # Note: math.pow and some others math functions are disabled on final tests.
 #
 # RESTRICTED
+# Solution
+def number_to_pwr(number, p):
+    if p == 0: return 1
+    s = number
+    for i in range(p-1):
+        number *= s
+    return number
