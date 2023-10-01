@@ -25,3 +25,18 @@
 # 0=0
 #
 # FUNDAMENTALS
+# Solution
+def show_sequence(n):
+    sum=0
+    s=''
+    if n==0:
+        return "0=0"
+    elif n<0:
+        return str(n)+"<0"
+    else:
+        for i in range(0,n+1):
+            sum += i
+            s+=str(i)+'+'
+        s = s.strip('+')
+        s = s +" = "+str(sum)
+        return s
