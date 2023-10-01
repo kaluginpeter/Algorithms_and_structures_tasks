@@ -7,3 +7,6 @@
 # 999  --> "999"
 # -100 --> "-100"
 # STRINGSFUNDAMENTALS
+# Solution
+def number_to_string(num):
+    return str(num)
