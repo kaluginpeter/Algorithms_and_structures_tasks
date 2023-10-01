@@ -16,3 +16,6 @@
 # Write a function called decode(). Given an encoded string of exactly 10 digits, return the actual phone number in string form. Don't worry about input validation, parenthesis, or hyphens.
 #
 # CRYPTOGRAPHYPUZZLES
+# Solution
+def decode(s):
+    return s.translate(str.maketrans("1234567890", "9876043215"))
