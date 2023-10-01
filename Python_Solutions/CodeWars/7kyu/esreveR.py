@@ -3,3 +3,9 @@
 # (the dedicated builtin(s) functionalities are deactivated)
 #
 # FUNCTIONAL PROGRAMMINGFUNDAMENTALS
+# Solution
+def reverse(lst):
+    list1 = list()
+    for elem in lst:
+        list1.insert(0, elem)
+    return list1
