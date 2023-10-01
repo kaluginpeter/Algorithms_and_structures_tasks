@@ -13,3 +13,10 @@
 # Hint: Don't forget to check for bad values like null/undefined
 #
 # ARRAYSFUNDAMENTALS
+# Solution
+def count_sheeps(sheep):
+    count = 0
+    for elem in sheep:
+        if elem == True:
+            count += 1
+    return count
