@@ -9,3 +9,6 @@
 # Hint: Based on the two guidelines given above, you will want to account for the change in starting mark per change in body height. This involves a linear relationship. (If you're not clear on that, search online for "linear equation.") But there is also a constant offset involved. If you can determine the rate of change described above, you should be able to determine that constant offset.
 #
 # FUNDAMENTALSMATHEMATICSPUZZLES
+# Solution
+def starting_mark(height):
+    return round((height - 1.22) * 3.934 + 8.27, 2)
