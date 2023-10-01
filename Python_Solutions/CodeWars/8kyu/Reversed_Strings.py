@@ -3,3 +3,6 @@
 # 'world'  =>  'dlrow'
 # 'word'   =>  'drow'
 # STRINGSFUNDAMENTALS
+# Solution
+def solution(string):
+    return string[::-1]
