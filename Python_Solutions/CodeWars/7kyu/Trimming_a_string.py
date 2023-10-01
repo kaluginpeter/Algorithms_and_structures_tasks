@@ -15,3 +15,10 @@
 # Requested maximum length will be greater than 0. Input string will not be empty.
 #
 # FUNDAMENTALS
+# Solution
+def trim(phrase, size):
+    if len(phrase) <= size:
+        return phrase
+    elif size <= 3 :
+        return phrase[:size] + '...'
+    return phrase[:size - 3] + '...'
