@@ -9,3 +9,6 @@
 #
 # vowelOne "aeiou, abc" -- "1111100100"
 # FUNDAMENTALSSTRINGS
+# Solution
+def vowel_one(s):
+    return ''.join('1' if i.lower() in 'aeoiu' else '0' for i in s)
