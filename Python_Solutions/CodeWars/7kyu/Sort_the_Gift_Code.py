@@ -11,3 +11,6 @@
 # "pqksuvy"                     -- => "kpqsuvy"
 # "zyxwvutsrqponmlkjihgfedcba"  -- => "abcdefghijklmnopqrstuvwxyz"
 # SORTINGSTRINGSFUNDAMENTALS
+# Solution
+def sort_gift_code(code):
+    return ''.join(sorted(list(i for i in code)))
