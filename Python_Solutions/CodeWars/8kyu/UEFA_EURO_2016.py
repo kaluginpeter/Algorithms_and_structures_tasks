@@ -4,3 +4,6 @@
 # uefa_euro_2016(['Belgium', 'Italy'],[0, 2]) # "At match Belgium - Italy, Italy won!"
 # uefa_euro_2016(['Portugal', 'Iceland'],[1, 1]) # "At match Portugal - Iceland, teams played draw."
 # STRINGSARRAYSFUNDAMENTALS
+# Solution
+def uefa_euro_2016(teams, scores):
+    return f"At match {teams[0]} - {teams[1]}, {teams[1]} won!" if scores[0] < scores[1] else  f"At match {teams[0]} - {teams[1]}, {teams[0]} won!" if scores[0] > scores[1] else f"At match {teams[0]} - {teams[1]}, teams played draw."
