@@ -20,3 +20,8 @@
 # For lastPlayer = "white" and win = true, the output should be "white".
 #
 # PUZZLES
+# Solution
+def whoseMove(lastPlayer, win):
+    if lastPlayer=="black" and win==False: return "white"
+    if lastPlayer=="white"and win==True: return "white"
+    return "black"
