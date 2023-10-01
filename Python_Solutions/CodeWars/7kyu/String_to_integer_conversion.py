@@ -12,3 +12,9 @@
 # For all other strings (including the ones representing float values), it should return NaN
 # It should assume that all numbers are not signed and written in base 10
 # STRINGSREGULAR EXPRESSIONSFUNDAMENTALS
+# Solution
+def my_parse_int(string):
+    try:
+        return int(string)
+    except:
+        return 'NaN'
