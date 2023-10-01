@@ -17,3 +17,9 @@
 # Note: newlines should be added between rows, but there should be no trailing newline at the end. If you're unsure about the format, look at the sample tests.
 #
 # FUNDAMENTALSSTRINGS
+# Solution
+def multi_table(number):
+    out = ""
+    for num in range(1,11):
+        out += (str(num) + " * " + str(number) + " = " + str(num * number ) + "\n")
+    return out.strip()
