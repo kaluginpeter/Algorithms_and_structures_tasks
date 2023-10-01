@@ -5,3 +5,6 @@
 # Good luck!
 #
 # FUNDAMENTALS
+# Solution
+def sum_square_even_root_odd(nums):
+    return round(sum(i**2 if i%2==0 else i **.5 for i in nums), 2)
