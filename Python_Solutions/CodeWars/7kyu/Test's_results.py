@@ -8,3 +8,16 @@
 #
 # [5, 6, 4, 8, 9, 8, 9, 10, 10, 10] ==> [7.9, {'h': 5, 'a': 2, 'l': 3}]
 # FUNDAMENTALSLISTS
+# Solution
+def test(r):
+    avr = round(sum(r)/len(r), 3)
+    h, a, l = 0, 0, 0
+    for mark in r:
+        if 9 <= mark <= 10:
+            h += 1
+        elif 7 <= mark <= 8:
+            a += 1
+        elif 1 <= mark <= 6:
+            l += 1
+    l = [avr, {'h': h, 'a': a, 'l': l}, f"{'They did well' if a + l == 0 else ''}"]
+    return l[:-1] if l[-1] == '' else l
