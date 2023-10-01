@@ -9,3 +9,9 @@
 # [1] Well, not ever ever. You don't need to worry about getting quadratic equations with complex roots where you need the square root of a negative number. All the test cases will be for equations with real roots.
 #
 # MATHEMATICSFUNDAMENTALS
+# Solution
+def quadratic_formula(a, b, c):
+    d = b**2 - 4 * a * c
+    root1 = (-b + d**.5) / (2 * a)
+    root2 = (-b - d**.5) / (2 * a)
+    return [root1, root2]
