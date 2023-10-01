@@ -6,3 +6,6 @@
 # mango(5, 3) ==> 12   # 4 mangoes for $3 per unit = $12; +1 mango for free
 # mango(9, 5) ==> 30   # 6 mangoes for $5 per unit = $30; +3 mangoes for free
 # FUNDAMENTALS
+# Solution
+def mango(quantity, price):
+    return (quantity - quantity // 3) * price
