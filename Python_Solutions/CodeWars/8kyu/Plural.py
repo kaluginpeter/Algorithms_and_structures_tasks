@@ -5,3 +5,6 @@
 # All values will be positive integers or floats, or zero.
 #
 # FUNDAMENTALS
+# Solution
+def plural(n):
+    return n != 1
