@@ -24,3 +24,18 @@
 # If you liked this Kata there is another related one here
 #
 # FUNDAMENTALS
+# Solution
+def human_years_cat_years_dog_years(human_years):
+    cat_years = 0
+    dog_years = 0
+    if human_years == 1:
+        return [human_years, cat_years + 15, dog_years + 15]
+    elif human_years == 2:
+        return [human_years, cat_years + 15 + 9, dog_years + 15 + 9]
+    elif human_years > 2:
+        cat_years = 24
+        dog_years = 24
+        for i in range(human_years-2):
+            cat_years+=4
+            dog_years+=5
+        return [human_years, cat_years, dog_years]
