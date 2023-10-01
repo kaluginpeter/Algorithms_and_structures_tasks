@@ -13,3 +13,6 @@
 # Members should be sorted in ascending order (small -> large). (eg: the valid answer for powers(6) is [2, 4], not [4, 2])
 #
 # FUNDAMENTALSALGORITHMS
+# Solution
+def powers(n):
+    return [2**k for k, v in enumerate(f"{n:b}"[::-1]) if v == "1"]
