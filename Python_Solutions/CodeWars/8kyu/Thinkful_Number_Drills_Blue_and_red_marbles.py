@@ -11,3 +11,6 @@
 # guessBlue() should return the probability of drawing a blue marble, expressed as a float. For example, guessBlue(5, 5, 2, 3) should return 0.6.
 #
 # PROBABILITYFUNDAMENTALS
+# Solution
+def guess_blue(blue_start, red_start, blue_pulled, red_pulled):
+    return (blue_start-blue_pulled)/(blue_start-blue_pulled+red_start-red_pulled)
