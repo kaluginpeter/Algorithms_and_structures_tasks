@@ -14,3 +14,9 @@
 # String has no spaces
 # Size is always positive
 # STRINGSFUNDAMENTALS
+# Solution
+def split_in_parts(s, part_length):
+    words = []
+    for i in range(0, len(s), part_length):
+        words.append(s[i:i+part_length])
+    return ' '.join(words)
