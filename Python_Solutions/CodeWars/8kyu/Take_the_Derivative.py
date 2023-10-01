@@ -14,3 +14,6 @@
 # The output of this function should be a string
 # The exponent will never be 1, and neither number will ever be 0
 # FUNDAMENTALS
+# Solution
+def derive(coefficient, exponent):
+    return f"{coefficient*exponent}x^{exponent-1 if exponent >2 else exponent}"
