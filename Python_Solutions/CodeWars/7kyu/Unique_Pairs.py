@@ -16,3 +16,6 @@
 # your function will only recieve a single number that is greater than or equal to 2 -- you do not need to worry about input validation.
 #
 # LOGICALGORITHMS
+# Solution
+def projectPartners(n):
+    return n * (n - 1) / 2
