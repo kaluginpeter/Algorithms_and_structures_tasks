@@ -12,3 +12,10 @@
 # isDigit("3 5")
 # isDigit("zero")
 # FUNDAMENTALS
+# Solution
+def isDigit(string):
+    try:
+        float(string)
+        return True
+    except ValueError:
+        return False
