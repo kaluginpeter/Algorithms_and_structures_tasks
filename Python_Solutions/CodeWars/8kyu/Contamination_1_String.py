@@ -12,3 +12,6 @@
 # character   = "z"
 # text after  = "zzz"
 # STRINGSFUNDAMENTALS
+# Solution
+def contamination(text, char):
+    return char * len(text) if text and char != '' else ''
