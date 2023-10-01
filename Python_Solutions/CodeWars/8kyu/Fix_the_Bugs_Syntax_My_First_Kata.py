@@ -18,3 +18,11 @@
 # Extension: Once you have fixed all the syntax errors present in the code (basic requirement), you may attempt to optimise the code or try a different approach by coding it from scratch.
 #
 # DEBUGGING
+# Solution
+def my_first_kata(a, b):
+    try:
+        if not (isinstance(a, bool) or isinstance(b, bool)):
+            return a % b + b % a
+    except (TypeError, ZeroDivisionError):
+        pass
+    return False
