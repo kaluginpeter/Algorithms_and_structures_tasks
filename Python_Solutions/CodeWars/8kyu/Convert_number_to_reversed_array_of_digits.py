@@ -5,3 +5,7 @@
 # 35231 => [1,3,2,5,3]
 # 0 => [0]
 # ARRAYSFUNDAMENTALS
+# Solution
+def digitize(n):
+    sec_a = [int(a) for a in str(n)]
+    return list(reversed(sec_a))
