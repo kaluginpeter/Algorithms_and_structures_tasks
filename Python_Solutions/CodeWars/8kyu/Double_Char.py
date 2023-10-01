@@ -7,3 +7,7 @@
 # Good Luck!
 #
 # FUNDAMENTALSSTRINGS
+# Solution
+def double_char(s):
+    double = 2
+    return ''.join([char*double for char in s])
