@@ -4,3 +4,6 @@
 # Example
 # ['hello', 'world', 'this', 'is', 'great']  =>  'hello world this is great'
 # STRINGSARRAYSFUNDAMENTALS
+# Solution
+def smash(words):
+    return " ".join(words)
