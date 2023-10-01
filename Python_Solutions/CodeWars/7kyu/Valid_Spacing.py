@@ -17,3 +17,6 @@
 # Note - there will be no punctuation or digits in the input string, only letters.
 #
 # FUNDAMENTALS
+# Solution
+def valid_spacing(s):
+    return ' '.join(s.split()) == s
