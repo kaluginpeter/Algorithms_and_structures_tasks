@@ -9,3 +9,14 @@
 # input:  "stop Making spongebob Memes!"
 # output: "StOp mAkInG SpOnGeBoB MeMeS!"
 # FUNDAMENTALSSTRINGS
+# Solution
+def sponge_meme( s ):
+    bob = ''
+    i = 0
+    while i < len(s):
+        if i % 2 != 0:
+            bob += s[i].lower()
+        else:
+            bob += s[i].upper()
+        i += 1
+    return bob
