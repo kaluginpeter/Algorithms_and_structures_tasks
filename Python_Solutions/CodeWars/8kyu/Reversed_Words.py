@@ -6,3 +6,6 @@
 #
 # "The greatest victory is that which requires no battle" --> "battle no requires which that is victory greatest The"
 # STRINGSALGORITHMS
+# Solution
+def reverse_words(s):
+    return ' '.join(s.split()[::-1])
