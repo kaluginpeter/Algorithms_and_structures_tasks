@@ -8,3 +8,7 @@
 # ("1", "22") --> "1221"
 # ("22", "1") --> "1221"
 # ALGORITHMSSTRINGS
+# Solution
+def solution(a, b):
+    s = sorted([a, b], key=len)
+    return s[0] + s[1] + s[0]
