@@ -21,3 +21,6 @@
 # Enjoy it and happy coding!!
 #
 # FUNDAMENTALSMATHEMATICSGEOMETRY
+# Solution
+def bar_triang(*args):
+    return list(map(lambda a: round(sum(a) / 3.0, 4), zip(*args)))
