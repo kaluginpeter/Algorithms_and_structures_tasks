@@ -10,3 +10,6 @@
 # Complete the function which accepts two strings and calculates the golf score of a game. Both strings will be of length 18, and each character in the string will be a number between 1 and 9 inclusive.
 #
 # STRINGSARRAYSFUNDAMENTALS
+# Solution
+def golf_score_calculator(par_string, score_string):
+    return -sum(int(i) - int(j) for i,j in zip(par_string, score_string))
