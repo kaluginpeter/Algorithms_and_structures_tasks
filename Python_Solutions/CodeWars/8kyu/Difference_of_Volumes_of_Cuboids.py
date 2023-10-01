@@ -7,3 +7,8 @@
 # If you can, try writing it in one line of code.
 #
 # FUNDAMENTALS
+# Solution
+def find_difference(a, b):
+    q_a = (a[0] * a[1]) * a[2]
+    q_b = (b[0] * b[1]) * b[2]
+    return abs(q_a - q_b)
