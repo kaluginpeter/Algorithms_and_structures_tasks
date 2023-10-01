@@ -10,3 +10,6 @@
 # The input array will always contain only positive numbers, and will never be empty or null.
 #
 # MATHEMATICSARRAYSALGORITHMS
+# Solution
+def square_or_square_root(arr):
+    return [int(i**0.5) if i**0.5 == round(i**0.5) else i**2 for i in arr]
