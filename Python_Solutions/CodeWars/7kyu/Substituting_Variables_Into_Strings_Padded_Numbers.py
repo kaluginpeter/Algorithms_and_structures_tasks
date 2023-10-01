@@ -4,3 +4,7 @@
 #
 # solution(5)  # should return "Value is 00005"
 # STRINGSFUNDAMENTALS
+# Solution
+def solution(value):
+    value = str(value)
+    return 'Value is ' + '0'*(5-len(value)) + value
