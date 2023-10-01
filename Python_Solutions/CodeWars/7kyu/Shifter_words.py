@@ -10,3 +10,7 @@
 # shifter("TASK") == 0 # no shifter words
 # shifter("") == 0 # no shifter words in empty string
 # STRINGSFUNDAMENTALS
+# Solution
+import re
+def shifter(st):
+     return len(set(re.findall(r"\b[HINOSXZMW]+\b", st)))
