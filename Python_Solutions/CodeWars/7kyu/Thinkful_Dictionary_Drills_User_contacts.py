@@ -16,3 +16,12 @@
 # You don't have to worry about leading zeros in zip codes.
 #
 # FUNDAMENTALS
+# Solution
+def user_contacts(data):
+    d = {}
+    for i in data:
+        if len(i) == 2:
+            d[i[0]] = i[1]
+            continue
+        d[i[0]] = None
+    return d
