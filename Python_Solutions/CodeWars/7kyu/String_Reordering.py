@@ -14,3 +14,6 @@
 # Output:
 # 'Vatsan took his dog for a spin'
 # FUNDAMENTALSSTRINGSLISTS
+# Solution
+def sentence(ds):
+    return ' '.join(v for k, v in sorted((int(k), v) for d in ds for k, v in d.items()))
