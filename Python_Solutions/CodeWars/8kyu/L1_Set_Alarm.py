@@ -8,3 +8,9 @@
 # false    | true     => false
 # false    | false    => false
 # FUNDAMENTALSLOGIC
+# Solution
+def set_alarm(employed, vacation):
+    if (bool(employed) == True) and (bool(vacation) == False):
+        return True
+    else:
+        return False
