@@ -5,3 +5,6 @@
 # In the event of a tie, you should return the first string, i.e. a.
 #
 # ALGORITHMSSTRINGSFUNDAMENTALS
+# Solution
+def highest_value(a, b):
+    return max(a, b, key=lambda x: sum(map(ord, x)))
