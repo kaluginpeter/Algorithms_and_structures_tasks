@@ -11,3 +11,6 @@
 # You can assume that you will be given a string and array of equal length and both containing valid characters (A-Z, a-z, or 0-9).
 #
 # FUNDAMENTALSSTRINGSARRAYS
+# Solution
+def scramble(string, array):
+    return "".join(v for k, v in sorted(zip(array, string)))
