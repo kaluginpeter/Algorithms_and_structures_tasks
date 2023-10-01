@@ -7,3 +7,6 @@
 # Function will return true for lucky numbers and false for others.
 #
 # FUNDAMENTALSMATHEMATICS
+# Solution
+def is_lucky(n):
+    return sum(int(i) for i in str(n)) % 9 == 0 or str(sum(int(i) for i in str(n)))[0] == '0'
