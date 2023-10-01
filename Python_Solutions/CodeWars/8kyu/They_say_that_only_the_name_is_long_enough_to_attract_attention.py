@@ -10,3 +10,6 @@
 # "AB","Ab"     -> false
 # "",""         -> false
 # PUZZLESGAMES
+# Solution
+def is_opposite(s1,s2):
+    return s1 == s2.swapcase() if s1 or s2 else False
