@@ -11,3 +11,12 @@
 # Result: [4,4,4,4,1,3,5]
 #
 # ARRAYSSORTINGFUNDAMENTALS
+# Solution
+def example_sort(arr, example_arr):
+    l = []
+    for i in example_arr:
+        if i in arr:
+            while i in arr:
+                l.append(i)
+                arr.remove(i)
+    return l
