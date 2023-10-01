@@ -6,3 +6,7 @@
 # multiply(0)==0 # 0 * 5¹
 # multiply(-3)==-15 # -3 * 5¹
 # FUNDAMENTALSDEBUGGING
+# Solution
+def multiply(n):
+    i =(5**len(str(n)))
+    return n * i if n >=0 else n * (5**(len(str(n))-1))
