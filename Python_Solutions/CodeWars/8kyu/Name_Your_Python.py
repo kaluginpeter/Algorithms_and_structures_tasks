@@ -7,3 +7,7 @@
 # bubba = Python('Bubba')
 # bubba.name # should return 'Bubba'
 # FUNDAMENTALS
+# Solution
+class Python():
+    def __init__(self, name):
+        self.name=name
