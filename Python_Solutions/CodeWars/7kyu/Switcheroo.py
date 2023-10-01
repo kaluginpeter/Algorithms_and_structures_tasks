@@ -6,3 +6,6 @@
 # 'aabacbaa' --> 'bbabcabb'
 #
 # FUNDAMENTALSSTRINGS
+# Solution
+def switcheroo(string):
+    return string.replace('a', '-').replace('b', 'a').replace('-', 'b')
