@@ -8,3 +8,6 @@
 # [4, 3, 1, 2, 5, 10, 6, 7, 9, 8]  -->  30   # because 4 + 2 + 10 + 6 + 8 = 30
 # []                               -->  0
 # FILTERINGALGORITHMS
+# Solution
+def sum_even_numbers(seq):
+    return sum(i for i in seq if i % 2 == 0)
