@@ -6,3 +6,9 @@
 # Note: You can expect all of the inputs to be the same length.
 #
 # PUZZLES
+# Solution
+def triple_trouble(one, two, three):
+    word = ''
+    for i in range(len(one)):
+        word += one[i] + two[i] + three[i]
+    return word
