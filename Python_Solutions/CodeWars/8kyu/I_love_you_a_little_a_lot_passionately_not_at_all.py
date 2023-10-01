@@ -13,3 +13,7 @@
 # Your goal in this kata is to determine which phrase the girls would say at the last petal for a flower of a given number of petals. The number of petals is always greater than 0.
 #
 # ARRAYSFUNDAMENTALS
+# Solution
+def how_much_i_love_you(nb_petals):
+    means = ["not at all", "I love you", "a little", "a lot", "passionately", "madly"]
+    return means[nb_petals % 6]
