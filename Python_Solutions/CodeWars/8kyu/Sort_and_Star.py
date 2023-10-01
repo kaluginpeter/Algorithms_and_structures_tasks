@@ -5,3 +5,7 @@
 # You should not remove or add elements from/to the array.
 #
 # FUNDAMENTALSSTRINGSARRAYSSORTING
+# Solution
+def two_sort(array):
+    array.sort()
+    return '***'.join(array[0])
