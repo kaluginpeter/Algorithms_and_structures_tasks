@@ -8,3 +8,6 @@
 # The Stanton measure of [1, 4, 1, 2, 11, 2, 3, 1] is 1, because 1 occurs 3 times in the array and 3 occurs 1 time.
 #
 # ARRAYSFUNDAMENTALS
+# Solution
+def stanton_measure(arr):
+    return arr.count(arr.count(1))
