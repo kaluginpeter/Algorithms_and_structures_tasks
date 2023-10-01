@@ -7,3 +7,6 @@
 # For example: a warehouse 32 feet long, 64 feet wide, and 16 feet high can hold 13,824 boxes because you can fit 24 boxes across, 48 boxes deep, and 12 boxes high, so box_capacity(32, 64, 16) should return 13824.
 #
 # FUNDAMENTALS
+# Solution
+def box_capacity(length, width, height):
+    return (length * 12 // 16) * (width * 12 // 16) * (height * 12 // 16)
