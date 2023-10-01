@@ -3,3 +3,11 @@
 # Return true if yes, false otherwise :)
 #
 # FUNDAMENTALS
+# Solution
+def hero(bullets, dragons):
+    if bullets // dragons == 2:
+        return True
+    elif bullets and dragons == 0:
+            return True
+    else:
+        return False
