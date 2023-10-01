@@ -25,3 +25,7 @@
 # This kata uses fixed tolerance for simplicity reasons, but usually relative tolerance is better. Fixed tolerance is useful for comparisons near zero or when the magnitude of the values is known.
 #
 # FUNDAMENTALSMATHEMATICSDEBUGGING
+# Solution
+import math
+def approx_equals(a, b):
+    return math.isclose(a, b, abs_tol = 0.001)
