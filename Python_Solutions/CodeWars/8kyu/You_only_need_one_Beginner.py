@@ -5,3 +5,6 @@
 # Return true if the array contains the value, false if not.
 #
 # FUNDAMENTALSSTRINGSARRAYS
+# Solution
+def check(seq, elem):
+    return elem in seq
