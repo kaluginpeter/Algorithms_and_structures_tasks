@@ -23,3 +23,6 @@
 # Also, check out the new Pirates!! Kata: https://www.codewars.com/kata/57e2d5f473aa6a476b0000fe
 #
 # ALGORITHMS
+# Solution
+def cannons_ready(gunners):
+    return 'Fire!' if all(k =='aye' for i,k in gunners.items()) else 'Shiver me timbers!'
