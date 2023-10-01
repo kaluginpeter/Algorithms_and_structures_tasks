@@ -6,3 +6,6 @@
 # Example:
 # move(3, 6) should equal 15
 # FUNDAMENTALS
+# Solution
+def move(position, roll):
+    return position + roll * 2
