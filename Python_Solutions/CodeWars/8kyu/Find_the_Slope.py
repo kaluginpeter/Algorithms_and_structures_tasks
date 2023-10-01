@@ -10,3 +10,9 @@
 # Assume that [a,b,c,d] and the answer are all integers (no floating numbers!). Slope: https://en.wikipedia.org/wiki/Slope
 #
 # MATHEMATICSFUNDAMENTALSALGEBRA
+# Solution
+def find_slope(points):
+    try:
+        return str(int((points[1]-points[3])/(points[0]-points[2])))
+    except:
+        return 'undefined'
