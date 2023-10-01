@@ -12,3 +12,8 @@
 # duck_duck_goose([$a, $b, $c, $d], 5); // => $a["name"]
 # duck_duck_goose([$a, $b, $c, $d], 4); // => $d["name"]
 # ARRAYSLISTSFUNDAMENTALS
+# Solution
+def duck_duck_goose(players, goose):
+    while len(players) < goose:
+        goose -= len(players)
+    return players[goose - 1].name
