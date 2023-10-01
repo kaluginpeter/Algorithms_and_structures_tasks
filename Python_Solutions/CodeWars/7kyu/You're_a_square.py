@@ -18,3 +18,10 @@
 # 25  =>  true
 # 26  =>  false
 # FUNDAMENTALSMATHEMATICS
+# Solution
+import math
+
+def is_square(n):
+    if n < 0:
+        return False
+    return n == math.isqrt(n) ** 2
