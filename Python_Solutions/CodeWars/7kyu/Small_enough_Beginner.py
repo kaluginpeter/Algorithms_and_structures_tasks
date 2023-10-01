@@ -3,3 +3,9 @@
 # You can assume all values in the array are numbers.
 #
 # FUNDAMENTALSARRAYS
+# Solution
+def small_enough(array, limit):
+    for elem in array:
+        if elem > limit:
+            return False
+    return True
