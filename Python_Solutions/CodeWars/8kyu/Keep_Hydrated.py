@@ -12,3 +12,8 @@
 #
 # time = 11.8--> litres = 5
 # ALGORITHMSMATHEMATICSFUNDAMENTALS
+# Solution
+import math
+def litres(time):
+    count = time / 2
+    return math.floor(count)
