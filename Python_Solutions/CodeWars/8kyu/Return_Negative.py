@@ -8,3 +8,6 @@
 # The number can be negative already, in which case no change is required.
 # Zero (0) is not checked for any specific sign. Negative zeros make no mathematical sense.
 # FUNDAMENTALS
+# Solution
+def make_negative( number ):
+    return -abs(number)
