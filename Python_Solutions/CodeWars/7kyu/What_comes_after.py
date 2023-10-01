@@ -12,3 +12,6 @@
 # Adapted from: Ruby Kickstart
 #
 # FUNDAMENTALS
+# Solution
+def comes_after(st, l):
+    return ''.join(j for i, j in zip(st, st[1:]) if i.lower() == l.lower() and j.isalpha())
