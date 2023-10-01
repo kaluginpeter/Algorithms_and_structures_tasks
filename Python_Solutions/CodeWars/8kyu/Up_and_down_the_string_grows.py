@@ -11,3 +11,5 @@
 # Note: Meta programming is not allowed in this kata. So, the size of your solution is limited.
 #
 # STRINGSPUZZLES
+# Solution
+STRANGE_STRING = 'ß'
