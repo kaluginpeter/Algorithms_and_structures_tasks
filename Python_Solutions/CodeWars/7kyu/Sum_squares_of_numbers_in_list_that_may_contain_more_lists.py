@@ -17,3 +17,6 @@
 # Another Kata involving nested lists here (it's still in beta - more honor points for completing :D): https://www.codewars.com/kata/5786f020e55533ebb7000153
 #
 # FUNDAMENTALSRECURSION
+# Solution
+def sumsquares(l):
+    return l**2 if type(l) != list else sum(sumsquares(i) for i in l)
