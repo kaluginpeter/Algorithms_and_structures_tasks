@@ -9,3 +9,10 @@
 # Happy Coding!
 #
 # MATHEMATICSFUNDAMENTALS
+# Solution
+def square_digits(num):
+    elem = ''
+    for i in str(num):
+        square = int(i) ** 2
+        elem += str(square)
+    return int(elem)
