@@ -10,3 +10,11 @@
 # Note: Test cases contain valid input only - i.e. a string array or an empty array; and each word will have enough letters.
 #
 # ARRAYSSTRINGSFUNDAMENTALS
+# Solution
+def nth_char(words):
+    word = ''
+    i = 0
+    while i < len(words):
+        word += words[i][i]
+        i+=1
+    return word
