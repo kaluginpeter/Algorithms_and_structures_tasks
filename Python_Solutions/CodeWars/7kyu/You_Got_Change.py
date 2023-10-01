@@ -19,3 +19,6 @@
 #
 # 217 => [2,1,1,0,0,2]
 # FUNDAMENTALS
+# Solution
+def give_change(amount):
+    return (amount % 5, (amount%10) // 5, ((amount % 50) % 20) // 10, (amount % 50) // 20, (amount % 100) // 50, amount // 100)
