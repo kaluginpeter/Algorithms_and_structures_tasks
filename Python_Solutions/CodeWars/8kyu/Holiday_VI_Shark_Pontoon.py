@@ -21,3 +21,14 @@
 # If you make it, return "Alive!", if not, return "Shark Bait!".
 #
 # FUNDAMENTALSMATHEMATICS
+# Solution
+def shark(pontoon_distance, shark_distance, you_speed, shark_speed, dolphin):
+    if dolphin:
+        if pontoon_distance / you_speed < shark_distance / (shark_speed / 2):
+            return 'Alive!'
+        else:
+            return 'Shark Bait!'
+    elif pontoon_distance / you_speed > shark_distance / shark_speed:
+        return 'Shark Bait!'
+    elif pontoon_distance / you_speed < shark_distance / shark_speed:
+        return 'Alive!'
