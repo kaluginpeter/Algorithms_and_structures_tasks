@@ -5,3 +5,6 @@
 # min([1,2,3,4,5], 'value') // => 1
 # min([1,2,3,4,5], 'index') // => 0
 # ARRAYSFUNDAMENTALS
+# Solution
+def find_smallest(numbers,to_return):
+    return numbers.index(min(numbers)) if to_return == 'index' else min(numbers)
