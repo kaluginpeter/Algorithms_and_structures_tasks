@@ -13,3 +13,9 @@
 # 1 - 10 === -1
 # 10 - 100 === -10
 # BINARYALGORITHMS
+# Solution
+def calculate(n1, n2, o):
+    n1, n2 = int(f'0b{n1}', 2), int(f'0b{n2}', 2)
+    op = {'add': n1 + n2, 'subtract': n1 - n2, 'multiply': n1 * n2}
+    ans = bin(op[o])[2:]
+    return ans if ans[0] != 'b' else '-' + ans[1:]
