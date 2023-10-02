@@ -51,3 +51,43 @@
 #
 # 1 <= colors.length <= 105
 # colors consists of only the letters 'A' and 'B'
+# Solution 1 - My solution
+class Solution:
+    def winnerOfGame(self, colors: str) -> bool:
+        if len(colors) <= 3:
+            return colors == 'AAA'
+        alice, bob = 0, 0
+        ans = [colors[0]]
+        for i in range(1, len(colors)):
+            if colors[i] == ans[-1]:
+                ans.append(colors[i])
+            else:
+                if len(ans) > 2:
+                    if ans[-1] == 'A':
+                        alice += len(ans) - 2
+                    else:
+                        bob += len(ans) - 2
+                ans = [colors[i]]
+        if len(ans) > 2:
+            if ans[-1] == "A":
+                alice += len(ans) - 2
+            else:
+                bob += len(ans) - 2
+        return alice > bob
+# Solution 2 - clearer solution
+class Solution:
+    def winnerOfGame(self, colors: str) -> bool:
+        alice, bob = 0, 0
+        x, y = 0, 0
+        for i in colors:
+            if i == "A":
+                x += 1
+                bob += max(y - 2, 0)
+                y = 0
+            else:
+                y += 1
+                alice += max(x - 2, 0)
+                x = 0
+        alice += max(x - 2, 0)
+        bob += max(y - 2, 0)
+        return alice > bob
