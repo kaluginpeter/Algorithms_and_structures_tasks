@@ -15,3 +15,12 @@
 # To easy? Check Python's Dynamic Classes #2 Kata and Python's Dynamic Classes #3 Kata.
 #
 # FUNDAMENTALSOBJECT-ORIENTED PROGRAMMING
+# Solution
+def class_name_changer(cls, new_name):
+    if (not new_name
+            or new_name[0].islower()
+            or new_name[0].isdigit()
+            or not new_name.isalnum()):
+        raise Exception
+
+    cls.__name__ = new_name
