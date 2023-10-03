@@ -22,3 +22,15 @@
 #
 # returns "Escaped!" because the cat cannot catch the mouse in  5 moves
 # GRAPH THEORYALGORITHMS
+# Solution
+def cat_mouse(map_, moves):
+    if "C" not in map_ or "m" not in map_:
+        return "boring without two animals"
+    map_ =  map_.split('\n')
+    for i in range(len(map_)):
+        if "C" in map_[i]:
+            cp, cr = map_[i].index("C") + 1, i + 1
+        if "m" in map_[i]:
+            mp, mr = map_[i].index("m") + 1, i + 1
+    hunt_moves = abs(max(mr, cr) - min(mr, cr)) + abs(max(cp, mp) - min(cp, mp))
+    return "Escaped!" if hunt_moves > moves else "Caught!"
