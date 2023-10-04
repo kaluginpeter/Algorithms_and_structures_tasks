@@ -9,3 +9,7 @@
 # A preloaded object/dictionary/hash called CHAR_TO_MORSE will be provided to help convert characters to Morse Code.
 #
 # FUNDAMENTALS
+# Solution
+from preloaded import CHAR_TO_MORSE
+def encryption(string):
+    return ' '.join(CHAR_TO_MORSE.get(i, i) for i in string)
