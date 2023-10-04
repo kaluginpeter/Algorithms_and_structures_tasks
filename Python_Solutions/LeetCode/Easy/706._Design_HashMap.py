@@ -32,3 +32,55 @@
 #
 # 0 <= key, value <= 106
 # At most 104 calls will be made to put, get, and remove.
+# Solution 1 - My solution with two lists
+class MyHashMap:
+
+    def __init__(self):
+        self.ke = []
+        self.va = []
+
+    def put(self, key: int, value: int) -> None:
+        if key in self.ke:
+            self.va[self.ke.index(key)] = value
+        else:
+            self.ke.append(key)
+            self.va.append(value)
+
+    def get(self, key: int) -> int:
+        if key not in self.ke:
+            return -1
+        return self.va[self.ke.index(key)]
+
+    def remove(self, key: int) -> None:
+        if key in self.ke:
+            x = self.ke.index(key)
+            self.va.pop(x)
+            self.ke.remove(key)
+
+        # Your MyHashMap object will be instantiated and called as such:
+# obj = MyHashMap()
+# obj.put(key,value)
+# param_2 = obj.get(key)
+# obj.remove(key)
+
+# Solution 2 - Making big lists with index/value
+class MyHashMap:
+
+    def __init__(self):
+        self.ans = [None] * 1000001
+
+    def put(self, key: int, value: int) -> None:
+        self.ans[key] = value
+
+    def get(self, key: int) -> int:
+        x = self.ans[key]
+        return x if x != None else -1
+
+    def remove(self, key: int) -> None:
+        self.ans[key] = None
+
+# Your MyHashMap object will be instantiated and called as such:
+# obj = MyHashMap()
+# obj.put(key,value)
+# param_2 = obj.get(key)
+# obj.remove(key)
