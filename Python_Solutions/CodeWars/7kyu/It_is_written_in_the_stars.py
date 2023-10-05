@@ -18,3 +18,15 @@
 #
 # Test info: 100 random tests (dates range from January 1st 1940 until now)
 # DATE TIMEPUZZLES
+# Solution
+def star_sign(date):
+    m, d = date.month, date.day
+    signs = [(1,20,"Capricorn"), (2,19,"Aquarius"), (3,20,"Pisces"), (4,20,"Aries"),
+            (5,21,"Taurus"), (6,21,"Gemini"), (7,22,"Cancer"), (8,23,"Leo"),
+            (9,23,"Virgo"), (10,23,"Libra"), (11,22,"Scorpio"), (12,21,"Sagittarius"),
+            (12,31,"Capricorn")]
+    for i in range(len(signs)):
+        if signs[i][0] == m:
+            if d <= signs[i][1]:
+                return signs[i][2]
+            return signs[i + 1][2]
