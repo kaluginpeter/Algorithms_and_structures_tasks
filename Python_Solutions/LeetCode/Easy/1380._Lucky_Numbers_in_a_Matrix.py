@@ -28,3 +28,19 @@
 # 1 <= n, m <= 50
 # 1 <= matrix[i][j] <= 105.
 # All elements in the matrix are distinct.
+# Solution
+class Solution:
+    def luckyNumbers (self, matrix: List[List[int]]) -> List[int]:
+        ans = []
+        for i in range(len(matrix[0])):
+            top, cop = 0, 0
+            for j in range(len(matrix)):
+                if matrix[j][i] > cop:
+                    cop = matrix[j][i]
+                    if matrix[j][i] == min(matrix[j]):
+                        top = matrix[j][i]
+                    else:
+                        top = 0
+            if top > 0:
+                ans.append(top)
+        return ans
