@@ -8,3 +8,7 @@
 # http://en.wikipedia.org/wiki/Main_diagonal
 #
 # MATRIXLINEAR ALGEBRAALGORITHMS
+# Solution
+import math
+def main_diagonal_product(mat):
+    return math.prod(mat[i][i] for i in range(len(mat)))
