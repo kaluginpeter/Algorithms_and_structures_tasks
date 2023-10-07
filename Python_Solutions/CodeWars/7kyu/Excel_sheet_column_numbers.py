@@ -16,3 +16,10 @@
 # when the length of "title" is growing.
 # Write your own function "exp [x n]".
 # FUNDAMENTALSALGORITHMS
+# Solution
+def title_to_number(title):
+    count = 0
+    for i in range(len(title)):
+        x = ord(title[i]) - 64
+        count += x * max(26 ** (len(title) - i - 1), 1)
+    return count
