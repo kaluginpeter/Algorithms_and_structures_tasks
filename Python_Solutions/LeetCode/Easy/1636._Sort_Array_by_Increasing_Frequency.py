@@ -24,3 +24,27 @@
 #
 # 1 <= nums.length <= 100
 # -100 <= nums[i] <= 100
+# Solution 1, My solution - HashTable
+class Solution:
+    def frequencySort(self, nums: List[int]) -> List[int]:
+        d, ans = {}, []
+        for i in nums:
+            d[i] = d.get(i, 0) + 1
+        while d:
+            top, rep = 0, float('inf')
+            for i in d:
+                if d[i] < rep:
+                    top, rep = i, d[i]
+                elif d[i] == rep:
+                    x = max(top, i)
+                    top, rep = x, d[x]
+            del d[top]
+            ans += [top] * rep
+        return ans
+# Solution 2 - HashTable Optimized
+class Solution:
+    def frequencySort(self, nums: List[int]) -> List[int]:
+        d = {}
+        for i in nums:
+            d[i] = d.get(i, 0) + 1
+        return sorted(nums, key=lambda x: (d[x], -x))
