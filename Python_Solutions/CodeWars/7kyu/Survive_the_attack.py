@@ -24,3 +24,17 @@
 # //return true
 #
 # ARRAYS
+# Solution
+def is_defended(attackers, defenders):
+    init1, init2 = sum(attackers), sum(defenders)
+    for i in range(min(len(attackers), len(defenders))):
+        if attackers[i] > defenders[i]:
+            defenders[i] = 0
+        elif attackers[i] < defenders[i]:
+            attackers[i] = 0
+        else:
+            attackers[i], defenders[i] = 0, 0
+    x, y = sum(1 for i in attackers if i > 0), sum(1 for i in defenders if i > 0)
+    if x == y:
+        return init1 <= init2
+    return x < y
