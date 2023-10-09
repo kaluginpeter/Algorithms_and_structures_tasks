@@ -13,3 +13,9 @@
 # The first test case has been filled out for you. Good luck!
 #
 # ALGORITHMSMATHEMATICS
+# Solution
+def content_weight(bottle_weight, scale):
+    x = bottle_weight / (int(scale.split()[0]) + 1)
+    if scale.endswith('larger'):
+        return x * int(scale.split()[0])
+    return bottle_weight - x * int(scale.split()[0])
