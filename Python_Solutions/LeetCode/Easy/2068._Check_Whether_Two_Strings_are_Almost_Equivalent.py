@@ -39,3 +39,23 @@
 # n == word1.length == word2.length
 # 1 <= n <= 100
 # word1 and word2 consist only of lowercase English letters.
+# Solution
+class Solution:
+    def checkAlmostEquivalent(self, word1: str, word2: str) -> bool:
+        d1, d2 = {}, {}
+        for i in range(len(word1)):
+            d1[word1[i]] = d1.get(word1[i], 0) + 1
+            d2[word2[i]] = d2.get(word2[i], 0) + 1
+        for i in d1:
+            if d1[i] > 3:
+                if i not in d2:
+                    return False
+                if abs(d2[i] - d1[i]) > 3:
+                    return False
+        for i in d2:
+            if d2[i] > 3:
+                if i not in d1:
+                    return False
+                if abs(d2[i] - d1[i]) > 3:
+                    return False
+        return True
