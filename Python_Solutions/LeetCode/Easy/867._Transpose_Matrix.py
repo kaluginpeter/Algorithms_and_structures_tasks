@@ -23,3 +23,14 @@
 # 1 <= m, n <= 1000
 # 1 <= m * n <= 105
 # -109 <= matrix[i][j] <= 109
+# Solution
+class Solution:
+    def transpose(self, matrix: List[List[int]]) -> List[List[int]]:
+        ans, l = [], []
+        for i in range(len(matrix[0])):
+            for j in range(len(matrix)):
+                l.append(matrix[j][i])
+                if len(l) == len(matrix):
+                    ans.append(l)
+                    l = []
+        return ans
