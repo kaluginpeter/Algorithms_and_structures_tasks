@@ -13,3 +13,10 @@
 #
 # buy(5,[1,2,3,4,5]) = [0,3] # the values at [1,2] also adds up to five, but [0,3] < [1,2]
 # LISTSALGORITHMS
+# Solution
+def buy(x,arr):
+    for i in range(len(arr)):
+        for j in range(i + 1, len(arr)):
+            if arr[i] + arr[j] == x:
+                return [i, j]
+    return
