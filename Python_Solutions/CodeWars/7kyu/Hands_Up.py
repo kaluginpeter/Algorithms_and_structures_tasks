@@ -22,3 +22,19 @@
 # Given a number, return an array, containing 3 integers, each representing the number of hands raised by each person at that step, starting from 0.
 #
 # FUNDAMENTALSALGORITHMS
+# Solution
+def get_positions(n):
+    ans = [0, 0, 0]
+    for i in range(n % 27):
+        if ans[0] != 3:
+            ans[0] += 1
+            if ans[0] == 3:
+                ans[0] = 0
+                ans[1] += 1
+                if ans[1] == 3:
+                    ans[1] = 0
+                    ans[2] += 1
+                    if ans[2] == 3:
+                        ans = [0, 0, 0]
+    a, b, c = ans
+    return a, b, c
