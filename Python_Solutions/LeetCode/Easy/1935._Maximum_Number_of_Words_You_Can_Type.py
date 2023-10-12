@@ -28,3 +28,16 @@
 # text consists of words separated by a single space without any leading or trailing spaces.
 # Each word only consists of lowercase English letters.
 # brokenLetters consists of distinct lowercase English letters.
+# Solution
+class Solution:
+    def canBeTypedWords(self, text: str, brokenLetters: str) -> int:
+        count = 0
+        for i in text.split():
+            top = 0
+            for j in i:
+                if j in brokenLetters:
+                    top += 1
+                    break
+            if top > 0:
+                count += 1
+        return len(text.split()) - count
