@@ -41,3 +41,12 @@ class Solution:
         for i in range(2, len(cost)):
             l[i] = cost[i] + min(l[i-1], l[i - 2])
         return min(l[-1], l[-2])
+
+# Solution 2 - Speed O(N) Memory O(1)
+class Solution:
+    def minCostClimbingStairs(self, cost: List[int]) -> int:
+        x, y = 0, 0
+        for i in range(2, len(cost) + 1):
+            z = min(x + cost[i-1], y + cost[i-2])
+            x, y = z, x
+        return x
