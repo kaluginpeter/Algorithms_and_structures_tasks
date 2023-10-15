@@ -35,3 +35,26 @@
 # Note: The comment method should wrap its argument with an HTML comment. It is the only method whose name does not match an HTML tag. So, g.comment('i am a comment') must produce <!--i am a comment-->.
 #
 # FUNCTIONAL PROGRAMMINGPUZZLES
+# Solution
+class HTMLGen:
+    def __init__(self):
+        self.tags = {'a': '<a>{}</a>', 'b': '<b>{}</b>',
+               'p': '<p>{}</p>', 'body': '<body>{}</body>',
+               'div': '<div>{}</div>', 'span': '<span>{}</span>',
+               'title': '<title>{}</title>', 'comment': '<!--{}-->'}
+    def a(self, content):
+        return self.tags['a'].format(content)
+    def b(self, content):
+        return self.tags['b'].format(content)
+    def p(self, content):
+        return self.tags['p'].format(content)
+    def body(self, content):
+        return self.tags['body'].format(content)
+    def div(self, content):
+        return self.tags['div'].format(content)
+    def span(self, content):
+        return self.tags['span'].format(content)
+    def title(self, content):
+        return self.tags['title'].format(content)
+    def comment(self, content):
+        return self.tags['comment'].format(content)
