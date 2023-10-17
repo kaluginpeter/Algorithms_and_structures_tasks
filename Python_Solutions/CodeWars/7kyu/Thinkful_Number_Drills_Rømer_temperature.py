@@ -7,3 +7,6 @@
 # For example: celsius_to_romer(24) should return 20.1.
 #
 # FUNDAMENTALS
+# Solution
+def celsius_to_romer(x):
+    return (x * (21/40) + 7.5)
