@@ -34,3 +34,28 @@
 # s consists of lowercase English letters only.
 # 1 <= k <= 100
 # fill is a lowercase English letter.
+# Solution 1
+class Solution:
+    def divideString(self, s: str, k: int, fill: str) -> List[str]:
+        ans = []
+        for i in range(0, len(s), k):
+            it = s[i:i+k]
+            if len(it) == k:
+                ans += [it]
+            else:
+                ans += [it + (k - len(it)) * fill]
+        return ans
+# Solution 2
+class Solution:
+    def divideString(self, s: str, k: int, fill: str) -> List[str]:
+        ans, s = [], s + fill * (k - 1)
+        for i in range(0, len(s) - len(s) % k, k):
+            ans += [s[i:i+k]]
+        return ans
+# Solution 3
+class Solution:
+    def divideString(self, s: str, k: int, fill: str) -> List[str]:
+        ans, so = [], s + fill * (k - 1)
+        for i in range(0, len(s), k):
+            ans += [so[i:i+k]]
+        return ans
