@@ -36,3 +36,36 @@
 # 162.9K
 # Acceptance Rate
 # 76.8%
+# Solution 1 O(N**2) / O(1)
+class Solution:
+    def finalPrices(self, prices: List[int]) -> List[int]:
+        for i in range(len(prices)):
+            for j in range(i + 1, len(prices)):
+                if prices[j] <= prices[i]:
+                    prices[i] = prices[i] - prices[j]
+                    break
+        return prices
+# Solution 2 O(N**2) / O(N)
+class Solution:
+    def finalPrices(self, prices: List[int]) -> List[int]:
+        ans = []
+        for i in range(len(prices)):
+            top = -1
+            for j in range(i + 1, len(prices)):
+                if prices[j] <= prices[i]:
+                    top = prices[i] - prices[j]
+                    break
+            if top > -1:
+                ans.append(top)
+            else:
+                ans.append(prices[i])
+        return ans
+# Solution 3 O(N) / O(N)
+class Solution:
+    def finalPrices(self, prices: List[int]) -> List[int]:
+        res, stack = prices[:], []
+        for i, price in enumerate(prices):
+            while stack and prices[stack[-1]] >= price:
+                res[stack.pop()] -= price
+            stack.append(i)
+        return res
