@@ -28,3 +28,34 @@
 #
 #
 # Follow up: Can you solve it in O(n) time and O(1) space?
+# Solution
+class Solution:
+    def backspaceCompare(self, s: str, t: str) -> bool:
+        x, y = len(s) - 1, len(t) - 1
+        top_x, top_y = 0, 0
+        while x >= 0 or y >= 0:
+            while x >= 0:
+                if s[x] == '#':
+                    top_x += 1
+                    x -= 1
+                elif top_x > 0:
+                    top_x -= 1
+                    x -= 1
+                else:
+                    break
+            while y >= 0:
+                if t[y] == '#':
+                    top_y += 1
+                    y -= 1
+                elif top_y > 0:
+                    top_y -= 1
+                    y -= 1
+                else:
+                    break
+            if x >= 0 and y >= 0 and s[x] != t[y]:
+                return False
+            if (x >= 0) != (y >= 0):
+                return False
+            x -= 1
+            y -= 1
+        return True
