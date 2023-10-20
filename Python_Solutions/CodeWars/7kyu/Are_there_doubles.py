@@ -28,3 +28,7 @@
 #   double_check("a!@€£#$%^&*()_-+=}]{[|\"':;?/>.<,~")
 #   #returns False
 # REGULAR EXPRESSIONSFUNDAMENTALS
+# Solution
+def double_check(strng):
+    strng = strng.lower()
+    return not all(x != y for x, y in zip(strng, strng[1:]))
