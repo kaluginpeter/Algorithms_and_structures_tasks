@@ -27,3 +27,17 @@
 #
 # 1 <= nums1.length, nums2.length, nums3.length <= 100
 # 1 <= nums1[i], nums2[j], nums3[k] <= 100
+# Solution 1
+class Solution:
+    def twoOutOfThree(self, nums1: List[int], nums2: List[int], nums3: List[int]) -> List[int]:
+        d, ans = {}, []
+        for i in set(nums1):
+            d[i] = d.get(i, 0) + 1
+        for i in set(nums2):
+            d[i] = d.get(i, 0) + 1
+        for i in set(nums3):
+            d[i] = d.get(i, 0) + 1
+        for k in d:
+            if d[k] > 1:
+                ans.append(k)
+        return ans
