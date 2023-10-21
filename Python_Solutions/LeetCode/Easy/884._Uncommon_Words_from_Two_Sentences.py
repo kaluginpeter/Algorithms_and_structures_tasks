@@ -22,3 +22,12 @@
 # s1 and s2 consist of lowercase English letters and spaces.
 # s1 and s2 do not have leading or trailing spaces.
 # All the words in s1 and s2 are separated by a single space.
+# Solution
+class Solution:
+    def uncommonFromSentences(self, s1: str, s2: str) -> List[str]:
+        d = {}
+        for i in s1.split():
+            d[i] = d.get(i, 0) + 1
+        for i in s2.split():
+            d[i] = d.get(i, 0) + 1
+        return [i for i in d if d[i] == 1]
