@@ -9,3 +9,10 @@
 # Example: input: [5, 0, 3], "I Love You" output: "ivy" (0 = "i", 3 = "v", 5 = "y")
 #
 # STRINGSARRAYSALGORITHMSFUNDAMENTALS
+# Solution
+def missing(nums, s):
+    nums.sort()
+    s = s.replace(' ', '').lower()
+    if max(nums) >= len(s):
+        return 'No mission today'
+    return ''.join(s[i] for i in nums)
