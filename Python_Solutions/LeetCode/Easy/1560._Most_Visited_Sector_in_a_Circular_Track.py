@@ -31,3 +31,10 @@
 # rounds.length == m + 1
 # 1 <= rounds[i] <= n
 # rounds[i] != rounds[i + 1] for 0 <= i < m
+# Solution
+class Solution(object):
+    def mostVisited(self, n, rounds):
+        x, y = rounds[0], rounds[-1]
+        if x <= y:
+            return range(x, y + 1)
+        return range(1, y + 1) + range(x, n + 1)
