@@ -23,3 +23,13 @@
 # Fun with lists: map
 # Fun with lists: reduce
 # LISTSFUNDAMENTALS
+# Solution
+def index_of(head, value):
+    top = 0
+    while head:
+        if type(head.data) == type(value):
+            if head.data == value:
+                return top
+        head = head.next
+        top += 1
+    return -1
