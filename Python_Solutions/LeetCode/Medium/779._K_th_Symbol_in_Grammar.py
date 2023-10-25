@@ -30,3 +30,22 @@
 #
 # 1 <= n <= 30
 # 1 <= k <= 2n - 1
+# Solution 1 - Hamming weight
+class Solution(object):
+    def kthGrammar(self, n, k):
+        return bin(k - 1).count('1') % 2
+# Solution 2 Recursive
+class Solution(object):
+    def kthGrammar(self, n, k):
+        if n == 1:
+            return 0
+        if k % 2 == 0:
+            if self.kthGrammar(n-1, k / 2) == 0:
+                return 1
+            else:
+                return 0
+        else:
+            if self.kthGrammar(n - 1, (k + 1) / 2) == 0:
+                return 0
+            else:
+                return 1
