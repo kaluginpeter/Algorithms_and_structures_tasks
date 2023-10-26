@@ -46,3 +46,13 @@
 # 1 <= n <= 100
 # 1 <= strs[i].length <= 1000
 # strs[i] consists of lowercase English letters.
+# Solution
+class Solution(object):
+    def minDeletionSize(self, strs):
+        top = 0
+        for i in range(len(strs[0])):
+            for j in range(len(strs) - 1):
+                if strs[j][i] > strs[j+1][i]:
+                    top += 1
+                    break
+        return top
