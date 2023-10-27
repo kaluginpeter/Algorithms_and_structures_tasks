@@ -21,3 +21,26 @@
 # 1 <= sum(nums[i].length) <= 1000
 # 1 <= nums[i][j] <= 1000
 # All the values of nums[i] are unique.
+# Solution 1
+class Solution(object):
+    def intersection(self, nums):
+        d = {}
+        for i in nums:
+            for j in i:
+                d[j] = d.get(j, 0) + 1
+        for i in d.copy():
+            if d[i] != len(nums):
+                del d[i]
+        return sorted(d.keys())
+# Solution 2
+class Solution(object):
+    def intersection(self, nums):
+        d = {}
+        for i in nums:
+            for j in i:
+                d[j] = d.get(j, 0) + 1
+        top = []
+        for i in d:
+            if d[i] == len(nums):
+                top.append(i)
+        return sorted(top)
