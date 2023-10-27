@@ -32,3 +32,18 @@
 # ##Good Luck!##
 #
 # FUNDAMENTALSALGORITHMS
+# Solution
+def fibs_fizz_buzz(n):
+    top = []
+    x, y = 0, 1
+    for i in range(n):
+        x, y = y, x + y
+        if x % 3 == 0 and x % 5 == 0:
+            top.append('FizzBuzz')
+        elif x % 3 == 0:
+            top.append('Fizz')
+        elif x % 5 == 0:
+            top.append('Buzz')
+        else:
+            top.append(x)
+    return top
