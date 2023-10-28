@@ -32,3 +32,10 @@
 # Enjoy, and don't forget to check out my other Kata Series :D
 #
 # LINKED LISTSRECURSIONALGORITHMS
+# Solution
+def stringify(node):
+    ans = []
+    while node:
+        ans.append(str(node.data))
+        node = node.next
+    return ' -> '.join(ans + ['None'])
