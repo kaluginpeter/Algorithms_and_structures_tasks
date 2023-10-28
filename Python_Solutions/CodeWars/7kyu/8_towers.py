@@ -43,3 +43,7 @@
 # | 0 x 0 |
 # | x 0 0 |
 # ALGORITHMS
+# Solution
+import math
+def tower_combination(n):
+    return math.factorial(n)
