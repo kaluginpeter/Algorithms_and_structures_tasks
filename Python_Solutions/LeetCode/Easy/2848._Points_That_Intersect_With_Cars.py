@@ -21,3 +21,12 @@
 # 1 <= nums.length <= 100
 # nums[i].length == 2
 # 1 <= starti <= endi <= 100
+# Solution HashSet Speed O(N) - Memory O(N)
+class Solution(object):
+    def numberOfPoints(self, nums):
+        s = set()
+        for i in nums:
+            for j in range(i[0], i[1] + 1):
+                if j not in s:
+                    s.add(j)
+        return len(s)
