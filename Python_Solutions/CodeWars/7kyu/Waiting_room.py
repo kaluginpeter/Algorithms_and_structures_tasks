@@ -17,3 +17,6 @@
 # Have fun :)
 #
 # SORTINGPUZZLESALGORITHMS
+# Solution
+def last_chair(n):
+    return n - 1
