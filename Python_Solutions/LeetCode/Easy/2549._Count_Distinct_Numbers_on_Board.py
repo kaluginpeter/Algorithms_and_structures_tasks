@@ -30,3 +30,7 @@
 # Constraints:
 #
 # 1 <= n <= 100
+# Solution
+class Solution(object):
+    def distinctIntegers(self, n):
+        return max(n - 1, 1)
