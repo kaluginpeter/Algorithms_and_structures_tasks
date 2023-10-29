@@ -29,3 +29,19 @@
 # Happy coding!
 #
 # ALGORITHMSSTRINGSCRYPTOGRAPHYSECURITY
+# Solution
+def tap_code_translation(text):
+    ans = []
+    for i in text:
+        x = ord(i) - 96
+        if x > 10:
+            if x == 11:
+                x = 3
+            else:
+                x -= 1
+        first = (x + 4) // 5
+        while x > 5:
+            x -= 5
+        second = x
+        ans.append('.' * first + ' ' + '.' * second)
+    return ' '.join(ans)
