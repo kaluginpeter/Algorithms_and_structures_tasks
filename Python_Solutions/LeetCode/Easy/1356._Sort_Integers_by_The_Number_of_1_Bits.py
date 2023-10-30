@@ -24,3 +24,49 @@
 #
 # 1 <= arr.length <= 500
 # 0 <= arr[i] <= 104
+# Solution 1 list
+class Solution(object):
+    def sortByBits(self, arr):
+        d, ans = [], []
+        for i in arr:
+            d.append((i, bin(i).count('1')))
+        for i in range(len(d)):
+            top, val = float('inf'), float('inf')
+            for j in d:
+                if j[1] < top:
+                    val, top = j[0], j[1]
+                elif j[1] == top:
+                    if j[0] < val:
+                        val, top = j[0], j[1]
+            ans.append(val)
+            d.remove((val, top))
+        return ans
+# Solution 2 Hashtable
+class Solution(object):
+    def sortByBits(self, arr):
+        d, ans = {}, []
+        for i in arr:
+            d[i] = d.get(i, 0) + 1
+        while d:
+            top, val = float('inf'), float('inf')
+            for j in d:
+                x = bin(j).count('1')
+                if x < top:
+                    val, top = j, x
+                elif x == top:
+                    if j < val:
+                        val, top = j, x
+            d[val] -= 1
+            if d[val] == 0:
+                del d[val]
+            ans.append(val)
+        return ans
+# Solution 3 Math with bits
+class Solution(object):
+    def sortByBits(self, arr):
+        for i in range(len(arr)):
+            arr[i] += bin(arr[i]).count('1') * 10001
+        arr.sort()
+        for i in range(len(arr)):
+            arr[i] = arr[i] % 10001
+        return arr
