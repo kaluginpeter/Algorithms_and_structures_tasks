@@ -11,3 +11,6 @@
 # fit_in(3,2,3,2) should return False
 # fit_in(1,2,1,2) should return False
 # PUZZLES
+# Solution
+def fit_in(a,b,m,n):
+    return (a + b <= max(m, n)) and (max(a, b) <= min(m, n))
