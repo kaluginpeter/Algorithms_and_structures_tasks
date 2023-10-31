@@ -31,3 +31,19 @@
 # n == words[i].length
 # 2 <= n <= 20
 # words[i] consists of lowercase English letters.
+# Solution
+class Solution(object):
+    def oddString(self, words):
+        l = [0] * len(words)
+        for i in range(len(words)):
+            ans = []
+            for j in range(len(words[i]) - 1):
+                ans.append(ord(words[i][j + 1]) - 97 - ord(words[i][j]) - 97)
+            l[i] = ans
+        for i in range(1, len(l) - 1):
+            if l[i - 1] != l[i] and l[i - 1] != l[i + 1]:
+                return words[i - 1]
+            elif l[i] != l[i - 1] and l[i] != l[i + 1]:
+                return words[i]
+            elif l[i + 1] != l[i] and l[i + 1] != l[i - 1]:
+                return words[i + 1]
