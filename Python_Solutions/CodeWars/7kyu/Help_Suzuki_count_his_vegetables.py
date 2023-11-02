@@ -27,3 +27,11 @@
 # Suzuki needs help lining up his students!
 # How many stairs will Suzuki climb in 20 years?
 # FUNDAMENTALS
+# Solution
+def count_vegetables(string):
+    string = string.split()
+    ans, s = [], {"cabbage", "carrot", "celery",
+                     "cucumber", "mushroom", "onion",
+                     "pepper", "potato", "tofu", "turnip"}
+    ans = [(string.count(i), i) for i in set(string) if i in s]
+    return sorted(ans, key=lambda x: (x[0], x[1]), reverse=True)
