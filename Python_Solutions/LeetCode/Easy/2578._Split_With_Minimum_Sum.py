@@ -26,3 +26,14 @@
 # Constraints:
 #
 # 10 <= num <= 109
+# Solution
+class Solution(object):
+    def splitNum(self, num):
+        num = sorted(str(num))
+        x, y = '', ''
+        for i in range(len(num)):
+            if int(i) % 2 == 0:
+                x += num[i]
+            else:
+                y += num[i]
+        return int(x) + int(y)
