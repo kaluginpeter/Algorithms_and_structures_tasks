@@ -31,3 +31,9 @@
 # 1 <= columnTitle.length <= 7
 # columnTitle consists only of uppercase English letters.
 # columnTitle is in the range ["A", "FXSHRXW"].
+# Solution
+class Solution(object):
+    def titleToNumber(self, chars):
+        if len(chars) == 1:
+            return ord(chars) - 64
+        return (ord(chars[0]) - 64) * (26 ** (len(chars) - 1)) + self.titleToNumber(chars[1:])
