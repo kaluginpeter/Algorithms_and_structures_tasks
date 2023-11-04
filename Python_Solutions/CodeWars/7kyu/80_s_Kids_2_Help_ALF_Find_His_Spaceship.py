@@ -41,3 +41,11 @@
 # 80's Kids #10: Captain Planet
 #
 # ARRAYSALGORITHMS
+# Solution
+def find_spaceship(astromap):
+    if 'X' not in astromap:
+        return 'Spaceship lost forever.'
+    astromap = astromap.split('\n')
+    for i in astromap:
+        if 'X' in i:
+            return [i.index('X'), len(astromap) - (astromap.index(i) + 1)]
