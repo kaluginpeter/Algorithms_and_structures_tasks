@@ -10,3 +10,15 @@
 # Output should be like:
 # (5,45,0)
 # FUNDAMENTALS
+# Solution
+# Make sure you follow the order of reaction
+# output should be H2O,CO2,CH4
+def burner(c,h,o):
+    water = min(h // 2, o)
+    h = max(h - water * 2, 0)
+    o = max(o - water, 0)
+    carbon = min(c, o // 2)
+    o = max(o - carbon * 2, 0)
+    c = max(c - carbon, 0)
+    methane = min(c, h // 4)
+    return (water, carbon, methane)
