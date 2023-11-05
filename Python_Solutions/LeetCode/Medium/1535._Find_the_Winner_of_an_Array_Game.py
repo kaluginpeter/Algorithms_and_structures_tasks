@@ -32,3 +32,31 @@
 # 1 <= arr[i] <= 106
 # arr contains distinct integers.
 # 1 <= k <= 109
+# Solution 1 - Speed O(N) / Memory O(1)
+class Solution(object):
+    def getWinner(self, arr, k):
+        top, count = arr[0], 0
+        for i in range(1, len(arr)):
+            if arr[i] > top:
+                top, count = arr[i], 0
+            count += 1
+            if count == k:
+                break
+        return top
+# Solution 2 - Speed O(N) / Memory O(N * N)
+class Solution(object):
+    def getWinner(self, arr, k):
+        if k >= len(arr):
+            return max(arr)
+        from collections import defaultdict
+        d = defaultdict(int)
+        while True:
+            x, y = arr[0], arr[1]
+            if x > y:
+                d[x] += 1
+                arr.append(arr.pop(1))
+            else:
+                d[y] += 1
+                arr.append(arr.pop(0))
+            if d[arr[0]] == k:
+                return arr[0]
