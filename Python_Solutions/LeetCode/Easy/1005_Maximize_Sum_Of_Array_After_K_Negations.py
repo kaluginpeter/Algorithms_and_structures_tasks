@@ -29,3 +29,21 @@
 # 1 <= nums.length <= 104
 # -100 <= nums[i] <= 100
 # 1 <= k <= 104
+# Solution
+class Solution(object):
+    def largestSumAfterKNegations(self, nums, k):
+        nums.sort()
+        top, ind = float('inf'), 0
+        for i in range(len(nums)):
+            if nums[i] < 1:
+                if k > 0:
+                    nums[i] = -nums[i]
+                    k -= 1
+                else:
+                    break
+            if nums[i] < top:
+                top, ind = nums[i], i
+        while k > 0:
+            nums[ind] = -nums[ind]
+            k -= 1
+        return sum(nums)
