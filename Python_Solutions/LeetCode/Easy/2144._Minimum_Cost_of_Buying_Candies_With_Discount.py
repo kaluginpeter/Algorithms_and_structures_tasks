@@ -37,3 +37,13 @@
 #
 # 1 <= cost.length <= 100
 # 1 <= cost[i] <= 100
+# Solution
+class Solution(object):
+    def minimumCost(self, cost):
+        cost.sort(reverse=True)
+        count = 0
+        for i in range(len(cost)):
+            if (i + 1) % 3 == 0:
+                continue
+            count += cost[i]
+        return count
