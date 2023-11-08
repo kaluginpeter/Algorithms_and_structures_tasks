@@ -30,3 +30,6 @@
 # Happy coding!
 #
 # ALGORITHMSMATHEMATICS
+# Solution
+def calc_ms(n):
+    return 20 ** n
