@@ -16,3 +16,8 @@
 #
 #
 # FUNDAMENTALS
+# Solution
+def wrap(h, w, l):
+    l = [h, w, l]
+    l.sort()
+    return l[0] * 4 + l[1] * 2 + l[2] * 2 + 20
