@@ -18,3 +18,10 @@
 # Adding vectors when you have their components is easy: just add the two x components together and the two y components together to get the x and y components for the vector sum.
 #
 # FUNDAMENTALS
+# Solution
+class Vector(object):
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+    def add(self, v):
+        return Vector(self.x + v.x, self.y + v.y)
