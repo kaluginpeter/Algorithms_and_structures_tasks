@@ -34,3 +34,17 @@
 #
 # 1 <= s.length <= 105
 # s consists of lowercase letters.
+# Solution
+class Solution(object):
+    def countHomogenous(self, s):
+        count, top = 0, 1
+        for i in range(len(s)):
+            if i == len(s) - 1:
+                count += (top * (top + 1) // 2) % (10 ** 9 + 7)
+                break
+            if s[i] == s[i + 1]:
+                top += 1
+            else:
+                count += (top * (top + 1) // 2) % (10 ** 9 + 7)
+                top = 1
+        return count
