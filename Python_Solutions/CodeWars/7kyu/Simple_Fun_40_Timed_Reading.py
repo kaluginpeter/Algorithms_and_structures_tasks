@@ -26,3 +26,12 @@
 # The number of words the boy has read.
 #
 # PUZZLES
+# Solution
+def timed_reading(max_length, text):
+    l = []
+    for i in text.split():
+        while i and not i[-1].isalpha():
+            i = i[:-1]
+        if i:
+            l.append(i)
+    return sum(len(i) <= max_length for i in l)
