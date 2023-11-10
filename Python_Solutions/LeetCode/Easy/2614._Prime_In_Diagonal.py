@@ -29,3 +29,22 @@
 # 1 <= nums.length <= 300
 # nums.length == numsi.length
 # 1 <= nums[i][j] <= 4*106
+# Solution
+class Solution(object):
+    def diagonalPrime(self, nums):
+        def is_prime(N):
+            if N < 2:
+                return False
+            count = 2
+            while count ** 2 <= N:
+                if N % count == 0:
+                    return False
+                count = count + 1
+            return True
+        top, n = 0, len(nums)
+        for i in range(n):
+            if is_prime(nums[i][i]):
+                top = max(nums[i][i], top)
+            if is_prime(nums[i][n -i - 1]):
+                top = max(nums[i][n -i - 1], top)
+        return top
