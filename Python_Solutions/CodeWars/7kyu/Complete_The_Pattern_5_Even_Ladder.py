@@ -19,3 +19,14 @@
 # Hint: Use \n in string to jump to next line
 #
 # ASCII ARTFUNDAMENTALS
+# Solution
+def pattern(n):
+    if n <= 1:
+        return ''
+    top, x = [], 2
+    while n % 2 != 0:
+        n -= 1
+    for i in range(2, n + 1, 2):
+        top.append(str(i) * x)
+        x += 2
+    return '\n'.join(top)
