@@ -27,3 +27,7 @@
 # details[i] consists of digits from '0' to '9'.
 # details[i][10] is either 'M' or 'F' or 'O'.
 # The phone numbers and seat numbers of the passengers are distinct.
+# Solution
+class Solution(object):
+    def countSeniors(self, details):
+        return sum(i[-4:-2] > '60' for i in details)
