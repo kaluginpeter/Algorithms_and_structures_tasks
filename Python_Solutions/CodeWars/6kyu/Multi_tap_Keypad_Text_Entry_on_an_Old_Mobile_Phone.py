@@ -34,3 +34,14 @@
 # Likewise, the phone doesn't distinguish between upper and lowercase characters (but you should allow your module to accept input in either form, for convenience).
 # Tested phrases contain letters (A-Z and a-z), digits (0-9), and special characters # and *.
 # FUNDAMENTALS
+# Solution
+def presses(phrase):
+    l = ['1', 'ABC2', 'DEF3', 'GHI4', 'JKL5', 'MNO6', 'PQRS7',
+        'TUV8', 'WXYZ9', '*', ' 0', '#']
+    top = 0
+    phrase = phrase.upper()
+    for char in phrase:
+        for but in l:
+            if char in but:
+                top += but.index(char) + 1
+    return top
