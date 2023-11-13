@@ -24,3 +24,19 @@
 #
 # 1 <= s.length <= 105
 # s consists only of letters of the English alphabet in uppercase and lowercase.
+# Solution
+class Solution(object):
+    def sortVowels(self, s):
+        word, l = '', []
+        for i in s:
+            if i.lower() in {'a', 'e', 'i', 'o', 'u'}:
+                l.append(i)
+        top = 0
+        l.sort()
+        for i in s:
+            if i.lower() not in {'a', 'e', 'i', 'o', 'u'}:
+                word += i
+            else:
+                word += l[top]
+                top += 1
+        return word
