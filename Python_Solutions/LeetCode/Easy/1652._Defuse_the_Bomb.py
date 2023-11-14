@@ -34,3 +34,16 @@
 # 1 <= n <= 100
 # 1 <= code[i] <= 100
 # -(n - 1) <= k <= n - 1
+# Solution
+class Solution(object):
+    def decrypt(self, code, k):
+        if k == 0:
+          return [0] * len(code)
+        l, code = [], code * 2
+        for i in range(len(code) // 2):
+          if k > 0:
+            l.append(sum(code[i + 1:i + k + 1]))
+          else:
+            x = i + len(code) // 2 - 1
+            l.append(sum(code[x: x + k: -1]))
+        return l
