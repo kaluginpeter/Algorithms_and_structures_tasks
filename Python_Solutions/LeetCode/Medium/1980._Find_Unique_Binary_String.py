@@ -26,3 +26,10 @@
 # nums[i].length == n
 # nums[i] is either '0' or '1'.
 # All the strings of nums are unique.
+# Solution
+class Solution(object):
+    def findDifferentBinaryString(self, nums):
+        top = ''
+        for i in range(len(nums)):
+            top += '1' if nums[i][i] == '0' else '0'
+        return top
