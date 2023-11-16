@@ -12,3 +12,6 @@
 # Remember to convert the velocity from km/h to m/s or from m/s in km/h when necessary.
 # The maximum height recorded by the device is not necessarily the maximum height reached by the ball.
 # FUNDAMENTALS
+# Solution
+def max_ball(v0):
+    return round(10 * v0 / 9.81 / 3.6)
