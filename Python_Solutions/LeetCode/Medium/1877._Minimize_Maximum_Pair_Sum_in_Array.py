@@ -29,3 +29,23 @@
 # 2 <= n <= 105
 # n is even.
 # 1 <= nums[i] <= 105
+# Solution 1 - Sort and Two Pointers
+class Solution(object):
+    def minPairSum(self, nums):
+        nums.sort()
+        x, y, top = 0, len(nums) - 1, 0
+        while x < y:
+            if nums[x] + nums[y] > top:
+                top = nums[x] + nums[y]
+            x += 1
+            y -= 1
+        return top
+# Solution 2 - Sort and Two Pointers by One Pointer
+class Solution(object):
+    def minPairSum(self, nums):
+        nums.sort()
+        x, top = 0, 0
+        while x < len(nums) / 2:
+            top = max(top, nums[x] + nums[-x - 1])
+            x += 1
+        return top
