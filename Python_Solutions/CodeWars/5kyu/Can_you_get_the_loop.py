@@ -14,3 +14,21 @@
 # Don't miss dmitry's article in the discussion after you pass the Kata !!
 #
 # ALGORITHMSLINKED LISTSPERFORMANCE
+# Solution 1 - Speed O(N) / Memory O(N)
+def loop_size(node):
+    d, top = {}, 0
+    while node not in d:
+        d[node] = top
+        top += 1
+        node = node.next
+    return top - d[node]
+# Solution 2 Speed O(N) / Memory O(1) FLoyd Algorithm
+def loop_size(node):
+    x, y = node.next, node.next.next
+    while x != y:
+        x, y = x.next, y.next.next
+    count, y = 1, y.next
+    while x != y:
+        count += 1
+        y = y.next
+    return count
