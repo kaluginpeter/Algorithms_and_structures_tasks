@@ -33,3 +33,12 @@
 #
 # 1 <= nums.length <= 50
 # 1 <= nums[i] <= 100
+# Solution Loop in Loop O(N**2) / O(1)
+class Solution(object):
+    def maximumStrongPairXor(self, nums):
+        top = 0
+        for i in range(len(nums)):
+            for j in range(i, len(nums)):
+                if abs(nums[i] - nums[j]) <= min(nums[i], nums[j]):
+                    top = max(top, nums[i] ^ nums[j])
+        return top
