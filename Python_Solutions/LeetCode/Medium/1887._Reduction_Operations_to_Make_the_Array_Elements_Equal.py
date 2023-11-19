@@ -35,3 +35,14 @@
 #
 # 1 <= nums.length <= 5 * 104
 # 1 <= nums[i] <= 5 * 104
+# Solution Speed - O(N log N) / Memory - O(1)
+class Solution(object):
+    def reductionOperations(self, nums):
+        count, x = 0, 1
+        nums.sort(reverse=True)
+        while x < len(nums):
+            if nums[x] != nums[x - 1]:
+                count += x
+            x += 1
+        return count
+
