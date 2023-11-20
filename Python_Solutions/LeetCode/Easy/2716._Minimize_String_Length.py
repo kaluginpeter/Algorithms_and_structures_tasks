@@ -29,3 +29,7 @@
 #
 # 1 <= s.length <= 100
 # s contains only lowercase English letters
+# Solution
+class Solution(object):
+    def minimizedStringLength(self, s):
+        return len(set(s))
