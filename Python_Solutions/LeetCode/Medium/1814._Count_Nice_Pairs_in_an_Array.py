@@ -23,3 +23,10 @@
 #
 # 1 <= nums.length <= 105
 # 0 <= nums[i] <= 109
+# Solution
+class Solution(object):
+    def countNicePairs(self, nums):
+        d = {}
+        for i in range(len(nums)):
+            d[nums[i] - int(str(nums[i])[::-1])] = d.get(nums[i] - int(str(nums[i])[::-1]), 0) + 1
+        return sum(val * (val - 1) // 2 for val in d.values()) % (10 ** 9 + 7)
