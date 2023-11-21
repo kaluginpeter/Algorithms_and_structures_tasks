@@ -15,3 +15,12 @@
 # Return a positive number.
 # All tests will only include the words "right" and "left".
 # ALGORITHMSARRAYS
+# Solution
+def spin_around(lst):
+    count = 0
+    for i in lst:
+        if i == 'left':
+            count -= 1
+        else:
+            count += 1
+    return abs(count) // 4
