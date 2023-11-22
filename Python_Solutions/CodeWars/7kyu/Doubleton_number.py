@@ -7,3 +7,16 @@
 # doubleton(1234) == 1311
 # doubleton(10) == 12
 # SETSFUNDAMENTALS
+# Solution
+def doubleton(num):
+    def check(n):
+        d = {}
+        for i in str(n):
+            d[i] = d.get(i, 0) + 1
+            if len(d) > 2:
+                return False
+        return len(d) in {2}
+    num += 1
+    while not check(num):
+        num += 1
+    return num
