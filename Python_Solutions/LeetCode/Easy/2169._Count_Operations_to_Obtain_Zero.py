@@ -30,3 +30,18 @@
 # Constraints:
 #
 # 0 <= num1, num2 <= 105
+# Solution 1 - Euclidean algorithm O(log min(num1, num2))
+class Solution(object):
+    def countOperations(self, num1, num2):
+        return 0 if num1 * num2 == 0 else num1 // num2 + self.countOperations(num2, num1 % num2)
+# Solution 2 O(max(num1, num2))
+class Solution(object):
+    def countOperations(self, num1, num2):
+        count = 0
+        while num1 != 0 and num2 != 0:
+            if num1 >= num2:
+                num1 = abs(num2 - num1)
+            else:
+                num2 = abs(num1 - num2)
+            count += 1
+        return count
