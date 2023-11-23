@@ -23,3 +23,11 @@
 #
 # 1 <= nums.length <= 105
 # nums[i] is either 0 or 1.
+# Solution
+class Solution(object):
+    def prefixesDivBy5(self, nums):
+        l, top = [True] * len(nums), 0
+        for i in range(len(nums)):
+            top = top * 2 + nums[i]
+            l[i] = top % 5 == 0
+        return l
