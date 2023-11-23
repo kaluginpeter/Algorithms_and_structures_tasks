@@ -23,3 +23,15 @@
 # uglify_word("qwe123asdf456zxc") === "QwE123AsDf456ZxC"
 # uglify_word("Hello World") === "HeLlO WoRlD"
 # ALGORITHMS
+# Solution
+def uglify_word(s):
+    d = {0: lambda x: x.lower(), 1: lambda x: x.upper()}
+    flag, word = 1, ''
+    for i in s:
+        if i.isalpha():
+            word += d[flag](i)
+            flag = not flag
+        else:
+            word += i
+            flag = 1
+    return word
