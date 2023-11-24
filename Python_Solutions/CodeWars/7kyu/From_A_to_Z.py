@@ -9,3 +9,8 @@
 # A hyphen will separate the two letters in the string.
 # You don't need to worry about error handling in this one (i.e. both letters will be the same case and the second letter will always be after the first alphabetically).
 # ALGORITHMSSTRINGS
+# Solution
+def gimme_the_letters(sp):
+    al = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    a, b = sp.split('-')
+    return al[al.index(a): al.index(b) + 1]
