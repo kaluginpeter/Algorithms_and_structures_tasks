@@ -18,3 +18,12 @@
 # The function must return the fastest option, either "Walk" or "Bus". If the walk is going to be over 2 hours, the function should recommend that you take the bus. If the walk is going to be under 10 minutes, the function should recommend that you walk. If both options are going to take the same amount of time, the function should recommend that you walk
 #
 # FUNDAMENTALSALGORITHMS
+# Solution
+def calculator(distance, bus_drive, bus_walk):
+    by_walk = distance / walk
+    by_bus = bus_walk / walk + bus_drive / bus
+    if by_walk < 1/6:
+        return 'Walk'
+    elif by_walk <= 2:
+        return 'Bus' if by_bus < by_walk else 'Walk'
+    return 'Bus'
