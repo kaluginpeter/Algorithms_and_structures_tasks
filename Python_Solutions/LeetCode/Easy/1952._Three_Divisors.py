@@ -19,3 +19,26 @@
 # Constraints:
 #
 # 1 <= n <= 104
+# Solution 1 Speed O(N // 2) Memory O(1)
+class Solution(object):
+    def isThree(self, n):
+        count = 1
+        for i in range(1, n // 2 + 1):
+            top = 1
+            while i * top < n:
+                top += 1
+            if top * i == n:
+                count += 1
+        return count == 3
+
+# Solution 2 Speed O(log(N)) Memory O(1)
+class Solution(object):
+    def isThree(self, n):
+        limit, count = n, 0
+        for i in range(1, limit):
+            if n % i == 0:
+                limit = n / i
+                if limit != i:
+                    count += 1
+                count += 1
+        return count == 3
