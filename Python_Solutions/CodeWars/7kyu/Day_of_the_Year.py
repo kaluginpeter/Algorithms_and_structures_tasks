@@ -9,3 +9,11 @@
 # If the year can be evenly divided by 100, it is NOT a leap year, unless;
 # The year is also evenly divisible by 400. Then it is a leap year.
 # FUNDAMENTALS
+# Solution
+import calendar
+def to_day_of_year(date):
+    count = 0
+    for i in range(1, date[1]):
+        count += calendar.monthrange(date[-1], i)[1]
+    count += date[0]
+    return count
