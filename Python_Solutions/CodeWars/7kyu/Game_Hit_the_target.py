@@ -44,3 +44,9 @@
 # Happy hacking as they say!
 #
 # GAMESMATRIXARRAYSSTRINGSFUNDAMENTALS
+# Solution
+def solution(mtrx):
+    for i in mtrx:
+        if '>' in i and 'x' in i:
+            return i.index('>') < i.index('x')
+    return False
