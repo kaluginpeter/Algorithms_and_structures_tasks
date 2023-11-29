@@ -37,3 +37,8 @@ class Solution:
             c += 1
             n &= n - 1
         return c
+
+# Solution 2
+class Solution(object):
+    def hammingWeight(self, n, count=0):
+        return self.hammingWeight(n & n-1, count+1) if n!=0 else count
