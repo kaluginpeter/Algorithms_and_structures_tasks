@@ -7,3 +7,6 @@
 # Function should not be case sensitive, as indicated in example #2. Note: both strings are presented as a single argument in the form of an array.
 #
 # STRINGSALGORITHMS
+# Solution
+def letter_check(arr):
+    return all(i.lower() in arr[0].lower() for i in arr[1])
