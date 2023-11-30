@@ -9,3 +9,12 @@
 # [5, 2, 2]       => 2
 # [13, 0, -6]     => 0
 # LISTSFUNDAMENTALS
+# Solution
+def closest(lst):
+    top = float('inf')
+    for i in lst:
+        if abs(i) < abs(top):
+            top = i
+    if lst.count(abs(top)) > 0 and lst.count(-top) > 0 and top != 0:
+        return None
+    return top
