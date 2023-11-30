@@ -29,3 +29,13 @@
 # 1 <= nums[i] <= nums.length
 # 1 <= k <= nums.length
 # The input is generated such that you can collect elements 1, 2, ..., k.
+# Solution
+class Solution(object):
+    def minOperations(self, nums, k):
+        d, count = {i: 1 for i in range(1, k +1)}, 0
+        top = -1
+        while d:
+            if nums[top] in d:
+                del d[nums[top]]
+            top -= 1
+        return abs(top) - 1
