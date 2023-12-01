@@ -21,3 +21,8 @@
 # Stacked Balls - 3D with square base
 # Stacked Balls - 3D with triangle base
 # FUNDAMENTALS
+# Solution
+def stack_height_2d(layers):
+    if layers in {0, 1}:
+        return layers
+    return 1 + (layers - 1) * 0.8660254
