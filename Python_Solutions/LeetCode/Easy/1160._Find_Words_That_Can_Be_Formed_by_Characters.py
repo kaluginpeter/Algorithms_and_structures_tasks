@@ -31,3 +31,20 @@ class Solution:
                 count += len(cop)
             mi_char = chars
         return count
+
+# Solution 2 Speed O(N) Memory O(N)
+class Solution(object):
+    def countCharacters(self, words, chars):
+        d, count = {}, 0
+        for i in chars:
+            d[i] = d.get(i, 0) + 1
+        for i in words:
+            top, flag = {}, True
+            for j in i:
+                top[j] = top.get(j, 0) + 1
+                if j not in d or top[j] > d[j]:
+                    flag = False
+                    break
+            if flag:
+                count += len(i)
+        return count
