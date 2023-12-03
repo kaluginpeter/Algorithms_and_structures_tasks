@@ -8,3 +8,9 @@
 # coordinates(45, 1)
 # => (0.7071067812, 0.7071067812)
 # ALGORITHMSMATHEMATICSGEOMETRY
+# Solution
+import math
+
+def coordinates(degrees, radius):
+    grad = degrees * (math.pi / 180)
+    return (round(radius * math.cos(grad), 10), round(radius * math.sin(grad), 10))
