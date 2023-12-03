@@ -31,3 +31,10 @@
 # 1 <= n <= 100
 # points[i].length == 2
 # -1000 <= points[i][0], points[i][1] <= 1000
+# Solution O(N) O(1) Chebyshov Distance
+class Solution(object):
+    def minTimeToVisitAllPoints(self, points):
+        count = 0
+        for i in range(len(points) - 1):
+            count += max(abs(points[i][0] - points[i + 1][0]), abs(points[i][1] - points[i + 1][1]))
+        return count
