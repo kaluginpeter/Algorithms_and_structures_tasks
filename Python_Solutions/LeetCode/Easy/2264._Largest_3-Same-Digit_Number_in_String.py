@@ -37,3 +37,24 @@ class Solution:
                 if num[i:i+3] > l:
                     l = num[i:i+3]
         return l
+# Solution 1 O(N) O(1)
+class Solution(object):
+    def largestGoodInteger(self, num):
+        top, cop = '', num[0]
+        for i in range(1, len(num)):
+            if num[i] == cop[-1]:
+                cop += num[i]
+                if len(cop) == 3:
+                    top = max(top, cop)
+                    cop = cop[-1]
+            else:
+                cop = num[i]
+        return top
+# Solution 2 O(N) O(1)
+class Solution(object):
+    def largestGoodInteger(self, num):
+        top = ''
+        for i in range(2, len(num)):
+            if num[i-2] == num[i-1] == num[i]:
+                top = max(top, num[i-2:i+1])
+        return top
