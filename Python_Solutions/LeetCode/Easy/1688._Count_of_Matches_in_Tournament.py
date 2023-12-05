@@ -42,3 +42,20 @@ class Solution:
             n = (n - 1) / 2
             count += n + 1
         return int(count)
+
+# Solution O(logN) O(1)
+class Solution(object):
+    def numberOfMatches(self, n):
+        count = 0
+        while n != 1:
+            if n % 2 == 0:
+                n = n / 2
+                count += n
+            else:
+                count += (n - 1) / 2
+                n = n // 2 + 1
+        return count
+# Solution O(1) O(1)
+class Solution(object):
+    def numberOfMatches(self, n):
+        return n - 1
