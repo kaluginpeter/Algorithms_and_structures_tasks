@@ -7,3 +7,13 @@
 # If we need to contribute time to the project then return "I need to work x hour(s) and y minute(s)"
 # If we don't have to contribute any time to the project then return "Easy Money!"
 # FUNDAMENTALS
+# Solution
+def work_needed(project_minutes, free_lancers):
+    for i in free_lancers:
+        if i[0] > 0:
+            project_minutes -= i[0] * 60
+        if i[1] > 0:
+            project_minutes -= i[1]
+    if project_minutes <= 0:
+        return 'Easy Money!'
+    return f'I need to work {project_minutes // 60} hour(s) and {project_minutes % 60} minute(s)'
