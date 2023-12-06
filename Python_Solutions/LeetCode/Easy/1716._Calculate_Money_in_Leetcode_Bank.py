@@ -39,3 +39,11 @@ class Solution:
             count += start + inp
             weeks += 1
         return count
+
+# Solution 2 O(7), O(1)
+class Solution(object):
+    def totalMoney(self, n):
+        if n % 7 == 0:
+            return sum((1 + 7 + i * 2) * 7 / 2 for i in range(n // 7))
+        x = sum((1 + 7 + i * 2) * 7 / 2 for i in range(n // 7))
+        return x + sum(i + n // 7 for i in range(1, n % 7 + 1))
