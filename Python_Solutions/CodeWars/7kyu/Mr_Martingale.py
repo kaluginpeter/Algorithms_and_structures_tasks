@@ -18,3 +18,14 @@
 # Note: Your balance is allowed to go below 0.
 #
 # GAMESPUZZLES
+# Solution
+def martingale(bank, outcomes):
+    top = 100
+    for i in outcomes:
+        if i == 1:
+            bank += top
+            top = 100
+        else:
+            bank -= top
+            top *= 2
+    return bank
