@@ -34,3 +34,12 @@ class Solution:
             if int(num) % 2 != 0:
                 return num
             num = num[:-1]
+
+# Solution 2
+class Solution(object):
+    def largestOddNumber(self, num):
+        while num[-1] not in {'1', '3', '5', '7', '9'}:
+          num = num[:-1]
+          if not num:
+            return ''
+        return num
