@@ -28,3 +28,8 @@
 # You will be given 3 inputs corresponding to the amount of each glyph you have acquired in the game. Your task is to output the final score. Take into account that you may have no glyphs at all!
 #
 # PUZZLES
+# Solution
+def seven_wonders_science(compasses, gears, tablets):
+    s1 = min(compasses, gears, tablets) * 7
+    s2 = sum(i * i for i in (compasses, gears, tablets))
+    return s1 + s2
