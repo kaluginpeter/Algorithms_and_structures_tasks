@@ -22,3 +22,17 @@
 #
 # The number of nodes in the tree is in the range [1, 104].
 # -1000 <= Node.val <= 1000
+# Solution
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def tree2str(self, root):
+        if not root:
+            return ''
+        left = ('(' + str(self.tree2str(root.left)) + ')') if root.left or root.right else ''
+        right = ('(' + str(self.tree2str(root.right)) + ')' ) if root.right else ''
+        return str(root.val) + left + right
