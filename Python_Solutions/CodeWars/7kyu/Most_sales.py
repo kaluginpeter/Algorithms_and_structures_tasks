@@ -8,3 +8,8 @@
 # Note: if multiple products have the same revenue, order them according to their original positions in the input list.
 #
 # FUNDAMENTALS
+# Solution
+def top3(products, amounts, prices):
+    d = {products[i]: amounts[i] * prices[i] for i in range(len(products))}
+    l = sorted(d.items(), key=lambda x: x[1], reverse=True)
+    return [i[0] for i in l][:3]
