@@ -51,3 +51,11 @@
 # Play FlappyBird : Advance Bravely
 #
 # PUZZLESGAMES
+# Solution
+def testit(s):
+    w, n, i = 'word', 0, 0
+    for j in s.lower():
+        if j == w[i]:
+            n += j == w[-1]
+            i = (i + 1) % len(w)
+    return n
