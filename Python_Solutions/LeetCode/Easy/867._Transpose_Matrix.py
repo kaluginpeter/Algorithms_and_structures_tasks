@@ -34,3 +34,12 @@ class Solution:
                     ans.append(l)
                     l = []
         return ans
+
+# Solution 2
+class Solution(object):
+    def transpose(self, matrix):
+        m = [[0] * len(matrix) for j in range(len(matrix[0]))]
+        for i in range(len(matrix[0])):
+            for j in range(len(matrix)):
+                m[i][j] = matrix[j][i]
+        return m
