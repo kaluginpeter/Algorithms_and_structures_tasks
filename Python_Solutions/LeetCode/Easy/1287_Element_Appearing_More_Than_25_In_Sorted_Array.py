@@ -16,3 +16,14 @@
 #
 # 1 <= arr.length <= 104
 # 0 <= arr[i] <= 105
+# Solution
+class Solution(object):
+    def findSpecialInteger(self, arr):
+        val, top, n = arr[0], 0, len(arr) // 4
+        for i in range(len(arr)):
+            if arr[i] == val:
+                top += 1
+                if top > n:
+                    return  val
+            else:
+                val, top = arr[i], 1
