@@ -8,3 +8,8 @@
 # When the inputs are valid, they will always be integers, no floats will be passed. However, you must take into account that the numbers will be of varying magnitude, between and within test cases.
 #
 # MATHEMATICSARRAYSALGORITHMS
+# Solution
+def noonerize(numbers):
+    if any(not isinstance(i, int) for i in numbers):
+        return 'invalid array'
+    return abs(int(str(numbers[1])[0] + str(numbers[0])[1:]) - int(str(numbers[0])[0] + str(numbers[1])[1:]))
