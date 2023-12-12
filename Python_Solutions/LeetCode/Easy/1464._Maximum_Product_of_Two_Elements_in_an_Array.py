@@ -25,3 +25,15 @@ class Solution:
     def maxProduct(self, nums: List[int]) -> int:
         a, b = sorted(nums, reverse=True)[:2]
         return (a - 1) * (b - 1)
+
+
+# Solution 2
+class Solution(object):
+    def maxProduct(self, nums):
+        x, y = min(nums[0], nums[1]), max(nums[1], nums[0])
+        for i in range(2, len(nums)):
+            if nums[i] >= y:
+                y, x = nums[i], y
+            elif nums[i] > x:
+                x = nums[i]
+        return (x - 1) * (y - 1)
