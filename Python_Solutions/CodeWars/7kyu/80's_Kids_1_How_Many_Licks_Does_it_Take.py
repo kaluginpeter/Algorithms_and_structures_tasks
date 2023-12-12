@@ -37,3 +37,12 @@
 # 80's Kids #10: Captain Planet
 #
 # ALGORITHMS
+# Solution
+def total_licks(env):
+    if not env:
+        return f'It took {252} licks to get to the tootsie roll center of a tootsie pop.'
+    s = sum(v for k, v in env.items())
+    w = f'It took {252 + s} licks to get to the tootsie roll center of a tootsie pop.'
+    if s + 252 < 252:
+        return w
+    return w + f' The toughest challenge was {max(env, key=env.get)}.'
