@@ -24,3 +24,39 @@
 # n == mat[i].length
 # 1 <= m, n <= 100
 # mat[i][j] is either 0 or 1.
+# Solution
+class Solution(object):
+    def numSpecial(self, mat):
+        count = 0
+        m, n = 0, 0
+        while m < len(mat):
+            for i in range(len(mat[m])):
+                if mat[m][i] == 1:
+                    top = 0
+                    for k in range(len(mat[m])):
+                        if mat[m][k] == 1:
+                            top += 1
+                            if top > 1:
+                                break
+                    if top == 1:
+                        top = 0
+                        for j in range(len(mat)):
+                            if mat[j][i] == 1:
+                                top += 1
+                                if top > 1:
+                                    break
+                    if top == 1:
+                        count += 1
+            m += 1
+        return count
+# Solution 2 Python syntax sugar
+class Solution(object):
+    def numSpecial(self, mat):
+        count = 0
+        m = 0
+        while m < len(mat):
+            if mat[m].count(1) == 1:
+                if sum(i[mat[m].index(1)] == 1 for i in mat) == 1:
+                    count += 1
+            m += 1
+        return count
