@@ -7,3 +7,8 @@
 # "A big brown fox caught a bad rabbit" => True/true
 # "Xylophones can obtain Xenon." => False/false
 # FUNDAMENTALS
+# Solution
+def connotation(strng):
+    en_al_l = 'abcdefghijklmnopqrstuvwxyz'
+    n = [1 if en_al_l.index(i[0].lower()) <= en_al_l.index('m') else 0 for i in strng.split()]
+    return n.count(1) >= n.count(0)
