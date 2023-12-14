@@ -47,3 +47,10 @@
 # 1 <= m, n <= 105
 # 1 <= m * n <= 105
 # grid[i][j] is either 0 or 1.
+# Solution
+class Solution(object):
+    def onesMinusZeros(self, grid):
+        n, m = len(grid), len(grid[0])
+        r = [sum(grid[i]) for i in range(n)]
+        c = [sum(grid[j][i] == 1 for j in range(n)) for i in range(m)]
+        return [[r[i] + c[j] - (n - r[i] + m - c[j]) for j in range(m)] for i in range(n)]
