@@ -38,3 +38,14 @@
 # 小麦 = こむぎ = komugi = wheat
 #
 # FUNDAMENTALSALGORITHMSSTRINGS
+# Solution O(N) O(N)
+def game(words):
+    if not words or not words[0]:
+        return []
+    stack = [words[0]]
+    for i in range(1, len(words)):
+        if not words[i] or words[i][0] != stack[-1][-1]:
+            break
+        else:
+            stack.append(words[i])
+    return stack
