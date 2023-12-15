@@ -37,3 +37,32 @@
 #
 # 1 <= n == batteryPercentages.length <= 100
 # 0 <= batteryPercentages[i] <= 100
+# Solution 1 Similar bruteforce
+# Complexity
+# Time complexity: O(N**2 / 2)
+#
+# Space complexity: O(1)
+#
+# Code
+class Solution(object):
+    def countTestedDevices(self, batteryPercentages):
+        count = 0
+        for i in range(len(batteryPercentages)):
+            if batteryPercentages[i] > 0:
+                count += 1
+                for j in range(i + 1, len(batteryPercentages)):
+                    batteryPercentages[j] = max(0, batteryPercentages[j] - 1)
+        return count
+#
+# Solution 2
+# Complexity
+# Time complexity: O(N)
+#
+# Space complexity: O(1)
+#
+class Solution(object):
+    def countTestedDevices(self, batteryPercentages):
+        count = 0
+        for i in range(len(batteryPercentages)):
+            count += batteryPercentages[i] > count
+        return count
