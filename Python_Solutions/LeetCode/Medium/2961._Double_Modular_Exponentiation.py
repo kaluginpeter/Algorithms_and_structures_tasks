@@ -32,3 +32,12 @@
 # variables[i] == [ai, bi, ci, mi]
 # 1 <= ai, bi, ci, mi <= 103
 # 0 <= target <= 103
+# Solution O(N) O(N)
+class Solution(object):
+    def getGoodIndices(self, variables, target):
+        out = set()
+        for i in range(len(variables)):
+            a, b, c, m = variables[i]
+            if (a**b % 10)**c % m == target:
+                out.add(i)
+        return out
