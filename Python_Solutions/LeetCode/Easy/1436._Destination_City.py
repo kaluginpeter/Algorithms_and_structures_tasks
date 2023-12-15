@@ -32,3 +32,11 @@
 # 1 <= cityAi.length, cityBi.length <= 10
 # cityAi != cityBi
 # All strings consist of lowercase and uppercase English letters and the space character.
+# Solution O(N) O(N)
+class Solution(object):
+    def destCity(self, paths):
+        city = set(path[0] for path in paths)
+        for i in range(len(paths)):
+            x = paths[i][1]
+            if x not in city:
+                return x
