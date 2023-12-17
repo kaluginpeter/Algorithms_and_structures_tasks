@@ -48,3 +48,23 @@
 # food will be the name of a food item in the system across all calls to changeRating.
 # cuisine will be a type of cuisine of at least one food item in the system across all calls to highestRated.
 # At most 2 * 104 calls in total will be made to changeRating and highestRated.
+# Solution
+from sortedcontainers import SortedList
+
+
+class FoodRatings(object):
+    def __init__(self, foods, cuisines, ratings):
+        self.food_dct = {}
+        self.csn_dct = defaultdict(SortedList)
+        for food, cuisine, rating in zip(foods, cuisines, ratings):
+            self.food_dct[food] = (cuisine, rating)
+            self.csn_dct[cuisine].add((-rating, food))
+
+    def changeRating(self, food, newRating):
+        cuisine, rating = self.food_dct[food]
+        self.food_dct[food] = cuisine, newRating
+        self.csn_dct[cuisine].remove((-rating, food))
+        self.csn_dct[cuisine].add((-newRating, food))
+
+    def highestRated(self, cuisine):
+        return self.csn_dct[cuisine][0][1]
