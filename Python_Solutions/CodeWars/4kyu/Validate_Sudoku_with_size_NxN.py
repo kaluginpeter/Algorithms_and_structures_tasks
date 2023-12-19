@@ -22,3 +22,40 @@
 # Columns may only contain integers: 1..N (N included)
 # 'Little squares' (3x3 in example above) may also only contain integers: 1..N (N included)
 # ARRAYSPUZZLESALGORITHMS
+# Solution
+class Sudoku(object):
+    def __init__(self, data):
+        self.data = data
+    def is_valid(self):
+        if any(len(i) != len(self.data) for i in self.data):
+            return False
+        for i in range(len(self.data)):
+            s = set(range(1, len(self.data) + 1))
+            for j in range(len(self.data)):
+                if not isinstance(self.data[i][j], int) or type(self.data[i][j]) == bool:
+                    return False
+                if self.data[i][j] in s:
+                    s.remove(self.data[i][j])
+            if len(s) != 0:
+                return False
+        for i in range(len(self.data)):
+            s = set(range(1, len(self.data) + 1))
+            for j in range(len(self.data)):
+                if self.data[j][i] in s:
+                    s.remove(self.data[j][i])
+            if len(s) != 0:
+                return False
+        step = 1
+        while step ** 2 < len(self.data):
+            step += 1
+        pos = list(range(step))
+        for i in range(0, len(self.data), step):
+            for j in range(0, len(self.data), step):
+                s = set(range(1, len(self.data) + 1))
+                for k in pos:
+                    for l in pos:
+                        if self.data[i+k][j + l] not in s:
+                            return False
+                        else:
+                            s.remove(self.data[i+k][j + l])
+        return True
