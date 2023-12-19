@@ -31,3 +31,34 @@
 # n == img[i].length
 # 1 <= m, n <= 200
 # 0 <= img[i][j] <= 255
+# Solution O(M * N) O(M * N)
+class Solution(object):
+    def imageSmoother(self, img):
+        """
+        :type img: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        m, n = len(img), len(img[0])
+        l = [[0 for i in range(n)] for j in range(m)]
+        for i in range(m):
+            for j in range(n):
+                out = []
+                out.append(img[i][j])
+                if 0 <= i-1 < m:
+                    out.append(img[i-1][j])
+                    if 0 <= j-1 < n:
+                        out.append(img[i-1][j-1])
+                    if 0 <= j+1 < n:
+                        out.append(img[i-1][j+1])
+                if 0 <= j-1 < n:
+                    out.append(img[i][j-1])
+                if 0 <= j+1 < n:
+                    out.append(img[i][j+1])
+                if 0 <= i+1 < m:
+                    out.append(img[i+1][j])
+                    if 0 <= j-1 < n:
+                        out.append(img[i+1][j-1])
+                    if 0 <= j+1 < n:
+                        out.append(img[i+1][j+1])
+                l[i][j] = sum(out) // len(out)
+        return l
