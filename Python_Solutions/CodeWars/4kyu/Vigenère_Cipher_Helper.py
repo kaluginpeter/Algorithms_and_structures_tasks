@@ -34,3 +34,27 @@
 #
 # c.encode('CODEWARS'); // returns 'CODEWARS'
 # ALGORITHMSCIPHERSSECURITYOBJECT-ORIENTED PROGRAMMINGSTRINGS
+# Solution
+class VigenereCipher(object):
+    def __init__(self, key, alphabet):
+        self.key = key * 10
+        self.alphabet = alphabet * 2
+
+    def encode(self, text):
+        l = []
+        for i in range(len(text)):
+            if text[i].isalpha() and text[i] in self.alphabet:
+                l.append(self.alphabet[self.alphabet.index(text[i]) + self.alphabet.index(self.key[i])])
+            else:
+                l.append(text[i])
+        return ''.join(l)
+
+    def decode(self, text):
+        l = []
+        for i in range(len(text)):
+            if text[i].isalpha() and text[i] in self.alphabet:
+                l.append(self.alphabet[
+                             self.alphabet.index(text[i], len(self.alphabet) // 2) - self.alphabet.index(self.key[i])])
+            else:
+                l.append(text[i])
+        return ''.join(l)
