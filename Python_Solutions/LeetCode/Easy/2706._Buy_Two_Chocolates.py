@@ -22,10 +22,22 @@
 # 2 <= prices.length <= 50
 # 1 <= prices[i] <= 100
 # 1 <= money <= 100
-# Solution
+# Solution O(N log N) O(N)
 class Solution:
     def buyChoco(self, prices: List[int], money: int) -> int:
         s_l = sorted(prices)
         if s_l[0] + s_l[1] > money:
             return money
         return  money - (s_l[0] + s_l[1])
+
+
+# Solution O(N) O(1)
+class Solution(object):
+    def buyChoco(self, prices, money):
+        ab_m, m = float('inf'), float('inf')
+        for i in prices:
+            if ab_m > i:
+                ab_m, m = i, ab_m
+            elif m > i:
+                m = i
+        return money - (ab_m + m) if ab_m + m <= money else money
