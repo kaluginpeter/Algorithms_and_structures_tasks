@@ -24,3 +24,13 @@
 # 2 <= n <= 105
 # points[i].length == 2
 # 0 <= xi, yi <= 109
+# Solution O(N) O(1)
+class Solution:
+    def maxWidthOfVerticalArea(self, points: List[List[int]]) -> int:
+        points.sort()
+        top, strt = 0, points[0][0]
+        for i in range(1, len(points)):
+            if points[i][0] != strt:
+                top = max(top, points[i][0] - strt)
+                strt = points[i][0]
+        return top
