@@ -24,7 +24,7 @@
 # 2 <= n <= 105
 # points[i].length == 2
 # 0 <= xi, yi <= 109
-# Solution O(N) O(1)
+# Solution O(N log N) O(1)
 class Solution:
     def maxWidthOfVerticalArea(self, points: List[List[int]]) -> int:
         points.sort()
