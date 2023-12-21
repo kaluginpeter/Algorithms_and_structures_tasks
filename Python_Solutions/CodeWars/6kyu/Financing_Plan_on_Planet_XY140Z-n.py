@@ -25,3 +25,12 @@
 # your solution will be nicer without loops.
 #
 # MATHEMATICSALGORITHMS
+# Solution 1
+def finance(n):
+    count = 3
+    for i in range(2, n + 1):
+        count += sum(range(i, i*2 + 1))
+    return count
+# Solution 2 Math solution
+def finance(n):
+    return n * (n + 1) * (n + 2) / 2
