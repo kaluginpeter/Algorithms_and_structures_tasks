@@ -34,3 +34,8 @@ class Solution:
                 top = max(top, points[i][0] - strt)
                 strt = points[i][0]
         return top
+# Solution 2 O(N log N) O(N)
+class Solution:
+    def maxWidthOfVerticalArea(self, points: List[List[int]]) -> int:
+        l = sorted({x for x, y in points})
+        return max([x2 - x1 for x1, x2 in zip(l, l[1:])] + [0])
