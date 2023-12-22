@@ -31,3 +31,19 @@
 class Solution:
     def maxScore(self, s: str) -> int:
         return max(s[:i].count('0') + s[i:].count('1') for i in range(1, len(s)))
+    
+
+# Solution O(N) O(1)
+class Solution:
+    def maxScore(self, s: str) -> int:
+        count_s = s.count('1', 1)
+        if s[0] == '0':
+            count_s += 1
+        total = count_s
+        for i in range(1, len(s) - 1):
+            if s[i] == '0':
+                count_s += 1
+            else:
+                count_s -= 1
+            total = max(total, count_s)
+        return total
