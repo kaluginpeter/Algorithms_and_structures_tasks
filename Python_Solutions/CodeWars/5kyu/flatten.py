@@ -5,3 +5,14 @@
 # flatten(1, [2, 3], 4, 5, [6, [7]]) # returns [1, 2, 3, 4, 5, 6, 7]
 # flatten('a', ['b', 2], 3, None, [[4], ['c']]) # returns ['a', 'b', 2, 3, None, 4, 'c']
 # ARRAYSALGORITHMS
+# Solution
+def flatten(*args):
+    if not args:
+        return []
+    l = []
+    for i in args:
+        if isinstance(i, list):
+            l += flatten(*i)
+        else:
+            l += [i]
+    return l
