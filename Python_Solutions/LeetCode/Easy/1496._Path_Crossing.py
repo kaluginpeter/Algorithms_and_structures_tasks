@@ -22,3 +22,15 @@
 #
 # 1 <= path.length <= 104
 # path[i] is either 'N', 'S', 'E', or 'W'.
+# Solution O(N) O(N)
+class Solution:
+    def isPathCrossing(self, path: str) -> bool:
+        x, y = 0, 0
+        st = {(x, y)}
+        for i in path:
+            x += 1 if i == 'E' else (-1 if i == 'W' else 0)
+            y += 1 if i == 'N' else (-1 if i == 'S' else 0)
+            if (x, y) in st:
+                return True
+            st.add((x, y))
+        return False
