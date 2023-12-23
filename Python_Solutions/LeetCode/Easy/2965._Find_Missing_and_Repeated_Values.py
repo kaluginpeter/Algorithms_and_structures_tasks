@@ -23,3 +23,19 @@
 # For all x that 1 <= x <= n * n there is exactly one x that is not equal to any of the grid members.
 # For all x that 1 <= x <= n * n there is exactly one x that is equal to exactly two of the grid members.
 # For all x that 1 <= x <= n * n except two of them there is exatly one pair of i, j that 0 <= i, j <= n - 1 and grid[i][j] == x.
+# Solution O(N) O(N) Math
+class Solution(object):
+    def findMissingAndRepeatedValues(self, grid):
+        """
+        :type grid: List[List[int]]
+        :rtype: List[int]
+        """
+        n = len(grid)
+        sm, total, sn = n**2 * (n**2 + 1) // 2, 0, set()
+        for i in range(n):
+            for j in range(n):
+                total += grid[i][j]
+                if grid[i][j] in sn:
+                    rep_num = grid[i][j]
+                sn.add(grid[i][j])
+        return [rep_num, (sm - total) + rep_num]
