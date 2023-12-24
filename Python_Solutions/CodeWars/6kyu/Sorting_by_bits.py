@@ -20,3 +20,18 @@
 #
 # [3, 8, 3, 6, 5, 7, 9, 1]   =>    [1, 8, 3, 3, 5, 6, 9, 7]
 # LOGICARRAYSALGORITHMSDATA STRUCTURESFUNDAMENTALSBITSBINARYSORTING
+# Solution 1 - Using sort
+def sort_by_bit(arr):
+    arr.sort(key=lambda x: (bin(x).count('1'), x))
+# Solution 2 -Bubble sort
+def sort_by_bit(arr):
+    for i in range(1, len(arr)):
+        for j in range(len(arr) - i):
+            top = bin(arr[j])[2:].count('1')
+            x = bin(arr[j + 1])[2:].count('1')
+            if top > x:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+            elif top == x:
+                m = min(arr[j], arr[j + 1])
+                m_ind = j if arr[j] == m else j + 1
+                arr[j], arr[j + 1] = arr[m_ind], arr[j if j != m_ind else j + 1]
