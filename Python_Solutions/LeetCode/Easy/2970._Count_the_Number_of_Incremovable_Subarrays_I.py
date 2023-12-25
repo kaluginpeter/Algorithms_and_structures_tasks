@@ -32,3 +32,15 @@
 #
 # 1 <= nums.length <= 50
 # 1 <= nums[i] <= 50
+# Solution O(N**3) O(1)
+class Solution:
+    def incremovableSubarrayCount(self, nums: List[int]) -> int:
+        if len(nums) == 1:
+            return 1
+        count = 0
+        for i in range(len(nums)):
+            for j in range(i, len(nums)):
+                x = nums[:i] + nums[j+1:]
+                if all(i < j for i, j in zip(x, x[1:])):
+                    count += 1
+        return count
