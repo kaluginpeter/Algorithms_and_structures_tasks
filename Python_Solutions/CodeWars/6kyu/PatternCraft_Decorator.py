@@ -25,3 +25,19 @@
 # The original PatternCraft series (by John Lindquist) is a collection of Youtube videos that explains some of the design patterns and how they are used (or could be) on StarCraft.
 #
 # DESIGN PATTERNSFUNDAMENTALS
+# Solution
+class Marine:
+    def __init__(self, damage, armor):
+        self.damage = damage
+        self.armor = armor
+class Marine_weapon_upgrade:
+    def __init__(self, marine):
+        self.marine = marine
+        self.damage = self.marine.damage + 1
+        self.armor = self.marine.armor
+
+class Marine_armor_upgrade:
+    def __init__(self, marine):
+        self.marine = marine
+        self.armor = self.marine.armor + 1
+        self.damage = self.marine.damage
