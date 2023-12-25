@@ -25,3 +25,36 @@
 # 1 <= nums.length <= 100
 # 1 <= nums[i] <= 100
 # nums.length % 2 == 0
+# Solution 1
+# Complexity
+# Time complexity: O(N*N)
+# Space complexity: O(N)
+#
+# Code
+class Solution:
+    def numberGame(self, nums: List[int]) -> List[int]:
+        l  = []
+        for j in range(len(nums) // 2):
+            ab_top, top = float('inf'), float('inf')
+            for i in nums:
+                if ab_top > i:
+                    ab_top, top = i, ab_top
+                elif top > i:
+                    top = i
+            l += [top, ab_top]
+            nums.remove(top)
+            nums.remove(ab_top)
+        return l
+
+# Solution 2 - Sorting and Bubble Sort
+
+# Complexity
+# Time complexity: O(N log N)
+# Space complexity: O(1)
+# Code
+class Solution:
+    def numberGame(self, nums: List[int]) -> List[int]:
+        nums.sort()
+        for i in range(1, len(nums), 2):
+            nums[i-1], nums[i] = nums[i], nums[i-1]
+        return nums
