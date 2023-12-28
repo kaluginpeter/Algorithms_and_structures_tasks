@@ -21,3 +21,13 @@
 # A more visual explanation of matrix multiplication: http://matrixmultiplication.xyz
 #
 # MATRIXLINEAR ALGEBRAALGORITHMS
+# Solution
+def matrix_mult(a, b):
+    mt = []
+    for n in range(len(a)):
+        rows = []
+        for m in range(len(a)):
+            x = sum(a[n][k] * b[k][m] for k in range(len(a)))
+            rows.append(x)
+        mt.append(rows)
+    return mt
