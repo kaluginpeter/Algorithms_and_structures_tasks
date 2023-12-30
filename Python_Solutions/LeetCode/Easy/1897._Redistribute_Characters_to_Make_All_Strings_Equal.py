@@ -25,3 +25,15 @@
 # 1 <= words.length <= 100
 # 1 <= words[i].length <= 100
 # words[i] consists of lowercase English letters.
+# Solution O(N) O(N)
+class Solution:
+    def makeEqual(self, words: List[str]) -> bool:
+        dt: dict = defaultdict(int)
+        for i in words:
+            for j in i:
+                dt[j] += 1
+        n: int = len(words)
+        for i in dt:
+            if dt[i] % n != 0:
+                return False
+        return True
