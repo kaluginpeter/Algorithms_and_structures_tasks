@@ -10,3 +10,13 @@
 # m,n should be non-negative integers, the function should return null (Javascript), None (Python), or nil (Ruby) for other type, non-integer and negative numbers. In C, input is restricted to integer type.
 #
 # MATHEMATICSALGORITHMSRECURSION
+# Solution
+def Ackermann(m, n):
+    if type(m) != int or type(n) != int or m < 0 or n < 0:
+        return
+    if m == 0:
+        return n + 1
+    if m > 0 and n == 0:
+        return Ackermann(m-1, 1)
+    if m > 0 and n > 0:
+        return Ackermann(m-1, Ackermann(m, n-1))
