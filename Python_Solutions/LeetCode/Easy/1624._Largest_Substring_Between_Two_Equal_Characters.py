@@ -25,3 +25,21 @@
 #
 # 1 <= s.length <= 300
 # s contains only lowercase English letters.
+# Solution O(N**2) O(1)
+class Solution:
+    def maxLengthBetweenEqualCharacters(self, s: str) -> int:
+        count: int = -1
+        for i in range(len(s)):
+            for j in range(i + 1, len(s)):
+                if s[i] == s[j]:
+                    count = max(count, j - i - 1)
+        return count
+# Solution 2 O(N) O(N)
+class Solution:
+    def maxLengthBetweenEqualCharacters(self, s: str) -> int:
+        count: int = -1
+        for i in range(len(s)):
+            for j in range(i + 1, len(s)):
+                if s[i] == s[j]:
+                    count = max(count, j - i - 1)
+        return count
