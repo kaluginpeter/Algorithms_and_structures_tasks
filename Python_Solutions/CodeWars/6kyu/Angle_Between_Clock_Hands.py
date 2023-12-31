@@ -11,3 +11,10 @@
 # at 6:00 the angle is: π (180 degrees)
 # at 9:00 the angle is: π/2 (90 degrees)
 # MATHEMATICSDATE TIMEALGORITHMS
+# Solution
+from math import pi
+def hand_angle(hours, minutes):
+    h, m = .5 * (60 * hours + minutes), 6 * minutes
+    angel = abs(h - m)
+    x = min(angel, 360 - angel)
+    return (pi / 180) * x
