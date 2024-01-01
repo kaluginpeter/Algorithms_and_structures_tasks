@@ -28,3 +28,26 @@
 #
 # Hope you have fun:-)!
 # FUNDAMENTALSSTRINGSALGORITHMS
+# Solution Speed O(len(a) + len(b)) Memory O(a2 + b2)
+def work_on_strings(a,b):
+    a1, b2 = {}, {}
+    for i in a:
+        x = i.lower()
+        a1[x] = a1.get(x, 0) + 1
+    for i in b:
+        x = i.lower()
+        b2[x] = b2.get(x, 0) + 1
+    ansa, ansb = '', ''
+    for i in a:
+        x = i.lower()
+        if x in b2:
+            ansa += i.swapcase() if b2[x] % 2 != 0 else i
+        else:
+            ansa += i
+    for i in b:
+        x = i.lower()
+        if x in a1:
+            ansb += i.swapcase() if a1[x] % 2 != 0 else i
+        else:
+            ansb += i
+    return ansa + ansb
