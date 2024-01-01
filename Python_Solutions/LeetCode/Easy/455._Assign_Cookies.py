@@ -25,3 +25,29 @@
 # 1 <= g.length <= 3 * 104
 # 0 <= s.length <= 3 * 104
 # 1 <= g[i], s[j] <= 231 - 1
+# Solution O(N log(N) + min(len(s), len(g))) == O(Nlog(N)) \ Memory O(1)
+class Solution:
+    def findContentChildren(self, g: List[int], s: List[int]) -> int:
+        g.sort()
+        s.sort()
+        count: int = 0
+        top = g.pop(0)
+        for i in s:
+            if i >= top:
+                count += 1
+                if g:
+                    top = g.pop(0)
+                else:
+                    break
+        return count
+# Solution O(Nlog(N)) Memory O(1)
+class Solution:
+    def findContentChildren(self, g: List[int], s: List[int]) -> int:
+        g.sort()
+        s.sort()
+        x, y = 0, 0
+        while x < len(g) and y < len(s):
+            if s[y] >= g[x]:
+                x = x + 1
+            y += 1
+        return x
