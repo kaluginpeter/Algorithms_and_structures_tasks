@@ -14,3 +14,13 @@
 # Suzuki needs help lining up his students!
 # How many stairs will Suzuki climb in 20 years?
 # ALGORITHMS
+# Solution
+def chore_assignment(chores):
+    chores.sort()
+    ans: list = []
+    while chores:
+        ans.append(chores[0] + chores[-1])
+        chores.pop(0)
+        chores.pop()
+    ans.sort()
+    return ans
