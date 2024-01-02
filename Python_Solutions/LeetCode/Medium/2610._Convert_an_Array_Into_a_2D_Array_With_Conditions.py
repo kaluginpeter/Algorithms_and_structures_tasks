@@ -30,3 +30,44 @@
 #
 # 1 <= nums.length <= 200
 # 1 <= nums[i] <= nums.length
+# Solution 1 - HashTable O(N**2) O(N)
+class Solution:
+    def findMatrix(self, nums: List[int]) -> List[List[int]]:
+        d: dict = {}
+        for i in nums:
+            d[i] = d.get(i, 0) + 1
+        ans: list = list()
+        while d:
+            top: list = []
+            for i in d.copy():
+                top.append(i)
+                d[i] -= 1
+                if d[i] == 0:
+                    del d[i]
+            ans.append(top)
+        return ans
+# Solution 2 - Flag O(N * len(ans)), O(N)
+class Solution:
+    def findMatrix(self, nums: List[int]) -> List[List[int]]:
+        ans: list = [[]]
+        for i in nums:
+            flag: bool = False
+            for l in ans:
+                if i not in l:
+                    l.append(i)
+                    flag: bool = True
+                    break
+            if not flag:
+                ans += [[i]]
+        return  ans
+# Solution 3 - HashTable O(N) O(N)
+class Solution:
+    def findMatrix(self, nums: List[int]) -> List[List[int]]:
+        sq: list = [0] * (len(nums) + 1)
+        ans: list = []
+        for i in nums:
+            if sq[i] >= len(ans):
+                ans.append([])
+            ans[sq[i]].append(i)
+            sq[i] += 1
+        return ans
