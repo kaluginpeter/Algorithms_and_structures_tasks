@@ -13,3 +13,24 @@
 # If the number is over 60, or the letter is not valid, return 'No Seat!!'.
 #
 # FUNDAMENTALSSTRINGSARRAYS
+# Solution
+def plane_seat(a):
+    al: str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    if int(a[:-1]) > 60 or a[-1] in {'I', 'J'} or al.index(a[-1]) > 10:
+        return 'No Seat!!'
+    x, y = '', ''
+    n = al.index(a[-1])
+    if 0 <= n <= al.index('C'):
+        y = 'Left'
+    elif al.index('C') < n <= al.index('F'):
+        y = 'Middle'
+    else:
+        y = 'Right'
+    n = int(a[:-1])
+    if 1 <= n <= 20:
+        x = 'Front'
+    elif 21 <= n <= 40:
+        x = 'Middle'
+    else:
+        x = 'Back'
+    return f'{x}-{y}'
