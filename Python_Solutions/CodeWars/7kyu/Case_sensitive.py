@@ -15,3 +15,12 @@
 # Find your caterer
 #
 # STRINGSFUNDAMENTALS
+# Solution
+def case_sensitive(s):
+    flag: bool = True
+    ans: list = list()
+    for i in s:
+        if i.isupper():
+            flag = not flag
+            ans += i
+    return [flag, ans]
