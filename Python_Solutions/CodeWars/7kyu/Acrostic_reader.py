@@ -5,3 +5,6 @@
 # Write a program that reads an acrostic to identify the "hidden" word. Specifically, your program will receive a list of words (reprensenting an acrostic) and will need to return a string corresponding to the word that is spelled out by taking the first letter of each word in the acrostic.
 #
 # STRINGSFUNDAMENTALS
+# Solution
+def read_out(acrostic):
+    return ''.join(i[0] for i in acrostic)
