@@ -40,3 +40,30 @@
 # n == bank[i].length
 # 1 <= m, n <= 500
 # bank[i][j] is either '0' or '1'.
+# Solution 1 - Math O(N * M) O(1)
+class Solution:
+    def numberOfBeams(self, bank: List[str]) -> int:
+        count: int = 0
+        flag: bool = False
+        top: int = 0
+        for i in bank:
+            x = i.count('1')
+            if x > 0:
+                if not flag:
+                    top = x
+                    flag = True
+                else:
+                    count += top * x
+                    top = x
+        return count
+# Solution 2 - Math O(N * M) O(1)
+class Solution:
+    def numberOfBeams(self, bank: List[str]) -> int:
+        count: int = 0
+        prev_top: int = 0
+        for i in bank:
+            top = i.count('1')
+            if top > 0:
+                count += prev_top * top
+                prev_top = top
+        return count
