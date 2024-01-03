@@ -39,3 +39,22 @@
 # 0 <= rowi, coli <= 2
 # There are no repeated elements on moves.
 # moves follow the rules of tic tac toe.
+# Solution O(R + C) O(R + C)
+class Solution:
+    def tictactoe(self, moves: List[List[int]]) -> str:
+        m: list = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+        for i in range(len(moves)):
+            m[moves[i][0]][moves[i][1]] = 'A' if i % 2 == 0 else 'B'
+        for j in 'AB':
+            if (
+                (m[0][0] == m[1][1] == m[2][2] == j)
+                or (m[0][2] == m[1][1] == m[2][0] == j)
+                or (m[0][0] == m[1][0] == m[2][0] == j)
+                or (m[0][1] == m[1][1] == m[2][1] == j)
+                or (m[0][2] == m[1][2] == m[2][2] == j)
+                or (m[0][0] == m[0][1] == m[0][2] == j)
+                or (m[1][0] == m[1][1] == m[1][2] == j)
+                or (m[2][0] == m[2][1] == m[2][2] == j)
+            ):
+                return j
+        return 'Draw' if len(moves) == 9 else 'Pending'
