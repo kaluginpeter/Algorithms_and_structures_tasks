@@ -29,3 +29,23 @@
 # 0 <= nums[i] <= 200
 # 1 <= diff <= 50
 # nums is strictly increasing.
+# Solution HashSet O(N) O(N)
+class Solution:
+    def arithmeticTriplets(self, nums: List[int], diff: int) -> int:
+        hs: set = set()
+        count: int = 0
+        for i in nums:
+            if i - diff in hs and i - diff * 2 in hs:
+                count += 1
+            hs.add(i)
+        return count
+# Solution Combination with memorization O(N**3), O(N)
+class Solution:
+    def arithmeticTriplets(self, nums: List[int], diff: int) -> int:
+        count: int = 0
+        for i in range(len(nums)):
+            for j in range(i + 1, len(nums)):
+                for k in range(j + 1, len(nums)):
+                    if nums[j] - nums[i] == nums[k] - nums[j] == diff:
+                        count += 1
+        return count
