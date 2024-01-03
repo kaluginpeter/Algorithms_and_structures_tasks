@@ -39,7 +39,7 @@ class Solution:
                 count += 1
             hs.add(i)
         return count
-# Solution Combination with memorization O(N**3), O(N)
+# Solution Combination with memorization O(N**3), O(1)
 class Solution:
     def arithmeticTriplets(self, nums: List[int], diff: int) -> int:
         count: int = 0
