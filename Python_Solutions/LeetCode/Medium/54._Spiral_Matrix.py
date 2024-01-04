@@ -20,3 +20,26 @@
 # n == matrix[i].length
 # 1 <= m, n <= 10
 # -100 <= matrix[i][j] <= 100
+# Solution O(M * (M + N)) O(M + N)
+class Solution:
+    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+        l: list = []
+        for k in range(len(matrix)):
+            if matrix:
+                for i in range(len(matrix[0]) - 1):
+                    if matrix[0]:
+                        l.append(matrix[0].pop(0))
+            for i in range(len(matrix) - 1):
+                if matrix[i]:
+                    l.append(matrix[i].pop())
+            if matrix:
+                for i in range(len(matrix[-1]) - 1, 0, -1):
+                    if matrix[-1]:
+                        l.append(matrix[-1].pop(i))
+            for i in range(len(matrix) - 1, 0, -1):
+                if matrix[i]:
+                    l.append(matrix[i].pop(0))
+            for i in matrix:
+                if not i:
+                    matrix.remove(i)
+        return l + matrix[0] if matrix else l
