@@ -29,3 +29,22 @@
 #
 # 2 <= nums.length <= 105
 # 1 <= nums[i] <= 106
+# Solution O(N) O(N)
+class Solution:
+    def minOperations(self, nums: List[int]) -> int:
+        count: int = 0
+        d: dict = {}
+        for i in nums:
+            d[i] = d.get(i, 0) + 1
+        for i in d:
+            if d[i] == 1:
+                return -1
+            if d[i] % 3 == 0:
+                count += d[i] // 3
+            else:
+                while d[i] - 3 >= 2:
+                    d[i] -= 3
+                    count += 1
+                if d[i] % 2 == 0:
+                    count += d[i] // 2
+        return count
