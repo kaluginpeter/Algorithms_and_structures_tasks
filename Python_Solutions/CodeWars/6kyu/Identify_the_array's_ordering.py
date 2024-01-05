@@ -13,3 +13,20 @@
 # Happy coding! :)
 #
 # ARRAYSSTRINGSALGORITHMSFUNDAMENTALS
+# Solution
+def order_type(arr):
+    if not arr or len(arr) == 1:
+        return 'Constant'
+    l: list = []
+    for i in arr:
+        if type(i) in {str, list}:
+            l.append(len(i))
+        else:
+            l.append(len(str(i)))
+    if all(x == y for x, y in zip(l, l[1:])):
+        return 'Constant'
+    elif all(x <= y for x, y in zip(l, l[1:])):
+        return 'Increasing'
+    elif all(x >= y for x, y in zip(l, l[1:])):
+        return 'Decreasing'
+    return 'Unsorted'
