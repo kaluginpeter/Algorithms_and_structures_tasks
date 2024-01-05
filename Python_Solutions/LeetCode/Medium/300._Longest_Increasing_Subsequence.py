@@ -26,3 +26,13 @@
 #
 #
 # Follow up: Can you come up with an algorithm that runs in O(n log(n)) time complexity?
+# Solution O(N**2) O(N)
+class Solution:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        n: int = len(nums)
+        dp: list = [1] * n
+        for i in range(1, n):
+            for j in range(i):
+                if nums[i] > nums[j] and dp[i] < dp[j] + 1:
+                    dp[i] = dp[j] + 1
+        return max(dp)
