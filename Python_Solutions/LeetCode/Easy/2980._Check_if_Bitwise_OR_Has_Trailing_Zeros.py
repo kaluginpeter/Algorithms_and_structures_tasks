@@ -30,3 +30,11 @@
 #
 # 2 <= nums.length <= 100
 # 1 <= nums[i] <= 100
+# Solution Nested Loops O(N**2) O(1)
+class Solution:
+    def hasTrailingZeros(self, nums: List[int]) -> bool:
+        for i in range(len(nums)):
+            for j in range(i + 1, len(nums)):
+                if bin(nums[i] | nums[j])[-1] == '0':
+                    return True
+        return False
