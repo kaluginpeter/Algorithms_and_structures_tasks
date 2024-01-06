@@ -7,3 +7,17 @@
 # Example
 # ['Mango', 'Banana', 'Avocado'] //the price of this juice bottle is (7+5+7)/3 = $6($6.333333...)
 # FUNDAMENTALSARRAYS
+# Solution
+def mix_fruit(arr):
+    basic: set = {'banana', 'orange', 'apple', 'lemon', 'grapes'}
+    special: set = {'avocado', 'strawberry', 'mango'}
+    count: int = 0
+    for i in arr:
+        i = i.lower()
+        if i in basic:
+            count += 5
+        elif i in special:
+            count += 7
+        else:
+            count += 9
+    return round(count / len(arr))
