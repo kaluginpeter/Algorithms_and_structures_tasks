@@ -24,3 +24,7 @@
 # 1 <= n.length <= 105
 # n consists of only digits.
 # n does not contain any leading zeros and represents a positive integer.
+# Solution
+class Solution:
+    def minPartitions(self, n: str) -> int:
+        return int(max(n))
