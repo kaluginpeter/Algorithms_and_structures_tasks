@@ -31,3 +31,28 @@
 #
 # 3 <= s.length <= 50
 # s consists of only lowercase English letters.
+# Solution O(N**3) O(1)
+class Solution:
+    def maximumLength(self, s: str) -> int:
+        mx = -1
+        top = s[0]
+        for i in range(1, len(s)):
+            count = 0
+            for j in range(len(s)):
+                if top == s[j:j+len(top)]:
+                    count += 1
+                if count > 2:
+                    mx = max(mx, len(top))
+                    break
+            if s[i] == top[-1]:
+                top += s[i]
+                count = 0
+                for j in range(len(s)):
+                    if top == s[j:j+len(top)]:
+                        count += 1
+                    if count > 2:
+                        mx = max(mx, len(top))
+                        break
+            else:
+                top = s[i]
+        return mx
