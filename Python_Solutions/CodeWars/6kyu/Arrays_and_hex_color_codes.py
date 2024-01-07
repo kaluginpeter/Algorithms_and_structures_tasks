@@ -17,3 +17,20 @@
 # second subarray's predominant colors: Green, Green, Red, Green, Green (Green is major, Red is minor)
 # third subarray's predominant colors: Blue, Green, Green, Green, Green (Green is major, Blue is minor)
 # FUNDAMENTALSARRAYS
+# Solution
+from PIL import ImageColor
+def get_colors(col_arr):
+    l: list = []
+    for j in col_arr:
+        d: dict = {}
+        for k in j:
+            r, g, b = ImageColor.getcolor('#' + k, "RGB")
+            mx = max(r, g, b)
+            if mx == r:
+                d['Red'] = d.get('Red', 0) + 1
+            elif mx == g:
+                d['Green'] = d.get('Green', 0) + 1
+            else:
+                d['Blue'] = d.get('Blue', 0) + 1
+        l.append(f"{max(d, key=d.get)}+{min(d, key=d.get)}")
+    return ','.join(l)
