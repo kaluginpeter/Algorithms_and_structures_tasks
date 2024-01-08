@@ -28,3 +28,13 @@
 #
 # 1 <= nums.length <= 1000
 # 1 <= nums[i] <= 105
+# Solution O(N) O(1)
+class Solution:
+    def leftRightDifference(self, nums: List[int]) -> List[int]:
+        left_sm, right_sm = 0, sum(nums)
+        for i in range(len(nums)):
+            x: int = nums[i]
+            right_sm -= x
+            nums[i] = abs(left_sm - right_sm)
+            left_sm += x
+        return nums
