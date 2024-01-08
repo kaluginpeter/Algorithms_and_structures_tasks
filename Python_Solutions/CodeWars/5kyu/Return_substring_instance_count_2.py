@@ -9,3 +9,14 @@
 # search_substr( 'aaa', '' ) # should return 0
 # search_substr( 'aaa', 'aa', False ) # should return 1
 # STRINGSREGULAR EXPRESSIONSALGORITHMS
+# Solution
+def search_substr(full_text, search_text, allow_overlap=True):
+    if not full_text or not search_text:
+        return 0
+    if allow_overlap:
+        count: int = 0
+        for i in range(len(full_text)):
+            if full_text[i: i + len(search_text)] == search_text:
+                count += 1
+        return count
+    return full_text.count(search_text)
