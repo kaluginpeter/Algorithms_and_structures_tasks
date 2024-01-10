@@ -31,3 +31,23 @@
 # Once again, Your initial position is the character "x", so from the position of "x" you follow the directions given and get all pieces in the grid.
 #
 # LOGICARRAYSALGORITHMSDATA STRUCTURES
+# Solution
+def get_password(grid, directions):
+    m, n = 0, 0
+    for i in range(len(grid)):
+        if 'x' in grid[i]:
+            m, n = i, grid[i].index('x')
+    word: str = ''
+    for i in directions:
+        if i[-1].isupper():
+            if i[:-1] in {'down', 'up'}:
+                m += 1 if i[:-1] == 'down' else -1
+            else:
+                n += -1 if i[:-1] == 'left' else 1
+            word += grid[m][n]
+        else:
+            if i in {'down', 'up'}:
+                m += 1 if i == 'down' else -1
+            else:
+                n += -1 if i == 'left' else 1
+    return word
