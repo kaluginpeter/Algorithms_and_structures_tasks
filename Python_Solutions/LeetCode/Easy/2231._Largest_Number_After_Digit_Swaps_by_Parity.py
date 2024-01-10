@@ -24,3 +24,37 @@
 # Constraints:
 #
 # 1 <= num <= 109
+# Solution O(N log N) O(N)
+class Solution:
+    def largestInteger(self, num: int) -> int:
+        odd, even = [], []
+        ans: list = []
+        while num:
+            x = num % 10
+            if x % 2 == 0:
+                even.append(x)
+                ans.append(True)
+            else:
+                odd.append(x)
+                ans.append(False)
+            num //= 10
+        odd.sort()
+        even.sort()
+        i: int = 0
+        ans = ans[::-1]
+        while odd and even:
+            if ans[i] == True:
+                ans[i] = even.pop()
+            else:
+                ans[i] = odd.pop()
+            i += 1
+        while odd:
+            ans[i] = odd.pop()
+            i += 1
+        while even:
+            ans[i] = even.pop()
+            i += 1
+        top: int = 0
+        while ans:
+            top =  top * 10 + ans.pop(0)
+        return top
