@@ -29,3 +29,16 @@
 # 2 <= nums.length <= 1000
 # 1 <= nums[i] <= 1000
 # The test cases will be generated such that the answer is unique.
+# Solution O(N) O(N)
+class Solution:
+    def mostFrequent(self, nums: List[int], key: int) -> int:
+        d: dict = {}
+        for i in range(len(nums) - 1):
+            if nums[i] == key:
+                d[nums[i + 1]] = d.get(nums[i + 1], 0) + 1
+        top: int = 0
+        v_top: int = 0
+        for i in d:
+            if d[i] > top:
+                v_top, top = i, d[i]
+        return v_top
