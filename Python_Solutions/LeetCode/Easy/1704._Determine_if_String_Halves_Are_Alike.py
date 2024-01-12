@@ -33,3 +33,16 @@ class Solution:
             if b[i] in vowels:
                 top_b += 1
         return top_a == top_b
+
+# Solution O(N) O(1)
+class Solution:
+    def halvesAreAlike(self, s: str) -> bool:
+        n: int = len(s) // 2
+        count: int = 0
+        vowels: set = {'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'}
+        for i in range(n):
+            if s[i] in vowels:
+                count += 1
+            if s[i + n] in vowels:
+                count -= 1
+        return count == 0
