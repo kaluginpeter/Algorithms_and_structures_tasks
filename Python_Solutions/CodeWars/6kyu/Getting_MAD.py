@@ -31,3 +31,13 @@
 # Note that the same value can appear more than once in the array. In that case, the MAD will be 0.
 #
 # FUNDAMENTALSARRAYSALGORITHMS
+# Solution
+def getting_mad(arr):
+    cop = list(set(arr))
+    if len(cop) != len(arr):
+        return 0
+    ans: int = float('inf')
+    for i in range(len(cop)):
+        for j in range(i + 1, len(cop)):
+            ans = min(ans, abs(cop[i] - cop[j]))
+    return ans if ans < float('inf') else 0
