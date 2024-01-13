@@ -28,3 +28,18 @@
 # 1 <= s.length <= 5 * 104
 # s.length == t.length
 # s and t consist of lowercase English letters only.
+# Solution HashTable O(N) O(N)
+class Solution:
+    def minSteps(self, s: str, t: str) -> int:
+        hts, htt = {}, {}
+        for i in s:
+            hts[i] = hts.get(i, 0) + 1
+        for i in t:
+            htt[i] = htt.get(i, 0) + 1
+        count: int = 0
+        for i in hts:
+            if i not in htt:
+                count += hts[i]
+            elif htt[i] < hts[i]:
+                count += hts[i] - htt[i]
+        return count
