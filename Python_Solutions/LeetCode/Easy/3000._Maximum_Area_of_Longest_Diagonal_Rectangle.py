@@ -35,7 +35,6 @@ class Solution:
             if (i[0]**2 + i[1]**2)**.5 > mx:
                 mx = (i[0]**2 + i[1]**2)**.5
                 area = i[0] * i[1]
-                print(i, mx, area)
             elif (i[0]**2 + i[1]**2)**.5 == mx:
                 mx = (i[0]**2 + i[1]**2)**.5
                 area = max(i[0] * i[1], area)
