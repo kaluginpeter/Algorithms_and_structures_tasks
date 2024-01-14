@@ -36,3 +36,17 @@
 #
 # 1 <= word1.length, word2.length <= 105
 # word1 and word2 contain only lowercase English letters.
+# Solution O(N) O(N)
+class Solution:
+    def closeStrings(self, word1: str, word2: str) -> bool:
+        if len(word1) != len(word2):
+            return False
+        htw1, htw2 = {}, {}
+        for i in word1:
+            htw1[i] = htw1.get(i, 0) + 1
+        for i in word2:
+            htw2[i] = htw2.get(i, 0) + 1
+        for i in htw1:
+            if i not in htw2:
+                return False
+        return sorted(htw1.values()) == sorted(htw2.values())
