@@ -10,3 +10,8 @@
 #
 # func([2,4,6,8,10,12,14,16,18,19]) returns - [10,'1010','12','a']
 # PUZZLES
+# Solution
+def func(l):
+    n: int = sum(l) // len(l)
+    ans: list = [format(n, f) for f in ['b', 'o', 'x']]
+    return [n] + ans
