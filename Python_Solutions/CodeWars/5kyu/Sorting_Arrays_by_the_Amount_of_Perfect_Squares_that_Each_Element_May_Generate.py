@@ -30,3 +30,26 @@
 # Enjoy it!!
 #
 # ALGORITHMSMATHEMATICSNUMBER THEORYPERMUTATIONS
+# Solution
+import math
+import itertools
+def sort_by_perfsq(arr):
+    d: dict = {}
+    for i in arr:
+        count: int = 0
+        for j in set(itertools.permutations(map(int, str(i)))):
+            x: int = int(''.join(str(k) for k in j))
+            count += math.sqrt(x).is_integer()
+        d[i] = count
+    ans: list = []
+    while d:
+        top: int = 0
+        top_val: int = float('-inf')
+        for i in d:
+            if top_val < d[i]:
+                top, top_val = i, d[i]
+            elif top_val == d[i]:
+                top = min(top, i)
+        ans.append(top)
+        del d[top]
+    return ans
