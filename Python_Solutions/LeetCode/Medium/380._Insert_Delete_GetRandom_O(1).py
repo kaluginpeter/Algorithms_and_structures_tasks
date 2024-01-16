@@ -32,3 +32,34 @@
 # -231 <= val <= 231 - 1
 # At most 2 * 105 calls will be made to insert, remove, and getRandom.
 # There will be at least one element in the data structure when getRandom is called.
+# Solution
+import random
+class RandomizedSet:
+    def __init__(self):
+        self.ht = {}
+        self.data = []
+
+    def insert(self, val: int) -> bool:
+        if val not in self.ht:
+            self.data.append(val)
+            self.ht[val] = len(self.data) - 1
+            return True
+        return False
+
+    def remove(self, val: int) -> bool:
+        if val in self.ht:
+            last_item, indx_val = self.data[-1], self.ht[val]
+            self.data[indx_val], self.ht[last_item] = last_item, indx_val
+            self.data.pop()
+            self.ht.pop(val)
+            return True
+        return False
+
+    def getRandom(self) -> int:
+        return random.choice(self.data)
+
+# Your RandomizedSet object will be instantiated and called as such:
+# obj = RandomizedSet()
+# param_1 = obj.insert(val)
+# param_2 = obj.remove(val)
+# param_3 = obj.getRandom()
