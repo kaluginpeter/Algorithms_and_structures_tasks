@@ -40,3 +40,20 @@
 # Enjoy it!!
 #
 # FUNDAMENTALSDATA STRUCTURESALGORITHMSMATHEMATICSLOGIC
+# Solution
+import math
+def select_subarray(arr):
+    cost_ans: list = [float('inf')]
+    ans: list = [[-1, float('inf')]]
+    total: int = sum(arr)
+    for i in range(len(arr)):
+        x: int = total - arr[i]
+        if x != 0:
+            y: int = math.prod(arr[:i] + arr[i+1:])
+            q: int = (abs(y / x))
+            if q < cost_ans[-1]:
+                ans.clear(); ans.append([i, arr[i]])
+                cost_ans.clear(); cost_ans.append(q)
+            elif q == cost_ans[-1]:
+                ans.append([i, arr[i]])
+    return ans[0] if len(ans) == 1 else ans
