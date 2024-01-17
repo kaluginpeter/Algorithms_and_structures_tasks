@@ -24,3 +24,19 @@ class Solution(object):
         counter = Counter(arr).values()
         if(len(counter) == len(set(counter))): return True
         return False
+
+
+# Solution 2 O(N) O(N) HashTable and HashSet
+class Solution:
+    def uniqueOccurrences(self, arr: List[int]) -> bool:
+        ht: dict = {}
+        for i in arr:
+            ht[i] = ht.get(i, 0) + 1
+        hs: set = set()
+        for i in ht:
+            if ht[i] in hs:
+                return False
+            else:
+                hs.add(ht[i])
+        return True
+# Solution 3 O(N) O(N) HashTable
