@@ -40,3 +40,9 @@ class Solution:
                 hs.add(ht[i])
         return True
 # Solution 3 O(N) O(N) HashTable
+class Solution:
+    def uniqueOccurrences(self, arr: List[int]) -> bool:
+        ht: dict = {}
+        for i in arr:
+            ht[i] = ht.get(i, 0) + 1
+        return len(ht.values()) == len(set(ht.values()))
