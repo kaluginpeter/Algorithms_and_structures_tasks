@@ -24,7 +24,7 @@
 #
 #
 # Follow up: Could you come up with a one-pass algorithm using only constant extra space?
-# Solution O(N) O(N) Two Pointers
+# Solution O(N) O(1) Two Pointers
 class Solution:
     def sortColors(self, nums: List[int]) -> None:
         left, right = 0, len(nums) - 1
