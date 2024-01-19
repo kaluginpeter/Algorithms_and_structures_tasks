@@ -36,3 +36,18 @@
 # I have created other katas. Have a look if you like coding and challenges.
 #
 # MATHEMATICSALGORITHMS
+# Solution
+import random
+def number_generator():
+    ans: list = [random.randint(1, 49) for i in range(6)]
+    return sorted(ans) + [random.randint(0, 9)]
+
+def check_for_winning_category(your_numbers, winning_numbers):
+    count: int = sum(i in winning_numbers[:6] for i in your_numbers[:6])
+    top: int = your_numbers[-1] == winning_numbers[-1]
+    if count == 6: return 1 if top else 2
+    elif count == 5: return 3 if top else 4
+    elif count == 4: return 5 if top else 6
+    elif count == 3: return 7 if top else 8
+    elif count == 2: return 9 if top  else -1
+    return -1
