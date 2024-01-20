@@ -21,3 +21,39 @@
 #
 #
 # Follow up: Your algorithm's time complexity must be better than O(n log n), where n is the array's size.
+# Solution O(N) O(N) Bucket
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        ht: dict = {}
+        for i in nums:
+            ht[i] = ht.get(i, 0) + 1
+        bucket: list = [None] * (len(nums) + 1)
+        for i in ht:
+            if not bucket[ht[i]]:
+                bucket[ht[i]] = [i]
+            else:
+                bucket[ht[i]].extend([i])
+        ans: list = []
+        for i in range(len(bucket) - 1, -1, -1):
+            if bucket[i]:
+                ans.extend(bucket[i])
+                if len(ans) >= k:
+                    break
+        return ans[:k]
+# Solution HashTable O(NK) O(N + K)
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        ht: dict = {}
+        for i in nums:
+            ht[i] = ht.get(i, 0) + 1
+        ans: list = []
+        while k > 0:
+            top: int = float('-inf')
+            top_value: int = None
+            for i in ht:
+                if ht[i] > top:
+                    top, top_value = ht[i], i
+            ans.append(top_value)
+            del ht[top_value]
+            k -= 1
+        return ans
