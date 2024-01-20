@@ -32,3 +32,31 @@
 # decode(".. . ... .. .. . . . ... .. . ...") => "TEST"
 # decode(".. ... . .. .. . ... . .. ... . .. ... .. .. ... ... ... .. .. ... ... .. .. ... ... .. ... . .. . .. .") => "HELLO WORLD"
 # CIPHERSALGORITHMSCRYPTOGRAPHY
+# Solution
+CHARS: list = [
+    [['A',  'B',  'C'], ['D',  'E',  'F'], ['G',  'H',  'I']],
+    [['J',  'K',  'L'], ['M',  'N',  'O'], ['P',  'Q',  'R',]],
+    [['S',  'T',  'U'], ['V',  'W',  'X'], ['Y',  'Z',  ' ']]
+]
+LAYER: list = ['ABCDEFGHI', 'JKLMNOPQR', 'STUVWXYZ ']
+def encode(string):
+    ans: list = []
+    for char in string:
+        top: list = []
+        for layer in range(3):
+            if char in LAYER[layer]:
+                top.append(layer)
+        for rows in range(3):
+            if char in CHARS[top[0]][rows]:
+                top.append(rows)
+                top.append(CHARS[top[0]][top[1]].index(char))
+        x: str = ' '.join((i + 1) * '.' for i in top[::-1])
+        ans.append(x)
+    return ' '.join(ans)
+
+def decode(string):
+    word: str = []
+    string = string.split()
+    for i in range(0, len(string), 3):
+        word.append(CHARS[len(string[i+2])-1][len(string[i+1])-1][len(string[i])-1])
+    return ''.join(word)
