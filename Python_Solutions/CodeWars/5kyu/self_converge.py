@@ -35,3 +35,34 @@
 # 3. 95553 - 35559  =  59994 /
 # 4. 99954 - 45999  =  53955 /  # 2nd time
 # RECURSIONALGORITHMS
+# Solution
+def convert(n: int, flag: bool = False, zeroes: int = 0) -> int:
+    l: list = []
+    while n:
+        l.append(n % 10)
+        n //= 10
+    l.sort(reverse=flag)
+    ans: int = 0
+    for i in l:
+        ans = ans * 10 + i
+    if flag:
+        while ans < int(f'1{"0" * zeroes}'):
+            ans *= 10
+    return ans
+
+
+def self_converge(n):
+    hs: set = set()
+    count: int = 1
+    prev_x: int = -1
+    zeroes: int = len(str(n)) - 1
+    x: int = convert(n, flag=True, zeroes=zeroes) - convert(n)
+    while x != prev_x:
+        if x > 9999:
+            if x in hs: return count
+        count += 1
+        prev_x = x
+        hs.add(prev_x)
+        x = convert(x, flag=True, zeroes=zeroes) - convert(x)
+
+    return count
