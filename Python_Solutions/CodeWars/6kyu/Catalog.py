@@ -35,3 +35,13 @@
 # R substrings (separated by "\n") must be in alphabetic order.
 #
 # FUNDAMENTALSSTRINGS
+# Solution
+def catalog(s, article):
+    s = s.split('\n')
+    ans: list = []
+    for i in s:
+        if article in i:
+            x = i.replace('<prod>', '').replace('</prod>', '').replace('<name>', '').replace('</name>', '')
+            x = x.replace('<prx>', ' > prx: $').replace('</prx>', '').replace('<qty>', ' qty: ').replace('</qty>', '')
+            ans.append(x)
+    return '\r\n'.join(ans) if ans else 'Nothing'
