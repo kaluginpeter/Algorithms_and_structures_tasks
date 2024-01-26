@@ -13,3 +13,25 @@
 # Note: For this kata I decided to remplace the normal Diamonds and Toads by some programming languages. And just discover that Squirrel is a programming language.
 #
 # FUNDAMENTALSSTRINGS
+# Solution
+def diamonds_and_toads(sentence, fairy):
+    flag: bool = fairy == 'good'
+    ht: dict = {}
+    if flag:
+        ht['ruby'] = 0
+        ht['crystal'] = 0
+    else:
+        ht['python'] = 0
+        ht['squirrel'] = 0
+    for i in sentence:
+        if flag:
+            if i in 'rR':
+                ht['ruby'] += (1 if i.islower() else 2)
+            if i in 'cC':
+                ht['crystal'] += (1 if i.islower() else 2)
+        else:
+            if i in 'pP':
+                ht['python'] += (1 if i.islower() else 2)
+            if i in 'sS':
+                ht['squirrel'] += (1 if i.islower() else 2)
+    return ht
