@@ -28,3 +28,39 @@
 # m == nums2.length
 # 1 <= n, m <= 100
 # 1 <= nums1[i], nums2[i] <= 100
+# Solution HashTable
+# Complexity
+# Time complexity: O(N)
+#
+# Space complexity: O(N)
+class Solution:
+    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        ht1, ht2 = dict(), dict()
+        for i in range(len(nums2)):
+            ht2[nums2[i]] = ht2.get(nums2[i], 0) + 1
+        for i in range(len(nums1)):
+            ht1[nums1[i]] = ht1.get(nums1[i], 0) + 1
+        ans1, ans2 = 0, 0
+        for i in ht1:
+            if i in ht2:
+                ans1 += ht1[i]
+        for i in ht2:
+            if i in ht1:
+                ans2 += ht2[i]
+        return [ans1, ans2]
+# Solution 2 HashSet
+# Complexity
+# Time complexity: O(N)
+#
+# Space complexity: O(N)
+class Solution:
+    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        hs1, hs2 = set(nums1), set(nums2)
+        ans1, ans2 = 0, 0
+        for i in nums1:
+            if i in hs2:
+                ans1 += 1
+        for i in nums2:
+            if i in hs1:
+                ans2 += 1
+        return [ans1, ans2]
