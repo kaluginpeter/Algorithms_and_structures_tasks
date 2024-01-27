@@ -16,3 +16,13 @@
 #
 # "The best location is number 1 with the coordinates x = 3 and y = 4"
 # ALGORITHMS
+# Solution
+def optimum_location(students, locations):
+    total, total_value = float('inf'), None
+    for start in locations:
+        top: int = 0
+        for stud in students:
+            top += abs(stud[0] - start['x']) + abs(stud[1] - start['y'])
+        if top < total:
+            total, total_value = top, start
+    return f'The best location is number {total_value["id"]} with the coordinates x = {total_value["x"]} and y = {total_value["y"]}'
