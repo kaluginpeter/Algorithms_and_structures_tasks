@@ -59,3 +59,19 @@
 #
 # 1 <= word.length <= 105
 # word consists of lowercase English letters.
+# Solution O(N) O(26)
+class Solution:
+    def minimumPushes(self, word: str) -> int:
+        ht: dict = {}
+        for i in word:
+            ht[i] = ht.get(i, 0) + 1
+        ht = {k: v for k, v in sorted(ht.items(), reverse=True, key=lambda item: item[1])}
+        count: int = 0
+        top: int = 1
+        n: int = 0
+        for i in ht:
+            count += top * ht[i]
+            n += 1
+            if n == 8:
+                n, top = 0, top + 1
+        return count
