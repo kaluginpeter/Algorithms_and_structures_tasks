@@ -28,3 +28,11 @@
 #
 # 1 <= s.length <= 100
 # s consists of only upper case and lower case English letters.
+# Solution O(N) O(1)
+class Solution:
+    def countKeyChanges(self, s: str) -> int:
+        count: int = 0
+        for i in range(1, len(s)):
+            if s[i-1].lower() != s[i].lower():
+                count += 1
+        return count
