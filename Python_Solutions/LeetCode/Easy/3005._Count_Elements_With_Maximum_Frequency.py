@@ -24,3 +24,14 @@
 #
 # 1 <= nums.length <= 100
 # 1 <= nums[i] <= 100
+# Solution O(N) O(N) HashTable
+class Solution:
+    def maxFrequencyElements(self, nums: List[int]) -> int:
+        d: dict = {}
+        for i in nums:
+            d[i] = d.get(i, 0) + 1
+        count, m = 0, max(d.values())
+        for i in d:
+            if d[i] == m:
+                count += d[i]
+        return count
