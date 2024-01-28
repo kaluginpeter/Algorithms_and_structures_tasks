@@ -29,3 +29,7 @@
 # Constraints:
 #
 # 1 <= n, m <= 105
+# Solution O(1) O(1)
+class Solution:
+    def flowerGame(self, n: int, m: int) -> int:
+        return n * m // 2
