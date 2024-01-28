@@ -36,3 +36,18 @@
 #
 # 1 <= nums.length <= 100
 # 1 <= nums[i] <= 28
+# Solution Bubble Sort O(N**2) O(1)
+class Solution:
+    def canSortArray(self, nums: List[int]) -> bool:
+        for i in range(1, len(nums)):
+            for j in range(len(nums) - 1):
+                if nums[j] > nums[j + 1]:
+                    if nums[j].bit_count() == nums[j+1].bit_count():
+                        nums[j], nums[j+1] = nums[j+1], nums[j]
+        top: int = nums[0]
+        for i in range(1, len(nums)):
+            if top > nums[i]:
+                return False
+            else:
+                top = nums[i]
+        return True
