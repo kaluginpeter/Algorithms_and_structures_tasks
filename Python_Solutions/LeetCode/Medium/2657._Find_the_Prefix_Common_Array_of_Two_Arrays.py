@@ -30,3 +30,24 @@
 # 1 <= A.length == B.length == n <= 50
 # 1 <= A[i], B[i] <= n
 # It is guaranteed that A and B are both a permutation of n integers.
+# Solution O(N) O(N) Prefix Sum
+class Solution:
+    def findThePrefixCommonArray(self, A: List[int], B: List[int]) -> List[int]:
+        hsa: set = set()
+        hsb: set = set()
+        ans: list = []
+        for i in range(len(A)):
+            hsa.add(A[i])
+            hsb.add(B[i])
+            top: int = 0
+            if A[i] != B[i]:
+                if A[i] in hsb:
+                    top += 1
+                if B[i] in hsa:
+                    top += 1
+            else:
+                top += 1
+            if i > 0:
+                top += ans[i-1]
+            ans.append(top)
+        return ans
