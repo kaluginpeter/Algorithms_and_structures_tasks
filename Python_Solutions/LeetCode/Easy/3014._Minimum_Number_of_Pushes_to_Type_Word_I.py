@@ -49,3 +49,15 @@
 # 1 <= word.length <= 26
 # word consists of lowercase English letters.
 # All letters in word are distinct.
+# Solution O(N) O(1)
+class Solution:
+    def minimumPushes(self, word: str) -> int:
+        count: int = 0
+        top: int = 1
+        n: int = 0
+        for i in range(len(word)):
+            count += top
+            n += 1
+            if n == 8:
+                n, top = 0, top + 1
+        return count
