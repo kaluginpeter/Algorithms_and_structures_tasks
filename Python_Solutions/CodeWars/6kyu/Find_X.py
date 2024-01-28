@@ -27,3 +27,7 @@
 # Note: This problem is more about logical reasoning than it is about finding a mathematicial formula, infact there are no complex math formula involved
 #
 # PUZZLES
+# Solution
+def find_x(n):
+    y = n * (2*n-1)
+    return (n * (y + (n-1) * (2*n) + y)) // 2
