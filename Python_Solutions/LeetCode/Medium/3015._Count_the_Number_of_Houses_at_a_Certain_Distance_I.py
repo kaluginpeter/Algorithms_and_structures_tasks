@@ -48,3 +48,12 @@
 #
 # 2 <= n <= 100
 # 1 <= x, y <= n
+# Solution O(N**2) O(N)
+class Solution:
+    def countOfPairs(self, n: int, x: int, y: int) -> List[int]:
+        l: list = [0] * n
+        for i in range(1, n + 1):
+            for j in range(i + 1, n + 1):
+                top = min(j - i, abs(x - i) + abs(y - j) + 1, abs(y - i) + abs(x - j) + 1)
+                l[top - 1] += 2
+        return l
