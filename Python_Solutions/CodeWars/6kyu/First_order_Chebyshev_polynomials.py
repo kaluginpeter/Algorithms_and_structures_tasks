@@ -8,3 +8,12 @@
 # You don't have to round your results but you should expect large values.
 #
 # ALGORITHMS
+# Solution
+from functools import lru_cache
+@lru_cache(maxsize=None)
+def chebyshev(n,v):
+    if n == 0:
+        return 1
+    if n == 1:
+        return v
+    return 2 * v * chebyshev(n-1, v) - chebyshev(n-2, v)
