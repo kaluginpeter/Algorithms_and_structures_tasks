@@ -39,3 +39,16 @@
 #
 # 1 <= tokens.length <= 104
 # tokens[i] is either an operator: "+", "-", "*", or "/", or an integer in the range [-200, 200].
+# Solution O(N) O(N)
+class Solution:
+    def evalRPN(self, tokens: List[str]) -> int:
+        stack: list = []
+        operations: dict = {'+': lambda x, y: x + y, '-': lambda x, y: x - y,
+        '*': lambda x, y: x * y, '/': lambda x, y: x / y}
+        for i in tokens:
+            if i in '+-*/':
+                y, x = int(stack.pop()), int(stack.pop())
+                stack.append(operations[i](x, y))
+            else:
+                stack.append(i)
+        return int(stack[0])
