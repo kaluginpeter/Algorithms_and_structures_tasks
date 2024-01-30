@@ -16,3 +16,7 @@
 # Brute force is not the way to go here. Look for a simplifying mathematical approach.
 #
 # MATHEMATICSFUNDAMENTALS
+# Solution
+def solve(arr):
+    arr.sort()
+    return min(arr[0] + arr[1], sum(arr) // 2)
