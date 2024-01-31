@@ -9,3 +9,6 @@
 # If an empty list is passed in, it should return an empty list back.
 #
 # LISTSSORTINGFUNDAMENTALS
+# Solution
+def sort_animals(lst : list) -> list:
+    return sorted(lst, key=lambda x: (x.number_of_legs, x.name))
