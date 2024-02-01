@@ -14,3 +14,11 @@
 #
 # [ 1, 2, 3] returns 2 because here j = 2 and i = 0 and 2 - 0 = 2
 # MATHEMATICSALGORITHMS
+# Solution
+def largest_difference(data):
+    top: int = 0
+    for i in range(len(data)):
+        for j in range(i + 1, len(data)):
+            if data[i] <= data[j]:
+                top = max(top, j - i)
+    return top
