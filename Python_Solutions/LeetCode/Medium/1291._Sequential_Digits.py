@@ -17,3 +17,20 @@
 # Constraints:
 #
 # 10 <= low <= high <= 10^9
+# Solution O(K * 9) where K is high // 10 Memory O(N)
+class Solution:
+    def sequentialDigits(self, low: int, high: int) -> List[int]:
+        digits: str = '123456789'
+        ans: list = []
+        n1, n2 = len(str(low)), len(str(high))
+        while n1 <= n2:
+            for i in range(9 - (n1 - 1)):
+                x: int = int(digits[i:i+n1])
+                if x < low:
+                    continue
+                if x <= high:
+                    ans.append(x)
+                else:
+                    break
+            n1 += 1
+        return ans
