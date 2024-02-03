@@ -32,3 +32,13 @@
 # 1 <= words[i].length <= 10
 # 1 <= s.length <= 100
 # words[i] and s consist of lowercase English letters.
+# Solution O(N) O(1)
+class Solution:
+    def isAcronym(self, words: List[str], s: str) -> bool:
+        x, y = len(words), len(s)
+        if x != y:
+            return False
+        for i in range(x):
+            if words[i][0] != s[i]:
+                return False
+        return True
