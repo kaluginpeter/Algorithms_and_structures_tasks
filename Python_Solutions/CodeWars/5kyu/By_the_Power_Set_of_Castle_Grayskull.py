@@ -65,3 +65,10 @@
 # For more details regarding this, see the power set entry in wikipedia.
 #
 # MATHEMATICSALGORITHMS
+# Solution
+def power(a):
+    subsets: list = [[]]
+    for i in a:
+        for idx in range(len(subsets)):
+            subsets.append(subsets[idx] + [i])
+    return subsets
