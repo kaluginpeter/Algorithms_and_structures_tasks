@@ -26,3 +26,26 @@
 #
 # return ["name1", "name3"]
 # FUNDAMENTALSARRAYS
+# Solution
+def find_hack(arr):
+    ht: dict = {'A': 30, 'B': 20, 'C': 10, 'D': 5}
+    hackers: list = []
+    for i in arr:
+        name, points, scores = i
+        top: int = 0
+        flag: bool = True
+        courses: int = 0
+        for j in scores:
+            courses += 1
+            if j in ht:
+                if j not in {'A', 'B'}:
+                    flag = False
+                top += ht[j]
+            else:
+                flag = False
+        if flag and courses > 4:
+            top += 20
+        top = 200 if top >= 200 else top
+        if top != points:
+            hackers.append(name)
+    return hackers
