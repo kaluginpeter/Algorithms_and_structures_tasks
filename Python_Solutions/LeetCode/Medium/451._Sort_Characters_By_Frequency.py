@@ -28,3 +28,24 @@
 #
 # 1 <= s.length <= 5 * 105
 # s consists of uppercase and lowercase English letters and digits.
+# Solution 1 HashTable in list comprehension O(NlogN) O(N)
+class Solution:
+    def frequencySort(self, s: str) -> str:
+        ht: dict = {}
+        for i in s:
+            ht[i] = ht.get(i, 0) + 1
+        return ''.join(i * ht[i] for i in sorted(ht, key=lambda x: ht[x], reverse=True))
+# Solution 2 Bucket Sort O(N) O(N)
+class Solution:
+    def frequencySort(self, s: str) -> str:
+        ht: dict = {}
+        for i in s:
+            ht[i] = ht.get(i, 0) + 1
+        bucket: list = [[] for _ in range(max(ht.values()))]
+        for i in ht:
+            bucket[ht[i]-1] += [i * ht[i]]
+        ans: list = []
+        for i in range(len(bucket)-1, -1, -1):
+            for j in bucket[i]:
+                ans.append(j)
+        return ''.join(ans)
