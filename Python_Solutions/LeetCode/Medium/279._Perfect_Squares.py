@@ -19,3 +19,16 @@
 # Constraints:
 #
 # 1 <= n <= 104
+# Solution O(sqrtN) O(1)
+class Solution:
+    def numSquares(self, n: int) -> int:
+        if int(n**.5) == n**.5:
+            return 1
+        for i in range(1, int(n**.5) + 1):
+            if int((n - i**2)**.5)**2 == n - i**2:
+                    return 2
+        while n %  4 == 0:
+            n /= 4
+        if n % 8 == 7:
+            return 4
+        return 3
