@@ -26,3 +26,17 @@
 # The Rubik's cube
 #
 # ARRAYSALGORITHMS
+# Solution O(logN) O(1) Binary Search
+def index_equals_value(arr):
+    left, right = 0, len(arr) - 1
+    ans: int = -1
+    while left <= right:
+        middle = (left + right) // 2
+        if middle == arr[middle]:
+            ans = middle
+            right = middle - 1
+        elif middle > arr[middle]:
+            left = middle + 1
+        else:
+            right = middle - 1
+    return ans
