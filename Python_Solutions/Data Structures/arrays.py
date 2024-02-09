@@ -25,6 +25,7 @@
 # .__iter__() - by this method we can iterate through arra
 # .__next__() - by this method we can get next element of array
 # .insert(i: int, n: object) -> None - will insert element n to index i
+# .__len__() - by this method you can use builtin python method len(), to know a len of array
 class DynamicArray:
 
     def __init__(self, capacity: int):
