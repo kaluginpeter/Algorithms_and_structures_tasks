@@ -24,12 +24,14 @@
 # .contains(obj: object) -> bool - will return boolean True if array have given object otherwise False
 # .__iter__() - by this method we can iterate through arra
 # .__next__() - by this method we can get next element of array
+# .insert(i: int, n: object) -> None - will insert element n to index i
 class DynamicArray:
 
     def __init__(self, capacity: int):
         self.capacity: int = capacity
         self.arr: list = [0] * capacity
         self.size: int = 0
+        self.count: int = 0
 
     def get(self, i: int) -> object:
         if i < 0 or i > self.size:
@@ -50,8 +52,8 @@ class DynamicArray:
     def popback(self) -> object:
         if self.is_empty():
             raise ValueError()
-        data = self.arr[self.size]
         self.size -= 1
+        data = self.arr[self.size]
         return data
 
     def resize(self) -> None:
@@ -73,7 +75,7 @@ class DynamicArray:
         self.size = 0
 
     def is_empty(self) -> bool:
-        return self.size > 0
+        return self.size == 0
 
     def removeAt(self, i: int) -> object:
         if i > self.size or i < 0:
@@ -117,3 +119,22 @@ class DynamicArray:
         else:
             self.count = 0
             raise StopIteration
+
+    def insert(self, i: int, n: object) -> None:
+        if self.size + 1 > self.capacity:
+            self.resize()
+        new_arr: list = [0] * self.capacity
+        indx: int = 0
+        for j in range(self.size):
+            if j != i:
+                new_arr[indx] = self.arr[j]
+                indx += 1
+            else:
+                new_arr[indx] = n
+                indx += 1
+                new_arr[indx] = self.arr[j]
+        self.arr = new_arr
+        self.size += 1
+
+    def __len__(self):
+        return self.size
