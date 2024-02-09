@@ -50,8 +50,9 @@ class DynamicArray:
     def popback(self) -> object:
         if self.is_empty():
             raise ValueError()
+        data = self.arr[self.size]
         self.size -= 1
-        return self.arr[self.size]
+        return data
 
     def resize(self) -> None:
         self.capacity *= 2
