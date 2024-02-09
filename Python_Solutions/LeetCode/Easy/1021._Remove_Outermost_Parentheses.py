@@ -37,3 +37,32 @@
 # 1 <= s.length <= 105
 # s[i] is either '(' or ')'.
 # s is a valid parentheses string.
+# Solution O(N) O(N)
+class Solution:
+    def removeOuterParentheses(self, s: str) -> str:
+        ans: list = []
+        count: int = 0
+        for i in s:
+            if i == '(' and count > 0:
+                ans.append(i)
+            elif i == ')' and count > 1:
+                ans.append(i)
+            count += 1 if i == '(' else -1
+        return ''.join(ans)
+# Solution O(N) O(N)
+class Solution:
+    def removeOuterParentheses(self, s: str) -> str:
+        stack: list = []
+        ans: str = ''
+        part: list = []
+        for i in s:
+            if i == '(':
+                stack.append(i)
+                part.append(i)
+            else:
+                stack.pop()
+                part.append(i)
+                if not stack:
+                    ans += ''.join(part[1:-1])
+                    part = []
+        return ans
