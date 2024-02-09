@@ -4,6 +4,7 @@
 # .append(val: objext) -> None - will append given object at the end of linked list
 #     if appending object will be first in linked list, linked list automatically create head of list
 # .__str__() -> str - by this method you can use builtin python method print()
+# .search(val: object) -> bool - will return boolean value True if object exists in list otherwise False
 class Node:
     def __init__(self, data, next=None):
         self.data = data
@@ -41,6 +42,14 @@ class SingleLinkedList:
         while tmp.next:
             tmp = tmp.next
         tmp.next = Node(data=val, next=None)
+
+    def search(self, val: object) -> bool:
+        tmp = self.head
+        while tmp:
+            if tmp.data == val:
+                return True
+            tmp = tmp.next
+        return False
 
 # Example of usage
 # linkedlist = SingleLinkedList()
