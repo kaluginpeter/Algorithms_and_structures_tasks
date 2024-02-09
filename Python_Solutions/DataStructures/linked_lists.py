@@ -53,3 +53,11 @@ class SingleLinkedList:
 #     [1]->[2]->[3]->[4]->[5]->None
 # print(linkedlist.length())
 #     5
+# Example of usage part 2
+# linkedlist = SingleLinkedList()
+# for i in range(1, 6):
+#     linkedlist.append(i)
+# print(linkedlist)
+#     [1]->[2]->[3]->[4]->[5]->None
+# print(linkedlist.length())
+#     5
