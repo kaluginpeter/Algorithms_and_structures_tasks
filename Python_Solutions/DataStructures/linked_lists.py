@@ -6,6 +6,7 @@
 # .__str__() -> str - by this method you can use builtin python method print()
 # .search(val: object) -> bool - will return boolean value True if object exists in list otherwise False
 # .pop() -> None - will pop element at the end of the list
+# .reverse() -> None - will reverse linked list by speed O(N) and memory O(1)
 class Node:
     def __init__(self, data, next=None):
         self.data = data
@@ -66,6 +67,16 @@ class SingleLinkedList:
             tmp = tmp.next
         tmp.next = None
         return
+
+    def reverse(self):
+        prev = None
+        current = self.head
+        while current:
+            nxt = current.next
+            current.next = prev
+            prev = current
+            current = nxt
+        self.head = prev
 
 # Example of usage
 # linkedlist = SingleLinkedList()
