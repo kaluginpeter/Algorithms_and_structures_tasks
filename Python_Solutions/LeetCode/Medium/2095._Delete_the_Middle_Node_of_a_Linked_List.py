@@ -37,3 +37,24 @@
 #
 # The number of nodes in the list is in the range [1, 105].
 # 1 <= Node.val <= 105
+# Solution O(N) O(1)
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def deleteMiddle(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        tmp = head
+        if not tmp.next:
+            head = None
+            return head
+        slow, speed = tmp, tmp
+        while speed and speed.next:
+            slow = slow.next
+            speed = speed.next.next
+        tmp = head
+        while tmp.next != slow:
+            tmp = tmp.next
+        tmp.next = slow.next
+        return head
