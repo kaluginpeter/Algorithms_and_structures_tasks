@@ -97,3 +97,130 @@ class SingleLinkedList:
 #     [1]->[2]->[3]->[4]->[5]->None
 # print(linkedlist.length())
 #     5
+
+
+# Double Linked List implementation
+# .append(n: object) -> None - will append object to the tail of list
+# .prepend(n: object) -> None - will append object to the head of list
+# .pop() -> object - will delete element at the tail of list
+# .size() -> int - will return size of linked list
+# .__len__() -> int - by this method you can use builtin python len()
+# .is_empty() -> bool - return boolean True if list is empty otherwise False
+# .__str__() -> str - by this method you can use builtin python print()
+# .contains(n: object) -> bool - will return boolean True if object in list otherwise False
+# .__contains__(item: object) -> bool - by this method you can use builtin python "in" method
+# .remove(n: object) -> None - will remove given object in a list
+# .remove_at(i: int) -> None - will remove object by given index (0-based indexing)
+# .clear() -> None - will remove all elements in a list
+class DoubleNode:
+    def __init__(self, data, prev=None, next=None):
+        self.data = data
+        self.prev = prev
+        self.next = next
+
+    def __str__(self):
+        return f'[{self.data}]'
+
+
+class DoubleLinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+        self.length = 0
+
+    def append(self, n: object) -> None:
+        if self.is_empty():
+            self.head = DoubleNode(data=n, prev=None, next=None)
+            self.tail = self.head
+        else:
+            self.tail.next = DoubleNode(data=n, prev=self.tail, next=None)
+            self.tail = self.tail.next
+        self.length += 1
+
+    def prepend(self, n: object) -> None:
+        if self.is_empty():
+            self.head = DoubleNode(data=n, prev=None, next=None)
+            self.tail = self.head
+        else:
+            nxt = self.head
+            self.head = DoubleNode(data=n, prev=None, next=nxt)
+        self.length += 1
+
+    def pop(self) -> object:
+        if self.is_empty():
+            raise ValueError('List is empty')
+        if self.size() == 1:
+            data = self.head
+            self.head = None
+            self.tail = self.head
+        else:
+            data = self.tail
+            self.tail = self.tail.prev
+            self.tail.next = None
+        self.length -= 1
+        return data
+
+    def size(self) -> int:
+        return self.length
+
+    def __len__(self) -> int:
+        return self.length
+
+    def is_empty(self) -> bool:
+        return self.size() == 0
+
+    def __str__(self):
+        result: list = ['None']
+        tmp = self.head
+        while tmp:
+            result.append(str(tmp))
+            tmp = tmp.next
+        result.append('None')
+        return '<->'.join(result)
+
+    def contains(self, n: object) -> bool:
+        tmp = self.head
+        while tmp:
+            if tmp.data == n:
+                return True
+            tmp = tmp.next
+        return False
+
+    def __contains__(self, item) -> bool:
+        return self.contains(item)
+
+    def remove(self, n: object):
+        if self.is_empty():
+            raise ValueError('List is empty')
+        if not self.contains(n):
+            raise ValueError('Unexciting object')
+        if self.size() == 1:
+            self.length -= 1
+            self.head = None
+            self.tail = self.head
+        else:
+            tmp = self.head
+            while tmp.data != n:
+                tmp = tmp.next
+            if tmp.prev:
+                tmp.prev.next = tmp.next
+            else:
+                self.head = tmp.next
+            if tmp.next:
+                tmp.next.prev = tmp.prev
+            else:
+                self.tail = tmp.prev
+            self.length -= 1
+
+    def remove_at(self, i: int) -> None:
+        if i > self.size() or i < 0:
+            raise ValueError('Index out of list')
+        tmp = self.head
+        for j in range(i):
+            tmp = tmp.next
+        self.remove(tmp.data)
+
+    def clear(self) -> None:
+        self.head = None
+        self.tail = self.head
+        self.length = 0
