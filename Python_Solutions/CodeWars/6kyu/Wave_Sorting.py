@@ -10,3 +10,18 @@
 #
 # The resulting array shouldn't necessarily match anyone in the tests, a function just checks if the array is now wave sorted.
 # ALGORITHMSARRAYSLOGICSORTING
+# Solution
+def wave_sort(a):
+    a.sort(reverse=True)
+    n: int = len(a)
+    n = n // 2 + 1 if n % 2 != 0 else n // 2
+    ans: list = []
+    left, right = 0, n
+    while right < len(a):
+        ans.append(a[left])
+        ans.append(a[right])
+        left, right = left + 1, right + 1
+    if left != n:
+        ans.append(a[left])
+    for i in range(len(a)):
+        a[i] = ans[i]
