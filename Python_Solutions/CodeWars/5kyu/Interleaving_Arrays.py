@@ -7,3 +7,16 @@
 # interleave([1, 2, 3], [4, 5, 6], [7, 8, 9]) == [1, 4, 7, 2, 5, 8, 3, 6, 9]
 # interleave([]) == []
 # ALGORITHMSARRAYS
+# Solution
+def interleave(*args):
+    ans: list = []
+    flag: bool = True
+    while flag:
+        flag = False
+        for i in args:
+            if i:
+                flag = True
+                ans.append(i.pop(0))
+            else:
+                ans.append(None)
+    return ans[:-len(args)]
