@@ -30,3 +30,24 @@ class Solution:
             if words[i] == words[i][::-1]:
                 return words[i]
         return ''
+
+
+# Solution Two Pointers O(N) O(1)
+class Solution:
+    def firstPalindrome(self, words: List[str]) -> str:
+        for i in words:
+            left, right = 0, len(i) - 1
+            flag: bool = True
+            while left <= right:
+                if i[left] != i[right]:
+                    flag = not flag
+                    break
+                left += 1
+                right -= 1
+            if flag:
+                return i
+        return ''
+# Solution Two Pointers One Liner O(N) O(1)
+class Solution:
+    def firstPalindrome(self, words: List[str]) -> str:
+        return next((i for i in words if all(i[j] == i[-(j+1)] for j in range(len(i)))), '')
