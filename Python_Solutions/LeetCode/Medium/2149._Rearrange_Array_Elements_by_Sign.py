@@ -32,3 +32,22 @@
 # nums.length is even
 # 1 <= |nums[i]| <= 105
 # nums consists of equal number of positive and negative integers.
+# Solution Two Pointers O(N) O(N)
+class Solution:
+    def rearrangeArray(self, nums: List[int]) -> List[int]:
+        n: int = len(nums)
+        arr_int: list = [0] * n
+        left, right = 0, n // 2
+        for i in range(n):
+            if nums[i] > 0:
+                arr_int[left] = nums[i]
+                left += 1
+            else:
+                arr_int[right] = nums[i]
+                right += 1
+        left, right = 0, n // 2
+        for i in range(0, n, 2):
+            nums[i] = arr_int[left]
+            nums[i+1] = arr_int[right]
+            left, right = left + 1, right + 1
+        return nums
