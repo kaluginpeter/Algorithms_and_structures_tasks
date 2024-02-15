@@ -23,3 +23,29 @@
 # The Linked List is not empty.
 # Number of nodes will not exceed 30.
 # Each node's value is either 0 or 1.
+# Solution O(N) O(N)
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def getDecimalValue(self, head: ListNode) -> int:
+        ans: str = ''
+        while head:
+            ans += str(head.val)
+            head = head.next
+        return int(ans, 2)
+# Same O(N) O(N), but more pythonic(without string permutation in loop)
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def getDecimalValue(self, head: ListNode) -> int:
+        ans: list = list()
+        while head:
+            ans.append(str(head.val))
+            head = head.next
+        return int(''.join(ans), 2)
