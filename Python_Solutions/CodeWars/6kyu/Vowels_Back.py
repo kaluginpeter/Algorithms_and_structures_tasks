@@ -13,3 +13,57 @@
 # Provided string will always be lower case, won't be empty and will have no special characters.
 #
 # FUNDAMENTALSSTRINGSARRAYSALGORITHMS
+# Solution
+def vowel_back(st):
+    eng_al: str = 'abcdefghijklmnopqrstuvwxyz'
+    ans: str = ''
+    for i in st:
+        prev_x: str = i
+        x: str = i
+        if i in 'aeoiu':
+            if x == 'e':
+                idx: int = eng_al.index(x) - 4
+                x = eng_al[idx]
+                if x in 'code':
+                    ans += prev_x
+                else:
+                    ans += x
+            elif x == 'o':
+                idx: int = eng_al.index(x) - 1
+                x = eng_al[idx]
+                if x in 'code':
+                    ans += prev_x
+                else:
+                    ans += x
+            else:
+                idx: int = eng_al.index(x) - 5
+                x = eng_al[idx]
+                if x in 'code':
+                    ans += prev_x
+                else:
+                    ans += x
+        else:
+            if x == 'c':
+                idx: int = eng_al.index(x) - 1
+                x = eng_al[idx]
+                if x in 'code':
+                    ans += prev_x
+                else:
+                    ans += x
+            elif x == 'd':
+                idx: int = eng_al.index(x) - 3
+                x = eng_al[idx]
+                if x in 'code':
+                    ans += prev_x
+                else:
+                    ans += x
+            else:
+                idx: int = eng_al.index(x) + 9
+                if idx > 25:
+                    idx %= 26
+                x = eng_al[idx]
+                if x in 'code':
+                    ans += prev_x
+                else:
+                    ans += x
+    return ans
