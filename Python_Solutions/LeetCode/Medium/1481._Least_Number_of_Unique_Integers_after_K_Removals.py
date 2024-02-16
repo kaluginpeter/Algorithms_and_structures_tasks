@@ -18,3 +18,20 @@
 # 1 <= arr.length <= 10^5
 # 1 <= arr[i] <= 10^9
 # 0 <= k <= arr.length
+# Solution O(NlogN) O(N)
+class Solution:
+    def findLeastNumOfUniqueInts(self, arr: List[int], k: int) -> int:
+        ht: dict = dict()
+        for i in arr:
+            ht[i] = ht.get(i, 0) + 1
+        intgrs: list = sorted(ht.keys(), key=lambda x: ht[x])
+        for i in intgrs:
+            if k >= ht[i]:
+                k -= ht[i]
+                del ht[i]
+            else:
+                ht[i] -= k
+                break
+            if k == 0:
+                break
+        return len(ht)
