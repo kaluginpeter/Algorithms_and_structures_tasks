@@ -14,3 +14,39 @@
 # May the binary force be with you!
 #
 # ALGORITHMSARRAYSSTRINGSOBJECT-ORIENTED PROGRAMMING
+# Solution
+BACKUP = []
+class VersionManager:
+    def __init__(self, version='0.0.1'):
+        vers: list = version.split('.')
+        if vers == ['']:
+            vers = '0.0.1'.split('.')
+        for words in vers[:3]:
+            for char in words:
+                if char not in '01234567893.':
+                    raise ValueError('Error occured while parsing version!')
+        self.major_ = int(vers[0] if len(vers) >= 1 else '0')
+        self.minor_ = int(vers[1] if len(vers) >= 2 else '0')
+        self.patch_ = int(vers[2] if len(vers) >= 3 else '0')
+        BACKUP.clear()
+    def major(self):
+        BACKUP.append(f"{self.major_}.{self.minor_}.{self.patch_}")
+        self.major_ += 1
+        self.minor_, self.patch_ = 0, 0
+        return self
+    def minor(self):
+        BACKUP.append(f"{self.major_}.{self.minor_}.{self.patch_}")
+        self.minor_ += 1
+        self.patch_ = 0
+        return self
+    def patch(self):
+        BACKUP.append(f"{self.major_}.{self.minor_}.{self.patch_}")
+        self.patch_ += 1
+        return self
+    def rollback(self):
+        if not BACKUP:
+            raise ValueError('Cannot rollback!')
+        self.major_, self.minor_, self.patch_ = [int(i) for i in BACKUP.pop().split('.')]
+        return self
+    def release(self):
+        return f"{self.major_}.{self.minor_}.{self.patch_}"
