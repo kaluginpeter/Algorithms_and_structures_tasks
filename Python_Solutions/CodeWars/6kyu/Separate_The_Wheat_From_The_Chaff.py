@@ -37,3 +37,16 @@
 # Enjoy Learning !!
 # Zizou
 # FUNDAMENTALSARRAYSPERFORMANCE
+# Solution Two Pointers O(N) O(1)
+def wheat_from_chaff(values):
+    n: int = len(values)
+    left, right = 0, n - 1
+    while left < right:
+        while left < n and values[left] < 0:
+            left += 1
+        while right >= 0 and values[right] >= 0:
+            right -= 1
+        if left < right:
+            values[left], values[right] = values[right], values[left]
+        left, right = left + 1, right - 1
+    return values
