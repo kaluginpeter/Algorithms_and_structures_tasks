@@ -27,3 +27,30 @@
 # 2 <= m, n <= 50
 # -1 <= matrix[i][j] <= 100
 # The input is generated such that each column contains at least one non-negative integer.
+# Solution Initial O(N**3) O(NM)
+class Solution:
+    def modifiedMatrix(self, matrix: List[List[int]]) -> List[List[int]]:
+        ans: list = []
+        for i in range(len(matrix)):
+            top: list = []
+            for j in range(len(matrix[0])):
+                if matrix[i][j] == -1:
+                    el: int = -1
+                    for n in range(len(matrix)):
+                        el = max(el, matrix[n][j])
+                    top.append(el)
+                else:
+                    top.append(matrix[i][j])
+            ans.append(top)
+        return ans
+# Solution O(NM) (1)
+class Solution:
+    def modifiedMatrix(self, matrix: List[List[int]]) -> List[List[int]]:
+        for columns in range(len(matrix[0])):
+            mx: int = -1
+            for rows in range(len(matrix)):
+                mx = max(mx, matrix[rows][columns])
+            for rows in range(len(matrix)):
+                if matrix[rows][columns] == -1:
+                    matrix[rows][columns] = mx
+        return matrix
