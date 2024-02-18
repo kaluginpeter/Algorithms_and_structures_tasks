@@ -28,3 +28,16 @@
 #
 # nums.length == 3
 # 1 <= nums[i] <= 100
+# Solution O(1) O(1)
+class Solution:
+    def triangleType(self, nums: List[int]) -> str:
+        nums.sort()
+        a, b, c = nums[0], nums[1], nums[2]
+        if a + b > c:
+            if a == b == c:
+                return 'equilateral'
+            if a != b and a != c and b != c:
+                return 'scalene'
+            else:
+                return 'isosceles'
+        return 'none'
