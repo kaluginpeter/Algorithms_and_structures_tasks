@@ -44,3 +44,12 @@
 # 1 <= words.length <= 50
 # 1 <= words[i].length <= 10
 # words[i] consists only of lowercase English letters.
+# Solution O(N**2) O(1)
+class Solution:
+    def countPrefixSuffixPairs(self, words: List[str]) -> int:
+        count: int = 0
+        for i in range(len(words)):
+            for j in range(i + 1, len(words)):
+                if words[j].startswith(words[i]) and words[j].endswith(words[i]):
+                    count += 1
+        return count
