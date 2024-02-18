@@ -26,3 +26,30 @@
 #
 # 0 <= s.length <= 5 * 104
 # s consists of English letters, digits, symbols and spaces.
+# Solution Initial solution O(N**2) O(N)
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        count: int = 0
+        ht: dict = dict()
+        for i in range(len(s)):
+            for j in range(i, len(s)):
+                if s[j] not in ht:
+                    ht[s[j]] = 1
+                else:
+                    count = max(count, len(ht))
+                    ht.clear()
+                    break
+        return count if not ht else max(len(ht), count)
+# Solution HashTable and Sliding Window O(N) O(M)
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        ht: dict = dict()
+        ans: int = 0
+        left: int = 0
+        for right in range(len(s)):
+            if s[right] not in ht or ht[s[right]] < left:
+                ans = max(ans, right - left + 1)
+            else:
+                left = ht[s[right]] + 1
+            ht[s[right]] = right
+        return ans
