@@ -36,3 +36,13 @@
 # 1 <= nums.length <= 100
 # -10 <= nums[i] <= 10
 # nums[i] != 0
+# Solution O(N) O(1)
+class Solution:
+    def returnToBoundaryCount(self, nums: List[int]) -> int:
+        steps: int = 0
+        count: int = 0
+        for i in range(len(nums)):
+            steps += nums[i]
+            if steps == 0:
+                count += 1
+        return count
