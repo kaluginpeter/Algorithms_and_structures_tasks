@@ -30,3 +30,14 @@
 #
 # 2 <= nums.length <= 100
 # 1 <= nums[i] <= 1000
+# Solution O(N) O(1)
+class Solution:
+    def maxOperations(self, nums: List[int]) -> int:
+        score: int = nums[0] + nums[1]
+        n: int = len(nums)
+        count: int = 1
+        for i in range(2, n-1, 2):
+            if nums[i] + nums[i+1] != score:
+                return count
+            count += 1
+        return count
