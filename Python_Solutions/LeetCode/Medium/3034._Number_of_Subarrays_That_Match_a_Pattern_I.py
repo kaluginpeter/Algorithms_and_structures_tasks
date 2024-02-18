@@ -31,3 +31,22 @@
 # 1 <= nums[i] <= 109
 # 1 <= m == pattern.length < n
 # -1 <= pattern[i] <= 1
+# Solution O(NM) O(1)
+class Solution:
+    def countMatchingSubarrays(self, nums: List[int], pattern: List[int]) -> int:
+        count: int = 0
+        m: int = len(pattern) + 1
+        for i in range(len(nums) - (m - 1)):
+            flag: bool = True
+            for k in range(len(pattern)):
+                if pattern[k] == 1:
+                    flag = nums[i + k + 1] > nums[i + k]
+                elif pattern[k] == 0:
+                    flag = nums[i+k+1] == nums[i+k]
+                elif pattern[k] == -1:
+                    flag = nums[i+k+1] < nums[i+k]
+                if not flag:
+                    break
+            if flag:
+                count += 1
+        return count
