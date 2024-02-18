@@ -19,3 +19,24 @@
 # highScoreTable.scores == []
 # # And so on...
 # ALGORITHMSSORTINGSEARCHINGARRAYSOBJECT-ORIENTED PROGRAMMING
+# Solution
+class HighScoreTable:
+
+    def __init__(self, capacity):
+        self.scores: list = list()
+        self.capacity: int = capacity
+        self.size: int = 0
+
+    def update(self, val):
+        if self.size > 0 and self.size == self.capacity:
+            if min(self.scores) < val:
+                self.scores.remove(min(self.scores))
+                self.scores.append(val)
+        if self.size < self.capacity:
+            self.scores.append(val)
+            self.size += 1
+        self.scores.sort(reverse=True)
+
+    def reset(self):
+        self.scores.clear()
+        self.size = 0
