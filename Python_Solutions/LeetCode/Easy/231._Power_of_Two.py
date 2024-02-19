@@ -26,3 +26,9 @@ class Solution:
         while c < n:
             c *= 2
         return c == n if n !=1 else True
+
+
+# Solution O(1) O(1)
+class Solution:
+    def isPowerOfTwo(self, n: int) -> bool:
+        return n & (n - 1) == 0 if n != 0 else False
