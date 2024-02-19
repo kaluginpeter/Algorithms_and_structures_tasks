@@ -19,3 +19,15 @@
 # Elements of the array will always be >=1 and <= 100
 # Input must not be altered.
 # ARRAYSFUNDAMENTALSALGORITHMS
+# Solution
+def tourney(inp):
+    ans: list = [inp]
+    while len(inp) > 1:
+        top: list = list()
+        if len(inp) % 2 == 0:
+            top = [max(inp[i], inp[i+1]) for i in range(0, len(inp), 2)]
+        else:
+            top = [inp[-1]] + [max(inp[i-1], inp[i]) for i in range(1, len(inp), 2)]
+        ans.append(top)
+        inp = top
+    return ans
