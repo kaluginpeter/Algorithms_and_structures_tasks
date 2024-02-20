@@ -30,3 +30,12 @@
 class Solution:
     def missingNumber(self, nums: List[int]) -> int:
         return (1 + len(nums)) * len(nums) // 2 - sum(nums)
+
+
+# Solution Math O(N) O(1)
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        total: int = len(nums) * (len(nums) + 1) // 2
+        for i in nums:
+            total -= i
+        return total
