@@ -6,3 +6,8 @@
 # [5, 7, 9], [9, 5, 7]      --> false, present and box are same size
 # [17, 22, 10], [5, 5, 10]) --> false, box is too small
 # ARRAYSALGORITHMS
+# Solution
+def will_fit(present, box):
+    present = sorted(present)
+    box = sorted(box)
+    return all(x < y - 1 for x, y in zip(present, box))
