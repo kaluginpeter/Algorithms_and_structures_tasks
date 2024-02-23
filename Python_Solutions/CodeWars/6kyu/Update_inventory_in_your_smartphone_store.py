@@ -11,3 +11,13 @@
 # Kata inspired by the FreeCodeCamp's 'Inventory Update' algorithm.
 #
 # ALGORITHMSDATA STRUCTURESARRAYS
+# Solution
+def update_inventory(cur_stock, new_stock):
+    ht: dict = dict()
+    for i in cur_stock:
+        ht[i[1]] = ht.get(i[1], 0) + i[0]
+    for i in new_stock:
+        ht[i[1]] = ht.get(i[1], 0) + i[0]
+    ans: list = [(v, k)  for k, v in ht.items()]
+    ans.sort(key=lambda x: x[1])
+    return ans
