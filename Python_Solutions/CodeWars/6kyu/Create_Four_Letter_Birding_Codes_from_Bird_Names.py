@@ -18,3 +18,26 @@
 # The return array would be: ["BCCH", "COTE"]
 #
 # ARRAYSREGULAR EXPRESSIONSSTRINGSFUNDAMENTALS
+# Solution
+def bird_code(arr):
+    ans: list = list()
+    for word in arr:
+        names: list = list()
+        top: str = ''
+        for char in word:
+            if not char.isalpha() and char not in "'":
+                names.append(top)
+                top = ''
+            else:
+                top += char
+        if top:
+            names.append(top)
+        if len(names) == 1:
+            ans.append(names[0][:4].upper())
+        elif len(names) == 2:
+            ans.append(names[0][:2].upper() + names[1][:2].upper())
+        elif len(names) == 3:
+            ans.append(names[0][0].upper() + names[1][0].upper() + names[2][:2].upper())
+        else:
+            ans.append(''.join(i[0].upper() for i in names))
+    return ans
