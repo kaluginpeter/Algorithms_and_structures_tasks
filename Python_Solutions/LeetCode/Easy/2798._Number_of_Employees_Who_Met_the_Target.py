@@ -31,3 +31,15 @@
 #
 # 1 <= n == hours.length <= 50
 # 0 <= hours[i], target <= 105
+# Solution OnePass O(N) O(1)
+class Solution:
+    def numberOfEmployeesWhoMetTarget(self, hours: List[int], target: int) -> int:
+        count: int = 0
+        for i in range(len(hours)):
+            if hours[i] >= target:
+                count += 1
+        return count
+# Solution OnePass OneLiner O(N) O(1)
+class Solution:
+    def numberOfEmployeesWhoMetTarget(self, hours: List[int], target: int) -> int:
+        return sum(i >= target for i in hours)
