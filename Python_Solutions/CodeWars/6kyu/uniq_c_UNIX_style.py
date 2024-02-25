@@ -5,3 +5,22 @@
 # Example:
 # ['a','a','b','b','c','a','b','c'] --> [('a',2),('b',2),('c',1),('a',1),('b',1),('c',1)]
 # ARRAYSALGORITHMS
+# Solution OnePass O(N) O(N)
+def uniq_c(seq):
+    ans: list = list()
+    count: int = 0
+    start: bool = True
+    object = None
+    for i in seq:
+        if start:
+            start = False
+            object = i
+            count += 1
+        elif i != object:
+            ans.append((object, count))
+            object, count = i, 1
+        else:
+            count += 1
+    if not start:
+        ans.append((object, count))
+    return ans
