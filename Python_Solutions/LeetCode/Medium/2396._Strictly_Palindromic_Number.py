@@ -26,3 +26,25 @@
 # Constraints:
 #
 # 4 <= n <= 105
+# Solution Two Pointer + Math O(N) O(1)
+class Solution:
+    def isStrictlyPalindromic(self, n: int) -> bool:
+        def is_palindrome(arr: list) -> bool:
+            left, right = 0, len(arr) - 1
+            while left < right:
+                if arr[left] != arr[right]:
+                    return False
+                left, right = left + 1, right - 1
+            return True
+        def num_to_base(num: int, base: int) -> list:
+            if num == 0:
+                return [0]
+            ans: list = list()
+            while num:
+                ans.append(num % base)
+                num //= base
+            return ans[::-1]
+        for base in range(2, n - 1):
+            if not is_palindrome(num_to_base(n, base)):
+                return False
+        return True
