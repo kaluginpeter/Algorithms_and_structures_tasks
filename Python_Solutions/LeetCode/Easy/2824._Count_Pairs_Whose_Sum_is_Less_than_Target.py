@@ -31,3 +31,25 @@
 #
 # 1 <= nums.length == n <= 50
 # -50 <= nums[i], target <= 50
+# Solution BruteForce O(N**2) O(1)
+class Solution:
+    def countPairs(self, nums: List[int], target: int) -> int:
+        count: int = 0
+        for i in range(len(nums)):
+            for j in range(i + 1, len(nums)):
+                if nums[i] + nums[j] < target:
+                    count += 1
+        return count
+# Solution Two Pointers O(NlogN) O(1)
+class Solution:
+    def countPairs(self, nums: List[int], target: int) -> int:
+        nums.sort()
+        count: int = 0
+        left, right = 0, len(nums) - 1
+        while left < right:
+            if nums[left] + nums[right] < target:
+                count += right - left
+                left += 1
+            else:
+                right -= 1
+        return count
