@@ -13,3 +13,16 @@
 # Have fun, and if you enjoyed it don't forget to rank & upvote! :)
 #
 # ARRAYSPERFORMANCEALGORITHMS
+# Solution
+def compound_match(words, target):
+    ht: dict = dict()
+    for i in range(len(words)):
+        if words[i] not in ht:
+            ht[words[i]] = i
+    for i in ht:
+        if target.startswith(i):
+            for j in ht:
+                if i + j == target:
+                    x, y = ht[i], ht[j]
+                    return [i if x < y else j, i if x > y else j, [ht[i], ht[j]]]
+    return
