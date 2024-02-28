@@ -31,3 +31,18 @@
 # 1 <= s.length <= 1000
 # s consists of lowercase English letters, vertical bars '|', and asterisks '*'.
 # s contains an even number of vertical bars '|'.
+# Solution One Liner O(N) O(N), but though iterator its O(1)
+class Solution:
+    def countAsterisks(self, s: str) -> int:
+        return sum(i.count('*') for i in s.split('|')[::2])
+# Solution OnePass O(N) O(1)
+class Solution:
+    def countAsterisks(self, s: str) -> int:
+        count: int = 0
+        boundary: int = 0
+        for i in s:
+            if i == '|':
+                boundary += 1
+            elif i == '*' and boundary % 2 == 0:
+                count += 1
+        return count
