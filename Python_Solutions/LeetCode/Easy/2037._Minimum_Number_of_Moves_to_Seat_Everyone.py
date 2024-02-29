@@ -46,3 +46,12 @@
 # n == seats.length == students.length
 # 1 <= n <= 100
 # 1 <= seats[i], students[j] <= 100
+# Solution Greedy O(NlogN) O(1)
+class Solution:
+    def minMovesToSeat(self, seats: List[int], students: List[int]) -> int:
+        seats.sort()
+        students.sort()
+        count: int = 0
+        for i in range(len(seats)):
+            count += abs(seats[i] - students[i])
+        return count
