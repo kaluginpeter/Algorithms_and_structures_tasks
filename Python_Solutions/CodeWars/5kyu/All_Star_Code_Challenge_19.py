@@ -29,3 +29,14 @@
 # Generate the permutations in lexicographic order of the original array.
 # keep only the first occurence of a permutation, when duplicates are found.
 # STRINGSCOMBINATORICSPERMUTATIONSARRAYSFUNDAMENTALS
+# Solution
+import itertools
+def slogan_maker(array):
+    ht: dict = dict()
+    for i in array:
+        if i not in ht:
+            ht[i] = 1
+    ans: list = list()
+    for i in itertools.permutations(ht.keys(), len(ht)):
+        ans.append(' '.join(i))
+    return ans
