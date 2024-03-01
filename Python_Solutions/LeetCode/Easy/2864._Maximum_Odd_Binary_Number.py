@@ -25,3 +25,35 @@
 # 1 <= s.length <= 100
 # s consists only of '0' and '1'.
 # s contains at least one '1'.
+# Solution HashTable O(N) O(N)
+class Solution:
+    def maximumOddBinaryNumber(self, s: str) -> str:
+        ht: dict = dict()
+        ans: list = list()
+        for i in s:
+            ht[i] = ht.get(i, 0) + 1
+        while ht.get('1') > 1:
+            ans.append('1')
+            ht['1'] -= 1
+        while ht.get('0'):
+            ans.append('0')
+            ht['0'] -= 1
+        if ht.get('1'):
+            ans.append('1')
+        return ''.join(ans)
+# Solution Counting Greedy O(N) O(N)
+class Solution:
+    def maximumOddBinaryNumber(self, s: str) -> str:
+        count: int = 0
+        ans: str = ''
+        for i in s:
+            if i == '1':
+                count += 1
+        for i in range(len(s) - 1):
+            if count > 1:
+                ans += '1'
+                count -= 1
+            else:
+                ans += '0'
+        ans += '1'
+        return ans
