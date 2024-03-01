@@ -39,3 +39,43 @@
 # I have also created other katas. Take a look if you enjoyed this kata!
 #
 # ARRAYSLOGICALGORITHMS
+# Solution
+def split_all_even_numbers(numbers, way):
+    ans: list = list()
+    if way == 0:
+        for i in numbers:
+            if i % 2 == 0:
+                if i // 2 % 2 != 0:
+                    ans.append(i//2)
+                    ans.append(i//2)
+                else:
+                    ans.append(i // 2 - 1)
+                    ans.append(i // 2 + 1)
+            else:
+                ans.append(i)
+        return ans
+    if way == 1:
+        for i in numbers:
+            if i % 2 == 0:
+                ans.append(1)
+                ans.append(i - 1)
+            else:
+                ans.append(i)
+        return ans
+    if way == 2:
+        for i in numbers:
+            if i % 2 == 0:
+                for j in range(i // 2 + 1, 0, -1):
+                    if j % 2 != 0 and j * (i // j) == i:
+                        ans.extend([j] * (i // j))
+                        break
+            else:
+                ans.append(i)
+        return ans
+    else:
+        for i in numbers:
+            if i % 2 == 0:
+                ans.extend([1] * i)
+            else:
+                ans.append(i)
+        return ans
