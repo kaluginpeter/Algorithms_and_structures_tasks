@@ -11,3 +11,18 @@
 # Don't forget to rate this kata! Thanks :)
 #
 # FUNDAMENTALSARRAYS
+# Solution
+def the_biggest_search_keys(*args):
+    ans: list = list()
+    ln: int = -1
+    for i in args:
+        if len(i) > ln:
+            ans.clear()
+            ans.append(i)
+            ln = len(i)
+        elif len(i) == ln:
+            ans.append(i)
+    ans.sort()
+    if not ans:
+        return "''"
+    return ', '.join(f"'{i}'" for i in ans)
