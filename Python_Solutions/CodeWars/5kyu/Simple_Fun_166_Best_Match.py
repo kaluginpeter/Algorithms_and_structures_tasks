@@ -25,3 +25,14 @@
 # Index of the best match.
 #
 # FUNDAMENTALS
+# Solution OnePass O(N) O(1)
+def best_match(goals1, goals2):
+    idx, val, gol = 0, goals1[0] - goals2[0], goals2[0]
+    for i in range(1, len(goals1)):
+        if goals1[i] - goals2[i] < val:
+            idx, val, gol = i, goals1[i] - goals2[i], goals2[i]
+        elif goals1[i] - goals2[i] == val:
+            if gol >= goals2[i]:
+                continue
+            idx, val, gol = i, goals1[i] - goals2[i], goals2[i]
+    return idx
