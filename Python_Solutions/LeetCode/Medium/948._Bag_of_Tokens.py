@@ -46,3 +46,21 @@
 #
 # 0 <= tokens.length <= 1000
 # 0 <= tokens[i], power < 104
+# Solution Greedy O(NlogN) O(1)
+class Solution:
+    def bagOfTokensScore(self, tokens: List[int], power: int) -> int:
+        tokens.sort()
+        score: int = 0
+        idx, n = 0, len(tokens) - 1
+        ans: int = score
+        while idx <= n:
+            if power >= tokens[idx]:
+                power -= tokens[idx]
+                idx, score = idx + 1, score + 1
+                ans = max(ans, score)
+            elif score >= 1:
+                score, n = score - 1, n - 1
+                power += tokens.pop()
+            else:
+                break
+        return ans
