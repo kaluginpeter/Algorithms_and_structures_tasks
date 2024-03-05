@@ -36,3 +36,14 @@
 #
 # 1 <= s.length <= 105
 # s only consists of characters 'a', 'b', and 'c'.
+# Solution Two Pointers O(N) O(1)
+class Solution:
+    def minimumLength(self, s: str) -> int:
+        left, right = 0, len(s) - 1
+        while left < right and s[left] == s[right]:
+            x: str = s[left]
+            while left <= right and s[left] == x:
+                left += 1
+            while s[right] == x and right > left:
+                right -= 1
+        return right + 1 - left
