@@ -12,3 +12,7 @@
 # Results are tested to a relative error of 1e-4.
 #
 # STATISTICSMATHEMATICSALGORITHMS
+# Solution
+def variance(numbers): 
+    mean: int = sum(numbers) / len(numbers)
+    return sum((i - mean)**2 for i in numbers) / len(numbers)
