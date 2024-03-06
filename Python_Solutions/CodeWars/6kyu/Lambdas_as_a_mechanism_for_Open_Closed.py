@@ -18,3 +18,9 @@
 # While here we only test for spoken, shouted, and whispered emotions, the open/closed principle allows us to add functionality to the greet function using other emotions/lambdas as well. For example, feeling like L33tsp34k1ng or sPoNgEbOb MeMe-ing today? No need to change the original greet function (closed for modification), you can just extend the greet function (open for extension) by passing a new lambda and message to the greet function. So, embrace the power of open/closed principle now and make your code more flexible and easier to extend!
 #
 # FUNDAMENTALS
+# Solution
+spoken    = lambda greeting: greeting.title() + '.'
+shouted   = lambda greeting: greeting.upper() + '!'
+whispered = lambda greeting: greeting.lower() + '.'
+
+greet = lambda style, msg: style(msg)
