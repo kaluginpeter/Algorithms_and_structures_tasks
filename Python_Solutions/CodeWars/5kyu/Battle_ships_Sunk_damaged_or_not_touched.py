@@ -82,3 +82,26 @@
 # Return Hash
 # { 'sunk': 0, 'damaged': 2 , 'not_touched': 1, 'points': 0 }
 # ARRAYSFUNDAMENTALS
+# Solution
+def damaged_or_sunk(board, attacks):
+    ans: dict = {'sunk': 0, 'damaged': 0, 'not_touched': 0, 'points': 0}
+    ht: dict = dict()
+    for i in range(len(board)):
+        for j in range(len(board[0])):
+            if board[i][j] != 0:
+                ht[board[i][j]] = ht.get(board[i][j], []) + [board[i][j]]
+    ln: dict = {k: len(v) for k,v in ht.items()}
+    for i in attacks:
+        if board[-i[1]][i[0] - 1] != 0:
+            ht[board[-i[1]][i[0] - 1]].pop()
+    for i in ht:
+        if ln[i] - len(ht[i]) == ln[i]:
+            ans['sunk'] += 1
+            ans['points'] += 1
+        elif ln[i] - len(ht[i]) == 0:
+            ans['not_touched'] += 1
+            ans['points'] -= 1
+        else:
+            ans['damaged'] += 1
+            ans['points'] += 0.5
+    return ans
