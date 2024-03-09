@@ -36,3 +36,25 @@
 # We end in q3 which is not our accept state, so we return false
 #
 # STATE MACHINESARTIFICIAL INTELLIGENCEALGORITHMSOBJECT-ORIENTED PROGRAMMING
+# Solution
+class Automaton(object):
+
+    def __init__(self):
+        self.states = []
+
+    def read_commands(self, commands):
+        start = self.states[0]
+        for i in commands:
+            if start == self.states[0]:
+                start = self.states[1] if i == '1' else self.states[0]
+            elif start == self.states[1]:
+                start = self.states[2] if i == '0' else self.states[1]
+            else:
+                start = self.states[1] if i in '01' else self.states[2]
+        return start == 'q2'
+my_automaton = Automaton()
+
+# Do anything necessary to set up your automaton's states, q1, q2, and q3.
+my_automaton.states.append('q1')
+my_automaton.states.append('q2')
+my_automaton.states.append('q3')
