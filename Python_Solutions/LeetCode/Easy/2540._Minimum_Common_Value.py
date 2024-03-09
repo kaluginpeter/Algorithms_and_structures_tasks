@@ -37,3 +37,17 @@ class Solution:
             if nums1[l] > nums2[r]:
                 r += 1
         return -1
+
+
+# Solution Two Pointers O(N) O(1)
+class Solution:
+    def getCommon(self, nums1: List[int], nums2: List[int]) -> int:
+        left, right = 0, 0
+        while left < len(nums1) and right < len(nums2):
+            if nums1[left] == nums2[right]:
+                return nums1[left]
+            elif nums1[left] > nums2[right]:
+                right += 1
+            else:
+                left += 1
+        return -1
