@@ -33,3 +33,14 @@
 # 3 <= n <= 50
 # 1 <= nums[i] <= 100
 # All elements in nums are distinct.
+# Solution Straight Forward OnePass O(N) O(N)
+class Solution:
+    def resultArray(self, nums: List[int]) -> List[int]:
+        n: int = len(nums)
+        ans1, ans2 = [nums[0]], [nums[1]]
+        for i in range(2, n):
+            if ans1[-1] > ans2[-1]:
+                ans1.append(nums[i])
+            else:
+                ans2.append(nums[i])
+        return ans1 + ans2
