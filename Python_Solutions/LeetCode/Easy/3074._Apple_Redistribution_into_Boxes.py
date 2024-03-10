@@ -27,3 +27,14 @@
 # 1 <= m == capacity.length <= 50
 # 1 <= apple[i], capacity[i] <= 50
 # The input is generated such that it's possible to redistribute packs of apples into boxes.
+# Solution O(NlogN) O(1)
+class Solution:
+    def minimumBoxes(self, apple: List[int], capacity: List[int]) -> int:
+        total: int = sum(apple)
+        capacity.sort(reverse=True)
+        count: int = 0
+        for i in capacity:
+            count += 1
+            total -= i
+            if total <= 0:
+                return count
