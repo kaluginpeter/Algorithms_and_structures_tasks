@@ -24,3 +24,24 @@
 # 1 <= nums.length <= 100
 # nums.length % 2 == 0
 # 1 <= nums[i] <= 100
+# Solution HashTable O(N) O(N)
+class Solution:
+    def isPossibleToSplit(self, nums: List[int]) -> bool:
+        n: int = len(nums) // 2
+        ht: dict = dict()
+        for i in nums:
+            ht[i] = ht.get(i, 0) + 1
+            if ht[i] > 2:
+                return False
+        flag: bool = False
+        sc1, sc2 = 0, 0
+        for i in ht:
+            if ht[i] == 2:
+                sc1, sc2 = sc1 + 1, sc2 + 1
+            else:
+                if not flag:
+                    sc1 += 1
+                else:
+                    sc2 += 1
+                flag = not flag
+        return sc1 == sc2 == n
