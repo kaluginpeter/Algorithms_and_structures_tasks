@@ -18,3 +18,18 @@
 class Solution:
     def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
         return list(set(nums1) & set(nums2))
+
+
+# Solution HashTable O(N) O(N)
+class Solution:
+    def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        ht1, ht2 = dict(), dict()
+        ans: list = list()
+        for i in nums1:
+            ht1[i] = ht1.get(i, 0) + 1
+        for i in nums2:
+            ht2[i] = ht2.get(i, 0) + 1
+        for i in ht1:
+            if i in ht2:
+                ans.append(i)
+        return ans
