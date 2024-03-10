@@ -36,3 +36,33 @@
 # 2 <= n <= 100
 # 1 <= arr[i].length <= 20
 # arr[i] consists only of lowercase English letters.
+# Solution O(N**4) O(N)
+class Solution:
+    def shortestSubstrings(self, arr):
+        def generate_substrings(s):
+            substrings = []
+            for i in range(len(s)):
+                for j in range(i + 1, len(s) + 1):
+                    substrings.append(s[i:j])
+            return substrings
+
+        ans: list = list()
+        for i in range(len(arr)):
+            top: list = generate_substrings(arr[i])
+            top.sort(key=lambda x: (len(x), x))
+            exists: bool = False
+            for j in top:
+                seen: bool = False
+                for k in range(len(arr)):
+                    if i == k:
+                        continue
+                    if j in arr[k]:
+                        seen = True
+                        break
+                if not seen:
+                    ans.append(j)
+                    exists = True
+                    break
+            if not exists:
+                ans.append('')
+        return ans
