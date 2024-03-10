@@ -33,3 +33,14 @@
 # 1 <= nums[i] <= 109
 # 1 <= k <= 109
 # The input is generated such that there is at least one index i such that nums[i] >= k.
+# Solution HashTable O(N) O(N)
+class Solution:
+    def minOperations(self, nums: List[int], k: int) -> int:
+        count: int = 0
+        ht: dict = dict()
+        for i in nums:
+            ht[i] = ht.get(i, 0) + 1
+        for i in ht:
+            if i < k:
+                count += ht[i]
+        return count
