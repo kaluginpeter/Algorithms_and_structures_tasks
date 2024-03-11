@@ -34,3 +34,18 @@
 # 1 <= s.length <= 200
 # order and s consist of lowercase English letters.
 # All the characters of order are unique.
+# Solution HasTable O(N) O(N)
+class Solution:
+    def customSortString(self, order: str, s: str) -> str:
+        ht1, ht2 = dict(), dict()
+        ans: list = [''] * len(order)
+        for i in range(len(order)):
+            ht1[order[i]] = i
+        for i in s:
+            ht2[i] = ht2.get(i, 0) + 1
+        for i in ht2:
+            if i not in ht1:
+                ans.append(i * ht2[i])
+            else:
+                ans[ht1[i]] = i * ht2[i]
+        return ''.join(ans)
