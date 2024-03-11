@@ -17,3 +17,14 @@
 # #3 Can Santa save Christmas?
 # #4 Christmas Present Calculator
 # DATE TIMEFUNDAMENTALS
+# Solution
+from datetime import datetime
+def count_days(event_date):
+    today = datetime.today()
+    diff = event_date - today
+    days = round(diff.total_seconds() / (24*60*60))
+    if days < 0:
+        return "The day is in the past!"
+    elif days == 0:
+        return "Today is the day!"
+    return f"{days} days"
