@@ -34,3 +34,26 @@
 # The number of big groups.
 #
 # ALGORITHMS
+# Solution
+def repeat_adjacent(st):
+    count: int = 0
+    lst: list = list()
+    el, count_el = None, 0
+    for i in st:
+        if el is None:
+            el, count_el = i, 1
+        elif el == i:
+            count_el += 1
+        else:
+            if count_el == 1:
+                if len(lst) > 1:
+                    count += 1
+                lst.clear()
+            else:
+                lst.append(count_el)
+            el, count_el = i, 1
+    if count_el > 1:
+        lst.append(count_el)
+    if len(lst) > 1:
+        count += 1
+    return count
