@@ -25,3 +25,22 @@
 # sortSequence([2,2,2,0,5,6,4,0,1,5,3,0,3,2,1,0]) should return
 # [2,2,2,0,1,2,3,0,1,3,5,0,4,5,6,0]
 # PUZZLESSORTINGALGORITHMS
+# Solution
+def sort_sequence(sequence):
+    lst: list = list()
+    top: list = list()
+    for i in sequence:
+        if i == 0:
+            if top:
+                lst.append(sorted(top))
+                top.clear()
+        else:
+            top.append(i)
+    if top:
+        lst.append(top)
+    lst.sort(key=lambda x: sum(x))
+    ans: list = list()
+    for i in lst:
+        i += [0]
+        ans.extend(i)
+    return ans
