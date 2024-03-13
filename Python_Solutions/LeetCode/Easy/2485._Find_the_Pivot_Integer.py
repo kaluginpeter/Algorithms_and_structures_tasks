@@ -30,3 +30,11 @@ class Solution:
             if sum(l[:i+1]) == sum(l[i:]):
                 return i + 1
         return -1
+    
+
+# Solution Math O(logN) O(1)
+class Solution:
+    def pivotInteger(self, n: int) -> int:
+        tmp: int = (n**2 + n) // 2
+        square: int = int(tmp**.5)
+        return square if square**2 == tmp else -1
