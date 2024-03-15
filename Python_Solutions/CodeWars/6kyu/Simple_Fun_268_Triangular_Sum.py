@@ -32,3 +32,16 @@
 # 3 * 3 + 6 * 6 = 9 + 36 = 45
 #
 # PUZZLES
+# Solution
+def triangular_sum(n):
+    k = 1
+    T_k = k * (k + 1) // 2
+    while True:
+        T_next = (k + 1) * (k + 2) // 2
+        sum_of_squares = T_k**2 + T_next**2
+        if sum_of_squares == n:
+            return True
+        if sum_of_squares > n:
+            return False
+        k += 1
+        T_k = T_next
