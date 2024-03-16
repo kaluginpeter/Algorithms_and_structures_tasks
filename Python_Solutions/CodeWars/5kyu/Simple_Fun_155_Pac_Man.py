@@ -43,3 +43,31 @@
 # Play PacMan 2: The way home
 #
 # ALGORITHMSPUZZLES
+# Solution
+def pac_man(n, pm, enemies):
+    mtrx: list = [[True] * n for i in range(n)]
+    ans: int = 0
+    for i in enemies:
+        for j in range(n):
+            mtrx[i[0]][j] = False
+            mtrx[j][i[1]] = False
+            if pm[1] < i[1]:
+                for rows in range(i[1], n):
+                    print(j, rows)
+                    mtrx[j][rows] = False
+            else:
+                for rows in range(i[1] + 1):
+                    mtrx[j][rows] = False
+    for i in enemies:
+        if pm[0] > i[0]:
+            for r in range(i[0] + 1):
+                for c in range(n):
+                    mtrx[r][c] = False
+        else:
+            for r in range(i[0], n):
+                for c in range(n):
+                    mtrx[r][c] = False
+    for i in range(n):
+        for j in range(n):
+            ans += mtrx[i][j]
+    return ans - 1
