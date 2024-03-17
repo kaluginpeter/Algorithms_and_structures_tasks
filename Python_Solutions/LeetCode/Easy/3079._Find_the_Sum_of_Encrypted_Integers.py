@@ -26,3 +26,10 @@
 #
 # 1 <= nums.length <= 50
 # 1 <= nums[i] <= 1000
+# Solution O(N) O(1)
+class Solution:
+    def sumOfEncryptedInt(self, nums: List[int]) -> int:
+        total: int = 0
+        for i in nums:
+            total += int(max(str(i)) * len(str(i)))
+        return total
