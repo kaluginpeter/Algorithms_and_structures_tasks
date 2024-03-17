@@ -26,3 +26,8 @@
 #
 # 1 <= s.length <= 105
 # s and c consist only of lowercase English letters.
+# Solution Combinatoric Math O(N) O(1)
+class Solution:
+    def countSubstrings(self, s: str, c: str) -> int:
+        count: int = s.count(c)
+        return count * (count + 1) // 2
