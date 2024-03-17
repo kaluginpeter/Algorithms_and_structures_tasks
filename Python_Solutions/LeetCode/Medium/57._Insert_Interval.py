@@ -27,3 +27,31 @@
 # intervals is sorted by starti in ascending order.
 # newInterval.length == 2
 # 0 <= start <= end <= 105
+# Solution O(N) O(N)
+class Solution:
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        ans: list = list()
+        x, y = newInterval[0], newInterval[1]
+        seen: bool = False
+        added: bool = False
+        for i in intervals:
+            if i[0] > newInterval[1]: # Current interval more than newInterval
+                if seen: # if we making overlap
+                    ans.append([x, y])
+                    seen = False
+                    ans.append(i)
+                else:
+                    if not added: # if we not added newInterval
+                        ans.append(newInterval)
+                    ans.append(i)
+                added = True
+            elif i[0] < newInterval[0] and i[1] < newInterval[0]: # current interval less than newInterval
+                ans.append(i)
+            elif not added: # Current interval can make overlap with newInterval
+                seen = True
+                x, y = min(x, i[0]), max(y, i[1])
+        if seen: # if we making overlap and overlap interval not adding in answer
+            ans.append([x, y])
+        elif not added: # if we not adding newInterval in answer
+            ans.append([x, y])
+        return ans
