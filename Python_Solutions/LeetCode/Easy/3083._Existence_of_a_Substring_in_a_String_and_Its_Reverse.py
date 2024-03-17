@@ -36,3 +36,14 @@
 #
 # 1 <= s.length <= 100
 # s consists only of lowercase English letters.
+# Solution HashSet O(N) O(N)
+class Solution:
+    def isSubstringPresent(self, s: str) -> bool:
+        hs: set = set()
+        rev: str = s[::-1]
+        for i in range(len(s) - 1):
+            hs.add(rev[i:i+2])
+        for i in range(len(s) - 1):
+            if s[i:i + 2] in hs:
+                return True
+        return False
