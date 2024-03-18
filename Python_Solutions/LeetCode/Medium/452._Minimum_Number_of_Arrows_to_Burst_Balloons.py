@@ -32,3 +32,14 @@
 # 1 <= points.length <= 105
 # points[i].length == 2
 # -231 <= xstart < xend <= 231 - 1
+# Solution Greedy Sorting O(Nlog) O(1)
+class Solution:
+    def findMinArrowShots(self, points: List[List[int]]) -> int:
+        points.sort(key=lambda x: x[1])
+        pos: int = float('-inf')
+        ans: int = 0
+        for i in points:
+            if pos < i[0]:
+                ans += 1
+                pos = i[1]
+        return ans
