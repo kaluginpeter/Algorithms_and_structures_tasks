@@ -24,3 +24,16 @@
 # 1 <= s.length <= 1000
 # s consists of digits and the '#' letter.
 # s will be a valid string such that mapping is always possible.
+# Solution O(N) O(N)
+class Solution:
+    def freqAlphabets(self, s: str) -> str:
+        ans: list = list()
+        for i in range(len(s)):
+            if s[i] == '#':
+                if ans:
+                    ans.pop()
+                    ans.pop()
+                ans.append(chr(96 + int(s[i-2:i])))
+            else:
+                ans.append(chr(96 + int(s[i])))
+        return ''.join(ans)
