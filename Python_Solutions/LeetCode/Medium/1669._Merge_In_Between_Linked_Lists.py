@@ -28,3 +28,31 @@
 # 3 <= list1.length <= 104
 # 1 <= a <= b < list1.length - 1
 # 1 <= list2.length <= 104
+# Solution O(N) O(N)
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def mergeInBetween(self, list1: ListNode, a: int, b: int, list2: ListNode) -> ListNode:
+        tmp = list1
+        ans = ListNode()
+        new_tmp = ans
+        tail = list1
+        step_for_tail = -1
+        step_for_a = -1
+        while step_for_tail != b:
+            tail = tail.next
+            step_for_tail += 1
+        while step_for_a < a - 1:
+            new_tmp.next = tmp
+            new_tmp, tmp = new_tmp.next, tmp.next
+            step_for_a += 1
+        while list2:
+            new_tmp.next = list2
+            new_tmp, list2 = new_tmp.next, list2.next
+        while tail:
+            new_tmp.next = tail
+            new_tmp, tail = new_tmp.next, tail.next
+        return ans.next
