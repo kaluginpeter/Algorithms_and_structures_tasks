@@ -43,3 +43,17 @@
 # Your algorithm should be able to handle large intervals. All tested intervals are subsets of the range [-1000000000, 1000000000].
 #
 # ALGORITHMSPERFORMANCE
+# Solution O(N) O(1) OnePass
+def sum_of_intervals(intervals):
+    intervals.sort(key=lambda x: x[0])
+    ans, x, y = 0, None, None
+    for i in intervals:
+        if x is None:
+            x, y = i
+        elif y >= i[0]:
+            y = max(y, i[1])
+        else:
+            ans += y - x
+            x, y = i
+    ans += y - x
+    return ans
