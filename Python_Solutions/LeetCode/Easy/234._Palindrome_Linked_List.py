@@ -48,3 +48,24 @@ class Solution:
         mid_node = get_mid_node(head)
         L2 = reverse_ll(mid_node)
         return is_ll_palindrome(head, L2)
+
+
+# Solution Stack and Two Pointers O(N) O(N)
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def isPalindrome(self, head: Optional[ListNode]) -> bool:
+        stack: list = list()
+        tmp, n = head, 0
+        while tmp:
+            stack.append(tmp.val)
+            tmp, n = tmp.next, n+ 1
+        left, right = 0, n - 1
+        while left <= right:
+            if stack[left] != stack[right]:
+                return False
+            left, right = left + 1, right - 1
+        return True
