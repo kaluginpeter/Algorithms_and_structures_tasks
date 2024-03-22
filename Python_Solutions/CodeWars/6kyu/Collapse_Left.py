@@ -18,3 +18,15 @@
 # If an array only contains numbers, the array should be returned without any modifications.
 # ARRAYS
 # Suggest kata description edits
+# Solution
+def operationArguments(arr):
+    ans: list = list()
+    for i in range(len(arr)):
+        if not isinstance(arr[i], int):
+            if i == 0:
+                ans.append(arr[i](0))
+            else:
+                ans.append(arr[i](ans.pop()))
+        else:
+            ans.append(arr[i])
+    return ans
