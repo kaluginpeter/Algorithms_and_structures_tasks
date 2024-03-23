@@ -24,3 +24,27 @@
 #
 # The number of nodes in the list is in the range [1, 5 * 104].
 # 1 <= Node.val <= 1000
+# Solution Floyd Algorithm, Two Pointers O(N) O(1)
+class Solution:
+    def reorderList(self, head):
+        # Floyd Algorithm
+        if not head: return []
+        slow, fast = head, head
+        while fast.next and fast.next.next:
+            slow = slow.next
+            fast = fast.next.next
+        # Reversing right half of linked list
+        prev, curr = None, slow.next
+        while curr:
+            nextt = curr.next
+            curr.next = prev
+            prev = curr
+            curr = nextt
+        slow.next = None
+        # Merging two halfs by Two Pointers Approach
+        left, right = head, prev
+        while right:
+            nextt = left.next
+            left.next = right
+            left = right
+            right = nextt
