@@ -15,3 +15,13 @@
 # Also see an example test fixture for suggested usage
 #
 # DESIGN PATTERNSEVENT HANDLINGFUNDAMENTALS
+class Event():
+    def __init__(self):
+        self.stack: list = list()
+    def subscribe(self, func):
+        self.stack.append(func)
+    def unsubscribe(self, func):
+        self.stack.remove(func)
+    def emit(self, *args):
+        for f in self.stack:
+            f(*args)
