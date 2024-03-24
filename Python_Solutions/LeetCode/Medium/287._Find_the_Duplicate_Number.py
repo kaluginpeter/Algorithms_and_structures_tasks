@@ -60,3 +60,13 @@ class Solution:
         while slow != fast:
             slow, fast = nums[slow], nums[fast]
         return slow
+
+
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        array: list[bool] = [True] * len(nums)
+        for i in nums:
+            if array[i-1]:
+                array[i-1] = False
+            else:
+                return i
