@@ -24,3 +24,20 @@
 # 1 <= n <= 105
 # 1 <= nums[i] <= n
 # Each element in nums appears once or twice.
+# Solution HashTable O(N) O(N)
+class Solution:
+    def findDuplicates(self, nums: List[int]) -> List[int]:
+        ht: dict = dict()
+        for i in nums:
+            ht[i] = ht.get(i, 0) + 1
+        return [i for i in ht if ht[i] > 1]
+# Solution OnePass O(N) O(1)
+class Solution:
+    def findDuplicates(self, nums: List[int]) -> List[int]:
+        ans: list = list()
+        for i in nums:
+            if nums[abs(i) - 1] < 0:
+                ans.append(abs(i))
+            else:
+                nums[abs(i) - 1] *= -1
+        return ans
