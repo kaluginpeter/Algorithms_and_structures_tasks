@@ -24,3 +24,10 @@
 # 2 <= nums.length <= 100
 # nums.length % 2 == 0
 # 1 <= nums[i] <= 100
+# Solution Straight Forward O(N) O(N)
+class Solution:
+    def decompressRLElist(self, nums: List[int]) -> List[int]:
+        ans: list[int] = list()
+        for i in range(0, len(nums), 2):
+            ans.extend([nums[i + 1]] * nums[i])
+        return ans
