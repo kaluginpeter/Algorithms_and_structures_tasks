@@ -15,3 +15,29 @@
 # Have fun!
 #
 # ARRAYSALGORITHMS
+# Solution
+def pick_peaks(arr):
+    ans: dict = {'pos': list(), 'peaks': list()}
+    stack: list[int] = list()
+    if not arr or len(arr) < 3:
+        return ans
+    for i in range(1, len(arr) - 1):
+        if arr[i] > arr[i - 1] and arr[i] > arr[i + 1]:
+            if stack:
+                stack = []
+            ans['pos'] = ans.get('pos', []) + [i]
+            ans['peaks'] = ans.get('peaks', []) + [arr[i]]
+        elif (not stack and arr[i] > arr[i - 1] and arr[i] >= arr[i + 1]) or (stack and arr[i] >= arr[i + 1] and arr[i] >= arr[i - 1]):
+            if stack and arr[i] > arr[i + 1]:
+                ans['pos'] = ans.get('pos', []) + [stack[0]]
+                ans['peaks'] = ans.get('peaks', []) + [arr[stack[0]]]
+                print(stack)
+                stack = []
+            else:
+                stack.append(i)
+        elif stack:
+            stack = []
+    if stack and arr[stack[0] - 1] == arr[-1] and arr[stack[0]] > arr[-1]:
+        ans['pos'] = ans.get('pos', []) + [stack[0]]
+        ans['peaks'] = ans.get('peaks', []) + [arr[stack[0]]]
+    return ans
