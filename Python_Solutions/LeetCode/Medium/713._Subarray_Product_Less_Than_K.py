@@ -20,3 +20,17 @@
 # 1 <= nums.length <= 3 * 104
 # 1 <= nums[i] <= 1000
 # 0 <= k <= 106
+# Solution Two Pointers Sliding Window O(N) O(1)
+class Solution:
+    def numSubarrayProductLessThanK(self, nums: List[int], k: int) -> int:
+        ans: int = 0
+        total: int = 1
+        left, right = 0, 0
+        while left < len(nums) and right < len(nums):
+            total *= nums[right]
+            while right >= left and total >= k:
+                total /= nums[left]
+                left += 1
+            ans += right + 1 - left
+            right += 1
+        return ans
