@@ -35,3 +35,16 @@
 # 1 <= nums.length <= 105
 # 1 <= nums[i] <= 109
 # 1 <= k <= nums.length
+# Solution Two Pointers aka Sliding Wndow O(N) O(N)
+class Solution:
+    def maxSubarrayLength(self, nums: List[int], k: int) -> int:
+        ans: int = 0
+        ht: dict = dict()
+        left: int = 0
+        for right in range(len(nums)):
+            ht[nums[right]] = ht.get(nums[right], 0) + 1
+            while ht[nums[right]] > k:
+                ht[nums[left]] -= 1
+                left += 1
+            ans = max(ans, right + 1 - left)
+        return ans
