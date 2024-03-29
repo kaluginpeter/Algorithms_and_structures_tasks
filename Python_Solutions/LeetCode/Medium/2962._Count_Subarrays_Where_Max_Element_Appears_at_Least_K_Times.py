@@ -23,3 +23,16 @@
 # 1 <= nums.length <= 105
 # 1 <= nums[i] <= 106
 # 1 <= k <= 105
+# Solution Two Pointers O(N) O(1)
+class Solution:
+    def countSubarrays(self, nums: List[int], k: int) -> int:
+        ans: int = 0
+        count_sub: int = 0
+        left, mx = 0, max(nums)
+        for right in range(len(nums)):
+            count_sub += nums[right] == mx
+            while count_sub >= k:
+                count_sub -= nums[left] == mx
+                left += 1
+            ans += left
+        return ans
