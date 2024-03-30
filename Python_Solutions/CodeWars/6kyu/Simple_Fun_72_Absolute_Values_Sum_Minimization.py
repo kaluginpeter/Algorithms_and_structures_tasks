@@ -20,3 +20,12 @@
 # [output] an integer
 #
 # PUZZLES
+# Solution
+def absolute_values_sum_minimization(lst):
+    sm: int = float('inf')
+    ans: int = -1
+    for i in lst:
+        x: int = sum(abs(j - i) for j in lst)
+        if x < sm:
+            sm, ans = x, i
+    return ans
