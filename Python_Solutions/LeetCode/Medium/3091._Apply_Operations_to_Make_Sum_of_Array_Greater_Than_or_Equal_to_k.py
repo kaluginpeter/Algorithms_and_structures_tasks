@@ -38,3 +38,17 @@
 # Constraints:
 #
 # 1 <= k <= 105
+# Solution Simulation Greedy O(NlogN) O(1)
+class Solution:
+    def minOperations(self, k: int) -> int:
+        if k == 1:
+            return 0
+        ans: int = float('inf')
+        for i in range(1, k+1):
+            count = i - 1
+            sm = i
+            while sm < k:
+                count += 1
+                sm += i
+            ans = min(ans, count)
+        return ans
