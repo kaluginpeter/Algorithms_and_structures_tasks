@@ -27,3 +27,8 @@
 # Constraints:
 #
 # 1 <= x <= 100
+# Solution O(N) O(1)
+class Solution:
+    def sumOfTheDigitsOfHarshadNumber(self, x: int) -> int:
+        sm: int = sum(int(i) for i in str(x))
+        return sm if x % sm == 0 else -1
