@@ -45,3 +45,15 @@
 # 1 <= nums.length <= 50
 # 0 <= nums[i] <= 50
 # 0 <= k < 64
+# Solution O(N**2) O(1)
+class Solution:
+    def minimumSubarrayLength(self, nums: List[int], k: int) -> int:
+        ans = float('inf')
+        for i in range(len(nums)):
+            top_or: int = 0
+            for j in range(i, len(nums)):
+                top_or |= nums[j]
+                if top_or >= k:
+                    ans = min(ans, j - i + 1)
+                    break
+        return ans if ans != float('inf') else -1
