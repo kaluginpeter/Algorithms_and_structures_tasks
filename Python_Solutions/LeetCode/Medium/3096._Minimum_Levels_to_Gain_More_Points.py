@@ -59,3 +59,17 @@
 #
 # 2 <= n == possible.length <= 105
 # possible[i] is either 0 or 1.
+# Solution Math Greedy Simulation O(N) O(1)
+class Solution:
+    def minimumLevels(self, possible: List[int]) -> int:
+        all_ones: int = sum(possible)
+        all_zeros: int = sum(i == 0 for i in possible)
+        total: int = 0
+        for i in range(len(possible) - 1):
+            if possible[i] == 1:
+                all_ones, total = all_ones - 1, total + 1
+            else:
+                total, all_zeros = total - 1, all_zeros - 1
+            if total > all_ones - all_zeros:
+                return i + 1
+        return -1
