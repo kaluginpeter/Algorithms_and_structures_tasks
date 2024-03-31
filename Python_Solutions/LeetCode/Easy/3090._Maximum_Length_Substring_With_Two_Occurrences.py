@@ -27,3 +27,16 @@
 #
 # 2 <= s.length <= 100
 # s consists only of lowercase English letters.
+# Solution Sliding Window O(N) O(N)
+class Solution:
+    def maximumLengthSubstring(self, s: str) -> int:
+        ans: int = 0
+        ht: dict = dict()
+        left: int = 0
+        for right in range(len(s)):
+            ht[s[right]] = ht.get(s[right], 0) + 1
+            while ht[s[right]] > 2:
+                ht[s[left]] -= 1
+                left += 1
+            ans = max(ans, right + 1 - left)
+        return ans
