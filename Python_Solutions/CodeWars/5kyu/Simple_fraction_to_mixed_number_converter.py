@@ -23,3 +23,31 @@
 # Make sure not to modify the input of your function in-place, it is a bad practice.
 #
 # FUNDAMENTALS
+# Solution
+def comprare(x: int, y: int, positive: bool) -> str:
+    gcd: int = 1
+    for i in range(2, x + 1):
+        if x % i == 0 and y % i == 0:
+            gcd = i
+    return f'{(x // gcd) if positive else (x // gcd * -1)}/{y // gcd}'
+
+
+def mixed_fraction(s):
+    x, y = map(int, s.split('/'))
+    if y == 0:
+        raise DivisionByZero
+    if x == 0:
+        return '0'
+    positive: bool = x > 0 and y > 0 or (x < 0 and y < 0)
+    x, y = abs(x), abs(y)
+    if x == y:
+        return '1' if positive else '-1'
+    if abs(x) > y:
+        if x % y == 0:
+            return str(x // y) if positive else '-' + str(x // y)
+        full: int = x // y
+        x = x - y * full
+        if not positive:
+            full = abs(full) * -1
+        return f'{full} {comprare(x, y, True)}'
+    return comprare(x, y, positive)
