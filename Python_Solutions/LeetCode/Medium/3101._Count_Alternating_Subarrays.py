@@ -36,7 +36,7 @@
 #
 # 1 <= nums.length <= 105
 # nums[i] is either 0 or 1.
-# Solution o(N) O(1)
+# Solution O(N) O(1)
 class Solution:
     def countAlternatingSubarrays(self, nums: List[int]) -> int:
         if len(nums) == 1:
