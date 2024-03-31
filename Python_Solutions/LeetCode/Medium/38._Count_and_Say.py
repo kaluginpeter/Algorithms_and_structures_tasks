@@ -30,3 +30,23 @@
 # Constraints:
 #
 # 1 <= n <= 30
+# Solution O(N**2) O(N)
+class Solution:
+    def countAndSay(self, n: int) -> str:
+        permut: str = '1'
+        for rep in range(n - 1):
+            new_permut: list = list()
+            count: int = 0
+            prev_digit: str = None
+            for digit in permut:
+                if prev_digit is None:
+                    prev_digit, count = digit, 1
+                elif digit != prev_digit:
+                    new_permut.append(str(count) + prev_digit)
+                    prev_digit, count = digit, 1
+                else:
+                    count += 1
+            if count > 0:
+                new_permut.append(str(count) + prev_digit)
+            permut = ''.join(new_permut)
+        return permut
