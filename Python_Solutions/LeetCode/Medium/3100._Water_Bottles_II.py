@@ -28,3 +28,19 @@
 #
 # 1 <= numBottles <= 100
 # 1 <= numExchange <= 100
+# Solution O(N0 O(1)
+class Solution:
+    def maxBottlesDrunk(self, numBottles: int, numExchange: int) -> int:
+        ans: int = 0
+        empty_bottles: int = 0
+        while True:
+            if numBottles > 0:
+                ans += numBottles
+                empty_bottles += numBottles
+                numBottles = 0
+            while empty_bottles >= numExchange:
+                numBottles += 1
+                empty_bottles -= numExchange
+                numExchange += 1
+            if numBottles == 0:
+                return ans
