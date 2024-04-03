@@ -45,3 +45,36 @@
 # Happy hacking as they say! 💻
 #
 # MATRIXARRAYSSTRINGSFUNDAMENTALS
+# Solution
+def solution(mtrx):
+    for rows in range(len(mtrx)):
+        for columns in range(len(mtrx[0])):
+            if mtrx[rows][columns] == '^':
+                x: int = rows
+                while x > 0:
+                    x -= 1
+                    if mtrx[x][columns] == 'x':
+                        return True
+                return False
+            elif mtrx[rows][columns] == 'v':
+                x: int = rows
+                while x < len(mtrx) - 1:
+                    x += 1
+                    if mtrx[x][columns] == 'x':
+                        return True
+                return False
+            elif mtrx[rows][columns] == '>':
+                x: int = columns
+                while x < len(mtrx[0]) - 1:
+                    x += 1
+                    if mtrx[rows][x] == 'x':
+                        return True
+                return False
+            elif mtrx[rows][columns] == '<':
+                x: int = columns
+                while x > 0:
+                    x -= 1
+                    if mtrx[rows][x] == 'x':
+                        return True
+                return False
+    return False
