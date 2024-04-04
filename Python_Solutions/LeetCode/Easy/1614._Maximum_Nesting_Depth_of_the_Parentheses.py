@@ -31,3 +31,19 @@
 # 1 <= s.length <= 100
 # s consists of digits 0-9 and characters '+', '-', '*', '/', '(', and ')'.
 # It is guaranteed that parentheses expression s is a VPS.
+# Solution One Pass Stack O(N) O(N)
+class Solution:
+    def maxDepth(self, s: str) -> int:
+        stack: list[str] = list()
+        depth: int = 0
+        ans: int = 0
+        for i in s:
+            if i == '(':
+                depth += 1
+                stack.append(i)
+            elif i == ')':
+                ans, depth = max(ans, depth), depth - 1
+                if not stack: # if stack is empty and we meet )
+                    continue
+                stack.pop()
+        return ans
