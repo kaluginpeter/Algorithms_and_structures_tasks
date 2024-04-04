@@ -24,3 +24,27 @@
 # if a result in seconds is ab.xy... it will be given truncated as ab.
 # if the given string is "" you will return ""
 # FUNDAMENTALSSTRINGSSTATISTICSMATHEMATICSDATA SCIENCE
+# Solution
+def stat(strg):
+    if not strg:
+        return ''
+    stack: list[int] = list()
+    for part in strg.split(', '):
+        top: list[str] = part.split('|')
+        ans: int = 0
+        for i in range(len(top)):
+            if i == 0:
+                ans += int(top[i]) * 3600
+            elif i == 1:
+                ans += int(top[i]) * 60
+            else:
+                ans += int(top[i])
+        stack.append(ans)
+    diff: int = max(stack) - min(stack)
+    diff: str = f'Range: {diff // 3600:02d}|{diff % 3600 // 60:02d}|{diff % 3600 % 60:02d}'
+    average: int = sum(stack) // len(stack)
+    average: str = f'Average: {average // 3600:02d}|{average % 3600 // 60:02d}|{average % 3600 % 60:02d}'
+    stack.sort()
+    median: int = stack[len(stack) // 2] if len(stack) % 2 != 0 else (stack[len(stack) // 2] + stack[len(stack) // 2 - 1]) // 2
+    median: str = f'Median: {median // 3600:02d}|{median % 3600 // 60:02d}|{median % 3600 % 60:02d}'
+    return f'{diff} {average} {median}'
