@@ -27,3 +27,20 @@
 #   As for special characters like apostrophes or dashes, they count as normal characters,
 #   so e.g 'sand-colored' must be transformed to 'deroloc-dnas'.
 # STRINGSFUNDAMENTALS
+# Solution
+def spin_solve(sentence):
+    ans: list[str] = list()
+    for word in sentence.split():
+        x: str = word[:]
+        end: bool = False
+        while not x[-1].isalnum():
+            x, end = x[:-1], True
+        if len(x) > 6 or x.count('T') > 1 or x.count('t') > 1:
+            ans.append(x[::-1] + (word[-1] if end else ''))
+        elif len(x) == 2 or (end and word[-1] == ','):
+            ans.append(x.upper() + (word[-1] if end else ''))
+        elif len(x) == 1:
+            ans.append('0')
+        else:
+            ans.append(x + (word[-1] if end else ''))
+    return ' '.join(ans)
