@@ -34,3 +34,15 @@
 #
 # 1 <= s.length <= 100
 # s contains only lower and upper case English letters.
+# Solution Stack O(N) O(N)
+class Solution:
+    def makeGood(self, s: str) -> str:
+        stack: list[str] = list()
+        for i in s:
+            if not stack:
+                stack.append(i)
+            elif abs(ord(i) - ord(stack[-1])) == 32:
+                stack.pop()
+            else:
+                stack.append(i)
+        return ''.join(stack)
