@@ -34,3 +34,21 @@
 # 'PA': 'Pennsylvania',
 # 'VA': 'Virginia'
 # FUNDAMENTALSSTRINGS
+# Solution
+def by_state(st):
+    ht: dict[str, list[str]] = dict()
+    acronym: dict[str, str] = {
+        'AZ': 'Arizona','CA': 'California',
+        'ID': 'Idaho','IN': 'Indiana',
+        'MA': 'Massachusetts','OK': 'Oklahoma',
+        'PA': 'Pennsylvania','VA': 'Virginia'
+    }
+    for people in st.split('\n'):
+        if people[-2:]:
+            ht[people[-2:]] = ht.get(people[-2:], []) + [people]
+    states: list[str] = sorted(ht.keys())
+    ans: list[str] = list()
+    for state in states:
+        top: list[str] = [acronym.get(state)] + [people[:-2].replace(',', '') + acronym.get(state) for people in sorted(ht.get(state))]
+        ans.append('\r\n..... '.join(top))
+    return '\r\n '.join(ans)
