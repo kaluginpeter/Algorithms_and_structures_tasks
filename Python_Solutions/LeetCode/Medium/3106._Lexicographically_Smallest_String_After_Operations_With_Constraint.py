@@ -50,3 +50,23 @@
 # 1 <= s.length <= 100
 # 0 <= k <= 2000
 # s consists only of lowercase English letters.
+# Solution O(N) O(N) Greedy
+class Solution:
+    def getSmallestString(self, s: str, k: int) -> str:
+        if k == 0:
+            return s
+        ans: list[str] = ['a' for i in range(len(s))]
+        count: int = sum(min(abs(ord(s[i]) - ord(ans[i])), abs(ord(s[i]) - (ord(ans[i]) + 26))) for i in range(len(s)))
+        idx: int = len(ans) - 1
+        while count > k:
+            count -= min(abs(ord(s[idx]) - ord(ans[idx])), abs(ord(s[idx]) - (ord(ans[idx]) + 26)))
+            flag = False
+            for i in range(ord(s[idx]) - k, ord(s[idx]) + 1):
+                if count + (ord(s[idx]) - i) <= k:
+                    ans[idx] = chr(i)
+                    flag = True
+                    return ''.join(ans)
+            if not flag:
+                ans[idx] = s[idx]
+                idx -= 1
+        return ''.join(ans)
