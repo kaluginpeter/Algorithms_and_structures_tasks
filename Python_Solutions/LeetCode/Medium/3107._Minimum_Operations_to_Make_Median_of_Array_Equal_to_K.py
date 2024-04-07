@@ -43,3 +43,21 @@
 # 1 <= nums.length <= 2 * 105
 # 1 <= nums[i] <= 109
 # 1 <= k <= 109
+# Solution Sorting Greedy O(NlogN) O(1)
+class Solution:
+    def minOperationsToMakeMedianK(self, nums: List[int], k: int) -> int:
+        nums.sort()
+        start: int = len(nums) // 2
+        ans: int = 0
+        if nums[start] < k:
+            for i in range(start, len(nums)):
+                if k <= nums[i]:
+                    return ans
+                ans += k - nums[i]
+            return ans
+        else:
+            for i in range(start, -1, -1):
+                if k >= nums[i]:
+                    return ans
+                ans += nums[i] - k
+            return ans
