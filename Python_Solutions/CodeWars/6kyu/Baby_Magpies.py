@@ -32,3 +32,9 @@
 # ^ This fact is little known because I just made it up
 #
 # ALGORITHMS
+# Solution
+def child(bird1, bird2):
+    return 1 <= sum(x != y for x, y in zip(bird1, bird2)) <= 2
+
+def grandchild(bird1, bird2):
+    return 0 <= sum(x != y for x, y in zip(bird1, bird2)) <= [4, 0][len(bird1) == 1]
