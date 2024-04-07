@@ -56,3 +56,25 @@
 #
 # 1 <= nums.length <= 50
 # 1 <= nums[i] <= 50
+# Solution O(N) O(1)
+class Solution:
+    def longestMonotonicSubarray(self, nums: List[int]) -> int:
+        ans, top = 1, 0
+        prev = 0
+        for i in range(1, len(nums)):
+            if nums[i] < nums[prev]:
+                prev = i
+                continue
+            else:
+                ans = max(ans, i - top)
+                top, prev = i, i
+        ans = max(ans, len(nums) - top)
+        top, prev = 0, 0
+        for i in range(1, len(nums)):
+            if nums[i] > nums[prev]:
+                prev = i
+            else:
+                ans = max(ans, i - top)
+                top, prev = i, i
+        ans = max(ans, len(nums) - top)
+        return ans
