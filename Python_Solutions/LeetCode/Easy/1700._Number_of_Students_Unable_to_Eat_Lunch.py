@@ -36,3 +36,38 @@
 # students.length == sandwiches.length
 # sandwiches[i] is 0 or 1.
 # students[i] is 0 or 1.
+# Solution Simulation O(N**2) O(1)
+class Solution:
+    def countStudents(self, students: List[int], sandwiches: List[int]) -> int:
+        n: int = len(students)
+        count: int = 0
+        eat: bool = True
+        while students and eat:
+            eat = False
+            for i in range(len(students)):
+                if students[i] == sandwiches[0]:
+                    count += 1
+                    eat = True
+                    students.pop(i)
+                    sandwiches.pop(0)
+                    break
+        return n - count
+# Solution Counting O(N) O(1)
+class Solution:
+    def countStudents(self, students: List[int], sandwiches: List[int]) -> int:
+        zeros, ones = 0, 0
+        for i in students:
+            if i == 1:
+                ones += 1
+            else:
+                zeros += 1
+        for i in sandwiches:
+            if i == 1:
+                if ones == 0:
+                    return zeros
+                ones -= 1
+            else:
+                if zeros == 0:
+                    return ones
+                zeros -= 1
+        return 0
