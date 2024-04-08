@@ -29,3 +29,15 @@
 # 666 ➞ [8]
 # // 666 in base8 = 1232
 # Suggest kata description edits
+# Solution
+def esthetic(num):
+    ans: list[int] = list()
+    for i in range(2, 11):
+        top: list[int] = list()
+        x: int = num
+        while x:
+            top.append(x % i)
+            x //= i
+        if all(abs(x - y) == 1 for x, y in zip(top, top[1:])):
+            ans.append(i)
+    return ans
