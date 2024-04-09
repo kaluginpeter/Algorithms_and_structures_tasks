@@ -32,3 +32,22 @@
 # 1 <= n <= 100
 # 1 <= tickets[i] <= 100
 # 0 <= k < n
+# Solution Simulation O(N**K) O(1)
+class Solution:
+    def timeRequiredToBuy(self, tickets: List[int], k: int) -> int:
+        ans: int = 0
+        for i in range(tickets[k]):
+            for person in range(len(tickets)):
+                if tickets[person] > 0:
+                    ans += 1
+                    tickets[person] -= 1
+                    if tickets[k] == 0:
+                        return ans
+
+# Solution Counting OnePass O(N) O(1)
+class Solution:
+    def timeRequiredToBuy(self, tickets: List[int], k: int) -> int:
+        ans: int = 0
+        for i in range(len(tickets)):
+            ans += min(tickets[i], tickets[k] if i <= k else tickets[k] - 1)
+        return ans
