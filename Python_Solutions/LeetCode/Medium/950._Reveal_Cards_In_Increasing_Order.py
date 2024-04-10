@@ -39,3 +39,11 @@
 # 1 <= deck.length <= 1000
 # 1 <= deck[i] <= 106
 # All the values of deck are unique.
+# Solution simulation O(NlogN) O(N)
+class Solution:
+    def deckRevealedIncreasing(self, deck):
+        deq = collections.deque()
+        for el in sorted(deck, reverse=True):
+            deq.rotate()
+            deq.appendleft(el)
+        return list(deq)
