@@ -32,3 +32,15 @@
 # Enjoy it!!
 #
 # FUNDAMENTALSMATHEMATICSDATA STRUCTURESPERMUTATIONSALGORITHMS
+# Solution
+import itertools
+def ssc_forperm(arr):
+    mx, mn = float('-inf'), float('inf')
+    total = 0
+    stack: list[list] = list(set(itertools.permutations(arr)))
+    for lst in stack:
+        x: int = sum((i + 1) * lst[i] for i in range(len(lst)))
+        total += x
+        mx = max(mx, x)
+        mn = min(mn, x)
+    return [{"total perm": len(stack)}, {"total ssc": total}, {"max ssc": mx}, {"min ssc": mn}]
