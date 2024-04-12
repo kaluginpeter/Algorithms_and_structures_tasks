@@ -19,3 +19,26 @@
 # n == height.length
 # 1 <= n <= 2 * 104
 # 0 <= height[i] <= 105
+# Solution Two Pointers O(N) O(1)
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        ans: int = 0
+        idx_mx: int = 0
+        for i in range(len(height)):
+            if height[i] > height[idx_mx]:
+                idx_mx = i
+        left, right = 0, idx_mx
+        left_boundary, right_boundary = 0, height[idx_mx]
+        while left <= right:
+            if left_boundary < height[left]:
+                left_boundary = height[left]
+            ans += min(left_boundary, right_boundary) - height[left]
+            left += 1
+        right = len(height) - 1
+        right_boundary = height[right]
+        while right >= left:
+            if right_boundary < height[right]:
+                right_boundary = height[right]
+            ans += min(left_boundary, right_boundary) - height[right]
+            right += -1
+        return ans
