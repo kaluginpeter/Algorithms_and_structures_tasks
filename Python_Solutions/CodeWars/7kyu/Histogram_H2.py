@@ -29,3 +29,11 @@
 # The bar character is █, which is the Unicode U+2588 char
 # When calculating percentages and bar lengths always floor/truncate to the nearest integer
 # FUNDAMENTALS
+# Solution
+def histogram(results):
+    bar_char = "█"
+    n: int = sum(results)
+    for i in range(len(results)):
+        x: int = (results[i] * 100 // n) if n else 0
+        results[i] = f'{i + 1}|{bar_char * (x // 2)}' + (f' {x}%' if x else '')
+    return '\n'.join(results[::-1]) + '\n'
