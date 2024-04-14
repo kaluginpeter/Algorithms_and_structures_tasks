@@ -22,3 +22,11 @@
 # Constraints:
 #
 # 1 <= n <= 104
+# Solution Math O(1) O(1)
+class Solution:
+    def minOperations(self, n: int) -> int:
+        if n % 2 != 0:
+            n = (n - 1) // 2
+            return n * (n + 1)
+        n = n // 2
+        return n**2
