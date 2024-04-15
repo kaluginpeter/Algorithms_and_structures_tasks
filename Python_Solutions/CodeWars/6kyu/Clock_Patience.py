@@ -39,3 +39,20 @@
 # Return the number of cards still remaining face down when the game ends (a winning game would return 0)
 #
 # ALGORITHMS
+# Solution
+def patience(cards: list[str]) -> int:
+    if not cards:
+        return 0
+    pos: dict[str, int] = {
+        '1': 1, '2': 2, '3': 3, '4': 4,
+        '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10,
+        'J': 11, 'Q': 12, 'K': 13, 'A': 1
+    }
+    stack: list[list[str]] = [[] for _ in range(14)]
+    for rep in range(4):
+        for i in range(1, 14):
+            stack[i].append(cards.pop(0))
+    current: str = stack[13].pop()
+    while stack[13]:
+        current = stack[pos[current]].pop()
+    return sum(len(chunck) for chunck in stack)
