@@ -30,3 +30,16 @@
 #
 # Try to come up with as many solutions as you can. There are at least three different ways to solve this problem.
 # Could you do it in-place with O(1) extra space?
+# Solution Two Pointers O(N) O(1)
+class Solution:
+    def vice_versa(self, arr, left, right):
+        while left < right:
+            arr[left], arr[right] = arr[right], arr[left]
+            left, right = left + 1, right - 1
+        return arr
+    def rotate(self, nums: List[int], k: int) -> None:
+        n: int = len(nums)
+        k %= n
+        self.vice_versa(nums, 0, n - 1)
+        self.vice_versa(nums, 0, k - 1)
+        self.vice_versa(nums, k, n - 1)
