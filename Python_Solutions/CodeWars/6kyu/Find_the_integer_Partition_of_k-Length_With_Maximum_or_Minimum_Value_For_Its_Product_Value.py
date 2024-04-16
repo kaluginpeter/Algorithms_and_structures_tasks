@@ -26,3 +26,15 @@
 # Enjoy it!
 #
 # FUNDAMENTALSDATA STRUCTURESALGORITHMSMATHEMATICSLOGICSTRINGS
+# Solution
+def find_spec_partition(n, k, com):
+    if com == 'min':
+        return [n - (k - 1)] + [1 for i in range(k - 1)]
+    stack: list[int] = [0] * k
+    count: int = 0
+    idx: int = 0
+    while count < n:
+        count += 1
+        stack[idx % k] += 1
+        idx += 1
+    return stack
