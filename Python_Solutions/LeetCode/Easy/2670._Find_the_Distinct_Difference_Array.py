@@ -32,3 +32,25 @@
 #
 # 1 <= n == nums.length <= 50
 # 1 <= nums[i] <= 50
+# Solution HashTable O(N) O(N)
+class Solution:
+    def distinctDifferenceArray(self, nums: List[int]) -> List[int]:
+        prev_ht: dict[int, int] = dict()
+        post_ht: dict[int, int] = dict()
+        ln_post: int = 0
+        ln_pref: int = 0
+        ans: list[int] = list()
+        for i in nums:
+            if i not in post_ht:
+                ln_post += 1
+                post_ht[i] = 0
+            post_ht[i] += 1
+        for i in nums:
+            if i not in prev_ht:
+                ln_pref += 1
+                prev_ht[i] = 1
+            post_ht[i] -= 1
+            if post_ht[i] == 0:
+                ln_post -= 1
+            ans.append(ln_pref - ln_post)
+        return ans
