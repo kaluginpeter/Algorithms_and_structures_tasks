@@ -29,3 +29,19 @@
 # 1 <= row, col <= 100
 # grid[i][j] is 0 or 1.
 # There is exactly one island in grid.
+# Solution Simulation O(NM4) O(1)
+class Solution:
+    def islandPerimeter(self, grid: List[List[int]]) -> int:
+        ans: int = 0
+        moves: list[list[int, int]] = [[0, -1], [-1, 0], [0, 1], [1, 0]]
+        n, m = len(grid), len(grid[0])
+        for rows in range(n):
+            for cols in range(m):
+                if grid[rows][cols] == 1:
+                    for mov in moves:
+                        x, y = mov
+                        if (rows + x < 0 or rows + x == n) or (cols + y < 0 or cols + y == m):
+                            ans += 1
+                            continue
+                        ans += grid[rows + x][cols + y] == 0
+        return ans
