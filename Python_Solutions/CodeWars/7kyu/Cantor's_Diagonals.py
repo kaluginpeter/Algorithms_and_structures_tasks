@@ -12,3 +12,6 @@
 # See Wikipedia for background (if you're interested; it won't help you solve the kata). Obviously this kata is not the same because the lists are not infinite so it doesn't really prove anything -- consider it a tribute...
 #
 # FUNDAMENTALS
+# Solution
+def cantor(nested_list):
+    return [int(not bool(nested_list[i][i])) for i in range(len(nested_list))]
