@@ -40,3 +40,12 @@
 # Test has at least one question.
 # len(key) == len(answers)
 # ALGORITHMSARRAYS
+# Solution
+def possibly_perfect(key, answers):
+    for i in range(len(key) - 1, -1, -1):
+        if key[i] == '_':
+            answers.pop(i)
+            key.pop(i)
+    flag_true: bool = all(key[i] == answers[i] for i in range(len(key)))
+    flag_false: bool = all(key[i] != answers[i] for i in range(len(key)))
+    return flag_true or flag_false
