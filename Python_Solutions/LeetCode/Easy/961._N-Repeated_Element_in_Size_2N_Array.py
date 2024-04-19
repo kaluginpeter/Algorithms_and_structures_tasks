@@ -27,3 +27,22 @@
 # nums.length == 2 * n
 # 0 <= nums[i] <= 104
 # nums contains n + 1 unique elements and one of them is repeated exactly n times.
+# Solution HashTable O(N) O(N)
+class Solution:
+    def repeatedNTimes(self, nums: List[int]) -> int:
+        n: int = 0
+        ht: dict[int, int] = dict()
+        for i in nums:
+            ht[i] = ht.get(i, 0) + 1
+            n += 1
+        n //= 2
+        for i in ht:
+            if ht[i] == n:
+                return i
+# Solution OnePass O(N) O(1)
+class Solution:
+    def repeatedNTimes(self, nums: List[int]) -> int:
+        for i in range(2, len(nums)):
+            if nums[i] == nums[i - 1] or nums[i] == nums[i - 2]:
+                return nums[i]
+        return nums[0]
