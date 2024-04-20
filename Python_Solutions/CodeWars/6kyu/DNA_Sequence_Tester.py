@@ -48,3 +48,11 @@
 # // (seq2)          down-GGTATTAGCCGGCCACATC-up
 # If you enjoyed this kata, check out also my other DNA kata: Longest Repeated DNA Motif
 # FUNDAMENTALSSTRINGS
+# Solution
+def checking(first: str, second: str) -> bool:
+    return first.translate(str.maketrans('ATGC', 'TACG')) in second
+def check_DNA(seq1, seq2):
+    seq2 = seq2[::-1]
+    if len(seq1) <= len(seq2):
+        return checking(seq1, seq2)
+    return checking(seq2, seq1)
