@@ -35,3 +35,19 @@
 # Divisor harmony
 #
 # ALGORITHMS
+# Solution
+from math import prod
+def generate(x: int) -> int:
+    if x < 10:
+        return x * 2
+    return x + prod(i for i in map(int, str(x)) if i > 0)
+def convergence(n):
+    base: int = 1
+    ans_ln: int = 0
+    while base != n:
+        while base < n:
+            base = generate(base)
+        while n < base:
+            ans_ln += 1
+            n = generate(n)
+    return ans_ln
