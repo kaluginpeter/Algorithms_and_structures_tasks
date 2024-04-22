@@ -36,3 +36,22 @@
 #
 # 1 <= heights.length <= 100
 # 1 <= heights[i] <= 100
+# Solution Sorting One line O(NlogN) O(N)
+class Solution:
+    def heightChecker(self, heights: List[int]) -> int:
+        return sum(i != j for i, j in zip(heights, sorted(heights)))
+# Solution Counting O(N) O(N)
+class Solution:
+    def heightChecker(self, heights: List[int]) -> int:
+        arr: list[int] = [0] * 101
+        ans: int = 0
+        idx: int = 0
+        for i in heights:
+            arr[i] += 1
+        for i in heights:
+            while not arr[idx]:
+                idx += 1
+            if idx != i:
+                ans += 1
+            arr[idx] -= 1
+        return ans
