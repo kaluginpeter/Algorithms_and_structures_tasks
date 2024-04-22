@@ -23,3 +23,25 @@
 #     instead of
 # this could {b}e chemistry meme but {o}ur gey w{o}rd 'boo{m}' is too late
 # STRINGSREGULAR EXPRESSIONSFUNDAMENTALSSORTING
+# Solution
+def memesorting(meme):
+    it: list[str] = ['b', 'u', 'g']
+    x, y, z = 0, 0, 0
+    ht: dict[int, str] = {'Roma': x, 'Maxim': y, 'Danik': z}
+    chemistry: list[str] = ['b', 'o', 'o', 'm']
+    design: list[str] = ['e', 'd', 'i', 't', 's']
+    for i in range(len(meme)):
+        if meme[i].lower() == it[0]:
+            it.pop(0)
+            x += 1
+        if meme[i].lower() == chemistry[0]:
+            chemistry.pop(0)
+            y += i
+        if meme[i].lower() == design[0]:
+            design.pop(0)
+            z += i
+        ht = {'Roma': x, 'Maxim': y, 'Danik': z}
+        stack: list[int] = [[x, y, z][i] for i in range(3) if not [it, chemistry, design][i]]
+        if stack:
+            return [k for k, v in ht.items() if v == min(stack)][0]
+    return 'Vlad'
