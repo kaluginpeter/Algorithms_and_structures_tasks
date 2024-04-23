@@ -29,3 +29,12 @@
 # n == grid.length == grid[i].length
 # 3 <= n <= 100
 # 1 <= grid[i][j] <= 100
+# Solution Simulation O(N**2) O(N)
+class Solution:
+    def largestLocal(self, grid: List[List[int]]) -> List[List[int]]:
+        n: int = len(grid)
+        ans: list[int] = [[0] * (n - 2) for i in range(n - 2)]
+        for i in range(n - 2):
+            for j in range(n - 2):
+                ans[i][j] = max(grid[row][col] for row in range(i, i + 3) for col in range(j, j + 3))
+        return ans
