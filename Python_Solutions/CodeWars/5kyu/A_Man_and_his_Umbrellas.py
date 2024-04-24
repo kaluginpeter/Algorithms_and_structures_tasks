@@ -40,3 +40,23 @@
 # Because he only needs 1 umbrella which he takes on every journey.
 #
 # LOGICARRAYSFUNDAMENTALS
+# Solution
+def min_umbrellas(weather):
+    home: int = 0
+    work: int = 0
+    umbrella: int = 0
+    for i in range(len(weather)):
+        if weather[i] in {'rainy', 'thunderstorms'}:
+            if i % 2 == 0:
+                if home > 0:
+                    home -= 1
+                else:
+                    umbrella += 1
+                work += 1
+            else:
+                if work > 0:
+                    work -= 1
+                else:
+                    umbrella += 1
+                home += 1
+    return umbrella
