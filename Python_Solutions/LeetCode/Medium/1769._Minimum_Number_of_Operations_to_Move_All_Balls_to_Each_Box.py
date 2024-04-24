@@ -27,3 +27,31 @@
 # n == boxes.length
 # 1 <= n <= 2000
 # boxes[i] is either '0' or '1'.
+# Solution Brute Force O(N**2) O(N)
+class Solution:
+    def minOperations(self, boxes: str) -> List[int]:
+        n: int = len(boxes)
+        ans: list[int] = [0] * n
+        for i in range(n):
+            for j in range(n):
+                ans[i] += abs(i - j) if boxes[j] == '1' else 0
+        return ans
+
+# Solution Counting O(N) O(N)
+class Solution:
+    def minOperations(self, boxes: str) -> List[int]:
+        n: int = len(boxes)
+        ans: list[int] = [0] * n
+        left_frq_ones, left_sm_ones = 0, 0
+        for i in range(1, n):
+            if boxes[i - 1] == '1':
+                left_frq_ones += 1
+            left_sm_ones += left_frq_ones
+            ans[i] += left_sm_ones
+        right_frq_ones, right_sm_ones = 0, 0
+        for i in range(n - 2, -1, -1):
+            if boxes[i + 1] == '1':
+                right_frq_ones += 1
+            right_sm_ones += right_frq_ones
+            ans[i] += right_sm_ones
+        return ans
