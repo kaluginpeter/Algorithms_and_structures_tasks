@@ -24,3 +24,11 @@ class Solution:
         a, b, c = 0, 1, 1
         for i in range(n-2): a, b, c = b, c, a + b + c
         return c
+
+
+# Solution Recursion O(N) O(1)
+class Solution:
+    def tribonacci(self, n: int, a: int = 0, b: int = 0, c: int = 1) -> int:
+        if n == 0:
+            return b
+        return self.tribonacci(n - 1, b, c, a + b + c)
