@@ -25,3 +25,15 @@
 # n == height.length
 # 2 <= n <= 105
 # 0 <= height[i] <= 104
+# Solution Two Pointers O(N) O(1)
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        ans: int = 0
+        left, right = 0, len(height) - 1
+        while left < right:
+            ans = max(ans, min(height[left], height[right]) * (right - left))
+            if height[left] <= height[right]:
+                left += 1
+            else:
+                right -= 1
+        return ans
