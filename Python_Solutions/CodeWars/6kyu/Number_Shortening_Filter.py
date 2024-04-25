@@ -17,3 +17,19 @@
 # If you like to test yourself on kata related to actual work and interviews, consider trying this kata where you will build a breadcrumb generator
 #
 # ANGULARALGORITHMS
+# Solution
+def shorten_number(suffixes, base):
+    suffixes: list[str] = list(suffixes)
+    base: int = base
+    def inner(n):
+        nonlocal base
+        nonlocal suffixes
+        if not isinstance(n, str) or not n.isdigit():
+            return str(n)
+        n = int(n)
+        idx: int = 0
+        while n >= base and idx < len(suffixes) - 1:
+            idx += 1
+            n //= base
+        return f'{n}{suffixes[idx]}'
+    return inner
