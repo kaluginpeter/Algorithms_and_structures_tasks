@@ -36,3 +36,16 @@
 # n == gas.length == cost.length
 # 1 <= n <= 105
 # 0 <= gas[i], cost[i] <= 104
+# Solution Greedy O(N) O(1)
+class Solution:
+    def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
+        if sum(i for i in gas) < sum(i for i in cost):
+            return -1
+        start: int = 0
+        total: int = 0
+        for i in range(len(gas)):
+            total += gas[i] - cost[i]
+            if total < 0:
+                start = i + 1
+                total = 0
+        return start
