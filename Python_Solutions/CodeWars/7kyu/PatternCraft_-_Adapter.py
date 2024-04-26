@@ -49,3 +49,12 @@
 # The original PatternCraft series (by John Lindquist) is a collection of Youtube videos that explains some of the design patterns and how they are used (or could be) on StarCraft.
 #
 # DESIGN PATTERNSFUNDAMENTALS
+# Solution
+class MarioAdapter:
+    def __init__(self, mario=None):
+        if mario is None:
+            raise TypeError("MarioAdapter.__init__() missing 1 required positional argument: 'mario'")
+        self.mario = mario
+
+    def attack(self, target):
+        target.health -= self.mario.jump_attack()
