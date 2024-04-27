@@ -36,3 +36,27 @@
 # 1 <= maxSize, x, k <= 1000
 # 0 <= val <= 100
 # At most 1000 calls will be made to each method of increment, push and pop each separately.
+# Solution Time complexity: push = O(1); pop = O(1); increment = O(min(k, N)). Memory Complexity: O(N)
+class CustomStack:
+
+    def __init__(self, maxSize: int):
+        self.max_size: int = maxSize
+        self.capacity: int = 0
+        self.stack: list[int] = [0] * self.max_size
+
+    def push(self, x: int) -> None:
+        if self.capacity < self.max_size:
+            self.stack[self.capacity] = x
+            self.capacity += 1
+
+    def pop(self) -> int:
+        if self.capacity > 0:
+            self.capacity -= 1
+            x: int = self.stack[self.capacity]
+            self.stack[self.capacity] = 0
+            return x
+        return -1
+
+    def increment(self, k: int, val: int) -> None:
+        for i in range(min(self.capacity, k)):
+            self.stack[i] += val
