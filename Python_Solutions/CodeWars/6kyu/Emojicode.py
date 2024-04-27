@@ -16,3 +16,29 @@
 # List of Unicode emojis
 #
 # STRINGSUNICODE
+# Solution
+def to_emojicode(emojis):
+    numbers: str = ['0️⃣', '1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣']
+    ans: list[str] = list()
+    for i in emojis:
+        top: list[str] = list()
+        for j in str(ord(i)):
+            top.append(numbers[int(j)])
+        ans.append(''.join(top))
+    return ' '.join(ans)
+def to_emojis(emojicode):
+    ans: list[str] = list()
+    top: list[str] = list()
+    stack: int = 0
+    for i in emojicode:
+        if i.isdigit():
+            top.append(i)
+            stack = 0
+        else:
+            stack += 1
+            if stack == 3:
+                ans.append(chr(int(''.join(top))))
+                top = []
+                stack = 0
+    ans.append(chr(int(''.join(top))))
+    return ''.join(ans)
