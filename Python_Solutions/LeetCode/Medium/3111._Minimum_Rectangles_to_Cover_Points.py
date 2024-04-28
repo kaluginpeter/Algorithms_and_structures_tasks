@@ -63,3 +63,14 @@
 # 0 <= yi == points[i][1] <= 109
 # 0 <= w <= 109
 # All pairs (xi, yi) are distinct.
+# Solution Sorting Greedy O(NlogN) O(1)
+class Solution:
+    def minRectanglesToCoverPoints(self, points: List[List[int]], w: int) -> int:
+        points.sort(key=lambda x: x[0])
+        ans: int = 1
+        start: int = points[0][0]
+        for i in points:
+            if i[0] - start > w:
+                start = i[0]
+                ans += 1
+        return ans
