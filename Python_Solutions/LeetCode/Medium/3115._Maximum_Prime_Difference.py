@@ -27,3 +27,28 @@
 # 1 <= nums.length <= 3 * 105
 # 1 <= nums[i] <= 100
 # The input is generated such that the number of prime numbers in the nums is at least one.
+# Solution Straight Forward Checking Math O(NlogN) O(1)
+class Solution:
+    from math import sqrt
+    def isPrime(self, n: int) -> bool:
+        prime_flag = 0
+        if (n > 1):
+            for i in range(2, int(sqrt(n)) + 1):
+                if (n % i == 0):
+                    prime_flag = 1
+                    break
+            if (prime_flag == 0):
+                return True
+            else:
+                return False
+        return False
+
+    def maximumPrimeDifference(self, nums: List[int]) -> int:
+        x, y = None, None
+        for i in range(len(nums)):
+            if self.isPrime(nums[i]):
+                if x is None:
+                    x = i
+                else:
+                    y = i
+        return 0 if y is None else y - x
