@@ -52,3 +52,24 @@
 #
 # 1 <= word.length <= 100
 # word consists of lowercase English letters.
+# Solution 1 Greedy O(N) O(1)
+# Mind set
+# if character more than half of alphabet size check path to conterwise otherwise to clockwise
+class Solution:
+    def minTimeToType(self, word: str) -> int:
+        ans: int = len(word)
+        current: int = ord('a')
+        for i in word:
+            ans += min(abs(current - ord(i)), abs(current - (ord(i) - (26 if ord(i) > 110 else -26))))
+            current = ord(i)
+        return ans
+# Solution 2 Greedy O(N) O(1)
+class Solution:
+    def minTimeToType(self, word: str) -> int:
+        ans: int = len(word)
+        current: int = ord('a')
+        for i in word:
+            x: int = (ord(i) - current) % 26
+            ans += min(x, 26 - x)
+            current = ord(i)
+        return ans
