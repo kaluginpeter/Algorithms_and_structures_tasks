@@ -36,3 +36,16 @@
 # nums2.length == nums1.length - 2
 # 0 <= nums1[i], nums2[i] <= 1000
 # The test cases are generated in a way that there is an integer x such that nums1 can become equal to nums2 by removing two elements and adding x to each element of nums1.
+# Solution Simulation O(N**4) O(N)
+class Solution:
+    def minimumAddedInteger(self, nums1: List[int], nums2: List[int]) -> int:
+        ans: int = float('inf')
+        nums1.sort()
+        nums2.sort()
+        for i in range(len(nums1)):
+            for j in range(i + 1, len(nums1)):
+                x: list[int] = [nums1[k] for k in range(len(nums1)) if k not in {i, j}]
+                union_lst: list[int] = [-x[k] + nums2[k] for k in range(len(nums2))]
+                if len(set(union_lst)) == 1 and union_lst[0] < ans:
+                    ans = union_lst[0]
+        return ans
