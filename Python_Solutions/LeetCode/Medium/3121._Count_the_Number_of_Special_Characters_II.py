@@ -40,3 +40,17 @@
 #
 # 1 <= word.length <= 2 * 105
 # word consists of only lowercase and uppercase English letters.
+# Solution Greedy HashTable O(N) O(N)
+class Solution:
+    def numberOfSpecialChars(self, word: str) -> int:
+        ht: dict[str, int] = dict()
+        for i in range(len(word)):
+            if word[i] not in ht:
+                ht[word[i]] = i
+            elif word[i].islower():
+                ht[word[i]] = i
+        ans: int = 0
+        for i in ht:
+            if (i.lower() in ht and i.upper() in ht) and ht[i.lower()] < ht[i.upper()]:
+                ans += 1
+        return ans // 2
