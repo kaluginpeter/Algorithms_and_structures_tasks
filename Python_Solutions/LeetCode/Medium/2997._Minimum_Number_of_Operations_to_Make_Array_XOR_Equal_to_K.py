@@ -30,3 +30,10 @@
 # 1 <= nums.length <= 105
 # 0 <= nums[i] <= 106
 # 0 <= k <= 106
+# Solution Bit Manipulation O(N) O(1)
+class Solution:
+    def minOperations(self, nums: List[int], k: int) -> int:
+        y: int = 0
+        for i in range(len(nums)):
+            y ^= nums[i]
+        return bin(y ^ k).count('1')
