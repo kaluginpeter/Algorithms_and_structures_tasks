@@ -39,3 +39,35 @@
 # If you like puzzles take a look at Rubik's cube
 #
 # ALGORITHMSDATA STRUCTURESARRAYSMATRIX
+# Solution
+def get_neighbourhood(n_type, mat, cor, distance=1):
+    if not mat: return []
+    if (cor[0] >= len(mat) or cor[0] < 0) or (cor[1] >= len(mat[0]) or cor[1] < 0):
+        return []
+
+    ans: set[tuple[int, int]] = set()
+    if n_type == 'moore':
+        for rows in range(max(0, cor[0] - distance), min(len(mat), cor[0] + distance + 1)):
+            for cols in range(max(0, cor[1] - distance), min(len(mat[0]), cor[1] + distance + 1)):
+                if (rows, cols) == cor: continue
+                if 0 <= rows < len(mat) and 0 <= cols < len(mat[0]):
+                    ans.add((rows, cols))
+        return [mat[x][y] for x, y in ans]
+
+    idx: int = 1
+    for rows in range(cor[0] - 1, max(0, cor[0] - distance) - 1, -1):
+        for cols in range(max(0, (cor[1] - distance) + idx), min(len(mat[0]), (cor[1] + distance) - idx + 1)):
+            if (rows, cols) == cor: continue
+            if 0 <= rows < len(mat) and 0 <= cols < len(mat[0]):
+                ans.add((rows, cols))
+        idx += 1
+
+    idx: int = -1
+    for rows in range(cor[0], min(len(mat), cor[0] + distance + 1)):
+        if rows >= cor[0]:
+            idx += 1
+        for cols in range(max(0, (cor[1] - distance) + idx), min(len(mat[0]), (cor[1] + distance) - idx + 1)):
+            if (rows, cols) == cor: continue
+            if 0 <= rows < len(mat) and 0 <= cols < len(mat[0]):
+                ans.add((rows, cols))
+    return [mat[x][y] for x, y in ans]
