@@ -34,3 +34,9 @@
 # 3 <= piles.length <= 105
 # piles.length % 3 == 0
 # 1 <= piles[i] <= 104
+# Solution Greedy O(NlogN) O(1)
+class Solution:
+    def maxCoins(self, piles: List[int]) -> int:
+        piles.sort(reverse=True)
+        n: int = len(piles) // 3
+        return sum(i for i in piles[1:len(piles) - n:2])
