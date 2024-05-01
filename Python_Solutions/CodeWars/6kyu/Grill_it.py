@@ -14,3 +14,12 @@
 # ----------------
 # result  : df
 # STRINGSBINARYFUNDAMENTALS
+# Solution
+def grille(message, code):
+    if not message: return ''
+    code: str = bin(code)[2:]
+    if len(code) < len(message):
+        code = '0' * (len(message) - len(code)) + code
+    while len(code) > len(message):
+        code = code[1:]
+    return ''.join(message[i] for i in range(min(len(code), len(message))) if code[i] == '1')
