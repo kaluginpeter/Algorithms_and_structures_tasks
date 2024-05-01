@@ -34,3 +34,21 @@ class Solution:
         if ch not in word: return word
         for k,v in enumerate(word):
             if v == ch: return word[:k+1][::-1] + word[k+1:]
+
+
+# Solution O(N) O(1)
+class Solution:
+    def reversePrefix(self, word: str, ch: str) -> str:
+        for i in range(len(word)):
+            if word[i] == ch:
+                return ''.join(word[i::-1] + word[i + 1:])
+        return word
+# Solution in Pythonic Style O(N) O(N)
+class Solution:
+    def reversePrefix(self, word: str, ch: str) -> str:
+        ans: list[str] = list(word)
+        for i in range(len(ans)):
+            if ans[i] == ch:
+                print(ans[i:-1:-1])
+                return ''.join(ans[i::-1] + ans[i + 1:])
+        return word
