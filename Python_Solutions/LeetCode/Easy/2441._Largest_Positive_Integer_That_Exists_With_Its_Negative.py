@@ -22,10 +22,24 @@
 # 1 <= nums.length <= 1000
 # -1000 <= nums[i] <= 1000
 # nums[i] != 0
-# Solution
+# Solution O(N**2) O(N)
 class Solution:
     def findMaxK(self, nums: List[int]) -> int:
         l = []
         for i in nums:
             if -i in nums and abs(i) in nums: l.append(i)
         return max(l) if l else -1
+
+
+# Solution HashSet O(N) O(N)
+class Solution:
+    def findMaxK(self, nums: List[int]) -> int:
+        ans: int = -1
+        hs: set[int] = set()
+        for i in nums:
+            if i < 0 and abs(i) in hs:
+                ans = max(ans, abs(i))
+            elif i > 0 and -i in hs:
+                ans = max(ans, i)
+            hs.add(i)
+        return ans
