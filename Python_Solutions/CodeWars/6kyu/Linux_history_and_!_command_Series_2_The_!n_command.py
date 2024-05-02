@@ -22,3 +22,8 @@
 # Note: Lot of the command line comes form some geeky t-shirt and form this excellent page.
 #
 # STRINGSPARSINGREGULAR EXPRESSIONSALGORITHMS
+# Solution
+def bang_n(n, history):
+    history = [i.lstrip().rstrip() for i in history.split('\n ')]
+    if n - 1 >= len(history): return f'!{n}: event not found'
+    return ' '.join(history[n - 1].split()[1:])
