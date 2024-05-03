@@ -34,3 +34,19 @@
 # version1 and version2 only contain digits and '.'.
 # version1 and version2 are valid version numbers.
 # All the given revisions in version1 and version2 can be stored in a 32-bit integer.
+# Solution O(N) O(N)
+class Solution:
+    def compareVersion(self, version1: str, version2: str) -> int:
+        version1 = [int(i) for i in version1.split('.')]
+        version2 = [int(i) for i in version2.split('.')]
+        v1, v2 = len(version1), len(version2)
+        for i in range(min(v1, v2)):
+            if version1[i] < version2[i]:
+                return -1
+            elif version1[i] > version2[i]:
+                return 1
+        if v1 == v2:
+            return 0
+        elif v1 > v2:
+            return [1, 0][all(version1[i] == 0 for i in range(v2, v1))]
+        return [-1, 0][all(version2[i] == 0 for i in range(v1, v2))]
