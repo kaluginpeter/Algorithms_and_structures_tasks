@@ -15,3 +15,23 @@
 # Watch out for performances: you'll need a solution linear with the number of towers.
 #
 # PUZZLESMATHEMATICSALGORITHMS
+# Solution Two Pointers O(N) O(1)
+def rain_volume(towers):
+    if not towers:
+        return 0
+    left, left_boundary = 0, 0
+    mx_idx: int = 0
+    ans: int = 0
+    for i in range(len(towers)):
+        mx_idx = i if towers[i] > towers[mx_idx] else mx_idx
+    while left < mx_idx:
+        if towers[left] > left_boundary:
+            left_boundary = towers[left]
+        ans += left_boundary - towers[left]
+        left += 1
+    right_boundary = towers[-1]
+    for i in range(len(towers) - 1, left, -1):
+        if towers[i] > right_boundary:
+            right_boundary = towers[i]
+        ans += right_boundary - towers[i]
+    return ans
