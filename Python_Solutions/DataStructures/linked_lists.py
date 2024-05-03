@@ -15,35 +15,36 @@ class Node:
     def __str__(self) -> str:
         return f'[{self.data}]'
 
+
 class SingleLinkedList:
     def __init__(self):
         self.head = None
+        self.size = 0
 
     def __str__(self) -> str:
+        if self.length() == 0:
+            return 'None'
         result: list = []
         temp = self.head
-        while temp:
+        while temp.next:
             result.append(str(temp))
             temp = temp.next
+        result.append(str(temp))
         result.append('None')
         return '->'.join(result)
 
     def length(self) -> int:
-        count: int = 0
-        temp = self.head
-        while temp:
-            count += 1
-            temp = temp.next
-        return count
+        return self.size
 
     def append(self, val: object) -> None:
+        self.size += 1
         if not self.head:
             self.head = Node(data=val)
             return
         tmp = self.head
         while tmp.next:
             tmp = tmp.next
-        tmp.next = Node(data=val, next=None)
+        tmp.next = Node(data=val)
 
     def search(self, val: object) -> bool:
         tmp = self.head
@@ -54,21 +55,22 @@ class SingleLinkedList:
         return False
 
     def pop(self) -> None:
-        if not self.length():
+        if self.length() == 0:
             raise ValueError("You can't delete from empty list")
-        if self.length() == 1:
+        if self.size == 1:
             self.head = None
-            return
-        if self.length() == 2:
-            self.head.next = None
+            self.size -= 1
             return
         tmp = self.head
         while tmp.next.next:
             tmp = tmp.next
         tmp.next = None
+        self.size -= 1
         return
 
     def reverse(self):
+        if self.length() == 0:
+            raise ValueError("You can't reverse empty list")
         prev = None
         current = self.head
         while current:
@@ -170,6 +172,8 @@ class DoubleLinkedList:
         return self.size() == 0
 
     def __str__(self):
+        if self.length == 0:
+            return 'None'
         result: list = ['None']
         tmp = self.head
         while tmp:
@@ -224,3 +228,43 @@ class DoubleLinkedList:
         self.head = None
         self.tail = self.head
         self.length = 0
+
+
+class CycleLinkedList:
+    def __init__(self, head: object = None):
+        self.head: object = head
+        self.last: object = self.head
+        self.size: int = 0
+
+    def __str__(self):
+        if self.size == 0:
+            return 'None'
+        ans: list[str] = list()
+        tmp: object = self.head
+        while tmp:
+            ans.append(str(tmp))
+            tmp = tmp.next
+        ans.append('None')
+        return '->'.join(ans)
+
+    def append(self, x: any) -> None:
+        if self.size == 0:
+            self.head = Node(data=x)
+            self.last = self.head
+            self.size += 1
+            return
+        self.last.next = Node(data=x, next=self.head)
+        self.size += 1
+        self.last = self.last.next
+
+    # TODO rewrite for contains and remove methods
+    def pop(self) -> object:
+        if self.size == 0:
+            raise ValueError("You can't delete from empty list")
+        if self.size == 1:
+            self.head = None
+            self.last = self.head
+            self.size -= 1
+            return
+        tmp: object = self.head
+        while
