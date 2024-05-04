@@ -17,3 +17,20 @@
 # All letters in the keyword will also be in the alphabet. For the purpose of this kata, only the first occurence of a letter in a keyword should be used. Any characters not provided in the alphabet should be left in situ when encoding or decoding.
 #
 # CRYPTOGRAPHYCIPHERSSECURITYOBJECT-ORIENTED PROGRAMMINGSTRINGS
+# Solution
+class keyword_cipher(object):
+
+    def __init__(self, abc, keyword):
+        self.abc: str = abc
+        self.al = dict()
+        for i in keyword:
+            if i not in self.al:
+                self.al[i] = 1
+        self.al = ''.join(self.al.keys())
+        self.al += ''.join(i for i in self.abc if i not in self.al)
+
+    def encode(self, plain):
+        return plain.translate(str.maketrans(self.abc, self.al))
+
+    def decode(self, ciphered):
+        return ciphered.translate(str.maketrans(self.al, self.abc))
