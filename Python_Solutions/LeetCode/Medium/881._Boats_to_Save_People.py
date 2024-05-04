@@ -25,3 +25,18 @@
 #
 # 1 <= people.length <= 5 * 104
 # 1 <= people[i] <= limit <= 3 * 104
+# Solution Greedy Two Pointers O(NlogN) O(1)
+class Solution:
+    def numRescueBoats(self, people: List[int], limit: int) -> int:
+        people.sort()
+        ans: int = 0
+        n: int = len(people)
+        left, right = 0, n - 1
+
+        while left <= right:
+            if left < right and people[right] + people[left] <= limit:
+                left += 1
+            right -= 1
+            ans += 1
+
+        return ans
