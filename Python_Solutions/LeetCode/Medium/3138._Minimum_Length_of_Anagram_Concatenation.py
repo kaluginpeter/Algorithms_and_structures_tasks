@@ -32,3 +32,16 @@
 #
 # 1 <= s.length <= 105
 # s consist only of lowercase English letters.
+# Solution HashTable O(N) O(N)
+class Solution:
+    def minAnagramLength(self, s: str) -> int:
+        n: int = len(s)
+        ht = dict()
+        for i in s:
+            ht[i] = ht.get(i, 0) + 1
+        if len(ht) == 1:
+            return 1
+        for i in range(n, 0, -1):
+            if n % i == 0:
+                if all(v % i == 0 for v in ht.values()):
+                    return sum(v // i for v in ht.values())
