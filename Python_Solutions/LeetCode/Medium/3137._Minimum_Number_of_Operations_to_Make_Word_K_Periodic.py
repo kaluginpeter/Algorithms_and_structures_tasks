@@ -43,3 +43,12 @@
 # 1 <= k <= word.length
 # k divides word.length.
 # word consists only of lowercase English letters.
+# Solution O(N) O(N)
+class Solution:
+    def minimumOperationsToMakeKPeriodic(self, word: str, k: int) -> int:
+        ht: dict[str, int] = dict()
+        for i in range(0, len(word), k):
+            x: str = word[i:i+k]
+            if len(x) == k:
+                ht[x] = ht.get(x, 0) + 1
+        return len(word) // k - max(ht.values())
