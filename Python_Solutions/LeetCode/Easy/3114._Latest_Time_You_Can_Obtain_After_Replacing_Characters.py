@@ -32,3 +32,22 @@
 # s[2] is equal to the character ":".
 # All characters except s[2] are digits or "?" characters.
 # The input is generated such that there is at least one time between "00:00" and "11:59" that you can obtain after replacing the "?" characters.
+# Solution O(1) O(1)
+class Solution:
+    def findLatestTime(self, s: str) -> str:
+        s = list(s)
+        zero: bool = False
+        if s[0] == '0':
+            zero = True
+        elif s[0] == '1':
+            zero = False
+        else:
+            s[0] = '1' if (s[1] == '?' or (int(s[1] != '?' and s[1]) < 2)) else '0'
+            zero = s[0] == '0'
+        if s[1] == '?':
+            s[1] = '1' if not zero else '9'
+        if s[3] == '?':
+            s[3] = '5'
+        if s[4] == '?':
+            s[4] = '9'
+        return ''.join(s)
