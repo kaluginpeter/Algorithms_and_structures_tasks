@@ -30,3 +30,14 @@
 # Have fun!
 #
 # ALGORITHMS
+# Solution
+def get_a_down_arrow_of(n):
+    if n < 1:
+        return ''
+    ans: list[str] = list()
+    for i in range(n, 0, -1):
+        x: str = ' '* (n - i)
+        x += ''.join(str(j)[-1] for j in range(1, i + 1))
+        x += ''.join(str(j)[-1] for j in range(i - 1, 0, -1))
+        ans.append(x)
+    return '\n'.join(ans)
