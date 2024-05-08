@@ -29,3 +29,21 @@
 # 1 <= n <= 104
 # 0 <= score[i] <= 106
 # All the values in score are unique.
+# Solution O(NlogN) O(N)
+class Solution:
+    def findRelativeRanks(self, score: List[int]) -> List[str]:
+        n: int = len(score)
+        pairs: list[tuple(int, int)] = [(score[i], i) for i in range(n)]
+        pairs.sort(key=lambda x: x[0], reverse=True)
+        idx: int = 0
+        while idx < n:
+            if idx == 0:
+                score[pairs[idx][1]] = 'Gold Medal'
+            elif idx == 1:
+                score[pairs[idx][1]] = 'Silver Medal'
+            elif idx == 2:
+                score[pairs[idx][1]] = 'Bronze Medal'
+            else:
+                score[pairs[idx][1]] = str(idx + 1)
+            idx += 1
+        return score
