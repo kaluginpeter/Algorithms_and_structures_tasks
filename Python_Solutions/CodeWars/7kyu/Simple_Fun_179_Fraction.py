@@ -25,3 +25,11 @@
 # The sum of the numerator and the denominator of the reduces fraction.
 #
 # FUNDAMENTALS
+# Solution O(log(N)) O(1)
+def euclide_gcd(a, b):
+    if b % a == 0:
+        return a
+    return euclide_gcd(b, a % b)
+def fraction(a, b):
+    x: int = euclide_gcd(a, b)
+    return a // x + b // x
