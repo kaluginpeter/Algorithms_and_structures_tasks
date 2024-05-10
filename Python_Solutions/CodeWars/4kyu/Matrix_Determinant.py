@@ -29,3 +29,22 @@
 # det(M) = a * det(a_minor) - b * det(b_minor) + c * det(c_minor) - d * det(d_minor)
 #
 # MATRIXLINEAR ALGEBRAMATHEMATICSRECURSIONALGORITHMS
+# Solution
+def construct(mtrx, r, c):
+    output: list = list()
+    for n in range(len(mtrx)):
+        top: list = list()
+        if n == r: continue
+        for m in range(len(mtrx[0])):
+            if m == c: continue
+            top.append(mtrx[n][m])
+        output.append(top)
+    return output
+def determinant(matrix):
+    ans = 0
+    if len(matrix) == 1:
+        return matrix[0][0]
+    for i in range(len(matrix[0])):
+        x = (matrix[0][i] * determinant(construct(matrix, 0, i)))
+        ans = ans + (-x if i % 2 != 0 else x)
+    return ans
