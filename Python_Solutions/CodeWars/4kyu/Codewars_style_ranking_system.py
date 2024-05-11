@@ -34,3 +34,54 @@
 # Note: Codewars no longer uses this algorithm for its own ranking system. It uses a pure Math based solution that gives consistent results no matter what order a set of ranked activities are completed at.
 #
 # ALGORITHMSOBJECT-ORIENTED PROGRAMMING
+# Solution
+class User:
+    def __init__(self):
+        self.rank: int = -8
+        self.progress: int = 0
+
+    def inc_progress(self, rank: int) -> None:
+        if rank == 0 or not -8 <= rank <= 8:
+            raise ValueError
+        if self.rank == 8: return
+        negative_rank: bool = self.rank < 0
+        negative_rank_completed: bool = rank < 0
+        if self.rank == rank:
+            self.progress += 3
+
+        elif negative_rank == negative_rank_completed == True:
+            if self.rank > rank:
+                if abs(rank) - abs(self.rank) == 1:
+                    self.progress += 1
+            else:
+                d: int = abs(self.rank) - abs(rank)
+                self.progress += 10 * d * d
+
+        elif negative_rank == negative_rank_completed == False:
+            if self.rank < rank:
+                d: int = rank - self.rank
+                self.progress += 10 * d * d
+            elif self.rank - rank == 1:
+                self.progress += 1
+
+        elif negative_rank and not negative_rank_completed:
+            x: int = abs(self.rank) - 1
+            d: int = rank + x
+            self.progress += 10 * d * d
+
+        elif not negative_rank and negative_rank_completed:
+            if self.rank == 1 and rank == -1:
+                self.progress += 1
+
+        if self.progress >= 100 and self.rank < 8:
+            update: int = self.progress // 100
+            if self.rank < 0 and self.rank + update >= 0:
+                update += 1
+            self.rank += update
+            self.rank = min(self.rank, 8)
+            if self.rank == 0:
+                self.rank += 1
+            if self.rank == 8:
+                self.progress = 0
+            else:
+                self.progress %= 100
