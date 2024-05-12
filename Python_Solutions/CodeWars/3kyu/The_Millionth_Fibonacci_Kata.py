@@ -26,3 +26,11 @@
 # HINT II: See https://web.archive.org/web/20220614001843/https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book-Z-H-11.html#%_sec_1.2.4
 #
 # MATHEMATICSALGORITHMS
+# Solution Numpy using matrix multiplication approach
+import numpy as np
+
+def fib(n):
+    matrix = np.matrix([[1, 1], [1, 0]], dtype=object) ** abs(n)
+    if n%2 == 0 and n < 0:
+        return -matrix[0,1]
+    return matrix[0, 1]
