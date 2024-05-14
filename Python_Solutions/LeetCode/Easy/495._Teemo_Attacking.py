@@ -29,3 +29,11 @@
 # 1 <= timeSeries.length <= 104
 # 0 <= timeSeries[i], duration <= 107
 # timeSeries is sorted in non-decreasing order.
+# Solution Gredy Simulation O(N) O(1)
+class Solution:
+    def findPoisonedDuration(self, timeSeries: List[int], duration: int) -> int:
+        output: int = 0
+        for i in range(1, len(timeSeries)):
+            time_window: int = (timeSeries[i] - timeSeries[i - 1])
+            output += duration if time_window >= duration else time_window
+        return output + duration
