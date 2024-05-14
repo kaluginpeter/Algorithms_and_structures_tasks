@@ -34,3 +34,25 @@
 #
 # 3 <= digits.length <= 100
 # 0 <= digits[i] <= 9
+# Solution Simulation O(1) O(1)
+class Solution:
+    def findEvenNumbers(self, digits: List[int]) -> List[int]:
+        output: lsit[int] = list()
+        digits_count: list[int] = [0] * 10
+        for digit in digits:
+            digits_count[digit] += 1
+        even_digits: list[int] = [i for i in range(0, 10, 2) if digits_count[i] > 0]
+        if len(even_digits) == 0: return output
+        for first_digit in range(10):
+            if first_digit != 0 and digits_count[first_digit] > 0:
+                digits_count[first_digit] -= 1
+                for second_digit in range(10):
+                    if digits_count[second_digit] > 0:
+                        digits_count[second_digit] -= 1
+                        for third_digit in even_digits:
+                            if digits_count[third_digit] > 0:
+                                digit: int = first_digit * 100 + second_digit * 10 + third_digit
+                                output.append(digit)
+                        digits_count[second_digit] += 1
+                digits_count[first_digit] += 1
+        return output
