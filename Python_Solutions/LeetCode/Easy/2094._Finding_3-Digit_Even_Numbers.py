@@ -37,7 +37,7 @@
 # Solution Simulation O(1) O(1)
 class Solution:
     def findEvenNumbers(self, digits: List[int]) -> List[int]:
-        output: lsit[int] = list()
+        output: list[int] = list()
         digits_count: list[int] = [0] * 10
         for digit in digits:
             digits_count[digit] += 1
