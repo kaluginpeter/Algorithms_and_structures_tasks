@@ -17,3 +17,19 @@
 # Focus attention on efficiency
 #
 # MATHEMATICSALGORITHMS
+# Solution
+import heapq
+def dbl_linear(n):
+    u_set = {1}
+    u_heap = [1]
+    for _ in range(n):
+        smallest = heapq.heappop(u_heap)
+        y = 2 * smallest + 1
+        z = 3 * smallest + 1
+        if y not in u_set:
+            u_set.add(y)
+            heapq.heappush(u_heap, y)
+        if z not in u_set:
+            u_set.add(z)
+            heapq.heappush(u_heap, z)
+    return heapq.heappop(u_heap)
