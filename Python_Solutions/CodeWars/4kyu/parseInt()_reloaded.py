@@ -45,13 +45,9 @@ def parse_int(string):
         elif char in digits:
             x: int = digits.get(char)
             inner_num += x
-            if idx + 1 < n and string[idx + 1] != 'and' and not ordinal.get(string[idx + 1]):
-                output += inner_num
-                inner_num = 0
         elif char in tens:
             x: int = tens.get(char)
             inner_num += x
-            print(inner_num)
             if (idx + 1 < n and string[idx + 1] != 'and' and not ordinal.get(string[idx + 1]) and not digits.get(string[idx + 1])):
                 number += inner_num
                 inner_num = 0
