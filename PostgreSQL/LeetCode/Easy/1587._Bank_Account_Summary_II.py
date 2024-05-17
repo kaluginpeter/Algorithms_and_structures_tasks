@@ -68,3 +68,8 @@
 # Alice's balance is (7000 + 7000 - 3000) = 11000.
 # Bob's balance is 1000.
 # Charlie's balance is (6000 + 6000 - 4000) = 8000.
+SELECT Users.name, SUM(amount) AS balance
+FROM Users
+JOIN Transactions ON Users.account = Transactions.account
+GROUP BY Users.name
+HAVING SUM(Transactions.amount) > 10000
