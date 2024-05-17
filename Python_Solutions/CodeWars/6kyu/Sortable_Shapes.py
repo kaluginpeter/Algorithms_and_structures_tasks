@@ -23,3 +23,58 @@
 # math.pi
 #
 # SORTINGFUNDAMENTALSMATHEMATICSDESIGN PATTERNSARRAYSGEOMETRY
+# Solution
+from math import pi
+
+
+class Shape:
+    def __init__(self):
+        self.area: float = 0.0
+
+    def __lt__(self, x) -> bool:
+        return self.area < x.area
+
+    def __gt__(self, x) -> bool:
+        return self.area > x.area
+
+    def __eq__(self, x) -> bool:
+        return self.area == x.area
+
+    def __le__(self, x) -> bool:
+        return self.area <= x.area
+
+    def __ge__(self, x) -> bool:
+        return self.area >= x.area
+
+    def __ne__(self, x) -> bool:
+        return self.area != x.area
+
+
+class Square(Shape):
+    def __init__(self, side: int):
+        super().__init__()
+        self.area = side ** 2
+
+
+class Rectangle(Shape):
+    def __init__(self, width: int, height: int):
+        super().__init__()
+        self.area = width * height
+
+
+class Triangle(Shape):
+    def __init__(self, base: int, height: int):
+        super().__init__()
+        self.area = (base * height) / 2
+
+
+class Circle(Shape):
+    def __init__(self, radius: float):
+        super().__init__()
+        self.area = radius ** 2 * pi
+
+
+class CustomShape(Shape):
+    def __init__(self, area: float):
+        super().__init__()
+        self.area = area
