@@ -34,3 +34,26 @@
 #
 #
 # Follow up: Could you solve the problem if repeated values on the tree are allowed?
+# Solution BFS O(N) O(N)
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def getTargetCopy(self, original: TreeNode, cloned: TreeNode, target: TreeNode) -> TreeNode:
+        next_nodes: list = list()
+        current_nodes: list = [cloned]
+        while current_nodes:
+            for node in current_nodes:
+                if node.val == target.val:
+                    return node
+                if node and node.left:
+                    next_nodes.append(node.left)
+                if node and node.right:
+                    next_nodes.append(node.right)
+            current_nodes = next_nodes
+            next_nodes = []
