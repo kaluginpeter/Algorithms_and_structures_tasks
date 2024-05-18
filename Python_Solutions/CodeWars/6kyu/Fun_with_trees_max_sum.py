@@ -33,3 +33,20 @@
 # Fun with trees: array to tree
 # Fun with trees: is perfect
 # TREESRECURSIONBINARY TREESBINARY SEARCH TREESDATA STRUCTURESALGORITHMS
+# Solution
+from preloaded import TreeNode
+
+def max_sum(root: TreeNode) -> int:
+    ans: int = float('-inf')
+    def dfs(root, top: int = 0):
+        if not root:
+            return
+        if not root.left and not root.right:
+            nonlocal ans
+            ans = max(ans, top + root.value)
+        if root.left:
+            dfs(root.left, top + root.value)
+        if root.right:
+            dfs(root.right, top + root.value)
+    dfs(root)
+    return ans if root else 0
