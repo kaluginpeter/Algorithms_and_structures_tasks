@@ -37,3 +37,35 @@
 # 1 <= queries.length <= 105
 # queries[i].length == 2
 # 0 <= queries[i][0] <= queries[i][1] <= nums.length - 1
+# Solution Sorting O(NlogN) O(N)
+class Solution:
+    def isArraySpecial(self, nums: List[int], queries: List[List[int]]) -> List[bool]:
+        n: int = len(queries)
+        output: list[bool] = [True] * n
+        for i in range(n):
+            queries[i].append(i)
+        queries.sort(key=lambda x: (x[0], -x[1]))
+        idx: int = 0
+        for i in range(1, len(nums)):
+            if nums[i - 1] % 2 == nums[i] % 2:
+                while idx < n:
+                    if i - 1 < queries[idx][0]:
+                        break
+                    if i <= queries[idx][1]:
+                        output[queries[idx][-1]] = False
+                        idx += 1
+                    else:
+                        idx += 1
+        return output
+# Solution Prefix Sum O(N) O(N)
+class Solution:
+    def isArraySpecial(self, nums: List[int], queries: List[List[int]]) -> List[bool]:
+        n: int = len(queries)
+        output: list[int] = [1]
+        for item in range(1, len(nums)):
+            x: int = output[-1]
+            output.append(x if nums[item - 1] % 2 == nums[item] % 2 else x + 1)
+        for i in range(n):
+            x, y = queries[i]
+            queries[i] = output[y] - output[x] == y - x
+        return queries
