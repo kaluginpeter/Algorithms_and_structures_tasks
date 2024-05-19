@@ -40,3 +40,7 @@
 #
 # 1 <= nums.length <= 100
 # 1 <= nums[i] <= 100
+# Solution O(N) O(1)
+class Solution:
+    def isArraySpecial(self, nums: List[int]) -> bool:
+        return all(x % 2 != y % 2 for x, y in zip(nums, nums[1:]))
