@@ -28,3 +28,7 @@
 # Constraints:
 #
 # 0 <= start, goal <= 109
+# Solution Bit Manipulation O(1) O(1)
+class Solution:
+    def minBitFlips(self, start: int, goal: int) -> int:
+        return bin(start ^ goal).count('1')
