@@ -31,3 +31,14 @@
 # l10n
 # i18n
 # p43s
+# Solution O(N) O(N)
+import sys
+n: int = int(sys.stdin.readline().rstrip())
+initial: list = [0] * n
+for idx in range(n):
+    initial[idx] = sys.stdin.readline().rstrip()
+for word in range(n):
+    x: str = initial[word]
+    if len(x) > 10:
+        initial[word] = x[0] + str(len(x) - 2) + x[-1]
+print('\n'.join(initial))
