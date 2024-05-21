@@ -22,3 +22,23 @@
 # 1 <= Node.val <= 105
 # 1 <= low <= high <= 105
 # All Node.val are unique.
+# Solution BFS O(N) O(N)
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
+        total: int = 0
+        current_nodes: list = [root]
+        next_nodes: list = list()
+        while current_nodes:
+            for node in current_nodes:
+                if low <= node.val <= high: total += node.val
+                if node.right: next_nodes.append(node.right)
+                if node.left: next_nodes.append(node.left)
+            current_nodes = next_nodes
+            next_nodes = []
+        return total
