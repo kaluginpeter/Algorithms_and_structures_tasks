@@ -20,3 +20,6 @@
 # YES
 # Note
 # For example, the boys can divide the watermelon into two parts of 2 and 6 kilos respectively (another variant — two parts of 4 and 4 kilos).
+# Solution O(1) O(1)
+x = int(input())
+print(['NO', 'YES'][x % 2 == 0 and x > 2])
