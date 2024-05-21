@@ -36,3 +36,54 @@
 # 5
 # 0 3 5 11 11
 # 0 3 5 11 _
+# Solution Bucket sort
+# Time Complexity O(N)
+# Memory Complexity O(N)
+from typing import List, Tuple
+
+def parse_input() -> Tuple[int, List[int]]:
+    with open('input.txt', 'r') as file_in:
+        lines: List[str] = file_in.readlines()
+
+    n: int = int(lines[0].rstrip())
+    output: List[int] = list(map(int, lines[1].rstrip().split()))
+    return n, output
+
+def create_bucket(boundary: int) -> List[int]:
+    return [0 for chunk in range(boundary + 1)]
+
+def fill_bucket(bucket: List[int], sentence: List[int]) -> None:
+    for number in sentence:
+        bucket[number] += 1
+
+def count_duplicates(bucket: List[int], boundary: int) -> int:
+    duplicates: int = 0
+    for chunk in range(boundary + 1):
+        duplicates += max(0, bucket[chunk] - 1)
+    return duplicates
+
+def rearange_numbers(sentence: List[int], bucket: List[int], duplicates: int, boundary: int) -> None:
+    idx: int = 0
+    for chunk in range(boundary + 1):
+        if bucket[chunk] > 0:
+            sentence[idx] = chunk
+            idx += 1
+    for duplicate in range(duplicates):
+        sentence[idx] = '_'
+        idx += 1
+
+def print_answer(sentence: List[int | str]):
+    with open('output.txt', 'w') as file_out:
+        file_out.write(' '.join(str(number) for number in sentence))
+
+def solution() -> None:
+    n, numbers = parse_input()
+    max_number: int = max(numbers)
+    bucket: List[int] = create_bucket(max_number)
+    fill_bucket(bucket, numbers)
+    duplicates: int = count_duplicates(bucket, max_number)
+    rearange_numbers(numbers, bucket, duplicates, max_number)
+    print_answer(numbers)
+
+if __name__ == '__main__':
+    solution()
