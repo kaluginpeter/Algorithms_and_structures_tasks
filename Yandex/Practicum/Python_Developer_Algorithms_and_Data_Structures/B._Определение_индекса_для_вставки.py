@@ -22,3 +22,49 @@
 #
 # Формат вывода
 # Целое число: индекс искомого значения в существующем массиве, если оно там есть, или индекс, на котором это значение должно оказаться, если его нет в массиве.
+# Пример 1
+# Ввод	Вывод
+# 1 3 5 6
+# 5
+# 2
+# Пример 2
+# Ввод	Вывод
+# 1 5 10 11
+# 2
+# 1
+# Пример 3
+# Ввод	Вывод
+# 3 7 10 20 23
+# 25
+# 5
+# Solution Binary Search
+# Time Complexity O(log(N))
+# Memory Complexity O(1)
+def parse_input() -> tuple[list[int], int]:
+    with open('input.txt', 'r') as file_in:
+        lines: list[str] = file_in.readlines()
+    numbers: list[int] = list(map(int, lines[0].rstrip().split()))
+    target: int = int(lines[1].rstrip())
+    return numbers, target
+
+def leftmost_binary_search(sentence: list[int], target: int) -> int:
+    left, right = 0, len(sentence) - 1
+    while left <= right:
+        middle: int = (left + right) >> 1
+        if sentence[middle] >= target:
+            right = middle - 1
+        else:
+            left = middle + 1
+    return right + 1
+
+def print_answer(answer: int) -> None:
+    with open('output.txt', 'w') as file_out:
+        file_out.write(str(answer))
+
+def solution() -> None:
+    numbers, target = parse_input()
+    answer: int = leftmost_binary_search(numbers, target)
+    print_answer(answer)
+
+if __name__ == '__main__':
+    solution()
