@@ -41,3 +41,36 @@
 # postOrder(a) should return ["B", "D", "C", "A"]
 #
 # BINARY TREESTREESRECURSIONDATA STRUCTURESALGORITHMS
+# Solution
+# Pre-order traversal
+def pre_order(node):
+    output: list = []
+    if not node: return output
+    output.append(node.data)
+    if node.left:
+        output += pre_order(node.left)
+    if node.right:
+        output += pre_order(node.right)
+    return output
+
+# In-order traversal
+def in_order(node):
+    output: list = []
+    if not node: return output
+    if node.left:
+        output += in_order(node.left)
+    output.append(node.data)
+    if node.right:
+        output += in_order(node.right)
+    return output
+
+# Post-order traversal
+def post_order(node):
+    output: list = []
+    if not node: return output
+    if node.left:
+        output += post_order(node.left)
+    if node.right:
+        output += post_order(node.right)
+    output.append(node.data)
+    return output
