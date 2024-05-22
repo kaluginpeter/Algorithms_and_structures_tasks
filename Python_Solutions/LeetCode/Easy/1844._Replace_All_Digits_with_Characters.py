@@ -33,3 +33,30 @@
 # 1 <= s.length <= 100
 # s consists only of lowercase English letters and digits.
 # shift(s[i-1], s[i]) <= 'z' for all odd indices i.
+# Solution 1 - Using builtin function
+# Complexity
+# Time complexity: O(N)
+# Space complexity: O(N)
+# Code
+class Solution:
+    def replaceDigits(self, s: str) -> str:
+        letters: list[str] = list(s)
+        for i in range(len(letters)):
+            if i % 2 != 0:
+                letters[i] = chr(ord(letters[i - 1]) + int(letters[i]))
+        return ''.join(letters)
+# Solution 2 - Implementing shift function
+# Complexity
+# Time complexity: O(N)
+# Space complexity: O(N)
+# Code
+from string import ascii_lowercase
+class Solution:
+    def shift(self, char, step):
+        return ascii_lowercase[ascii_lowercase.index(char) + step]
+    def replaceDigits(self, s: str) -> str:
+        letters: list[str] = list(s)
+        for i in range(len(letters)):
+            if i % 2 != 0:
+                letters[i] = self.shift(letters[i - 1], int(letters[i]))
+        return ''.join(letters)
