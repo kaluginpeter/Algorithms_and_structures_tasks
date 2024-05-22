@@ -23,3 +23,11 @@
 #         self.right = right
 #         self.value = value
 # ALGORITHMSRECURSIONBINARY SEARCH TREESBINARY
+# Solution
+def find_max(root):
+    ans: int = root.value
+    if root.left:
+        ans = max(ans, find_max(root.left))
+    if root.right:
+        ans = max(ans, find_max(root.right))
+    return ans
