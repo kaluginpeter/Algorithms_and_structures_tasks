@@ -31,3 +31,11 @@
 # In the first sample Petya and Vasya are sure that they know how to solve the first problem and all three of them know how to solve the second problem. That means that they will write solutions for these problems. Only Petya is sure about the solution for the third problem, but that isn't enough, so the friends won't take it.
 #
 # In the second sample the friends will only implement the second problem, as Vasya and Tonya are sure about the solution.
+# Solution Greedy Time O(N) Memory O(N)
+import sys
+n: int = int(sys.stdin.readline().rstrip())
+initial: list = [0] * n
+for idx in range(n):
+    initial[idx] = sum(map(int, sys.stdin.readline().rstrip().split()))
+answer: int = sum(1 for item in initial if item > 1)
+sys.stdout.write(str(answer))
