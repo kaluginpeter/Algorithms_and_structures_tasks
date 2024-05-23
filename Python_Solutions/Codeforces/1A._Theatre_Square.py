@@ -18,3 +18,9 @@
 # 6 6 4
 # outputCopy
 # 4
+# Solution O(1) O(1)
+import sys
+n, m, a = map(int, sys.stdin.readline().rstrip().split())
+m_box: int = (n + a - 1) // a
+n_box: int = (m + a - 1) // a
+sys.stdout.write(str(n_box * m_box))
