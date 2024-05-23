@@ -36,3 +36,10 @@
 # 1 <= patterns[i].length <= 100
 # 1 <= word.length <= 100
 # patterns[i] and word consist of lowercase English letters.
+# Complexity
+# Time complexity: O(KN) where K is the length of patterns and N is lenght of word
+# Space complexity: O(1)
+# Code
+class Solution:
+    def numOfStrings(self, patterns: List[str], word: str) -> int:
+        return sum(item in word for item in patterns)
