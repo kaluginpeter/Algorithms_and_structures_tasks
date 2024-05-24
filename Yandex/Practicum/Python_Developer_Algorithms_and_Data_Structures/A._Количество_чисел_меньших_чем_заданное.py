@@ -43,3 +43,44 @@
 # Ввод	Вывод
 # 1 7 3 7 6
 # 0 3 1 3 2
+# Solution Binary Search Leftmost Sorting Time O(NlogN) Memory O(N)
+import sys
+
+
+def parse_input() -> list[int]:
+    output: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    return output
+
+
+def get_index_of_item(sequence: list[int], target: int) -> int:
+    left, right = 0, len(sequence)
+    while left <= right:
+        middle: int = (left + right) >> 1
+        if sequence[middle] >= target:
+            right = middle - 1
+        else:
+            left = middle + 1
+    return right + 1
+
+
+def calculate_sequence(sequence: list[int]) -> list[int]:
+    output: list[int] = list()
+    ordered_sequence: list[int] = sorted(sequence)
+    for item in sequence:
+        idx: int = get_index_of_item(ordered_sequence, item)
+        output.append(max(idx, 0))
+    return output
+
+
+def print_answer(answer: list[int]) -> None:
+    print(' '.join(str(item) for item in answer))
+
+
+def solution() -> None:
+    sequence: list[int] = parse_input()
+    answer: list[int] = calculate_sequence(sequence)
+    print_answer(answer)
+
+
+if __name__ == '__main__':
+    solution()
