@@ -47,3 +47,53 @@
 # Have fun :)
 #
 # STRINGSALGORITHMS
+# Solution
+def calc_whitespaces(count_spaces: int, needed_spaces: int) -> list[int]:
+    if needed_spaces == 0: return count_spaces
+    if count_spaces % needed_spaces == 0:
+        return [count_spaces // needed_spaces for _ in range(needed_spaces)]
+    space_size: int = 1
+    while needed_spaces * space_size < count_spaces:
+        space_size += 1
+    output: list[int] = [space_size for _ in range(needed_spaces)]
+    for idx in range(-1, -(space_size * needed_spaces - count_spaces) - 1, -1):
+        output[idx] -= 1
+    return output
+
+
+def create_sentence(whitespaces: list[int], words: list[str]) -> str:
+    if len(words) == 1: return words[0]
+    output: list[str] = list()
+    for _ in range(len(whitespaces)):
+        if not output:
+            output.append(words.pop(0))
+        output.append(' ' * whitespaces.pop(0))
+        output.append(words.pop(0))
+    return ''.join(output)
+
+
+def justify(text, width):
+    if not text: return ''
+    output: list[str] = list()
+    top: list[str] = list()
+    top_len: int = 0
+    space_len: int = 0
+    for word in text.split(' '):
+        if top_len + len(word) + (space_len if (top and len(top) < 1) else space_len + 1) <= width:
+            top_len += len(word)
+            top.append(word)
+            space_len = len(top) - 1
+        else:
+            space_len += width - (top_len + space_len)
+            whitespaces: list[int] = calc_whitespaces(space_len, len(top) - 1)
+            sentence: str = create_sentence(whitespaces, top)
+            output.append(sentence)
+
+            space_len = 0
+            top_len = len(word)
+            top = [word]
+
+    whitespaces: list[int] = calc_whitespaces(space_len, len(top) - 1)
+    sentence: str = create_sentence(whitespaces, top)
+    output.append(sentence)
+    return '\n'.join(output)
