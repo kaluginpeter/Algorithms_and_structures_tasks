@@ -35,3 +35,13 @@
 # --X
 # outputCopy
 # 0
+# Solution O(N) O(1)
+
+import sys
+n: int = int(sys.stdin.readline().rstrip())
+ans: int = 0
+for _ in range(n):
+    x: str = sys.stdin.readline().rstrip()
+    if x in {'X++', '++X'}: ans += 1
+    else: ans -= 1
+sys.stdout.write(str(ans))
