@@ -29,3 +29,37 @@
 # Ввод	Вывод
 # ()
 # True
+# Solution Stack O(N) O(N)
+import sys
+
+
+def parse_input() -> str:
+    output: str = sys.stdin.readline().rstrip()
+    return output
+
+
+def is_correct_bracket_seq(sequence: str) -> bool:
+    stack: list[str] = list()
+    open_brackets: dict[str, str] = {'(': ')', '[': ']', '{': '}'}
+    for bracket in sequence:
+        if bracket in open_brackets:
+            stack.append(bracket)
+        elif not stack or open_brackets.get(stack[-1]) != bracket:
+            return False
+        else:
+            stack.pop()
+    return len(stack) == 0
+
+
+def print_answer(answer: bool) -> None:
+    sys.stdout.write(str(answer))
+
+
+def solution() -> None:
+    sequence: str = parse_input()
+    answer: bool = is_correct_bracket_seq(sequence)
+    print_answer(answer)
+
+
+if __name__ == '__main__':
+    solution()
