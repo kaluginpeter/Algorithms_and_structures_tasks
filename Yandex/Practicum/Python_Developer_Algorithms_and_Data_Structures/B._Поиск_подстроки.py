@@ -25,3 +25,37 @@
 # Ввод	Вывод
 # bbbbb
 # 1
+# Solution Sliding Window HashSet Time O(N) Memory O(k) where k is length of unique chars
+import sys
+
+
+def parse_input() -> str:
+    output: str = sys.stdin.readline().rstrip()
+    return output
+
+
+def find_longest_unique_substring(sequence: str) -> int:
+    answer: int = 0
+    char_sequence: set[str] = set()
+    left: int = 0
+    for right in range(len(sequence)):
+        while sequence[right] in char_sequence:
+            char_sequence.remove(sequence[left])
+            left += 1
+        char_sequence.add(sequence[right])
+        answer = max(answer, right - left + 1)
+    return answer
+
+
+def print_answer(answer: int) -> None:
+    sys.stdout.write(str(answer))
+
+
+def solution() -> None:
+    sequence: str = parse_input()
+    answer: int = find_longest_unique_substring(sequence)
+    print_answer(answer)
+
+
+if __name__ == '__main__':
+    solution()
