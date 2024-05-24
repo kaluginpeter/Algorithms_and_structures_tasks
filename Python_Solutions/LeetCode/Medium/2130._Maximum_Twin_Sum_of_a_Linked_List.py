@@ -39,3 +39,54 @@
 #
 # The number of nodes in the list is an even integer in the range [2, 105].
 # 1 <= Node.val <= 105
+# Solution 1 - Tortoise and Hare
+# Complexity
+# Time complexity: O(N)
+# Space complexity: O(1)
+# Code
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def pairSum(self, head: Optional[ListNode]) -> int:
+        ans: int = float('-inf')
+        slow, fast = head, head
+        while fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next
+        prev = None
+        while slow:
+            nxt = slow.next
+            slow.next = prev
+            prev = slow
+            slow = nxt
+        left, right = head, prev
+        while right:
+            ans = max(ans, left.val + right.val)
+            left, right = left.next, right.next
+        return ans
+
+# Solution 2 - List storing aka Stack
+# Complexity
+# Time complexity: O(N)
+# Space complexity: O(N)
+# Code
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def pairSum(self, head: Optional[ListNode]) -> int:
+        nodes: list = list()
+        n: int = 0
+        tmp = head
+        while tmp:
+            nodes.append(tmp.val)
+            tmp, n = tmp.next, n + 1
+        ans: int = float('-inf')
+        for i in range(n):
+            ans = max(ans, nodes[i] + nodes[n - i - 1])
+        return ans
