@@ -38,3 +38,22 @@
 # Выбор варианта — за вами.
 # К изменяющейся части зашифрованной ссылки особых требований нет — там может быть написана
 # любая последовательность букв и цифр. Важно, чтобы по зашифрованной ссылке можно было восстановить исходную.
+# Solution
+class MarsURLEncoder:
+
+    def __init__(self):
+        self.storage_urls: dict[str, str] = dict()
+
+    def encode(self, long_url):
+        """Кодирует длинную ссылку в короткую вида https://ma.rs/X7NYIol."""
+        shifted_url: str = str(abs(hash(long_url)))
+        shifted_url = 'https://ma.rs/' + shifted_url
+        while shifted_url in self.storage_urls:
+            shifted_url: str = str(abs(hash(long_url)))
+            shifted_url = 'https://ma.rs/' + shifted_url
+        self.storage_urls[shifted_url] = long_url
+        return shifted_url
+
+    def decode(self, short_url):
+        """Декодирует короткую ссылку вида https://ma.rs/X7NYIol в исходную."""
+        return self.storage_urls.get(short_url)
