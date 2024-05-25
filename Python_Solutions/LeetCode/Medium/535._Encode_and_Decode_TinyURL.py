@@ -26,27 +26,29 @@
 # 1 <= url.length <= 104
 # url is guranteed to be a valid URL.
 # Solution HashTable O(1) O(N)
-class Codec:
+class MarsURLEncoder:
     def __init__(self):
         self.storage_encoded: dict[str, str] = dict()
         self.storage_decoded: dict[str, str] = dict()
 
-    def encode(self, longUrl: str) -> str:
+    def encode(self, long_url: str) -> str:
         """Encodes a URL to a shortened URL.
+        Кодирует длинную ссылку в короткую вида https://ma.rs/X7NYIol.
         """
-        if longUrl in self.storage_encoded:
-            return self.storage_encoded.get(longURL)
-        decoded_url: str = 'https://' + str(abs(hash(longUrl)))
+        if long_url in self.storage_encoded:
+            return self.storage_encoded.get(long_url)
+        decoded_url: str = 'https://ma.rs/' + str(abs(hash(long_url)))
         while decoded_url in self.storage_decoded:
-            decoded_url = 'https://' + str(abs(hash(longUrl)))
-        self.storage_encoded[longUrl] = decoded_url
-        self.storage_decoded[decoded_url] = longUrl
+            decoded_url = 'https://ma.rs/' + str(abs(hash(long_url)))
+        self.storage_encoded[long_url] = decoded_url
+        self.storage_decoded[decoded_url] = long_url
         return decoded_url
 
-    def decode(self, shortUrl: str) -> str:
+    def decode(self, short_url: str) -> str:
         """Decodes a shortened URL to its original URL.
+        Декодирует короткую ссылку вида https://ma.rs/X7NYIol в исходную.
         """
-        return self.storage_decoded.get(shortUrl)
+        return self.storage_decoded.get(short_url)
 
 # Your Codec object will be instantiated and called as such:
 # codec = Codec()
