@@ -35,7 +35,7 @@ class Codec:
         """Encodes a URL to a shortened URL.
         """
         if longUrl in self.storage_encoded:
-            return self.storage_encoded.get(longURL)
+            return self.storage_encoded.get(longUrl)
         decoded_url: str = 'https://' + str(abs(hash(longUrl)))
         while decoded_url in self.storage_decoded:
             decoded_url = 'https://' + str(abs(hash(longUrl)))
