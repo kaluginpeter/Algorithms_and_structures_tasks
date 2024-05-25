@@ -46,3 +46,24 @@
 # queries[i].length == 2
 # 0 <= queries[i][0] <= limit
 # 1 <= queries[i][1] <= 109
+# Solution HashTable O(N) O(N)
+class Solution:
+    def queryResults(self, limit: int, queries: List[List[int]]) -> List[int]:
+        balls: dict[int, int] = dict() # HashBalls from description
+        colors: dict[int, int] = dict() # HashColors from description
+        output: list[int] = list() # our list of answers
+        count: int = 0 # total count of unique colors
+        for i in queries: # iterate from queries and get each query
+            x, y = i # x - representing ball, y - representing color
+            if x in balls: # if x already exist(first condition)
+                if colors[balls[x]] == 1: count -= 1 # if existing ball have unique color
+                colors[balls[x]] = max(0, colors[balls[x]] - 1) # delete old color from HashColors
+                balls[x] = y # Set new color to existing ball
+                colors[y] = colors.get(y, 0) + 1 # increment frequences of given color
+                if colors[y] == 1: count += 1 # if value is 1(it means that we got uniuqe color)
+            else: # If we got new ball(second condition)
+                balls[x] = y # Set new ball in HashBalls
+                colors[y] = colors.get(y, 0) + 1 # Increment frequences of given color
+                if colors[y] == 1: count += 1 # if value is 1(it means that we got unique color) so just increment count
+            output.append(count) # append to the answer list given count of unique colors
+        return output
