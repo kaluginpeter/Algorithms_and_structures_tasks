@@ -30,3 +30,17 @@
 # In the first example the participant on the 5th place earned 7 points. As the participant on the 6th place also earned 7 points, there are 6 advancers.
 #
 # In the second example nobody got a positive score.
+# Solution O(N) O(1)
+import sys
+n, k = map(int, sys.stdin.readline().rstrip().split())
+answer: int = 0
+partipicants: list = list(map(int, sys.stdin.readline().rstrip().split()))
+if not partipicants: sys.stdout.write(str(0))
+else:
+    score: int = partipicants[k - 1]
+    for user in partipicants:
+        if user > 0 and user >= score:
+            answer += 1
+        else:
+            break
+    sys.stdout.write(str(answer))
