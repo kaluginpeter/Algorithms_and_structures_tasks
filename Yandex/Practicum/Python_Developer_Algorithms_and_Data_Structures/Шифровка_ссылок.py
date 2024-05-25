@@ -42,18 +42,24 @@
 class MarsURLEncoder:
 
     def __init__(self):
-        self.storage_urls: dict[str, str] = dict()
+        self.storage_encoded: dict[str, str] = dict()
+        self.storage_decoded: dict[str, str] = dict()
 
-    def encode(self, long_url):
-        """Кодирует длинную ссылку в короткую вида https://ma.rs/X7NYIol."""
-        shifted_url: str = str(abs(hash(long_url)))
-        shifted_url = 'https://ma.rs/' + shifted_url
-        while shifted_url in self.storage_urls:
-            shifted_url: str = str(abs(hash(long_url)))
-            shifted_url = 'https://ma.rs/' + shifted_url
-        self.storage_urls[shifted_url] = long_url
-        return shifted_url
+    def encode(self, long_url: str) -> str:
+        """Encodes a URL to a shortened URL.
+        Кодирует длинную ссылку в короткую вида https://ma.rs/X7NYIol.
+        """
+        if long_url in self.storage_encoded:
+            return self.storage_encoded.get(long_url)
+        decoded_url: str = 'https://ma.rs/' + str(abs(hash(long_url)))
+        while decoded_url in self.storage_decoded:
+            decoded_url = 'https://ma.rs/' + str(abs(hash(long_url)))
+        self.storage_encoded[long_url] = decoded_url
+        self.storage_decoded[decoded_url] = long_url
+        return decoded_url
 
-    def decode(self, short_url):
-        """Декодирует короткую ссылку вида https://ma.rs/X7NYIol в исходную."""
-        return self.storage_urls.get(short_url)
+    def decode(self, short_url: str) -> str:
+        """Decodes a shortened URL to its original URL.
+        Декодирует короткую ссылку вида https://ma.rs/X7NYIol в исходную.
+        """
+        return self.storage_decoded.get(short_url)
