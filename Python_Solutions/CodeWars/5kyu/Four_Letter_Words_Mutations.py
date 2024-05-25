@@ -69,3 +69,59 @@
 # Interlocking Binary Pairs
 # Is Sator Square?
 # STRINGSARRAYSGAMESPARSINGALGORITHMS
+def delete_unsupported(arr: list[str], target: str) -> None:
+    for i in range(len(arr) - 1, -1, -1):
+        if len(set(arr[i])) != 4 or arr[i] == target: arr.pop(i)
+
+
+def find_word(words: list[str], target: str) -> tuple[bool, str]:
+    word: str = ''
+    for i in range(len(words)):
+        if sum(x != y for x, y in zip(words[i], target)) <= 1:
+            word = words[i]
+            words.pop(i)
+            return True, word
+    return False, word
+
+
+def mutations(alice, bob, word, first):
+    alice_, bob_ = alice[::], bob[::]
+    delete_unsupported(alice_, word)
+    delete_unsupported(bob_, word)
+    users: dict[int, str] = {0: 'Alice', 1: 'Bob'}
+    user_words: dict[str, list[str]] = {'Alice': alice_, 'Bob': bob_}
+    user: int = first
+    idx: int = 0
+    stack: list[tuple[int, bool]] = list()
+    prev_winner: int = 0
+    while True:
+        step = find_word(user_words.get(users[user]), word)
+        stack.append((user, step[0]))
+        if step[0]:
+            prev_winner = user
+            delete_unsupported(alice_, step[1])
+            delete_unsupported(bob_, step[1])
+        word = step[1] if step[0] else word
+        user = int(not bool(user))
+
+        step = find_word(user_words.get(users[user]), word)
+        stack.append((user, step[0]))
+        if step[0]:
+            prev_winner = user
+            delete_unsupported(alice_, step[1])
+            delete_unsupported(bob_, step[1])
+
+        word = step[1] if step[0] else word
+
+        if stack[0][1] == stack[1][1] == False and idx == 0:
+            return -1
+        elif stack[0][1] == stack[1][1] == False:
+            return prev_winner
+        elif stack[0][1] == True and stack[1][1] == False:
+            return stack[0][0]
+        elif stack[0][1] == False and stack[1][1] == True:
+            return stack[1][0]
+        user = int(not bool(user))
+        stack = []
+        idx += 1
+    return -1
