@@ -25,3 +25,29 @@
 #
 # 1 <= url.length <= 104
 # url is guranteed to be a valid URL.
+# Solution HashTable O(1) O(N)
+class Codec:
+    def __init__(self):
+        self.storage_encoded: dict[str, str] = dict()
+        self.storage_decoded: dict[str, str] = dict()
+
+    def encode(self, longUrl: str) -> str:
+        """Encodes a URL to a shortened URL.
+        """
+        if longUrl in self.storage_encoded:
+            return self.storage_encoded.get(longURL)
+        decoded_url: str = 'https://' + str(abs(hash(longUrl)))
+        while decoded_url in self.storage_decoded:
+            decoded_url = 'https://' + str(abs(hash(longUrl)))
+        self.storage_encoded[longUrl] = decoded_url
+        self.storage_decoded[decoded_url] = longUrl
+        return decoded_url
+
+    def decode(self, shortUrl: str) -> str:
+        """Decodes a shortened URL to its original URL.
+        """
+        return self.storage_decoded.get(shortUrl)
+
+# Your Codec object will be instantiated and called as such:
+# codec = Codec()
+# codec.decode(codec.encode(url))
