@@ -40,3 +40,21 @@
 #
 # 1 <= word.length <= 2 * 105
 # word consists only of lowercase English letters.
+# Solution O(N) O(N)
+class Solution:
+    def compressedString(self, word: str) -> str:
+        comp: str = ''
+        count: int = 1
+        seq: list[str] = [word[0]]
+        for i in range(1, len(word)):
+            if word[i] != seq[-1]:
+                comp += str(count) + seq[-1]
+                count, seq = 1, word[i]
+            elif word[i] == seq[-1]:
+                if count + 1 > 9:
+                    comp += str(count) + seq[-1]
+                    count = 1
+                else:
+                    count += 1
+        comp += str(count) + seq[-1]
+        return comp
