@@ -44,3 +44,12 @@
 #
 # In the second test case, Nikita can only end up with either a tower with no blocks or a tower with 2
 #  blocks, so the answer is "No".
+# Solution Math O(1) O(1)
+import sys
+t = int(sys.stdin.readline().rstrip())
+for _ in range(t):
+    n, m = map(int, sys.stdin.readline().rstrip().split())
+    if m > n: print('No')
+    else:
+        x = n - m
+        print(['No', 'Yes'][x % 2 == 0])
