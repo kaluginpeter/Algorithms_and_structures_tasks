@@ -28,3 +28,12 @@
 # 3 3
 # outputCopy
 # 4
+# Solution Math Greedy O(1) O(1)
+import sys
+n, m = map(int, sys.stdin.readline().rstrip().split())
+high = n
+width = m // 2
+vertical = 0
+if m % 2 != 0:
+    vertical += n // 2
+sys.stdout.write(str(high * width + vertical))
