@@ -32,3 +32,11 @@
 # 1 <= n, m <= 50
 # 1 <= nums1[i], nums2[j] <= 50
 # 1 <= k <= 50
+# Solution Brute Force O(N**2) O(1)
+class Solution:
+    def numberOfPairs(self, nums1: List[int], nums2: List[int], k: int) -> int:
+        answer: int = 0
+        for i in range(len(nums1)):
+            for j in range(len(nums2)):
+                if nums1[i] % (nums2[j] * k) == 0: answer += 1
+        return answer
