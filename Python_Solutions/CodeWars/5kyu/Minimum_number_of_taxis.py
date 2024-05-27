@@ -25,3 +25,19 @@
 # requests = [(1, 4), (5, 9)]
 # min_num_taxis(requests) # => 1
 # DATA STRUCTURESALGORITHMSPRIORITY QUEUESSCHEDULING
+# Solution
+import heapq
+
+def min_num_taxis(requests):
+    requests = sorted(enumerate(requests), key=lambda x: (x[1][0], x[1][1]))
+    heap = []
+    room_count = 0
+    for original_index, (arrival, departure) in requests:
+        if heap and heap[0][0] < arrival:
+            earliest_departure, assigned_room = heapq.heappop(heap)
+            heapq.heappush(heap, (departure, assigned_room))
+        else:
+            room_count += 1
+            assigned_room = room_count
+            heapq.heappush(heap, (departure, assigned_room))
+    return room_count
