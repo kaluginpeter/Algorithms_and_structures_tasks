@@ -39,3 +39,39 @@ class Solution:
                 if num >= i: c += 1
             if c == i: return i
         return -1
+
+# Solution Bucket Sort + Double Binary Search O(N) O(N)
+class Solution:
+    def bucket_sort(self, arr):
+        bucket = [0 for _ in range(max(arr) + 1)]
+        for i in arr:
+            bucket[i] += 1
+        idx: int = 0
+        for chunk in range(len(bucket)):
+            if bucket[chunk] > 0:
+                for _ in range(bucket[chunk]):
+                    arr[idx] = chunk
+                    idx += 1
+
+    def leftmost_binary_search(self, arr, target, n):
+        left, right = 0, n - 1
+        while left <= right:
+            middle = (left + right) >> 1
+            if arr[middle] >= target:
+                right = middle - 1
+            else:
+                left = middle + 1
+        return right + 1
+
+    def specialArray(self, nums: List[int]) -> int:
+        self.bucket_sort(nums)
+        n: int = len(nums)
+        left, right = 0, n
+        while left <= right:
+            middle = (left + right) >> 1
+            idx = self.leftmost_binary_search(nums, middle, n)
+            items_ge = n - idx
+            if items_ge == middle: return middle
+            elif items_ge > middle: left = middle + 1
+            else: right = middle - 1
+        return -1
