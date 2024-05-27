@@ -22,3 +22,22 @@
 # Is room reserved?
 #
 # SORTINGARRAYS
+# Solution
+import heapq
+
+def allocate_rooms(customers):
+    customers = sorted(enumerate(customers), key=lambda x: (x[1][0], x[1][1]))
+    heap = []
+    room_assignment = {}
+    room_count = 0
+    for original_index, (arrival, departure) in customers:
+        if heap and heap[0][0] < arrival:
+            earliest_departure, assigned_room = heapq.heappop(heap)
+            heapq.heappush(heap, (departure, assigned_room))
+        else:
+            room_count += 1
+            assigned_room = room_count
+            heapq.heappush(heap, (departure, assigned_room))
+        room_assignment[original_index] = assigned_room
+    result = [room_assignment[i] for i in range(len(customers))]
+    return result
