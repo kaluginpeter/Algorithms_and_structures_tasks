@@ -30,3 +30,17 @@
 # t.length == s.length
 # 0 <= maxCost <= 106
 # s and t consist of only lowercase English letters.
+# Solution Sliding Window O(N) O(1)
+class Solution:
+    def equalSubstring(self, s: str, t: str, maxCost: int) -> int:
+        total_cost: int = 0
+        substring: int = 0
+        left: int = 0
+        for right in range(len(t)):
+            cost: int = abs(ord(s[right]) - ord(t[right]))
+            total_cost += cost
+            while total_cost > maxCost:
+                total_cost -= abs(ord(s[left]) - ord(t[left]))
+                left += 1
+            substring = max(substring, right - left + 1)
+        return substring
