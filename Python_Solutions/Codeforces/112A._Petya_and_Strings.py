@@ -31,3 +31,11 @@
 # If you want more formal information about the lexicographical order (also known as the "dictionary order" or "alphabetical order"), you can visit the following site:
 #
 # http://en.wikipedia.org/wiki/Lexicographical_order
+# Solution O(N) O(1)
+import sys
+first: str = sys.stdin.readline().rstrip().lower()
+second: str = sys.stdin.readline().rstrip().lower()
+if first == second:
+    sys.stdout.write(str(0))
+else:
+    sys.stdout.write(str([-1, 1][first > second]))
