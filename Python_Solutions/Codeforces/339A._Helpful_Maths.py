@@ -28,3 +28,16 @@
 # 2
 # outputCopy
 # 2
+# Solution Bucket sort O(N) O(N)
+
+import sys
+storage: list = [0] * 4
+digits: list = list(map(int, sys.stdin.readline().rstrip().split('+')))
+output: list = []
+for i in digits:
+    storage[i] += 1
+for i in range(4):
+    if storage[i] > 0:
+        for _ in range(storage[i]):
+            output.append(str(i))
+print('+'.join(output))
