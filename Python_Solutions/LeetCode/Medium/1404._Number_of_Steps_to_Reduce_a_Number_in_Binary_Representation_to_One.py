@@ -36,3 +36,12 @@
 # 1 <= s.length <= 500
 # s consists of characters '0' or '1'
 # s[0] == '1'
+# Solution Bit Manipulation O(N) O(N)
+class Solution:
+    def numSteps(self, s: str) -> int:
+        x: int = int(s, 2)
+        step: int = 0
+        while x > 1:
+            x = [x >> 1, x + 1][x & 1]
+            step += 1
+        return step
