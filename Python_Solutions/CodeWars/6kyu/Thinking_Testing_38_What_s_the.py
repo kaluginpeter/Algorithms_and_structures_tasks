@@ -49,11 +49,6 @@
 # PUZZLESGAMES
 # Solution
 def test_it(arr):
-    digits: dict[str, int] = {
-        'One': 1, 'Two': 2, 'Three': 3,
-        'Four': 4, 'Five': 5, 'Six': 6,
-        'Seven': 7, 'Eight': 8, 'Nine': 9
-    }
     colors: dict[str, int] = dict()
     shapes: dict[str, int] = dict()
     for item in arr:
