@@ -47,3 +47,26 @@
 # 38:What's the "?"
 #
 # PUZZLESGAMES
+# Solution
+def test_it(arr):
+    digits: dict[str, int] = {
+        'One': 1, 'Two': 2, 'Three': 3,
+        'Four': 4, 'Five': 5, 'Six': 6,
+        'Seven': 7, 'Eight': 8, 'Nine': 9
+    }
+    colors: dict[str, int] = dict()
+    shapes: dict[str, int] = dict()
+    for item in arr:
+        if item == '?': continue
+        color, shape = item.split()
+        colors[color] = colors.get(color, 0) + 1
+        shapes[shape] = shapes.get(shape, 0) + 1
+    color, color_time = None, float('inf')
+    shape, shape_time = None, float('inf')
+    for name, time in colors.items():
+        if color_time > time:
+            color, color_time = name, time
+    for name, time in shapes.items():
+        if shape_time > time:
+            shape, shape_time = name, time
+    return color + ' ' + shape
