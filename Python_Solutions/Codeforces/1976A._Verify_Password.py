@@ -53,3 +53,26 @@
 # In the second testcase, the letters are not sorted in the non-decreasing order.
 #
 # In the fourth testcase, there is a digit that comes after a letter — digit '1' after a letter 'c'.
+import sys
+from string import ascii_lowercase
+t: int = int(sys.stdin.readline().rstrip())
+for _ in range(t):
+    n: int = int(sys.stdin.readline().rstrip())
+    seen: bool = False
+    password: str = sys.stdin.readline().rstrip()
+    correct: bool = True
+    letters: list = []
+    digits: list = []
+    for i in password:
+        if i in ascii_lowercase:
+            seen = True
+            letters.append(i)
+        elif i in '0123456789':
+            if seen:
+                correct = False
+                break
+            digits.append(i)
+        else:
+            correct = False
+            break
+    print(['NO', 'YES'][correct and (sorted(letters) == letters) and (sorted(digits) == digits)])
