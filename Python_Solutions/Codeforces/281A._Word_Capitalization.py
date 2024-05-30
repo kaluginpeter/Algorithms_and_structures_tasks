@@ -22,3 +22,8 @@
 # konjac
 # outputCopy
 # Konjac
+# Solution O(N) O(N)
+import sys
+sentence = sys.stdin.readline().rstrip()
+answer = sentence[0].upper() + sentence[1:]
+sys.stdout.write(answer)
