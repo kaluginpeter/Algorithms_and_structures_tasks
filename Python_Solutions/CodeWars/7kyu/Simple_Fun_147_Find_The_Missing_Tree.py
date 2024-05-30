@@ -26,3 +26,11 @@
 # The size of the missing tree.
 # 
 # ALGORITHMS
+def find_the_missing_tree(trees):
+    hashtable: dict[int, int] = dict()
+    for i in trees:
+        hashtable[i] = hashtable.get(i, 0) + 1
+    v = min(hashtable.values())
+    for k in hashtable:
+        if hashtable[k] == v:
+            return k
