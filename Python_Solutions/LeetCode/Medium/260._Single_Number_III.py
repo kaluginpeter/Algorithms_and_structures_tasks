@@ -24,3 +24,15 @@
 # 2 <= nums.length <= 3 * 104
 # -231 <= nums[i] <= 231 - 1
 # Each integer in nums will appear twice, only two integers will appear once.
+# Solution Bit Manipultaion O(N) O(1)
+class Solution:
+    def singleNumber(self, nums: List[int]) -> List[int]:
+        diff: int = 0
+        for item in nums: diff ^= item
+        bit_position: int = 0
+        while not diff & (1 << bit_position): bit_position += 1
+        first: int = 0
+        for item in nums:
+            if item & (1 << bit_position):
+                first ^= item
+        return [first, first ^ diff]
