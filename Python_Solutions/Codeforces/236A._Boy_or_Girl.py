@@ -30,3 +30,7 @@
 # CHAT WITH HER!
 # Note
 # For the first example. There are 6 distinct characters in "wjmzbmr". These characters are: "w", "j", "m", "z", "b", "r". So wjmzbmr is a female and you should print "CHAT WITH HER!".
+# Solution HashMap O(N) O(N)
+import sys
+username: str = sys.stdin.readline().rstrip()
+sys.stdout.write(['CHAT WITH HER!', 'IGNORE HIM!'][len(set(username)) % 2 != 0])
