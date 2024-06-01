@@ -30,3 +30,34 @@
 # Ввод	Вывод
 # 1
 # 1
+# Solution Time O(N) Memory O(N)
+import sys
+from functools import lru_cache
+
+
+def parse_input() -> int:
+    number: int = int(sys.stdin.readline().rstrip())
+    return number
+
+
+@lru_cache()
+def fibonaccii_sum(target: int) -> int:
+    if target == 0:
+        return 1
+    if target == 1:
+        return 1
+    return fibonaccii_sum(target - 1) + fibonaccii_sum(target - 2)
+
+
+def print_answer(answer: int) -> None:
+    sys.stdout.write(str(answer))
+
+
+def solution() -> None:
+    target = parse_input()
+    answer: int = fibonaccii_sum(target)
+    print_answer(answer)
+
+
+if __name__ == '__main__':
+    solution()
