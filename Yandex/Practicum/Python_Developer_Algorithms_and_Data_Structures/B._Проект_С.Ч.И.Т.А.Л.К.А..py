@@ -80,3 +80,77 @@
 # 5
 # 6
 # 4
+# Solution Recursive way. Time O(N) Memory O(N)
+import sys
+
+
+def parse_input() -> tuple[int, int]:
+    candidates: int = int(sys.stdin.readline().rstrip())
+    countdown: int = int(sys.stdin.readline().rstrip())
+    return candidates, countdown
+
+
+def build_sequence_of_candidates(candidates: int) -> list[int]:
+    output: list[int] = [candidate for candidate in range(1, candidates + 1)]
+    return output
+
+
+def last_survive_candidate(sequence_of_candidates: list[int], countdown: int, current: int) -> int:
+    if len(sequence_of_candidates) == 1:
+        return sequence_of_candidates[0]
+    current = (current + countdown - 1) % len(sequence_of_candidates)
+    sequence_of_candidates.pop(current)
+    return last_survive_candidate(sequence_of_candidates, countdown, current)
+
+
+def print_answer(answer: int) -> None:
+    sys.stdout.write(str(answer))
+
+
+def solution():
+    candidates, countdown = parse_input()
+    sequence_of_candidates: list[int] = build_sequence_of_candidates(candidates)
+    current: int = 0
+    answer: int = last_survive_candidate(sequence_of_candidates, countdown, current)
+    print_answer(answer)
+
+
+if __name__ == '__main__':
+    solution()
+
+# Solution While way. Time O(N) Memory O(N)
+import sys
+
+
+def parse_input() -> tuple[int, int]:
+    candidates: int = int(sys.stdin.readline().rstrip())
+    countdown: int = int(sys.stdin.readline().rstrip())
+    return candidates, countdown
+
+
+def build_sequence_of_candidates(candidates: int) -> list[int]:
+    output: list[int] = [candidate for candidate in range(1, candidates + 1)]
+    return output
+
+
+def last_survive_candidate(sequence_of_candidates: list[int], countdown: int) -> int:
+    current: int = 0
+    while len(sequence_of_candidates) > 1:
+        current = (current + countdown - 1) % len(sequence_of_candidates)
+        sequence_of_candidates.pop(current)
+    return sequence_of_candidates[0]
+
+
+def print_answer(answer: int) -> None:
+    sys.stdout.write(str(answer))
+
+
+def solution():
+    candidates, countdown = parse_input()
+    sequence_of_candidates: list[int] = build_sequence_of_candidates(candidates)
+    answer: int = last_survive_candidate(sequence_of_candidates, countdown)
+    print_answer(answer)
+
+
+if __name__ == '__main__':
+    solution()
