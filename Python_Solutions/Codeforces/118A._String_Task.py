@@ -31,3 +31,12 @@
 # aBAcAba
 # outputCopy
 # .b.c.b
+# Solution O(N) O(N)
+import sys
+sentence: list = list(sys.stdin.readline().rstrip())
+for i in range(len(sentence) - 1, -1, -1):
+    if sentence[i].lower() in 'aeoiuy':
+        sentence.pop(i)
+    else:
+        sentence[i] = sentence[i].lower()
+print(''.join('.' + i for i in sentence))
