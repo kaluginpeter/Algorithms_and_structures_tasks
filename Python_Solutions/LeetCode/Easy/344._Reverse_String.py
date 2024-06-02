@@ -17,3 +17,15 @@
 class Solution(object):
     def reverseString(self, s):
         s.reverse()
+
+
+# Solution Two Pointers O(N) O(1)
+class Solution:
+    def reverseString(self, s: List[str]) -> None:
+        """
+        Do not return anything, modify s in-place instead.
+        """
+        left, right = 0, len(s) - 1
+        while left < right:
+            s[left], s[right] = s[right], s[left]
+            left, right = left + 1, right - 1
