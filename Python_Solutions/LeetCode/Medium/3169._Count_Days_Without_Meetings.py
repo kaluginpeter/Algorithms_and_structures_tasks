@@ -44,3 +44,16 @@
 # 1 <= meetings.length <= 105
 # meetings[i].length == 2
 # 1 <= meetings[i][0] <= meetings[i][1] <= days
+# Solution Sorting Two Pointers O(NlogN) O(1)
+class Solution:
+    def countDays(self, days: int, meetings: List[List[int]]) -> int:
+        meetings.sort(key=lambda x: (x[0], -x[1]))
+        start, end = meetings[0]
+        for i in range(1, len(meetings)):
+            if meetings[i][0] <= end:
+                end = max(end, meetings[i][1])
+            else:
+                days -= end - start + 1
+                start, end = meetings[i]
+        days -= end - start + 1
+        return days
