@@ -78,3 +78,48 @@
 # 5
 # 1 0 2 3 4
 # 4
+# Solution Greedy One Pass Time O(N) Memory O(1)
+import sys
+
+
+def parse_input() -> tuple[int, list[int]]:
+    n: int = int(sys.stdin.readline().rstrip())
+    numbers: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    return n, numbers
+
+
+def maximum_blocks_that_can_get(numbers: list[int]) -> int:
+    blocks: int = 0
+    max_number: int = -1
+    seen_zero: bool = False
+    len_of_subsequence: int = 0
+    for number in numbers:
+        if not seen_zero:
+            max_number = max(max_number, number)
+            if number == 0: seen_zero = True
+        elif (
+            (max_number + 1 == len_of_subsequence)
+            or len_of_subsequence == 1
+            and number > max_number
+        ):
+            blocks += 1
+            max_number = number
+        else:
+            max_number = max(max_number, number)
+        len_of_subsequence += 1
+    blocks += 1
+    return blocks
+
+
+def print_answer(answer: int) -> None:
+    sys.stdout.write(str(answer))
+
+
+def solution() -> None:
+    n, numbers = parse_input()
+    answer: int = maximum_blocks_that_can_get(numbers)
+    print_answer(answer)
+
+
+if __name__ == '__main__':
+    solution()
