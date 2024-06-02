@@ -36,3 +36,11 @@
 # In the second sample, Limak's and Bob's weights in next years are: 12 and 18, then 36 and 36, and finally 108 and 72 (after three years). The answer is 3. Remember that Limak wants to be larger than Bob and he won't be satisfied with equal weights.
 #
 # In the third sample, Limak becomes larger than Bob after the first year. Their weights will be 3 and 2 then.
+# Solution Simulation O(N) O(1)
+import sys
+limak, bob = map(int, sys.stdin.readline().rstrip().split())
+answer: int = 0
+while limak <= bob:
+    answer += 1
+    limak, bob = limak * 3, bob * 2
+sys.stdout.write(str(answer))
