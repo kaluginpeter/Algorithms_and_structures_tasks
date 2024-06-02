@@ -48,3 +48,30 @@
 # Play Tetris : Shape anastomosis
 # Play FlappyBird : Advance Bravely
 # PUZZLESARRAYS
+# Solution
+distance: dict[str, int] = {'mm': 1, 'cm': 10, 'dm': 100, 'm': 1_000, 'km': 1_000_000}
+time: dict[str, int] = {'ms': 1, 's': 1_000, 'm': 60_000, 'h': 3_600_000 , 'd': 86_400_000}
+
+def check(sentence: list[str]) -> tuple[bool, str]:
+    units: list[str] = list()
+    for i in sentence:
+        units.append(i[get_metric(i):])
+    if all(i in distance for i in units): return True, 'distance'
+    elif all(i in time for i in units): return True, 'time'
+    return False, None
+
+def get_metric(unit):
+    idx: int = 0
+    while unit[idx] in '0123456789':
+        idx += 1
+    return idx
+
+def testit(a):
+    metrics: bool = check(a)
+    if metrics[0] is False: return metrics[1]
+    elif metrics[1] == 'distance':
+        a.sort(key=lambda x: int(x[:get_metric(x)]) * distance.get(x[get_metric(x):]))
+        return a
+    else:
+        a.sort(key=lambda x: int(x[:get_metric(x)]) * time.get(x[get_metric(x):]))
+        return a
