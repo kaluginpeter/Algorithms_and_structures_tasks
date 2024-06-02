@@ -63,3 +63,53 @@
 # 8
 # 3 10 5 9 2 7 6 0
 # 3 3 10 5 9 2 7 6 0 4 8
+# Solution Bucket sort Time O(N) Memory O(N)
+import sys
+
+
+def parse_input() -> tuple[int, list[int], int, list[int]]:
+    len_n: int = int(sys.stdin.readline().rstrip())
+    n: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    len_m: int = int(sys.stdin.readline().rstrip())
+    m: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    return len_n, n, len_m, m
+
+
+def create_bucket(numbers: list[int]) -> list[int]:
+    bucket: list[int] = [0 for _ in range(max(numbers) + 1)]
+    return bucket
+
+
+def fill_bucket(bucket: list[int], numbers: list[int]) -> None:
+    for number in numbers:
+        bucket[number] += 1
+
+
+def bucket_sort(bucket: list[int], numbers: list[int], template: list[int]) -> None:
+    idx: int = 0
+    for number in template:
+        for _ in range(bucket[number]):
+            numbers[idx] = number
+            idx += 1
+        bucket[number] = 0
+    for number in range(len(bucket)):
+        if bucket[number] > 0:
+            for _ in range(bucket[number]):
+                numbers[idx] = number
+                idx += 1
+
+
+def print_answer(arr: list[int]) -> None:
+    print(' '.join(str(number) for number in arr))
+
+
+def solution() -> None:
+    len_n, n, len_m, m = parse_input()
+    bucket: list[int] = create_bucket(n)
+    fill_bucket(bucket, n)
+    bucket_sort(bucket, n, m)
+    print_answer(n)
+
+
+if __name__ == '__main__':
+    solution()
