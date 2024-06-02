@@ -57,3 +57,41 @@
 # 13
 # 9 8 1 1 1 5 10 8 2 7 4 3 15
 # 9
+# Solution Greedy Time O(NlogN) Memory O(1)
+import sys
+
+def parse_input() -> tuple[int, list[int], int, list[int]]:
+    n: int = int(sys.stdin.readline().rstrip())
+    list_n: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    m: int = int(sys.stdin.readline().rstrip())
+    list_m: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    return n, list_n, m, list_m
+
+
+def maximum_correct_stones(len_correct: int, correct: list[int], len_shipped: int, shipped: list[int]) -> int:
+    correct.sort()
+    shipped.sort()
+    answer: int = 0
+    idx_correct = idx_shipped = 0
+    while idx_correct < len_correct and idx_shipped < len_shipped:
+        while idx_shipped < len_shipped and correct[idx_correct] > shipped[idx_shipped]:
+            idx_shipped += 1
+        if idx_shipped < len_shipped:
+            answer += 1
+            idx_correct, idx_shipped = idx_correct + 1, idx_shipped + 1
+        else: break
+    return answer
+
+
+def print_answer(answer: int) -> None:
+    sys.stdout.write(str(answer))
+
+
+def solution() -> None:
+    n, list_n, m, list_m = parse_input()
+    answer: int = maximum_correct_stones(n, list_n, m, list_m)
+    print_answer(answer)
+
+
+if __name__ == '__main__':
+    solution()
