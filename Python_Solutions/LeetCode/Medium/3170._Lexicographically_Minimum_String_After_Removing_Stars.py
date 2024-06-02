@@ -36,3 +36,15 @@
 # 1 <= s.length <= 105
 # s consists only of lowercase English letters and '*'.
 # The input is generated such that it is possible to delete all '*' characters.
+# Solution Heap O(NlogN) O(N)
+import heapq
+class Solution:
+    def clearStars(self, s: str) -> str:
+        heap = list()
+        for i in range(len(s)):
+            if s[i] == '*':
+                 heapq.heappop(heap)
+            else:
+                heapq.heappush(heap, (s[i], -i))
+        heap.sort(key=lambda x: -x[1])
+        return ''.join(i[0] for i in heap)
