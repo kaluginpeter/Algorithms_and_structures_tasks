@@ -50,3 +50,18 @@
 # Crossword Puzzle! (2x2)
 # Interlocking Binary Pairs
 # ARRAYSDATA STRUCTURESALGORITHMS
+# Solution
+from collections import defaultdict
+def is_sator_square(tablet):
+    ht: dict[str, int] = defaultdict(int)
+    for r in range(len(tablet)):
+        word = ''.join(tablet[r])
+        ht[word] += 1
+        ht[word[::-1]] += 1
+    for c in range(len(tablet[0])):
+        word = ''.join(tablet[r][c] for r in range(len(tablet)))
+        ht[word] += 1
+        ht[word[::-1]] += 1
+    for k in ht:
+        if ht[k] < 4: return False
+    return True
