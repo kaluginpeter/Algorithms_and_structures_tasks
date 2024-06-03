@@ -31,3 +31,15 @@
 #
 # 1 <= s.length, t.length <= 105
 # s and t consist only of lowercase English letters.
+# Solution Two Pointers Greedy O(N) O(1)
+class Solution:
+    def appendCharacters(self, s: str, t: str) -> int:
+        left, right = 0, 0
+        left_len, right_len = len(s), len(t)
+        total: int = right_len
+        while left < left_len and right < right_len:
+            if s[left] == t[right]:
+                total -= 1
+                right += 1
+            left += 1
+        return total
