@@ -54,3 +54,73 @@
 # Ввод	Вывод
 # 2[abc]3[cd]ef
 # abcabccdcdcdef
+# Solution 1 (First review) Recursive way to solve. Time O(NM) Memory O(NM)
+def decrypted_commands(commands: str, current_idx: int = 0):
+    """
+    Decrypted string by recursively call inside yourself.
+    Time Complexity O(NM).
+    Memory Complexity O(NM).
+    Where N is length of commands and M is depth of recursion call(frequency of square brackets).
+    :param commands: string with encrypted commands
+    :param current_idx:*
+    :return: tuple of decrypted string and current_index*
+    * - Don't touch and use! For builtin usages only!
+    """
+    decrypted_string: str = ''
+    while current_idx < len(commands):
+        # If we meet closed square bracket, it means that we go to the end of recursive command
+        if commands[current_idx] == ']': break
+        if commands[current_idx].isalpha():
+            decrypted_string += commands[current_idx]
+            current_idx += 1
+        else:
+            multiplicator: int = 0
+            while commands[current_idx] != '[':
+                multiplicator = multiplicator * 10 + int(commands[current_idx])
+                current_idx += 1
+            # current_idx == '[' at this moment and we should skipp it
+            current_idx += 1
+            # Call recursively string with elements inside of square brackets
+            new_decrypted_string, current_idx = decrypted_commands(commands, current_idx)
+            decrypted_string += multiplicator * new_decrypted_string
+    return decrypted_string, current_idx + 1
+
+
+if __name__ == '__main__':
+    commands: str = input()
+    print(decrypted_commands(commands)[0])
+
+# Solution 2 (Accepted review) Iterative straight forward. Time O(NM) Memory O(NM)
+# Id 114935205
+from string import digits
+DIGITS = digits
+def decrypted_commands(commands: str) -> str:
+    """
+    Decrypts the string moving straight forward.
+    Time Complexity O(NM).
+    Memory Complexity O(NM).
+    Where N is length of commands and M is size of multiplier frequencies.
+    :param commands: string with encrypted commands
+    :return: string of decrypted commands
+    """
+    accumulate_storage = []
+    accumulate = decrypted = ''
+    for letter in commands:
+        match letter:
+            case _ if letter in DIGITS: accumulate += letter
+            case '[':
+                accumulate_storage.append((decrypted, int(accumulate)))
+                accumulate = decrypted = ''
+            case ']':
+                previous_decrpyted, previous_accumulate = (
+                    accumulate_storage.pop()
+                )
+                decrypted = (
+                    previous_decrpyted
+                    + decrypted * previous_accumulate
+                )
+            case _: decrypted += letter
+    return decrypted
+
+if __name__ == '__main__':
+    print(decrypted_commands(input()))
