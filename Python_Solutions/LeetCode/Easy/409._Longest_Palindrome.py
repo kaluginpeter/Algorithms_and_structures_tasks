@@ -32,3 +32,20 @@ class Solution(object):
             else:
                 d[i] = 1
         return count + 1 if len(s) - count != 0 else count
+
+
+# Solution HashTable Greedy O(N) O(N)
+from collections import defaultdict
+class Solution:
+    def longestPalindrome(self, s: str) -> int:
+        ht: dict[str, int] = defaultdict(int)
+        for i in s: ht[i] += 1
+        answer: int = 0
+        mx_odd: str = None
+        for i in ht:
+            if ht[i] % 2 == 0: answer += ht[i]
+            elif not mx_odd or ht[i] > ht[mx_odd]:
+                answer += (ht[mx_odd] - 1) if mx_odd else 0
+                mx_odd = i
+            else: answer += ht[i] - 1
+        return answer + ht[mx_odd]
