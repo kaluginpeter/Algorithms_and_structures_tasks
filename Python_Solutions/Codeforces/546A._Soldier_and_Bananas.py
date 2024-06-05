@@ -18,3 +18,10 @@
 # 3 17 4
 # outputCopy
 # 13
+# Solution Math O(w) O(1)
+import sys
+k, n, w = map(int, sys.stdin.readline().rstrip().split())
+total: int = 0
+for i in range(1, w + 1):
+    total += i * k
+sys.stdout.write(str(max(0, total - n)))
