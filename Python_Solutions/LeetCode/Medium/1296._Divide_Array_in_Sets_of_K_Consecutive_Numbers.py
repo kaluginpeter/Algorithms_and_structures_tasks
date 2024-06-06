@@ -28,3 +28,18 @@
 #
 #
 # Note: This question is the same as 846: https://leetcode.com/problems/hand-of-straights/
+# Solution HashTable Greedy Sorting O(NlogN) O(N)
+from collections import defaultdict
+class Solution:
+    def isPossibleDivide(self, nums: List[int], k: int) -> bool:
+        if len(nums) % k != 0: return False
+        ht: dict[int, int] = defaultdict(int)
+        for number in nums: ht[number] += 1
+        for current_number in sorted(ht.keys()):
+            if ht[current_number] > 0:
+                needed_amount: int = ht[current_number]
+                for number in range(current_number, current_number + k):
+                    if number not in ht: return False
+                    elif ht[number] < needed_amount: return False
+                    ht[number] -= needed_amount
+        return True
