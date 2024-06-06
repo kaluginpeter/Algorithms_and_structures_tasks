@@ -24,3 +24,11 @@
 # maTRIx
 # outputCopy
 # matrix
+# Solution O(N) O(N) One Pass
+import sys
+n: str = sys.stdin.readline().rstrip()
+low_case = upp_case = 0
+for i in n:
+    if i.islower(): low_case += 1
+    else: upp_case += 1
+sys.stdout.write(n.lower() if low_case >= upp_case else n.upper())
