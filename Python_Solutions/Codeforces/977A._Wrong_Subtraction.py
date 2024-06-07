@@ -40,3 +40,11 @@
 # Note
 # The first example corresponds to the following sequence: 512→511→510→51→50
 # .
+# Solution Math Simulation O(K) O(1)
+import sys
+n, k = map(int, sys.stdin.readline().rstrip().split())
+for _ in range(k):
+    last = n % 10
+    if last == 0: n //= 10
+    else: n -= 1
+sys.stdout.write(str(n))
