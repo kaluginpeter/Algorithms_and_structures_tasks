@@ -27,3 +27,23 @@
 # The length of each word in sentence is in the range [1, 1000]
 # Every two consecutive words in sentence will be separated by exactly one space.
 # sentence does not have leading or trailing spaces.
+# Solution HashSet O(OK) O(N)
+class Solution:
+    def replaceWords(self, dictionary: List[str], sentence: str) -> str:
+        hs: set[str] = set()
+        len_max_word: int = 0
+        for word in dictionary:
+            len_max_word = max(len_max_word, len(word))
+            hs.add(word)
+        output: list[str] = []
+        for word in sentence.split():
+            idx: int = 0
+            matched: bool = False
+            while idx < len_max_word:
+                if word[:idx + 1] in hs:
+                    matched = True
+                    output.append(word[:idx + 1])
+                    break
+                idx += 1
+            if not matched: output.append(word)
+        return ' '.join(output)
