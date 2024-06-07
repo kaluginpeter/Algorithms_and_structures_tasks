@@ -48,3 +48,6 @@
 # Play Tetris : Shape anastomosis
 # Play FlappyBird : Advance Bravely
 # PUZZLESGAMES
+# Solution
+def testit(act, s):
+    return ''.join('x' if (s[i] == '_' and act[i] != 'run') else '/' if (s[i] == '|' and act[i] != 'jump') else s[i] for i in range(len(s)))
