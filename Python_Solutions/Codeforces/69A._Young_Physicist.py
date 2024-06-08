@@ -26,3 +26,13 @@
 # 2 -1 -3
 # outputCopy
 # YES
+# Solution Math O(N) O(1)
+import sys
+n: int = int(sys.stdin.readline().rstrip())
+s_x = s_y = s_z = 0
+for _ in range(n):
+    x, y, z = map(int, sys.stdin.readline().rstrip().split())
+    s_x += x
+    s_y += y
+    s_z += z
+sys.stdout.write(['NO', 'YES'][s_x == s_y == s_x == 0])
