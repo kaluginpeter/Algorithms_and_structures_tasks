@@ -30,3 +30,35 @@
 # SE 21 7AA - Should only contain 2 segments
 # 070  08 - Should have single space separating the two segments, not double space
 # REGULAR EXPRESSIONSSTRINGS
+# Solution
+from string import digits, ascii_lowercase, ascii_uppercase
+STRING = ascii_lowercase + ascii_uppercase
+def check_british_postcode(postcode):
+    if postcode.count(' ') != 1: return False
+    first, second = postcode.split()
+    letters = dgts = ''
+    while first and first[0] in STRING:
+        letters += first[0]
+        first = first[1:]
+    while first and first[0] in digits:
+        dgts += first[0]
+        first = first[1:]
+    if first: return False
+    if any(len(i) not in {1, 2} for i in [letters, dgts]): return False
+    if len(second) != 3: return False
+    if second[0] not in digits: return False
+    if not all(i in STRING for i in second[1:]): return False
+    return True
+
+def check_slovakian_postcode(postcode):
+    if len(postcode) != 6: return False
+    if postcode.count(' ') != 1: return False
+    first, second = postcode.split()
+    if len(first) != 3: return False
+    return all(i in digits for i in first + second)
+
+def which_postcode(postcode):
+    postcode = postcode.strip()
+    if check_british_postcode(postcode): return 'GB'
+    elif check_slovakian_postcode(postcode): return 'SK'
+    return 'Not valid'
