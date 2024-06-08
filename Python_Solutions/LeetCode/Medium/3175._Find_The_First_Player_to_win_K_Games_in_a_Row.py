@@ -53,3 +53,51 @@
 # 1 <= k <= 109
 # 1 <= skills[i] <= 106
 # All integers in skills are unique.
+# One Pass
+# Complexity
+# Time complexity: O(N)
+# Space complexity: O(1)
+# Code
+class Solution:
+    def findWinningPlayer(self, skills: List[int], k: int) -> int:
+        winner: int = skills[0]
+        in_a_row: int = 0
+        for player in skills[1:]:
+            in_a_row = in_a_row + 1 if winner > player else 1
+            winner = max(winner, player)
+            if in_a_row == k: break
+        return skills.index(winner)
+
+# Simulation
+# Complexity
+# Time complexity: O(10**5) == O(N)
+# Space complexity: O(N)
+# Code
+from collections import deque, defaultdict
+class Solution:
+    def findWinningPlayer(self, skills: List[int], k: int) -> int:
+        queue = deque(range(len(skills)))
+        queue_score = deque(skills)
+        ht = defaultdict(int)
+        idx = 0
+        while idx < 10**5:
+            idx += 1
+            first, second = queue.popleft(), queue.popleft()
+            first_score, second_score = queue_score.popleft(), queue_score.popleft()
+            if first_score > second_score:
+                ht[first] +=1
+                if ht[first] >= k: return first
+                ht[second] = 0
+                queue.appendleft(first)
+                queue_score.appendleft(first_score)
+                queue.append(second)
+                queue_score.append(second_score)
+            else:
+                ht[second] += 1
+                if ht[second] >= k: return second
+                ht[first] = 0
+                queue.appendleft(second)
+                queue_score.appendleft(second_score)
+                queue.append(first)
+                queue_score.append(first_score)
+        return queue.popleft()
