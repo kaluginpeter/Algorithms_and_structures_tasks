@@ -33,3 +33,16 @@
 # 0 <= nums[i] <= 109
 # 0 <= sum(nums[i]) <= 231 - 1
 # 1 <= k <= 231 - 1
+# Solution HashSet Prefix Sum Math O(N) O(N)
+class Solution:
+    def checkSubarraySum(self, nums: List[int], k: int) -> bool:
+        hs: set[int] = set()
+        previous_remainder: int = 0
+        total_sum: int = 0
+        for number in nums:
+            total_sum += number
+            remainder: int = total_sum % k
+            if remainder in hs: return True
+            hs.add(previous_remainder)
+            previous_remainder = remainder
+        return False
