@@ -55,3 +55,15 @@
 #
 # 2 <= n <= 50
 # 1 <= k <= 50
+# Solution O(K) O(N)
+class Solution:
+    def numberOfChild(self, n: int, k: int) -> int:
+        reverse: bool = False
+        cur: int = 0
+        for _ in range(k):
+            cur += 1 if not reverse else -1
+            if cur == n - 1:
+                reverse = True
+            elif cur == 0:
+                reverse = False
+        return cur
