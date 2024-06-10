@@ -55,3 +55,15 @@ class Solution:
                 ans += 1
             arr[idx] -= 1
         return ans
+
+# Solution Counting sorting O(N) O(N)
+class Solution:
+    def heightChecker(self, heights: List[int]) -> int:
+        correct_height: list[int] = []
+        total_students: list[int] = [0 for _ in range(max(heights) + 1)]
+        for student in heights:
+            total_students[student] += 1
+        for student in range(len(total_students)):
+            if total_students[student] > 0:
+                correct_height += [student] * total_students[student]
+        return sum(correct_height[idx] != heights[idx] for idx in range(len(heights)))
