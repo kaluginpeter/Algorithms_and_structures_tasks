@@ -34,3 +34,11 @@
 # In the second sample there are 7 lucky digits, 7 is lucky number, so the answer is "YES".
 #
 # In the third sample there are no lucky digits, so the answer is "NO".
+# Solution O(N) O(1)
+import sys
+n: str = sys.stdin.readline().rstrip()
+count: int = 0
+for i in n:
+    if i in {'4', '7'}:
+        count += 1
+sys.stdout.write(['NO', 'YES'][count in {4, 7}])
