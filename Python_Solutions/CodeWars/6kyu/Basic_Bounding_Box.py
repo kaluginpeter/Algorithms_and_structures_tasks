@@ -33,3 +33,23 @@
 #  [0,1,1,1,1,1,1,1,0,0],
 #  [0,0,0,0,0,0,0,0,0,0]]
 # ARRAYS
+# Solution
+def bounding_box(image_array):
+    if not image_array: return []
+    most_left = most_up = float('inf')
+    most_right = most_down = float('-inf')
+    for row in range(len(image_array)):
+        for col in range(len(image_array[0])):
+            if image_array[row][col] == 1:
+                most_left, most_right = min(most_left, col), max(most_right, col)
+                most_up, most_down = min(most_up, row), max(most_down, row)
+    for row in range(len(image_array)):
+        for col in range(len(image_array[0])):
+            if (row >= most_up and row <= most_down):
+                if (row == most_up or row == most_down) and col >= most_left and col <= most_right:
+                    image_array[row][col] = 1
+                elif col == most_left or col == most_right:
+                    image_array[row][col] = 1
+                else: image_array[row][col] = 0
+            else: image_array[row][col] = 0
+    return image_array
