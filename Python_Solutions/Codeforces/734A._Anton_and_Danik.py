@@ -43,3 +43,12 @@
 # In the second sample, Anton won 3 games and Danik won 4 games, so the answer is "Danik".
 #
 # In the third sample, both Anton and Danik won 3 games and the answer is "Friendship".
+# Solution
+import sys
+n: str = sys.stdin.readline().rstrip()
+games: str = sys.stdin.readline().rstrip()
+a, d = games.count('A'), games.count('D')
+if a == d:
+    sys.stdout.write('Friendship')
+else:
+    sys.stdout.write(['Danik', 'Anton'][a > d])
