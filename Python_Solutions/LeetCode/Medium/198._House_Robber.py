@@ -22,3 +22,29 @@
 #
 # 1 <= nums.length <= 100
 # 0 <= nums[i] <= 400
+# HashMap
+# Complexity
+# Time complexity: O(N)
+# Space complexity: O(N)
+# Code
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        if len(nums) == 1:
+            return nums[0]
+        cache: dict[int, int] = {0: nums[0], 1: nums[1]}
+        for idx in range(2, len(nums)):
+            cache[idx] = max(cache.get(idx - 2), cache.get(idx - 3, 0)) + nums[idx]
+        return max(cache.values())
+
+# Constant Memory Complexity
+# Complexity
+# Time complexity: O(N)
+# Space complexity: O(1)
+# Code
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        if len(nums) == 1: return nums[0]
+        nums[1] = max(nums[0], nums[1])
+        for idx in range(2, len(nums)):
+            nums[idx] = max(nums[idx - 1], nums[idx] + nums[idx - 2])
+        return nums[-1]
