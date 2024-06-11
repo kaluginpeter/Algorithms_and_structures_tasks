@@ -41,3 +41,20 @@
 # The possible bonus amount of each team can be:[1,2,1,2,3,1,2,3,4,1]
 #
 # ALGORITHMS
+# Solution
+from collections import defaultdict
+def minimum_bonus(scores):
+    ht: dict[int, int] = defaultdict(int)
+    for team in range(len(scores)):
+        ht[team] += 1
+    while True:
+        swaped: bool = False
+        for team in range(len(scores)):
+            if team + 1 < len(scores) and scores[team] > scores[team + 1] and ht[team] <= ht[team + 1]:
+                ht[team] = ht[team + 1] + 1
+                swaped = True
+            if team - 1 >= 0 and scores[team] > scores[team - 1] and ht[team] <= ht[team - 1]:
+                ht[team] = ht[team - 1] + 1
+                swaped = True
+        if not swaped:
+            return sum(ht.values())
