@@ -30,3 +30,18 @@
 # n == obstacleGrid[i].length
 # 1 <= m, n <= 100
 # obstacleGrid[i][j] is 0 or 1.
+# Solution Dynamic Programming Bottom Up O(N*M) O(M)
+class Solution:
+    def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
+        m, n = len(obstacleGrid), len(obstacleGrid[0])
+        if obstacleGrid[m - 1][n - 1] == 1: return 0
+        prev_row = [0] * n
+        prev_row[n - 1] = 1
+        for row in range(m - 1, -1, -1):
+            current_row = [0] * n
+            current_row[n - 1] = 0 if obstacleGrid[row][n - 1] == 1 else prev_row[n - 1]
+            for col in range(n - 2, -1, -1):
+                if obstacleGrid[row][col] == 1: continue
+                current_row[col] = current_row[col + 1] + prev_row[col]
+            prev_row = current_row
+        return prev_row[0]
