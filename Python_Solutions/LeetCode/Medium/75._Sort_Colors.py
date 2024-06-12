@@ -39,3 +39,22 @@ class Solution:
             else:
                 top += 1
         return nums
+
+# Solution Dutch national flag O(N) O(1)
+class Solution:
+    def sortColors(self, nums: List[int]) -> None:
+        n: int = len(nums)
+        zeros, twos = 0, n - 1
+        current_idx: int = 0
+        while current_idx <= twos:
+            while current_idx <= twos and nums[current_idx] == 0:
+                if current_idx <= zeros:
+                    current_idx += 1
+                else:
+                    nums[zeros], nums[current_idx] = nums[current_idx], nums[zeros]
+                    zeros += 1
+            while current_idx <= twos and nums[current_idx] == 2:
+                nums[twos], nums[current_idx] = nums[current_idx], nums[twos]
+                twos -= 1
+            if current_idx < n and nums[current_idx] == 1:
+                current_idx += 1
