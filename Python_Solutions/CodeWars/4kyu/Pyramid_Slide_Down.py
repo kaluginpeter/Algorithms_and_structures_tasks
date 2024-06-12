@@ -18,3 +18,14 @@
 # (c) This task is a lyrical version of Problem 18 and/or Problem 67 on ProjectEuler.
 #
 # ALGORITHMSDYNAMIC PROGRAMMING
+# Solution Bottom Up Dynamic Programming O(NM) O(M)
+def longest_slide_down(pyramid):
+    prev_row = pyramid[-1]
+    for row in range(len(pyramid) - 2, -1, -1):
+        current_row = pyramid[row]
+        for col in range(len(pyramid[row])):
+            current_row[col] = max(
+                prev_row[col], prev_row[col + 1]
+            ) + current_row[col]
+        prev_row = current_row
+    return prev_row[0]
