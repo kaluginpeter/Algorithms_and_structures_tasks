@@ -35,3 +35,13 @@
 # At the third stop, 4 passengers exit the tram (2 passengers remain inside). Then, 2 passengers enter the tram. There are 4 passengers inside the tram now.
 # Finally, all the remaining passengers inside the tram exit the tram at the last stop. There are no passenger inside the tram now, which is in line with the constraints.
 # Since the number of passengers inside the tram never exceeds 6, a capacity of 6 is sufficient. Furthermore it is not possible for the tram to have a capacity less than 6. Hence, 6 is the correct answer.
+# Solution O(N) O(1)
+import sys
+n: int = int(sys.stdin.readline().rstrip())
+max_people: int = -1
+total: int = 0
+for _ in range(n):
+    a, b = map(int, sys.stdin.readline().rstrip().split())
+    total += b - a
+    max_people = max(max_people, total)
+sys.stdout.write(str(max_people))
