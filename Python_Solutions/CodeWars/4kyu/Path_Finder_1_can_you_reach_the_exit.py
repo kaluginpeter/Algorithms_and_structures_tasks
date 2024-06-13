@@ -11,3 +11,27 @@
 # #4: where are you?
 # #5: there's someone here
 # ALGORITHMS
+# Solution
+def path_finder(maze):
+    maze = maze.split('\n')
+    n = len(maze)
+    queue = dict()
+    queue[(n - 1, n - 1)] = 0
+    cache = set()
+    moves = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+    while queue:
+        k, v = queue.popitem()
+        current_row, current_col = k
+        if current_row == current_col ==  0:
+            return True
+        cache.add((current_row, current_col))
+        for move in moves:
+            nxt_row, nxt_col = current_row + move[0], current_col + move[1]
+            if (nxt_row, nxt_col) in cache:
+                continue
+            elif not (0 <= nxt_row < n) or not (0 <= nxt_col < n):
+                continue
+            elif maze[nxt_row][nxt_col] == 'W':
+                continue
+            queue[(nxt_row, nxt_col)] = 0
+    return False
