@@ -37,3 +37,14 @@
 # In the second sample, all friends are short enough and no one has to bend, so the width 1 + 1 + 1 + 1 + 1 + 1 = 6 is enough.
 #
 # In the third sample, all the persons have to bend, except the last one. The required minimum width of the road is equal to 2 + 2 + 2 + 2 + 2 + 1 = 11.
+# Solution O(N) O(1)
+import sys
+n, h = map(int, sys.stdin.readline().rstrip().split())
+friends = list(map(int, sys.stdin.readline().rstrip().split()))
+total = 0
+for fr in friends:
+    if fr > h:
+        total += 2
+    else:
+        total += 1
+sys.stdout.write(str(total))
