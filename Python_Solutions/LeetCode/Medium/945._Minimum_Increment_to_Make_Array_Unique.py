@@ -23,3 +23,14 @@
 #
 # 1 <= nums.length <= 105
 # 0 <= nums[i] <= 105
+# Solution Greedy O(NlogN) O(1)
+class Solution:
+    def minIncrementForUnique(self, nums: List[int]) -> int:
+        nums.sort()
+        total: int = 0
+        for idx in range(1, len(nums)):
+            if nums[idx] <= nums[idx - 1]:
+                nxt_uniq_number: int = nums[idx - 1] + 1
+                total += nxt_uniq_number - nums[idx]
+                nums[idx] = nxt_uniq_number
+        return total
