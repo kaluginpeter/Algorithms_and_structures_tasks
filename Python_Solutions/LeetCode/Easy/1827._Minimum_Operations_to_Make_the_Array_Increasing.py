@@ -29,3 +29,13 @@
 #
 # 1 <= nums.length <= 5000
 # 1 <= nums[i] <= 104
+# Solution O(N) O(1)
+class Solution:
+    def minOperations(self, nums: List[int]) -> int:
+        total: int = 0
+        for idx in range(1, len(nums)):
+            if nums[idx] <= nums[idx - 1]:
+                x: int = nums[idx - 1] + 1
+                total += x - nums[idx]
+                nums[idx] = x
+        return total
