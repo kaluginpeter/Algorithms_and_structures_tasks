@@ -15,3 +15,10 @@
 # Have fun!
 #
 # FUNDAMENTALS
+def enough_ink(image, r, g, b):
+    for chunk in image:
+        for char in chunk:
+            ned_r, ned_g, ned_b = [255 - int(char[i:i+2], 16) for i in (0, 2, 4)]
+            r, g, b = r - ned_r, g - ned_g, b - ned_b
+            if any(i < 0 for i in (r, g, b)): return False
+    return True
