@@ -32,3 +32,22 @@
 #
 # 1 <= hours.length <= 100
 # 1 <= hours[i] <= 109
+# Solution Brute Force O(N**2) O(1)
+class Solution:
+    def countCompleteDayPairs(self, hours: List[int]) -> int:
+        count: int = 0
+        for i in range(len(hours)):
+            for j in range(i + 1, len(hours)):
+                if (hours[i] + hours[j]) % 24 == 0:
+                    count += 1
+        return count
+# Solution HashTable O(N) O(1)
+class Solution:
+    def countCompleteDayPairs(self, hours: List[int]) -> int:
+        hours_of_the_day: list[int] = [0] * 24
+        total: int = 0
+        for hour in hours:
+            total += hours_of_the_day[hour % 24]
+            remainder = (24 - hour % 24) % 24
+            hours_of_the_day[remainder] += 1
+        return total
