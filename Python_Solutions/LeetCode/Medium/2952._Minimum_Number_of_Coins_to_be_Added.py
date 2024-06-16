@@ -33,3 +33,23 @@
 # 1 <= target <= 105
 # 1 <= coins.length <= 105
 # 1 <= coins[i] <= target
+# Solution Counting Sort Greedy O(N) O(K) where k is max element in array
+class Solution:
+    def minimumAddedCoins(self, coins: List[int], target: int) -> int:
+        n: int = max(coins)
+        storage: list[int] = [0] * (n + 1)
+        for coin in coins:
+            storage[coin] += 1
+        missing: int = 1
+        added: int = 0
+        index: int = 0
+        while missing <= target:
+            while index < n + 1 and storage[index] == 0:
+                index += 1
+            if index < n + 1 and index <= missing:
+                missing += index * storage[index]
+                index += 1
+            else:
+                missing += missing
+                added += 1
+        return added
