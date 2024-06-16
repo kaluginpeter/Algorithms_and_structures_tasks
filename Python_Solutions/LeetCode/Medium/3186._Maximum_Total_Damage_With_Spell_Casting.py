@@ -37,3 +37,25 @@
 # 1 <= power.length <= 105
 # 1 <= power[i] <= 109
 # Solution Dynamic Programming O(N**2) O(N)
+class Solution:
+    def maximumTotalDamage(self, power: List[int]) -> int:
+        ht = dict()
+        for num in power:
+            ht[num] = ht.get(num, 0) + 1
+        spells = sorted(ht.keys())
+        k = len(spells)
+        dp = [0] * k
+        for spell_index in range(k):
+            if spell_index == 0:
+                dp[spell_index] = spells[spell_index] * ht[spells[spell_index]]
+            else:
+                dp[spell_index] = dp[spell_index - 1]
+            current_damage = spells[spell_index] * ht[spells[spell_index]]
+            previous_damage_index = spell_index - 1
+            while previous_damage_index >= 0 and spells[previous_damage_index] >= spells[spell_index] - 2:
+                previous_damage_index -= 1
+            if previous_damage_index >= 0:
+                dp[spell_index] = max(dp[spell_index], current_damage + dp[previous_damage_index])
+            else:
+                dp[spell_index] = max(dp[spell_index], current_damage)
+        return max(dp)
