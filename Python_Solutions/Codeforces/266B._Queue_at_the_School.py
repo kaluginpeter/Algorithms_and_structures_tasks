@@ -33,3 +33,24 @@
 # GGGB
 # outputCopy
 # GGGB
+# Solution Simulation O(N) O(1)
+import sys
+
+def solution(n: int ,t: int, queue: list) -> str:
+    start_of_the_queue: int = 0
+    for _ in range(t):
+        while start_of_the_queue < n and queue[start_of_the_queue] == 'G':
+            start_of_the_queue += 1
+        person = start_of_the_queue
+        while person < n - 1:
+            if queue[person] == 'B' and queue[person + 1] == 'G':
+                queue[person], queue[person + 1] = queue[person + 1], queue[person]
+                person += 2
+            else:
+                person += 1
+    return ''.join(queue)
+
+if __name__ == '__main__':
+    n, t = map(int, sys.stdin.readline().rstrip().split())
+    queue: list = list(sys.stdin.readline().rstrip())
+    sys.stdout.write(solution(n, t, queue))
