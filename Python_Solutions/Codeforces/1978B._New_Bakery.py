@@ -72,3 +72,25 @@
 # In the third test case, it is optimal for Bob to choose k=0
 # . Then he will sell all the buns at the usual price and obtain a profit of 10⋅10=100
 #  coins.
+# Solution Math O(1) O(1)
+import sys
+
+def solution() -> str:
+    n, a, b = map(int, sys.stdin.readline().rstrip().split())
+    if b < a:
+        return str(n * a)
+    max_decreasing_elements = min(n, b - a + 1)
+    total = 0
+    if max_decreasing_elements > 0:
+        first_term = b
+        last_term = b - (max_decreasing_elements - 1)
+        total += max_decreasing_elements * (first_term + last_term) // 2
+    remaining_elements = n - max_decreasing_elements
+    if remaining_elements > 0:
+        total += remaining_elements * a
+    return str(total)
+
+if __name__ == '__main__':
+    t = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        print(solution())
