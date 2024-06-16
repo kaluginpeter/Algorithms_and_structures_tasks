@@ -30,3 +30,17 @@
 # 1 <= nums[i] <= 104
 # nums is sorted in ascending order.
 # 1 <= n <= 231 - 1
+# Solution One Pass Greedy O(N) O(1)
+class Solution:
+    def minPatches(self, nums: List[int], n: int) -> int:
+        added: int = 0
+        index: int = 0
+        missing: int = 1
+        while missing <= n:
+            if index < len(nums) and nums[index] <= missing:
+                missing += nums[index]
+                index += 1
+            else:
+                missing += missing
+                added += 1
+        return added
