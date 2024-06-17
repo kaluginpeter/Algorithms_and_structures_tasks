@@ -18,3 +18,17 @@
 #  25  -->  [ [0, 5], [3, 4] ]
 # 325  -->  [ [1, 18], [6, 17], [10, 15] ]
 # MATHEMATICSALGORITHMS
+# Solution
+def all_squared_pairs(n):
+    left, right = 0, int(n**.5) + 1
+    ans: list[int] = []
+    while left <= right:
+        sm: int = left**2 + right**2
+        if sm == n:
+            ans.append([left, right])
+            left += 1
+        elif sm > n:
+            right -= 1
+        else:
+            left += 1
+    return ans
