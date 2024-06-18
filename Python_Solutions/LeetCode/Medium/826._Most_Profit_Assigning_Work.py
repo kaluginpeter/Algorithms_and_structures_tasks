@@ -27,3 +27,27 @@
 # m == worker.length
 # 1 <= n, m <= 104
 # 1 <= difficulty[i], profit[i], worker[i] <= 105
+# Complexity
+# Time complexity: O(NlogN + MlogM)
+#
+# Space complexity: O(M)
+# Where N is lenght of workers and M is length of jobs
+#
+# Code
+from heapq import heappush, heappop
+class Solution:
+    def maxProfitAssignment(self, difficulty: List[int], profit: List[int], worker: List[int]) -> int:
+        jobs: list[tuple[int, int]] = []
+        worker.sort()
+        for idx in range(len(profit)):
+            heappush(jobs, (difficulty[idx], profit[idx]))
+        total_profit: int = 0
+        most_payment_job = heappop(jobs)
+        for work in worker:
+            while jobs and work >= jobs[0][0]:
+                new_job = heappop(jobs)
+                if new_job[1] >= most_payment_job[1]:
+                    most_payment_job = new_job
+            if work >= most_payment_job[0]:
+                total_profit += most_payment_job[1]
+        return total_profit
