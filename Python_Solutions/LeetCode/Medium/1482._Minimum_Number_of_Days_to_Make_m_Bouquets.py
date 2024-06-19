@@ -41,3 +41,38 @@
 # 1 <= bloomDay[i] <= 109
 # 1 <= m <= 106
 # 1 <= k <= n
+# Solution Binary Search O(NlogN) O(1)
+class Solution:
+    def check(
+            self, current_day: int, upper_boundary: int,
+            needed_flowers_for_bouquet: int,
+            needed_bouquets: int, days: list[int]
+    ) -> bool:
+        length_of_bouquet, count_bouquets = 0, 0
+        current_index: int = 0
+        while current_index < upper_boundary:
+            while current_index < upper_boundary and days[current_index] <= current_day:
+                length_of_bouquet += 1
+                if length_of_bouquet == needed_flowers_for_bouquet:
+                    count_bouquets += 1
+                    length_of_bouquet = 0
+                current_index += 1
+            if current_index < upper_boundary and days[current_index] > current_day:
+                length_of_bouquet = 0
+            if count_bouquets >= needed_bouquets:
+                return True
+            current_index += 1
+        return count_bouquets >= needed_bouquets
+
+    def minDays(self, bloomDay: List[int], m: int, k: int) -> int:
+        n: int = len(bloomDay)
+        if m * k > n:
+            return - 1
+        left, right = min(bloomDay), max(bloomDay)
+        while left < right:
+            middle: int = (left + right) >> 1
+            if self.check(middle, n, k, m, bloomDay):
+                right = middle
+            else:
+                left = middle + 1
+        return left
