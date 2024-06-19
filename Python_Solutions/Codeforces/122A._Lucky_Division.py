@@ -30,3 +30,20 @@
 # Note that all lucky numbers are almost lucky as any number is evenly divisible by itself.
 #
 # In the first sample 47 is a lucky number. In the second sample 16 is divisible by 4.
+# Solution O(N) O(1)
+import sys
+
+
+def solution(n: str) -> bool:
+    if all(i in {'4', '7'} for i in n):
+        return True
+    n = int(n)
+    variables: list = [4, 7, 44, 47, 74, 77, 444, 447, 474, 744, 747, 774, 777]
+    if any(n % i == 0 for i in variables):
+        return True
+    return False
+
+
+if __name__ == '__main__':
+    n = sys.stdin.readline().rstrip()
+    sys.stdout.write(['NO', 'YES'][solution(n)])
