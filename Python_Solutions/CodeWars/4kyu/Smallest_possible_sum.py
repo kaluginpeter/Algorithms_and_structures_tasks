@@ -26,3 +26,22 @@
 # There are performance tests consisted of very big numbers and arrays of size at least 30000. Please write an efficient algorithm to prevent timeout.
 #
 # ALGORITHMSMATHEMATICSARRAYS
+# Solution
+from heapq import heappush, heappop, heapify
+def solution(lst):
+    if len(lst) == 1:
+        return lst[0]
+    ans: int = 0
+    ht = dict()
+    for i in lst:
+        ht[i] = ht.get(i, 0) + 1
+    hp = list(-i for i in ht.keys())
+    heapify(hp)
+    while hp:
+        x = -heappop(hp)
+        if hp and x > -hp[0]:
+            next_ = x - -hp[0]
+            ht[next_] = ht.get(next_, 0) + ht[x]
+            del ht[x]
+            heappush(hp, -next_)
+    return sum(k * v for k,v in ht.items())
