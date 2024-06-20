@@ -26,3 +26,33 @@
 # 1 <= position[i] <= 109
 # All integers in position are distinct.
 # 2 <= m <= position.length
+# Solution Binary Search O(NlogN) O(1)
+class Solution:
+    def check(
+        self, array: list[int], target: int,
+        needed: int, upper_boundary: int
+    ):
+        slow, fast = upper_boundary - 1, upper_boundary - 2
+        count_pairs: int = 0
+        while fast >= 0:
+            if array[slow] - array[fast] >= target:
+                count_pairs += 1
+                slow = fast
+            if array[slow] <= target: break # other numbers will be smaller than target, so just break loop
+            fast -= 1
+            if count_pairs >= needed - 1: # case if already have needed count of pairs
+                return True
+        return count_pairs >= needed - 1
+
+    def maxDistance(self, position: List[int], m: int) -> int:
+        position.sort()
+        n: int = len(position)
+        left, right = 1, position[-1] - position[0]
+        while left <= right:
+            middle: int = left + (right - left) // 2
+            result: bool = self.check(position, middle, m, n)
+            if result:
+                left = middle + 1
+            else:
+                right = middle - 1
+        return left - 1
