@@ -28,3 +28,24 @@
 # 1 <= minutes <= n <= 2 * 104
 # 0 <= customers[i] <= 1000
 # grumpy[i] is either 0 or 1.
+# Solution Sliding Window O(N) O(1)
+class Solution:
+    def maxSatisfied(self, customers: List[int], grumpy: List[int], minutes: int) -> int:
+        already_satisfied: int = 0
+        max_subarray_sum: int = 0
+        current_subarray_sum: int = 0
+        length_of_current_subarray: int = 0
+        left: int = 0
+        for right in range(len(customers)):
+            while left <= right and length_of_current_subarray >= minutes:
+                if grumpy[left]: # case when owner is grumpy
+                    current_subarray_sum -= customers[left]
+                left += 1
+                length_of_current_subarray -= 1
+            if grumpy[right]: # case when owner is grumpy
+                current_subarray_sum += customers[right]
+                max_subarray_sum = max(max_subarray_sum, current_subarray_sum)
+            else: # bookstore owner not grumpy
+                already_satisfied += customers[right]
+            length_of_current_subarray += 1
+        return already_satisfied + max_subarray_sum
