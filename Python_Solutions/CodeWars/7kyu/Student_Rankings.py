@@ -23,3 +23,11 @@
 # For an empty list, return the empty list []
 # The list should sort from highest average score to lowest average score i.e. 100 -> 0
 # FUNDAMENTALS
+# Solution
+def post_grades(students):
+    output = []
+    for stud in students:
+        id_, name, score = stud.split('-')
+        score = list(map(float, score[1:].split()))
+        output.append((id_[:-1], sum(score) / len(score)))
+    return sorted(output, key=lambda x: x[1], reverse=True)
