@@ -27,3 +27,11 @@
 # true if the pseudocode will never stop, false otherwise.
 #
 # PUZZLES
+# Solution
+def is_infinite_process(a, b):
+    idx: int = 0
+    while a != b and idx < 101:
+        idx += 1
+        a += 1
+        b -= 1
+    return idx == 101
