@@ -40,3 +40,16 @@
 #
 # 1 <= nums.length <= 105
 # 0 <= nums[i] <= 1
+# Solution Binary Decision Tree O(N) O(1)
+class Solution:
+    def minOperations(self, nums: List[int]) -> int:
+        accumulate: int = 0
+        idx: int = 0
+        count: int = 0
+        while idx < len(nums):
+            nums[idx] = [nums[idx], int(not nums[idx])][accumulate]
+            if nums[idx] == 0:
+                accumulate = not accumulate
+                count += 1
+            idx += 1
+        return count
