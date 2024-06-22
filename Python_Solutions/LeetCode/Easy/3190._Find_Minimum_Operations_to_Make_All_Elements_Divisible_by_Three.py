@@ -29,3 +29,7 @@
 #
 # 1 <= nums.length <= 50
 # 1 <= nums[i] <= 50
+# Solution One Liner O(N) O(1)
+class Solution:
+    def minimumOperations(self, nums: List[int]) -> int:
+        return sum(i % 3 != 0 for i in nums)
