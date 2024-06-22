@@ -30,3 +30,24 @@
 # In the first sample you will have to take 2 coins (you and your twin have sums equal to 6, 0 correspondingly). If you take 1 coin, you get sums 3, 3. If you take 0 coins, you get sums 0, 6. Those variants do not satisfy you as your sum should be strictly more that your twins' sum.
 #
 # In the second sample one coin isn't enough for us, too. You can pick coins with values 1, 2 or 2, 2. In any case, the minimum number of coins equals 2.
+# Solution Sorting Greedy O(NlogN) O(1)
+import sys
+
+
+def solution(n: int) -> str:
+    lst = list(map(int, sys.stdin.readline().rstrip().split()))
+    lst.sort(reverse=True)
+    remaining_sum: int = sum(lst)
+    your_sum: int = 0
+    coin_used: int = 0
+    for coin in lst:
+        coin_used += 1
+        your_sum += coin
+        remaining_sum -= coin
+        if your_sum > remaining_sum:
+            return str(coin_used)
+
+
+if __name__ == '__main__':
+    n: int = int(sys.stdin.readline().rstrip())
+    sys.stdout.write(solution(n))
