@@ -38,3 +38,14 @@
 #
 # 3 <= nums.length <= 105
 # 0 <= nums[i] <= 1
+# Solution Straight Forward O(N) O(1)
+class Solution:
+    def minOperations(self, nums: List[int]) -> int:
+        idx: int = 0
+        count: int = 0
+        while idx < len(nums) - 2:
+            if nums[idx] == 0:
+                count += 1
+                nums[idx], nums[idx + 1], nums[idx + 2] = 1, int(not nums[idx + 1]), int(not nums[idx + 2])
+            idx += 1
+        return [-1, count][nums[-2] == nums[-1] == 1]
