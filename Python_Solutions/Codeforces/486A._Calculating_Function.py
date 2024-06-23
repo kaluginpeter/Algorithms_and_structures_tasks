@@ -28,3 +28,16 @@
 # f(4) =  - 1 + 2 - 3 + 4 = 2
 #
 # f(5) =  - 1 + 2 - 3 + 4 - 5 =  - 3
+# Solution Math O(1) O(1)
+import sys
+
+def solution(n: int) -> str:
+    answer: int = 0
+    negative: int = ((n + 1) // 2) * (1 + (n if n & 1 else n - 1)) // 2
+    positive: int = (n // 2) * (2 + (n if not n & 1 else n - 1)) // 2
+    answer = positive - negative
+    return str(answer)
+
+if __name__ == '__main__':
+    n: int = int(sys.stdin.readline().rstrip())
+    sys.stdout.write(solution(n))
