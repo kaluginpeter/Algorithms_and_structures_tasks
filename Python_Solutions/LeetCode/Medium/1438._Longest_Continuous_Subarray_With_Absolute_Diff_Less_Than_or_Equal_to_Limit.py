@@ -34,3 +34,49 @@
 # 1 <= nums.length <= 105
 # 1 <= nums[i] <= 109
 # 0 <= limit <= 109
+# Solution Monotonic Queue O(N) O(N)
+from collections import deque
+class Solution:
+    def longestSubarray(self, nums: List[int], limit: int) -> int:
+        minimum_item = deque()
+        maximum_item = deque()
+        left_pointer: int = 0
+        max_length_of_subarray: int = 0
+        for right_pointer in range(len(nums)):
+            while minimum_item and nums[right_pointer] < minimum_item[-1]:
+                minimum_item.pop()
+            minimum_item.append(nums[right_pointer])
+            while maximum_item and nums[right_pointer] > maximum_item[-1]:
+                maximum_item.pop()
+            maximum_item.append(nums[right_pointer])
+            while maximum_item[0] - minimum_item[0] > limit:
+                if nums[left_pointer] == minimum_item[0]:
+                    minimum_item.popleft()
+                if nums[left_pointer] == maximum_item[0]:
+                    maximum_item.popleft()
+                left_pointer += 1
+            max_length_of_subarray = max(max_length_of_subarray, right_pointer - left_pointer + 1)
+        return max_length_of_subarray
+# Solution Monotonic Queue with more native logic O(N) O(N)
+from collections import deque
+class Solution:
+    def longestSubarray(self, nums: List[int], limit: int) -> int:
+        minimum_item = deque()
+        maximum_item = deque()
+        left_pointer: int = 0
+        max_length_of_subarray: int = 0
+        for right_pointer in range(len(nums)):
+            while minimum_item and nums[right_pointer] < nums[minimum_item[-1]]:
+                minimum_item.pop()
+            minimum_item.append(right_pointer)
+            while maximum_item and nums[right_pointer] > nums[maximum_item[-1]]:
+                maximum_item.pop()
+            maximum_item.append(right_pointer)
+            while minimum_item and maximum_item and nums[maximum_item[0]] - nums[minimum_item[0]] > limit:
+                if left_pointer >= minimum_item[0]:
+                    minimum_item.popleft()
+                if left_pointer >= maximum_item[0]:
+                    maximum_item.popleft()
+                left_pointer += 1
+            max_length_of_subarray = max(max_length_of_subarray, right_pointer - left_pointer + 1)
+        return max_length_of_subarray
