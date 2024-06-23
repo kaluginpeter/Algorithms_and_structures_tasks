@@ -21,3 +21,19 @@
 # tunnel_digging(['  ', '{ ', '[ ', '[)', '[}']) # returns 190
 # tunnel_digging(['{ ', ' }', '[}', ': ', '[ ', ':|']) # returns 230
 # FUNDAMENTALS
+# Solution
+def tunnel_digging(r):
+    ht: dict[str, int] = {
+        '[': 30, ']': 30, '{': 25, '}': 25,
+        '(': 20, ')': 20, '|': 15, ':': 10,
+        ' ': 0,
+    }
+    total: int = 0
+    moves: int = 0
+    for move in r:
+        for char in move:
+            total += ht.get(char)
+        moves += 1
+        if moves % 3 == 0:
+            total += 30
+    return total
