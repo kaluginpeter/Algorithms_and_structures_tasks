@@ -35,3 +35,17 @@
 # 1 <= grid.length, grid[i].length <= 1000
 # grid[i][j] is either 0 or 1.
 # The input is generated such that there is at least one 1 in grid.
+# Solution O(NM) O(1)
+class Solution:
+    def minimumArea(self, grid: List[List[int]]) -> int:
+        up = left = float('inf')
+        down = right = float('-inf')
+        for row in range(len(grid)):
+            for col in range(len(grid[0])):
+                if grid[row][col]:
+                    up = min(up, row)
+                    down = max(down, row)
+                    right = max(right, col)
+                    left = min(left, col)
+        area: int = (right - left + 1) * (down - up + 1)
+        return area
