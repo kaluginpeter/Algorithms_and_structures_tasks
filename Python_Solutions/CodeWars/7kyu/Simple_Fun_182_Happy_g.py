@@ -16,3 +16,15 @@
 # true if all "g"s are happy, false otherwise.
 #
 # PUZZLESSTRINGSREGULAR EXPRESSIONS
+# Solution
+def happy_g(st):
+    idx: int = 0
+    while idx < len(st):
+        if st[idx] == 'g':
+            if idx > 0 and st[idx - 1] == 'g': idx += 1
+            elif idx + 1 == len(st): return False
+            elif st[idx + 1] != 'g': return False
+            else: idx += 1
+        else:
+            idx += 1
+    return True
