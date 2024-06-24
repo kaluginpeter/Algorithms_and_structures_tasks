@@ -24,3 +24,17 @@
 # 6
 # Note
 # In the first sample Volodya's sequence will look like this: {1, 3, 5, 7, 9, 2, 4, 6, 8, 10}. The third place in the sequence is therefore occupied by the number 5.
+# Solution Math O(1) O(1)
+import sys
+
+def solution(n: int, k: int) -> str:
+    odd = (n + 1) // 2
+    even = n // 2
+    if k <= odd:
+        return str(1 + (k - 1)*2)
+    k -= odd
+    return str(2 + (k - 1) * 2)
+
+if __name__ == '__main__':
+    n, k = map(int, sys.stdin.readline().rstrip().split())
+    sys.stdout.write(solution(n, k))
