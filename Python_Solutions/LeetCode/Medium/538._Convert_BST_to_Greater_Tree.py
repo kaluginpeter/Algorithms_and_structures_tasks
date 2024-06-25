@@ -27,3 +27,21 @@
 #
 #
 # Note: This question is the same as 1038: https://leetcode.com/problems/binary-search-tree-to-greater-sum-tree/
+# Solution Depth First Search O(N) O(logN)
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def convertBST(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        self.accumulate: int = 0
+        def dfs(root):
+            if not root: return
+            dfs(root.right)
+            self.accumulate += root.val
+            root.val = self.accumulate
+            dfs(root.left)
+        dfs(root)
+        return root
