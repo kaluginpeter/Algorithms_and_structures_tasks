@@ -40,3 +40,13 @@
 # 01100
 # outputCopy
 # 00010
+# Solution O(N) O(1)
+import sys
+
+def solution(x: str, y: str) -> str:
+    return ''.join(['0', '1'][xi != yi] for xi, yi in zip(x, y))
+
+if __name__ == '__main__':
+    x: str = sys.stdin.readline().rstrip()
+    y: str = sys.stdin.readline().rstrip()
+    sys.stdout.write(solution(x, y))
