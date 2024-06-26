@@ -26,3 +26,17 @@
 # Matrix with the order of elements on its longest diagonals reversed.
 #
 # PUZZLES
+# Solution
+def reverse_on_diagonals(matrix):
+    idx: int = 0
+    middle: int = len(matrix) // 2
+    for row in range(len(matrix)):
+        if idx == middle: break
+        matrix[idx][idx], matrix[-idx - 1][-idx - 1] = matrix[-idx - 1][-idx - 1], matrix[idx][idx]
+        idx += 1
+    idx = 0
+    for row in range(len(matrix)):
+        if idx == middle: break
+        matrix[idx][-idx - 1], matrix[-idx - 1][idx] = matrix[-idx - 1][idx], matrix[idx][-idx - 1]
+        idx += 1
+    return matrix
