@@ -98,3 +98,24 @@
 # 4
 #  : 5
 # In this scenario, there was no time when the score was equal, so the answer is YES.
+# Solution O(1) O(1)
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        x, y = map(int, sys.stdin.readline().rstrip().split())
+        xn, yn = map(int, sys.stdin.readline().rstrip().split())
+        if x == y and xn != yn:
+            print('YES')
+        elif x > y and xn > yn:
+            print('YES')
+        elif y > x and yn > xn:
+            print('YES')
+        else:
+            print('NO')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
