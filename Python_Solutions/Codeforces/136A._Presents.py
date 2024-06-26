@@ -31,3 +31,16 @@
 # 1 2
 # outputCopy
 # 1 2
+# Solution O(N) O(N)
+import sys
+
+def solution(n: int, friends: list) -> str:
+    output: list = [0] * n
+    for idx in range(n):
+        output[friends[idx] - 1] = str(idx + 1)
+    return ' '.join(output)
+
+if __name__ == '__main__':
+    n: int = int(sys.stdin.readline().rstrip())
+    friends: list = list(map(int, sys.stdin.readline().rstrip().split()))
+    sys.stdout.write(solution(n, friends))
