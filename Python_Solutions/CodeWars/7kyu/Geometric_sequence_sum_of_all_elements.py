@@ -35,3 +35,12 @@
 # More info: https://en.wikipedia.org/wiki/Geometric_progression
 #
 # FUNDAMENTALS
+# Solution
+def geometric_sequence_sum(a, r, n):
+    x: int = a
+    total: int = x
+    n -= 1
+    for i in range(n):
+        x *= r
+        total += x
+    return total
