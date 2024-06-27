@@ -24,3 +24,44 @@
 # 1 <= ui, vi <= n
 # ui != vi
 # The given edges represent a valid star graph.
+# HashSet, works only in valid start graph
+# Complexity
+# Time complexity: O(N), but in the real definition of start graph it will take O(1), because we only need one iteration to check start graph
+# Space complexity: O(N)
+# Code
+class Solution:
+    def findCenter(self, edges: List[List[int]]) -> int:
+        ways: set[int] = set()
+        for path in edges:
+            start, end = path
+            if start in ways: return start
+            if end in ways: return end
+            ways.add(start)
+            ways.add(end)
+
+# HashMap, works on every star graph(also in invalid star graph)
+# Complexity
+# Time complexity: O(N)
+# Space complexity: O(N)
+# Code
+from collections import defaultdict
+class Solution:
+    def findCenter(self, edges: List[List[int]]) -> int:
+        ways: dict[int, int] = defaultdict(int)
+        n: int = len(edges)
+        for path in edges:
+            start, end = path
+            ways[start] += 1
+            ways[end] += 1
+        for vertex in ways:
+            if ways[vertex] == n:
+                return vertex
+
+# Tricky hack, but works only in valid star graph
+# Complexity
+# Time complexity: O(1)
+# Space complexity: O(1)
+# Code
+class Solution:
+    def findCenter(self, edges: List[List[int]]) -> int:
+        return edges[0][0] if edges[0][0] in edges[1] else edges[0][1]
