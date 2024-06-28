@@ -24,3 +24,12 @@
 # 7 7 7 7
 # outputCopy
 # 3
+# Solution O(N) O(N)
+import sys
+
+def solution(shoes: list) -> str:
+    return str(max(4 - len(set(shoes)), 0))
+
+if __name__ == '__main__':
+    shoes: list = list(map(int, sys.stdin.readline().rstrip().split()))
+    sys.stdout.write(solution(shoes))
