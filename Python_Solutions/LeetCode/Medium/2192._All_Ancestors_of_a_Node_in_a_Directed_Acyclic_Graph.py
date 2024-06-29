@@ -44,3 +44,58 @@
 # fromi != toi
 # There are no duplicate edges.
 # The graph is directed and acyclic.
+# Solutions
+
+# Brute force with Breadth First Search
+# Complexity
+# Time complexity: O(N**3)
+# Space complexity: O(N**2)
+# Code
+from collections import defaultdict
+class Solution:
+    def getAncestors(self, n: int, edges: List[List[int]]) -> List[List[int]]:
+        vertexes: list[list[int]] = [set() for _ in range(n)]
+        vertex_edges: dict[int, list[int]] = defaultdict(list)
+        for path in edges:
+            start_vertex, end_vertex = path
+            vertex_edges[end_vertex].append(start_vertex)
+
+        for vertex in range(n):
+            current_edges = vertex_edges[vertex].copy()
+            while current_edges:
+                current_edge = current_edges.pop(0)
+                if current_edge not in vertexes[vertex]:
+                    vertexes[vertex].add(current_edge)
+                    current_edges.extend(vertex_edges[current_edge])
+
+        return [sorted(edges) for edges in vertexes]
+
+# Depth First Search with Memoization
+# Complexity
+# Time complexity: O(N**2)
+# Space complexity: O(N**2)
+# Code
+from collections import defaultdict
+class Solution:
+    def getAncestors(self, n: int, edges: List[List[int]]) -> List[List[int]]:
+        vertex_edges: dict[int, list[int]] = defaultdict(list)
+        for path in edges:
+            start_vertex, end_vertex = path
+            vertex_edges[end_vertex].append(start_vertex)
+
+        memo: dict[int, set[int]] = {}
+        def dfs(vertex):
+            if vertex in memo:
+                return memo[vertex]
+            ancestors: set[int] = set()
+            for current_ancestor in vertex_edges[vertex]:
+                ancestors.add(current_ancestor)
+                ancestors.update(dfs(current_ancestor))
+            memo[vertex] = ancestors
+            return ancestors
+
+        vertex_ancestors: list[list[int]] = []
+        for vertex in range(n):
+            vertex_ancestors.append(sorted(dfs(vertex)))
+
+        return vertex_ancestors
