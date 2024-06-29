@@ -32,3 +32,12 @@
 # In the first case the program contains only one instruction — "H", which prints "Hello, World!".
 #
 # In the second case none of the program characters are language instructions.
+# Solution O(N) O(1)
+import sys
+
+def solution(n: str) -> str:
+    return ['NO', 'YES'][any(char in 'HQ9' for char in n)]
+
+if __name__ == '__main__':
+    n: str = sys.stdin.readline().rstrip()
+    sys.stdout.write(solution(n))
