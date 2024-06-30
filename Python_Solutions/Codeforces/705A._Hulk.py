@@ -30,3 +30,13 @@
 # 3
 # outputCopy
 # I hate that I love that I hate it
+# Solution O(N) O(N)
+import sys
+
+def solution(n: int) -> str:
+    words: list = [['I love', 'I hate'][i & 1] for i in range(1, n + 1)]
+    return ' that '.join(words) + ' it'
+
+if __name__ == '__main__':
+    n: int = int(sys.stdin.readline().rstrip())
+    sys.stdout.write(solution(n))
