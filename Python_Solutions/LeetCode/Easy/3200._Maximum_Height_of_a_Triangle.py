@@ -51,3 +51,30 @@
 # Constraints:
 #
 # 1 <= red, blue <= 100
+# Solution O(N) O(1)
+class Solution:
+    def maxHeightOfTriangle(self, red: int, blue: int) -> int:
+        copy_x, copy_y = red, blue
+        layers = [copy_x, copy_y]
+        flag = False
+        accs = [1, 2]
+        count_copy: int = 0
+        while True: # Simulate red, blue positions first
+            if layers[flag] - accs[flag] >= 0:
+                count_copy += 1
+                layers[flag] -= accs[flag]
+                accs[flag] += 2
+                flag = not flag
+            else: break
+        layers = [blue, red]
+        accs = [1, 2]
+        main_total: int = 0
+        flag = False
+        while True: # Simluate blue, red positions second
+            if layers[flag] - accs[flag] >= 0:
+                main_total += 1
+                layers[flag] -= accs[flag]
+                accs[flag] += 2
+                flag = not flag
+            else: break
+        return max(main_total, count_copy) # return maximum of them
