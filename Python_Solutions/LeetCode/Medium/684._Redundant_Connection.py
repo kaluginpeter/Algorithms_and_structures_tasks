@@ -27,3 +27,39 @@
 # ai != bi
 # There are no repeated edges.
 # The given graph is connected.
+# Solution Union Find O(N) O(N)
+class UnionFind:
+    def __init__(self, count_nodes: int) -> None:
+        self.parents: list[int] = list(range(count_nodes + 1))
+        self.ranks: list[int] = [1] * (count_nodes + 1)
+        self.connections: int = count_nodes
+
+    def find(self, node: int) -> int:
+        while node != self.parents[node]:
+            node = self.parents[node]
+            self.parents[node] = self.parents[self.parents[node]]
+        return self.parents[node]
+
+    def union(self, node_x: int, node_y: int) -> bool:
+        parent_x, parent_y = self.find(node_x), self.find(node_y)
+        if parent_x == parent_y:
+            return False
+        elif self.ranks[parent_x] > self.ranks[parent_y]:
+            self.ranks[parent_x] += self.ranks[parent_y]
+            self.parents[parent_y] = parent_x
+        else:
+            self.ranks[parent_y] += self.ranks[parent_x]
+            self.parents[parent_x] = parent_y
+        self.connections -= 1
+        return True
+
+    def is_connected(self) -> bool:
+        return self.connections <= 1
+
+
+class Solution:
+    def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
+        disjoints_set = UnionFind(len(edges))
+        for start_vertex, end_vertex in edges:
+            if not disjoints_set.union(start_vertex, end_vertex):
+                return [start_vertex, end_vertex]
