@@ -31,3 +31,15 @@
 # The first example case is shown on the figure. The top cube of the first column falls to the top of the last column; the top cube of the second column falls to the top of the third column; the middle cube of the first column falls to the top of the second column.
 #
 # In the second example case the gravity switch does not change the heights of the columns.
+# Solution O(NlogN) O(1)
+import sys
+
+def solution(n: int, cubes: list) -> str:
+    cubes.sort()
+
+    return ' '.join(str(cube) for cube in cubes)
+
+if __name__ == '__main__':
+    n: int = int(sys.stdin.readline().rstrip())
+    cubes: list = list(map(int, sys.stdin.readline().rstrip().split()))
+    sys.stdout.write(solution(n, cubes))
