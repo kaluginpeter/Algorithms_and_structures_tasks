@@ -25,3 +25,14 @@ class Solution:
                 if c == 3: return True
             else: c = 0
         return False
+
+# Solution Bitwise Manipulation O(N) O(1)
+class Solution:
+    def threeConsecutiveOdds(self, arr: List[int]) -> bool:
+        in_a_row: int = 0
+        for num in arr:
+            if num & 1:
+                in_a_row += 1
+                if in_a_row == 3: return True
+            else: in_a_row = 0
+        return False
