@@ -32,3 +32,16 @@
 # In the first sample, Little X can pass levels [1 2 3], and Little Y can pass level [2 4], so they can pass all the levels both.
 #
 # In the second sample, no one can pass level 4.
+# Solution Set operations O(N) O(N)
+import sys
+
+def solution(n: int, x_n: int, x: list, y_n: int, y: list) -> str:
+    return ['Oh, my keyboard!', 'I become the guy.'][len(set(x) | set(y)) >= n]
+
+if __name__ == '__main__':
+    n: int = int(sys.stdin.readline().rstrip())
+    x: list = list(map(int, sys.stdin.readline().rstrip().split()))
+    x_n: int = x[0]
+    y: list = list(map(int, sys.stdin.readline().rstrip().split()))
+    y_n: int = y[0]
+    sys.stdout.write(solution(n, x_n, x[1:], y_n, y[1:]))
