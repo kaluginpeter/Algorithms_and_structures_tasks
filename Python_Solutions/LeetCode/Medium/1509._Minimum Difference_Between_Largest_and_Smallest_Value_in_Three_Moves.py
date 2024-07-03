@@ -40,3 +40,13 @@
 #
 # 1 <= nums.length <= 105
 # -109 <= nums[i] <= 109
+# Solution Sorting Greedy O(NlogN) O(1)
+class Solution:
+    def minDifference(self, nums: List[int]) -> int:
+        if len(nums) < 5: return 0
+        nums.sort() # Ascending order
+        a: int = nums[-4] - nums[0] # Last with first
+        b: int = nums[-3] - nums[1] # Second last with second first
+        c: int = nums[-2] - nums[2] # Third last with thrid first
+        d: int = nums[-1] - nums[3] # Last with fourth first
+        return min(a, b, c, d)
