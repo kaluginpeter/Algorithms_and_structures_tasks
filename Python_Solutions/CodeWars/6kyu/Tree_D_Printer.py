@@ -13,3 +13,29 @@
 # You may implement whatever method you see fit to search the tree. There are both breadth first and depth first approaches.
 #
 # ALGORITHMS
+# Solution
+# preloaded TreeNode class:
+"""
+class TreeNode:
+    def __init__(self, value, children = None):
+        self.value = value
+        self.children = [] if children is None else children
+"""
+from preloaded import TreeNode
+
+def tree_printer(tree : TreeNode) -> str:
+    current_nodes = []
+    next_nodes = []
+    current_nodes.append(tree)
+    output_array: list[str] = []
+    while current_nodes:
+        local_array: list[str] = []
+        for node in current_nodes:
+            local_array.append(node.value)
+            if node.children is not None:
+                next_nodes.extend(node.children)
+        local_array = ' '.join(str(el) for el in local_array)
+        output_array.append(local_array)
+        current_nodes = next_nodes
+        next_nodes = []
+    return '\n'.join(output_array)
