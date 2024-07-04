@@ -16,3 +16,15 @@
 # Constraints: Lojban number ≤ 1,000,000
 # [output] integer representing the Lojban number 123
 # Source: 2002 British Informatics Olympiad
+# Solution
+def convert_lojban(lojban):
+    dictionary: dict[int, str] = {
+        'no': 0, 'pa': 1, 're': 2,
+        'ci': 3, 'vo': 4, 'mu': 5,
+        'xa': 6, 'ze': 7, 'bi': 8, 'so': 9,
+    }
+    number: int = 0
+    while lojban:
+        number = number * 10 + dictionary.get(lojban[:2])
+        lojban = lojban[2:]
+    return number
