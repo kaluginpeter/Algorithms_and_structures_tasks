@@ -33,7 +33,7 @@
 # 0 <= Node.val <= 1000
 # There are no two consecutive nodes with Node.val == 0.
 # The beginning and end of the linked list have Node.val == 0.
-# Soltuion O(N) O(1)
+# Solution O(N) O(1)
 # Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, val=0, next=None):
@@ -53,4 +53,28 @@ class Solution:
             tmp = tmp.next
         inner_tmp.val = top
         inner_tmp.next = None
+        return head
+
+
+# Solution O(N) O(1)
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def mergeNodes(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        accumulate: int = 0
+        tmp = head
+        local_tmp = tmp.next
+        while local_tmp:
+            while local_tmp and local_tmp.val != 0:
+                accumulate += local_tmp.val
+                local_tmp = local_tmp.next
+            if accumulate:
+                tmp.val = accumulate
+                tmp.next = local_tmp if local_tmp.next else None
+                accumulate = 0
+                tmp = tmp.next
+            local_tmp = local_tmp.next
         return head
