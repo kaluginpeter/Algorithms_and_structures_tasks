@@ -44,3 +44,27 @@
 #
 # The number of nodes in the list is in the range [2, 105].
 # 1 <= Node.val <= 105
+# Solution LinkedList Greedy O(N) O(N)
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def nodesBetweenCriticalPoints(self, head: Optional[ListNode]) -> List[int]:
+        distances: list[int] = []
+        tmp = head
+        idx: int = 1
+        while tmp:
+            if tmp.next and tmp.next.next:
+                left, middle, right = tmp, tmp.next, tmp.next.next
+                if middle.val < left.val and middle.val < right.val:
+                    distances.append(idx + 1)
+                elif middle.val > left.val and middle.val > right.val:
+                    distances.append(idx + 1)
+            idx += 1
+            tmp = tmp.next
+        if len(distances) < 2: return [-1, -1]
+        max_distance: int = distances[-1] - distances[0]
+        min_distance: int = min(y - x for x, y in zip(distances, distances[1::]))
+        return [min_distance, max_distance]
