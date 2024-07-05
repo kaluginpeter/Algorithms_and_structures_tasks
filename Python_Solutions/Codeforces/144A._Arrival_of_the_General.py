@@ -44,3 +44,24 @@
 # (10, 76, 58, 31, 63, 10, 40)
 # (76, 10, 58, 31, 63, 10, 40)
 # (76, 10, 58, 31, 63, 40, 10)
+# Solution Math O(N) O(1)
+import sys
+
+
+def solution(n: int, soldiers: list) -> str:
+    mx: int = max(soldiers)
+    mn: int = min(soldiers)
+    swaps: int = 0
+    mx_index: int = soldiers.index(mx)
+    mn_index: int = 0
+    for idx in range(n):
+        if soldiers[idx] == mn:
+            mn_index = idx
+    swaps: int = mx_index + (n - 1 - mn_index)
+    return str(swaps if mx_index < mn_index else swaps - 1)
+
+
+if __name__ == '__main__':
+    n: int = int(sys.stdin.readline().rstrip())
+    soldiers: list = list(map(int, sys.stdin.readline().rstrip().split()))
+    sys.stdout.write(solution(n, soldiers))
