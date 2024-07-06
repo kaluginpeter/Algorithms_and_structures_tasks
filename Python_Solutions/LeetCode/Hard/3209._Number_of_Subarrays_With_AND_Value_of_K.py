@@ -40,3 +40,19 @@
 #
 # 1 <= nums.length <= 105
 # 0 <= nums[i], k <= 109
+# Solution HashMap Bit Manipulation O(2**N) O(2**N)
+from collections import defaultdict
+class Solution:
+    def countSubarrays(self, nums: List[int], k: int) -> int:
+        n: int = len(nums)
+        count: int = 0
+        current_subs: dict[int, int] = defaultdict(int)
+        for num in nums:
+            new_subs = defaultdict(int)
+            for sub in current_subs:
+                new_sub = sub & num
+                new_subs[new_sub] += current_subs[sub]
+            new_subs[num] += 1
+            current_subs = new_subs
+            count += current_subs[k]
+        return count
