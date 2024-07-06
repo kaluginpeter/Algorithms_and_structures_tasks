@@ -34,3 +34,19 @@
 # 3
 # outputCopy
 # 60
+# Solution Math Brute Force O(1) O(1)
+import sys
+
+
+def solution(a: int, b: int, c: int) -> str:
+    return str(max(
+        a * b * c, (a + b) * c, a * (b + c),
+        a * (b * c), a + b + c
+    ))
+
+
+if __name__ == '__main__':
+    a: int = int(sys.stdin.readline().rstrip())
+    b: int = int(sys.stdin.readline().rstrip())
+    c: int = int(sys.stdin.readline().rstrip())
+    sys.stdout.write(solution(a, b, c))
