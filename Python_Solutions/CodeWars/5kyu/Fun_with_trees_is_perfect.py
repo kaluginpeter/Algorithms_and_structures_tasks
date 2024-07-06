@@ -12,3 +12,26 @@
 # Fun with trees: array to tree
 # Fun with trees: is perfect
 # TREESRECURSIONBINARY TREESBINARY SEARCH TREESDATA STRUCTURESALGORITHMS
+# Solution BFS(Breadth-First-Search) Math O(N) O(M) where M is length of layer nodes
+from preloaded import TreeNode
+# preloaded TreeNode class:
+"""
+class TreeNode:
+    def __init__(self, value, left = None, right = None):
+        self.value = value
+        self.left  = left
+        self.right = right
+"""
+def is_perfect(tree : TreeNode) -> bool:
+    current_nodes = [tree]
+    next_nodes = []
+    while current_nodes:
+        count_parent_nodes: int = len(current_nodes)
+        for parent_node in current_nodes:
+            if parent_node is None: continue
+            if parent_node.left is not None: next_nodes.append(parent_node.left)
+            if parent_node.right is not None: next_nodes.append(parent_node.right)
+        if count_parent_nodes * 2 != len(next_nodes) and next_nodes: return False
+        current_nodes = next_nodes
+        next_nodes = []
+    return True
