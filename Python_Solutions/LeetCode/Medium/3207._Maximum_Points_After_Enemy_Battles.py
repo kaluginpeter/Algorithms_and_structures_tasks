@@ -48,3 +48,38 @@
 # 1 <= enemyEnergies.length <= 105
 # 1 <= enemyEnergies[i] <= 109
 # 0 <= currentEnergy <= 109
+
+# Solution Greedy Sorting O(NlogN) O(1)
+# General idea
+# For solving this problem "greedy" approach will enough.
+#
+# Firstly - sorting array in ascending order
+# Until array is not empty, at each iteration we have 3 conditions in decision tree:
+# If first(smallest) element small or equal than our energy - choose them. Increase point by whole part of energy that can be wasted on this element. Current energy value will be equal remainder of dividing by module (currentEnergy by module cost_energy_element)
+# If we have at least 1 point - just choose last(biggest) element. Increase current energy and pop element form array
+# If we don't have enough point to choose element - we just should break loop
+# Return collected points
+# Complexity
+# Time complexity: O(NlogN)
+# Space complexity: O(1)
+# Code
+class Solution:
+    def maximumPoints(self, enemyEnergies: List[int], currentEnergy: int) -> int:
+        enemyEnergies.sort()
+        points: int = 0
+        while enemyEnergies:
+            if currentEnergy >= enemyEnergies[0]:
+                points += currentEnergy // enemyEnergies[0]
+                currentEnergy %= enemyEnergies[0]
+            elif points > 0:
+                currentEnergy += enemyEnergies.pop()
+            else: break
+        return points
+    
+# Solution Greedy O(N) O(1)
+class Solution:
+    def maximumPoints(self, enemyEnergies: List[int], currentEnergy: int) -> int:
+        minimum_value: int = min(enemyEnergies)
+        total_possible_energy: int = currentEnergy + sum(enemyEnergies) - minimum_value
+        if currentEnergy < minimum_value: return 0
+        return total_possible_energy // minimum_value
