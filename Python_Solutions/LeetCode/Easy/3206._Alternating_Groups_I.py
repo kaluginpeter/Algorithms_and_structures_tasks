@@ -40,3 +40,13 @@
 #
 # 3 <= colors.length <= 100
 # 0 <= colors[i] <= 1
+# Solution Brute Force O(N) O(1)
+class Solution:
+    def numberOfAlternatingGroups(self, colors: List[int]) -> int:
+        groups: int = 0
+        if colors[-1] == colors[1] != colors[0]: groups += 1
+        if colors[-2] == colors[0] != colors[-1]: groups += 1
+        for idx in range(len(colors) - 2):
+            if colors[idx] == colors[idx + 2] != colors[idx + 1]:
+                groups += 1
+        return groups
