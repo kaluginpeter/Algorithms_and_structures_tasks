@@ -20,3 +20,25 @@
 # Should result in ["A", "C", "B", "D", "E", "F", "G"]
 #
 # BINARY TREESTREESRECURSIONALGORITHMS
+# Solution BFS O(N) O(N)
+from preloaded import Node
+
+def serpentine_traversal(root_node : Node) -> list:
+    reverse: bool = False
+    current_nodes: list[Node] = [root_node]
+    next_nodes: list[Node] = []
+    output: list[Node] = []
+    while current_nodes:
+        for node in current_nodes[::-1]:
+            if node is None: continue
+            output.append(node.data)
+            if reverse is False:
+                if node.left is not None: next_nodes.append(node.left)
+                if node.right is not None: next_nodes.append(node.right)
+            else:
+                if node.right is not None: next_nodes.append(node.right)
+                if node.left is not None: next_nodes.append(node.left)
+        reverse = not reverse
+        current_nodes = next_nodes
+        next_nodes = []
+    return output
