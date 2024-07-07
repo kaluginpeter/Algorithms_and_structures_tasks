@@ -26,3 +26,13 @@
 #
 # 1 <= numBottles <= 100
 # 2 <= numExchange <= 100
+# Solution Math Simulation O(log(N)) O(1)
+class Solution:
+    def numWaterBottles(self, numBottles: int, numExchange: int) -> int:
+        bottles: int = numBottles
+        empty_bottles: int = numBottles
+        while empty_bottles >= numExchange:
+            can_get: int = empty_bottles // numExchange
+            bottles += can_get
+            empty_bottles = empty_bottles % numExchange + can_get
+        return bottles
