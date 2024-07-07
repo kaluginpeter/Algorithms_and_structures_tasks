@@ -36,3 +36,21 @@
 # In the first case every first dragon got punched with a frying pan. Some of the dragons suffered from other reasons as well, but the pan alone would be enough.
 #
 # In the second case dragons 1, 7, 11, 13, 17, 19 and 23 escaped unharmed.
+# Solution O(N) O(1) Math Simulation
+import sys
+
+def solution(k: int, l: int, m: int, n: int, d: int) -> str:
+    suffered: int = 0
+    punishments: list = [k, l, m, n]
+    for dragon in range(1, d + 1):
+        if any(dragon % punishment == 0 for punishment in punishments):
+            suffered += 1
+    return str(suffered)
+
+if __name__ == '__main__':
+    k: int = int(sys.stdin.readline().rstrip())
+    l: int = int(sys.stdin.readline().rstrip())
+    m: int = int(sys.stdin.readline().rstrip())
+    n: int = int(sys.stdin.readline().rstrip())
+    d: int = int(sys.stdin.readline().rstrip())
+    sys.stdout.write(solution(k, l, m, n, d))
