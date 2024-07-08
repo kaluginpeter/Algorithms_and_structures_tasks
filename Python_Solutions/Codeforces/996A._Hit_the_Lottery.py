@@ -46,3 +46,24 @@
 # In the third sample case, Allen can withdraw 100000000
 #  (ten million!) 100
 #  dollar bills.
+# Solution Math O(1) O(1)
+import sys
+
+
+def solution(n: int) -> str:
+    total_bills: int = 0
+    total_bills += n // 100
+    n %= 100
+    total_bills += n // 20
+    n %= 20
+    total_bills += n // 10
+    n %= 10
+    total_bills += n // 5
+    n %= 5
+    total_bills += n
+    return str(total_bills)
+
+
+if __name__ == '__main__':
+    n: int = int(sys.stdin.readline().rstrip())
+    sys.stdout.write(solution(n))
