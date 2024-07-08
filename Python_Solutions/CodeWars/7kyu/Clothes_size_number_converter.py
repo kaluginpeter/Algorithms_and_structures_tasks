@@ -27,3 +27,12 @@
 # xl: 42
 #
 # STRINGSFUNDAMENTALS
+# Solution
+def size_to_number(size):
+    if len(size) == 1:
+        return 38 if size == 'm' else 36 if size == 's' else 40 if size == 'l' else None
+    if len(set(size)) == 2 and 'x' in size and ('s' in size or 'l' in size):
+        if 'l' in size and size.index('l') < size.index('x'): return
+        if 's' in size and size.index('s') < size.index('x'): return
+        acc: int = size.count('x') * 2
+        return 36 - acc if 's' in size else 40 + acc
