@@ -34,3 +34,14 @@
 # 1 <= customers.length <= 105
 # 1 <= arrivali, timei <= 104
 # arrivali <= arrivali+1
+# Solution Counting Greedy O(N) O(1)
+class Solution:
+    def averageWaitingTime(self, customers: List[List[int]]) -> float:
+        average: int = 0
+        current_time: int = 0
+        for customer in customers:
+            current_time = max(customer[0], current_time) + customer[1]
+            average += current_time - customer[0]
+        return average / len(customers)
+# Where customer[0] - arrival time for customer
+# And customer[1] - cooking time for customer
