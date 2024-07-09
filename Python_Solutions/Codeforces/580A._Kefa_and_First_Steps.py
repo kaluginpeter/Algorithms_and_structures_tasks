@@ -30,3 +30,26 @@
 # In the first test the maximum non-decreasing subsegment is the numbers from the third to the fifth one.
 #
 # In the second test the maximum non-decreasing subsegment is the numbers from the first to the third one.
+# Solution Greedy O(N) O(1)
+import sys
+
+
+def solution(n: int, arr: list) -> str:
+    start_index: int = 0
+    mx_sequence: int = float('-inf')
+    mx_item: int = float('-inf')
+    for idx in range(n):
+        if arr[idx] < mx_item:
+            mx_sequence = max(mx_sequence, idx - start_index)
+            start_index = idx
+            mx_item = arr[idx]
+        elif arr[idx] > mx_item:
+            mx_item = arr[idx]
+    mx_sequence = max(mx_sequence, n - start_index)
+    return str(mx_sequence)
+
+
+if __name__ == '__main__':
+    n: int = int(sys.stdin.readline().rstrip())
+    arr: list = list(map(int, sys.stdin.readline().rstrip().split()))
+    sys.stdout.write(solution(n, arr))
