@@ -29,3 +29,27 @@
 #
 # The number of nodes in the tree is in the range [1, 1000].
 # 0 <= Node.val <= 1000
+# Solution DFS O(N) O(N)
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    correct_nodes: int = 0
+
+    def dfs(self, root):
+        if root is None: return 0, 0
+        left_nodes, left_sum_nodes = self.dfs(root.left)
+        right_nodes, right_sum_nodes = self.dfs(root.right)
+        current_nodes_count: int = 1 + left_nodes + right_nodes
+        current_sum_nodes: int = root.val + left_sum_nodes + right_sum_nodes
+        average: int = current_sum_nodes // current_nodes_count
+        if root.val == average: self.correct_nodes += 1
+        return current_nodes_count, current_sum_nodes
+
+    def averageOfSubtree(self, root: TreeNode) -> int:
+        self.dfs(root)
+        return self.correct_nodes
