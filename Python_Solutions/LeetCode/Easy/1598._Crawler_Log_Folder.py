@@ -39,3 +39,48 @@
 # logs[i] contains lowercase English letters, digits, '.', and '/'.
 # logs[i] follows the format described in the statement.
 # Folder names consist of lowercase English letters and digits.
+# Solution
+
+# Linked List (Stack LIFO representation)
+# Complexity
+# Time complexity: O(N)
+# Space complexity: O(N)
+# Code
+from collections import deque
+class Solution:
+    def minOperations(self, logs: List[str]) -> int:
+        file_storage = deque()
+        for log in logs:
+            if log == '../':
+                if file_storage: file_storage.pop()
+            elif log != './':
+                file_storage.append(log)
+        return len(file_storage)
+
+# Recursive
+# Note:
+# Solution uses Tail Recursion Optimization(TRO),
+# but Python interpretator can't define cases were need to optimize TRO cases.
+# Complexity
+# Time complexity: O(N)
+# Space complexity: O(N)
+# Code
+class Solution:
+    def minOperations(self, logs: List[str], idx: int = 0, depth: int = 0) -> int:
+        if idx == len(logs): return depth
+        if logs[idx] == '../':
+            return self.minOperations(logs, idx + 1, max(depth - 1, 0))
+        return self.minOperations(logs, idx + 1, depth + (1 if logs[idx] != './' else 0))
+
+# Iterative loop
+# Complexity
+# Time complexity: O(N)
+# Space complexity: O(1)
+# Code
+class Solution:
+    def minOperations(self, logs: List[str], idx: int = 0, depth: int = 0) -> int:
+        depth: int = 0
+        for log in logs:
+            if log == '../': depth = max(depth - 1, 0)
+            elif log != './': depth += 1
+        return depth
