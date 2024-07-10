@@ -14,3 +14,15 @@
 # Be aware you'll face lists with several thousands of elements, so think about performance.
 #
 # ALGORITHMS
+# Solution
+def max_profit(prices):
+    profit: int = float('-inf')
+    local_min: int = float('inf')
+    for price in prices:
+        if price < local_min:
+            if local_min != float('inf'):
+                profit = max(profit, price - local_min)
+            local_min = price
+        else:
+            profit = max(profit, price - local_min)
+    return profit if profit != float('-inf') else -1
