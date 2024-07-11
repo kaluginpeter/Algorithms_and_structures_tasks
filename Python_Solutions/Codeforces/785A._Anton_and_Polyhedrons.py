@@ -46,3 +46,22 @@
 # 28
 # Note
 # In the first sample Anton has one icosahedron, one cube, one tetrahedron and one dodecahedron. Icosahedron has 20 faces, cube has 6 faces, tetrahedron has 4 faces and dodecahedron has 12 faces. In total, they have 20 + 6 + 4 + 12 = 42 faces.
+# Solution HashMap O(N) O(1)
+import sys
+
+
+def solution(n: int) -> str:
+    total_hedrons: int = 0
+    hedrons: dict = {
+        'Tetrahedron': 4, 'Cube': 6, 'Octahedron': 8,
+        'Dodecahedron': 12, 'Icosahedron': 20
+    }
+    for _ in range(n):
+        polyhedron: str = sys.stdin.readline().rstrip()
+        total_hedrons += hedrons[polyhedron]
+    return str(total_hedrons)
+
+
+if __name__ == '__main__':
+    n: int = int(sys.stdin.readline().rstrip())
+    sys.stdout.write(solution(n))
