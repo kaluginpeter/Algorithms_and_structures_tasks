@@ -49,3 +49,31 @@
 # 1 <= garbage[i].length <= 10
 # travel.length == garbage.length - 1
 # 1 <= travel[i] <= 100
+# Solution O(N) O(1)
+class Solution:
+    def garbageCollection(self, garbage: List[str], travel: List[int]) -> int:
+        total_time: int = 0
+        metal_track_position: int = 0
+        paper_track_position: int = 0
+        glass_track_position: int = 0
+        for home in range(len(garbage)):
+
+            if 'M' in garbage[home]:
+                if metal_track_position != home:
+                    total_time += sum(travel[metal_track_position:home])
+                    metal_track_position = home
+                total_time += garbage[home].count('M')
+
+            if 'P' in garbage[home]:
+                if paper_track_position != home:
+                    total_time += sum(travel[paper_track_position:home])
+                    paper_track_position = home
+                total_time += garbage[home].count('P')
+
+            if 'G' in garbage[home]:
+                if glass_track_position != home:
+                    total_time += sum(travel[glass_track_position:home])
+                    glass_track_position = home
+                total_time += garbage[home].count('G')
+
+        return total_time
