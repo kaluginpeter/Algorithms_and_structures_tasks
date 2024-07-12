@@ -27,3 +27,17 @@
 #
 # [1,8,4,3,5,7]
 # TREESBINARY TREESPERFORMANCEALGORITHMSSORTING
+# Solution BFS O(N) O(N)
+def tree_by_levels(node):
+    output: list[int] = []
+    current_nodes: list = [node]
+    next_nodes: list = []
+    while current_nodes:
+        for current_node in current_nodes:
+            if current_node is None: continue
+            output.append(current_node.value)
+            if current_node.left is not None: next_nodes.append(current_node.left)
+            if current_node.right is not None: next_nodes.append(current_node.right)
+        current_nodes = next_nodes
+        next_nodes = []
+    return output
