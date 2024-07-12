@@ -30,3 +30,26 @@
 # the fifth group (consisting of three children),
 # the first and the second group (consisting of one and two children, correspondingly).
 # There are other ways to sort the groups into four cars.
+# Solution Sorting, Two Pointers, Greedy O(NlogN) O(1)
+import sys
+
+
+def solution(n: int, groups: list) -> str:
+    groups.sort()
+    taxes: int = 0
+    left_pointer: int = 0
+    right_pointer: int = n - 1
+    while left_pointer <= right_pointer:
+        total_passengers: int = groups[right_pointer]
+        while left_pointer < right_pointer and total_passengers + groups[left_pointer] <= 4:
+            total_passengers += groups[left_pointer]
+            left_pointer += 1
+        right_pointer -= 1
+        taxes += 1
+    return str(taxes)
+
+
+if __name__ == '__main__':
+    n: int = int(sys.stdin.readline().rstrip())
+    groups: list = list(map(int, sys.stdin.readline().rstrip().split()))
+    sys.stdout.write(solution(n, groups))
