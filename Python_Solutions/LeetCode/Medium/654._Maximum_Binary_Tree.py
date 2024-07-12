@@ -34,3 +34,56 @@
 # 1 <= nums.length <= 1000
 # 0 <= nums[i] <= 1000
 # All integers in nums are unique.
+# Solution
+
+# Monotonic Stack
+# Complexity
+# Time complexity: O(N)
+# Space complexity: O(N)
+# Code
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def constructMaximumBinaryTree(self, nums: List[int]) -> Optional[TreeNode]:
+        stack: list[TreeNode] = []
+        for node in nums:
+            tree: TreeNode = TreeNode(node)
+            while stack and stack[-1].val < tree.val:
+                tree.left = stack.pop()
+            if stack:
+                stack[-1].right = tree
+            stack.append(tree)
+        return stack[0]
+
+# DFS
+# Complexity
+# Time complexity: O(N**2)
+# Space complexity: O(N)
+# Code
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def dfs(self, root, left: int, right: int) -> Optional[TreeNode]:
+        if left >= right: return
+
+        max_element, max_element_index = root[left], left
+        for idx in range(left, right):
+            if root[idx] > max_element:
+                max_element, max_element_index = root[idx], idx
+
+        left_subtree = self.dfs(root, left, max_element_index)
+        right_subtree = self.dfs(root, max_element_index + 1, right)
+        head_of_tree = TreeNode(val=max_element, left=left_subtree, right=right_subtree)
+        return head_of_tree
+
+    def constructMaximumBinaryTree(self, nums: List[int]) -> Optional[TreeNode]:
+        tree: TreeNode = self.dfs(nums, 0, len(nums))
+        return tree
