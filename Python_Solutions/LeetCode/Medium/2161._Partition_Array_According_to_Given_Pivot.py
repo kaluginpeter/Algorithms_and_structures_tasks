@@ -31,3 +31,17 @@
 # 1 <= nums.length <= 105
 # -106 <= nums[i] <= 106
 # pivot equals to an element of nums.
+# Solution Partition O(N) O(N)
+class Solution:
+    def pivotArray(self, nums: List[int], pivot: int) -> List[int]:
+        less_than_pivot: list[int] = []
+        equals_to_pivot: list[int] = []
+        more_than_pivot: list[int] = []
+        for num in nums:
+            if num < pivot:
+                less_than_pivot.append(num)
+            elif num > pivot:
+                more_than_pivot.append(num)
+            else:
+                equals_to_pivot.append(num)
+        return less_than_pivot + equals_to_pivot + more_than_pivot
