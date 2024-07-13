@@ -28,3 +28,26 @@
 # 2 <= asteroids.length <= 104
 # -1000 <= asteroids[i] <= 1000
 # asteroids[i] != 0
+# Solution Stack Simulation O(N) O(N)
+class Solution:
+    def asteroidCollision(self, asteroids: List[int]) -> List[int]:
+        stack: list[int] = []
+        for asteroid in asteroids:
+            if not stack:
+                stack.append(asteroid)
+                continue
+            elif not bool(stack[-1] > 0 and asteroid < 0):
+                stack.append(asteroid)
+                continue
+            smashed_current: bool = False
+            while stack and stack[-1] > 0 and asteroid < 0:
+                if stack[-1] < abs(asteroid): stack.pop()
+                elif stack[-1] > abs(asteroid):
+                    smashed_current = True
+                    break
+                else:
+                    smashed_current = True
+                    stack.pop()
+                    break
+            if not smashed_current: stack.append(asteroid)
+        return stack
