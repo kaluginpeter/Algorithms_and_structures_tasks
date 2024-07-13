@@ -41,3 +41,21 @@
 # In the first test case the championship consists of 6 games. The only game with the event in question is the game between teams 2 and 1 on the stadium of team 2.
 #
 # In the second test sample the host team will have to wear guest uniform in the games between teams: 1 and 2, 2 and 1, 2 and 3, 3 and 4, 4 and 2 (the host team is written first).
+# Solution O(N**2) O(1)
+import sys
+
+
+def solution(n: int, colors: list) -> str:
+    times: int = 0
+    for first_team in range(n):
+        for second_team in range(n):
+            if first_team == second_team: continue
+            if colors[first_team][0] == colors[second_team][1]:
+                times += 1
+    return str(times)
+
+
+if __name__ == '__main__':
+    n: int = int(sys.stdin.readline().rstrip())
+    colors: list = [list(map(int, sys.stdin.readline().rstrip().split())) for _ in range(n)]
+    sys.stdout.write(solution(n, colors))
