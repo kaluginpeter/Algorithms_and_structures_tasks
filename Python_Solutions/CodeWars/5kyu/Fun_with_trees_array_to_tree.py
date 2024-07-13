@@ -22,3 +22,26 @@
 # Fun with trees: array to tree
 # Fun with trees: is perfect
 # TREESARRAYSBINARY TREESDATA STRUCTURESALGORITHMS
+# Solution
+from preloaded import Node
+
+
+def array_to_tree(arr):
+    if not arr: return None
+    head = Node(arr[0])
+    current_nodes: list = [head]
+    next_nodes: list = []
+    idx: int = 1
+    while idx < len(arr):
+        for node in current_nodes:
+            if idx < len(arr):
+                node.left = Node(arr[idx])
+                next_nodes.append(node.left)
+                idx += 1
+            if idx < len(arr):
+                node.right = Node(arr[idx])
+                next_nodes.append(node.right)
+                idx += 1
+        current_nodes = next_nodes
+        next_nodes = []
+    return head
