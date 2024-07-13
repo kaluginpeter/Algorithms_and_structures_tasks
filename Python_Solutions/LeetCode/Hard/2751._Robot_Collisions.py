@@ -44,3 +44,49 @@
 # 1 <= positions[i], healths[i] <= 109
 # directions[i] == 'L' or directions[i] == 'R'
 # All values in positions are distinct
+# Solution Stack
+# General idea
+# Lets create storage of robots that represent list contains lists and in each list [Number of robot, robot position, robot health, robot direction]. Then sort its storage in ascending order by positions.
+# Lets create a stack to store robots. Since we sorted storage in ascending order we only need to check case when left robot have 'R' direction and right robot have 'L' direction. In other cases we can add to the stack current robot.
+# Start iterate from storage and check next conditions:
+# Stack is empty - append current robot to stack
+# Left robot have some direction as current - append current robot to stack
+# Left robot not overlaped with right robot - append current robot to stack
+# Create while loop and iterate until (stack is not empty AND left robot have 'R' direction AND right robot have 'L' direction AND health of left robot is less than health of right robot) - at each iteration descrease health of right robot and pop left robot from stack. After loop we check some cases:
+# 4.1) Stack not empty AND left robot have 'R' direction AND right robot have 'L' direction and they healths equal - pop robot from stack(it means that both current right and left robot destroyed)
+# 4.2) Stack not empty AND left robot have 'R' direction AND right robot have 'L' direction and health of left robot is more than health of right robot - just decrease health of left robot(left robot destroy right robot)
+# 4.3) Stack is empty OR (stack is not empty and left robot direction equal to right robot direction) - append current robot to stack
+# At the end sort in ascending order stack by robot number and return health each of them
+# Complexity
+# Time complexity: O(NlogN)
+# Space complexity: O(N)
+# Code
+class Solution:
+    def survivedRobotsHealths(self, positions: List[int], healths: List[int], directions: str) -> List[int]:
+        line: list[list[int]] = []
+        for idx in range(len(positions)):
+            line.append([idx + 1, positions[idx], healths[idx], directions[idx]])
+        line.sort(key=lambda x: x[1])
+
+        stack: list[list[int]] = []
+        for robot in line:
+            if not stack: stack.append(robot) # Case 1
+            elif stack:
+                if stack[-1][-1] == robot[-1]: # Case 2
+                    stack.append(robot)
+                    continue
+                elif stack[-1][-1] == 'L' and robot[-1] == 'R': # Case 3
+                    stack.append(robot)
+                    continue
+                while stack and stack[-1][-1] == 'R' and robot[-1] == 'L' and stack[-1][2] < robot[2]: # Case 4
+                    stack.pop()
+                    robot[2] -= 1
+                if stack and stack[-1][-1] == 'R' and robot[-1] == 'L' and stack[-1][2] == robot[2]: # Case 4.1
+                    stack.pop()
+                elif stack and stack[-1][-1] == 'R' and robot[-1] == 'L' and stack[-1][2] > robot[2]: # Case 4.2
+                    stack[-1][2] -= 1
+                elif not stack or (stack and stack[-1][-1] == robot[-1]): # Case 4.3
+                    stack.append(robot)
+
+        stack.sort(key=lambda x: x[0])
+        return [robot[2] for robot in stack]
