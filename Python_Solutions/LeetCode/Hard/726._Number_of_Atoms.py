@@ -39,3 +39,67 @@
 # 1 <= formula.length <= 1000
 # formula consists of English letters, digits, '(', and ')'.
 # formula is always valid.
+# Solution HashTable Simulation O(NlogN) O(N)
+from collections import defaultdict
+
+
+class Solution:
+    current_atom: str = ''
+    current_points: int = 0
+
+    def add_atom(self, current_group: dict[str, int]) -> None:
+        current_group[self.current_atom] += self.current_points if self.current_points else 1
+        self.current_atom = ''
+        self.current_points = 0
+
+    def extend_groups(self, current_group: dict[str, int], prev_group: dict[str, int]) -> None:
+        for atom in prev_group:
+            current_group[atom] += prev_group[atom]
+
+    def countOfAtoms(self, formula: str) -> str:
+        atoms: dict[str, int] = defaultdict(int)
+        stack: list[dict[str, int]] = []
+
+        idx: int = 0
+        while idx < len(formula):
+            if formula[idx].islower():
+                self.current_atom += formula[idx]
+                idx += 1
+
+            elif formula[idx].isupper():
+                if self.current_atom: self.add_atom(atoms)
+                self.current_atom = formula[idx]
+                idx += 1
+
+            elif formula[idx] == '(':
+                if self.current_atom: self.add_atom(atoms)
+
+                stack.append(atoms)
+                atoms = defaultdict(int)
+                idx += 1
+
+            elif formula[idx] == ')':
+                if self.current_atom: self.add_atom(atoms)
+
+                idx += 1
+                while idx < len(formula) and formula[idx].isdigit():
+                    self.current_points = self.current_points * 10 + int(formula[idx])
+                    idx += 1
+                self.current_points = max(self.current_points, 1)
+
+                for atom in atoms:
+                    atoms[atom] = self.current_points * atoms[atom]
+                self.current_points = 0
+
+                if stack: self.extend_groups(atoms, stack.pop())
+
+            elif formula[idx].isdigit():
+                self.current_points = self.current_points * 10 + int(formula[idx])
+                idx += 1
+
+        if self.current_atom: self.add_atom(atoms)
+
+        while stack:
+            self.extend_groups(atoms, stack.pop())
+
+        return ''.join(f'{atom}{atoms[atom] if atoms[atom] > 1 else ""}' for atom in sorted(atoms))
