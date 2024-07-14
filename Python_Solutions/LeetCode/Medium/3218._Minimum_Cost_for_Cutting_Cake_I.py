@@ -54,3 +54,31 @@
 # horizontalCut.length == m - 1
 # verticalCut.length == n - 1
 # 1 <= horizontalCut[i], verticalCut[i] <= 103
+# Solution Heapq Greedy Sorting
+# Complexity
+# Time complexity: O((M + N)log(N+M)), that simplify equal to O(NlogN)
+# Space complexity: O(M + N) == O(N)
+# Code
+import heapq
+class Solution:
+    def minimumCost(self, m: int, n: int, horizontalCut: List[int], verticalCut: List[int]) -> int:
+        horizontalCut.sort(reverse=True)
+        verticalCut.sort(reverse=True)
+        h_pieces = v_pieces = 1
+        total_cost: int = 0
+        pq = []
+        for cost in horizontalCut:
+            heapq.heappush(pq, (-cost, 'H'))
+        for cost in verticalCut:
+            heapq.heappush(pq, (-cost, 'V'))
+        while pq:
+            cost, cut_type = heapq.heappop(pq)
+            cost *= -1
+            if cut_type == 'H':
+                total_cost += cost * v_pieces
+                h_pieces += 1
+            else:
+                total_cost += cost * h_pieces
+                v_pieces += 1
+
+        return total_cost
