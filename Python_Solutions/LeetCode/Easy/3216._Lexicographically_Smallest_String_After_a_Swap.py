@@ -32,3 +32,16 @@
 #
 # 2 <= s.length <= 100
 # s consists only of digits.
+# Solution Greedy Bit Manipulation O(N) O(N)
+class Solution:
+    def getSmallestString(self, s: str) -> str:
+        output: list[str] = list(s)
+        for idx in range(len(output) - 1):
+            x, y = output[idx], output[idx + 1]
+            if int(x) & 1 == int(y) & 1 == 1 and x > y:
+                output[idx], output[idx + 1] = output[idx + 1], output[idx]
+                break
+            elif int(x) & 1 == int(y) & 1 == 0 and x > y:
+                output[idx], output[idx + 1] = output[idx + 1], output[idx]
+                break
+        return ''.join(output)
