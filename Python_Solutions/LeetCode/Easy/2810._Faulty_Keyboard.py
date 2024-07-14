@@ -39,3 +39,31 @@
 # 1 <= s.length <= 100
 # s consists of lowercase English letters.
 # s[0] != 'i'
+# Solutions
+# Simulation with reversing
+# Complexity
+# Time complexity: O(N**2)
+# Space complexity: O(N)
+# Code
+class Solution:
+    def finalString(self, s: str) -> str:
+        current_string: list[str] = []
+        for char in s:
+            if char == 'i': current_string = current_string[::-1]
+            else: current_string.append(char)
+        return ''.join(current_string)
+
+# Bit Manipulation
+# Complexity
+# Time complexity: O(N)
+# Space complexity: O(N)
+# Code
+from collections import deque
+class Solution:
+    def finalString(self, s: str) -> str:
+        current_string = deque()
+        reverse_time: int = s.count('i') & 1
+        for char in s:
+            if char == 'i': reverse_time ^= 1
+            else: current_string.appendleft(char) if reverse_time else current_string.append(char)
+        return ''.join(current_string)
