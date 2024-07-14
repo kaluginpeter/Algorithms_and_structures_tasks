@@ -37,3 +37,48 @@
 # 1 <= m <= 500
 # 0 <= l[i] < r[i] < n
 # -105 <= nums[i] <= 105
+# Sorting
+# Complexity
+# Time complexity: O(N**2 * log(N))
+# Space complexity: O(N)
+# Code
+class Solution:
+    def checkArithmeticSubarrays(self, nums: List[int], l: List[int], r: List[int]) -> List[bool]:
+        output: list[bool] = []
+        for idx in range(len(l)):
+            d: int = None
+            invalid: bool = False
+            inner_range = sorted(nums[l[idx]:r[idx] + 1])
+            for x, y in zip(inner_range, inner_range[1:]):
+                if d is None:
+                    d = y - x
+                elif y - x != d:
+                    invalid = True
+                    output.append(False)
+                    break
+            if not invalid: output.append(True)
+        return output
+
+# Without sorting, by arithmetic properties
+# Complexity
+# Time complexity: O(N**2)
+# Space complexity: O(N)
+# Code
+class Solution:
+    def check(self, sequence: list[int]) -> bool:
+        min_el: int = min(sequence)
+        max_el: int = max(sequence)
+        if (max_el - min_el) % (len(sequence) - 1) != 0: return False
+        diff: int = (max_el - min_el) / (len(sequence) - 1)
+        storage: set[int] = set(sequence)
+        current_el: int = min_el + diff
+        while current_el < max_el:
+            if current_el not in storage: return False
+            current_el += diff
+        return True
+
+    def checkArithmeticSubarrays(self, nums: List[int], l: List[int], r: List[int]) -> List[bool]:
+        output: list[bool] = []
+        for idx in range(len(l)):
+            output.append(self.check(nums[l[idx]:r[idx] + 1]))
+        return output
