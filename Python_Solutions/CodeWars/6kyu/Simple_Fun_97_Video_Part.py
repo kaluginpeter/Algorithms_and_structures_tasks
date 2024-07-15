@@ -20,3 +20,12 @@
 # An array of the following format [a, b] (where a / b is a reduced fraction).
 #
 # PUZZLES
+# Solution
+from math import gcd
+def video_part(part, total):
+    ch, cm, cs = map(int, part.split(':'))
+    th, tm, ts = map(int, total.split(':'))
+    x = th * 3600 + tm * 60 + ts
+    y = ch * 3600 + cm * 60 + cs
+    d = gcd(x, y)
+    return [y // d, x // d]
