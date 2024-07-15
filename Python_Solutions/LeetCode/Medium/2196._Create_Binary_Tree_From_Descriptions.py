@@ -31,3 +31,29 @@
 # 1 <= parenti, childi <= 105
 # 0 <= isLefti <= 1
 # The binary tree described by descriptions is valid.
+# Solution HashTable HashSet O(N) O(N)
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def createBinaryTree(self, descriptions: List[List[int]]) -> Optional[TreeNode]:
+        heads: dict[int, TreeNode] = dict()
+        childs: set[int] = set()
+        for path in descriptions:
+            current_head = TreeNode(path[0]) if path[0] not in heads else heads[path[0]]
+            current_child = heads[path[1]] if path[1] in heads else TreeNode(path[1])
+            if path[2]:
+                current_head.left = current_child
+            else:
+                current_head.right = current_child
+
+            heads[current_child.val] = current_child
+            heads[current_head.val] = current_head
+            childs.add(current_child.val)
+
+        for node in heads:
+            if node not in childs:
+                return heads[node]
