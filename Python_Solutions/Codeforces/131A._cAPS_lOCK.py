@@ -30,3 +30,16 @@
 # Lock
 # outputCopy
 # Lock
+# Solution O(N) O(N)
+import sys
+
+
+def solution(n: str) -> str:
+    if all(char.isupper() for char in n) or (n[0].islower and all(char.isupper() for char in n[1:])):
+        return ''.join(i.lower() if i.isupper() else i.upper() for i in n)
+    return n
+
+
+if __name__ == '__main__':
+    n: str = sys.stdin.readline().rstrip()
+    sys.stdout.write(solution(n))
