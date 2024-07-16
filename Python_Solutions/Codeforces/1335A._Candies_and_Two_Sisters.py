@@ -75,3 +75,16 @@
 # a=4
 # , b=3
 # .
+# Solution Math O(N) O(1)
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        print(n - (n // 2 + 1))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
