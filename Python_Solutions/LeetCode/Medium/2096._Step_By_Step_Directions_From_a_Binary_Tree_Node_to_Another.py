@@ -31,3 +31,77 @@
 # All the values in the tree are unique.
 # 1 <= startValue, destValue <= n
 # startValue != destValue
+
+# Iterative DFS
+# Complexity
+# Time complexity: O(N)
+# Space complexity: O(N)
+# Code
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def dfs(self, root, target):
+        callstack: list = [(root, '')]
+        while callstack:
+            cur_node, path = callstack.pop()
+            if cur_node.val == target:
+                return path
+            if cur_node.left:
+                callstack.append((cur_node.left, path + 'L'))
+            if cur_node.right:
+                callstack.append((cur_node.right, path + 'R'))
+
+    def getDirections(self, root: Optional[TreeNode], startValue: int, destValue: int) -> str:
+        start: str = self.dfs(root, startValue)
+        end: str = self.dfs(root, destValue)
+        idx: int = 0
+        while idx < len(start) and idx < len(end) and start[idx] == end[idx]:
+            idx += 1
+        return 'U' * len(start[idx:]) + end[idx:]
+
+# Recursive DFS
+# Complexity
+# Time complexity: O(N)
+# Space complexity: O(N)
+# Code
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def dfs(self, root, target, path):
+        if not root: return False
+        elif root.val == target:
+            return True
+
+        path.append('L')
+        if self.dfs(root.left, target, path):
+            return True
+        path.pop()
+
+        path.append('R')
+        if self.dfs(root.right, target, path):
+            return True
+        path.pop()
+
+        return False
+
+    def getDirections(self, root: Optional[TreeNode], startValue: int, destValue: int) -> str:
+        path_to_start_node: list[str] = []
+        self.dfs(root, startValue, path_to_start_node)
+        path_to_end_node: list[str] = []
+        self.dfs(root, destValue, path_to_end_node)
+        idx: int = 0
+        while (
+            idx < len(path_to_start_node)
+            and idx < len(path_to_end_node)
+            and path_to_start_node[idx] == path_to_end_node[idx]
+        ):
+            idx += 1
+        return 'U' * len(path_to_start_node[idx:]) + ''.join(path_to_end_node[idx:])
