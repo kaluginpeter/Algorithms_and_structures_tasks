@@ -24,3 +24,20 @@
 # 1 <= nums.length <= 104
 # -104 <= nums[i] <= 104
 # nums is sorted in a strictly increasing order.
+# Solution Binary Search Tree Rercursion O(N) O(N)
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def construct(self, arr: list[int], left: int, right: int) -> Optional[TreeNode]:
+        if left > right: return
+        middle: int = (right + left) >> 1
+        left_subtree = self.construct(arr, left, middle - 1)
+        right_subtree = self.construct(arr, middle + 1, right)
+        return TreeNode(arr[middle], left_subtree, right_subtree)
+
+    def sortedArrayToBST(self, nums: List[int]) -> Optional[TreeNode]:
+        return self.construct(nums, 0, len(nums) - 1)
