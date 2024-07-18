@@ -40,3 +40,26 @@
 # second1
 # OK
 # third1
+# Solution HashTable O(N) O(N)
+import sys
+
+
+def solution(n: int) -> None:
+    storage: dict = dict()
+    for _ in range(n):
+        name: str = sys.stdin.readline().rstrip()
+        acc: int = 1
+        if name not in storage:
+            storage[name] = 0
+            print('OK')
+        else:
+            acc: int = storage[name] + 1
+            new_name: str = name + str(acc)
+            storage[name] = acc
+            storage[new_name] = 0
+            print(new_name)
+
+
+if __name__ == '__main__':
+    n: int = int(sys.stdin.readline().rstrip())
+    solution(n)
