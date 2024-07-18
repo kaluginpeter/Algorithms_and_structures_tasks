@@ -14,3 +14,8 @@
 # Also, please check out the rest of the katas in this series! https://www.codewars.com/collections/math-challenges-1
 #
 # MATHEMATICS
+# Solution
+def radii(a, b, c):
+    s: float = (a + b + c) / 2
+    A: float = (s*(s - a)*(s - b)*(s - c))**.5
+    return (A / s, (a * b * c) / (4 * A))
