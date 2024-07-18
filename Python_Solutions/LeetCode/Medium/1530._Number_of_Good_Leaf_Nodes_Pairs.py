@@ -28,3 +28,27 @@
 # The number of nodes in the tree is in the range [1, 210].
 # 1 <= Node.val <= 100
 # 1 <= distance <= 10
+# Solution DFS O(N*K**2) O(N)
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    good_pairs: int = 0
+    def dfs(self, root, distance):
+        if not root: return []
+        if not root.left and not root.right:
+            return [1]
+        left_leafs: list[int] = self.dfs(root.left, distance)
+        right_leafs: list[int] = self.dfs(root.right, distance)
+        for l_leaf in left_leafs:
+            for r_leaf in right_leafs:
+                if l_leaf + r_leaf <= distance:
+                    self.good_pairs += 1
+        return [dist_leaf + 1 for dist_leaf in left_leafs + right_leafs if dist_leaf + 1 < distance]
+
+    def countPairs(self, root: TreeNode, distance: int) -> int:
+        self.dfs(root, distance)
+        return self.good_pairs
