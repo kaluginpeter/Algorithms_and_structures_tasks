@@ -58,3 +58,27 @@
 # The helper function in the preloaded section checks the number of elements in a that are greater than the corresponding elements in b to validate the solution.
 #
 # 1 <= length of lists <= 10^3
+# Solution
+def shuffle_a(a, b):
+    changed: list[tuple[int]] = []
+    left: list[tuple[int]] = []
+    a.sort()
+    b_ = [(value, index) for index, value in enumerate(b)]
+    idxs: list[int] = list(range(len(a)))
+    b_.sort(key=lambda x: x[0])
+    a_idx: int = 0
+    b_idx: int = 0
+
+    while a_idx < len(a) and b_idx < len(b):
+        if a[a_idx] > b_[b_idx][0]:
+            changed.append((a[a_idx], b_[b_idx][1]))
+            a_idx += 1
+            idxs.remove(b_[b_idx][1])
+            b_idx += 1
+        else:
+            left.append(a[a_idx])
+            a_idx += 1
+    if idxs:
+        left = [(left[idx], idxs[idx]) for idx in range(len(idxs))]
+    output = changed + left
+    return [i[0] for i in sorted(output, key=lambda x: x[1])]
