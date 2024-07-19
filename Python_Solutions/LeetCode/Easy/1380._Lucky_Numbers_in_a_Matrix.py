@@ -44,3 +44,10 @@ class Solution:
             if top > 0:
                 ans.append(top)
         return ans
+
+# Solution HashSet O(NM) O(N + M)
+class Solution:
+    def luckyNumbers (self, matrix: List[List[int]]) -> List[int]:
+        min_in_a_row: set[int] = set(min(row) for row in matrix)
+        max_in_a_col: set[int] = set(max(matrix[row][col] for row in range(len(matrix))) for col in range(len(matrix[0])))
+        return [luck_num for luck_num in min_in_a_row if luck_num in max_in_a_col]
