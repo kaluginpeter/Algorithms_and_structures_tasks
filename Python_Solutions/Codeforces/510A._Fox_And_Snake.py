@@ -52,3 +52,25 @@
 # #########
 # #........
 # #########
+# Solution O(N) O(1)
+import sys
+
+
+def solution(n: int, m: int) -> None:
+    row = 0
+    flag: bool = False
+    print('#' * m)
+    row += 1
+    while row < n:
+        if not flag:
+            print('.' * (m - 1) + '#')
+        else:
+            print('#' + '.' * (m - 1))
+        print('#' * m)
+        row += 2
+        flag = not flag
+
+
+if __name__ == '__main__':
+    n, m = map(int, sys.stdin.readline().rstrip().split())
+    solution(n, m)
