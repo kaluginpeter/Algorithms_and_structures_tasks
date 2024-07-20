@@ -53,3 +53,12 @@
 # Happy Coding ^_^
 #
 # FUNDAMENTALS
+# Solution
+def bulb_maze(maze):
+    move: int = 0
+    switch: dict[str, str] = {'x': 'o', 'o': 'x'}
+    for room in maze:
+        if room != ' ':
+            if [room, switch[room]][move & 1] == 'o': return False
+        move += 1
+    return True
