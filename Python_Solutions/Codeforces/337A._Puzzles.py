@@ -23,3 +23,21 @@
 # 5
 # Note
 # Sample 1. The class has 4 students. The shop sells 6 puzzles. If Ms. Manana buys the first four puzzles consisting of 10, 12, 10 and 7 pieces correspondingly, then the difference between the sizes of the largest and the smallest puzzle will be equal to 5. It is impossible to obtain a smaller difference. Note that the teacher can also buy puzzles 1, 3, 4 and 5 to obtain the difference 5.
+# Solution Greedy Sorting Sliding Window O(NlogN) O(1)
+import sys
+
+def solution(n: int, m: int, pieces: list) -> str:
+    pieces.sort()
+    differences: int = float('inf')
+    left = 0
+    right = min(n - 1, m - 1)
+    while right < m:
+        differences = min(differences, pieces[right] - pieces[left])
+        left += 1
+        right += 1
+    return str(differences)
+
+if __name__ == '__main__':
+    n, m = map(int, sys.stdin.readline().rstrip().split())
+    pieces: list = list(map(int, sys.stdin.readline().rstrip().split()))
+    sys.stdout.write(solution(n, m , pieces))
