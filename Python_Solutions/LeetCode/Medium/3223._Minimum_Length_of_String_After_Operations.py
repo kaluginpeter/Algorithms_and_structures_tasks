@@ -35,3 +35,20 @@
 #
 # 1 <= s.length <= 2 * 105
 # s consists only of lowercase English letters.
+# Solution
+# We have only two choices:
+# If current frequences of character is odd - at the end being at most 1 character
+# Otherwise, if frequences is even, we can have at most 2 characters
+# Complexity
+# Time complexity: O(N)
+# Space complexity: O(N)
+# Code
+from collections import defaultdict
+class Solution:
+    def minimumLength(self, s: str) -> int:
+        storage: dict[str, int] = defaultdict(int)
+        for char in s:
+            storage[char] += 1
+        for char in storage:
+            storage[char] = 1 if storage[char] & 1 else 2
+        return sum(storage.values())
