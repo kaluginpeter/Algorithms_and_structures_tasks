@@ -34,3 +34,7 @@
 # Constraints:
 #
 # 1 <= x, y <= 100
+# Solution Math Bit Manipulation O(1) O(1)
+class Solution:
+    def losingPlayer(self, x: int, y: int) -> str:
+        return ['Bob', 'Alice'][min(x, y // 4) & 1]
