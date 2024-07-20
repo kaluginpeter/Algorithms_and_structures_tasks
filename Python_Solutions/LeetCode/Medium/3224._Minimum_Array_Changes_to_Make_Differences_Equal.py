@@ -42,3 +42,30 @@
 # 2 <= n == nums.length <= 105
 # n is even.
 # 0 <= nums[i] <= k <= 105
+# Solution HashTable Sorting Greedy O(NlogN) O(N)
+from collections import defaultdict
+class Solution:
+    def minChanges(self, nums: List[int], k: int) -> int:
+        n: int = len(nums)
+        pairs: list[tuple[int, int]] = []
+        freq: dict[int, int] = defaultdict(int)
+        for i in range(n // 2):
+            freq[abs(nums[i] - nums[n - i - 1])] += 1
+            pairs.append((nums[i], nums[n - i - 1]))
+
+        change_count: dict[int, int] = defaultdict(int)
+        # Sorting freq by frequences and values in descending order
+        freq = sorted(freq, key=lambda x: (freq[x], x), reverse=True)
+        for X in freq[:100]: # Give first 100(or less if len(freq) < 100) possible X
+            current_changes: int = 0 # Needed swaps
+            for a, b in pairs:
+                if abs(a - b) != X:
+                    if 0 <= a - X <= k or 0 <= b + X <= k:
+                        current_changes += 1 # Swap one number
+                    elif 0 <= b - X <= k or 0 <= a + X <= k:
+                        current_changes += 1 # Swap one number
+                    else:
+                        current_changes += 2 # Swap two number
+            change_count[X] = current_changes # For current X store count fo swaps
+
+        return min(change_count.values())
