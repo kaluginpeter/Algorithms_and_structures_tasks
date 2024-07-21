@@ -36,3 +36,32 @@
 #
 # 1 <= s.length <= 105
 # s[i] is either '0' or '1'.
+# General idea:
+# Calculate how many ones you have staring from 0 index to end of string.
+# Id current char is "1" - increment ones
+# At each iteration mark boolean "move" variable to False
+# If you need move to next '1' character, mark boolean "move" variable on True
+# If "move" variable is True - add count of ones to total score
+# Complexity
+# Time complexity: O(N)
+# Space complexity: O(1)
+# Code
+class Solution:
+    def maxOperations(self, s: str) -> int:
+        score: int = 0
+        ones: int = 0
+
+        idx: int = 0
+        while idx < len(s):
+            if s[idx] == '1':
+                ones += 1
+                idx += 1
+
+            move: bool = False
+            while idx < len(s) and s[idx] != '1':
+                idx += 1
+                move = True
+
+            if move:
+                score += ones
+        return score
