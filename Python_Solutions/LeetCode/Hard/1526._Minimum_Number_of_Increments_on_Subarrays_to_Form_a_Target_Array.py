@@ -33,3 +33,11 @@
 #
 # 1 <= target.length <= 105
 # 1 <= target[i] <= 105
+# Solution Prefix Sum O(N) O(N)
+class Solution:
+    def minNumberOperations(self, target: List[int]) -> int:
+        target: list[int] = [0] + target + [0]
+        operations: int = 0
+        for idx in range(len(target)):
+            operations += abs(target[idx] - target[idx - 1])
+        return operations // 2
