@@ -39,3 +39,17 @@
 # Constraints:
 #
 # 1 <= n, k <= 106
+# Solution O(N) O(N)
+class Solution:
+    def minChanges(self, n: int, k: int) -> int:
+        bin_n, bin_k = bin(n)[2:], bin(k)[2:]
+
+        if len(bin_k) < len(bin_n):
+            bin_k = '0' * (len(bin_n) - len(bin_k)) + bin_k
+        elif len(bin_k) > len(bin_n):
+            bin_n = '0' * (len(bin_k) - len(bin_n)) + bin_n
+
+        if any(b_k == '1' and b_n == '0' for b_n, b_k in zip(bin_n, bin_k)):
+            return -1
+
+        return sum(b_n != b_k for b_n, b_k in zip(bin_n, bin_k))
