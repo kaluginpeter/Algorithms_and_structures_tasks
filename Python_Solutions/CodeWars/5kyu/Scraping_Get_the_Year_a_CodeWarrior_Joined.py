@@ -21,3 +21,15 @@
 # Time out / server errors often happen with the test cases depending on the status of the codewars website. Try submitting your code a few times or at different hours of the day if needed.
 # Feel free to voice your comments and concerns in the discourse area.
 # STRINGSREGULAR EXPRESSIONSFUNDAMENTALS
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
+def get_member_since(username):
+    username = username.encode('ascii', 'ignore').decode('ascii')
+    username = username.replace(' ', '%20')
+    url = f'https://www.codewars.com/users/{username}'
+    response = urlopen(url)
+    soup = BeautifulSoup(response.read(), 'html.parser')
+    stats = soup.select('div#app > div#shell > main#shell_content > div > section.user-profile > div.w-full > div > div.flex-box > div.stat-box > div.stat')
+    for stat in stats:
+        if 'Member Since' in stat.b.text:
+            return stat.b.next.next
