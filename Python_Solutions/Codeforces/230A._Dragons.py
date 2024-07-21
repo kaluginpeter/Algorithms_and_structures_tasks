@@ -31,3 +31,17 @@
 # In the first sample Kirito's strength initially equals 2. As the first dragon's strength is less than 2, Kirito can fight it and defeat it. After that he gets the bonus and his strength increases to 2 + 99 = 101. Now he can defeat the second dragon and move on to the next level.
 #
 # In the second sample Kirito's strength is too small to defeat the only dragon and win.
+# Solution Greedy Sorting O(NlogN) O(1)
+import sys
+
+def solution(s: int, n: int, dragons: list) -> str:
+    dragons.sort(key=lambda x: (x[0], x[1]))
+    for dragon in dragons:
+        if dragon[0] >= s: return 'NO'
+        s += dragon[1]
+    return 'YES'
+
+if __name__ == '__main__':
+    s, n = map(int, sys.stdin.readline().rstrip().split())
+    dragons: list = list(tuple(map(int, sys.stdin.readline().rstrip().split())) for _ in range(n))
+    sys.stdout.write(solution(s, n, dragons))
