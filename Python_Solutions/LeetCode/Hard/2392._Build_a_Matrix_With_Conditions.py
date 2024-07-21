@@ -43,3 +43,67 @@
 # 1 <= abovei, belowi, lefti, righti <= k
 # abovei != belowi
 # lefti != righti
+# Solution Topological sorting DFS O(N**2) O(N**2)
+from collections import defaultdict
+class Solution:
+    def dfs(self, source, destinations, visited, previous_path, path):
+        # Case if we have cycle
+        if source in previous_path: return -1
+        # Case if vertex already been visited, but its not a cycle(like children or tail of graph)
+        if source in visited: return
+        # Add vertex in visited path of global DFS vertexes
+        visited.add(source)
+        # Add vertex to current DFS path
+        previous_path.add(source)
+        # Iterate from all possible destionations from current source
+        for destination in destinations[source]:
+            # Make DFS on each destination
+            # Case if we have cycle
+            if self.dfs(destination, destinations, visited, previous_path, path) == -1:
+                return -1
+        # Add current vertex to path
+        path.append(source)
+        # Clear current DFS path
+        previous_path.remove(source)
+
+    def buildMatrix(self, k: int, rowConditions: List[List[int]], colConditions: List[List[int]]) -> List[List[int]]:
+        # Make adjasency list representing rows conditions
+        row_vertexes: dict[int, set[int]] = defaultdict(set)
+        for source, destination in rowConditions:
+            row_vertexes[source].add(destination)
+        # Make topoligical sorting for rows conditions
+        row_path: list[int] = []
+        row_visited: set[int] = set()
+        row_previous_path: set[int] = set()
+        for vertex in range(1, k + 1):
+            if self.dfs(vertex, row_vertexes, row_visited, row_previous_path, row_path) == -1:
+                return []
+        row_path.reverse()
+        # Create adjasency list represent columns conditions
+        col_vertexes: dict[int, set[int]] = defaultdict(set)
+        for source, destination in colConditions:
+            col_vertexes[source].add(destination)
+        # Make topological sort for columns conditions
+        col_path: list[int] = []
+        col_visited: set[int] = set()
+        col_previous_path: set[int] = set()
+        for vertex in range(1, k + 1):
+            if self.dfs(vertex, col_vertexes, col_visited, col_previous_path, col_path) == -1:
+                return []
+        col_path.reverse()
+        # Define correct position for each number in (1 to k) inclusive range
+        positions: dict[int, list[int, int]] = defaultdict(list)
+        # Initially define correct row position for each number
+        for vertex in range(1, k + 1):
+            positions[row_path[vertex - 1]].append(vertex - 1)
+        # Then define correct col position for each number
+        for vertex in range(1, k + 1):
+            positions[col_path[vertex - 1]].append(vertex - 1)
+        # Construct k*k matrix
+        mtrx: list[list[int]] = [[0] * k for _ in range(k)]
+        # Place numbers by his correct row and col positions
+        for ceil in positions:
+            row, col = positions[ceil]
+            mtrx[row][col] = ceil
+
+        return mtrx
