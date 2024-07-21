@@ -44,3 +44,19 @@
 #
 # 1 <= s.length <= 105
 # s consists only of lowercase English letters.
+# Decision Tree:
+# Vowels frequences is odd: Alice can take all string and Bob lose
+# Vowels frequences is even: Alcie can take almost string and string will contain only one vowels. On Bob move, he loses because, he can't take any string
+# String not contain any vowels: Alice lose
+# Conclusion: Alice can win in any number of frequence of vowels except 0
+# Complexity
+# Time complexity: O(N)
+# Space complexity: O(1)
+# Code
+class Solution:
+    def doesAliceWin(self, s: str) -> bool:
+        vowels: int = 0
+        for char in s:
+            if char in {'a', 'e', 'o', 'u', 'i'}:
+                vowels += 1
+        return vowels > 0
