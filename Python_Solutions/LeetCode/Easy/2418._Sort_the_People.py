@@ -25,3 +25,9 @@
 class Solution:
     def sortPeople(self, names: List[str], heights: List[int]) -> List[str]:
         return [k[0] for k in sorted([[i, j] for i,j in zip(names, heights)], key=lambda x: x[1], reverse=True)]
+
+# Solution HashTable Sorting O(NlogN) O(N)
+class Solution:
+    def sortPeople(self, names: List[str], heights: List[int]) -> List[str]:
+       names_storage: dict[int, str] = dict((height, name) for height, name in zip(heights, names))
+       return [names_storage[people] for people in sorted(names_storage, reverse=True)]
