@@ -60,3 +60,24 @@
 # 10000
 # 1
 # 10
+# Solution Math O(1) O(1)
+import sys
+
+
+def solution(t: int) -> None:
+    dividers: list = [10000, 1000, 100, 10, 1]
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        parts: list = []
+        for divide in dividers:
+            acc: int = n // divide
+            if acc:
+                parts.append(str(divide * acc))
+            n %= divide
+        print(len(parts))
+        print(' '.join(parts))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
