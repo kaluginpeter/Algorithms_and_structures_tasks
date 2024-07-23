@@ -24,7 +24,7 @@
 #
 # 1 <= nums.length <= 100
 # -100 <= nums[i] <= 100
-# Solution 1, My solution - HashTable
+# Solution 1, My solution - HashTable O(N**2) O(N)
 class Solution:
     def frequencySort(self, nums: List[int]) -> List[int]:
         d, ans = {}, []
@@ -41,10 +41,20 @@ class Solution:
             del d[top]
             ans += [top] * rep
         return ans
-# Solution 2 - HashTable Optimized
+# Solution 2 - HashTable Optimized O(NlogN) O(N)
 class Solution:
     def frequencySort(self, nums: List[int]) -> List[int]:
         d = {}
         for i in nums:
             d[i] = d.get(i, 0) + 1
         return sorted(nums, key=lambda x: (d[x], -x))
+
+# Solution 3 HashTable Sorting O(NlogN) O(N)
+from collections import defaultdict
+class Solution:
+    def frequencySort(self, nums: List[int]) -> List[int]:
+        frequence: dict[int, int] = defaultdict(int)
+        for num in nums:
+            frequence[num] += 1
+        nums.sort(key=lambda x: (frequence[x], -x))
+        return nums
