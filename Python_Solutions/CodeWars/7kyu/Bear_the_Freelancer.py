@@ -16,3 +16,15 @@
 #
 # 1975
 # FUNDAMENTALS
+# Solution
+def bear_dollars(jobs):
+    prices: dict[str, int] = {
+        'Close Friend': 25, 'Friend': 50,
+        'Acquaintance': 100, '': 125
+    }
+    total_cost: int = 0
+    for event in jobs:
+        if event[1].title() in prices:
+            total_cost += event[0] * prices[event[1].title()]
+        else: total_cost += event[0] * prices['']
+    return total_cost
