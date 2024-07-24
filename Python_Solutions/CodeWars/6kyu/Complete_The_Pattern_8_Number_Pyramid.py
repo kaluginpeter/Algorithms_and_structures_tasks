@@ -69,3 +69,14 @@
 # Hint: Use \n in string to jump to next line
 #
 # ASCII ARTFUNDAMENTALS
+# Solution
+def pattern(n):
+    if n <= 0: return ''
+    lines: list[str] = []
+    boundary: int = n * 2 - 1
+    sequence: str = ''
+    for line in range(1, n + 1):
+        sequence += str(line % 100 % 10)
+        current_side: str = ' ' * ((boundary - max((line * 2 - 1), 1)) // 2)
+        lines.append(current_side + sequence + sequence[::-1][1::] + current_side)
+    return '\n'.join(lines)
