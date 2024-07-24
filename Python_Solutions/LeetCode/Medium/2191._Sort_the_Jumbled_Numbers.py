@@ -37,3 +37,56 @@
 # All the values of mapping[i] are unique.
 # 1 <= nums.length <= 3 * 104
 # 0 <= nums[i] < 109
+# Solution
+# Stable sort
+# General idea:
+# In python builting sorting methods, also called "Timsort". Sorting have "stable" property, what means, if some value have equal priority value they will sort in them relative order. In this case we should only use key for sorting as mapped value for each numver. For simplify mapping we can create helper function.
+# Complexity
+# Time complexity: O(NlogN)
+# Space complexity: O(N)
+# Code
+class Solution:
+    def convert(self, x: int, storage: list[int]) -> int:
+        n: int = 0
+        pieces: list[int] = []
+        valid: bool = True
+        while valid:
+            acc: int = x % 10
+            pieces.append(acc)
+            x //= 10
+            if x == 0: valid = False
+        for piece in pieces[::-1]:
+            n = n * 10 + storage[piece]
+        return n
+
+    def sortJumbled(self, mapping: List[int], nums: List[int]) -> List[int]:
+        nums.sort(key=lambda x: self.convert(x, mapping))
+        return nums
+
+# Not Stable sort
+# General idea:
+# If we choose sorting algorithms that doesnt contain "stable" property. For saving relative order with same priority values of numbers we should create a hashmap to keep track (mapped value of number, his index) for each number in array. At the end just sorting by values of hashmap for each number.
+# Complexity
+# Time complexity: O(NlogN)
+# Space complexity: O(N)
+# Code
+class Solution:
+    def convert(self, x: int, storage: list[int]) -> int:
+        n: int = 0
+        pieces: list[int] = []
+        valid: bool = True
+        while valid:
+            acc: int = x % 10
+            pieces.append(acc)
+            x //= 10
+            if x == 0: valid = False
+        for piece in pieces[::-1]:
+            n = n * 10 + storage[piece]
+        return n
+
+    def sortJumbled(self, mapping: List[int], nums: List[int]) -> List[int]:
+        jumbled: dict[int, tuple[int, int]] = {}
+        for idx in range(len(nums)):
+            jumbled[nums[idx]] = (self.convert(nums[idx], mapping), idx)
+        nums.sort(key=lambda x: (jumbled[x][0], jumbled[x][1]))
+        return nums
