@@ -24,3 +24,18 @@
 # 20
 # Note
 # In the first sample, friends should meet at the point 4. Thus, the first friend has to travel the distance of 3 (from the point 7 to the point 4), the second friend also has to travel the distance of 3 (from the point 1 to the point 4), while the third friend should not go anywhere because he lives at the point 4.
+# Solution Math Simulation O(N) O(1)
+import sys
+
+
+def solution(friends: list) -> str:
+    total: int = float('inf')
+    for x in range(1, 101):
+        local_total: int = sum(abs(friend - x) for friend in friends)
+        total = min(total, local_total)
+    return str(total)
+
+
+if __name__ == '__main__':
+    friends: list = list(map(int, sys.stdin.readline().rstrip().split()))
+    sys.stdout.write(solution(friends))
