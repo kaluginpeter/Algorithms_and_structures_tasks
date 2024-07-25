@@ -28,3 +28,9 @@
 # n == image[i].length
 # 1 <= n <= 20
 # images[i][j] is either 0 or 1.
+# Solution Bit manipulation O(NM) O(N)
+class Solution:
+    def flipAndInvertImage(self, image: List[List[int]]) -> List[List[int]]:
+        for row in range(len(image)):
+            image[row] = [~ceil & 1 for ceil in image[row][::-1]]
+        return image
