@@ -38,3 +38,50 @@ class Solution:
             quick_sort(j, r)
         quick_sort(0, len(nums) - 1)
         return nums
+
+# Merge Sort
+# Complexity
+# Time complexity: O(NlogN)
+# Space complexity: O(N)
+# Code
+class Solution:
+    def merge_sort(self, arr: list[int]) -> list[int]:
+        n: int = len(arr)
+        if n <= 1:
+            return arr
+        middle: int = n >> 1
+        left_part: list[int] = self.merge_sort(arr[:middle])
+        right_part: list[int] = self.merge_sort(arr[middle:])
+        output: list[int] = []
+        n_left, n_right = len(left_part), len(right_part)
+        left_idx = right_idx = 0
+        while left_idx < n_left and right_idx < n_right:
+            if left_part[left_idx] < right_part[right_idx]:
+                output.append(left_part[left_idx])
+                left_idx += 1
+            else:
+                output.append(right_part[right_idx])
+                right_idx += 1
+        return output + left_part[left_idx:] + right_part[right_idx:]
+
+    def sortArray(self, nums: List[int]) -> List[int]:
+        return self.merge_sort(nums)
+
+# Counting Sort
+# Complexity
+# Time complexity: O(N)
+# Space complexity: O(N)
+# Code
+class Solution:
+    def counting_sort(self, arr: list[int]) -> list[int]:
+        storage: list[int] = [0] * 100_001
+        for num in arr:
+            storage[num + 50_000] += 1
+        output: list[int] = []
+        for num in range(100_001):
+            if storage[num]:
+                output.extend([num - 50_000] * storage[num])
+        return output
+
+    def sortArray(self, nums: List[int]) -> List[int]:
+        return self.counting_sort(nums)
