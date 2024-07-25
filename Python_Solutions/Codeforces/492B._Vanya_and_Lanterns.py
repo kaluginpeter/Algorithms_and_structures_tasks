@@ -28,3 +28,23 @@
 # 2.0000000000
 # Note
 # Consider the second sample. At d = 2 the first lantern will light the segment [0, 4] of the street, and the second lantern will light segment [3, 5]. Thus, the whole street will be lit.
+# Solution Sorting Math O(NlogN) O(N)
+import sys
+
+
+def solution(n_lanterns: int, length_of_street: int, lanterns: list) -> str:
+    lanterns = sorted(set(lanterns))
+    diffs: list = []
+    diffs.append(lanterns[0] if lanterns[0] != 0 else 0)
+    for x, y in zip(lanterns[1:], lanterns):
+        diffs.append((x - y) / 2)
+    if lanterns[-1] != length_of_street:
+        diffs.append(length_of_street - lanterns[-1])
+    diffs.sort()
+    return str(diffs[-1])
+
+
+if __name__ == '__main__':
+    n_lanterns, length_of_street = map(int, sys.stdin.readline().rstrip().split())
+    lanterns: list = list(map(int, sys.stdin.readline().rstrip().split()))
+    sys.stdout.write(solution(n_lanterns, length_of_street, lanterns))
