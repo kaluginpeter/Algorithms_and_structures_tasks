@@ -34,3 +34,19 @@
 # In the second example it is enough for Polycarp to buy one shovel.
 #
 # In the third example Polycarp should buy two shovels and pay 2·15 = 30 burles. It is obvious that he can pay this sum without any change.
+# Solution Simulation Math O(N) O(1)
+import sys
+
+
+def solution(k: int, r: int) -> str:
+    shovel_count: int = 1
+    shovel_cost: int = k
+    while (d := shovel_cost - shovel_cost // 10 * 10) != 0 and d != r:
+        shovel_cost += k
+        shovel_count += 1
+    return str(shovel_count)
+
+
+if __name__ == '__main__':
+    k, r = map(int, sys.stdin.readline().rstrip().split())
+    sys.stdout.write(solution(k, r))
