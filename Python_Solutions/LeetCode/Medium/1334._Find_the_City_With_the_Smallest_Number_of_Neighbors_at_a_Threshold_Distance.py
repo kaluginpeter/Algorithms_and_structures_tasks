@@ -41,3 +41,45 @@
 # 0 <= fromi < toi < n
 # 1 <= weighti, distanceThreshold <= 10^4
 # All pairs (fromi, toi) are distinct.
+# Solution Heap, Dijkstra, Greedy, HashMap, Graph
+# Complexity
+# Time complexity: O(N * ElogV)
+# Space complexity: O(V + E)
+# Code
+import heapq
+class Solution:
+    def dijkstra(self, source: int, paths: list[list[int, int]], boundary: int) -> int:
+        destinations: dict[int, int] = dict()
+        score: int = 0
+        min_heap: list[tuple[int, int]] = [(0, source)]
+        while min_heap:
+            cur_weight, cur_vertex = heapq.heappop(min_heap)
+            if cur_vertex in destinations: continue
+            destinations[cur_vertex] = cur_weight
+            if cur_weight <= boundary: score += 1
+            for neighbor in paths[cur_vertex]:
+                if neighbor[0] in destinations: continue
+                heapq.heappush(min_heap, (cur_weight + neighbor[1], neighbor[0]))
+        return score - 1
+
+    def findTheCity(self, n: int, edges: List[List[int]], distanceThreshold: int) -> int:
+        # Represent adjacency list: vertex = [i1, i2, ..., in]
+        # Where i = [neighbor, weight]
+        vertexes: dict[int, list[list[int, int]]] = dict()
+        for vertex in range(n):
+            if vertex not in vertexes:
+                vertexes[vertex] = []
+        # Fill the adjacency list
+        for path in edges:
+            source, destination, weight = path
+            if weight > distanceThreshold: continue
+            vertexes[source].append([destination, weight])
+            vertexes[destination].append([source, weight])
+        # Calculate maximum vertex with minimum possible neighbors
+        min_edge = min_neighbors = float('inf')
+        for vertex in range(n):
+            cost: int = self.dijkstra(vertex, vertexes, distanceThreshold)
+            if cost <= min_neighbors:
+                min_edge, min_neighbors = vertex, cost
+
+        return min_edge
