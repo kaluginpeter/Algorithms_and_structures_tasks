@@ -16,3 +16,33 @@
 # The average number of words per sentence is 4 and the average number of syllables per word is 1.5. The score is then (0.39 * 4) +  (11.8 * 1.5) - 15.59 = 3.67
 #
 # MATHEMATICSALGORITHMS
+# Solution
+def flesch_kincaid(text):
+    sentences: list[str] = [text]
+    for sep in '!?.':
+        after_sep: list[str] = []
+        for seq in sentences:
+            after_sep.extend([i for i in seq.split(sep) if i])
+        sentences = after_sep
+
+    sillables: list[int] = []
+    average_words: float = sum(len(seq.split()) for seq in sentences) / len(sentences)
+    for sentence in sentences:
+        for word in sentence.split():
+            sillable: int = 0
+            char: int = 0
+            flag: bool = False
+            while char < len(word):
+                if word[char] in 'AEOIUaeoiu':
+                    if flag:
+                        char += 1
+                    else:
+                        sillable += 1
+                        flag = True
+                else:
+                    char += 1
+                    flag = False
+            sillables.append(sillable)
+
+    average_sillables: float = sum(sillables) / len(sillables)
+    return round((0.39 * average_words) + (11.8 * average_sillables) - 15.59, 2)
