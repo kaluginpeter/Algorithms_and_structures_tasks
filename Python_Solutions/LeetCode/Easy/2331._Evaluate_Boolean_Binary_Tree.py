@@ -37,3 +37,18 @@
 # Every node has either 0 or 2 children.
 # Leaf nodes have a value of 0 or 1.
 # Non-leaf nodes have a value of 2 or 3.
+# Solution Tree DFS O(N) O(N)
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def evaluateTree(self, root: Optional[TreeNode]) -> bool:
+        if not root.left and not root.right:
+            return bool(root.val)
+        if root.val == 2:
+            return self.evaluateTree(root.left) or self.evaluateTree(root.right)
+        else:
+            return self.evaluateTree(root.left) and self.evaluateTree(root.right)
