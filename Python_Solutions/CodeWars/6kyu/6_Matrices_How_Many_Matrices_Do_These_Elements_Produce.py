@@ -40,3 +40,13 @@
 # Available only in Python 2, Javascript and Ruby by the moment.
 #
 # PERMUTATIONSMATRIXDATA STRUCTURESFUNDAMENTALS
+# Solution
+from math import factorial, prod
+def count_perms(matrix):
+    storage: dict[int, int] = dict()
+    for row in matrix:
+        for ceil in row:
+            storage[ceil] = storage.get(ceil, 0) + 1
+    total_repetive: int = factorial(len(matrix) * len(matrix[0]))
+    needed: int = prod(factorial(x) for x in storage.values())
+    return total_repetive // needed
