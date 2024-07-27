@@ -32,3 +32,22 @@
 # In the second sample, Limak can solve all 4 problems in 5 + 10 + 15 + 20 = 50 minutes. At 20:50 he will leave the house and go to the party. He will get there exactly at midnight.
 #
 # In the third sample, Limak needs only 1 minute to get to the party. He has enough time to solve all 7 problems.
+# Solution Math Simulation O(N) O(1)
+import sys
+
+
+def solution(n: int, k: int) -> str:
+    total_minutes: int = 240 - k
+    tasks_done: int = 0
+    for i in range(1, n + 1):
+        if total_minutes - 5 * i >= 0:
+            tasks_done += 1
+            total_minutes -= 5 * i
+        else:
+            break
+    return str(tasks_done)
+
+
+if __name__ == '__main__':
+    n, k = map(int, sys.stdin.readline().rstrip().split())
+    sys.stdout.write(solution(n, k))
