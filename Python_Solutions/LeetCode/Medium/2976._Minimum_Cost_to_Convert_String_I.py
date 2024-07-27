@@ -39,3 +39,41 @@
 # original[i], changed[i] are lowercase English letters.
 # 1 <= cost[i] <= 106
 # original[i] != changed[i]
+# Solution Dijkstra Memoization HashMap Graph String O(N ElogV M) O(V + E)
+import heapq
+from collections import defaultdict
+class Solution:
+    def dijkstra(self, vertex, paths, target):
+        min_heap: list[tuple(int, str)] = [(0, vertex)]
+        seen: set[int] = set()
+        while min_heap:
+            cur_weight, cur_vertex = heapq.heappop(min_heap)
+            if cur_vertex == target: return cur_weight
+            if cur_vertex in seen: continue
+            seen.add(cur_vertex)
+            for neighbor in paths.get(cur_vertex, []):
+                neighbor_vertex, neighbor_weight = neighbor, paths[cur_vertex][neighbor]
+                if neighbor_vertex in seen: continue
+                heapq.heappush(min_heap, [cur_weight + neighbor_weight, neighbor_vertex])
+        return -1
+
+    def minimumCost(self, source: str, target: str, original: List[str], changed: List[str], cost: List[int]) -> int:
+        adj_list: dict[str, dict[str, int]] = defaultdict(dict)
+        for idx in range(len(original)):
+            edges = adj_list[original[idx]]
+            if changed[idx] in edges:
+                edges[changed[idx]] = min(cost[idx], edges[changed[idx]])
+            else:
+                edges[changed[idx]] = cost[idx]
+        memo: dict[tuple[str, str], int] = dict()
+        total_cost = 0
+        for idx in range(len(source)):
+            if source[idx] != target[idx]:
+                if (source[idx], target[idx]) in memo:
+                    cost = memo[(source[idx], target[idx])]
+                else:
+                    cost = self.dijkstra(source[idx], adj_list, target[idx])
+                    if cost == -1: return -1
+                    memo[(source[idx], target[idx])] = cost
+                total_cost += cost
+        return total_cost
