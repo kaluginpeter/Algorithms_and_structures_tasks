@@ -33,3 +33,25 @@
 # Constraints:
 #
 # 1 <= l <= r <= 109
+# Solution Math O(sqrtN log log sqrtN) O(sqrtN)
+import math
+class Solution:
+    def sieve_of_eratosthenes(self, limit: int) -> list[int]:
+        is_prime: list[bool] = [True] * (limit + 1)
+        is_prime[0] = is_prime[1] = False
+        for start in range(2, int(math.sqrt(limit)) + 1):
+            if is_prime[start]:
+                for multiple in range(start*start, limit + 1, start):
+                    is_prime[multiple] = False
+        return [num for num, prime in enumerate(is_prime) if prime]
+
+    def nonSpecialCount(self, l: int, r: int) -> int:
+        upper_limit: int = int(math.sqrt(r)) + 1
+        primes: list[int] = self.sieve_of_eratosthenes(upper_limit)
+        semi_primes: int = 0
+        for i in range(len(primes)):
+            semi_prime = primes[i]**2
+            if l <= semi_prime <= r:
+                semi_primes += 1
+            if semi_prime > r: break
+        return (r - l + 1) - semi_primes
