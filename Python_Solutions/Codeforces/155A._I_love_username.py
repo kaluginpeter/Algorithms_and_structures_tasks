@@ -30,3 +30,25 @@
 # In the first sample the performances number 2 and 3 are amazing.
 #
 # In the second sample the performances number 2, 4, 9 and 10 are amazing.
+# Solution Greedy Math O(N) O(1)
+import sys
+
+
+def solution(n: int, contests: list) -> str:
+    max_rate: int = contests[0]
+    min_rate: int = contests[0]
+    amaizing: int = 0
+    for rate in range(1, n):
+        if contests[rate] > max_rate:
+            max_rate = contests[rate]
+            amaizing += 1
+        elif contests[rate] < min_rate:
+            min_rate = contests[rate]
+            amaizing += 1
+    return str(amaizing)
+
+
+if __name__ == '__main__':
+    n: int = int(sys.stdin.readline().rstrip())
+    contests: list = list(map(int, sys.stdin.readline().rstrip().split()))
+    sys.stdout.write(solution(n, contests))
