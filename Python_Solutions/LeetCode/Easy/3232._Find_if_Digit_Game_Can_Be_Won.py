@@ -42,3 +42,18 @@
 #
 # 1 <= nums.length <= 100
 # 1 <= nums[i] <= 99
+# Solution
+# General idea:
+# Only if sum of singles and doubles digits in array is equal, then Alice can't win the game, in other cases she always wins.
+# Complexity
+# Time complexity: O(N)
+# Space complexity: O(1)
+# Code
+class Solution:
+    def canAliceWin(self, nums: List[int]) -> bool:
+        single: int = 0
+        double: int = 0
+        for num in nums:
+            if num < 10: single += num
+            else: double += num
+        return single != double
