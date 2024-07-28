@@ -54,3 +54,50 @@
 # There are no duplicate edges.
 # Each vertex can be reached directly or indirectly from every other vertex.
 # 1 <= time, change <= 103
+# Solution BFS Deque Graph Shortests Path O(V + E) O(V + E)
+from collections import deque
+
+
+class Solution:
+    def validate_time(self, current_time: int, change: int) -> int:
+        whole: int = current_time // change
+        # If current whole part is odd, it means
+        # that we on red signal
+        if whole & 1:
+            return change * (whole + 1) - current_time if current_time % change != 0 else change
+        return 0
+
+    def secondMinimum(self, n: int, edges: List[List[int]], time: int, change: int) -> int:
+        # Create adjacency list
+        adj_list: list[list[int]] = [[] for _ in range(n + 1)]
+        for u, v in edges:
+            adj_list[u].append(v)
+            adj_list[v].append(u)
+
+        edges = deque([(1, False)])
+        # Initial time to destination all vertex
+        first_time_seen: list[int] = [None] * (n + 1)
+        # Initial time to destination all vertex
+        second_time_seen: list[int] = [None] * (n + 1)
+        # Start with vertex1 and set destination time to "0"
+        first_time_seen[1] = 0
+        while edges:
+            cur_edge, seen = edges.popleft()
+            current_time = first_time_seen[cur_edge] if not seen else second_time_seen[cur_edge]
+            # Make a step to all neighbor edges
+            current_time += self.validate_time(current_time, change) + time
+
+            for neighbor in adj_list[cur_edge]:
+                # If we not see neighbor edge
+                if first_time_seen[neighbor] == None:
+                    first_time_seen[neighbor] = current_time
+                    edges.append((neighbor, False))
+                # If we already seen the neighbor edge
+                # and current time of destination is strickly more than previouse time destination
+                # For case when: second shortest path can have equal time with first shortest path
+                elif second_time_seen[neighbor] == None and first_time_seen[neighbor] != current_time:
+                    # If we found last edge(meaning traversing from 1 to n)
+                    if neighbor == n: return current_time
+                    second_time_seen[neighbor] = current_time
+                    edges.append((neighbor, True))
+        return 0
