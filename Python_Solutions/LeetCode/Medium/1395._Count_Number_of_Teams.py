@@ -30,3 +30,17 @@
 # 3 <= n <= 1000
 # 1 <= rating[i] <= 105
 # All the integers in rating are unique.
+# Solution Greedy O(N**2) O(1)
+class Solution:
+    def numTeams(self, rating: List[int]) -> int:
+        teams: int = 0
+        for j in range(len(rating)):
+            left_greater = left_less = right_greater = right_less = 0
+            for i in range(j):
+                if rating[i] < rating[j]: left_less += 1
+                elif rating[i] > rating[j]: left_greater += 1
+            for k in range(j + 1, len(rating)):
+                if rating[k] < rating[j]: right_less += 1
+                elif rating[k] > rating[j]: right_greater += 1
+            teams += left_less * right_greater + left_greater * right_less
+        return teams
