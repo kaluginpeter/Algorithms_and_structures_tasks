@@ -8,3 +8,9 @@
 #
 # "abaabaab" + "aabaabab" would be "abaabaabab" and not "abaabaabaabab"
 # ALGORITHMSSTRINGS
+# Solution
+def merge_strings(first, second):
+    for idx in range(len(first)):
+        if second.startswith(first[idx:]):
+            return first[:idx] + second
+    return first + second
