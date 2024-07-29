@@ -28,3 +28,16 @@
 # A comment to the first sample:
 #
 # Overall the friends have 4 * 5 = 20 milliliters of the drink, it is enough to make 20 / 3 = 6 toasts. The limes are enough for 10 * 8 = 80 toasts and the salt is enough for 100 / 1 = 100 toasts. However, there are 3 friends in the group, so the answer is min(6, 80, 100) / 3 = 2.
+# Solution Greedy Math O(1) O(1)
+import sys
+
+
+def solution(n: int, k: int, l: int, c: int, d: int, p: int, nl: int, np: int) -> str:
+    total_mil: int = k * l
+    lime_slices: int = c * d
+    return str(min(total_mil // nl, lime_slices, p // np) // n)
+
+
+if __name__ == '__main__':
+    n, k, l, c, d, p, nl, np = map(int, sys.stdin.readline().rstrip().split())
+    sys.stdout.write(solution(n, k, l, c, d, p, nl, np))
