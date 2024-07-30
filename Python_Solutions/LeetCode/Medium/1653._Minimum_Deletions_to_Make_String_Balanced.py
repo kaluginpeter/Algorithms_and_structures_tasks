@@ -24,3 +24,13 @@
 #
 # 1 <= s.length <= 105
 # s[i] is 'a' or 'b'​​.
+# Solution Greedy O(N) O(1)
+class Solution:
+    def minimumDeletions(self, s: str) -> int:
+        total_deletions: int = 0
+        prev_b: int = 0
+        for char in s:
+            if char == 'a':
+                total_deletions = min(total_deletions + 1, prev_b)
+            else: prev_b += 1
+        return total_deletions
