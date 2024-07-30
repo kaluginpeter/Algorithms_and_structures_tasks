@@ -31,3 +31,48 @@
 # The number of nodes in the tree is in the range [0, 5000].
 # -1000 <= Node.val <= 1000
 # -1000 <= targetSum <= 1000
+# Solution
+# Depth First Search
+# Complexity
+# Time complexity: O(N)
+# Space complexity: O(N)
+# Code
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def hasPathSum(self, root: Optional[TreeNode], targetSum: int, total_sum: int = 0) -> bool:
+        if not root: return False
+        if not root.left and not root.right and total_sum + root.val == targetSum:
+            return True
+        left_subtree = self.hasPathSum(root.left, targetSum, total_sum + root.val)
+        right_subtree = self.hasPathSum(root.right, targetSum, total_sum + root.val)
+        return left_subtree or right_subtree
+
+# Breadth First Search
+# Complexity
+# Time complexity: O(N)
+# Space complexity: O(N)
+# Code
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
+        if not root: return False
+        queue: list[tuple[int, int]] = [(root, targetSum - root.val)]
+        while queue:
+            cur_root, cur_sum = queue.pop()
+            if not cur_root.left and not cur_root.right and cur_sum == 0:
+                return True
+            if cur_root.left:
+                queue.append((cur_root.left, cur_sum - cur_root.left.val))
+            if cur_root.right:
+                queue.append((cur_root.right, cur_sum - cur_root.right.val))
+        return False
