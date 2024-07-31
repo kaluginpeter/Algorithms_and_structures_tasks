@@ -30,3 +30,27 @@
 # 1 <= books.length <= 1000
 # 1 <= thicknessi <= shelfWidth <= 1000
 # 1 <= heighti <= 1000
+# Solution Dynamic Programming O(N**2) O(N)
+class Solution:
+    def minHeightShelves(self, books: List[List[int]], shelfWidth: int) -> int:
+        return self.dp_books(books, shelfWidth)
+
+    def dp_books(self, books: list[list[int]], boundary: int) -> int:
+        min_heights: list[int] = [float('inf')] * (len(books) + 1)
+        min_heights[0] = 0
+
+        for book_idx in range(1, len(books) + 1):
+            current_height: int = 0
+            current_width: int = 0
+
+            for prev_book in range(book_idx - 1, -1, -1):
+                cur_book_width, cur_book_height = books[prev_book]
+
+                if current_width + cur_book_width > boundary: break
+
+                current_width += cur_book_width
+                current_height = max(current_height, cur_book_height)
+
+                min_heights[book_idx] = min(min_heights[book_idx], min_heights[prev_book] + current_height)
+
+        return min_heights[len(books)]
