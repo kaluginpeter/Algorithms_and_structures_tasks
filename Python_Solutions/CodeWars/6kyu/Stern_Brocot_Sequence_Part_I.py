@@ -20,3 +20,14 @@
 # n = 3 ==> 4
 # n = 4 ==> 8
 # NUMBER THEORYALGORITHMS
+# Solution
+def stern_brocot(n):
+    storage: list[int] = [1, 1]
+    first_idx: int = 0
+    while True:
+        if storage[first_idx] == n: return first_idx
+        sum_pair: int = storage[first_idx] + storage[first_idx + 1]
+        first_idx += 1
+        after_that: int = storage[first_idx]
+        storage.append(sum_pair)
+        storage.append(after_that)
