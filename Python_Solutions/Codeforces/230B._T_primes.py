@@ -23,3 +23,33 @@
 # NO
 # Note
 # The given test has three numbers. The first number 4 has exactly three divisors — 1, 2 and 4, thus the answer for this number is "YES". The second number 5 has two divisors (1 and 5), and the third number 6 has four divisors (1, 2, 3, 6), hence the answer for them is "NO".
+# Solution Math O(N) O(k) where k is length of primes
+import math
+import sys
+
+
+def sieve_of_eratosthenes(limit: int) -> list:
+    is_prime: list[bool] = [True] * (limit + 1)
+    is_prime[0] = is_prime[1] = False
+    for start in range(2, int(math.sqrt(limit)) + 1):
+        if is_prime[start]:
+            for multiple in range(start * start, limit + 1, start):
+                is_prime[multiple] = False
+    return [num for num, prime in enumerate(is_prime) if prime]
+
+
+def solution(n: int, nums: list) -> str:
+    upper_boundary: int = int(math.sqrt(max(nums))) + 1
+    primes: set = set(sieve_of_eratosthenes(upper_boundary))
+    for num in nums:
+        root: int = math.sqrt(num)
+        if root != int(root):
+            print('NO')
+        else:
+            print(['NO', 'YES'][int(root) in primes])
+
+
+if __name__ == '__main__':
+    n: int = int(sys.stdin.readline().rstrip())
+    nums: list = list(map(int, sys.stdin.readline().rstrip().split()))
+    solution(n, nums)
