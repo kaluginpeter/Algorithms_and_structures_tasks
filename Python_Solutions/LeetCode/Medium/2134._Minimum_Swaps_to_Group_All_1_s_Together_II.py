@@ -37,3 +37,19 @@
 #
 # 1 <= nums.length <= 105
 # nums[i] is either 0 or 1.
+# Solution Sliding Window O(N) O(1)
+class Solution:
+    def minSwaps(self, nums: List[int]) -> int:
+        zeros: int = 0
+        ones: int = nums.count(1)
+        k: int = len(nums)
+        min_operations: int = float('inf')
+        left: int = 0
+        for right in range(k * 2):
+            if nums[right % k] == 0: zeros += 1
+            while right - left + 1 > ones:
+                if nums[left % k] == 0: zeros -= 1
+                left += 1
+            if right - left + 1 == ones:
+                min_operations = min(min_operations, zeros)
+        return min_operations
