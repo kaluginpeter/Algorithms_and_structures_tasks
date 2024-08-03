@@ -25,3 +25,18 @@
 #
 # 1 <= nums.length <= 105
 # nums[i] is either 0 or 1.
+# Solution Sliding Window O(N) O(1)
+class Solution:
+    def longestSubarray(self, nums: List[int]) -> int:
+        zeros: int = 0
+        left: int = 0
+        right: int = 0
+        mx_length: int = 0
+        for right in range(len(nums)):
+            if nums[right] == 0: zeros += 1
+            while zeros > 1:
+                if nums[left] == 0:
+                    zeros -= 1
+                left += 1
+            mx_length = max(mx_length, right - left)
+        return mx_length
