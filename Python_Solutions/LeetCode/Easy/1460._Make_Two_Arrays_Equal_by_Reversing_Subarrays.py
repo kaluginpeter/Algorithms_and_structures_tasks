@@ -31,3 +31,23 @@
 # 1 <= target.length <= 1000
 # 1 <= target[i] <= 1000
 # 1 <= arr[i] <= 1000
+# Solution Hash Table Counting
+# General idea:
+# Arrays can be rearranged to equals, only if they have same frequences of same numbers, order doesn't matter. That's all.
+# Complexity
+# Time complexity: O(N)
+# Space complexity: O(N)
+# Code
+class Solution:
+    def canBeEqual(self, target: List[int], arr: List[int]) -> bool:
+        # Storage frequence of each integer in both arrays
+        storage: dict[int, int] = dict()
+        for i in range(len(target)):
+            # Target array will be increment counter of each number
+            storage[target[i]] = storage.get(target[i], 0) + 1
+            # Current arr will be decrease counter
+            storage[arr[i]] = storage.get(arr[i], 0) - 1
+        # At the end of counting and substracting, our hasmap should have only zeroes in values if it not, it means that we have some numbers that not contains in other array.
+        for num in storage:
+            if storage[num] != 0: return False
+        return True
