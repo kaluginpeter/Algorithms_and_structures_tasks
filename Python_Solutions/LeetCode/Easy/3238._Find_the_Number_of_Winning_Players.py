@@ -51,3 +51,21 @@
 # pick[i].length == 2
 # 0 <= xi <= n - 1
 # 0 <= yi <= 10
+# Solution HashTable Counting O(N) O(N)
+class Solution:
+    def winningPlayerCount(self, n: int, pick: List[List[int]]) -> int:
+        # Store frequences of all colors that collected each player
+        # map[key = player; value = map[key=color, value=frequence]]
+        storage: dict[int, dict[int, int]] = dict()
+        for match in pick:
+            player, color = match
+            if player not in storage:
+                storage[player] = dict()
+            storage[player][color] = storage[player].get(color, 0) + 1
+        winners: int = 0
+        for player in storage:
+            for color in storage[player]:
+                if storage[player][color] > player:
+                    winners += 1
+                    break
+        return winners
