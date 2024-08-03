@@ -26,3 +26,22 @@
 # 2
 # Note
 # In the first test example the sequence of Xenia's moves along the ringroad looks as follows: 1 → 2 → 3 → 4 → 1 → 2 → 3. This is optimal sequence. So, she needs 6 time units.
+# Solution Simulation O(N) O(1)
+import sys
+
+def solution(n: int, m: int, houses: list) -> str:
+    total_moves: int = 0
+    current_position: int = 1
+    for home in houses:
+        if current_position == home: continue
+        if home < current_position:
+            total_moves += n - current_position + home
+        else:
+            total_moves += home - current_position
+        current_position = home
+    return str(total_moves)
+
+if __name__ == '__main__':
+    n, m = map(int, sys.stdin.readline().rstrip().split())
+    houses: list = list(map(int, sys.stdin.readline().rstrip().split()))
+    sys.stdout.write(solution(n, m, houses))
