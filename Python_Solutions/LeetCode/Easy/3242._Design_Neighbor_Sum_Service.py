@@ -52,3 +52,52 @@
 # All grid[i][j] are distinct.
 # value in adjacentSum and diagonalSum will be in the range [0, n2 - 1].
 # At most 2 * n2 calls will be made to adjacentSum and diagonalSum.
+# Solution
+# Complexity
+# Time complexity: O(N^2) - because our initialization will cost O(N^2), but other operations like search, adjacentSum or diagonalSum will be always(almost if we know about hashmap complexities) cost O(1)
+# Space complexity: O(N^2)
+# Code
+class neighborSum:
+
+    def __init__(self, grid: List[List[int]]):
+        self.mtrx: list[list[int]] = grid
+        self.positions: dict[int, tuple[int]] = dict()
+        for row in range(len(self.mtrx)):
+            for col in range(len(self.mtrx)):
+                self.positions[self.mtrx[row][col]] = (row, col)
+
+    def search(self, value: int) -> tuple[int, int]:
+        return self.positions[value]
+
+    def adjacentSum(self, value: int) -> int:
+        row, col = self.search(value)
+        sm: int = 0
+        # upper element
+        if row - 1 >= 0: sm += self.mtrx[row - 1][col]
+        # left side element
+        if col - 1 >= 0: sm += self.mtrx[row][col - 1]
+        # right side element
+        if col + 1 < len(self.mtrx): sm += self.mtrx[row][col + 1]
+        # bottom element
+        if row + 1 < len(self.mtrx): sm += self.mtrx[row + 1][col]
+        return sm
+
+    def diagonalSum(self, value: int) -> int:
+        row, col = self.search(value)
+        sm: int = 0
+        # upper left element
+        if row - 1 >= 0 and col - 1 >= 0: sm += self.mtrx[row - 1][col - 1]
+        # lower left element
+        if row + 1 < len(self.mtrx) and col - 1 >= 0: sm += self.mtrx[row + 1][col - 1]
+        # lower right element
+        if row + 1 < len(self.mtrx) and col + 1 < len(self.mtrx): sm += self.mtrx[row + 1][col + 1]
+        # upper right element
+        if row - 1 >= 0 and col + 1 < len(self.mtrx): sm += self.mtrx[row - 1][col + 1]
+        return sm
+
+
+
+# Your neighborSum object will be instantiated and called as such:
+# obj = neighborSum(grid)
+# param_1 = obj.adjacentSum(value)
+# param_2 = obj.diagonalSum(value)
