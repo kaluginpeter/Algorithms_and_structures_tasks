@@ -2,3 +2,4 @@
 
 - [228. Summary Ranges](https://leetcode.com/problems/summary-ranges/description/) - [Solution](https://github.com/kaluginpeter/Algorithms_and_structures_tasks/blob/main/Python_Solutions/LeetCode/Easy/228._Summary_Ranges.py)
 - [1493. Longest Subarray of 1's After Deleting One Element](https://leetcode.com/problems/longest-subarray-of-1s-after-deleting-one-element/description/) - [Solution](https://github.com/kaluginpeter/Algorithms_and_structures_tasks/blob/main/Python_Solutions/LeetCode/Medium/1493._Longest_Subarray_of_1_s_After_Deleting_One_Element.py)
+- [443. String Compression](https://leetcode.com/problems/string-compression/description/) - [Solution](https://github.com/kaluginpeter/Algorithms_and_structures_tasks/blob/main/Python_Solutions/LeetCode/Medium/443._String_Compression.py)

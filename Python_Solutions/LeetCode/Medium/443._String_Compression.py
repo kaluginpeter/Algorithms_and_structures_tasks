@@ -33,3 +33,61 @@
 #
 # 1 <= chars.length <= 2000
 # chars[i] is a lowercase English letter, uppercase English letter, digit, or symbol.
+# Solutions
+# For loop
+# Complexity
+# Time complexity: O(N)
+# Space complexity: O(1)
+# Code
+class Solution:
+    def compress(self, chars: List[str]) -> int:
+        main_index: int = 0
+        left = right = 0
+        for current_index in range(1, len(chars)):
+            if chars[current_index] == chars[right]:
+                right += 1
+            elif left == right:
+                chars[main_index] = chars[left]
+                main_index += 1
+                left = right = current_index
+            else:
+                chars[main_index] = chars[left]
+                main_index += 1
+                for num in str(right - left + 1):
+                    chars[main_index] = num
+                    main_index += 1
+                left = right = current_index
+        if left == right:
+            chars[main_index] = chars[left]
+            main_index += 1
+        else:
+            chars[main_index] = chars[left]
+            main_index += 1
+            for num in str(right - left + 1):
+                chars[main_index] = num
+                main_index += 1
+        return main_index
+
+# While loop
+# Complexity
+# Time complexity: O(N)
+# Space complexity: O(1)
+# Code
+class Solution:
+    def compress(self, chars: List[str]) -> int:
+        main_index: int = 0
+        left: int = 0
+        while left < len(chars):
+            right: int = left
+            frequence: int = 0
+            while right < len(chars) and chars[right] == chars[left]:
+                right += 1
+                frequence += 1
+            chars[main_index] = chars[left]
+            main_index += 1
+            if frequence > 1:
+                for num in str(frequence):
+                    chars[main_index] = num
+                    main_index += 1
+            left = right
+        return main_index
