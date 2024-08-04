@@ -46,3 +46,24 @@ class Solution:
                 flag = False
             l.append(str(a) if a == b else str(a) + '->' + str(b))
         return l
+
+# Two Pointers O(N) O(N)
+class Solution:
+    def summaryRanges(self, nums: List[int]) -> List[str]:
+        output: list[str] = []
+        if not nums: return output
+        left = right = 0
+        for idx in range(1, len(nums)):
+            if nums[idx] - 1 == nums[right]:
+                right += 1
+            else:
+                if left == right:
+                    output.append(str(nums[left]))
+                else:
+                    output.append(f'{nums[left]}->{nums[right]}')
+                left = right = idx
+        if left == right:
+            output.append(str(nums[left]))
+        else:
+            output.append(f'{nums[left]}->{nums[right]}')
+        return output
