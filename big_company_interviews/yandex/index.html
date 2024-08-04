@@ -9,6 +9,7 @@
             font-family: Arial, sans-serif;
             text-align: center;
             margin-top: 50px;
+            background-color: #f0f0f0;
         }
         #tasks {
             margin: 20px 0;
@@ -16,6 +17,30 @@
         button {
             padding: 10px 20px;
             font-size: 16px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .task {
+            background-color: white;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .task a {
+            color: #007BFF;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .task a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -33,6 +58,20 @@
             return text.split('\n').filter(line => line.startsWith('-'));
         }
 
+        function parseTask(task) {
+            const regex = /\[(.*?)\]\((.*?)\).*?\[(.*?)\]\((.*?)\)/;
+            const match = task.match(regex);
+            if (match) {
+                return {
+                    problemText: match[1],
+                    problemLink: match[2],
+                    solutionText: match[3],
+                    solutionLink: match[4]
+                };
+            }
+            return null;
+        }
+
         function getRandomTasks() {
             fetchTasks().then(tasks => {
                 if (tasks.length < 2) {
@@ -48,13 +87,21 @@
                     }
                 }
 
-                const task1 = tasks[randomIndexes[0]];
-                const task2 = tasks[randomIndexes[1]];
+                const task1 = parseTask(tasks[randomIndexes[0]]);
+                const task2 = parseTask(tasks[randomIndexes[1]]);
 
-                document.getElementById('tasks').innerHTML = `
-                    <p>${task1}</p>
-                    <p>${task2}</p>
-                `;
+                if (task1 && task2) {
+                    document.getElementById('tasks').innerHTML = `
+                        <div class="task">
+                            <a href="${task1.problemLink}" target="_blank">${task1.problemText}</a> - 
+                            <a href="${task1.solutionLink}" target="_blank">${task1.solutionText}</a>
+                        </div>
+                        <div class="task">
+                            <a href="${task2.problemLink}" target="_blank">${task2.problemText}</a> - 
+                            <a href="${task2.solutionLink}" target="_blank">${task2.solutionText}</a>
+                        </div>
+                    `;
+                }
             }).catch(error => {
                 console.error('Error fetching tasks:', error);
                 document.getElementById('tasks').innerHTML = '<p>Error fetching tasks</p>';
@@ -63,4 +110,5 @@
     </script>
 </body>
 </html>
+
 
