@@ -2,7 +2,7 @@
 
 ## Test interview: [Check Yourself](https://kaluginpeter.github.io/Algorithms_and_structures_tasks/big_company_interviews/yandex/index.html)
 
-Go on link and tap on the button and "Get random tasks"
+Go on link and tap on the button "Get random tasks"
 
 
 - [228. Summary Ranges](https://leetcode.com/problems/summary-ranges/description/) - [Solution](https://github.com/kaluginpeter/Algorithms_and_structures_tasks/blob/main/Python_Solutions/LeetCode/Easy/228._Summary_Ranges.py)
