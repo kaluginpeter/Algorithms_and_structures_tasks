@@ -1,8 +1,6 @@
 # Yandex Interview Tasks
 
-## Test interview:
-
-[Links](https://kaluginpeter.github.io/Algorithms_and_structures_tasks/big_company_interviews/yandex/)
+## Test interview: [Check Yourself](https://kaluginpeter.github.io/Algorithms_and_structures_tasks/big_company_interviews/yandex/index.html)
 
 Go on link and tap on the button and "Get random tasks"
 
