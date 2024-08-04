@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Tasks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #tasks {
+            margin: 20px 0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Random Tasks</h1>
+    <div id="tasks">
+        <!-- Random tasks will be displayed here -->
+    </div>
+    <button onclick="getRandomTasks()">Get Random Tasks</button>
+
+    <script>
+        async function fetchTasks() {
+            const response = await fetch('yandex_tasks.md');
+            const text = await response.text();
+            return text.split('\n').filter(line => line.startsWith('-'));
+        }
+
+        function getRandomTasks() {
+            fetchTasks().then(tasks => {
+                if (tasks.length < 2) {
+                    document.getElementById('tasks').innerHTML = '<p>Not enough tasks to select from.</p>';
+                    return;
+                }
+
+                const randomIndexes = [];
+                while (randomIndexes.length < 2) {
+                    const randomIndex = Math.floor(Math.random() * tasks.length);
+                    if (!randomIndexes.includes(randomIndex)) {
+                        randomIndexes.push(randomIndex);
+                    }
+                }
+
+                const task1 = tasks[randomIndexes[0]];
+                const task2 = tasks[randomIndexes[1]];
+
+                document.getElementById('tasks').innerHTML = `
+                    <p>${task1}</p>
+                    <p>${task2}</p>
+                `;
+            }).catch(error => {
+                console.error('Error fetching tasks:', error);
+                document.getElementById('tasks').innerHTML = '<p>Error fetching tasks</p>';
+            });
+        }
+    </script>
+</body>
+</html>
+
