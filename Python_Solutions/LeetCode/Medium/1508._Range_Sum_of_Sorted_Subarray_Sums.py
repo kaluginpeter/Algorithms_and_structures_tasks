@@ -26,3 +26,35 @@
 # 1 <= nums.length <= 1000
 # 1 <= nums[i] <= 100
 # 1 <= left <= right <= n * (n + 1) / 2
+# Solution
+# Brute Force
+# Complexity
+# Time complexity: O(N**2 logN)
+# Space complexity: O(N**2)
+# Code
+class Solution:
+    def rangeSum(self, nums: List[int], n: int, left: int, right: int) -> int:
+        storage: list[int] = []
+        for i in range(len(nums)):
+            cul_sum: int = 0
+            for j in range(i, len(nums)):
+                cul_sum += nums[j]
+                storage.append(cul_sum)
+        storage.sort()
+        return sum(storage[left - 1: right]) % (10**9+7)
+
+# Heap
+# Complexity
+# Time complexity: O(N**2 logN)
+# Space complexity: O(N**2)
+# Code
+class Solution:
+    def rangeSum(self, nums: List[int], n: int, left: int, right: int) -> int:
+        storage: list[tuple[int]] = [(value, index) for index, value in enumerate(nums)]
+        heapify(storage)
+        total_sum: int = 0
+        for idx in range(1, right + 1):
+            cur_val, cur_idx = heappop(storage)
+            if idx >= left: total_sum += cur_val
+            if cur_idx + 1 < n: heappush(storage, (cur_val + nums[cur_idx + 1], cur_idx + 1))
+        return total_sum % (10**9 + 7)
