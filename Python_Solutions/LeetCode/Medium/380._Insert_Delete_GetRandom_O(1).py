@@ -63,3 +63,41 @@ class RandomizedSet:
 # param_1 = obj.insert(val)
 # param_2 = obj.remove(val)
 # param_3 = obj.getRandom()
+
+
+# Solution Hash Table Array O(1) O(N)
+import random
+
+
+class RandomizedSet:
+
+    def __init__(self):
+        self.hashmap: dict[int, int] = dict()
+        self.for_random: list[int] = []
+
+    def insert(self, val: int) -> bool:
+        if val in self.hashmap: return False
+        self.for_random.append(val)
+        self.hashmap[val] = len(self.for_random) - 1
+        return True
+
+    def remove(self, val: int) -> bool:
+        if val not in self.hashmap: return False
+        last_item: int = self.for_random[-1]
+        val_index: int = self.hashmap[val]
+
+        self.for_random[val_index] = last_item
+        self.hashmap[last_item] = val_index
+
+        del self.hashmap[val]
+        self.for_random.pop()
+        return True
+
+    def getRandom(self) -> int:
+        return random.choice(self.for_random)
+
+# Your RandomizedSet object will be instantiated and called as such:
+# obj = RandomizedSet()
+# param_1 = obj.insert(val)
+# param_2 = obj.remove(val)
+# param_3 = obj.getRandom()
