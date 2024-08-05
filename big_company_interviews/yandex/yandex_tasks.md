@@ -13,4 +13,4 @@ Go on link and tap on the button "Get random tasks"
 - [283. Move Zeroes](https://leetcode.com/problems/move-zeroes/description/) - [Solution](https://github.com/kaluginpeter/Algorithms_and_structures_tasks/blob/main/Python_Solutions/LeetCode/Easy/283._Move_Zeroes.py)
 - [49. Group Anagrams](https://leetcode.com/problems/group-anagrams/description/) - [Solution](https://github.com/kaluginpeter/Algorithms_and_structures_tasks/blob/main/Python_Solutions/LeetCode/Medium/49._Group_Anagrams.py)
 - [380. Insert Delete GetRandom O(1)](https://leetcode.com/problems/insert-delete-getrandom-o1/description/) - [Solution](https://github.com/kaluginpeter/Algorithms_and_structures_tasks/blob/main/Python_Solutions/LeetCode/Medium/380._Insert_Delete_GetRandom_O(1).py)
-- [146. LRU Cache](https://leetcode.com/problems/lru-cache/description/) - [Solution]()
+- [146. LRU Cache](https://leetcode.com/problems/lru-cache/description/) - [Solution](https://github.com/kaluginpeter/Algorithms_and_structures_tasks/blob/main/Python_Solutions/LeetCode/Medium/146._LRU_Cache.py)

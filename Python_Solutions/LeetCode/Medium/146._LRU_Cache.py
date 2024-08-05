@@ -36,3 +36,43 @@
 # 0 <= key <= 104
 # 0 <= value <= 105
 # At most 2 * 105 calls will be made to get and put.
+# Solution HashTable Ordered Dict O(1) O(N)
+# In python 3.7+ dict have property to store order of insertion. For doing this in oldest versions of python, you can use OrderedDict
+#
+# Complexity
+# Time complexity: O(1)
+# Space complexity: O(N) where N is capacity size
+# Code
+class LRUCache:
+
+    def __init__(self, capacity: int):
+        self.hashmap: dict[int, int] = dict()
+        self.capacity: int = capacity
+
+
+    def get(self, key: int) -> int:
+        if key not in self.hashmap: return -1
+        # Move current element to the end of hashmap
+        value: int = self.hashmap[key]
+        del self.hashmap[key]
+        self.hashmap[key] = value
+        return value
+
+
+    def put(self, key: int, value: int) -> None:
+        if key in self.hashmap:
+            # Move to the end updated element
+            del self.hashmap[key]
+            self.hashmap[key] = value
+            return
+        # If capacity exeeds, we should delete first element from hashmap
+        if len(self.hashmap) == self.capacity:
+            del self.hashmap[next(iter(self.hashmap))]
+        # Inserting at the end of map new pair
+        self.hashmap[key] = value
+
+
+# Your LRUCache object will be instantiated and called as such:
+# obj = LRUCache(capacity)
+# param_1 = obj.get(key)
+# obj.put(key,value)
