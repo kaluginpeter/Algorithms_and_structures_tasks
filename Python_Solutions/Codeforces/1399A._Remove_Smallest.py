@@ -79,3 +79,17 @@
 # In the third test case of the example, there is no way to get rid of 2
 #  and 4
 # .
+# Solution Sorting Greedy O(NlogN) O(N)
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: list = sorted(map(int, sys.stdin.readline().rstrip().split()))
+        print(['NO', 'YES'][all(x - y <= 1 for y, x in zip(nums, nums[1:])) or len(nums) == 1])
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
