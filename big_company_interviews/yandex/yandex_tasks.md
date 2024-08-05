@@ -11,3 +11,4 @@ Go on link and tap on the button "Get random tasks"
 - [125. Valid Palindrome](https://leetcode.com/problems/valid-palindrome/description/) - [Solution](https://github.com/kaluginpeter/Algorithms_and_structures_tasks/blob/main/Python_Solutions/LeetCode/Easy/125._Valid_Palindrome.py)
 - [560. Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/description/) - [Solution](https://github.com/kaluginpeter/Algorithms_and_structures_tasks/blob/main/Python_Solutions/LeetCode/Medium/560._Subarray_Sum_Equals_K.py)
 - [283. Move Zeroes](https://leetcode.com/problems/move-zeroes/description/) - [Solution](https://github.com/kaluginpeter/Algorithms_and_structures_tasks/blob/main/Python_Solutions/LeetCode/Easy/283._Move_Zeroes.py)
+- [49. Group Anagrams](https://leetcode.com/problems/group-anagrams/description/) - [Solution](https://github.com/kaluginpeter/Algorithms_and_structures_tasks/blob/main/Python_Solutions/LeetCode/Medium/49._Group_Anagrams.py)

@@ -40,3 +40,15 @@ class Solution:
                 top.append(strs[j])
             ans.append(top)
         return ans
+
+# Solution HashTable O(NlogN) O(N)
+class Solution:
+    def get_index(self, word: str) -> str:
+        return ''.join(sorted(word))
+
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        storage: dict[str, list[str]] = dict()
+        for word in strs:
+            idx: str = self.get_index(word)
+            storage[idx] = storage.get(idx, []) + [word]
+        return storage.values()
