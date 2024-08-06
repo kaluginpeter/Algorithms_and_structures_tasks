@@ -75,3 +75,21 @@ class Solution:
             if n == 8:
                 n, top = 0, top + 1
         return count
+
+# Solution HashTable Greedy Counting Sorting O(N) O(1)
+class Solution:
+    def minimumPushes(self, word: str) -> int:
+        storage: dict[str, int] = dict()
+        for char in word:
+            storage[char] = storage.get(char, 0) + 1
+        chars: list[str] = sorted(storage.keys(), key=lambda x: storage[x], reverse=True)
+        total_cost: int = 0
+        button: int = 2
+        letters_in_button: int = 1
+        for char in chars:
+            total_cost += letters_in_button * storage[char]
+            button += 1
+            if button == 10:
+                button = 2
+                letters_in_button += 1
+        return total_cost
