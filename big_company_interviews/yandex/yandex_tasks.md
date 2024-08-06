@@ -15,4 +15,4 @@ Go on link and tap on the button "Get random tasks"
 - [380. Insert Delete GetRandom O(1)](https://leetcode.com/problems/insert-delete-getrandom-o1/description/) - [Solution](https://github.com/kaluginpeter/Algorithms_and_structures_tasks/blob/main/Python_Solutions/LeetCode/Medium/380._Insert_Delete_GetRandom_O(1).py)
 - [146. LRU Cache](https://leetcode.com/problems/lru-cache/description/) - [Solution](https://github.com/kaluginpeter/Algorithms_and_structures_tasks/blob/main/Python_Solutions/LeetCode/Medium/146._LRU_Cache.py)
 - [206. Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/description/) - [Solution](https://github.com/kaluginpeter/Algorithms_and_structures_tasks/blob/main/Python_Solutions/LeetCode/Easy/206._Reverse_Linked_List.py)
-- [22. Generate Parentheses](https://leetcode.com/problems/generate-parentheses/description/) - [Solution]()
+- [22. Generate Parentheses](https://leetcode.com/problems/generate-parentheses/description/) - [Solution](https://github.com/kaluginpeter/Algorithms_and_structures_tasks/blob/main/Python_Solutions/LeetCode/Medium/22._Generate_Parentheses.py)
