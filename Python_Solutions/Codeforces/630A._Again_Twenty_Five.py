@@ -16,3 +16,19 @@
 # 2
 # outputCopy
 # 25
+# Solution Math O(logN) O(1)
+import sys
+
+def solution(n: int) -> str:
+    result: int = 1
+    base: int = 5
+    modulus: int = 100
+    while n > 0:
+        if n & 1:
+            result = (result * base) % modulus
+        n >>= 1
+        base = (base * base) % modulus
+    return str(result).zfill(2)
+if __name__ == '__main__':
+    n: int = int(sys.stdin.readline().rstrip())
+    sys.stdout.write(solution(n))
