@@ -29,3 +29,56 @@
 # 1 <= t <= 109
 # Each test case will call ping with strictly increasing values of t.
 # At most 104 calls will be made to ping.
+# Solution
+
+# Binary Search
+# Complexity
+# Time complexity: O(NlogN)
+# Space complexity: O(N)
+# Code
+class RecentCounter:
+    def __init__(self):
+        self.requests: list[int] = []
+
+    def leftmost_binary_search(self, target: int) -> int:
+        left: int = 0
+        right: int = len(self.requests)
+        while left <= right:
+            middle: int = left + (right - left) // 2
+            if self.requests[middle] >= target:
+                right = middle - 1
+            else: left = middle + 1
+        return right + 1
+
+    def ping(self, t: int) -> int:
+        self.requests.append(t)
+        lower_idx: int = self.leftmost_binary_search(t - 3_000)
+        return len(self.requests) - lower_idx
+
+
+
+# Your RecentCounter object will be instantiated and called as such:
+# obj = RecentCounter()
+# param_1 = obj.ping(t)
+
+# Two pointers aka Sliding Window
+# Complexity
+# Time complexity: O(N)
+# Space complexity: O(N)
+# Code
+class RecentCounter:
+    def __init__(self):
+        self.requests: list[int] = []
+        self.left: int = 0
+
+    def ping(self, t: int) -> int:
+        self.requests.append(t)
+        while self.requests[self.left] < t - 3_000:
+            self.left += 1
+        return len(self.requests) - self.left
+
+
+
+# Your RecentCounter object will be instantiated and called as such:
+# obj = RecentCounter()
+# param_1 = obj.ping(t)

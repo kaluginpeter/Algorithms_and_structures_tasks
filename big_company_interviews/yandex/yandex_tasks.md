@@ -17,4 +17,4 @@ Go on link and tap on the button "Get random tasks"
 - [206. Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/description/) - [Solution](https://github.com/kaluginpeter/Algorithms_and_structures_tasks/blob/main/Python_Solutions/LeetCode/Easy/206._Reverse_Linked_List.py)
 - [22. Generate Parentheses](https://leetcode.com/problems/generate-parentheses/description/) - [Solution](https://github.com/kaluginpeter/Algorithms_and_structures_tasks/blob/main/Python_Solutions/LeetCode/Medium/22._Generate_Parentheses.py)
 - [567. Permutation in String](https://leetcode.com/problems/permutation-in-string/description/) - [Solution](https://github.com/kaluginpeter/Algorithms_and_structures_tasks/blob/main/Python_Solutions/LeetCode/Medium/567._Permutation_in_String.py)
-- [933. Number of Recent Calls](https://leetcode.com/problems/number-of-recent-calls/description/) - [Solution]()
+- [933. Number of Recent Calls](https://leetcode.com/problems/number-of-recent-calls/description/) - [Solution](https://github.com/kaluginpeter/Algorithms_and_structures_tasks/blob/main/Python_Solutions/LeetCode/Easy/933._Number_of_Recent_Calls.py)
