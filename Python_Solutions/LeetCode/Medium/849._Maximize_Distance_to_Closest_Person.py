@@ -36,3 +36,15 @@
 # seats[i] is 0 or 1.
 # At least one seat is empty.
 # At least one seat is occupied.
+# Solution Two Pointers Sliding Window O(N) O(1)
+class Solution:
+    def maxDistToClosest(self, seats: List[int]) -> int:
+        left: int = 0
+        max_distance: int = 0
+        for right in range(len(seats)):
+            if seats[right]:
+                if left == 0 and seats[left] == 0:
+                    max_distance = max(max_distance, right)
+                else: max_distance = max(max_distance, (right - left) // 2)
+                left = right
+        return max(max_distance, len(seats) - left - 1)
