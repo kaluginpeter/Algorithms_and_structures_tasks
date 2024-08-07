@@ -32,3 +32,17 @@ class Solution:
             elif not stack or stack.pop() != b:
                 return False
         return not stack
+
+
+# Solution Stack String O(N) O(N)
+class Solution:
+    def isValid(self, s: str) -> bool:
+        closed_brackets: dict[str, str] = {')': '(', ']': '[', '}': '{'}
+        stack: list[str] = []
+        for bracket in s:
+            if bracket not in closed_brackets:
+                stack.append(bracket)
+            elif not stack or stack[-1] != closed_brackets[bracket]:
+                return False
+            else: stack.pop()
+        return not stack
