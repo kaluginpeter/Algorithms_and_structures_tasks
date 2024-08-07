@@ -68,3 +68,17 @@
 #  (subtract 8
 # , subtract 6
 # ).
+# Solution Math O(1) O(1)
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        a, b = map(int, sys.stdin.readline().rstrip().split())
+        remainder: int = max(a, b) - min(a, b)
+        print(remainder // 10 + (remainder % 10 != 0))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
