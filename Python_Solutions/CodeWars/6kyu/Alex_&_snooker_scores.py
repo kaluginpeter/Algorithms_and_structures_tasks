@@ -13,3 +13,18 @@
 # Statistics URL:
 #
 # STATISTICSARRAYSSTRINGSALGORITHMS
+# Solution
+def frame(score):
+    matches: list[str] = score.split('; ')
+    first = second = 0
+    for game in matches:
+        while '(' in game:
+            op: idx = game.index('(')
+            cl: idx = game.index(')')
+            game = game[:op] + game[cl + 1:]
+        x, y = map(int, game.split('-'))
+        if x > y:
+            first += 1
+        elif y > x:
+            second += 1
+    return [first, second]
