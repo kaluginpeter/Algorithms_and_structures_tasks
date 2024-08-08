@@ -7,3 +7,8 @@
 # Hint: The last example test case holds a significant clue to calculating the affinity correctly.
 #
 # DATA STRUCTURESALGORITHMS
+# Solution
+def vector_affinity(a, b):
+    score: int = sum(a[idx] == b[idx] for idx in range(min(len(a), len(b))))
+    module: int = max(len(a), len(b))
+    return score / module if module != 0 else [0.0, 1.0][len(a) == len(b)]
