@@ -26,3 +26,32 @@
 # 16 12
 # Note
 # In the first sample Sereja will take cards with numbers 10 and 2, so Sereja's sum is 12. Dima will take cards with numbers 4 and 1, so Dima's sum is 5.
+# Solution Greedy Two Pointers O(N) O(1)
+import sys
+
+
+def solution(n: int, cards: list) -> str:
+    dima: int = 0
+    serj: int = 0
+    flag: bool = True
+    left: int = 0
+    right: int = n - 1
+    while left <= right:
+        if cards[left] > cards[right]:
+            current_card: int = cards[left]
+            left += 1
+        else:
+            current_card: int = cards[right]
+            right -= 1
+        if flag:
+            serj += current_card
+        else:
+            dima += current_card
+        flag = not flag
+    return f'{serj} {dima}'
+
+
+if __name__ == '__main__':
+    n: int = int(sys.stdin.readline().rstrip())
+    cards: list = list(map(int, sys.stdin.readline().rstrip().split()))
+    sys.stdout.write(solution(n, cards))
