@@ -19,3 +19,46 @@
 # 1 <= intervals.length <= 104
 # intervals[i].length == 2
 # 0 <= starti <= endi <= 104
+# Solution
+# Merging in extra array
+# Complexity
+# Time complexity: O(NlogN)
+# Space complexity: O(N)
+# Code
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        intervals.sort()
+        output: list[list[int]] = []
+        start, end = intervals[0]
+        for idx in range(1, len(intervals)):
+            next_start, next_end = intervals[idx]
+            if end >= next_start:
+                end = max(end, next_end)
+            else:
+                output.append([start, end])
+                start, end = next_start, next_end
+        output.append([start, end])
+        return output
+
+# Merging in place
+# Complexity
+# Time complexity: O(NlogN)
+# Space complexity: O(M), where M represent total count of merged intervals and in worst case it can be O(N),
+# but operation of adding merged pairs in array have a O(1) time
+# Code
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        intervals.sort()
+        main_idx: int = 0
+        start, end = intervals[0]
+        for idx in range(1, len(intervals)):
+            next_start, next_end = intervals[idx]
+            if end >= next_start:
+                end = max(end, next_end)
+            else:
+                intervals[main_idx] = [start, end]
+                start, end = next_start, next_end
+                main_idx += 1
+        intervals[main_idx] = [start, end]
+        main_idx += 1
+        return intervals[:main_idx]

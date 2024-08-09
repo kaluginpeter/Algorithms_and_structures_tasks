@@ -20,4 +20,4 @@ Go on link and tap on the button "Get random tasks"
 - [933. Number of Recent Calls](https://leetcode.com/problems/number-of-recent-calls/description/) - [Solution](https://github.com/kaluginpeter/Algorithms_and_structures_tasks/blob/main/Python_Solutions/LeetCode/Easy/933._Number_of_Recent_Calls.py)
 - [20. Valid Parentheses](https://leetcode.com/problems/valid-parentheses/description/) - [Solution](https://github.com/kaluginpeter/Algorithms_and_structures_tasks/blob/main/Python_Solutions/LeetCode/Easy/20._Valid_Parentheses.py)
 - [849. Maximize Distance to Closest Person](https://leetcode.com/problems/maximize-distance-to-closest-person/description/) - [Solution](https://github.com/kaluginpeter/Algorithms_and_structures_tasks/blob/main/Python_Solutions/LeetCode/Medium/849._Maximize_Distance_to_Closest_Person.py)
-- [56. Merge Intervals](https://leetcode.com/problems/merge-intervals/description/) - [Solution]()
+- [56. Merge Intervals](https://leetcode.com/problems/merge-intervals/description/) - [Solution](https://github.com/kaluginpeter/Algorithms_and_structures_tasks/blob/main/Python_Solutions/LeetCode/Medium/56._Merge_Intervals.py)
