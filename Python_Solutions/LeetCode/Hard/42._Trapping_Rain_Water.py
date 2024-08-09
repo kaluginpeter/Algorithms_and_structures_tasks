@@ -42,3 +42,31 @@ class Solution:
             ans += min(left_boundary, right_boundary) - height[right]
             right += -1
         return ans
+
+
+# Solution Two Pointers O(N) O(1)
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        max_height_pointer: int = 0
+        for idx in range(len(height)):
+            if height[idx] > height[max_height_pointer]:
+                max_height_pointer = idx
+        waters: int = 0
+
+        left: int = 0
+        left_boundary: int = height[left]
+        while left < max_height_pointer:
+            if height[left] > 0:
+                left_boundary = max(left_boundary, height[left])
+            waters += left_boundary - height[left]
+            left += 1
+
+        right: int = len(height) - 1
+        right_boundary: int = height[right]
+        while right > max_height_pointer:
+            if height[right] > 0:
+                right_boundary = max(right_boundary, height[right])
+            waters += right_boundary - height[right]
+            right -= 1
+
+        return waters
