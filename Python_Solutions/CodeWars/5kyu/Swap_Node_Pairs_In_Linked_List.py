@@ -14,3 +14,29 @@
 #     def __init__(self, next=None):
 #         self.next = next
 # ALGORITHMSDATA STRUCTURESLINKED LISTS
+# Solution
+from preloaded import Node
+
+def swap_pairs(head):
+    length: int = 0
+    tmp: Node = head
+    while tmp:
+        length += 1
+        tmp = tmp.next
+    if length <= 1: return head
+    first: Node = head
+    second: Node = head.next
+    first.next = second.next
+    second.next = first
+    head = second
+    tmp = head.next
+    while tmp:
+        first: Node = tmp.next
+        if not first: break
+        second: Node = tmp.next.next
+        if not second: break
+        first.next = second.next
+        second.next = first
+        tmp.next = second
+        tmp = tmp.next.next
+    return head
