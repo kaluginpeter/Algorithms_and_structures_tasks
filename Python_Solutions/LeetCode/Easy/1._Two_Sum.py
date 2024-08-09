@@ -31,3 +31,14 @@ class Solution:
         for i, j in enumerate(nums):
             if target - j in d: return d[target-j], i
             d[j] = i
+
+# Solution HashTable O(N) O(N)
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        hashmap: dict[int, int] = dict()
+        for idx in range(len(nums)):
+            x: int = nums[idx]
+            y: int = target - x
+            if y in hashmap:
+                return [idx, hashmap[y]]
+            hashmap[x] = idx
