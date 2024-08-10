@@ -23,3 +23,4 @@ Go on link and tap on the button "Get random tasks"
 - [56. Merge Intervals](https://leetcode.com/problems/merge-intervals/description/) - [Solution](https://github.com/kaluginpeter/Algorithms_and_structures_tasks/blob/main/Python_Solutions/LeetCode/Medium/56._Merge_Intervals.py)
 - [42. Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/description/) - [Solution](https://github.com/kaluginpeter/Algorithms_and_structures_tasks/blob/main/Python_Solutions/LeetCode/Hard/42._Trapping_Rain_Water.py)
 - [1. Two Sum](https://leetcode.com/problems/two-sum/description/) - [Solution](https://github.com/kaluginpeter/Algorithms_and_structures_tasks/blob/main/Python_Solutions/LeetCode/Easy/1._Two_Sum.py)
+- [438. Find All Anagrams in a String]() - [Solution]()
