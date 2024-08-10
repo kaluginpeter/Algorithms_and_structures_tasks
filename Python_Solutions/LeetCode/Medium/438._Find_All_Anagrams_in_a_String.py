@@ -25,3 +25,42 @@
 #
 # 1 <= s.length, p.length <= 3 * 104
 # s and p consist of lowercase English letters.
+# Solution Sliding Window HashTable O(N) O(N)
+class Solution:
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        anagrams: list[int] = []
+        # Map of charackters that needed to create anagram of "p"
+        needed: dict[str, int] = dict()
+        for char in p:
+            needed[char] = needed.get(char, 0) + 1
+        # Length of valid anagram
+        k: int = len(p)
+        # Current length of sliding window
+        length_window: int = 0
+        # Start pointer of sliding window
+        left: int = 0
+        for right in range(len(s)):
+            # If we meet charackter that doesnt exist in "p"
+            if s[right] not in needed:
+                while left < right:
+                    needed[s[left]] += 1
+                    left += 1
+                    length_window -= 1
+                left += 1
+            # If we meet correct character, but his frequence is exceed
+            elif needed[s[right]] == 0:
+                while needed[s[right]] == 0:
+                    needed[s[left]] += 1
+                    left += 1
+                    length_window -= 1
+                needed[s[right]] -= 1
+                length_window += 1
+            # If we meet correct character and have frequence for him
+            else:
+                needed[s[right]] -= 1
+                length_window += 1
+            # Check if our length of sliding window is "k"
+            if length_window == k:
+                anagrams.append(left)
+
+        return anagrams
