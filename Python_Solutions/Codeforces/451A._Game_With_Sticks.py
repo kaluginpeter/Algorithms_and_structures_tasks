@@ -45,3 +45,14 @@
 # In the empty grid, Akshat cannot make any move, hence he will lose.
 #
 # Since all 4 intersection points of the grid are equivalent, Akshat will lose no matter which one he picks.
+# Solution Math Greedy O(1) O(1)
+import sys
+
+
+def solution(n: int, m: int) -> str:
+    return ['Malvika', 'Akshat'][min(n, m) & 1]
+
+
+if __name__ == '__main__':
+    n, m = map(int, sys.stdin.readline().rstrip().split())
+    sys.stdout.write(solution(n, m))
