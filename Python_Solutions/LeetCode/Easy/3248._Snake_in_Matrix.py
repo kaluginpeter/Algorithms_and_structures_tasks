@@ -50,3 +50,13 @@
 # 1 <= commands.length <= 100
 # commands consists only of "UP", "RIGHT", "DOWN", and "LEFT".
 # The input is generated such the snake will not move outside of the boundaries.
+# Solution Matrix Simulation O(N) O(1)
+class Solution:
+    def finalPositionOfSnake(self, n: int, commands: List[str]) -> int:
+        row = col = 0
+        for command in commands:
+            if command == 'RIGHT': col += 1
+            elif command == 'LEFT': col -= 1
+            elif command == 'UP': row -= 1
+            else: row += 1
+        return row * n + col
