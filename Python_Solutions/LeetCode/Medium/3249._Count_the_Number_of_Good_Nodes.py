@@ -52,3 +52,40 @@
 # edges[i].length == 2
 # 0 <= ai, bi < n
 # The input is generated such that edges represents a valid tree.
+# Solution Depth-First Search O(N**2) O(N)
+class Solution:
+    def countGoodNodes(self, edges: List[List[int]]) -> int:
+        from collections import defaultdict, deque
+
+        n: int = len(edges) + 1
+        tree: dict[int, list[int]] = defaultdict(list)
+        for u, v in edges:
+            tree[u].append(v)
+            tree[v].append(u)
+
+        subtree_size: list[int] = [0] * n
+
+        def dfs(node, parent):
+            size = 1
+            for neighbor in tree[node]:
+                if neighbor != parent:
+                    size += dfs(neighbor, node)
+            subtree_size[node] = size
+            return size
+
+        dfs(0, -1)
+
+        good_nodes_count: int = 0
+
+        def is_good(node):
+            sizes = set()
+            for neighbor in tree[node]:
+                if subtree_size[neighbor] < subtree_size[node]:  # Ensure it's a child
+                    sizes.add(subtree_size[neighbor])
+            return len(sizes) <= 1
+
+        for node in range(n):
+            if is_good(node):
+                good_nodes_count += 1
+
+        return good_nodes_count
