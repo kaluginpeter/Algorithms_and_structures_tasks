@@ -26,3 +26,22 @@
 # In the first example Polycarpus can cut the ribbon in such way: the first piece has length 2, the second piece has length 3.
 #
 # In the second example Polycarpus can cut the ribbon in such way: the first piece has length 5, the second piece has length 2.
+# Solution Dynamic Programming O(N) O(N)
+from typing import List
+import sys
+
+def solution(n: int, a: int, b: int, c: int) -> str:
+    modules: List[int] = sorted([a, b, c])
+    dp: List[int] = [float('-inf')] * (n + 1)
+    dp[0] = 0
+
+    for piece in range(1, n + 1):
+        for module in modules:
+            if piece >= module:
+                dp[piece] = max(dp[piece], dp[piece - module] + 1)
+
+    return str(dp[n] if dp[n] != float('-inf') else 0)
+
+if __name__ == "__main__":
+    n, a, b, c = map(int, sys.stdin.readline().rstrip().split())
+    sys.stdout.write(solution(n, a, b, c))
