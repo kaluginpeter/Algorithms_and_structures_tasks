@@ -48,3 +48,26 @@
 # 1
 # 5
 # 3
+# Solution HashSet O(N) O(1)
+import sys
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: list = list(map(int, sys.stdin.readline().rstrip().split()))
+        hashset: set = set()
+        hashset.add(nums[0])
+        if nums[1] not in hashset:
+            if nums[2] not in hashset:
+                print(1)
+            else:
+                print(2)
+        else:
+            for idx in range(n):
+                if nums[idx] not in hashset:
+                    print(idx + 1)
+                    break
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
