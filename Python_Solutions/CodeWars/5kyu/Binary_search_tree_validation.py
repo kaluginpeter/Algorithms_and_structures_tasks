@@ -33,3 +33,22 @@
 # Note: no test case tree will contain duplicate numbers.
 #
 # TREESRECURSIONDATA STRUCTURESALGORITHMS
+# Solution O(N**2logN) O(N)
+class T:
+    def __init__(self,value,left=None,right=None):
+        self.value=value
+        self.left=left
+        self.right=right
+
+def is_bst(node, path: list[int] = None):
+    if path is None:
+        path = []
+    if not node:
+        return True
+    if node.left:
+        is_bst(node.left, path)
+    path.append(node.value)
+    if node.right:
+        is_bst(node.right, path)
+
+    return sorted(path) == path or sorted(path, reverse=True) == path
