@@ -21,3 +21,6 @@
 # some_but_not_all([4, 4], lambda x: x>3)
 # >>> False
 # LISTSSTRINGSFUNDAMENTALS
+# Solution
+def some_but_not_all(seq, pred):
+    return any(pred(char) for char in seq) and not all(pred(char) for char in seq)
