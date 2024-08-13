@@ -31,3 +31,28 @@
 # 1 <= candidates.length <= 100
 # 1 <= candidates[i] <= 50
 # 1 <= target <= 30
+# Solution BackTracking O(2**N) O(2**N)
+class Solution:
+    global_combs: list[list[int, ...], ...] = None
+
+    def find_comb(
+        self, candidates: list[int], target: int, cur_sum: int, cur_comb: list[int, ...], idx: int
+    ) -> None:
+        prev: int = -1
+
+        for pointer in range(idx, len(candidates)):
+            if cur_sum + candidates[pointer] > target: break
+            if prev == candidates[pointer]: continue
+            cur_comb.append(candidates[pointer])
+            self.find_comb(candidates, target, cur_sum + candidates[pointer], cur_comb, pointer + 1)
+            cur_comb.pop()
+            prev = candidates[pointer]
+        if cur_sum == target:
+            self.global_combs.append(cur_comb.copy())
+
+
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+        self.global_combs = []
+        candidates.sort()
+        self.find_comb(candidates, target, 0, [], 0)
+        return self.global_combs
