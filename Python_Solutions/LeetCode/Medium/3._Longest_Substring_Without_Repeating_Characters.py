@@ -53,3 +53,18 @@ class Solution:
                 left = ht[s[right]] + 1
             ht[s[right]] = right
         return ans
+
+
+# Solution HashSet Sliding Window O(N) O(M) where is length of unique characters, that in the worst case equals to N
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        max_length: int = 0
+        hashset: set[str] = set()
+        left: int = 0
+        for right in range(len(s)):
+            while s[right] in hashset:
+                hashset.remove(s[left])
+                left += 1
+            hashset.add(s[right])
+            max_length = max(max_length, right - left + 1)
+        return max_length
