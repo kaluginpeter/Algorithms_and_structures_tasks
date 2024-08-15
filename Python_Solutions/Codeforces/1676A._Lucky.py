@@ -42,3 +42,16 @@
 # In the third test case, the sum of the first three digits is 0+4+5=9
 #  and the sum of the last three digits is 2+0+7=9
 # , they are equal so the answer is "YES".
+# Solution O(1) O(1)
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: str = sys.stdin.readline().rstrip()
+        print(['NO', 'YES'][sum(map(int, n[:3])) == sum(map(int, n[3:]))])
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
