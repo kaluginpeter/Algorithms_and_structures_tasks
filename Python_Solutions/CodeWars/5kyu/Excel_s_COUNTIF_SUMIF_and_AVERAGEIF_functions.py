@@ -27,3 +27,47 @@
 # SUMIF
 # AVERAGEIF
 # ALGORITHMS
+# Solution
+from typing import Callable
+
+funcs: dict[str, Callable] = {
+    '<>': lambda item, key: item != key,
+    '<=': lambda item, key: item <= key,
+    '>=': lambda item, key: item >= key,
+    '<': lambda item, key: item < key,
+    '>': lambda item, key: item > key,
+}
+
+
+def is_number_regex(s: str) -> bool:
+    return s.lstrip('-').replace('.', '', 1).replace('e-', '', 1).replace('e', '', 1).isdigit()
+
+
+def parse(expression: str) -> tuple[Callable, str]:
+    if isinstance(expression, (float, int)) or '>' not in expression and '<' not in expression:
+        key = expression
+        if isinstance(key, str):
+            key = float(key) if is_number_regex(key) else key
+        return lambda item, key: item == key, key
+
+    for module in funcs:
+        if expression.startswith(module):
+            key = expression[len(module):]
+            key = float(key) if is_number_regex(key) else key
+            return funcs[module], key
+
+
+def count_if(values, criteria):
+    func, key = parse(criteria)
+    return len([item for item in values if func(item, key)])
+
+
+def sum_if(values, criteria):
+    func, key = parse(criteria)
+    return sum([item for item in values if func(item, key)])
+
+
+def average_if(values, criteria):
+    func, key = parse(criteria)
+    objs: iter = [item for item in values if func(item, key)]
+    return sum(objs) / len(objs)
