@@ -76,3 +76,24 @@ class Solution:
             if five < 0:
                 return False
         return True
+
+
+# Solution Greedy Simulation O(N) O(1)
+class Solution:
+    def lemonadeChange(self, bills: List[int]) -> bool:
+        fives: int = 0
+        tens: int = 0
+        for bill in bills:
+            if bill == 5: fives += 1
+            elif bill == 10:
+                if fives:
+                    fives -= 1
+                else: return False
+                tens += 1
+            else:
+                if tens and fives:
+                    tens -= 1
+                    fives -= 1
+                elif fives > 2: fives -= 3
+                else: return False
+        return True
