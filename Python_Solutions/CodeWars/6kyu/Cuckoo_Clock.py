@@ -16,3 +16,34 @@
 # Related Kata: Fizz Buzz Cuckoo Clock
 #
 # STRINGSDATE TIME
+def cuckoo_clock(initial_time, n):
+    hours, minutes = map(int, initial_time.split(':'))
+    whole: bool = False
+    if minutes in {0, 15, 30, 45}:
+        if minutes == 0:
+            n -= hours
+        else: n -= 1
+    while n > 0:
+        if minutes < 15:
+            minutes = 15
+        elif minutes < 30:
+            minutes = 30
+        elif minutes < 45:
+            minutes = 45
+        else:
+            whole = True
+            minutes = 0
+            hours += 1
+            if hours > 12:
+                hours = 1
+        if whole:
+            whole = False
+            n -= hours
+        else:
+            n -= 1
+
+    if hours < 10:
+        hours = '0' + str(hours)
+    if minutes == 0:
+        minutes = '00'
+    return f'{hours}:{minutes}'
