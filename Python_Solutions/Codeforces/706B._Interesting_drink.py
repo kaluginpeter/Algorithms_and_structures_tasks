@@ -39,3 +39,31 @@
 # On the third day, Vasiliy can buy a drink only in the shop number 1.
 #
 # Finally, on the last day Vasiliy can buy a drink in any shop.
+# Solution Binary search Greedy O(NlogN) O(1)
+from typing import List
+import sys
+
+
+def leftmost_binary_search(arr: List[int], target: int) -> int:
+    left: int = 0
+    right: int = len(arr) - 1
+    while left <= right:
+        middle: int = left + (right - left) // 2
+        if arr[middle] > target:
+            right = middle - 1
+        else:
+            left = middle + 1
+    return right + 1
+
+
+def solution(n: int, bars: List[int], q: int) -> None:
+    bars.sort()
+    for day in range(q):
+        money: int = int(sys.stdin.readline().rstrip())
+        print(leftmost_binary_search(bars, money))
+
+if __name__ == '__main__':
+    n: int = int(sys.stdin.readline().rstrip())
+    bars: List[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    q: int = int(sys.stdin.readline().rstrip())
+    solution(n, bars, q)
