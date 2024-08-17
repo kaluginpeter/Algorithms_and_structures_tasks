@@ -21,3 +21,33 @@
 #
 # 2 <= values.length <= 5 * 104
 # 1 <= values[i] <= 1000
+# Solution
+# Dynamic Programming with extra space
+# Complexity
+# Time complexity: O(N)
+# Space complexity: O(N)
+# Code
+class Solution:
+    def maxScoreSightseeingPair(self, values: List[int]) -> int:
+        dp: list[int] = [0] * len(values)
+        max_prev_day: int = values[0]
+        for day in range(1, len(values)):
+            max_prev_day -= 1
+            dp[day] = max(dp[day - 1], values[day] + max_prev_day)
+            max_prev_day = max(max_prev_day, values[day])
+        return dp[-1]
+
+# Dynamic Programming without extra space
+# Complexity
+# Time complexity: O(N)
+# Space complexity: O(1)
+# Code
+class Solution:
+    def maxScoreSightseeingPair(self, values: List[int]) -> int:
+        profit: int = 0
+        max_prev_day: int = values[0]
+        for day in range(1, len(values)):
+            max_prev_day -= 1
+            profit = max(profit, values[day] + max_prev_day)
+            max_prev_day = max(max_prev_day, values[day])
+        return profit
