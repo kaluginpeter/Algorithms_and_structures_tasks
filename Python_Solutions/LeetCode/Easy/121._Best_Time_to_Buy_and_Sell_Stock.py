@@ -28,3 +28,34 @@ class Solution:
       else:
         left_ptr = right_ptr
     return profit
+
+
+# Dynamic programming
+# Complexity
+# Time complexity: O(N)
+# Space complexity: O(N)
+# Code
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        dp: list[int] = [0] * len(prices)
+        min_day_price: int = prices[0]
+        for day in range(1, len(prices)):
+            dp[day] = max(dp[day - 1], prices[day] - min_day_price)
+            if prices[day] < min_day_price:
+                min_day_price = prices[day]
+        return dp[-1]
+
+# Two Pointers
+# Complexity
+# Time complexity: O(N)
+# Space complexity: O(1)
+# Code
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        left: int = 0
+        profit: int = 0
+        for right in range(1, len(prices)):
+            if prices[left] < prices[right]:
+                profit = max(profit, prices[right] - prices[left])
+            else: left = right
+        return profit
