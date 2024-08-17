@@ -65,3 +65,25 @@
 # For the seventh test case, the corresponding rating is 2300
 # , so it is in division 1
 # .
+# Solution O(1) O(1)
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        x: int = 0
+        if n >= 1900:
+            x = 1
+        elif 1600 <= n <= 1899:
+            x = 2
+        elif 1400 <= n <= 1599:
+            x = 3
+        else:
+            x = 4
+        print(f'Division {x}')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
