@@ -41,3 +41,34 @@
 # 1 <= m, n <= 105
 # 1 <= m * n <= 105
 # 0 <= points[r][c] <= 105
+# Solution Dynamic Programming O(NM) O(M)
+# Suggested problems:
+# 121. Best Time to Buy and Sell Stock
+# 1014. Best Sightseeing Pair
+# 931. Minimum Falling Path Sum
+# Complexity
+# Time complexity: O(NM)
+# Space complexity: O(M)
+# Code
+class Solution:
+    def maxPoints(self, points: List[List[int]]) -> int:
+        r, c = len(points), len(points[0])
+        for row in range(1, r):
+            # Best points from rightmost to left
+            right: list[int] = [0] * c
+            right[-1] = points[row - 1][-1]
+            for col in range(c - 2, -1, -1):
+                right[col] = max(right[col + 1] - 1, points[row - 1][col])
+            # Best poitns from leftmost to right
+            left: int = points[row - 1][0]
+            # First element either with first left or first right points
+            points[row][0] += max(left, right[0])
+
+            for col in range(1, c):
+                # Prev max point will be decrease by one every iteration
+                # Choose max from either descreased prev max or point above
+                left = max(left - 1, points[row - 1][col])
+                # Add maximum point to current ceil
+                points[row][col] += max(left, right[col])
+
+        return max(points[-1])
