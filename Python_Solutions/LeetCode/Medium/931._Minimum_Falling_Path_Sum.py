@@ -23,3 +23,14 @@
 # n == matrix.length == matrix[i].length
 # 1 <= n <= 100
 # -100 <= matrix[i][j] <= 100
+# Solution Dynamic Programming O(NM) O(1)
+class Solution:
+    def minFallingPathSum(self, matrix: List[List[int]]) -> int:
+        for row in range(1, len(matrix)):
+            for col in range(len(matrix[0])):
+                matrix[row][col] += min(
+                    matrix[max(0, row - 1)][max(0, col - 1)],
+                    matrix[max(0, row - 1)][col],
+                    matrix[max(0, row - 1)][min(len(matrix[row]) - 1, col + 1)]
+                )
+        return min(matrix[-1])
