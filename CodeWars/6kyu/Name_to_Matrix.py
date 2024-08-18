@@ -25,7 +25,7 @@ def matrixfy(st):
         top: list = list()
         for j in range(n):
             if indx == len(st):
-                top.append('.')
+                top.append('')
             else:
                 top.append(st[indx])
                 indx += 1
