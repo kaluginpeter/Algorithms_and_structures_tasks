@@ -38,3 +38,22 @@
 # n == energyDrinkA.length == energyDrinkB.length
 # 3 <= n <= 105
 # 1 <= energyDrinkA[i], energyDrinkB[i] <= 105
+# Solution Dynamic Programming O(N) O(N)
+class Solution:
+    def maxEnergyBoost(self, energyDrinkA: List[int], energyDrinkB: List[int]) -> int:
+        n: int = len(energyDrinkA)
+
+        dpA: list[int] = [0] * n
+        dpB: list[int] = [0] * n
+
+        dpA[0] = energyDrinkA[0]
+        dpB[0] = energyDrinkB[0]
+
+        dpA[1] = max(energyDrinkA[0], energyDrinkA[0] + energyDrinkA[1])
+        dpB[1] = max(energyDrinkB[0], energyDrinkB[0] + energyDrinkB[1])
+
+        for i in range(2, n):
+            dpA[i] = max(dpA[i-1] + energyDrinkA[i], dpB[i-2] + energyDrinkA[i])
+            dpB[i] = max(dpB[i-1] + energyDrinkB[i], dpA[i-2] + energyDrinkB[i])
+
+        return max(dpA[n-1], dpB[n-1])
