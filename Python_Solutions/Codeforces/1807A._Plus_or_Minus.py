@@ -60,3 +60,16 @@
 # In the third test case, 2−9=−7
 # . Note that c
 #  can be negative.
+# Solution Math O(1) O(1)
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        a, b, c = map(int, sys.stdin.readline().rstrip().split())
+        print(['-', '+'][a + b == c])
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
