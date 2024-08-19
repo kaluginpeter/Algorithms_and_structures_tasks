@@ -34,3 +34,8 @@
 # Treasure hunt
 #
 # ARRAYS
+# Solution
+def find_treasure(grid, row, col):
+    while row * 10 + col != grid[row - 1][col - 1]:
+        row, col = grid[row - 1][col - 1] // 10, grid[row - 1][col - 1] % 10
+    return grid[row - 1][col - 1]
