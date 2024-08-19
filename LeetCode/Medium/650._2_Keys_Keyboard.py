@@ -23,3 +23,31 @@
 # Constraints:
 #
 # 1 <= n <= 1000
+# Solution Math Dynamic Programming O(N log log N) O(N)
+class Solution:
+    def get_primes(self, n: int) -> list[int]:
+        m: int = n + 1
+        numbers: list[bool] = [True] * m
+        for i in range(2, int(n ** 0.5 + 1)):
+            if numbers[i]:
+                for j in range(i * i, m, i):
+                    numbers[j] = False
+
+        primes: list[int] = []
+        for i in range(2, m):
+            if numbers[i]:
+                primes.append(i)
+        return primes
+
+    def minSteps(self, n: int) -> int:
+        if n == 1: return 0
+        primes: list[int] = self.get_primes(n)
+        if n in primes: return n
+        total: int = 0
+        while n:
+            for prime in primes:
+                if n % prime == 0:
+                    n //= prime
+                    total += prime
+                if n == 1: return total
+        return total
