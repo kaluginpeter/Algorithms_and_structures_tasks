@@ -44,3 +44,17 @@
 # In the third example it is necessary to give two burles to the first and the third citizens to make the welfare of citizens equal 3.
 #
 # In the fourth example it is possible to give nothing to everyone because all citizens have 12 burles.
+# Solution Math Greedy O(N) O(1)
+import sys
+from typing import List
+
+
+def solution(n: int, people: List[int]) -> str:
+    richest: int = max(people)
+    return str(sum(abs(man - richest) for man in people))
+
+
+if __name__ == '__main__':
+    n: int = int(sys.stdin.readline().rstrip())
+    people: List[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    sys.stdout.write(solution(n, people))
