@@ -25,3 +25,28 @@
 #
 # 1 <= piles.length <= 100
 # 1 <= piles[i] <= 104
+# Solution Dynamic Programming O(N**3) O(N**2)
+class Solution:
+    def stoneGameII(self, piles: List[int]) -> int:
+        n: int = len(piles)
+
+        suffix_sum: list[int] = [0] * n
+        suffix_sum[-1] = piles[-1]
+        for idx in range(n - 2, -1, -1):
+            suffix_sum[idx] = piles[idx] + suffix_sum[idx + 1]
+
+        dp: list[list[int]] = [[0] * (n + 1) for _ in range(n)]
+
+        for idx in range(n - 1, -1, -1):
+            for possible_m in range(1, n + 1):
+                # Case when we can get all remaining stones
+                if idx + (2 * possible_m) >= n:
+                    dp[idx][possible_m] = suffix_sum[idx]
+                    continue
+                for x in range(1, (2 * possible_m) + 1):
+                    dp[idx][possible_m] = max(
+                        dp[idx][possible_m],
+                        suffix_sum[idx] - dp[idx + x][max(possible_m, x)]
+                    )
+
+        return dp[0][1]
