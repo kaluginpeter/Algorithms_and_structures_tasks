@@ -31,3 +31,9 @@
 # The maximum number of squares.
 #
 # PUZZLES
+# Solution
+def folding(a, b):
+    if b == 0: return 0
+    if b == 1: return a
+    print('here is', a, b)
+    return 1 + folding(max(b, a - b), min(b, a - b))
