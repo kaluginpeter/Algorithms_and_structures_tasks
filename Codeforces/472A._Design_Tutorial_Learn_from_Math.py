@@ -34,3 +34,30 @@
 # In the first example, 12 = 4 + 8 and both 4, 8 are composite numbers. You can output "6 6" or "8 4" as well.
 #
 # In the second example, 15 = 6 + 9. Note that you can't output "1 14" because 1 is not a composite number.
+# Solution O(N) O(1)
+import sys
+
+def is_prime(x: int) -> bool:
+    if x & 1 == 0: return False
+    divider: int = 3
+    while divider * divider <= n:
+        if x % divider == 0:
+            return False
+        divider += 2
+    return True
+
+def solution(n: int) -> str:
+    x, y = n // 2, n // 2 + int(n & 1 == 1)
+    while (is_prime(x) or is_prime(y)) or x + y != n:
+        while is_prime(x):
+            x -= 1
+            y += 1
+        while is_prime(y):
+            y += 1
+            x -= 1
+    return f'{x} {y}'
+
+
+if __name__ == '__main__':
+    n: int = int(sys.stdin.readline().rstrip())
+    sys.stdout.write(solution(n))
