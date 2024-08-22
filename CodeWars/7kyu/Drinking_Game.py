@@ -7,3 +7,16 @@
 # Note: If either Mike or Joe cannot drink at least 1 beer, return the string "Non-drinkers can't play".
 #
 # STRINGSFUNDAMENTALS
+# Solution
+def game(a, b):
+    if a < 1 or b < 1:
+        return "Non-drinkers can't play"
+    level: int = 1
+    players: list[int] = [a, b]
+    first: bool = False
+    while True:
+        if players[first] - level < 0:
+            return ['Mike', 'Joe'][not first]
+        players[first] -= level
+        level += 1
+        first = not first
