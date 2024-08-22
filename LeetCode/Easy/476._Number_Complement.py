@@ -21,3 +21,9 @@
 class Solution:
     def findComplement(self, num: int) -> int:
         return int('0b'+bin(num)[2:].translate(str.maketrans('10', '01')), 2)
+
+
+# Solution Bit Manipulation O(N) O(N)
+class Solution:
+    def findComplement(self, num: int) -> int:
+        return int(''.join(['1', '0'][char == '1'] for char in bin(num)[2:]), 2)
