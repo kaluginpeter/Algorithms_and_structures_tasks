@@ -42,3 +42,18 @@
 # NO
 # NO
 # NO
+# Solution O(1) O(1)
+import sys
+
+
+
+def solution(t: int) -> None:
+    valid: set = set('codeforces')
+    for _ in range(t):
+        char: str = sys.stdin.readline().rstrip()
+        print(['NO', 'YES'][char in valid])
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
