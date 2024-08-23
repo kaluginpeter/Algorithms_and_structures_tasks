@@ -5,3 +5,18 @@
 // Note: If the number is a multiple of both 3 and 5, only count it once.
 // Courtesy of projecteuler.net (Problem 1)
 // MATHEMATICSALGORITHMS
+// Solution O(N) O(1)
+int solution(int number)
+{
+  int output = 0;
+  for (int num = 1; num < number; num++) {
+    if (num % 3 == 0 && num % 5 == 0) {
+      output += num;
+    } else if (num % 5 == 0) {
+      output += num;
+    } else if (num % 3 == 0) {
+      output += num;
+    }
+  }
+  return output;
+}
