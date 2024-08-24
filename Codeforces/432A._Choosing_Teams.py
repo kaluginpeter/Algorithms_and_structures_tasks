@@ -33,3 +33,20 @@
 # In the second sample no teams could be created.
 #
 # In the third sample two teams could be created. Any partition into two teams fits.
+# Solution O(N) O(1)
+import sys
+from typing import List
+
+
+def solution(n: int, k: int, members: List[int]) -> str:
+    valid_members: int = 0
+    for member in members:
+        if member + k <= 5:
+            valid_members += 1
+    return str(valid_members // 3)
+
+
+if __name__ == '__main__':
+    n, k = map(int, sys.stdin.readline().rstrip().split())
+    members: List[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    sys.stdout.write(solution(n, k, members))
