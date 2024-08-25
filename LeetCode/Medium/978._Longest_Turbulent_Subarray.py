@@ -69,3 +69,38 @@ class Solution:
             max_length = max(max_length, right - left + 1)
 
         return max_length
+
+# C++
+class Solution {
+public:
+    int maxTurbulenceSize(vector<int>& arr) {
+        int max_length = 1;
+        int left = 0;
+        for (int right = 1; right < arr.size(); right++) {
+            if ((right - 1) % 2 == 1) {
+                if (arr[right - 1] <= arr[right]) {
+                    left = right;
+                }
+            } else {
+                if (arr[right - 1] >= arr[right]) {
+                    left = right;
+                }
+            }
+            max_length = max(max_length, right - left + 1);
+        }
+        left = 0;
+        for (int right = 1; right < arr.size(); right ++) {
+            if ((right - 1) % 2 == 0) {
+                if (arr[right - 1] <= arr[right]) {
+                    left = right;
+                }
+            } else {
+                if (arr[right - 1] >= arr[right]) {
+                    left = right;
+                }
+            }
+            max_length = max(max_length, right - left + 1);
+        }
+        return max_length;
+    }
+};
