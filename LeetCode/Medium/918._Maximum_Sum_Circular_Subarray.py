@@ -28,3 +28,17 @@
 # n == nums.length
 # 1 <= n <= 3 * 104
 # -3 * 104 <= nums[i] <= 3 * 104
+# Solution Two Pointers Kadane O(N) O(1)
+class Solution:
+    def maxSubarraySumCircular(self, nums: List[int]) -> int:
+        total: int = 0
+        cur_max_sum = cur_min_sum = 0
+        max_sum = min_sum = nums[0]
+        for num in nums:
+            cur_max_sum = max(cur_max_sum + num, num)
+            max_sum = max(max_sum, cur_max_sum)
+
+            cur_min_sum = min(cur_min_sum + num, num)
+            min_sum = min(min_sum, cur_min_sum)
+            total += num
+        return max(max_sum, total - min_sum) if max_sum > 0 else max_sum
