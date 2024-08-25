@@ -35,3 +35,24 @@
 # 2 1 1 2
 # outputCopy
 # 0
+# Solution HashMap O(N) O(N)
+import sys
+from typing import List
+from collections import defaultdict
+
+
+def solution(n: int, skills: List[int]) -> None:
+    storage: dict[str, List[int]] = defaultdict(list)
+    moves: List[str] = ['p', 'm', 's']
+    for skill_idx in range(n):
+        storage[moves[skills[skill_idx] - 1]].append(skill_idx + 1)
+    w: int = min(len(value) for value in storage.values()) if len(storage) == 3 else 0
+    print(w)
+    for team in range(w):
+        print(f"{storage['p'][team]} {storage['m'][team]} {storage['s'][team]}")
+
+
+if __name__ == '__main__':
+    n: int = int(sys.stdin.readline().rstrip())
+    skills: List[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    solution(n, skills)
