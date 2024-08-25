@@ -31,3 +31,41 @@
 #
 # 1 <= arr.length <= 4 * 104
 # 0 <= arr[i] <= 109
+# Solution Two Pointers
+# General idea
+# We only have to cases:
+# Case 1:
+# <><><><><>
+# Case 2
+# ><><><><><
+# Complexity
+# Time complexity: O(N)
+# Space complexity: O(1)
+# Code
+class Solution:
+    def maxTurbulenceSize(self, arr: List[int]) -> int:
+        max_length: int = 1
+        left: int = 0
+        # Case 1
+        for right in range(1, len(arr)):
+            if (right - 1) & 1:
+                if arr[right - 1] <= arr[right]:
+                    left = right
+            else:
+                if arr[right - 1] >= arr[right]:
+                    left = right
+
+            max_length = max(max_length, right - left + 1)
+        # Case 2
+        left: int = 0
+        for right in range(1, len(arr)):
+            if (right - 1) & 1 == 0:
+                if arr[right - 1] <= arr[right]:
+                    left = right
+            else:
+                if arr[right - 1] >= arr[right]:
+                    left = right
+
+            max_length = max(max_length, right - left + 1)
+
+        return max_length
