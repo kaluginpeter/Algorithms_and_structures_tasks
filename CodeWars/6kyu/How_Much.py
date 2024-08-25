@@ -31,3 +31,17 @@
 # See "Sample Tests" to know the format of the return.
 #
 # FUNDAMENTALS
+# Solution
+def howmuch(m, n):
+    answer: list[lsit[str]] = []
+    for money in range(min(m, n), max(m, n) + 1):
+        b: int = money // 7
+        while money > 7 * b + 2:
+            b += 1
+        if money != 7 * b + 2: continue
+        c: int = money // 9
+        while money > 9 * c + 1:
+            c += 1
+        if money != 9 * c  + 1: continue
+        answer.append([f'M: {money}', f'B: {b}', f'C: {c}'])
+    return answer
