@@ -47,3 +47,70 @@
 #
 # 2 <= nums.length <= 100
 # 1 <= nums[i] <= 106
+# Solution Simulation String
+# Fully Simulation
+# Complexity
+# Time complexity O(N**4)
+# Space complexity:O(N)
+# Code
+class Solution:
+    def is_almost_equal(self, x: int, y: int) -> int:
+        str_x = str(x)
+        str_y = str(y)
+        if len(str_x) < len(str_y):
+            str_x, str_y = str_y, str_x
+        # Case when needed zeros to make pairs equal
+        if len(str_x) - len(str_y) != 0:
+            if '0' not in str_x: return 0
+            list_x = list(str_x)
+            zero_idxs: list[int] = [idx for idx in range(len(list_x)) if list_x[idx] == '0']
+            for zero_idx in zero_idxs:
+                list_x[zero_idx], list_x[0] = list_x[0], list_x[zero_idx]
+                idx_x: int = 0
+                while list_x[idx_x] == '0':
+                    idx_x += 1
+                if str_y == ''.join(list_x[idx_x:]):
+                    return 1
+                list_x[zero_idx], list_x[0] = list_x[0], list_x[zero_idx]
+            return 0
+
+        diff_indices = [i for i in range(len(str_x)) if str_x[i] != str_y[i]]
+        # Case when integers already equal
+        if not diff_indices: return 1
+        # Case when need only one swap between integers
+        elif len(diff_indices) == 2:
+            i, j = diff_indices
+            if (str_x[i] == str_y[j] and str_x[j] == str_y[i]):
+                return 1
+        return 0
+
+    def countPairs(self, nums: List[int]) -> int:
+        count: int = 0
+        for i in range(len(nums)):
+            for j in range(i + 1, len(nums)):
+                count += self.is_almost_equal(nums[i], nums[j])
+        return count
+
+# Greedy Choice
+# Complexity
+# Time complexity O(N**3logN)
+# Space complexity:O(N)
+# Code
+class Solution:
+	def countPairs(self, nums: List[int]) -> int:
+		almost_equals: int = 0
+		for i in range(len(nums)):
+			for j in range(i + 1 , len(nums)):
+				str_i: str = str(nums[i])
+				str_j: str = str(nums[j])
+				if len(str_i) < len(str_j):
+					str_i = '0' * (len(str_j) - len(str_i)) + str_i
+				elif len(str_i) > len(str_j):
+					str_j = '0' * (len(str_i) - len(str_j)) + str_j
+				needed: int = 0
+				for index in range(len(str_j)):
+					if str_i[index] != str_j[index]:
+						needed += 1
+				if needed <= 2 and sorted(str_i) == sorted(str_j):
+					almost_equals += 1
+		return almost_equals
