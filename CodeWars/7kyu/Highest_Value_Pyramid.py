@@ -52,3 +52,28 @@
 # Remember that there's no rule for descending or ascending order, so there's no restriction on placing the highest integer from the array on top of the pyramid.
 #
 # FUNDAMENTALS
+# Solution
+def pyramid(stones):
+    storage: dict[int, int] = dict()
+    for stone in stones:
+        storage[stone] = storage.get(stone, 0) + 1
+    available: list[int] = list(storage.keys())
+    available.sort(key=lambda x: (x, storage[x]))
+    third_idx: int = 0
+    third: int = None
+    for stone_idx in range(len(available)):
+        if storage[available[stone_idx]] >= 3:
+            if third is None or available[stone_idx] > third:
+                third_idx, third = stone_idx, available[stone_idx]
+    if third is None: return
+    available.pop(third_idx)
+    second_idx: int = 0
+    second: int = None
+    for stone_idx in range(len(available)):
+        if storage[available[stone_idx]] >= 2:
+            if second is None or second < available[stone_idx]:
+                second_idx, second = stone_idx, available[stone_idx]
+    if second is None: return
+    available.pop(second_idx)
+    if not available: return
+    return 3 * third + 2 * second + max(available)
