@@ -50,3 +50,17 @@
 # 6
 # 3
 # 8
+# Solution O(NlogN) O(N)
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        abc: list = list(map(int, sys.stdin.readline().rstrip().split()))
+        print(sorted(abc)[1])
+
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
