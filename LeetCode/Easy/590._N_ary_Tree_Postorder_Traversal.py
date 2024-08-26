@@ -24,3 +24,59 @@
 #
 #
 # Follow up: Recursive solution is trivial, could you do it iteratively?
+# Recursive DFS Postorder
+# Complexity
+# Time complexity: O(N)
+# Space complexity: O(N)
+# Code
+# Definition for a Node.
+"""
+class Node:
+    def __init__(self, val=None, children=None):
+        self.val = val
+        self.children = children
+"""
+
+class Solution:
+
+    def recursive_postorder(self, root: 'Node', order: list[int]) -> None:
+        if not root: return 
+        for child in (root.children if root else []):
+            if child:
+                self.recursive_postorder(child, order)
+        if root:
+            order.append(root.val)
+        return order
+
+    def postorder(self, root: 'Node') -> List[int]:
+        order: list[int] = []
+        self.recursive_postorder(root, order)
+        return order
+
+# Iterative DFS Postorder
+# Complexity
+# Time complexity: O(N + M)
+# Space complexity: O(N)
+# Code
+# Definition for a Node.
+"""
+class Node:
+    def __init__(self, val=None, children=None):
+        self.val = val
+        self.children = children
+"""
+
+class Solution:
+    def postorder(self, root: 'Node') -> List[int]:
+        order: list[int] = []
+        queue: list[tuple['Node', bool]] = [(root, False)]
+        while root and queue:
+            cur_node, seen = queue.pop()
+            if seen:
+                order.append(cur_node.val)
+                continue
+            queue.append((cur_node, True))
+            for child in reversed(cur_node.children):
+                if child:
+                    queue.append((child, False))
+        return order
