@@ -33,3 +33,35 @@
 # 10
 # Note
 # Consider the third test example. At first step we need to choose any element equal to 2. After that step our sequence looks like this [2, 2, 2, 2]. Then we do 4 steps, on each step we choose any element equals to 2. In total we earn 10 points.
+# Solution Dynamic Programming O(N) O(N)
+from typing import List
+import sys
+
+
+def solution(n: int, scores: List[int]) -> str:
+    modules: dict[int, int] = dict()
+    for num in scores:
+        modules[num] = modules.get(num, 0) + 1
+    moves: List[int] = sorted(modules.keys())
+    dp: List[int] = [0] * len(moves)
+    dp[0] = moves[0] * modules[moves[0]]
+    move_idx: int = 1
+    if move_idx < len(moves) and moves[move_idx] - 1 == moves[0]:
+        dp[move_idx] = max(dp[0], moves[move_idx] * modules[moves[move_idx]])
+        move_idx += 1
+    while move_idx < len(moves):
+        cur_num: int = moves[move_idx]
+        cur_weight: int = cur_num * modules[cur_num]
+        if cur_num - 1 == moves[move_idx - 1]:
+            dp[move_idx] = max(dp[move_idx - 1], cur_weight + dp[move_idx - 2])
+        else:
+            dp[move_idx] = max(dp[move_idx - 1], cur_weight + dp[move_idx - 1])
+        move_idx += 1
+    return str(max(dp))
+
+
+
+if __name__ == '__main__':
+    n: int = int(sys.stdin.readline().rstrip())
+    scores: List[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    sys.stdout.write(solution(n, scores))
