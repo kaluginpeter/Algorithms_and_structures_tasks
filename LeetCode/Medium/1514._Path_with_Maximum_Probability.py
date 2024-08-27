@@ -38,3 +38,44 @@
 # 0 <= succProb.length == edges.length <= 2*10^4
 # 0 <= succProb[i] <= 1
 # There is at most one edge between every two nodes.
+# Solution Dijkstra Heap Graph Shortest Path O(N + E log(N)) O(N)
+from collections import defaultdict
+import heapq
+class Solution:
+    def dijkstra(self, start: int, end: int, adj_list: dict[int, list[tuple[int ,int]]], paths: list[int]) -> None:
+        seen: set[int] = set()
+        heap: list[int] = [(-0, start)]
+        while heap:
+            cost, cur_edge = heapq.heappop(heap)
+            # Transform from negative to positive
+            cost = -cost
+
+            if cur_edge in seen:
+                continue
+            if paths[cur_edge] < cost:
+                paths[cur_edge] = cost
+            # If we just multiply first edge with start
+            # with initial value 0, we always get 0, so transform to 1
+            if cost == 0:
+                cost = 1
+            seen.add(cur_edge)
+            for neighbor in adj_list.get(cur_edge, []):
+                neighbor_edge, neighbor_weight = neighbor
+                neighbor_weight: int = cost * neighbor_weight
+                heapq.heappush(heap, (-neighbor_weight, neighbor_edge))
+
+
+    def maxProbability(self, n: int, edges: List[List[int]], succProb: List[float], start_node: int, end_node: int) -> float:
+        adj_list: dict[int, list[tuple[int, int]]] = defaultdict(list)
+        for edge_idx in range(len(edges)):
+            start, end = edges[edge_idx]
+            weight: int = succProb[edge_idx]
+            adj_list[start].append((end, weight))
+            adj_list[end].append((start, weight))
+        # We can use a little bit of optimization here, but it no nesscesarry
+        # if adj_list.get(end_node, None) is None:
+        #     return 0
+        paths: list[int] = [0] * n
+        self.dijkstra(start_node, end_node, adj_list, paths)
+
+        return paths[end_node]
