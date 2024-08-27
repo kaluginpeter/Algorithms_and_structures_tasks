@@ -14,3 +14,24 @@
 # get_animals_count(34, 11, 6); # Should return {"rabbits" : 3, "chickens" : 5, "cows" : 3}
 # get_animals_count(154, 42, 10); # Should return {"rabbits" : 30, "chickens" : 7, "cows" : 5}
 # FUNDAMENTALSALGORITHMSMATHEMATICS
+# Solution
+def get_animals_count(legs_number, heads_number, horns_number):
+    cows: int = min(legs_number // 4, heads_number, horns_number // 2)
+    legs_number -= cows * 4
+    heads_number -= cows
+    left: int = 0
+    right: int = heads_number
+    while left <= right:
+        middle: int = left + (right - left) // 2
+        rabbits: int = middle
+        chickens: int = heads_number - rabbits
+        if rabbits * 4 + chickens * 2 > legs_number:
+            right = middle - 1
+        elif rabbits * 4 + chickens * 2 < legs_number:
+            left = middle + 1
+        else:
+            return {
+                "rabbits": rabbits,
+                "chickens": chickens,
+                "cows": cows
+            }
