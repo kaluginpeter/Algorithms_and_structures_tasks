@@ -75,3 +75,16 @@
 #  of string a
 #  are: "bc", "cd", "da", "af", so the string b
 # ="bccddaaf".
+# Solution O(N) O(N)
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        b: str = sys.stdin.readline().rstrip()
+        print(b[0] + b[1::2])
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
