@@ -28,3 +28,32 @@
 # n == grid1[i].length == grid2[i].length
 # 1 <= m, n <= 500
 # grid1[i][j] and grid2[i][j] are either 0 or 1.
+# Solution Depth First Search Memoization O(NM) O(NM)
+class Solution:
+    def sub_islands(self, pos, mtrx, seen, points: list[tuple[int, int]]) -> None:
+        if (
+                pos in seen or
+                not (0 <= pos[0] < len(mtrx)) or
+                not (0 <= pos[1] < len(mtrx[0])) or
+                mtrx[pos[0]][pos[1]] == 0
+        ):
+            return
+        seen.add(pos)
+        points.append((pos[0], pos[1]))
+        next_row: int = pos[0]
+        next_col: int = pos[1]
+        self.sub_islands((next_row - 1, next_col), mtrx, seen, points)
+        self.sub_islands((next_row + 1, next_col), mtrx, seen, points)
+        self.sub_islands((next_row, next_col - 1), mtrx, seen, points)
+        self.sub_islands((next_row, next_col + 1), mtrx, seen, points)
+
+    def countSubIslands(self, grid1: List[List[int]], grid2: List[List[int]]) -> int:
+        seen: set[int] = set()
+        valid_sub_islands: int = 0
+        for row in range(len(grid2)):
+            for col in range(len(grid2[0])):
+                if grid2[row][col] == 1 and (row, col) not in seen:
+                    points: list[tuple[int, int]] = []
+                    self.sub_islands((row, col), grid2, seen, points)
+                    valid_sub_islands += all(grid1[r][c] == 1 for r, c in points)
+        return valid_sub_islands
