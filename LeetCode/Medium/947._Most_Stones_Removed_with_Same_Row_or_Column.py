@@ -38,3 +38,24 @@
 # 1 <= stones.length <= 1000
 # 0 <= xi, yi <= 104
 # No two stones are at the same coordinate point.
+# Solution Graph Depth First Search O(NM) O(NM)
+class Solution(object):
+    def dfs(self, n: int, cur_ceil: int, seen: list[bool], stones: list[list[int]]) -> None:
+        seen[cur_ceil] = True
+        for i in range(n):
+            if not seen[i]:
+                cur_row, cur_col = stones[cur_ceil]
+                if cur_row == stones[i][0] or cur_col == stones[i][1]:
+                    self.dfs(n, i, seen, stones)
+
+    def removeStones(self, stones: list[list[int]]) -> int:
+        n: int = len(stones)
+        group: int = 0
+        seen: list[bool] = [False] * n
+
+        for i in range(n):
+            if not seen[i]:
+                group += 1
+                self.dfs(n, i, seen, stones)
+
+        return n - group
