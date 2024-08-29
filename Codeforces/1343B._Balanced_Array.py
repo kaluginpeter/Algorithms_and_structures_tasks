@@ -65,3 +65,23 @@
 # YES
 # 2 4 6 8 1 3 5 11
 # NO
+# Solution O(N) O(N)
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        if (n // 2) % 2 != 0:
+            print("NO")
+        else:
+            print("YES")
+            even_numbers = [i * 2 for i in range(1, n // 2 + 1)]
+            odd_numbers = [i * 2 - 1 for i in range(1, n // 2)]
+            odd_numbers.append(sum(even_numbers) - sum(odd_numbers))
+            print(" ".join(map(str, even_numbers + odd_numbers)))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
