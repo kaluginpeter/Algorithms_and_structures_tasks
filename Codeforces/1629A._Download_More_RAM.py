@@ -64,3 +64,24 @@
 # In the third test case, all the software need more than 1
 #  GB of RAM to run, so the amount of RAM you have stays at 1
 #  GB.
+# Solution O(NlogN) O(1)
+import sys
+from typing import List
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n, k = map(int, sys.stdin.readline().rstrip().split())
+        costs: List[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+        busts: List[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+        storage: List[List[int]] = [[costs[idx], busts[idx]] for idx in range(n)]
+        storage.sort()
+        for pair in storage:
+            if k < pair[0]: break
+            k += pair[1]
+        sys.stdout.write(str(k) + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
