@@ -48,3 +48,19 @@
 # In the second sample case Mishka wins the first round, Chris wins the second round, and the game ends with draw with score 1:1.
 #
 # In the third sample case Chris wins the first round, but there is no winner of the next two rounds. The winner of the game is Chris.
+# Solution O(N) O(1)
+import sys
+
+
+def solution(n: int) -> str:
+    mi = ch = 0
+    for _ in range(n):
+        m, c = map(int, sys.stdin.readline().rstrip().split())
+        mi += m > c
+        ch += c > m
+    return str(['Chris', 'Mishka'][mi > ch]) if mi != ch else 'Friendship is magic!^^'
+
+
+if __name__ == '__main__':
+    n: int = int(sys.stdin.readline().rstrip())
+    sys.stdout.write(solution(n))
