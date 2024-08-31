@@ -21,3 +21,53 @@
 # handle lower and upper case in text string
 # key consists of only lowercase characters
 # CIPHERSSTRINGSFUNDAMENTALS
+# Solution
+from string import ascii_lowercase
+
+
+def encode(text, key):
+    seen: set[str] = set()
+    new_key: list[str] = []
+    for letter in key:
+        if letter not in seen:
+            new_key.append(letter)
+            seen.add(letter)
+    keyed_alphabet: str = ''.join(new_key) + ''.join(letter for letter in ascii_lowercase if letter not in key)
+    positions: dict[str, int] = dict((keyed_alphabet[idx], idx) for idx in range(26))
+    encoded_message: list[str] = []
+    char_idx: int = 1
+    for letter in text:
+        if letter.isalpha():
+            is_upper: bool = letter.isupper()
+            encoded_letter: str = keyed_alphabet[(positions[letter.lower()] + char_idx) % 26]
+            encoded_message.append(encoded_letter.upper() if is_upper else encoded_letter)
+            char_idx += 1
+        else:
+            encoded_message.append(letter)
+            char_idx = 1
+
+    return ''.join(encoded_message)
+
+
+def decode(text, key):
+    seen: set[str] = set()
+    new_key: list[str] = []
+    for letter in key:
+        if letter not in seen:
+            new_key.append(letter)
+            seen.add(letter)
+    keyed_alphabet: str = ''.join(new_key) + ''.join(letter for letter in ascii_lowercase if letter not in key)
+    positions: dict[str, int] = dict((keyed_alphabet[idx], idx) for idx in range(26))
+    encoded_message: list[str] = []
+    char_idx: int = 1
+    for letter in text:
+        if letter.isalpha():
+            is_upper: bool = letter.isupper()
+            encoded_letter: str = keyed_alphabet[(positions[letter.lower()] + 26 - char_idx) % 26]
+            encoded_message.append(encoded_letter.upper() if is_upper else encoded_letter)
+            char_idx += 1
+        else:
+            encoded_message.append(letter)
+            char_idx = 1
+
+    return ''.join(encoded_message)
