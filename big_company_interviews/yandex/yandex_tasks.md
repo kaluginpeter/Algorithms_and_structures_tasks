@@ -27,3 +27,4 @@ Go on link and tap on the button "Get random tasks"
 - [101. Symmetric Tree](https://leetcode.com/problems/symmetric-tree/description/) - [Solution](https://github.com/kaluginpeter/Algorithms_and_structures_tasks/blob/main/LeetCode/Easy/101._Symmetric_Tree.py)
 - [3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/description/) - [Solution](https://github.com/kaluginpeter/Algorithms_and_structures_tasks/blob/main/LeetCode/Medium/3._Longest_Substring_Without_Repeating_Characters.py)
 - [98. Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/description/) - [Solution](https://github.com/kaluginpeter/Algorithms_and_structures_tasks/blob/main/LeetCode/Medium/98._Validate_Binary_Search_Tree.py)
+- [200. Number of Islands](https://leetcode.com/problems/number-of-islands/description/) - [Solution]()
