@@ -79,3 +79,34 @@ class Solution:
         self.dijkstra(start_node, end_node, adj_list, paths)
 
         return paths[end_node]
+
+# Solution O(N + E logN) O(N)
+from collections import defaultdict
+import heapq
+class Solution:
+    def dijkstra(self, start: int, end: int, adj_list: dict[int, list[tuple[int, int]]], costs: list[int]) -> None:
+        seen: set[int] = set()
+        heap: list[tuple[int, int]] = [(-0, start)]
+        while heap:
+            cur_cost, cur_vertex = heapq.heappop(heap)
+            cur_cost = -cur_cost
+            if cur_vertex in seen: continue
+            seen.add(cur_vertex)
+            costs[cur_vertex] = max(costs[cur_vertex], cur_cost)
+            if cur_vertex == end: return
+            if cur_cost == 0:
+                cur_cost = 1
+            for neighbor in adj_list.get(cur_vertex, []):
+                neighbor_cost, neighbor_vertex = neighbor
+                heapq.heappush(heap, (-cur_cost * neighbor_cost, neighbor_vertex))
+
+    def maxProbability(self, n: int, edges: List[List[int]], succProb: List[float], start_node: int, end_node: int) -> float:
+        adj_list: dict[int, list[tuple[int, int]]] = defaultdict(list)
+        for idx in range(len(edges)):
+            source, destination = edges[idx]
+            probability: int = succProb[idx]
+            adj_list[source].append((probability, destination))
+            adj_list[destination].append((probability, source))
+        costs: list[int] = [0] * n
+        self.dijkstra(start_node, end_node, adj_list, costs)
+        return costs[end_node]
