@@ -31,3 +31,11 @@
 # Outcome: false (The snail will not be able to reach the end within one year.)
 # MATHEMATICS
 # Solution
+bool canSnailReachEnd(double length, double speed, double lengthIncreases)
+{
+  int boundary = 365 * 24 * 60;
+  if (speed <= lengthIncreases) {
+    return false;
+  }
+  return (length / (speed - lengthIncreases)) <= boundary;
+}
