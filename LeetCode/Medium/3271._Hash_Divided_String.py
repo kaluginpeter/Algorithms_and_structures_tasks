@@ -45,3 +45,45 @@
 # k <= s.length <= 1000
 # s.length is divisible by k.
 # s consists only of lowercase English letters.
+# C++
+# Complexity
+# Time complexity: O(N)
+#
+# Space complexity: O(N)
+#
+# Code
+class Solution {
+public:
+    string stringHash(string s, int k) {
+        string result;
+        int cur_sum = 0;
+        string alphabet = "abcdefghijklmnopqrstuvwxyz";
+        for (int idx = 0; idx < s.size(); idx++) {
+            cur_sum += alphabet.find(s[idx]);
+            if ((idx + 1) % k == 0) {
+                result += alphabet[cur_sum % 26];
+                cur_sum = 0;
+            }
+        }
+        return result;
+    }
+};
+
+# Python
+# Complexity
+# Time complexity: O(N)
+#
+# Space complexity: O(N)
+#
+# Code
+from string import ascii_lowercase as al
+class Solution:
+    def stringHash(self, s: str, k: int) -> str:
+        result: str = ''
+        cur_sum: int = 0
+        for idx in range(len(s)):
+            cur_sum += al.index(s[idx])
+            if (idx + 1) % k == 0:
+                result += al[cur_sum % 26]
+                cur_sum = 0
+        return result
