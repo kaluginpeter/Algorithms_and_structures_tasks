@@ -45,3 +45,22 @@
 # All queries[i] are unique.
 # -109 <= queries[i][0], queries[i][1] <= 109
 # 1 <= k <= 105
+# Solution Heap O(NlogN) O(N)
+import heapq
+
+
+class Solution:
+    def resultsArray(self, queries: List[List[int]], k: int) -> List[int]:
+        results: list[int] = []
+        min_heap: list[int] = []
+
+        for (x, y) in queries:
+            dist: int = abs(x) + abs(y)
+            heapq.heappush(min_heap, -dist)
+
+            if len(min_heap) > k:
+                heapq.heappop(min_heap)
+
+            results.append(-1 if len(min_heap) < k else -min_heap[0])
+
+        return results
