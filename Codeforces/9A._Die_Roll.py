@@ -22,3 +22,23 @@
 # 1/2
 # Note
 # Dot will go to Transylvania, if she is lucky to roll 4, 5 or 6 points.
+# Solution O(log min(a, b)) O(log min(a, b))
+import sys
+
+
+def find_gcd(x: int, y: int) -> int:
+    if x == 0:
+        return y
+    return find_gcd(y % x, x)
+
+
+def solution(y: int, m: int) -> str:
+    numerator: int = 6 - max(y, m) + 1
+    denominator: int = 6
+    gcd: int = find_gcd(numerator, denominator)
+    return f'{numerator // gcd}/{denominator // gcd}'
+
+
+if __name__ == '__main__':
+    y, m = map(int, sys.stdin.readline().rstrip().split())
+    sys.stdout.write(solution(y, m))
