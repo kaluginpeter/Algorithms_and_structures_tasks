@@ -41,3 +41,43 @@
 # Constraints:
 #
 # 1 <= num1, num2, num3 <= 9999
+# Python
+# Complexity
+# Time complexity: O(1)
+# Space complexity: O(1)
+# Code
+class Solution:
+    def generateKey(self, num1: int, num2: int, num3: int) -> int:
+        num1 = '0' * (4 - len(str(num1))) + str(num1)
+        num2 = '0' * (4 - len(str(num2))) + str(num2)
+        num3 = '0' * (4 - len(str(num3))) + str(num3)
+        return int(''.join(min(pair) for pair in zip(num1, num2, num3)))
+
+# C++
+# Complexity
+# Time complexity: O(1)
+# Space complexity: O(1)
+# Code
+class Solution {
+public:
+    int generateKey(int num1, int num2, int num3) {
+        string s_num1 = to_string(num1);
+        string s_num2 = to_string(num2);
+        string s_num3 = to_string(num3);
+        while (s_num1.size() != 4) {
+            s_num1 = "0" + s_num1;
+        }
+        while (s_num2.size() != 4) {
+            s_num2 = "0" + s_num2;
+        }
+        while (s_num3.size() != 4) {
+            s_num3 = "0" + s_num3;
+        }
+
+        string result = "";
+        for (int idx = 0; idx < 4; idx++) {
+            result += min({s_num1[idx], s_num2[idx], s_num3[idx]});
+        }
+        return stoi(result);
+    }
+};
