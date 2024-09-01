@@ -33,3 +33,49 @@
 # 1 <= original.length <= 5 * 104
 # 1 <= original[i] <= 105
 # 1 <= m, n <= 4 * 104
+# Solutions Simulation Matrix Array
+# Note:
+# We can consider that output answer memory don't count as "computated" memory.
+# In this case in both solutions memory will be O(1)
+# Complexity
+# Time complexity: O(MN)
+# Space complexity: O(MN)
+# Code
+class Solution:
+    def construct2DArray(self, original: List[int], m: int, n: int) -> List[List[int]]:
+        if m * n != len(original):
+            return []
+        main_idx: int = 0
+        output: list[list[int]] = []
+        for row in range(m):
+            cur_row: list[int] = []
+            for col in range(n):
+                cur_row.append(original[main_idx])
+                main_idx += 1
+            output.append(cur_row)
+        return output
+
+# C++
+# Complexity
+# Time complexity: O(MN)
+# Space complexity: O(MN)
+# Code
+class Solution {
+public:
+    vector<vector<int>> construct2DArray(vector<int>& original, int m, int n) {
+        vector<vector<int>> output = {};
+        if (m * n != original.size()) {
+            return output;
+        }
+        int main_idx = 0;
+        for (int row = 0; row < m; row++) {
+            vector<int> cur_row = {};
+            for (int col = 0; col < n; col++) {
+                cur_row.push_back(original[main_idx]);
+                main_idx += 1;
+            }
+            output.push_back(cur_row);
+        }
+        return output;
+    }
+};
