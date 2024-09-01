@@ -37,3 +37,51 @@
 # coordinate1.length == coordinate2.length == 2
 # 'a' <= coordinate1[0], coordinate2[0] <= 'h'
 # '1' <= coordinate1[1], coordinate2[1] <= '8'
+# C++
+# Complexity
+# Time complexity: O(1)
+#
+# Space complexity: O(1)
+#
+# Code
+class Solution {
+public:
+    bool checkTwoChessboards(string c1, string c2) {
+        string alphabet = "abcdefgh";
+        int col1= alphabet.find(c1[0]) + 1;
+        int row1 = stoi(c1.substr(1));
+        int col2 = alphabet.find(c2[0]) + 1;
+        int row2 = stoi(c2.substr(1));
+        return (
+            (
+                (col1 % 2 != 0 && row1 % 2 != 0 || col1 % 2 == 0 && row1 % 2 == 0) &&
+                (col2 % 2 != 0 && row2 % 2 != 0 || col2 % 2 == 0 && row2 % 2 == 0)
+             ) ||
+            (
+                (col1 % 2 != 0 && row1 % 2 == 0 || col1 % 2 == 0 && row1 % 2 != 0) &&
+                (col2 % 2 != 0 && row2 % 2 == 0 || col2 % 2 == 0 && row2 % 2 != 0)
+            )
+        );
+    }
+};
+
+# Python
+# Simulation
+# Complexity
+# Time complexity: O(1)
+#
+# Space complexity: O(1)
+#
+# Code
+class Solution:
+    def checkTwoChessboards(self, c1: str, c2: str) -> bool:
+        mtrx: list[list[bool]] = []
+        flag: bool = True
+        for i in range(8):
+            cur_row: list[bool] = []
+            for j in range(8):
+                cur_row.append(flag)
+                flag = not flag
+            flag = not flag
+            mtrx.append(cur_row)
+        return mtrx[int(c1[1]) - 1][ord(c1[0]) - 97] == mtrx[int(c2[1]) - 1][ord(c2[0]) - 97]
