@@ -41,3 +41,33 @@
 # 1 <= n <= 105
 # 1 <= chalk[i] <= 105
 # 1 <= k <= 109
+# Solution Python O(N) O(1) Math Simulation Greedy
+class Solution:
+    def chalkReplacer(self, chalk: List[int], k: int) -> int:
+        total_sum: int = sum(chalk)
+        k %= total_sum
+        idx: int = 0
+        while k >= 0:
+            if chalk[idx] > k: return idx
+            k -= chalk[idx]
+            idx = (idx + 1) % len(chalk)
+# Solution C++ O(N) O(1) Math Simulation Greedy
+class Solution {
+public:
+    int chalkReplacer(vector<int>& chalk, int k) {
+        long long total_sum = 0;
+        for (int num : chalk) {
+            total_sum += num;
+        }
+        k %= total_sum;
+        int idx = 0;
+        while (k >= 0) {
+            if (chalk[idx] > k) {
+                return idx;
+            }
+            k -= chalk[idx];
+            idx = (idx + 1) % chalk.size();
+        }
+        return idx;
+    }
+};
