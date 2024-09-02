@@ -30,3 +30,17 @@
 # In the first test sample Ilya doesn't profit from using the present.
 #
 # In the second test sample you can delete digit 1 and get the state of the account equal to 0.
+# Solution Math Greedy O(N) O(N)
+import sys
+
+
+def solution(n: str) -> str:
+    if n[0] != '-': return str(n)
+    result: str = min(n[:-1], n[:-2] + n[-1])
+    if result == '-0': return '0'
+    return result
+
+
+if __name__ == '__main__':
+    n: str = sys.stdin.readline().rstrip()
+    sys.stdout.write(solution(n))
