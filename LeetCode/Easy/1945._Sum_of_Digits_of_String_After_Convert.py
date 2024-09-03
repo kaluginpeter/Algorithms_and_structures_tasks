@@ -43,3 +43,32 @@ class Solution:
         for i in range(k):
             w = sum(int(i) for i in str(w))
         return w
+
+# Python
+# Solution Simulation O(NK) O(N)
+class Solution:
+    def getLucky(self, s: str, k: int) -> int:
+        numbers: str = ''.join(str(ord(char) - 96) for char in s)
+        for _ in range(k):
+            numbers = str(sum(int(num) for num in numbers))
+        return int(numbers)
+
+# C++ O(NK) O(N)
+class Solution {
+public:
+    int getLucky(string s, int k) {
+        string str_s = "";
+        for (char char_s : s) {
+            str_s += to_string(int(char_s) - 96);
+        }
+        for (int i = 0; i < k; i++) {
+            int total_sum = 0;
+            for (char char_s : str_s) {
+                int diff = char_s - '0';
+                total_sum += diff;
+            }
+            str_s = to_string(total_sum);
+        }
+        return stoi(str_s);
+    }
+};
