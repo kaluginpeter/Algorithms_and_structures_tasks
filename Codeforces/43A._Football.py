@@ -24,3 +24,18 @@
 # A
 # outputCopy
 # A
+# Solution HashMap O(N) O(N)
+import sys
+
+
+def solution(n: int) -> str:
+    commands: dict[str, int] = dict()
+    for _ in range(n):
+        command: str = sys.stdin.readline().rstrip()
+        commands[command] = commands.get(command, 0) + 1
+    return max(commands.keys(), key=lambda x: commands[x])
+
+
+if __name__ == '__main__':
+    n: int = int(sys.stdin.readline().rstrip())
+    sys.stdout.write(solution(n))
