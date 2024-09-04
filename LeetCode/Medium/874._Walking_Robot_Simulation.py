@@ -55,3 +55,45 @@
 # 0 <= obstacles.length <= 104
 # -3 * 104 <= xi, yi <= 3 * 104
 # The answer is guaranteed to be less than 231.
+# Solution O(N * K), where K is maximum operations O(N)
+class Solution:
+    def robotSim(self, commands: List[int], obstacles: List[List[int]]) -> int:
+        cur_x = cur_y = 0
+        max_distance: int = 0
+        north: bool = True
+        east = south = west = False
+        storage: set[tuple[int, int]] = set()
+        for obstacle in obstacles:
+            storage.add((obstacle[0], obstacle[1]))
+        for command in commands:
+            if command == -2:
+                if north: north, west = False, True
+                elif west: west, south = False, True
+                elif south: south, east = False, True
+                else: east, north = False, True
+            elif command == -1:
+                if north: north, east = False, True
+                elif west: west, north = False, True
+                elif south: south, west = False, True
+                else: east, south = False, True
+            else:
+                if north:
+                    for new_y in range(cur_y + 1, cur_y + command + 1):
+                        if (cur_x, new_y) in storage: break
+                        else: cur_y += 1
+                elif west:
+                    for new_x in range(cur_x - 1, cur_x - command - 1, -1):
+                        if (new_x, cur_y) in storage: break
+                        else: cur_x -= 1
+                elif south:
+                    for new_y in range(cur_y - 1, cur_y - command - 1, -1):
+                        if (cur_x, new_y) in storage: break
+                        else: cur_y -= 1
+                else:
+                    new_x: int = cur_x + command
+                    for new_x in range(cur_x + 1, cur_x + command + 1):
+                        if (new_x, cur_y) in storage: break
+                        else: cur_x += 1
+                max_distance = max(max_distance, cur_x**2 + cur_y**2)
+
+        return max_distance
