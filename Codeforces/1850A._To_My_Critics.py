@@ -52,3 +52,16 @@
 #
 # For the third test case, any combination of chosen digits will have a sum equal to 18
 # , thus the output should be "YES".
+# Solution O(1) O(1) Math
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        a, b, c = map(int, sys.stdin.readline().rstrip().split())
+        print(['NO', 'YES'][(a + b >= 10) or (b + c >= 10) or (a + c >= 10)])
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
