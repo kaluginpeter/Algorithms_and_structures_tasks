@@ -14,3 +14,24 @@
 # should return {1, 5, 15} because all 3 integers exist in both arrays and a1 has a length of 6 (1+5) and a2 has a length of 10 (15-5).
 #
 # LISTSPERMUTATIONSFUNDAMENTALS
+# Solution
+def a1_thick_and_hearty(a1, a2):
+    candidates: set[int] = set(a1) & set(a2)
+    result: set[int] = set()
+    n: int = len(a1)
+    m: int = len(a2)
+    while candidates:
+        candidate: int = candidates.pop()
+        if abs(candidate - n) in candidates:
+            result.add(candidate)
+            result.add(abs(candidate - n))
+        if abs(candidate - m) in candidates:
+            result.add(candidate)
+            result.add(abs(candidate - m))
+        if abs(candidate + n) in candidates:
+            result.add(candidate)
+            result.add(abs(candidate + n))
+        if abs(candidate + m) in candidates:
+            result.add(candidate)
+            result.add(abs(candidate + m))
+    return result
