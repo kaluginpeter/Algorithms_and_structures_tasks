@@ -67,3 +67,56 @@ class Solution:
             else:
                 tmp = tmp.next
         return head
+
+
+# Python O(N) O(N)
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def modifiedList(self, nums: List[int], head: Optional[ListNode]) -> Optional[ListNode]:
+        to_delete: set[int] = set(nums)
+        # Delete all nodes thats be in head
+        while head and head.val in to_delete:
+            head = head.next
+        # Delete all nodes in body of linked list
+        tmp: Optional[ListNode] = head
+        while tmp and tmp.next:
+            if tmp.next.val in to_delete:
+                tmp.next = tmp.next.next
+            else: tmp = tmp.next
+        return head
+# C++ O(N) O(N)
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* modifiedList(vector<int>& nums, ListNode* head) {
+        unordered_set<int> to_delete;
+        for (int number : nums) {
+            to_delete.insert(number);
+        }
+        while (head && to_delete.count(head->val) != 0) {
+            head = head->next;
+        }
+        ListNode* tmp = head;
+        while (tmp && tmp->next) {
+            if (to_delete.count(tmp->next->val) != 0) {
+                tmp->next = tmp->next->next;
+            } else {
+                tmp = tmp->next;
+            }
+        }
+        return head;
+    }
+};
