@@ -8,3 +8,17 @@
 // 132189  -->  1 + 3 + 2 + 1 + 8 + 9 = 24  -->  2 + 4 = 6
 // 493193  -->  4 + 9 + 3 + 1 + 9 + 3 = 29  -->  2 + 9 = 11  -->  1 + 1 = 2
 // MATHEMATICSALGORITHMS
+#include <iostream>
+#include <string>
+int digital_root(int n) {
+    while (n >= 10) {
+      int total_sum = 0;
+      std::string n_str = std::to_string(n);
+      for (char number : n_str) {
+          int numb = number - '0';
+          total_sum += numb;
+      }
+      n = total_sum;
+    }
+    return n;
+}
