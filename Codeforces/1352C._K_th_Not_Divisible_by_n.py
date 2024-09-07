@@ -48,3 +48,66 @@
 # 113
 # 1000000001
 # 1
+# Solution
+# Python O(log(K * K)) O(1) Math
+import sys
+
+
+def binary_search(n: int, target: int) -> str:
+    left: int = 0
+    right: int = target * n
+    while left <= right:
+        middle: int = left + (right - left) // 2
+        not_divisible: int = middle - middle // n
+        if not_divisible > target:
+            right = middle - 1
+        elif not_divisible < target:
+            left = middle + 1
+        else: return str(middle) if middle % n != 0 else str(middle - 1)
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n, k = map(int, sys.stdin.readline().rstrip().split())
+        sys.stdout.write(binary_search(n, k) + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
+
+# C++ O(log(K * K)) O(1) Math
+#include <iostream>
+
+
+long long binary_search(long long n, long long k) {
+    long long left = 0;
+    long long right = n * k;
+    while (left <= right) {
+        long long middle = left + (right - left) / 2;
+        long long not_divisible = middle - middle / n;
+        if (not_divisible > k) {
+            right = middle - 1;
+        } else if (not_divisible < k) {
+            left = middle + 1;
+        } else {
+            if (middle % n == 0) {
+                return middle - 1;
+            } else {
+                return middle;
+            }
+        }
+    }
+};
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; i++) {
+        long long n, k;
+        std::cin >> n >> k;
+        std::cout << binary_search(n, k) << std::endl;
+    }
+    return 0;
+};
