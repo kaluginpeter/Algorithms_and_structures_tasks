@@ -34,3 +34,100 @@
 # 100 fixed tests and another 500 random tests are performed with coordinates ranging from (-100,-100) to (100,100).
 #
 # GEOMETRYPUZZLES
+# Python
+def squared_spiral(x, y):
+    cur_x = cur_y = number = 0
+    if cur_x == x and cur_y == y: return number
+    right: bool = True
+    up = left = down = False
+    step: int = 0
+    while True:
+        if right:
+            right, up = False, True
+            step += 1
+            for move in range(step):
+                cur_x += 1
+                number += 1
+                if cur_x == x and cur_y == y:
+                    return number
+        elif up:
+            up, left = False, True
+            for move in range(step):
+                cur_y += 1
+                number += 1
+                if cur_x == x and cur_y == y:
+                    return number
+        elif left:
+            left, down = False, True
+            step += 1
+            for move in range(step):
+                cur_x -= 1
+                number += 1
+                if cur_x == x and cur_y == y:
+                    return number
+        else:
+            down, right = False, True
+            for move in range(step):
+                cur_y -= 1
+                number += 1
+                if cur_x == x and cur_y == y:
+                    return number
+
+# C++
+int squaredSpiral(int x, int y)
+{
+  int cur_x, cur_y, number;
+  cur_x = cur_y = number = 0;
+  if (cur_x == x && cur_y == y) {
+    return number;
+  }
+  bool right, up, left, down;
+  right = true;
+  up = left = down = false;
+  int step = 0;
+  while (true) {
+   if (right) {
+     right = false;
+     up = true;
+     step += 1;
+     for (int move = 0; move < step; move++) {
+       cur_x += 1;
+       number += 1;
+       if (cur_x == x && cur_y == y) {
+         return number;
+       }
+     }
+   } else if (up) {
+     up = false;
+     left = true;
+     for (int move = 0; move < step; move++) {
+       cur_y += 1;
+       number += 1;
+       if (cur_x == x && cur_y == y) {
+         return number;
+       }
+     }
+   } else if (left) {
+     left = false;
+     down = true;
+     step += 1;
+     for (int move = 0; move < step; move++) {
+       cur_x -= 1;
+       number += 1;
+       if (cur_x == x && cur_y == y) {
+         return number;
+       }
+     }
+   } else {
+     down = false;
+     right = true;
+     for (int move = 0; move < step; move++) {
+       cur_y -= 1;
+       number += 1;
+       if (cur_x == x && cur_y == y) {
+         return number;
+       }
+     }
+   }
+  }
+}
