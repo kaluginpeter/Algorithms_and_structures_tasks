@@ -66,3 +66,30 @@
 #  which has the remainder 5
 #  modulo 7
 # .
+# Solution
+# Python O(1) O(1) Math
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        x, y, n = map(int, sys.stdin.readline().rstrip().split())
+        m: int = (n - y) // x
+        sys.stdout.write(str(m * x + y) + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
+# C++ O(1) O(1) Math
+#include <iostream>
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; i++) {
+        int x, y, n;
+        std::cin >> x >> y >> n;
+        std::cout << (n - y) / x * x + y << std::endl;
+    }
+};
