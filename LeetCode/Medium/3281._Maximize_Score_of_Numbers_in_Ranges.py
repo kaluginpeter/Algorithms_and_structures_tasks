@@ -33,3 +33,24 @@
 # 2 <= start.length <= 105
 # 0 <= start[i] <= 109
 # 0 <= d <= 109
+# Solution O(NlogN) O(1)
+class Solution:
+    def maxPossibleScore(self, start: List[int], d: int) -> int:
+        def can_achieve(middle: int) -> bool:
+            prev: int = start[0]
+            for i in range(1, len(start)):
+                next_val: int = max(prev + middle, start[i])
+                if next_val > start[i] + d: return False
+                prev = next_val
+            return True
+        start.sort()
+        left, right = 0, (max(start) - min(start)) + d
+        best: int = 0
+        while left <= right:
+            middle: int = left + (right - left) // 2
+            if can_achieve(middle):
+                best = middle
+                left = middle + 1
+            else:
+                right = middle - 1
+        return best
