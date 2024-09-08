@@ -28,3 +28,23 @@
 # [ (1), (4), (9), (1) ] -> { (1) }
 # In 1D, the Pareto Optimum is the smallest element.
 # ALGORITHMSMATHEMATICSMATRIXTUTORIALS
+# Solution
+def pareto_front(points):
+    def dominates(point1, point2):
+        """ Return True if point1 dominates point2 """
+        return all(x <= y for x, y in zip(point1, point2)) and any(x < y for x, y in zip(point1, point2))
+
+    pareto_set = set()
+    for point in points:
+        is_dominated = False
+        dominated_points = set()
+        for other in pareto_set:
+            if dominates(other, point):
+                is_dominated = True
+                break
+            elif dominates(point, other):
+                dominated_points.add(other)
+        if not is_dominated:
+            pareto_set -= dominated_points
+            pareto_set.add(point)
+    return pareto_set
