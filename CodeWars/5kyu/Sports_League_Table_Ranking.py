@@ -38,3 +38,38 @@
 # In this example you have to return the array [4, 4, 6, 3, 1, 2].
 #
 # FUNDAMENTALSALGORITHMSARRAYSSORTING
+# Solution
+def compute_ranks(number, games):
+    storage: dict[int, list[int, int, int]] = dict()
+    for team in range(number):
+        storage[team] = [0, 0, 0]
+    for game in games:
+        com1, com2, gol1, gol2 = game
+        com1_stats: list[int, int, int] = storage.get(com1, None)
+        com1_stats[0] += 2 if gol1 > gol2 else 1 if gol1 == gol2 else 0
+        com1_stats[1] += gol1 - gol2
+        com1_stats[2] += gol1
+        storage[com1] = com1_stats
+        com2_stats: list[int, int, int] = storage.get(com2, None)
+        com2_stats[0] += 2 if gol2 > gol1 else 1 if gol2 == gol1 else 0
+        com2_stats[1] += gol2 - gol1
+        com2_stats[2] += gol2
+        storage[com2] = com2_stats
+    scores: list[tuple[int, int, int]] = list({tuple(com) for com in storage.values()})
+    scores.sort(reverse=True)
+    output: list[int] = [scores.index(tuple(storage[team])) + 1 for team in storage.keys()]
+    addition: int = 0
+    move: bool = False
+    rank: int = 1
+    for _ in range(len(scores)):
+        quantity: int = output.count(rank)
+        move = quantity > 1
+        if move:
+            addition = quantity - 1
+            rank += 1
+            for team in range(number):
+                if output[team] >= rank:
+                    output[team] += addition
+            rank += addition
+        else: rank += 1
+    return output
