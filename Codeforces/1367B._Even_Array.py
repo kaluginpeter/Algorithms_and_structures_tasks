@@ -75,3 +75,21 @@
 # .
 #
 # In the third test case, you cannot make the array good.
+# Solution O(N) O(1)
+import sys
+
+def solution(t:int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        arr: list = list(map(int, sys.stdin.readline().rstrip().split()))
+        ind: int = sum(i % 2 for i in range(n))
+        arr_ind: dict = sum(i % 2 for i in arr)
+        if ind == arr_ind:
+            sys.stdout.write(str(sum(i % 2 != arr[i] % 2 for i in range(n)) // 2) + '\n')
+        else:
+            sys.stdout.write('-1' + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
