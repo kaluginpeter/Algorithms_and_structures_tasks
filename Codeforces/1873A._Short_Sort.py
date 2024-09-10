@@ -57,3 +57,17 @@
 #
 # In the fourth test case, it is impossible to make abc
 #  using at most one operation.
+# Solution O(N) O(1) Math
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        cards: str = sys.stdin.readline().rstrip()
+        moves: int = sum(x != y for x, y in zip(cards, 'abc'))
+        sys.stdout.write(str(['YES', 'NO'][moves % 2]) + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
