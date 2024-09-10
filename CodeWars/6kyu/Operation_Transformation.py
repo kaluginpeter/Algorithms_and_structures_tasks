@@ -21,3 +21,33 @@
 #
 # operation(1024,1024) -> 0
 # FUNDAMENTALSALGORITHMS
+# Solution
+from collections import deque
+
+
+def operation(a, b):
+    if a == b: return 0
+
+    queue: list[tuple[int, int]] = deque([(a, 0)])  # (current_value, operations_count)
+    visited: list[int] = set([a])
+
+    while queue:
+        current, operations_count = queue.popleft()
+        if current == b: return operations_count
+
+        if (current - 1) % 2 == 0 and (current - 1) // 2 not in visited:
+            new_value: int = (current - 1) // 2
+            queue.append((new_value, operations_count + 1))
+            visited.add(new_value)
+
+        if current % 2 == 0 and current // 2 not in visited:
+            new_value: int = current // 2
+            queue.append((new_value, operations_count + 1))
+            visited.add(new_value)
+
+        if current * 2 not in visited:
+            new_value: int = current * 2
+            queue.append((new_value, operations_count + 1))
+            visited.add(new_value)
+
+    return -1
