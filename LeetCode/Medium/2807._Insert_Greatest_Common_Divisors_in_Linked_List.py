@@ -31,7 +31,7 @@
 #
 # The number of nodes in the list is in the range [1, 5000].
 # 1 <= Node.val <= 1000
-# Solution O(N) O(1)
+# Solution O(Nlogmin(x, y)) O(N)
 # Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, val=0, next=None):
@@ -52,3 +52,59 @@ class Solution:
             tmp.next = ListNode(val=gcd(tmp.val, tmp.next.val), next=tmp.next)
             tmp = tmp.next.next
         return head
+
+
+# Python O(NlogMin(x,y)) O(N)
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def gcd(self, x: int, y: int) -> int:
+        if x == 0:
+            return y
+        return gcd(y % x, x)
+
+    def insertGreatestCommonDivisors(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        tmp: Optional[ListNode] = head
+        while tmp and tmp.next:
+            x: int = tmp.val
+            y: int = tmp.next.val
+            gcd_x_y: int = self.gcd(x, y)
+            tmp.next = ListNode(val=gcd_x_y, next=tmp.next)
+            tmp = tmp.next.next
+        return head
+
+# C++ O(NlogMin(x,y)) O(N)
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    int gcd(int x, int y) {
+        if (x == 0) {
+            return y;
+        }
+        return gcd(y % x, x);
+    };
+
+    ListNode* insertGreatestCommonDivisors(ListNode* head) {
+        ListNode* tmp = head;
+        while (tmp && tmp->next) {
+            int x = tmp->val;
+            int y = tmp->next->val;
+            ListNode* gcd_node = new ListNode(gcd(x, y), tmp->next);
+            tmp->next = gcd_node;
+            tmp = tmp->next->next;
+        }
+        return head;
+    };
+};
