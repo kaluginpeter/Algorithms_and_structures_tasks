@@ -32,3 +32,16 @@
 class Solution:
     def minBitFlips(self, start: int, goal: int) -> int:
         return bin(start ^ goal).count('1')
+
+
+# Solution O(N) O(N)
+class Solution:
+    def minBitFlips(self, start: int, goal: int) -> int:
+        bin_start: str = bin(start)[2:]
+        bin_goal: str = bin(goal)[2:]
+        if len(bin_start) != len(bin_goal):
+            diff: int = abs(len(bin_start) - len(bin_goal))
+            if len(bin_start) > len(bin_goal): bin_goal = '0' * diff + bin_goal
+            else: bin_start = '0' * diff + bin_start
+        needed: int = sum(bin_start[idx] != bin_goal[idx] for idx in range(len(bin_start) - 1, -1, -1))
+        return needed
