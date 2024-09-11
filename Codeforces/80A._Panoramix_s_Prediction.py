@@ -32,3 +32,44 @@
 # 7 9
 # outputCopy
 # NO
+# Solution
+# Python O((M - N)**2) O(1)
+import sys
+
+
+def solution(n: int, m: int) -> str:
+    for candidate in range(n + 1, m + 1):
+        is_prime: bool = True
+        for module in range(2, candidate - 1):
+            if candidate % module == 0:
+                is_prime = False
+                break
+        if is_prime: return ['NO', 'YES'][candidate == m]
+    return 'NO'
+
+
+if __name__ == '__main__':
+    n, m = map(int, sys.stdin.readline().rstrip().split())
+    sys.stdout.write(solution(n, m))
+
+# C++ O((M - N) ** 2) O(1)
+#include <iostream>
+
+int main() {
+    int n, m;
+    std::cin >> n >> m;
+    for (int candidate = n + 1; candidate <= m; ++candidate) {
+        bool is_prime = true;
+        for (int module = 2; module < candidate; ++module) {
+            if (candidate % module == 0) {
+                is_prime = false;
+                break;
+            }
+        }
+        if (is_prime) {
+            std::cout << (candidate == m ? "YES" : "NO") << std::endl;
+            return 0;
+        }
+    }
+    std::cout << "NO" << std::endl;
+}
