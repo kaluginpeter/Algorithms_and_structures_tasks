@@ -30,3 +30,40 @@
 # In the first sample, the visited cells are: 1, 2, 4; so we can successfully visit the cell 4.
 #
 # In the second sample, the possible cells to visit are: 1, 2, 4, 6, 7, 8; so we can't visit the cell 5, which we want to visit.
+# Solution
+# Python O(N) O(1)
+import sys
+from typing import List
+
+
+def solution(n: int, t: int, cells: List[int]) -> str:
+    start: int = 0
+    while start + 1 < t:
+        start += cells[start]
+    return ['NO', 'YES'][start + 1 == t]
+
+
+
+if __name__ == '__main__':
+    n, t = map(int, sys.stdin.readline().rstrip().split())
+    cells: List[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    sys.stdout.write(solution(n, t, cells))
+# C++ O(N) O(1)
+#include <iostream>
+#include <vector>
+
+int main() {
+    int n, t;
+    std::cin >> n >> t;
+    std::vector<int> cells;
+    for (int idx = 0; idx < n; ++idx) {
+        int number;
+        std::cin >> number;
+        cells.push_back(number);
+    }
+    int start = 0;
+    while (start + 1 < t) {
+        start += cells[start];
+    }
+    std::cout << (start + 1 == t? "YES" : "NO") << std::endl;
+}
