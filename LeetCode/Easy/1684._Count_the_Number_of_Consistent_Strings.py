@@ -51,3 +51,45 @@ class Solution:
                     break
         return count
 # Runtime 248 ms - Beats 91.64%, Memory 18.3 MB - Beats 95.47%
+
+# Solution, both for Python and C++
+# Time complexity: O(NM), where N is length of words and M is length of lenghtmost word in words
+# Space complexity: O(K), where K is length of allowed characters
+# Python
+class Solution:
+    def countConsistentStrings(self, allowed: str, words: List[str]) -> int:
+        hashset_allowed: set[str] = set(allowed)
+        consistent_words: int = 0
+        for word in words:
+            is_valid: bool = True
+            for char in word:
+                if char not in hashset_allowed:
+                    is_valid = False
+                    break
+            if is_valid:
+                consistent_words += 1
+        return consistent_words
+# C++
+class Solution {
+public:
+    int countConsistentStrings(string allowed, vector<string>& words) {
+        unordered_set<char> hashset_allowed;
+        for (char allowed_char : allowed) {
+            hashset_allowed.insert(allowed_char);
+        }
+        int consistent_words = 0;
+        for (string word : words) {
+            bool is_valid = true;
+            for (char letter : word) {
+                if (!hashset_allowed.count(letter)) {
+                    is_valid = false;
+                    break;
+                }
+            }
+            if (is_valid) {
+                consistent_words += 1;
+            }
+        }
+        return consistent_words;
+    }
+};
