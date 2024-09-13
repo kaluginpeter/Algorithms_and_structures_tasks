@@ -26,3 +26,14 @@
 # For the first sample, we can add one bacterium in the box in the first day morning and at the third morning there will be 4 bacteria in the box. Now we put one more resulting 5 in the box. We added 2 bacteria in the process so the answer is 2.
 #
 # For the second sample, we can put one in the first morning and in the 4-th morning there will be 8 in the box. So the answer is 1.
+# Solution O(N) O(N)
+import sys
+
+
+def solution(n: int) -> str:
+    return str(bin(n).count('1'))
+
+
+if __name__ == '__main__':
+    n: int = int(sys.stdin.readline().rstrip())
+    sys.stdout.write(solution(n))
