@@ -33,3 +33,45 @@
 # 1 <= arr[i] <= 109
 # queries[i].length == 2
 # 0 <= lefti <= righti < arr.length
+# Solution Prefix Sum Bit Manipulations
+# Python O(N) O(N)
+class Solution:
+    def xorQueries(self, arr: List[int], queries: List[List[int]]) -> List[int]:
+        prefix_sum: list[int] = []
+        for num in arr:
+            if not prefix_sum:
+                prefix_sum.append(num)
+            else: prefix_sum.append(num ^ prefix_sum[-1])
+        output: list[int] = []
+        for query in queries:
+            left, right = query
+            if left:
+                output.append(prefix_sum[right] ^ prefix_sum[left - 1])
+            else: output.append(prefix_sum[right])
+        return output
+# C++ O(N) O(N)
+class Solution {
+public:
+    vector<int> xorQueries(vector<int>& arr, vector<vector<int>>& queries) {
+        vector<int> prefix_sum;
+        for (int num: arr) {
+            if (prefix_sum.size()) {
+                prefix_sum.push_back(num ^ prefix_sum[prefix_sum.size() - 1]);
+            } else {
+                prefix_sum.push_back(num);
+            }
+        }
+        vector<int> output;
+        for (vector<int> query : queries) {
+            int left, right;
+            left = query[0];
+            right = query[1];
+            if (left) {
+                output.push_back(prefix_sum[right] ^ prefix_sum[left - 1]);
+            } else {
+                output.push_back(prefix_sum[right]);
+            }
+        }
+        return output;
+    }
+};
