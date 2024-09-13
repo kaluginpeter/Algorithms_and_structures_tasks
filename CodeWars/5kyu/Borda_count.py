@@ -37,3 +37,20 @@
 # {'a', 'b'}
 #
 # ALGORITHMS
+# Solution
+def borda_count(table):
+    while True:
+        products: dict[str, int] = dict()
+        for person in table:
+            priority: int = len(table[person]) - 1
+            for vote in table[person]:
+                products[vote] = products.get(vote, 0) + priority
+                priority -= 1
+        mean: float = sum(products.values()) / len(products)
+        is_change: bool = False
+        for product in products:
+            if products[product] < mean:
+                for people in table:
+                    table[people].remove(product)
+                    is_change = True
+        if not is_change: return products.keys()
