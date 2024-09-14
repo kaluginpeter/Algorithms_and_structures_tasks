@@ -22,3 +22,58 @@
 # 3
 # Note
 # In the sample, your task is to find three consecutive planks with the minimum sum of heights. In the given case three planks with indexes 3, 4 and 5 have the required attribute, their total height is 8.
+# Solution
+# Python O(N) O(1)
+import sys
+
+
+def solution(n: int, k: int, fences: list) -> str:
+    answer: int = 0
+    left: int = 0
+    window_sum: int = sum(fences[left:k])
+    cur_sum: int = sum(fences[left:k])
+    for right in range(k, n):
+        cur_sum -= fences[left]
+        left += 1
+        cur_sum += fences[right]
+        if window_sum > cur_sum:
+            window_sum = cur_sum
+            answer = left
+    return str(answer + 1)
+
+
+if __name__ == '__main__':
+    n, k = map(int, sys.stdin.readline().rstrip().split())
+    fences: list = list(map(int, sys.stdin.readline().rstrip().split()))
+    sys.stdout.write(solution(n, k, fences))
+# C++ O(N) O(1)
+#include <iostream>
+#include <vector>
+
+int main() {
+    int n, k;
+    std::cin >> n >> k;
+    std::vector<int> fences;
+    for (int i = 0; i < n; ++i) {
+        int fence;
+        std::cin >> fence;
+        fences.push_back(fence);
+    }
+    int answer = 0;
+    int left = 0;
+    int min_sum = 0;
+    for (int index = 0; index < k; ++index) {
+        min_sum += fences[index];
+    }
+    int cur_sum = min_sum;
+    for (int right = k; right < n; ++right) {
+        cur_sum -= fences[left];
+        left += 1;
+        cur_sum += fences[right];
+        if (min_sum > cur_sum) {
+            min_sum = cur_sum;
+            answer = left;
+        }
+    }
+    std::cout << answer + 1 << std::endl;
+}
