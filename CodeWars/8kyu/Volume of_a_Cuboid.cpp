@@ -3,3 +3,7 @@
 
 GEOMETRYFUNDAMENTALSMATHEMATICS
 */
+// Solution O(1) O(1)
+double getVolumeOfCuboid(double length, double width, double height) {
+  return length * width * height;
+}
