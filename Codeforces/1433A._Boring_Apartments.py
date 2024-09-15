@@ -56,3 +56,49 @@
 # 90
 # 1
 # 66
+# Solution Math
+# Python O(logN) O(1)
+import sys
+
+
+def solution(t:int) -> None:
+    for _ in range(t):
+        x: int = int(sys.stdin.readline().rstrip())
+        remainder: int = 0
+        module: int = 0
+        while x:
+            remainder = x % 10
+            x //= 10
+            module += 1
+        acc: int = 0
+        for digit in range(1, module + 1):
+            acc += digit
+        sys.stdout.write(str(10 * (remainder - 1) + acc) + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
+# C++ O(logN) O(1)
+#include <iostream>
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int x;
+        std::cin >> x;
+        int remainder = 1;
+        int module = 0;
+        while (x) {
+            remainder = x % 10;
+            x /= 10;
+            module++;
+        }
+        int acc = 0;
+        for (int digit = 1; digit <= module; ++digit) {
+            acc += digit;
+        }
+        std::cout << (10 * (remainder - 1)) + acc << std::endl;
+    }
+}
