@@ -35,3 +35,29 @@
 # 2 <= n == height.length <= 100
 # 1 <= height[i] <= 100
 # 1 <= threshold <= 100
+# Solution Simulation
+# Python O(N) O(N)
+class Solution:
+    def stableMountains(self, height: List[int], threshold: int) -> List[int]:
+        stable: list[int] = []
+        for idx in range(1, len(height)):
+            if height[idx - 1] > threshold:
+                stable.append(idx)
+        return stable
+# C++ O(N) O(N)
+class Solution {
+public:
+    vector<int> stableMountains(vector<int>& height, int threshold) {
+        std::vector<int> stable;
+        for (int index = 1; index < height.size(); ++index) {
+            if (height[index - 1] > threshold) {
+                stable.push_back(index);
+            }
+        }
+        return stable;
+    }
+};
+# Python O(N) O(N) One Liner
+class Solution:
+    def stableMountains(self, height: List[int], threshold: int) -> List[int]:
+        return [idx for idx in range(1, len(height)) if height[idx - 1] > threshold]
