@@ -42,3 +42,28 @@
 # nums.length == n + 2
 # 0 <= nums[i] < n
 # The input is generated such that nums contains exactly two repeated elements.
+# Solution Counting HashMap Array
+# Python O(N) O(N)
+class Solution:
+    def getSneakyNumbers(self, nums: List[int]) -> List[int]:
+        hashmap: dict[int, int] = dict()
+        for num in nums:
+            hashmap[num] = hashmap.get(num, 0) + 1
+        return [num for num in hashmap if hashmap[num] > 1]
+# C++ O(N) O(N)
+class Solution {
+public:
+    vector<int> getSneakyNumbers(vector<int>& nums) {
+        std::vector<int> storage(101, 0);
+        for (int num : nums) {
+            storage[num]++;
+        }
+        std::vector<int> duplicate;
+        for (int index = 0; index < 101; ++index) {
+            if (storage[index] > 1) {
+                duplicate.push_back(index);
+            }
+        }
+        return duplicate;
+    }
+};
