@@ -56,3 +56,61 @@
 # 2 <= m * n
 # 1 <= health <= m + n
 # grid[i][j] is either 0 or 1.
+# Solution Breadth-First-Search
+# Python O(MN) O(MN)
+class Solution:
+    def findSafeWalk(self, grid: List[List[int]], health: int) -> bool:
+        m, n = len(grid), len(grid[0])
+        stack: list[tuple[int, int, int]] = [(0, 0, health)]
+        seen: set[tuple[int, int, int]] = set()
+        while stack:
+            row, col, points = stack.pop()
+            if not (0 <= row < m) or not (0 <= col < n) or points <= 0: continue
+            if row == m - 1 and col == n - 1 and points - grid[row][col] > 0: return True
+            if (row, col, points) in seen: continue
+            seen.add((row, col, points))
+            next_points: int = points - grid[row][col]
+            stack.append((row + 1, col, next_points))
+            stack.append((row - 1, col, next_points))
+            stack.append((row, col + 1, next_points))
+            stack.append((row, col - 1, next_points))
+        return False
+# C++ O(MNH) O(MN)
+#include <vector>
+#include <set>
+#include <stack>
+
+class Solution {
+public:
+    bool findSafeWalk(std::vector<std::vector<int>>& grid, int health) {
+        int m = grid.size();
+        int n = grid[0].size();
+        std::stack<std::vector<int>> stack;
+        stack.push({0, 0, health});
+        std::set<std::tuple<int, int, int>> seen;
+        while (!stack.empty()) {
+            int row = stack.top()[0];
+            int col = stack.top()[1];
+            int cur_points = stack.top()[2];
+            stack.pop();
+            if (row < 0 || row >= m || col < 0 || col >= n) {
+                continue;
+            }
+            if (row == m - 1 && col == n - 1 && cur_points - grid[row][col] > 0) {
+                return true;
+            }
+            if (seen.count({row, col, cur_points})) {
+                continue;
+            }
+            seen.insert({row, col, cur_points});
+            int next_points = cur_points - grid[row][col];
+            if (next_points > 0) {
+                stack.push({row + 1, col, next_points});
+                stack.push({row - 1, col, next_points});
+                stack.push({row, col + 1, next_points});
+                stack.push({row, col - 1, next_points});
+            }
+        }
+        return false;
+    }
+};
