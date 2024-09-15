@@ -32,3 +32,28 @@ Note for Bash:
 input is a string, e.g "2,4,2,6,2,8" output is then "6 12 4 12 3 12"
 
 FUNDAMENTALSALGORITHMSMATHEMATICS */
+// Solution
+#include <numeric>
+#include <vector>
+#include <string>
+#include <sstream>
+#include <iostream>
+
+class Fracts {
+public:
+    static std::string convertFrac(std::vector<std::vector<unsigned long long>> &lst) {
+        unsigned long long D = 1;
+        for (const auto& frac : lst) {
+            unsigned long long den = frac[1];
+            D = (D * (den / std::gcd(D, den)));
+        }
+        std::ostringstream output;
+        for (const auto& frac : lst) {
+            unsigned long long num = frac[0];
+            unsigned long long den = frac[1];
+            output << "(" << (D / den) * num << "," << D << ")";
+        }
+
+        return output.str();
+    }
+};
