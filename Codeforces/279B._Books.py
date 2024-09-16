@@ -24,3 +24,26 @@
 # 2 2 3
 # outputCopy
 # 1
+# Solution Sliding Window O(N) O(1)
+import sys
+
+
+def solution(t: int, n: int, books: list) -> str:
+    left = 0
+    current_time = 0
+    max_books = 0
+
+    for right in range(t):
+        current_time += books[right]
+        while current_time > n:
+            current_time -= books[left]
+            left += 1
+        max_books = max(max_books, right - left + 1)
+
+    return str(max_books)
+
+
+if __name__ == '__main__':
+    t, n = map(int, sys.stdin.readline().rstrip().split())
+    books: list = list(map(int, sys.stdin.readline().rstrip().split()))
+    sys.stdout.write(solution(t, n, books))
