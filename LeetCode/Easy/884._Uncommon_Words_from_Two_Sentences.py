@@ -31,3 +31,21 @@ class Solution:
         for i in s2.split():
             d[i] = d.get(i, 0) + 1
         return [i for i in d if d[i] == 1]
+
+# Solution O(N) O(N) HashMap Counting
+class Solution:
+    def uncommonFromSentences(self, s1: str, s2: str) -> List[str]:
+        storage_s1: dict[str, int] = dict()
+        storage_s2: dict[str, int] = dict()
+        for word in s1.split():
+            storage_s1[word] = storage_s1.get(word, 0) + 1
+        for word in s2.split():
+            storage_s2[word] = storage_s2.get(word, 0) + 1
+        output: list[str] = []
+        for word in storage_s1:
+            if storage_s1[word] == 1 and word not in storage_s2:
+                output.append(word)
+        for word in storage_s2:
+            if storage_s2[word] == 1 and word not in storage_s1:
+                output.append(word)
+        return output
