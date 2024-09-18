@@ -20,3 +20,23 @@
 # 7 0 0 -7
 # outputCopy
 # 7
+# Solution O(NlogN) O(1)
+from typing import List
+import sys
+
+
+def solution(t: int, m: int, tvs: List[int]) -> str:
+    tvs.sort()
+    init_balance: int = -tvs[0]
+    for idx in range(1, m):
+        if init_balance + -tvs[idx] < init_balance:
+            break
+        init_balance += -tvs[idx]
+    return str(max(init_balance, 0))
+
+
+if __name__ == '__main__':
+    t, m = map(int, sys.stdin.readline().rstrip().split())
+    tvs: List[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    sys.stdout.write(solution(t, m, tvs))
+
