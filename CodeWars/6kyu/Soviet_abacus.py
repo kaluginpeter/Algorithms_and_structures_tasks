@@ -48,3 +48,19 @@
 #     [1, 1, 1, 0, 0, 0, 0, 0, 0],
 # ] -> 3214.36
 # ALGORITHMSMATRIX
+# Solution
+from decimal import Decimal
+
+def abacus(abacus_rows: list[list[int]]) -> Decimal:
+    amount: dict[int, int] = {1: 0.01, 2: 0.1, 3: 1, 4: 10, 5: 100, 6: 1000}
+    result: int = 0
+    for i in range(1, 7):
+        move: bool = False
+        for module in range(9):
+            if abacus_rows[i - 1][module] == 0:
+                result += module * amount[i]
+                move = True
+                break
+        if not move and abacus_rows[i - 1][-1] == 1:
+            result += 9 * amount[i]
+    return Decimal(str(result)).quantize(Decimal('0.01'))
