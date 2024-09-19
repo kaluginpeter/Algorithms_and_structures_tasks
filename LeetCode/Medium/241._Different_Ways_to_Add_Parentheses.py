@@ -28,3 +28,24 @@
 # 1 <= expression.length <= 20
 # expression consists of digits and the operator '+', '-', and '*'.
 # All the integer values in the input expression are in the range [0, 99].
+# Solution
+# Python O(2**N) O(2**N) Recursion Divide and Conquer
+class Solution:
+    def diffWaysToCompute(self, expression: str) -> List[int]:
+        possible: list[int] = []
+        for idx in range(len(expression)):
+            operation: str = expression[idx]
+            if operation in '+-*':
+                left_part: list[int] = self.diffWaysToCompute(expression[:idx])
+                right_part: list[int] = self.diffWaysToCompute(expression[idx+1:])
+                for left in left_part:
+                    for right in right_part:
+                        if operation == '*':
+                            possible.append(int(left) * int(right))
+                        elif operation == '+':
+                            possible.append(int(left) + int(right))
+                        else:
+                            possible.append(int(left) - int(right))
+        if not possible:
+            possible.append(int(expression))
+        return possible
