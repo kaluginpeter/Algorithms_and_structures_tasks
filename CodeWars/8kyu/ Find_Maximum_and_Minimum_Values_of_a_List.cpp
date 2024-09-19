@@ -9,3 +9,22 @@ Notes
 You may consider that there will not be any empty arrays/vectors.
 FUNDAMENTALS
 */
+// Solution
+#include <vector>
+using namespace std;
+
+int min(vector<int> list){
+    int min_number = list[0];
+    for (int number : list) {
+      min_number = std::min(min_number, number);
+    }
+    return min_number;
+}
+
+int max(vector<int> list){
+    int max_number = list[0];
+    for (int number : list) {
+      max_number = std::max(max_number, number);
+    }
+    return max_number;
+}
