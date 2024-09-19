@@ -84,3 +84,39 @@
 #  take a2
 #  and perform an operation plus one on it, as a result we get a=[12,12]
 # .
+# Solution
+# Python O(N) O(1)
+from typing import List
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        numbers: List[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+        print(max(numbers) - min(numbers))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
+# C++ O(1) O(1)
+#include <iostream>
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        int min_num = 10000000000;
+        int max_num = 1;
+        for (int j = 0; j < n; ++j) {
+            int number;
+            std::cin >> number;
+            min_num = std::min(min_num, number);
+            max_num = std::max(max_num, number);
+        }
+        std::cout << max_num - min_num << std::endl;
+    }
+}
