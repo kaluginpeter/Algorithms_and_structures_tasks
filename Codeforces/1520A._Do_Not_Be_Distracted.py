@@ -53,3 +53,57 @@
 # YES
 # YES
 # YES
+# Solution
+# Python O(N) O(N) Hashset
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        tasks: str = sys.stdin.readline().rstrip()
+        hashset: set = set()
+        hashset.add(tasks[0])
+        for idx in range(1, n):
+            if tasks[idx] in hashset and tasks[idx] != tasks[idx - 1]:
+                print('NO')
+                break
+            hashset.add(tasks[idx])
+        else:
+            print('YES')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
+
+# C++ O(N) O(N) HashSet
+#include <iostream>
+#include <string>
+#include <unordered_set>
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (size_t i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        std::unordered_set<char> storage;
+        std::string line;
+        std::getline(std::cin, line);
+        std::getline(std::cin, line);
+        bool is_suspicious = true;
+        storage.insert(line[0]);
+        for (size_t j = 1; j < n; ++j) {
+            if (storage.count(line[j]) && line[j] != line[j - 1]) {
+                std::cout << "NO" << std::endl;
+                is_suspicious = false;
+                break;
+            }
+            storage.insert(line[j]);
+        }
+        if (is_suspicious) {
+            std::cout << "YES" << std::endl;
+        }
+    }
+}
