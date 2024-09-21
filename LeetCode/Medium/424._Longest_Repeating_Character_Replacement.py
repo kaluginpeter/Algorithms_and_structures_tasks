@@ -23,3 +23,40 @@
 # 1 <= s.length <= 105
 # s consists of only uppercase English letters.
 # 0 <= k <= s.length
+# Solution
+# Python O(N) O(N) Sliding Window HashMap
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        max_freq: int = 0
+        max_length: int = 0
+        storage: dict[str, int] = dict()
+        left: int = 0
+        for right in range(len(s)):
+            storage[s[right]] = storage.get(s[right], 0) + 1
+            max_freq = max(max_freq, storage[s[right]])
+            if right - left + 1 - max_freq > k:
+                storage[s[left]] -= 1
+                left += 1
+            max_length = max(max_length, right - left + 1)
+        return max_length
+
+# C++ O(N) O(N) Sliding Window HashMap
+class Solution {
+public:
+    int characterReplacement(string s, int k) {
+        int max_length = 0;
+        std::unordered_map<char, int> storage;
+        int max_freq = 0;
+        int left = 0;
+        for (int right = 0; right < s.size(); ++right) {
+            storage[s[right]]++;
+            max_freq = std::max(max_freq, storage[s[right]]);
+            if (right - left + 1 - max_freq > k) {
+                storage[s[left]]--;
+                left++;
+            }
+            max_length = std::max(max_length, right - left + 1);
+        }
+        return max_length;
+    }
+};
