@@ -18,3 +18,39 @@
 # Source: CSES
 #
 # ARRAYSALGORITHMS
+# Solution
+# C++
+#include <vector>
+#include <array>
+
+std::array<std::vector<int>, 2> createTwoSetsOfEqualSum(int n) {
+    std::array<std::vector<int>, 2> sets;
+    long long total_sum = static_cast<long long>(n) * (n + 1) / 2;
+    if (total_sum % 2 != 0) {
+        return sets;
+    }
+    long long target = total_sum / 2;
+    for (int num = n; num > 0; --num) {
+        if (target >= num) {
+            sets[0].push_back(num);
+            target -= num;
+        } else {
+            sets[1].push_back(num);
+        }
+    }
+    return sets;
+}
+# Python
+def create_two_sets_of_equal_sum(n: int) -> tuple[list[int], list[int]]:
+    total_sum: int = n * (n + 1) // 2
+    if total_sum % 2 != 0: return []
+
+    target: int = total_sum // 2
+    set1, set2 = [], []
+    for num in range(n, 0, -1):
+        if target >= num:
+            set1.append(num)
+            target -= num
+        else:
+            set2.append(num)
+    return (set1, set2)
