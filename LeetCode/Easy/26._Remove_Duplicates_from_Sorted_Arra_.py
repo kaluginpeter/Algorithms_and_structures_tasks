@@ -48,3 +48,28 @@ class Solution:
         for delete_index in range(i, j-1, -1):
             del nums[delete_index]
         return j
+
+# Python Two Pointers O(N) O(1)
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        left: int = 0
+        for right in range(1, len(nums)):
+            if nums[right] != nums[left]:
+                left += 1
+                nums[left] = nums[right]
+        return left + 1
+
+# C++ Two Pointers O(N) O(1)
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int left = 0;
+        for (int right = 1; right < nums.size(); ++right) {
+            if (nums[right] != nums[left]) {
+                left += 1;
+                nums[left] = nums[right];
+            }
+        }
+        return left + 1;
+    }
+};
