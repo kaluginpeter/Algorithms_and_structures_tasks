@@ -42,3 +42,32 @@
 # 1 <= nums.length <= 3 * 104
 # -104 <= nums[i] <= 104
 # nums is sorted in non-decreasing order.
+# Solution
+# Python O(N) O(1) Two Pointers
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        left: int = 1
+        if len(nums) == 1: return left
+        for right in range(2, len(nums)):
+            if nums[right] != nums[left - 1]:
+                left += 1
+                nums[left] = nums[right]
+        return left + 1
+
+# C++ O(N) O(1) Two Pointers
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int left = 1;
+        if (nums.size() == 1) {
+            return left;
+        }
+        for (int right = 2; right < nums.size(); ++right) {
+            if (nums[right] != nums[left - 1]) {
+                left += 1;
+                nums[left] = nums[right];
+            }
+        }
+        return left + 1;
+    }
+};
