@@ -83,3 +83,35 @@
 #
 # 0 <= s.length <= 200
 # s consists of English letters (lower-case and upper-case), digits (0-9), ' ', '+', '-', and '.'.
+# Solution
+# Python O(N) O(1) String Simulation
+class Solution:
+    def bound_output(self, output: int) -> int:
+        lower_bound: int = -2**31
+        upper_bound: int = 2**31 - 1
+        if output > upper_bound: return upper_bound
+        if output < lower_bound: return lower_bound
+        return output
+
+    def myAtoi(self, s: str) -> int:
+        output: int = 0
+        first_sign: bool = True
+        negative: bool = False
+        first_digit: bool = False
+        for idx in range(len(s)):
+            if s[idx] == '-':
+                if not first_sign or first_digit: return self.bound_output(output * [1, -1][negative])
+                first_sign = False
+                negative = True
+                first_digit = True
+            elif s[idx] == '+':
+                if not first_sign or first_digit: return self.bound_output(output * [1, -1][negative])
+                first_sign = False
+                first_digit = True
+            elif s[idx].isdigit():
+                first_digit = True
+                output = output * 10 + int(s[idx])
+            else:
+                if not first_digit and s[idx] == ' ': continue
+                return self.bound_output(output * [1, -1][negative])
+        return self.bound_output(output * [1, -1][negative])
