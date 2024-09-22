@@ -33,3 +33,32 @@
 # 1 <= message.length, bannedWords.length <= 105
 # 1 <= message[i].length, bannedWords[i].length <= 15
 # message[i] and bannedWords[i] consist only of lowercase English letters.
+# Solution
+# Python O(N) O(K), where K is length of distinct words in bannedWords
+class Solution:
+    def reportSpam(self, message: List[str], bannedWords: List[str]) -> bool:
+        deprecated: set[str] = set(bannedWords)
+        count: int = 0
+        for m in message:
+            count += m in deprecated
+            if count > 1: return True
+        return False
+
+# C++ O(N) O(K), where K is length of distinct words in bannedWords
+class Solution {
+public:
+    bool reportSpam(vector<string>& message, vector<string>& bannedWords) {
+        std::unordered_set<std::string> deprecated;
+        for (std::string word : bannedWords) {
+            deprecated.insert(word);
+        }
+        int count = 0;
+        for (std::string word : message) {
+            count += deprecated.count(word);
+            if (count > 1) {
+                return true;
+            }
+        }
+        return false;
+    }
+};
