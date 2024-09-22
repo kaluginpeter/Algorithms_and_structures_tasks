@@ -47,3 +47,36 @@
 # NO
 # NO
 # YES
+# Solution
+# Python O(N) O(1) Math String
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: str = sys.stdin.readline().rstrip()
+        if len(n) & 1: sys.stdout.write('NO' + '\n')
+        else: sys.stdout.write(['NO', 'YES'][n[:len(n) // 2] == n[len(n) // 2:]] + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
+
+# C++ O(N) O(1) String Math
+#include <iostream>
+#include <string>
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    for (size_t time = 0; time < t; ++time) {
+        std::string n;
+        std::cin >> n;
+        if (n.size() % 2 != 0) {
+            std::cout << "NO" << std::endl;
+            continue;
+        }
+        std::cout << (n.substr(0, n.size() / 2) == n.substr(n.size() / 2, n.size())? "YES" : "NO") << std::endl;
+    }
+}
