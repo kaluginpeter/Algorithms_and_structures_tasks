@@ -37,3 +37,36 @@ class Solution:
             else:
                 right -= 1
         return ans
+
+# Python O(N) O(1) Two Pointers
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        ans: int = 0
+        left, right = 0, len(height) - 1
+        while left < right:
+            ans = max(ans, min(height[left], height[right]) * (right - left))
+            if height[left] <= height[right]:
+                left += 1
+            else:
+                right -= 1
+        return ans
+
+# C++ O(N) O(1) Two Pointers
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int max_volume = 0;
+        int left = 0;
+        int right = height.size() - 1;
+        while (left < right) {
+            int current_volume = (right - left) * std::min(height[left], height[right]);
+            max_volume = std::max(max_volume, current_volume);
+            if (height[left] <= height[right]) {
+                left += 1;
+            } else {
+                right -= 1;
+            }
+        }
+        return max_volume;
+    }
+};
