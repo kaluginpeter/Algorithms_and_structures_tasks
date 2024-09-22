@@ -57,3 +57,45 @@
 # 1 <= mountainHeight <= 105
 # 1 <= workerTimes.length <= 104
 # 1 <= workerTimes[i] <= 106
+# Solution
+# Python Binary Search O(Nlog(mountainHeight)) O(N)
+class Solution:
+    def canReduceHeightInTime(self, workerTimes: list[int], mountainHeight: int, maxTime: int) -> bool:
+        reduced: int = 0
+        for time in workerTimes:
+            max_x: int = 0
+            left, right = 0, mountainHeight
+            while left <= right:
+                middle: int = left + (right - left) // 2
+                if time * (middle * (middle + 1)) // 2 <= maxTime:
+                    max_x = middle
+                    left = middle + 1
+                else:
+                    right = middle - 1
+            reduced += max_x
+            if reduced >= mountainHeight:return True
+        return reduced >= mountainHeight
+
+    def minNumberOfSeconds(self, mountainHeight, workerTimes):
+        low, high = 0, 10**18
+        while low < high:
+            middle: int = low + (high - low) // 2
+            if self.canReduceHeightInTime(workerTimes, mountainHeight, middle):
+                high = middle
+            else:
+                low = middle + 1
+        return low
+# Python Heap O(N + mountainHeightlog(N)) O(N)
+import heapq
+class Solution:
+    def minNumberOfSeconds(self, mountainHeight: int, workerTimes: List[int]) -> int:
+        heap: list[tuple[int, int, int]] = [(time, time, 1) for time in workerTimes]
+        count: int = 0
+        heapq.heapify(heap)
+        while mountainHeight:
+            total, start, module = heapq.heappop(heap)
+            count = max(count, total)
+            module += 1
+            heapq.heappush(heap, (total + start * module, start, module))
+            mountainHeight-= 1
+        return count
