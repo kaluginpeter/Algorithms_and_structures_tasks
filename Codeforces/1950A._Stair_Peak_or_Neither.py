@@ -44,3 +44,29 @@
 # NONE
 # NONE
 # STAIR
+# Solution
+# C++ O(1) O(1)
+#include <iostream>
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (size_t i = 0; i < t; ++i) {
+        int a, b, c;
+        std::cin >> a >> b >> c;
+        std::cout << (a < b && b < c? "STAIR" : a < b && b > c? "PEAK" : "NONE") << std::endl;
+    }
+}
+# Python O(1) O(1)
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        a, b, c = map(int, sys.stdin.readline().rstrip().split())
+        sys.stdout.write(('STAIR' if a < b < c else 'PEAK' if a < b > c else 'NONE') + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
