@@ -24,3 +24,16 @@
 # 1 <= dictionary[i].length <= 50
 # dictionary[i] and s consists of only lowercase English letters
 # dictionary contains distinct words
+# Solution
+# Python O(N**2) O(NM), where N is length of DP array and M is length of hashset of words
+class Solution:
+    def minExtraChar(self, s: str, dictionary: List[str]) -> int:
+        words: set[str] = set(dictionary)
+        n: int = len(s)
+        dp: list[int] = [0] * (n + 1)
+        for i in range(n - 1, -1, -1):
+            dp[i] = dp[i + 1] + 1
+            for j in range(1, n - i + 1):
+                if s[i:i + j] in words:
+                    dp[i] = min(dp[i], dp[i + j])
+        return dp[0]
