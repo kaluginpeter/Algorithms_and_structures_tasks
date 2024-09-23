@@ -29,3 +29,34 @@ The Office V - Find a Chair
 
 ARRAYSFUNDAMENTALS
 */
+// Solution
+#include <map>
+#include <string>
+
+std::string boredom(const std::map<std::string, std::string> &staff){
+    int total = 0;
+    for (auto pair : staff) {
+      if (pair.second == "accounts") {
+          total += 1;
+      } else if (pair.second == "finance") {
+          total += 2;
+      } else if (pair.second == "canteen") {
+          total += 10;
+      } else if (pair.second == "regulation") {
+          total += 3;
+      } else if (pair.second == "trading") {
+          total += 6;
+      } else if (pair.second == "change") {
+          total += 6;
+      } else if (pair.second == "IS") {
+          total += 8;
+      } else if (pair.second == "retail") {
+          total += 5;
+      } else if (pair.second == "cleaning") {
+          total += 4;
+      } else if (pair.second == "pissing about") {
+          total += 25;
+      }
+    }
+    return (total <= 80? "kill me now" : total < 100? "i can handle this" : "party time!!");
+}
