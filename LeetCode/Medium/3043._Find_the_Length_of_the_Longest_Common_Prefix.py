@@ -31,3 +31,39 @@
 #
 # 1 <= arr1.length, arr2.length <= 5 * 104
 # 1 <= arr1[i], arr2[i] <= 108
+# Solution
+# Python Trie O(N + M) O((N + M) K)
+class TrieNode:
+    def __init__(self) -> None:
+        self.childs: dict[str, TrieNode] = dict()
+
+
+class Trie:
+    def __init__(self) -> None:
+        self.root: TrieNode = TrieNode()
+
+    def insert(self, value: str) -> None:
+        tmp: Trie = self.root
+        for char in value:
+            if char not in tmp.childs:
+                tmp.childs[char] = TrieNode()
+            tmp = tmp.childs[char]
+
+
+class Solution:
+    def longest_prefix(self, root1: Trie, root2: Trie, current_depth: int, max_depth: list[int]) -> int:
+        if current_depth > max_depth[0]:
+            max_depth[0] = current_depth
+        for char in root1.childs:
+            if root2.childs.get(char):
+                self.longest_prefix(root1.childs[char], root2.childs[char], current_depth + 1, max_depth)
+        return max_depth[0]
+
+    def longestCommonPrefix(self, arr1: List[int], arr2: List[int]) -> int:
+        prefix_tree1: Trie = Trie()
+        prefix_tree2: Trie = Trie()
+        for word in arr1:
+            prefix_tree1.insert(str(word))
+        for word in arr2:
+            prefix_tree2.insert(str(word))
+        return self.longest_prefix(prefix_tree1.root, prefix_tree2.root, 0, [0])
