@@ -43,3 +43,31 @@
 # owu uwo
 # cat cat
 # zzz zzz
+# Solution
+# Python O(N) O(1)
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        a, b = sys.stdin.readline().rstrip().split()
+        sys.stdout.write(b[0] + a[1:] + ' ' + a[0] + b[1:] + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
+
+# C++ O(N) O(1)
+#include <iostream>
+#include <string>
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (size_t i = 0; i < t; ++i) {
+        std::string a, b;
+        std::cin >> a >> b;
+        std::cout << b[0] << a.substr(1, a.size()) << " " << a[0] << b.substr(1, b.size()) << std::endl;
+    }
+}
