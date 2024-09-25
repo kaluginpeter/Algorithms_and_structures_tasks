@@ -10,3 +10,19 @@ Examples
 "Why isn't my code working?"  -->  "W  H  Y  I  S  N  '  T  M  Y  C  O  D  E  W  O  R  K  I  N  G  ?"
 FUNDAMENTALS
 */
+// Solution
+#include<string>
+
+std::string vaporcode(const std::string &str) {
+  std::string output = "";
+  for (size_t index = 0; index < str.size(); ++index) {
+    if (str[index] == ' ') {
+      continue;
+    }
+    if (output.size()) {
+      output += "  ";
+    }
+    output += std::toupper(str[index]);
+  }
+  return output;
+}
