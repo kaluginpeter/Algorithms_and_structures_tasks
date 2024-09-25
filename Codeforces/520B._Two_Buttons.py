@@ -24,3 +24,32 @@
 # In the first example you need to push the blue button once, and then push the red button once.
 #
 # In the second example, doubling the number is unnecessary, so we need to push the blue button nine times.
+# Solution
+# Python O(N) O(N)
+import sys
+from collections import deque
+
+def min_operations(n: int, m: int) -> int:
+    if n >= m: return n - m
+    queue = deque([(n, 0)])
+    visited = set()
+    min_count: int = 10**5
+    while queue:
+        current, steps = queue.popleft()
+        if current >= m:
+            min_count = min(min_count, steps + (current - m))
+            continue
+        next_double = current * 2
+        if next_double not in visited and next_double <= 2 * m:  # Limit to avoid unnecessary large numbers
+            visited.add(next_double)
+            queue.append((next_double, steps + 1))
+        next_decrement = current - 1
+        if next_decrement >= 0 and next_decrement not in visited:
+            visited.add(next_decrement)
+            queue.append((next_decrement, steps + 1))
+    return min_count
+
+if __name__ == '__main__':
+    n, m = map(int, sys.stdin.readline().rstrip().split())
+    result = min_operations(n, m)
+    sys.stdout.write(str(result) + '\n')
