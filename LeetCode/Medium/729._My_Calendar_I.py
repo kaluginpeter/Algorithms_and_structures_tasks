@@ -29,3 +29,24 @@
 #
 # 0 <= start < end <= 109
 # At most 1000 calls will be made to book.
+# Solution Segment Tree O(NlogN) O(N)
+from sortedcontainers import SortedList
+
+class MyCalendar:
+    def __init__(self) -> None:
+        self.calendar: list[tuple[int, int]] = SortedList()
+
+    def book(self, start: int, end: int) -> bool:
+        if not self.calendar:
+            self.calendar.add((start, end))
+            return True
+        if (start, end) in self.calendar: return False
+        previous: int = self.calendar.bisect_left((start, end)) - 1
+        nxt: int = self.calendar.bisect_right((start, end))
+        if (
+            (previous == -1 or self.calendar[previous][1] <= start)
+            and (nxt == len(self.calendar) or self.calendar[nxt][0] >= end)
+        ):
+            self.calendar.add((start, end))
+            return True
+        return False
