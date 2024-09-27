@@ -17,3 +17,14 @@ String array revisal
 
 FUNDAMENTALS
 */
+// Solution
+std::string capitalize(std::string s, std::vector<int> idxs)
+{
+  for (int index : idxs) {
+    if (index >= s.size()) {
+      continue;
+    }
+    s[index] = std::toupper(s[index]);
+  }
+  return s;
+}
