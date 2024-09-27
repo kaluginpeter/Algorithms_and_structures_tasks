@@ -52,3 +52,38 @@
 # 40000
 # Note
 # Below are the answers for the first two test cases:
+# Solution
+# Python O(1) O(1) Math
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        a, b = map(int, sys.stdin.readline().rstrip().split())
+        remainder: int = min(a, b) * 2
+        if remainder < max(a, b):
+            remainder = max(a, b)
+        sys.stdout.write(str(remainder**2) + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
+
+# C++ O(1) O(1) Math
+#include <iostream>
+#include <cmath>
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (size_t rep = 0; rep < t; ++rep) {
+        int a, b;
+        std::cin >> a >> b;
+        int remainder = std::min(a, b) * 2;
+        if (remainder < std::max(a, b)) {
+            remainder = std::max(a, b);
+        };
+        std::cout << std::pow(remainder, 2) << std::endl;
+    }
+};
