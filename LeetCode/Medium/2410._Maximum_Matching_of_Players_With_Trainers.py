@@ -31,3 +31,36 @@
 #
 #
 # Note: This question is the same as 445: Assign Cookies.
+# Solution
+# Python O(NlogN) O(1) Two Pointers Sorting Greedy
+class Solution:
+    def matchPlayersAndTrainers(self, players: List[int], trainers: List[int]) -> int:
+        players.sort()
+        trainers.sort()
+        left: int = 0
+        right: int = 0
+        while left < len(players) and right < len(trainers):
+            if players[left] <= trainers[right]:
+                left += 1
+            right += 1
+        return left
+
+# C++ O(NlogN) O(1) Two Pointers Sorting Greedy
+class Solution {
+public:
+    int matchPlayersAndTrainers(vector<int>& players, vector<int>& trainers) {
+        size_t left = 0;
+        size_t right = 0;
+        int content = 0;
+        std::sort(players.begin(), players.end());
+        std::sort(trainers.begin(), trainers.end());
+        while (left < players.size() && right < trainers.size()) {
+            if (players[left] <= trainers[right]) {
+                content++;
+                left++;
+            }
+            right++;
+        }
+        return content;
+    }
+};
