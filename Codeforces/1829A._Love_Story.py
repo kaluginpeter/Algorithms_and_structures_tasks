@@ -43,3 +43,38 @@
 # 0
 # 4
 # 9
+# Solution
+# C++ O(1) O(1) String
+#include <iostream>
+#include <string>
+
+int main() {
+    int t;
+    std::cin >> t;
+    std::string valid = "codeforces";
+    for (int rep = 0; rep < t; ++rep) {
+        std::string n;
+        std::cin >> n;
+        int count = 0;
+        for (size_t index = 0; index < valid.size(); ++index) {
+            if (valid[index] != n[index]) {
+                count++;
+            }
+        };
+        std::cout << count << std::endl;
+    }
+}
+
+# Python O(1) O(1) String
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: str = sys.stdin.readline().rstrip()
+        sys.stdout.write(str(sum(n[idx] != 'codeforces'[idx] for idx in range(10))) + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
