@@ -36,3 +36,27 @@
 # s="((( )))((  ))", a = "(", b = ")", c = " "
 # findSub(s,a,b,c) === "(  )"
 # FUNDAMENTALS
+# Solution
+def find_sub(s, a, b, c):
+    output: str = ''
+    count_output: int = 0
+    a_idx: int = 0
+    c_count: int = 0
+    is_valid: bool = False
+    for b_idx in range(len(s)):
+        if s[b_idx] == a:
+            if is_valid:
+                c_count = 0
+                a_idx = b_idx
+            else:
+                a_idx = b_idx
+                is_valid = True
+        if s[b_idx] == b:
+            if not is_valid: continue
+            if c_count > count_output:
+                count_output = c_count
+                output = s[a_idx:b_idx + 1]
+            c_count = 0
+            is_valid = False
+        elif s[b_idx] == c and is_valid: c_count += 1
+    return output
