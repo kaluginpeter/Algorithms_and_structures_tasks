@@ -61,3 +61,39 @@
 # NO
 # NO
 # NO
+# Solution
+# Python O(NlogN) O(N)
+import sys
+
+
+def solution(t: int) -> None:
+    valid: list = sorted('Timur')
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        word: str = sys.stdin.readline().rstrip()
+        sys.stdout.write(['NO', 'YES'][valid == sorted(word)] + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
+
+# C++ O(NlogN) O(1)
+#include <iostream>
+#include <string>
+#include <algorithm>
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    std::string valid = "Timur";
+    std::sort(valid.begin(), valid.end());
+    for (size_t rep = 0; rep < t; ++rep) {
+        int n;
+        std::cin >> n;
+        std::string name;
+        std::cin >> name;
+        std::sort(name.begin(), name.end());
+        std::cout << (valid == name? "YES" : "NO") << std::endl;
+    }
+}
