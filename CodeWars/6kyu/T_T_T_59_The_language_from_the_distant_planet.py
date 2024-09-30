@@ -31,3 +31,50 @@
 #
 # decode(encode("Hello world!")) should return "Hello world!"
 # PUZZLESGAMES
+# Solution
+LANGUAGE: str = 'zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA'
+
+
+def get_to_reverse_bin(expression: str) -> str:
+    return ''.join(['1', '0'][int(num)] for num in expression)
+
+
+def encode(s: str) -> str:
+    encoded_message: list[str] = []
+    words: list[str] = s.split(' ')
+    for word in words:
+        encoded_word: list[str] = []
+        for char in word:
+            if char.isalpha():
+                position: int = get_to_reverse_bin(bin(LANGUAGE.index(char) + 1)[2:])
+                encoded_word.append(position + '2')
+            else:
+                encoded_word.append(char)
+        encoded_message.append(''.join(encoded_word))
+    return ' '.join(encoded_message)
+
+
+def decode(s: str) -> str:
+    words: list[str] = s.split(' ')
+    decoded_message: list[str] = []
+    for word in words:
+        letters: list[str] = word.split('2')
+        decoded_letters: list[str] = []
+        for letter in letters:
+            chars: list[str] = []
+            special_marks: list[str] = []
+            for char in letter:
+                if char.isdigit():
+                    chars.append(char)
+                else:
+                    if chars:
+                        special_marks.append(char)
+                    else:
+                        decoded_letters.append(char)
+            if chars:
+                correct_bin_representation: str = get_to_reverse_bin(''.join(chars))
+                decoded_letters.append(LANGUAGE[int(correct_bin_representation, 2) - 1] + ''.join(special_marks))
+            else:
+                decoded_letters.append(''.join(special_marks))
+        decoded_message.append(''.join(decoded_letters))
+    return ' '.join(decoded_message)
