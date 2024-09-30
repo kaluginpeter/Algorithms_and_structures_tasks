@@ -52,3 +52,34 @@
 # 10
 # 1
 # 3
+# Solution
+# Python O(1) O(1) Math
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        x, k = map(int, sys.stdin.readline().rstrip().split())
+        sys.stdout.write(['1\n' + str(x), '2\n' + str(x - 1) + ' ' + '1'][x % k == 0] + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
+
+# C++ O(1) O(1) Math
+#include <iostream>
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    for (size_t rep = 0; rep < t; ++rep) {
+        int x, k;
+        std::cin >> x >> k;
+        if (x % k != 0) {
+            std::cout << 1 << std::endl << x << std::endl;
+        } else {
+            std::cout << 2 << std::endl << x - 1 << " " << 1 << std::endl;
+        }
+    }
+}
