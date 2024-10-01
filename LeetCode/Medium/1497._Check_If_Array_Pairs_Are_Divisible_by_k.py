@@ -30,3 +30,17 @@
 # n is even.
 # -109 <= arr[i] <= 109
 # 1 <= k <= 105
+# Solution
+# Python O(N) O(N) HashMap
+class Solution:
+    def canArrange(self, arr: List[int], k: int) -> bool:
+        storage: dict[int, int] = dict()
+        for num in arr:
+            storage[(num % k + k) % k] = storage.get((num % k + k) % k, 0) + 1
+        for num in arr:
+            remainder: int = (num % k + k) % k
+            if remainder == 0:
+                if storage[0] & 1: return False
+            elif storage.get(remainder, -1) != storage.get(k - remainder, -2):
+                return False
+        return True
