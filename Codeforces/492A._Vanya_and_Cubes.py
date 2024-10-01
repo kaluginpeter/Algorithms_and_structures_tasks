@@ -22,3 +22,39 @@
 # 4
 # Note
 # Illustration to the second sample:
+# Solution
+# C++ O(logN) O(1) Math
+#include <iostream>
+
+int main() {
+    int n;
+    std::cin >> n;
+    int height = 0;
+    int total = 0;
+    while (true) {
+        int cubes_needed = (height + 1) * (height + 2) / 2;
+        if (total + cubes_needed > n) {
+            break;
+        }
+        height += 1;
+        total += cubes_needed;
+    }
+    std::cout << height << std::endl;
+}
+# Python O(logN) O(1) Math
+import sys
+
+def solution(n: int) -> str:
+    height: int = 0
+    total: int = 0
+    while True:
+        cubes_needed: int = (height + 1) * (height + 2) // 2
+        if total + cubes_needed > n:
+            break
+        height += 1
+        total += cubes_needed
+    return str(height)
+
+if __name__ == '__main__':
+    n: int = int(sys.stdin.readline().rstrip())
+    sys.stdout.write(solution(n) + "\n")
