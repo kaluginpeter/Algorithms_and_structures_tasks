@@ -16,3 +16,6 @@
 # You might also enjoy Latin Square Validator and Euler Squares.
 #
 # ARRAYS
+# Solution
+def make_latin_square(n):
+    return [[(i + j) % n + 1 for j in range(n)] for i in range(n)]
