@@ -67,3 +67,30 @@
 # In the fourth test case, it is impossible to divide three identical candies between two people.
 #
 # In the fifth test case, any division will also be unfair.
+# Solution
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        weights: list = list(map(int, sys.stdin.readline().rstrip().split()))
+        total_weight: int = sum(weights)
+
+        if total_weight % 2 != 0:
+            sys.stdout.write('NO\n')
+            continue
+
+        target: int = total_weight // 2
+        count1: int = weights.count(1)
+        count2: int = weights.count(2)
+
+        max_2s_used: int = min(count2, target // 2)
+        weight_from_2s: int = max_2s_used * 2
+        remaining_weight: int = target - weight_from_2s
+        sys.stdout.write(['NO', 'YES'][remaining_weight <= count1] + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
