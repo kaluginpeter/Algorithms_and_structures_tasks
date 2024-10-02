@@ -27,3 +27,65 @@
 #
 # 0 <= arr.length <= 105
 # -109 <= arr[i] <= 109
+# Solution
+# Python O(NlogN) O(N) HashMap
+class Solution:
+    def arrayRankTransform(self, arr: List[int]) -> List[int]:
+        hashmap: dict[int, set[int]] = dict()
+        for idx in range(len(arr)):
+            if arr[idx] not in hashmap:
+                hashmap[arr[idx]] = set()
+            hashmap[arr[idx]].add(idx)
+        arr.sort()
+        output: list[int] = [0] * len(arr)
+        rank: int = 1
+        for idx in range(len(arr) - 1):
+            if arr[idx] != arr[idx + 1]:
+                output[hashmap[arr[idx]].pop()] = rank
+                rank += 1
+            else:
+                output[hashmap[arr[idx]].pop()] = rank
+        if hashmap:
+            output[hashmap[arr[-1]].pop()] = rank
+        return output
+
+# C++ O(NlogN) O(N) HashMap
+class Solution {
+public:
+    vector<int> arrayRankTransform(vector<int>& arr) {
+        if (!arr.size()) {
+            return arr;
+        }
+        std::unordered_map<int, std::unordered_set<size_t>> hashmap;
+        for (size_t index = 0; index < arr.size(); ++index) {
+            hashmap[arr[index]].insert(index);
+        }
+        std::sort(arr.begin(), arr.end());
+        std::vector<int> output(arr.size());
+        int rank = 1;
+        for (size_t index = 0; index < arr.size() - 1; ++index) {
+            if (arr[index] != arr[index + 1]) {
+                output[*(popFromSet(hashmap, arr[index]))] = rank;
+                rank += 1;
+            } else {
+                output[*(popFromSet(hashmap, arr[index]))] = rank;
+            }
+        }
+        output[*(popFromSet(hashmap, arr[arr.size() - 1]))] = rank;
+        return output;
+    }
+private:
+std::optional<size_t> popFromSet(std::unordered_map<int, std::unordered_set<size_t>>& hashmap, int key) {
+    auto it = hashmap.find(key);
+    if (it != hashmap.end() && !it->second.empty()) {
+        auto set_it = it->second.begin();
+        size_t value = *set_it;
+        it->second.erase(set_it);
+        if (it->second.empty()) {
+            hashmap.erase(it);
+        }
+        return value;
+    }
+    return std::nullopt;
+}
+};
