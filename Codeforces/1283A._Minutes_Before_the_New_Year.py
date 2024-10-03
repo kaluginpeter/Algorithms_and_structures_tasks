@@ -48,3 +48,42 @@
 # 1439
 # 1180
 # 1
+# Solution
+# Python O(1) O(1) Math
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        h, m = map(int, sys.stdin.readline().rstrip().split())
+        hours_remainder: int = 24 - h
+        minutes_remainder: int = 0
+        if m != 0:
+            hours_remainder -= 1
+            minutes_remainder = 60 - m
+        sys.stdout.write(str(hours_remainder * 60 + minutes_remainder) + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
+
+# C++ O(1) O(1) Math
+#include <iostream>
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    for (size_t rep = 0; rep < t; ++rep) {
+        int h, m;
+        std::cin >> h >> m;
+        int hours_remainder = 24 - h;
+        int minutes_remainder = 0;
+        if (m != 0) {
+            hours_remainder -= 1;
+            minutes_remainder = 60 - m;
+        }
+        std::cout << hours_remainder * 60 + minutes_remainder << std::endl;
+    }
+}
