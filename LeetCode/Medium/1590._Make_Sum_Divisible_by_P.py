@@ -28,3 +28,19 @@
 # 1 <= nums.length <= 105
 # 1 <= nums[i] <= 109
 # 1 <= p <= 109
+# Solution
+# Python O(N) O(N) HashMap Prefix Sum
+class Solution:
+    def minSubarray(self, nums: List[int], p: int) -> int:
+        total_sum: int = sum(num % p for num in nums) % p
+        if not total_sum: return 0
+        hashmap: dict[int, int] = {0: -1}
+        cur_sum: int = 0
+        length: int = len(nums)
+        for idx in range(len(nums)):
+            cur_sum = (cur_sum + nums[idx]) % p
+            remainder: int = (cur_sum - total_sum + p) % p
+            if remainder in hashmap:
+                length = min(length, idx - hashmap[remainder])
+            hashmap[cur_sum] = idx
+        return length if length != len(nums) else -1
