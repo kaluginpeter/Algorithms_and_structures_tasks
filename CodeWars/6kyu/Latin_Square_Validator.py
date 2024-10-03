@@ -49,3 +49,22 @@
 # If you like this kata, you might also be interested in Sudokuboard validator.
 #
 # STRINGSARRAYS
+# Solution
+def verify_latin_square(array, m):
+    mx_row: int = max(len(row) for row in array)
+    mn_row: int = min(len(row) for row in array)
+    if (len(array) != mx_row or mx_row != mn_row) and len(array) != m: return 'Array not square'
+    if (len(array) != mx_row or mx_row != mn_row): return 'Array not square'
+    if len(array) != m: return 'Array is wrong size'
+    for row in range(m):
+        cur_set: set[int] = set()
+        for col in range(m):
+            if array[row][col] in cur_set: return f'{array[row][col]} occurs more than once in row {row + 1}'
+            elif not 1 <= array[row][col] <= m: return f'{array[row][col]} at {row + 1},{col + 1} is not between 1 and {m}'
+            else: cur_set.add(array[row][col])
+    for col in range(m):
+        cur_set: set[int] = set()
+        for row in range(m):
+            if array[row][col] in cur_set: return f'{array[row][col]} occurs more than once in column {col + 1}'
+            else: cur_set.add(array[row][col])
+    return f'Valid latin square of size {m}'
