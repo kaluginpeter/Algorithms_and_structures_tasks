@@ -25,3 +25,39 @@ Advise: Do not use a primality test. It will make your code very slow. Create a 
 
 FUNDAMENTALSMATHEMATICSALGORITHMSDATA STRUCTURES
 */
+// Solution
+#include <array>
+#include <unordered_set>
+#include <string>
+#include <cmath>
+
+bool is_prime(int n) {
+  int upper_boundary = static_cast<int>(std::sqrt(n)) + 2;
+  for (int mod = 2; mod < upper_boundary; ++mod) {
+    if (n % mod == 0) {
+      return false;
+    }
+  }
+  return true;
+}
+
+
+std::array<int, 3> findEmirp(const int n) {
+  std::unordered_set<int> hashset;
+  int max_num = 0;
+  int acc_sum = 0;
+  for (int num = 13; num < n + 1; num+=2) {
+    if (!is_prime(num)) {
+      continue;
+    }
+    std::string rev_num = std::to_string(num);
+    std::reverse(rev_num.begin(), rev_num.end());
+    int rev_num_int = std::stoi(rev_num);
+    if (is_prime(rev_num_int) && rev_num_int != num) {
+      hashset.insert(num);
+      max_num = std::max(max_num, num);
+      acc_sum += num;
+    }
+  }
+  return {static_cast<int>(hashset.size()), max_num, acc_sum};
+}
