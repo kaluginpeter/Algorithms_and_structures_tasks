@@ -33,3 +33,115 @@
 # 2 <= skill.length <= 105
 # skill.length is even.
 # 1 <= skill[i] <= 1000
+# Solution
+# Python O(NlogN) O(1) Two Pointers Sorting
+class Solution:
+    def dividePlayers(self, skill: List[int]) -> int:
+        skill.sort()
+        median_skill: int = skill[0] + skill[-1]
+        chemistry_sum: int = 0
+        left: int = 0
+        right: int = len(skill) - 1
+        while left < right:
+            cur_skill_sum: int = skill[left] + skill[right]
+            if cur_skill_sum != median_skill: return -1
+            chemistry_sum += skill[left] * skill[right]
+            left += 1
+            right -= 1
+        return chemistry_sum
+
+# C++ O(NlogN) O(1) Two Pointers Sorting
+class Solution {
+public:
+    long long dividePlayers(vector<int>& skill) {
+        std::sort(skill.begin(), skill.end());
+        long long median_skill = skill[0] + skill[skill.size() - 1];
+        long long chemistry_sum = 0;
+        size_t left = 0;
+        size_t right = skill.size() - 1;
+        while (left < right){
+            long long cur_skill_sum = skill[left] + skill[right];
+            if (cur_skill_sum != median_skill) {
+                return -1;
+            }
+            chemistry_sum += skill[left] * skill[right];
+            left += 1;
+            right -= 1;
+        }
+        return chemistry_sum;
+    }
+};
+
+# Python O(N) O(N) Two Pointers Sorting Counting Sort
+class Solution:
+    def dividePlayers(self, skill: List[int]) -> int:
+        sorted_skill: list[int] = [0] * (max(skill) + 1)
+        for num in skill:
+            sorted_skill[num] += 1
+        left: int = 0
+        right: int = len(sorted_skill) - 1
+        while left < right and not sorted_skill[left]:
+            left += 1
+        while left < right and not sorted_skill[right]:
+            right -= 1
+        median_skill: int = left + right
+        chemistry_sum: int = 0
+        while left <= right and sorted_skill[left] > 0 and sorted_skill[right] > 0:
+            cur_skill_sum: int = left + right
+            if cur_skill_sum != median_skill: return -1
+            chemistry_sum += left * right
+            sorted_skill[left] -= 1
+            sorted_skill[right] -= 1
+            if sorted_skill[left] == 0: left += 1
+            if sorted_skill[right] == 0: right -= 1
+            while left <= right and not sorted_skill[left]:
+                left += 1
+            while left <= right and not sorted_skill[right]:
+                right -= 1
+        return chemistry_sum
+
+# C++ O(N) O(N) Two Pointers Sorting Counting Sort
+#include <vector>
+#include <algorithm>
+
+class Solution {
+public:
+    long long dividePlayers(std::vector<int>& skill) {
+        std::vector<int> sorted_skill(*std::max_element(skill.begin(), skill.end()) + 1, 0);
+        for (int num : skill) {
+            sorted_skill[num]++;
+        }
+        int left = 0;
+        int right = sorted_skill.size() - 1;
+        while (left < right && sorted_skill[left] == 0) {
+            left++;
+        }
+        while (left < right && sorted_skill[right] == 0) {
+            right--;
+        }
+        long long median_skill = left + right;
+        long long chemistry_sum = 0;
+        while (left <= right && sorted_skill[left] > 0 && sorted_skill[right] > 0) {
+            long long cur_skill_sum = left + right;
+            if (cur_skill_sum != median_skill) {
+                return -1;
+            }
+            chemistry_sum += static_cast<long long>(left) * right;
+            sorted_skill[left]--;
+            sorted_skill[right]--;
+            if (sorted_skill[left] == 0) {
+                left++;
+            }
+            if (sorted_skill[right] == 0) {
+                right--;
+            }
+            while (left <= right && sorted_skill[left] == 0) {
+                left++;
+            }
+            while (left <= right && sorted_skill[right] == 0) {
+                right--;
+            }
+        }
+        return chemistry_sum;
+    }
+};
