@@ -109,3 +109,70 @@
 # , so a=[4,4,5,4]
 #  and b=[1,2,2,1]
 # .
+# Solution
+# Python O(NlogN) O(1) Two Pointers Sorting
+import sys
+from typing import List
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n, k = map(int, sys.stdin.readline().rstrip().split())
+        a: List[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+        b: List[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+        a.sort()
+        b.sort()
+        left: int = 0
+        right: int = n - 1
+        for _ in range(k):
+            if a[left] >= b[right]: break
+            a[left] = b[right]
+            left += 1
+            right -= 1
+        sys.stdout.write(str(sum(a)) + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
+
+# C++ O(NlogN) O(1) Two Pointers Sorting
+#include <iostream>
+#include <vector>
+#include <numeric>
+#include <algorithm>
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    for (size_t rep = 0; rep < t; ++rep) {
+        size_t n;
+        int k;
+        std::cin >> n >> k;
+        std::vector<int> a_nums;
+        for (size_t j = 0; j < n; ++j) {
+            int num;
+            std::cin >> num;
+            a_nums.push_back(num);
+        }
+        std::vector<int> b_nums;
+        for (size_t j = 0; j < n; ++j) {
+            int num;
+            std::cin >> num;
+            b_nums.push_back(num);
+        }
+        std::sort(a_nums.begin(), a_nums.end());
+        std::sort(b_nums.begin(), b_nums.end());
+        size_t left = 0;
+        size_t right = n - 1;
+        for (int move = 0; move < k; ++move) {
+            if (a_nums[left] >= b_nums[right]) {
+                break;
+            }
+            a_nums[left] = b_nums[right];
+            left += 1;
+            right -= 1;
+        }
+        std::cout << std::accumulate(a_nums.begin(), a_nums.end(), 0) << std::endl;
+    }
+}
