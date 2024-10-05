@@ -41,3 +41,37 @@ Enjoy, and don't forget to check out my other Kata Series :D
 
 LINKED LISTSRECURSIONALGORITHMS
 */
+// Solution
+#include <iostream>
+#include <string>
+#include <vector>
+#include <sstream>
+
+void split(const std::string &s, const std::string &delim, std::vector<std::string> &elems) {
+    size_t start = 0, end;
+    while ((end = s.find(delim, start)) != std::string::npos) {
+        elems.push_back(s.substr(start, end - start));
+        start = end + delim.length();
+    }
+    elems.push_back(s.substr(start));
+}
+
+Node* parse(const std::string& s) {
+    std::vector<std::string> nodes;
+    split(s, " -> ", nodes);
+    if (nodes.empty() || nodes[0] == "nullptr") {
+        return nullptr;
+    }
+
+    Node* head = new Node(std::stoi(nodes[0]));
+    Node* tmp = head;
+
+    for (size_t index = 1; index < nodes.size(); ++index) {
+        if (nodes[index] == "nullptr") {
+            break;
+        }
+        tmp->next = new Node(std::stoi(nodes[index]));
+        tmp = tmp->next;
+    }
+    return head;
+}
