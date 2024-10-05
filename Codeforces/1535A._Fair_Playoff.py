@@ -63,3 +63,38 @@
 #  advance to the finals. The player with skill 5
 #  does not advance, but the player with skill 3
 #  advances to the finals, so the tournament is not fair.
+# Solution
+# Python O(1) O(1) Math Greedy
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        a, b, c, d = map(int, sys.stdin.readline().rstrip().split())
+        f_p_mn: int = min(a, b)
+        f_p_mx: int = max(a, b)
+        s_p_mn: int = min(c, d)
+        s_p_mx: int = max(c, d)
+        sys.stdout.write(['NO', 'YES'][f_p_mx > s_p_mn and s_p_mx > f_p_mn] + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
+
+# C++ O(1) O(1) Math Greedy
+#include <iostream>
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (int rep = 0; rep < t; ++rep) {
+        int a, b, c, d;
+        std::cin >> a >> b >> c >> d;
+        int f_p_mn = std::min(a, b);
+        int f_p_mx = std::max(a, b);
+        int s_p_mn = std::min(c, d);
+        int s_p_mx = std::max(c, d);
+        std::cout << (f_p_mx > s_p_mn && s_p_mx > f_p_mn ? "YES" : "NO") << std::endl;
+    }
+}
