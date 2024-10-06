@@ -47,3 +47,55 @@
 # 1 <= sentence1.length, sentence2.length <= 100
 # sentence1 and sentence2 consist of lowercase and uppercase English letters and spaces.
 # The words in sentence1 and sentence2 are separated by a single space.
+# Solution
+# Python O(N) O(N) Two Pointers
+class Solution:
+    def areSentencesSimilar(self, sentence1: str, sentence2: str) -> bool:
+        sentence1: list[str] = sentence1.split()
+        sentence2: list[str] = sentence2.split()
+        left: int = 0
+        while left < min(len(sentence1), len(sentence2)):
+            if sentence1[left] != sentence2[left]:
+                break
+            left += 1
+        right_sentence_1: int = len(sentence1) - 1
+        right_sentence_2: int = len(sentence2) - 1
+        while right_sentence_1 >= 0 and right_sentence_2 >= 0:
+            if sentence1[right_sentence_1] != sentence2[right_sentence_2]:
+                break
+            right_sentence_1 -= 1
+            right_sentence_2 -= 1
+        return left > min(right_sentence_1, right_sentence_2)
+
+# C++ O(N) O(N) Two Pointers
+class Solution {
+public:
+    bool areSentencesSimilar(string sentence1, string sentence2) {
+        stringstream ss1(sentence1), ss2(sentence2);
+        std::string word;
+        std::vector<std::string> s1Words, s2Words;
+        while (ss1 >> word) {
+            s1Words.push_back(word);
+        }
+        while (ss2 >> word) {
+            s2Words.push_back(word);
+        }
+        int left = 0;
+        while (left < std::min(s1Words.size(), s2Words.size())) {
+            if (s1Words[left] != s2Words[left]) {
+                break;
+            }
+            ++left;
+        }
+        int right_sentence1 = s1Words.size() - 1;
+        int right_sentence2 = s2Words.size() - 1;
+        while (right_sentence1 >= 0 && right_sentence2 >= 0) {
+            if (s1Words[right_sentence1] != s2Words[right_sentence2]) {
+                break;
+            }
+            --right_sentence1;
+            --right_sentence2;
+        }
+        return left > std::min(right_sentence1, right_sentence2);
+    }
+};
