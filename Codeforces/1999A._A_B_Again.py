@@ -37,3 +37,31 @@
 # 12
 # 1
 # 18
+# Solution
+# C++ O(1) O(1) String Math
+#include <iostream>
+#include <string>
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        std::string n;
+        std::cin >> n;
+        std::cout << (n[0] - '0') + (n[1] - '0') << std::endl;
+    }
+}
+
+# Python O(1) O(1) Math String
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: str = sys.stdin.readline().rstrip()
+        sys.stdout.write(str(int(n[0]) + int(n[1])) + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
