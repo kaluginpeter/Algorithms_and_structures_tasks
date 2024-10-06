@@ -57,3 +57,82 @@
 # 0 <= ai, bi <= n - 1
 # ai != bi
 # invocations[i] != invocations[j]
+# Solution
+# Python O(V(V + E)) O(V + E) Depth-First-Search
+class Solution:
+    def traverse(self, start: int, maps: dict[int, set[int]], visited: set[int]) -> None:
+        nodes: list[int] = [start]
+        while nodes:
+            cur_node: int = nodes.pop()
+            if cur_node in visited:
+                continue
+            visited.add(cur_node)
+            for child in maps.get(cur_node, []):
+                if child not in visited:
+                    nodes.append(child)
+
+    def remainingMethods(self, n: int, k: int, invocations: list[list[int]]) -> list[int]:
+        adj_list: dict[int, set[int]] = {}
+        for a, b in invocations:
+            if a not in adj_list:
+                adj_list[a] = set()
+            adj_list[a].add(b)
+        invalid: set[int] = set()
+        valid: set[int] = set()
+        self.traverse(k, adj_list, invalid)
+        for node in range(n):
+            if node not in invalid:
+                self.traverse(node, adj_list, valid)
+        if any(node in valid for node in invalid):
+            return list(range(n))
+        return list(valid)
+
+# C++ O(V(V + E) O(V + E) Depth-First-Search
+class Solution {
+public:
+    void traverse(int start, std::unordered_map<int, std::unordered_set<int>>& adj_list, std::unordered_set<int>& visited) {
+        std::vector<int> nodes = {start};
+        while (nodes.size()) {
+            int cur_node = nodes[nodes.size() - 1];
+            nodes.pop_back();
+            if (visited.count(cur_node)) {
+                continue;
+            }
+            visited.insert(cur_node);
+            for (int child : adj_list[cur_node]) {
+                if (!visited.count(child)) {
+                    nodes.push_back(child);
+                }
+            }
+        }
+    }
+    vector<int> remainingMethods(int n, int k, vector<vector<int>>& invocations) {
+        std::unordered_map<int, std::unordered_set<int>> adj_list;
+        for (vector<int> pair : invocations) {
+            int source = pair[0], destination = pair[1];
+            adj_list[source].insert(destination);
+        }
+        std::unordered_set<int> invalid, valid;
+        traverse(k, adj_list, invalid);
+        for (int node = 0; node < n; ++node) {
+            if (invalid.count(node)) {
+                continue;
+            }
+            traverse(node, adj_list, valid);
+        }
+        for (int node : invalid) {
+            if (valid.count(node)) {
+                std::vector<int> output;
+                for (int i = 0; i < n; ++i) {
+                    output.push_back(i);
+                }
+                return output;
+            }
+        }
+        std::vector<int> output;
+        for (int node : valid) {
+            output.push_back(node);
+        }
+        return output;
+    }
+};
