@@ -30,3 +30,35 @@
 # bound will always be greater than 1 (bound>1)
 #
 # ALGORITHMS
+# Python
+def solve(n, bound):
+    output: list[int] = [1]
+    init: list[int] = [1]
+    for module in range(2, bound):
+        output.extend(init + [module] + init[::-1])
+        init.append(module)
+    output.extend(init)
+    return sum(output[n::n])
+# C++
+#include <vector>
+
+int solve(int n, int bound) {
+  std::vector<int> output;
+  for (int mod = 1; mod <= bound; ++mod) {
+    for (int num = 1; num <= mod; ++num) {
+      output.push_back(num);
+    }
+    if (mod == bound) {
+      output.pop_back();
+      break;
+    }
+    for (int num = mod - 1; num > 0; --num) {
+      output.push_back(num);
+    }
+  }
+  int sum = 0;
+  for (size_t index = n; index < output.size(); index += static_cast<size_t>(n)) {
+    sum += output[index];
+  }
+  return sum;
+}
