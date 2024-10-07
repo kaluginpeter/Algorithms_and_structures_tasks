@@ -23,3 +23,42 @@
 # [None] should return [None]
 # Arrays will only contain integers and None values
 # FUNDAMENTALS
+# Solution
+def get_right_bound(target: int, sources: list[int]) -> int:
+    for idx in sources:
+        if idx > target: return idx
+    return -1
+
+
+def get_left_bound(target: int, sources: list[int]) -> int:
+    for idx in sources[::-1]:
+        if idx < target: return idx
+    return -1
+
+
+def fill(arr, method=0):
+    if method != 0:
+        for idx in range(len(arr)):
+            if arr[idx] is None:
+                if method == -1:
+                    arr[idx] = arr[min(idx + 1, len(arr) - 1)]
+                else: arr[idx] = arr[max(idx - 1, 0)]
+        for idx in range(len(arr) - 1, -1, -1):
+            if arr[idx] is None:
+                if method == -1:
+                    arr[idx] = arr[min(idx + 1, len(arr) - 1)]
+                else: arr[idx] = arr[max(idx - 1, 0)]
+        return arr
+    storage: list[int] = [idx for idx in range(len(arr)) if arr[idx] is not None]
+    for idx in range(len(arr)):
+        if arr[idx] is None:
+            right_part: int = get_right_bound(idx, storage)
+            left_part: int = get_left_bound(idx, storage)
+            if right_part == left_part == -1: continue
+            elif right_part == -1: right_part = left_part
+            elif left_part == -1: left_part = right_part
+            if idx - left_part == right_part - idx:
+                arr[idx] = min(arr[left_part], arr[right_part])
+            else:
+                arr[idx] = arr[[left_part, right_part][idx - left_part > right_part - idx]]
+    return arr
