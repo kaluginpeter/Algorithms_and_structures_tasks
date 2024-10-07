@@ -29,3 +29,39 @@
 #
 # 1 <= s.length <= 100
 # s consists only of uppercase English letters.
+# Solution
+# Python O(N) O(N) Stack String
+class Solution:
+    def minLength(self, s: str) -> int:
+        stack: list[str] = []
+        for char in s:
+            if stack:
+                if char == 'B' and stack[-1] == 'A':
+                    stack.pop()
+                elif char == 'D' and stack[-1] == 'C':
+                    stack.pop()
+                else: stack.append(char)
+            else: stack.append(char)
+        return len(stack)
+
+# C++ O(N) O(N) Stack String
+class Solution {
+public:
+    int minLength(string s) {
+        std::stack<char> storage;
+        for (char letter : s) {
+            if (!storage.empty()) {
+                if (letter == 'B' && storage.top() == 'A') {
+                    storage.pop();
+                } else if (letter == 'D' && storage.top() == 'C') {
+                    storage.pop();
+                } else {
+                    storage.push(letter);
+                }
+            } else {
+                storage.push(letter);
+            }
+        }
+        return storage.size();
+    }
+};
