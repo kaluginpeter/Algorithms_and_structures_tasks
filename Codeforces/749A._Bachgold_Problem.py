@@ -24,3 +24,44 @@
 # outputCopy
 # 3
 # 2 2 2
+# Solution
+# Python O(N) O(1) Math
+import sys
+
+
+def solution(n: int) -> str:
+    modules: list = [2, 3]
+    sys.stdout.write(str(n // 2) + '\n')
+    if n & 1 == 0:
+        return ' '.join('2' for _ in range(n // 2))
+    return ' '.join('2' for _ in range(n // 2 - 1)) + ' 3'
+
+
+if __name__ == '__main__':
+    n: int = int(sys.stdin.readline().rstrip())
+    sys.stdout.write(solution(n))
+
+# C++ O(N) O(1) Math
+#include <iostream>
+
+int main() {
+    int n;
+    std::cin >> n;
+    std::cout << n / 2 << std::endl;
+    if (n % 2 == 0) {
+        for (int rep = 0; rep < n / 2; ++rep) {
+            if (rep != 0) {
+                std::cout << " ";
+            }
+            std::cout << 2;
+        }
+    } else {
+        for (int rep = 0; rep < n / 2 - 1; ++rep) {
+            if (rep != 0) {
+                std::cout << " ";
+            }
+            std::cout << 2;
+        }
+        std::cout << " 3";
+    }
+}
