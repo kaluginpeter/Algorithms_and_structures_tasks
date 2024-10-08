@@ -39,3 +39,53 @@
 # n is even.
 # s[i] is either '[' or ']'.
 # The number of opening brackets '[' equals n / 2, and the number of closing brackets ']' equals n / 2.
+# Solution
+# C++ O(N) O(1) Two Pointers Greedy
+class Solution {
+public:
+    int minSwaps(string s) {
+        int open_br = 0, close_br = 0;
+        int right = s.size() - 1;
+        int swaps = 0;
+        for (int left = 0; left < s.size(); ++left) {
+            if (s[left] == '[') {
+                open_br += 1;
+            } else {
+                close_br += 1;
+            }
+            if (close_br > open_br) {
+                while (right >= 0 && s[right] != ']') {
+                    right -= 1;
+                }
+                swaps += 1;
+                right -= 1;
+                open_br += 1;
+                close_br -= 1;
+            }
+        }
+        return swaps;
+    }
+};
+
+# Python O(N) O(1) Two Pointers Greedy
+class Solution:
+    def minSwaps(self, s: str) -> int:
+        open_br: int = 0
+        close_br: int = 0
+        left: int = 0
+        right: int = 0
+        swaps: int = 0
+        while left < len(s):
+            if s[left] == '[':
+                open_br += 1
+            else:
+                close_br += 1
+            if close_br > open_br:
+                while right >= 0 and s[right]  != '[':
+                    right -= 1
+                swaps += 1
+                open_br += 1
+                close_br -= 1
+                right -= 1
+            left += 1
+        return swaps
