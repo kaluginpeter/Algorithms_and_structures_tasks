@@ -74,3 +74,49 @@
 # In the second test case, there is only one problem solved. The team who solved it receives 2
 #  balloons: one because they solved the problem, an an additional one because they are the first team to solve problem A
 # .
+# Solution
+# Python O(N) O(N) Math HashSet
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        tasks: list = list(sys.stdin.readline().rstrip())
+        storage: set = set()
+        total_count: int = 0
+        for task in tasks:
+            total_count += [2, 1][task in storage]
+            storage.add(task)
+        sys.stdout.write(str(total_count) + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
+
+# C++ O(N) O(N) Math Hashset
+#include <iostream>
+#include <unordered_set>
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (int rep = 0; rep < t; ++rep) {
+        int n;
+        std::cin >> n;
+        std::unordered_set<char> storage;
+        int total_count = 0;
+        for (int index = 0; index < n; ++index) {
+            char task;
+            std::cin >> task;
+            if (storage.count(task)) {
+                total_count += 1;
+            } else {
+                total_count += 2;
+            }
+            storage.insert(task);
+        }
+        std::cout << total_count << std::endl;
+    }
+}
