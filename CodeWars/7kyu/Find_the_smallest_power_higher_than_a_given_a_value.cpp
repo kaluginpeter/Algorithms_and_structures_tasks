@@ -17,3 +17,19 @@ Happy coding!!
 
 FUNDAMENTALSMATHEMATICSLOGIC
 */
+// Solution
+#include <cmath>
+
+unsigned long findNextPower(unsigned int val, unsigned int pow_) {
+    // Calculate the initial base which is the integer part of the pow_ root of val
+    unsigned long base = static_cast<unsigned long>(std::pow(val, 1.0 / pow_)) + 1;
+
+    // Calculate the next power
+    while (true) {
+        unsigned long power_value = static_cast<unsigned long>(std::pow(base, pow_));
+        if (power_value > val) {
+            return power_value;
+        }
+        base++;
+    }
+}
