@@ -46,3 +46,37 @@
 # W
 # outputCopy
 # #Black&White
+# Solution
+# Python O(N + M) O(1) Matrix
+import sys
+
+
+def solution(n: int, m: int) -> str:
+    for row in range(n):
+        if any(color in {'C', 'M', 'Y'} for color in sys.stdin.readline().rstrip().split()):
+            return '#Color'
+    return '#Black&White'
+
+
+if __name__ == '__main__' :
+    n, m = map(int, sys.stdin.readline().rstrip().split())
+    sys.stdout.write(solution(n, m))
+
+# C++ O(N + M) O(1) Matrix
+#include <iostream>
+
+int main() {
+    int n, m;
+    std::cin >> n >> m;
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            char lt;
+            std::cin >> lt;
+            if (lt == 'C' || lt == 'M' || lt == 'Y') {
+                std::cout << "#Color" << std::endl;
+                return 0;
+            }
+        }
+    }
+    std::cout << "#Black&White" << std::endl;
+}
