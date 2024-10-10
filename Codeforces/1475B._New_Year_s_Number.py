@@ -68,3 +68,43 @@
 # YES
 # YES
 # NO
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        bool found = false;
+        for (int x = 0; x <= n / 2020; ++x) {
+            int remaining = n - 2020 * x;
+            if (remaining >= 0 && remaining % 2021 == 0) {
+                found = true;
+                break;
+            }
+        }
+        std::cout << (found ? "YES" : "NO") << std::endl;
+    }
+}
+# Python O(1) O(1) Math
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        valid: bool = False
+        for x in range(n // 2020 + 1):
+            remainder: int = n - 2020 * x
+            if remainder >= 0 and remainder % 2021 == 0:
+                valid = True
+                break
+        sys.stdout.write(['NO', 'YES'][valid] + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
