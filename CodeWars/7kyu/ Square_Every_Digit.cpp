@@ -11,3 +11,19 @@ Happy Coding!
 
 MATHEMATICSFUNDAMENTALS
 */
+// Solution
+#include <string>
+#include <iostream>
+#include <sstream>
+
+int square_digits(int num) {
+    std::string num_str = std::to_string(num);
+    std::ostringstream output;
+    for (char digit : num_str) {
+        int digit_int = digit - '0';
+        output << (digit_int * digit_int);
+    }
+    std::string result_str = output.str();
+    std::cout << result_str << std::endl;
+    return std::stoi(result_str);
+}
