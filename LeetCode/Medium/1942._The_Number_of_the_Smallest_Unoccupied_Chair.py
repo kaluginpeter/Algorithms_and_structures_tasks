@@ -42,3 +42,76 @@
 # 1 <= arrivali < leavingi <= 105
 # 0 <= targetFriend <= n - 1
 # Each arrivali time is distinct.
+# Solution
+# Python O(NlogN) O(N) HashMap Priority Queue
+import heapq
+class Solution:
+    def smallestChair(self, times: List[List[int]], targetFriend: int) -> int:
+        storage: dict[tuple[int, int], int] = dict()
+        for friend in range(len(times)):
+            storage[(times[friend][0], times[friend][1])] = friend
+        times.sort()
+        occupied: list[list[int]] = []
+        unoccupied: list[int] = []
+        max_room: int = 0
+        for time in times:
+            arrival, leave = time
+            while occupied and occupied[0][0] <= arrival:
+                heapq.heappush(unoccupied, heapq.heappop(occupied)[2])
+            next_room: int = max_room
+            if unoccupied:
+                next_room = heapq.heappop(unoccupied)
+            else:
+                max_room += 1
+            heapq.heappush(occupied, [leave, arrival, next_room])
+            if storage[(arrival, leave)] == targetFriend:
+                return next_room
+
+# C++ O(NlogN) O(N) HashMap Priority Queue
+#include <unordered_map>
+#include <vector>
+#include <queue>
+#include <algorithm>
+#include <tuple>
+
+class Solution {
+public:
+    int smallestChair(std::vector<std::vector<int>>& times, int targetFriend) {
+        std::unordered_map<int, int> friends;
+        for (int index = 0; index < times.size(); ++index) {
+            friends[index] = index;
+        }
+        auto cmp = [](const std::pair<int, int>& a, const std::pair<int, int>& b) {
+            return a.first > b.first;
+        };
+        std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, decltype(cmp)> occupied(cmp);
+        std::priority_queue<int, std::vector<int>, std::greater<int>> unoccupied;
+        int max_room = 0;
+        std::vector<std::tuple<int, int, int>> events;
+        for (int i = 0; i < times.size(); ++i) {
+            events.emplace_back(times[i][0], times[i][1], i);
+        }
+        std::sort(events.begin(), events.end());
+        for (const auto& event : events) {
+            int start = std::get<0>(event);
+            int end = std::get<1>(event);
+            int friendIndex = std::get<2>(event);
+            while (!occupied.empty() && occupied.top().first <= start) {
+                unoccupied.push(occupied.top().second);
+                occupied.pop();
+            }
+            int chair;
+            if (!unoccupied.empty()) {
+                chair = unoccupied.top();
+                unoccupied.pop();
+            } else {
+                chair = max_room++;
+            }
+            if (friendIndex == targetFriend) {
+                return chair;
+            }
+            occupied.emplace(end, chair);
+        }
+        return -1;
+    }
+};
