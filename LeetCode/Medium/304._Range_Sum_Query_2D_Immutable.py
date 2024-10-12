@@ -34,3 +34,66 @@
 # 0 <= row1 <= row2 < m
 # 0 <= col1 <= col2 < n
 # At most 104 calls will be made to sumRegion.
+# Solution
+# C++ O(NM) O(NM) Prefix Sum Matrix, each query will be have O(1) time complexity
+class NumMatrix {
+public:
+    NumMatrix(vector<vector<int>>& matrix) {
+
+        for (int row = 0; row < matrix.size(); ++row) {
+            std::vector<int> currentRowPrefixSum;
+            int currentRowSum = 0;
+            for (int col = 0; col < matrix[row].size(); ++col) {
+                currentRowSum += matrix[row][col];
+                int previousRow = (row > 0 ? prefixSum[row - 1][col] : 0);
+                currentRowPrefixSum.push_back(currentRowSum + previousRow);
+            }
+            prefixSum.push_back(currentRowPrefixSum);
+        }
+    }
+
+    int sumRegion(int row1, int col1, int row2, int col2) {
+        int lower_right_part = prefixSum[row2][col2];
+        int lower_left_part = (col1 > 0 ? prefixSum[row2][col1 - 1] : 0);
+        int upper_right_part = (row1 > 0 ? prefixSum[row1 - 1][col2] : 0);
+        if (row1 > 0 && col1 > 0) { // Subtract common part
+            lower_left_part -= prefixSum[row1 - 1][col1 - 1];
+        }
+        return lower_right_part - lower_left_part - upper_right_part;
+    }
+private:
+    std::vector<std::vector<int>> prefixSum;
+};
+
+/**
+ * Your NumMatrix object will be instantiated and called as such:
+ * NumMatrix* obj = new NumMatrix(matrix);
+ * int param_1 = obj->sumRegion(row1,col1,row2,col2);
+ */
+
+# Python O(NM) O(NM) Prefix Sum Matrix, each query will be have O(1) time complexity
+class NumMatrix:
+
+    def __init__(self, matrix: List[List[int]]):
+        self.prefix_sum: list[list[int]] = []
+        for row in range(len(matrix)):
+            current_row_prefix_sum: list[int] = []
+            current_row_sum: int = 0
+            for col in range(len(matrix[0])):
+                current_row_sum += matrix[row][col]
+                previous_row_prefix_sum: int = self.prefix_sum[row - 1][col] if row > 0 else 0
+                current_row_prefix_sum.append(current_row_sum + previous_row_prefix_sum)
+            self.prefix_sum.append(current_row_prefix_sum)
+
+    def sumRegion(self, row1: int, col1: int, row2: int, col2: int) -> int:
+        lower_right_part: int = self.prefix_sum[row2][col2]
+        lower_left_part: int = self.prefix_sum[row2][col1 - 1] if col1 > 0 else 0
+        upper_right_part: int = self.prefix_sum[row1 - 1][col2] if row1 > 0 else 0
+        if row1 > 0 and col1 > 0: # Subtract common part
+            lower_left_part -= self.prefix_sum[row1 - 1][col1 - 1]
+        return lower_right_part - lower_left_part - upper_right_part
+
+
+# Your NumMatrix object will be instantiated and called as such:
+# obj = NumMatrix(matrix)
+# param_1 = obj.sumRegion(row1,col1,row2,col2)
