@@ -42,3 +42,19 @@
 # 2
 # 432
 # 430467210
+# Solution
+import sys
+import math
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        a: list = sorted(map(int, sys.stdin.readline().rstrip().split()))
+        a[0] += 1
+        sys.stdout.write(str(math.prod(a)) + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
