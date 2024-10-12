@@ -10,3 +10,19 @@ Good luck!
 
 FUNDAMENTALS
 */
+// Solution
+std::vector<int> solve(std::string s){
+    std::vector<int> output(4, 0);
+    for (char lt : s) {
+      if (lt >= 'A' && lt <= 'Z') {
+        output[0] += 1;
+      } else if (lt >= 'a' && lt <= 'z') {
+        output[1] += 1;
+      } else if (lt >= '0' && lt <= '9') {
+        output[2] += 1;
+      } else {
+        output[3] += 1;
+      }
+    }
+  return output;
+}
