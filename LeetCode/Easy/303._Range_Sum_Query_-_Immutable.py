@@ -30,3 +30,48 @@ class NumArray:
         self.s = list(accumulate(nums, initial=0))
     def sumRange(self, left: int, right: int) -> int:
         return self.s[right + 1] - self.s[left]
+
+# Python O(N) O(N) Prefix Sum
+class NumArray:
+
+    def __init__(self, nums: List[int]) -> None:
+        self.prefix_sum: list[int] = []
+        current_sum: int = 0
+        for num in nums:
+            current_sum += num
+            self.prefix_sum.append(current_sum)
+
+    def sumRange(self, left: int, right: int) -> int:
+        left_sum: int = self.prefix_sum[left - 1] if left > 0 else 0
+        right_sum: int = self.prefix_sum[right]
+        return right_sum - left_sum
+
+
+# Your NumArray object will be instantiated and called as such:
+# obj = NumArray(nums)
+# param_1 = obj.sumRange(left,right)
+# C++ O(N) O(N) Prefix Sum
+class NumArray {
+public:
+    NumArray(vector<int>& nums) {
+        int currentSum = 0;
+        for (int num : nums) {
+            currentSum += num;
+            prefixSum.push_back(currentSum);
+        }
+    }
+
+    int sumRange(int left, int right) {
+        int leftSum = (left > 0 ? prefixSum[left - 1] : 0);
+        int rightSum = prefixSum[right];
+        return rightSum - leftSum;
+    }
+private:
+    std::vector<int> prefixSum;
+};
+
+/**
+ * Your NumArray object will be instantiated and called as such:
+ * NumArray* obj = new NumArray(nums);
+ * int param_1 = obj->sumRange(left,right);
+ */
