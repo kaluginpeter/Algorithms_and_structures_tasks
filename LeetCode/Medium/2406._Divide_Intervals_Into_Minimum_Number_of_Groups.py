@@ -29,3 +29,14 @@
 # 1 <= intervals.length <= 105
 # intervals[i].length == 2
 # 1 <= lefti <= righti <= 106
+# Solution
+# Python O(NlogN) O(N) Heap
+class Solution:
+    def minGroups(self, intervals: List[List[int]]) -> int:
+        intervals.sort()
+        heap: list[int] = []
+        for start, end in intervals:
+            if heap and heap[0] < start:
+                heapq.heappop(heap)
+            heapq.heappush(heap, end)
+        return len(heap)
