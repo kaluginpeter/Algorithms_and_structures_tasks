@@ -60,3 +60,46 @@
 # For the second test case, the best answer is obtained by making all boxes contain 5
 #  candies in them, thus eating 995+995+0+995+995+995=4975
 #  candies in total.
+# Solution
+# C++ O(N) O(N) Math Greedy
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        std::vector<int> boxes;
+        int min_box = 10000000;
+        for (int j = 0; j < n; ++j) {
+            int box;
+            std::cin >> box;
+            boxes.push_back(box);
+            min_box = std::min(min_box, box);
+        }
+        int neededToEat = 0;
+        for (int box : boxes) {
+            neededToEat += box - min_box;
+        }
+        std::cout << neededToEat << std::endl;
+    }
+}
+
+# Python O(N) O(N) Math Greedy
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        boxes: list = list(map(int, sys.stdin.readline().rstrip().split()))
+        min_box: int = min(boxes)
+        sys.stdout.write(str(sum(box - min_box for box in boxes)) + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
