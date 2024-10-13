@@ -21,6 +21,7 @@
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
+# Python O(N) O(1) Slow and Fast Pointers
 class Solution:
     def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
         fast = slow = head
@@ -28,3 +29,27 @@ class Solution:
             slow = slow.next
             fast = fast.next.next
         return slow
+
+# C++ O(N) O(1) Floyd Tortoise and Hare algorithm
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        ListNode* slow = head;
+        ListNode* fast = head;
+        while (fast && fast->next) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        return slow;
+    }
+};
