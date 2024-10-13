@@ -70,3 +70,27 @@ class Solution:
                 array[i-1] = False
             else:
                 return i
+
+# Python O(N) O(1) In place
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        num: int = nums[0]
+        while nums[num]:
+            next_num: int = nums[num]
+            nums[num] = 0
+            num = next_num
+        return num
+
+# C++ O(N) O(1) In place
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+        int num = nums[0];
+        while (nums[num]) {
+            int next_num = nums[num];
+            nums[num] = 0;
+            num = next_num;
+        }
+        return num;
+    }
+};
