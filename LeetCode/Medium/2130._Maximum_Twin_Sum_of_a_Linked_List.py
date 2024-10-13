@@ -90,3 +90,42 @@ class Solution:
         for i in range(n):
             ans = max(ans, nodes[i] + nodes[n - i - 1])
         return ans
+
+# C++ O(N) O(1) Two Pointers
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    int pairSum(ListNode* head) {
+        ListNode* slow = head;
+        ListNode* fast = head;
+        while (fast && fast->next) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        ListNode* prev = nullptr;
+        while (slow) {
+            ListNode* next = slow->next;
+            slow->next = prev;
+            prev = slow;
+            slow = next;
+        }
+        int max_sum = 0;
+        ListNode* left = head;
+        ListNode* right = prev;
+        while (right) {
+            max_sum = std::max(max_sum, left->val + right->val);
+            right = right->next;
+            left = left->next;
+        }
+        return max_sum;
+    }
+};
