@@ -30,3 +30,68 @@
 #
 # 3 <= nums.length <= 3000
 # -105 <= nums[i] <= 105
+# Solution
+# Python O(N**2) O(N) Two Pointers Sorting
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        output: list[list[int]] = []
+        nums.sort()
+        for left in range(len(nums)):
+            if left > 0 and nums[left] == nums[left - 1]:
+                continue
+            target: int = -nums[left]
+            middle: int = left + 1
+            right: int = len(nums) - 1
+            while middle < right:
+                if right != len(nums) - 1 and nums[right] == nums[right + 1]:
+                    right -= 1
+                    continue
+                if middle - 1 != left and nums[middle] == nums[middle - 1]:
+                    middle += 1
+                    continue
+                current_sum: int = nums[middle] + nums[right]
+                if current_sum == target:
+                    output.append([nums[left], nums[middle], nums[right]])
+                    middle += 1
+                elif current_sum < target:
+                    middle += 1
+                else:
+                    right -= 1
+        return output
+
+# C++ O(N**2) O(N) Two Pointers Sorting
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        std::vector<std::vector<int>> output;
+        std::sort(nums.begin(), nums.end());
+        for (int left = 0; left < nums.size(); ++left) {
+            if (left > 0 && nums[left] == nums[left - 1]) {
+                continue;
+            }
+            int target = -nums[left];
+            int middle = left + 1;
+            int right = nums.size() - 1;
+            while (middle < right) {
+                if (right != nums.size() - 1 && nums[right] == nums[right + 1]) {
+                    --right;
+                    continue;
+                }
+                if (middle - 1 != left && nums[middle] == nums[middle - 1]) {
+                    ++middle;
+                    continue;
+                }
+                int current_sum = nums[middle] + nums[right];
+                if (current_sum == target) {
+                    output.push_back({nums[left], nums[middle], nums[right]});
+                    ++middle;
+                } else if (current_sum < target) {
+                    ++middle;
+                } else {
+                    --right;
+                }
+            }
+        }
+        return output;
+    }
+};
