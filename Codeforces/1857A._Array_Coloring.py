@@ -67,3 +67,44 @@
 #  and 12
 #  and 8
 #  are both even.
+# Solution
+# Python O(N) O(1) Math Greedy
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: list = list(map(int, sys.stdin.readline().rstrip().split()))
+        odd: int = 0
+        for num in nums:
+            odd += num & 1
+        sys.stdout.write(str(['YES', 'NO'][odd & 1]) + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
+
+# C++ O(N) O(1) Math Greedy
+#include <iostream>
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        int even = 0, odd = 0;
+        for (int j = 0; j < n; ++j) {
+            int num;
+            std::cin >> num;
+            if (num % 2 == 0) {
+                even += 1;
+            } else {
+                odd += 1;
+            }
+        }
+        std::cout << (odd % 2 == 0 ? "YES" : "NO") << std::endl;
+    }
+}
