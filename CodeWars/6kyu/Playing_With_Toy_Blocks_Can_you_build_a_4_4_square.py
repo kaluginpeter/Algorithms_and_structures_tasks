@@ -60,3 +60,21 @@
 # Interlocking Binary Pairs
 # Setting Places for the Dead
 # LOGICARRAYSGAMESPUZZLESGEOMETRYALGORITHMS
+# Solution
+#include <vector>
+#include <iostream>
+bool build_square(const std::vector<int>& blocks) {
+  std::unordered_map<int, int> hashmap;
+  for (int num : blocks) {
+    ++hashmap[num];
+  }
+  int layer = 0;
+  layer += hashmap[4];
+  int third = std::min(hashmap[3], hashmap[1]);
+  layer += third;
+  layer += hashmap[2] / 2;
+  int remainder_doubles = std::min(hashmap[2] % 2, hashmap[1] - third);
+  layer += remainder_doubles;
+  layer += (hashmap[1] - third - remainder_doubles * 2) / 4;
+  return layer >= 4;
+}
