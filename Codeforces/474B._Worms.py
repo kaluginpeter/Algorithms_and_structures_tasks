@@ -39,3 +39,83 @@
 # The worms with labels from [10, 12] are in the third pile.
 # The worms with labels from [13, 16] are in the fourth pile.
 # The worms with labels from [17, 25] are in the fifth pile.
+# Solution
+# Python O(MlogN) O(N) Binary Search
+import sys
+
+
+def binary_search(target: int, nums: list) -> int:
+    left: int = 0
+    right: int = len(nums) // 2 - 1
+    while left <= right:
+        middle: int = left + (right - left) // 2
+        low: int = nums[2 * middle]
+        high: int = nums[2 * middle + 1]
+        if low <= target <= high:
+            return middle + 1
+        if target < low:
+            right = middle - 1
+        else:
+            left = middle + 1
+    return -1
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    prev_worm: int = 0
+    worms: list = []
+    for worm in map(int, sys.stdin.readline().rstrip().split()):
+        worms.append(prev_worm + 1)
+        prev_worm += worm
+        worms.append(prev_worm)
+    m: int = int(sys.stdin.readline().rstrip())
+    for query in map(int, sys.stdin.readline().rstrip().split()):
+        sys.stdout.write(str(binary_search(query, worms)) + '\n')
+
+
+if __name__ == '__main__':
+    solution()
+
+# C++ O(MlogN) O(N) Binary Search
+#include <iostream>
+#include <vector>
+
+int binary_search(int target, std::vector<int>& nums) {
+    int left = 0;
+    int right = nums.size() / 2 - 1;
+    while (left <= right) {
+        int middle = left + (right - left) / 2;
+        int low = nums[2 * middle];
+        int high = nums[2 * middle + 1];
+        if (target >= low && target <= high) {
+            return middle + 1;
+        }
+        if (target < low) {
+            right = middle - 1;
+        } else {
+            left = middle + 1;
+        }
+    }
+    return -1;
+}
+
+int main() {
+    int n;
+    std::cin >> n;
+    std::vector<int> worms;
+    int prev_worm = 0;
+    for (int j = 0; j < n; ++j) {
+        int worm;
+        std::cin >> worm;
+        worms.push_back(prev_worm + 1);
+        prev_worm += worm;
+        worms.push_back(prev_worm);
+    }
+    int m;
+    std::cin >> m;
+    for (int j = 0; j < m; ++j) {
+        int query;
+        std::cin >> query;
+        std::cout << binary_search(query, worms) << std::endl;
+    }
+}
