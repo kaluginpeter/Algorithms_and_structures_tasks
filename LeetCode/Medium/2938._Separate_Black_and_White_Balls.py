@@ -34,3 +34,35 @@
 #
 # 1 <= n == s.length <= 105
 # s[i] is either '0' or '1'.
+# Solution
+# Python O(N) O(1) Two Pointers Greedy
+class Solution:
+    def minimumSteps(self, s: str) -> int:
+        right: int = len(s) - 1
+        while right >= 0 and s[right] == '1':
+            right -= 1
+        swaps: int = 0
+        for left in range(right - 1, -1, -1):
+            if s[left] == '1':
+                swaps += right - left
+                right -= 1
+        return swaps
+
+# C++ O(N) O(1) Two Pointers Greedy
+class Solution {
+public:
+    long long minimumSteps(string s) {
+        int right = s.size() - 1;
+        while (right >= 0 && s[right] == '1') {
+            --right;
+        }
+        long long swaps = 0;
+        for (int left = right - 1; left >=0; --left) {
+            if (s[left] == '1') {
+                swaps += right - left;
+                --right;
+            }
+        }
+        return swaps;
+    }
+};
