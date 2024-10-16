@@ -28,3 +28,47 @@
 # 1 <= accounts[i][j].length <= 30
 # accounts[i][0] consists of English letters.
 # accounts[i][j] (for j > 0) is a valid email.
+# Solution
+# Python O(NMlog(NM)) O(N + M) Union Find HashMap Sorting
+class UnionFind:
+    def __init__(self, n: int) -> None:
+        self.parents: list[int] = list(range(n))
+        self.rank: list[int] = [0] * n
+
+    def union(self, new_owner: int, old_owner: int) -> int:
+        root_new_owner: int = self.find(new_owner)
+        root_old_owner: int = self.find(old_owner)
+        if root_new_owner != root_old_owner:
+            if self.rank[root_old_owner] > self.rank[root_new_owner]:
+                self.parents[root_new_owner] = root_old_owner
+            elif self.rank[root_old_owner] < self.rank[root_new_owner]:
+                self.parents[root_old_owner] = root_new_owner
+            else:
+                self.parents[root_new_owner] = root_old_owner
+                self.rank[root_old_owner] += 1
+
+    def find(self, owner: int) -> int:
+        while owner != self.parents[owner]:
+            self.parents[owner] = self.parents[self.parents[owner]]
+            owner = self.parents[owner]
+        return owner
+
+
+class Solution:
+    def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
+        union_find: UnionFind = UnionFind(len(accounts))
+        # key: email - value: owner
+        ownership: dict[str, int] = dict()
+        for owner_idx in range(len(accounts)):
+            for account_idx in range(1, len(accounts[owner_idx])):
+                if accounts[owner_idx][account_idx] in ownership:
+                    # Union owner if email exist
+                    union_find.union(owner_idx, ownership[accounts[owner_idx][account_idx]])
+                else:
+                    ownership[accounts[owner_idx][account_idx]] = owner_idx
+        # key: owner_idx - value: list[emails]
+        output: dict[int, list[str]] = defaultdict(list)
+        for email, owner in ownership.items():
+            # find main owner of emails in that group
+            output[union_find.find(owner)].append(email)
+        return [[accounts[owner_idx][0]] + sorted(emails) for owner_idx, emails in output.items()]
