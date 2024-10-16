@@ -104,3 +104,74 @@
 # Car Park Escape
 #
 # ARRAYSFUNDAMENTALS
+def mastermind(game):
+    alls = ["Red", "Blue", "Green", "Orange", "Purple", "Yellow"]
+    colors = ['Red', 'Red', 'Red', 'Red']
+    first_blocks = game.check(colors)
+    if first_blocks == 'WON!':
+        return
+    first_blocks = first_blocks.count('Black')
+    prev_first = 0
+
+    for first_idx in range(1, 6):
+        colors[0] = alls[first_idx]
+        attempt_first = game.check(colors)
+        if attempt_first == 'WON!':
+            return
+        attempt_first = attempt_first.count('Black')
+        if attempt_first > first_blocks:
+            first_blocks = attempt_first
+            break
+        elif attempt_first < first_blocks:
+            colors[0] = alls[prev_first]
+            break
+        else:
+            prev_first = first_idx
+
+    prev_second = 0
+    for second_idx in range(1, 6):
+        colors[1] = alls[second_idx]
+        attempt_second = game.check(colors)
+        if attempt_second == 'WON!':
+            return
+        attempt_second = attempt_second.count('Black')
+        if attempt_second > first_blocks:
+            first_blocks = attempt_second
+            break
+        elif attempt_second < first_blocks:
+            colors[1] = alls[prev_second]
+            break
+        else:
+            prev_second = second_idx
+
+    prev_third = 0
+    for third_idx in range(1, 6):
+        colors[2] = alls[third_idx]
+        attempt_third = game.check(colors)
+        if attempt_third == 'WON!':
+            return
+        attempt_third = attempt_third.count('Black')
+        if attempt_third > first_blocks:
+            first_blocks = attempt_third
+            break
+        elif attempt_third < first_blocks:
+            colors[2] = alls[prev_third]
+            break
+        else:
+            prev_third = third_idx
+
+    prev_forth = 0
+    for forth_idx in range(1, 6):
+        colors[3] = alls[forth_idx]
+        attempt_forth = game.check(colors)
+        if attempt_forth == 'WON!':
+            return
+        attempt_forth = attempt_forth.count('Black')
+        if attempt_forth > first_blocks:
+            first_blocks = attempt_forth
+            break
+        elif attempt_forth < first_blocks:
+            colors[3] = alls[prev_forth]
+            break
+        else:
+            prev_forth = forth_idx
