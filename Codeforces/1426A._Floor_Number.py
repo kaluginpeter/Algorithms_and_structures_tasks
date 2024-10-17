@@ -59,3 +59,29 @@
 #
 # In the second test case of the example, Petya lives in the apartment 1
 #  which is on the first floor.
+# Solution
+# Python O(1) O(1) Math
+import sys
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n, x = map(int, sys.stdin.readline().rstrip().split())
+        sys.stdout.write(str(max( ((n - 2) + x - 1) // x + 1, 1 )) + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
+
+# C++ O(1) O(1) Math
+#include <iostream>
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n, x;
+        std::cin >> n >> x;
+        std::cout << std::max(((n - 2) + x - 1) / x + 1, 1) << std::endl;
+    }
+}
