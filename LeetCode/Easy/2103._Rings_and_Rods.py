@@ -43,3 +43,36 @@
 # 1 <= n <= 100
 # rings[i] where i is even is either 'R', 'G', or 'B' (0-indexed).
 # rings[i] where i is odd is a digit from '0' to '9' (0-indexed).
+# Solution
+# Python O(N) O(N) HashSet
+class Solution:
+    def countPoints(self, rings: str) -> int:
+        seen: set[tuple[str, int]] = set()
+        labels: list[int] = [0] * 10
+        for idx in range(0, len(rings), 2):
+            ring: str = rings[idx]
+            label: int = int(rings[idx + 1])
+            if (ring, label) in seen: continue
+            seen.add((ring, label))
+            labels[label] += 1
+        return sum(label == 3 for label in labels)
+
+# C++ O(N) O(N) HashSet
+class Solution {
+public:
+    int countPoints(string rings) {
+        std::vector<std::unordered_set<char>> labels(10);
+        for (int index = 0; index < rings.size(); index += 2) {
+            char ring = rings[index];
+            int label = rings[index + 1] - '0';
+            labels[label].insert(ring);
+        }
+        int full_rings = 0;
+        for (std::unordered_set<char>& label : labels) {
+            if (label.size() == 3) {
+                ++full_rings;
+            }
+        }
+        return full_rings;
+    }
+};
