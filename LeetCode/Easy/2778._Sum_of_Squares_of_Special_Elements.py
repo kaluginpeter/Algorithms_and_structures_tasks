@@ -24,3 +24,28 @@
 #
 # 1 <= nums.length == n <= 50
 # 1 <= nums[i] <= 50
+# Solution
+# Python O(N) O(1) Enumeration
+class Solution:
+    def sumOfSquares(self, nums: List[int]) -> int:
+        total_sum: int = 0
+        n: int = len(nums)
+        for idx in range(n):
+            if n % (idx + 1) == 0:
+                total_sum += nums[idx] ** 2
+        return total_sum
+
+# C++ O(N) O(1) Enumeration
+class Solution {
+public:
+    int sumOfSquares(vector<int>& nums) {
+        int total_sum = 0;
+        int n = static_cast<int>(nums.size());
+        for (int index = 0; index < nums.size(); ++index) {
+            if (n % (index + 1) == 0) {
+                total_sum += nums[index] * nums[index];
+            }
+        }
+        return total_sum;
+    }
+};
