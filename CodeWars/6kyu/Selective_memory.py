@@ -14,3 +14,20 @@
 # => We must remove every memories of Sarah Connor because she's marked, but as a side-effect we must also remove all the memories about Marilyn Monroe that comes right after her! Note that we can't destroy the memories of Manson Marilyn or Monroe Mary, so be careful!
 #
 # FUNDAMENTALS
+# Solution
+def select(memory):
+    peoples: list[str] = memory.split(', ')
+    hates: set[str] = set()
+    for idx in range(len(peoples)):
+        if peoples[idx].startswith('!'):
+            hates.add(peoples[idx][1:])
+            if idx + 1 < len(peoples):
+                hates.add(peoples[idx + 1][[0, 1][peoples[idx + 1][0] == '!']:])
+    removed: set[int] = set()
+    for idx in range(len(peoples)):
+        if peoples[idx] in hates:
+            removed.add(idx)
+        elif peoples[idx].startswith('!'):
+            removed.add(idx)
+            removed.add(idx + 1)
+    return ', '.join(peoples[idx] for idx in range(len(peoples)) if idx not in removed)
