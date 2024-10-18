@@ -86,3 +86,48 @@
 # . Then 1⋅4+2⋅4+4⋅4
 #  equals n=28
 # .
+# Solution
+# Python O(logN) O(1) Math
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        k: int = 2
+        while True:
+            power: int = 2**k - 1
+            if power > n: break
+            elif n % power == 0:
+                sys.stdout.write(str(n // power) + '\n')
+                break
+            k += 1
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
+
+# C++ O(logN) O(1) Math
+#include <iostream>
+#include <cmath>
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        long long n;
+        std::cin >> n;
+        int k = 2;
+        while (true) {
+            int power = std::pow(2, k) - 1;
+            if (power > n) {
+                break;
+            } else if (n % power == 0) {
+                std::cout <<  n / power << std::endl;
+                break;
+            }
+            ++k;
+        }
+    }
+}
