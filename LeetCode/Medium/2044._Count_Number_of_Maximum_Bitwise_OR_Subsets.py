@@ -35,3 +35,45 @@
 #
 # 1 <= nums.length <= 16
 # 1 <= nums[i] <= 105
+# Solution Backtrack Bit Manipulation
+# Python O(2**N) O(2**N)
+class Solution:
+    def backtrack(self, nums: list[int], group_xor: int, result: list[int], target: int, length: int, start: int) -> None:
+        if group_xor == target:
+            result[0] += 1
+        if length == len(nums):
+            return
+        for idx in range(start, len(nums)):
+            self.backtrack(nums, group_xor | nums[idx], result, target, length + 1, idx + 1)
+    def countMaxOrSubsets(self, nums: List[int]) -> int:
+        bound: int = 0
+        for i in range(len(nums)):
+            bound |= nums[i]
+        answer: list[int] = [0]
+        self.backtrack(nums, 0, answer, bound, 0, 0)
+        return answer[0]
+
+# C++ O(2**N) O(2**N) Bit Manipulation BackTrack
+class Solution {
+public:
+    void backtrack(std::vector<int>& nums, int current_or, int target, std::vector<int>& answer, int length, int start) {
+        if (current_or == target) {
+            ++answer[0];
+        }
+        if (length == nums.size()) {
+            return;
+        }
+        for (int idx = start; idx < nums.size(); ++idx) {
+            backtrack(nums, current_or | nums[idx], target, answer, length + 1, idx + 1);
+        }
+    }
+    int countMaxOrSubsets(vector<int>& nums) {
+        std::vector<int> answer = {0};
+        int target = 0;
+        for (int num : nums) {
+            target = target | num;
+        }
+        backtrack(nums, 0, target, answer, 0, 0);
+        return answer[0];
+    }
+};
