@@ -32,3 +32,44 @@
 #
 # 1 <= n <= 20
 # 1 <= k <= 2n - 1
+# Solution
+# Python O(2**N) O(2**N) Brute Force
+class Solution:
+    def findKthBit(self, n: int, k: int) -> str:
+        digits: list[str] = ['0']
+        while k >= len(digits):
+            digits = digits + ['1'] + ['0' if digit == '1' else '1' for digit in digits[::-1]]
+        return digits[k - 1]
+
+# Python O(N) O(N) String
+class Solution:
+    def findKthBit(self, n: int, k: int) -> str:
+        if n == 1:
+            return "0"
+        bound: int = 1 << n
+        if k < bound // 2:
+            return self.findKthBit(n - 1, k)
+        elif k == bound // 2:
+            return "1"
+        else:
+            corresponding_bit: str = self.findKthBit(n - 1, bound - k)
+            return "1" if corresponding_bit == "0" else "0"
+
+# C++ O(N) O(N) String
+class Solution {
+public:
+    char findKthBit(int n, int k) {
+        if (n == 1) {
+            return '0';
+        }
+        int bound = 1 << n;
+        if (k < bound / 2) {
+            return findKthBit(n - 1, k);
+        } else if (k == bound / 2) {
+            return '1';
+        } else {
+            char corresponding_bit = findKthBit(n - 1, bound - k);
+            return (corresponding_bit == '0' ? '1' : '0');
+        }
+    }
+};
