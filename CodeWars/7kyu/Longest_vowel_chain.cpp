@@ -11,3 +11,21 @@ Vowel-consonant lexicon
 
 STRINGSFUNDAMENTALS
 */
+// Solution
+#include <unordered_set>
+using namespace std;
+
+int solve(string s){
+	int answer = 0;
+  int curr = 0;
+  unordered_set<char> vowels({'a', 'e', 'o', 'u', 'i'});
+  for (char letter : s) {
+    if (!vowels.count(letter)) {
+      curr = 0;
+    } else {
+      ++curr;
+    }
+    answer = max(answer, curr);
+  }
+  return answer;
+}
