@@ -82,3 +82,45 @@
 # , B=[3,2,4,3]
 # , so the answer is |2−2|=0
 # .
+# Solution
+# C++ O(NlogN) O(1) Sorting Greedy
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        std::vector<int> athletes;
+        for (int j = 0; j < n; ++j) {
+            int athlete;
+            std::cin >> athlete;
+            athletes.push_back(athlete);
+        }
+        std::sort(athletes.begin(), athletes.end());
+        int diff = 1001;
+        for (int index = n - 1; index > 0; --index) {
+            diff = std::min(diff, athletes[index] - athletes[index - 1]);
+        }
+        std::cout << diff << std::endl;
+    }
+}
+
+# Python O(NlogN) O(1) Sorting Greedy
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        athletes: list = list(map(int, sys.stdin.readline().rstrip().split()))
+        athletes.sort()
+        sys.stdout.write(str(min(athletes[idx] - athletes[idx - 1] for idx in range(n - 1, 0, -1))) + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
