@@ -24,3 +24,19 @@
 # This is a simple version, please look forward to the challenge version ;-)
 # A bit difficulty, A bit of fun, happy coding ;-)
 # ALGORITHMSPUZZLES
+# Solution
+from collections import deque
+def min_value(arr, window_size):
+    n: int = len(arr)
+    result: list[int] = []
+    dq: list[int] = deque()
+
+    for i in range(n):
+        if dq and dq[0] < i - window_size + 1:
+            dq.popleft()
+        while dq and arr[dq[-1]] > arr[i]:
+            dq.pop()
+        dq.append(i)
+        if i >= window_size - 1:
+            result.append(arr[dq[0]])
+    return result
