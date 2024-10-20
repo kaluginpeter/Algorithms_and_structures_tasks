@@ -44,3 +44,48 @@
 #
 # In the second test case, you can make the array [1,3,4,7,8]
 # .
+# Solution
+# C++ O(NlogN) O(1) Sorting Greedy
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        std::vector<int> nums;
+        for (int j = 0; j < n; ++j) {
+            int num;
+            std::cin >> num;
+            nums.push_back(num);
+        }
+        std::sort(nums.begin(), nums.end());
+        bool isValid = true;
+        for (size_t index = 0; index < nums.size() - 1; ++index) {
+            if (nums[index] >= nums[index + 1]) {
+                isValid = false;
+                break;
+            }
+        }
+        std::cout << (isValid ? "YES" : "NO") << std::endl;
+    }
+}
+
+# Python O(NlogN) O(1) Sorting Greedy
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: list = list(map(int, sys.stdin.readline().rstrip().split()))
+        nums.sort()
+        sys.stdout.write(['NO', 'YES'][all(nums[idx] < nums[idx + 1] for idx in range(n - 1))] + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
