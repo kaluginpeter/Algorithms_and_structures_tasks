@@ -17,3 +17,19 @@ Error checking for text strings or other invalid inputs is not required, only va
 
 ALGORITHMS
 */
+// Solution
+#include <cmath>
+bool narcissistic( int value ){
+  int totalSum = 0;
+  int outputValue = value;
+  int base = 10;
+  int power = 1;
+  while (std::pow(base, power) < value) {
+    ++power;
+  }
+  while (value) {
+    totalSum += std::pow(value % 10, power);
+    value /= 10;
+  }
+  return totalSum == outputValue;
+}
