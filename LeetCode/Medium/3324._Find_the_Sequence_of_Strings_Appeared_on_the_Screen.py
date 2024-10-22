@@ -38,3 +38,22 @@
 #
 # 1 <= target.length <= 400
 # target consists only of lowercase English letters.
+# Solution
+class Solution:
+    def stringSequence(self, target: str) -> List[str]:
+        output: list[str] = []
+        al_ph: str = 'abcdefghijklmnopqrstuvwxyz'
+        curr: list[str] = []
+        main_idx: int = 0
+        while len(curr) <= len(target):
+            if not curr:
+                curr.append('a')
+            elif curr[-1] == target[main_idx]:
+                curr.append('a')
+                main_idx += 1
+            else:
+                curr[-1] = al_ph[(al_ph.index(curr[-1]) + 1) % 26]
+            output.append(''.join(curr))
+            if len(curr) == len(target) and curr[-1] == target[main_idx]:
+                break
+        return output
