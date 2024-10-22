@@ -41,3 +41,34 @@
 # In the second test case, you can choose c=6
 #  and obtain an answer of (6−3)+(10−6)=7
 # . It can be shown this is the minimum value possible.
+# Solution
+# Python O(N) O(1) Math Simulation
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        a, b = map(int, sys.stdin.readline().rstrip().split())
+        sys.stdout.write(str(max((c - a) + (b - c) for c in range(a, b + 1))) + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
+
+# C++ O(N) O(1) Math Simulation
+#include <iostream>
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int a, b;
+        std::cin >> a >> b;
+        int output = a + b;
+        for (int c = a; c <= b; ++c) {
+            output = std::min(output, (c - a) + (b - c));
+        }
+        std::cout << output << std::endl;
+    }
+}
