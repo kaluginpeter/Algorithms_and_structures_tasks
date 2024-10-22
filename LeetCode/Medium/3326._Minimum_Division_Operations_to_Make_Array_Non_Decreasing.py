@@ -38,3 +38,65 @@
 #
 # 1 <= nums.length <= 105
 # 1 <= nums[i] <= 106
+# Solution
+# Python O(Nsqrt(M)) O(1) Math Greedy Number Theory
+class Solution:
+    def max_proper_divisor(self, x: int) -> int:
+        if x <= 2:
+            return -1
+        largest_proper_divisor: int = -1
+        for d in range(2, int(x**0.5) + 1):
+            if x % d == 0:
+                if d < x:
+                    largest_proper_divisor = max(largest_proper_divisor, d)
+                if x // d < x:
+                    largest_proper_divisor = max(largest_proper_divisor, x // d)
+        return largest_proper_divisor
+
+    def minOperations(self, nums: List[int]) -> int:
+        count: int = 0
+        for idx in range(len(nums) - 1, 0, -1):
+            while nums[idx - 1] > nums[idx]:
+                divisor: int = self.max_proper_divisor(nums[idx - 1])
+                if divisor == -1:
+                    return -1
+                nums[idx - 1] = nums[idx - 1] // divisor
+                count += 1
+        return count
+
+# C++ O(Nsqrt(M)) O(1) Math Number Theory Greedy
+class Solution {
+public:
+    int maxProperDivisor(int x) {
+        if (x <= 2) {
+            return -1;
+        }
+        int largestProperDivisor = -1;
+        for (int divisor = 2; divisor < std::sqrt(x) + 1; ++divisor) {
+            if (x % divisor == 0) {
+                if (divisor < x) {
+                    largestProperDivisor = std::max(largestProperDivisor, divisor);
+                }
+                if (x / divisor < x) {
+                    largestProperDivisor = std::max(largestProperDivisor, x / divisor);
+                }
+            }
+        }
+        return largestProperDivisor;
+    }
+
+    int minOperations(vector<int>& nums) {
+        int operations = 0;
+        for (int index = nums.size() - 1; index > 0; --index) {
+            while (nums[index - 1] > nums[index]) {
+                int divisor = maxProperDivisor(nums[index - 1]);
+                if (divisor == -1) {
+                    return -1;
+                }
+                nums[index - 1] = nums[index - 1] / divisor;
+                ++operations;
+            }
+        }
+        return operations;
+    }
+};
