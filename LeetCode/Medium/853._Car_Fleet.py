@@ -52,3 +52,39 @@
 # 0 <= position[i] < target
 # All the values of position are unique.
 # 0 < speed[i] <= 106
+# Solution
+# Python O(NlogN) O(N) Sorting Stack Greedy
+class Solution:
+    def carFleet(self, target: int, position: List[int], speed: List[int]) -> int:
+        cars: list[tuple[int, float]] = []
+        for idx in range(len(position)):
+            cars.append((position[idx], (target - position[idx]) / speed[idx]))
+        cars.sort()
+        car_fleets: int = 0
+        finish_time: float = 0
+        for idx in range(len(cars) - 1, -1, -1):
+            if cars[idx][1] > finish_time:
+                car_fleets += 1
+                finish_time = cars[idx][1]
+        return car_fleets
+
+# C++ O(NlogN) O(N) Sorting Greedy Stack
+class Solution {
+public:
+    int carFleet(int target, vector<int>& position, vector<int>& speed) {
+        std::vector<std::pair<double, double>> cars(position.size());
+        for (int index = 0; index < position.size(); ++index) {
+            cars[index] = {position[index], (target - position[index]) / static_cast<double>(speed[index])};
+        }
+        std::sort(cars.begin(), cars.end());
+        int carFleets = 0;
+        double timeToFinish = 0;
+        for (int index = cars.size() - 1; index >= 0; --index) {
+            if (cars[index].second > timeToFinish) {
+                ++carFleets;
+                timeToFinish = cars[index].second;
+            }
+        }
+        return carFleets;
+    }
+};
