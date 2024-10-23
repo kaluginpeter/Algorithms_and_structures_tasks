@@ -48,3 +48,40 @@
 # A
 # A
 # A
+# Solution
+# C++ O(N) O(1) String
+#include <iostream>
+#include <string>
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        std::string n;
+        std::cin >> n;
+        int A = 0;
+        int B = 0;
+        for (char letter : n) {
+            if (letter == 'A') {
+                ++A;
+            } else {
+                ++B;
+            }
+        }
+        std::cout << (A > B ? "A" : "B") << std::endl;
+    }
+}
+
+# Python O(N) O(1) String
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: str = sys.stdin.readline().rstrip()
+        sys.stdout.write(['B', 'A'][n.count('A') > n.count('B')] + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
