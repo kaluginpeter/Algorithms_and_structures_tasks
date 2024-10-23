@@ -22,3 +22,57 @@
 #
 # The number of nodes in the tree is in the range [1, 104].
 # -100 <= Node.val <= 100
+# Solution
+# Python O(N) O(N) Depth-First-Search
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    diameter: int = 0
+
+    def dfs_traverse(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+        left_part_depth: int = self.dfs_traverse(root.left)
+        right_part_depth: int = self.dfs_traverse(root.right)
+        self.diameter = max(self.diameter, left_part_depth + right_part_depth)
+        return max(left_part_depth, right_part_depth) + 1
+
+    def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+        self.diameter = 0
+        self.dfs_traverse(root)
+        return self.diameter
+
+# C++ O(N) O(N) Depth-First-Search
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int diameter;
+    int dfsTraversal(TreeNode* root) {
+        if (!root) {
+            return 0;
+        }
+        int depthLeftPart = dfsTraversal(root->left);
+        int depthRightPart = dfsTraversal(root->right);
+        diameter = std::max(diameter, depthLeftPart + depthRightPart);
+        return std::max(depthLeftPart, depthRightPart) + 1;
+    }
+    int diameterOfBinaryTree(TreeNode* root) {
+        diameter = 0;
+        dfsTraversal(root);
+        return diameter;
+    }
+};
