@@ -69,3 +69,64 @@
 #  and r=20
 # , the only possible array is (10,11,13,16,20)
 # .
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+#include <cmath>
+
+long long highest_n_for_value(long long value, long long s) {
+    if (value < s) {
+        return -1; // No valid n
+    }
+    long long target = 2 * (value - s);
+    if (target < 0) {
+        return -1;
+    }
+
+    long long n = static_cast<long long>((-1 + std::sqrt(1 + 8 * (value - s))) / 2);
+    return n;
+}
+
+long long count_in_sequence(long long l, long long r) {
+    long long n_max = highest_n_for_value(r, l);
+    long long n_min = highest_n_for_value(l - 1, l);
+    return n_max - n_min;
+}
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        long long l, r;
+        std::cin >> l >> r;
+        std::cout << count_in_sequence(l, r) << std::endl;
+    }
+}
+
+# Python O(1) O(1) Math
+import math
+import sys
+
+def count_in_sequence(l, r):
+    def highest_n_for_value(value):
+        if value < 1:
+            return -1
+        s = l
+        target = 2 * (value - s)
+        if target < 0:
+            return -1
+        n = int((-1 + math.sqrt(1 + 8 * (value - s))) / 2)
+        return n
+    n_max = highest_n_for_value(r)
+    n_min = highest_n_for_value(l - 1)
+    return n_max - n_min
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        l, r = map(int, sys.stdin.readline().rstrip().split())
+        sys.stdout.write(str(count_in_sequence(l, r)) + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
