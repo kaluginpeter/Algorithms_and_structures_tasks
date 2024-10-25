@@ -70,3 +70,20 @@ Examples:
 --> since F(8) = 21, F(9) = 34, F(10) = 55 and 21 * 34 < 800 < 34 * 55
 AlgorithmsMathematics
 */
+// Solution
+#include <vector>
+typedef unsigned long long ull;
+class ProdFib
+{
+public:
+  static std::vector<ull> productFib(ull prod) {
+    std::vector<ull> output = {0, 1};
+    while (output[0] * output[1] < prod) {
+      ull c = output[1];
+      output[1] = output[0] + output[1];
+      output[0] = c;
+    }
+    output.push_back((output[0] * output[1] == prod ? true : false));
+    return output;
+  };
+};
