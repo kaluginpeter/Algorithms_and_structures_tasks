@@ -31,3 +31,62 @@
 #
 # 1 <= k <= nums.length <= 105
 # -231 <= nums[i] <= 231 - 1
+# Solution
+# Python O(NlogK) O(N) SortedList(AVL-Tree)
+from sortedcontainers import SortedList
+class Solution:
+    def find_median(self, storage: list[int]) -> float:
+        n: int = len(storage)
+        if n & 1:
+            return storage[n // 2]
+        return (storage[n // 2] + storage[n // 2 - 1]) / 2
+
+    def medianSlidingWindow(self, nums: List[int], k: int) -> List[float]:
+        storage: list[int] = SortedList()
+        for idx in range(k):
+            storage.add(nums[idx])
+        output: list[int] = []
+        output.append(self.find_median(storage))
+        for right in range(k, len(nums)):
+            storage.discard(nums[right - k])
+            storage.add(nums[right])
+            output.append(self.find_median(storage))
+        return output
+
+# Python O(NlogK) O(N) Min & Max Heaps
+class Solution:
+    def find_median(self, small: list[tuple[int, int]], large: list[tuple[int, int]], k: int) -> float:
+        if k & 1:
+            return large[0][0]
+        return (-1 * small[0][0] + large[0][0]) / 2
+
+    def move(self, from_heap: list[tuple[int, int]], to_heap: list[tuple[int, int]]) -> None:
+        pair: tuple[int, int] = heapq.heappop(from_heap)
+        heapq.heappush(to_heap, (-pair[0], pair[1]))
+
+    def medianSlidingWindow(self, nums: List[int], k: int) -> List[float]:
+        small: list[tuple[int, int]] = []
+        large: list[tuple[int, int]] = []
+        for idx in range(k):
+            heapq.heappush(small, (-nums[idx], idx))
+        for idx in range(k - (k >> 1)):
+            self.move(small, large)
+        output: list[int] = []
+        output.append(self.find_median(small, large, k))
+        for right in range(k, len(nums)):
+            outgoing_idx: int = right - k
+            if nums[right] >= large[0][0]:
+                heapq.heappush(large, (nums[right], right))
+                if nums[outgoing_idx] <= large[0][0]:
+                    self.move(large, small)
+            else:
+                heapq.heappush(small, (-nums[right], right))
+                if nums[outgoing_idx] >= large[0][0]:
+                    self.move(small, large)
+
+            while large and large[0][1] <= outgoing_idx:
+                heapq.heappop(large)
+            while small and small[0][1] <= outgoing_idx:
+                heapq.heappop(small)
+            output.append(self.find_median(small, large, k))
+        return output
