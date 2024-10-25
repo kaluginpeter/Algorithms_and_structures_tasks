@@ -50,3 +50,45 @@
 # 3
 # 3
 # 10
+# Solution
+# C++ O(N) O(N) HashMap Math
+#include <iostream>
+#include <unordered_map>
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        long long n;
+        std::cin >> n;
+        std::unordered_map<long long, long long> hashmap;
+        long long output = 0;
+        for (long long j = 0; j < n; ++j) {
+            long long num;
+            std::cin >> num;
+            output += hashmap[j - num + 1];
+            ++hashmap[j - num + 1];
+        }
+        std::cout << output << std::endl;
+    }
+}
+
+# Python O(N) O(N) Hashmap Greedy
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: list = list(map(int, sys.stdin.readline().rstrip().split()))
+        hashmap: dict = dict()
+        output: int = 0
+        for j in range(n):
+            output += hashmap.get(nums[j] - j + 1, 0)
+            hashmap[nums[j] - j + 1] = hashmap.get(nums[j] - j + 1, 0) + 1
+        sys.stdout.write(str(output) + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
