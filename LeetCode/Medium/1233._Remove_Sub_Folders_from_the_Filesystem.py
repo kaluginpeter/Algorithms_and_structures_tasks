@@ -30,3 +30,124 @@
 # folder[i] contains only lowercase letters and '/'.
 # folder[i] always starts with the character '/'.
 # Each folder name is unique.
+# Solution
+# C++ O(NL) O(NL) Trie Depth-First-Search
+class TrieNode {
+public:
+    std::unordered_map<std::string, TrieNode*> childrens;
+    bool isEndOfWord;
+    TrieNode() {
+        isEndOfWord = false;
+    };
+};
+
+class Trie {
+public:
+    TrieNode* root;
+    Trie() {
+        root = new TrieNode();
+    };
+
+    void insertWord(std::string folder) {
+        TrieNode* tmp = root;
+        std::string word = "";
+        for (int index = 1; index < folder.size(); ++index) {
+            if (folder[index] == '/') {
+                if (!tmp->childrens[word]) {
+                    tmp->childrens[word] = new TrieNode();
+                }
+                tmp = tmp->childrens[word];
+                word = "";
+            } else {
+                word += folder[index];
+            }
+        }
+        if (!tmp->childrens[word]) {
+            tmp->childrens[word] = new TrieNode();
+        }
+        tmp = tmp->childrens[word];
+        tmp->isEndOfWord = true;
+    };
+
+    void uniqueFolders(TrieNode* node, std::string& path, std::vector<std::string>& output) {
+        if (node->isEndOfWord) {
+            output.push_back(path);
+            return;
+        }
+        for (std::pair<const std::string, TrieNode*> pair : node->childrens) {
+            std::string nextNode = pair.first;
+            if (node->childrens[nextNode]) {
+                std::string nextFolder = '/' + nextNode;
+                path += nextFolder;
+                uniqueFolders(pair.second, path, output);
+                int k = nextFolder.size();
+                path.erase(path.size() - k, k);
+            }
+        }
+    };
+};
+
+class Solution {
+public:
+    vector<string> removeSubfolders(vector<string>& folder) {
+        Trie* T= new Trie();
+        for (std::string word : folder) {
+            T->insertWord(word);
+        }
+        std::vector<std::string> output;
+        std::string path = "";
+        T->uniqueFolders(T->root, path, output);
+        return output;
+    }
+};
+
+# Python O(NL) O(NL) Trie Depth-First-Search
+class TrieNode:
+    def __init__(self) -> None:
+        self.childrens: dict[str, TrieNode] = dict()
+        self.is_end_of_word: bool = False
+
+
+class Trie:
+    def __init__(self) -> None:
+        self.root: TrieNode = TrieNode()
+
+    def insert_word(self, word: str) -> None:
+        tmp: TrieNode = self.root
+        folder: str = ''
+        for idx in range(1, len(word)):
+            if word[idx] == '/':
+                if folder not in tmp.childrens:
+                    tmp.childrens[folder] = TrieNode()
+                tmp = tmp.childrens[folder]
+                folder = ''
+            else:
+                folder += word[idx]
+        if folder not in tmp.childrens:
+            if folder not in tmp.childrens:
+                tmp.childrens[folder] = TrieNode()
+        tmp = tmp.childrens[folder]
+        tmp.is_end_of_word = True
+
+    def unique_folders(self, node: TrieNode, path: list[str], output: list[str]) -> None:
+        if node.is_end_of_word:
+            output.append(''.join(path))
+            return
+        for pair in node.childrens.items():
+            next_char: str = pair[0]
+            next_node: TrieNode = pair[1]
+            new_folder: str = '/' + next_char
+            path.append(new_folder)
+            self.unique_folders(next_node, path, output)
+            path.pop()
+
+
+class Solution:
+    def removeSubfolders(self, folder: List[str]) -> List[str]:
+        T: Trie = Trie()
+        for word in folder:
+            T.insert_word(word)
+        output: list[str] = []
+        path: list[str] = []
+        T.unique_folders(T.root, path, output)
+        return output
