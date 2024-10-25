@@ -37,3 +37,75 @@
 #
 # If all integer numbers from the stream are in the range [0, 100], how would you optimize your solution?
 # If 99% of all integer numbers from the stream are in the range [0, 100], how would you optimize your solution?
+# Solution
+# Python O(logN) for AddNumber and O(1) for findMedian Heap
+class MedianFinder:
+
+    def __init__(self):
+        self.small: list[int] = []
+        self.large: list[int] = []
+
+    def addNum(self, num: int) -> None:
+        heapq.heappush(self.small, -1 * num)
+        if self.small and self.large and -1 * self.small[0] > self.large[0]:
+            heapq.heappop(self.small)
+            heapq.heappush(self.large, num)
+        if len(self.small) > len(self.large) + 1:
+            num: int = -1 * heapq.heappop(self.small)
+            heapq.heappush(self.large, num)
+        if len(self.large) > len(self.small) + 1:
+            heapq.heappush(self.small, -1 * heapq.heappop(self.large))
+
+    def findMedian(self) -> float:
+        if len(self.small) > len(self.large):
+            return -1 * self.small[0]
+        if len(self.small) < len(self.large):
+            return self.large[0]
+        return (-1 * self.small[0] + self.large[0]) / 2
+
+
+# Your MedianFinder object will be instantiated and called as such:
+# obj = MedianFinder()
+# obj.addNum(num)
+# param_2 = obj.findMedian()
+
+# C++ O(logN) for addNum and O(1) for findMedian Heaps
+class MedianFinder {
+public:
+    std::priority_queue<int, std::vector<int>> small;
+    std::priority_queue<int, std::vector<int>, std::greater<int>> large;
+    MedianFinder() {};
+
+    void addNum(int num) {
+        small.push(num);
+        if (small.size() && large.size() && small.top() > large.top()) {
+            large.push(small.top());
+            small.pop();
+        }
+        if (small.size() > large.size() + 1) {
+            large.push(small.top());
+            small.pop();
+        }
+        if (large.size() > small.size() + 1) {
+            small.push(large.top());
+            large.pop();
+        }
+    }
+
+    double findMedian() {
+        if (small.size() > large.size()) {
+            return small.top();
+        }
+        if (small.size() < large.size()) {
+            return large.top();
+        }
+        return static_cast<double>(small.top() + large.top()) / 2;
+    }
+};
+
+/**
+ * Your MedianFinder object will be instantiated and called as such:
+ * MedianFinder* obj = new MedianFinder();
+ * obj->addNum(num);
+ * double param_2 = obj->findMedian();
+ */
