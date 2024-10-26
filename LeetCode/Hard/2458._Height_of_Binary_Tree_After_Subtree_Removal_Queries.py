@@ -40,3 +40,97 @@
 # 1 <= m <= min(n, 104)
 # 1 <= queries[i] <= n
 # queries[i] != root.val
+# Solution
+# C++ O(N + Q) O(N) Depth-First-Search
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int maxHeightAtLevel[100001];
+    int currentMaxHeightAtLevel = 0;
+
+    void dfsLeftToRight(TreeNode* root, int currentHeight) {
+        if (!root) {
+            return;
+        }
+        maxHeightAtLevel[root->val] = currentMaxHeightAtLevel;
+        currentMaxHeightAtLevel = std::max(currentMaxHeightAtLevel, currentHeight);
+        dfsLeftToRight(root->left, currentHeight + 1);
+        dfsLeftToRight(root->right, currentHeight + 1);
+    }
+
+    void dfsRightToLeft(TreeNode* root, int currentHeight) {
+        if (!root) {
+            return;
+        }
+        maxHeightAtLevel[root->val] = std::max(maxHeightAtLevel[root->val], currentMaxHeightAtLevel);
+        currentMaxHeightAtLevel = std::max(currentMaxHeightAtLevel, currentHeight);
+        dfsRightToLeft(root->right, currentHeight + 1);
+        dfsRightToLeft(root->left, currentHeight + 1);
+    }
+
+    vector<int> treeQueries(TreeNode* root, vector<int>& queries) {
+        dfsLeftToRight(root, 0);
+        currentMaxHeightAtLevel = 0;
+        dfsRightToLeft(root, 0);
+        std::vector<int> answer;
+        for (int query : queries) {
+            answer.push_back(maxHeightAtLevel[query]);
+        }
+        return answer;
+    }
+};
+
+# Python O(N + Q) O(N) Depth-First-Search
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def __init__(self) -> None:
+        self.node_depths: dict[int, int]
+        self.subtree_heights: dict[int, int]
+        self.first_largest_height: dict[int, int]
+        self.second_largest_height: dict[int, int]
+
+    def treeQueries(self, root: Optional[TreeNode], queries: List[int]) -> List[int]:
+        self.node_depths = dict()
+        self.subtree_heights = dict()
+        self.first_largest_height = dict()
+        self.second_largest_height = dict()
+        self.dfs(root, 0)
+        answer: list[int] = []
+        for query in queries:
+            max_depth: int = self.node_depths[query]
+            if self.subtree_heights[query] == self.first_largest_height[self.node_depths[query]]:
+                max_depth += self.second_largest_height.get(self.node_depths[query], 0)
+            else:
+                max_depth += self.first_largest_height.get(self.node_depths[query], 0)
+            answer.append(max_depth - 1)
+        return answer
+
+    def dfs(self, root: TreeNode, level: int) -> int:
+        if not root:
+            return 0
+        self.node_depths[root.val] = level
+        left_part: int = self.dfs(root.left, level + 1)
+        right_part: int = self.dfs(root.right, level + 1)
+        max_height_at_level: int = 1 + max(left_part, right_part)
+        self.subtree_heights[root.val] = max_height_at_level
+        if max_height_at_level > self.first_largest_height.get(level, 0):
+            self.second_largest_height[level] = self.first_largest_height.get(level, 0)
+            self.first_largest_height[level] = max_height_at_level
+        elif max_height_at_level > self.second_largest_height.get(level, 0):
+            self.second_largest_height[level] = max_height_at_level
+        return max_height_at_level
