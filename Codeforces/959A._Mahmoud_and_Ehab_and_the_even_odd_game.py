@@ -26,3 +26,24 @@
 # In the first sample, Mahmoud can't choose any integer a initially because there is no positive even integer less than or equal to 1 so Ehab wins.
 #
 # In the second sample, Mahmoud has to choose a = 2 and subtract it from n. It's Ehab's turn and n = 0. There is no positive odd integer less than or equal to 0 so Mahmoud wins.
+# Solution
+# Python O(1) O(1) Math Greedy
+import sys
+
+
+def solution(n: int) -> str:
+    return ['Mahmoud', 'Ehab'][n & 1]
+
+
+if __name__ == '__main__':
+    n: int = int(sys.stdin.readline().rstrip())
+    sys.stdout.write(solution(n) + '\n')
+
+# C++ O(1) O(1) Math Greedy
+#include <iostream>
+
+int main() {
+    int n;
+    std::cin >> n;
+    std::cout << (n % 2 == 0 ? "Mahmoud" : "Ehab") << std::endl;
+};
