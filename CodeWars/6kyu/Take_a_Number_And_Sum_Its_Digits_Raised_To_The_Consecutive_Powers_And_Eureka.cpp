@@ -69,3 +69,31 @@ Enjoy it!!
 
 FundamentalsMathematics
 */
+// Solution
+#include <vector>
+#include <cmath>
+
+bool isEurika(unsigned int number) {
+  unsigned int number_ = number;
+  int power = 1;
+  while (std::pow(10, power) <= number) {
+    ++power;
+  }
+  unsigned int sumDigits = 0;
+  while (power) {
+    sumDigits += std::pow(number % 10, power);
+    --power;
+    number /= 10;
+  }
+  return sumDigits == number_;
+}
+
+std::vector<unsigned int> sumDigPow(unsigned int a, unsigned int b) {
+  std::vector<unsigned int> output;
+  for (unsigned int number = a; number <= b; ++number) {
+    if (isEurika(number)) {
+      output.push_back(number);
+    }
+  }
+  return output;
+}
