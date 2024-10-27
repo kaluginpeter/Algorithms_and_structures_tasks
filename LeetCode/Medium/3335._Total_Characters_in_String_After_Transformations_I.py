@@ -53,3 +53,53 @@
 # 1 <= s.length <= 105
 # s consists only of lowercase English letters.
 # 1 <= t <= 105
+# Solution
+# C++ O(N + T) O(1) Simulation HashMap
+class Solution {
+public:
+    int lengthAfterTransformations(string s, int t) {
+        std::vector<int> hashmap(26);
+        for (char letter : s) {
+            ++hashmap[int(letter) - 97];
+        }
+        int MOD = 1000000007;
+        for (int rep = 0; rep < t; ++rep) {
+            std::vector<int> new_hashmap(26);
+            for (int letter = 0; letter < 26; ++letter) {
+                if (letter == 25) {
+                    new_hashmap[0] = (new_hashmap[0] + hashmap[25]) % MOD;
+                    new_hashmap[1] = (new_hashmap[1] + hashmap[25]) % MOD;
+                } else {
+                    new_hashmap[letter + 1] = (new_hashmap[letter + 1] + hashmap[letter]) % MOD;
+                }
+            }
+            hashmap = new_hashmap;
+        }
+        int countFreq = 0;
+        for (int freq : hashmap) {
+            countFreq = (countFreq + freq) % MOD;
+        }
+        return countFreq;
+    }
+};
+
+# Python O(N + T) O(1) Simulation Math HashMap
+class Solution:
+    def lengthAfterTransformations(self, s: str, t: int) -> int:
+        hashmap: list[int] = [0] * 26
+        for letter in s:
+            hashmap[ord(letter) - 97] += 1
+        for _ in range(t):
+            new_hashmap: list[int] = [0] * 26
+            for letter in range(26):
+                if letter == 25:
+                    new_hashmap[0] = new_hashmap[0] + hashmap[25]
+                    new_hashmap[1] = new_hashmap[1] + hashmap[25]
+                else:
+                    next_letter: int = letter + 1
+                    new_hashmap[next_letter] = new_hashmap[next_letter] + hashmap[letter]
+            hashmap = new_hashmap
+        count: int = 0
+        for letter in range(26):
+            count += hashmap[letter]
+        return count % (10**9 + 7)
