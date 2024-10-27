@@ -75,3 +75,54 @@
 # In the third test case of the example, it is sufficient to move the last bracket to the beginning of the string.
 #
 # In the fourth test case of the example, we can choose last three openning brackets, move them to the beginning of the string and obtain "((()))(())".
+# Solution
+# C++ O(N) O(1) Stack Greedy
+#include <iostream>
+#include <string>
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        int open = 0;
+        std::string brackets;
+        std::cin >> brackets;
+        int invalid = 0;
+        for (char bracket : brackets) {
+            if (bracket == '(') {
+                ++open;
+            } else if (open) {
+                --open;
+            } else {
+                ++invalid;
+            }
+        }
+        std::cout << invalid << std::endl;
+    }
+}
+
+# Python O(N) O(1) Stack Greedy
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        brackets: str = sys.stdin.readline().rstrip()
+        valid: int = 0
+        invalid: int = 0
+        for bracket in brackets:
+            if bracket == '(':
+                valid += 1
+            elif valid:
+                valid -= 1
+            else:
+                invalid += 1
+        sys.stdout.write(str(invalid) + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
