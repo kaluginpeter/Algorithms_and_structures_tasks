@@ -18,3 +18,27 @@ Simple remove duplicates
 
 Fundamentals
 */
+// Solution
+#include <string>
+
+std::string solve(const std::string& str){
+  std::string str_ = str;
+  int upperCount = 0;
+  int lowerCount = 0;
+  for (char letter : str_) {
+    if (std::isupper(letter)) {
+      ++upperCount;
+    } else {
+      ++lowerCount;
+    }
+  }
+  bool toLower = lowerCount >= upperCount;
+  for (size_t index = 0; index < str_.size(); ++index) {
+    if (toLower) {
+      str_[index] = std::tolower(str_[index]);
+    } else {
+      str_[index] = std::toupper(str_[index]);
+    }
+  }
+  return str_;
+}
