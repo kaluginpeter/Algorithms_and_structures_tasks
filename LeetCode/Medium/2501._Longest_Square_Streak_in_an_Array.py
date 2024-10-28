@@ -28,3 +28,45 @@
 #
 # 2 <= nums.length <= 105
 # 2 <= nums[i] <= 105
+# Solution
+# Python O(N) O(1) HashSet
+class Solution:
+    def longestSquareStreak(self, nums: List[int]) -> int:
+        bound: int = 100_001
+        mx_seq: int = -1
+        hashset: set[int] = set(nums)
+        for num in range(1, 318):
+            if num in hashset:
+                cur_count: int = 1
+                while num*num in hashset:
+                    cur_count += 1
+                    num *= num
+                if cur_count > 1:
+                    mx_seq = max(mx_seq, cur_count)
+        return mx_seq
+
+# C++ O(N) O(1) Bitset
+class Solution {
+public:
+    int longestSquareStreak(vector<int>& nums) {
+        std::vector<int> bitset(100001);
+        for (int num : nums) {
+            ++bitset[num];
+        }
+        int mxSeq = -1;
+        for (int num = 1; num < 317; ++num) {
+            if (bitset[num]) {
+                int curCount = 0;
+                long long square = num;
+                while (square < 100001 && bitset[square]) {
+                    ++curCount;
+                    square = square * square;
+                }
+                if (curCount > 1) {
+                    mxSeq = std::max(mxSeq, curCount);
+                }
+            }
+        }
+        return mxSeq;
+    }
+};
