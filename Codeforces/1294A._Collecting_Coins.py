@@ -52,3 +52,34 @@
 # NO
 # NO
 # YES
+# Solution
+# C++ O(1) O(1) Math Greedy
+#include <iostream>
+#include <cmath>
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int a, b, c, n;
+        std::cin >> a >> b >> c >> n;
+        int minState = std::max(c, std::max(a, b));
+        int minNeeded = minState - a + minState - b + minState - c;
+        std::cout << (n >= minNeeded && (n - minNeeded) % 3 == 0? "YES" : "NO") << std::endl;
+    }
+}
+# Python O(1) O(1) Math Greedy
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        a, b, c, n = map(int, sys.stdin.readline().rstrip().split())
+        min_state: int = max(a, b, c)
+        min_needed: int = min_state - a + min_state - b + min_state - c
+        sys.stdout.write(['NO', 'YES'][n >= min_needed and (n - min_needed) % 3 == 0] + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
