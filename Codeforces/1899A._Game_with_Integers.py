@@ -39,3 +39,30 @@
 # First
 # Second
 # First
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        std::cout << (n % 3 == 0 ? "Second" : "First") << std::endl;
+    }
+}
+
+# C++ O(1) O(1) Math
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        sys.stdout.write(['First', 'Second'][n % 3 == 0] + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
