@@ -44,3 +44,20 @@
 #
 # distributionOfCandy([10,2,8,22,16,4,10,6,14,20]) === [17,18]
 # PuzzlesFundamentals
+# Solution
+def distribution_of_candy(candies):
+    if len(candies) == 1:
+        return [0, candies[0]]
+    times: int = 0
+    while True:
+        times += 1
+        distribution: list[int] = [0] * len(candies)
+        for idx in range(len(candies)):
+            next_idx: int = (idx + 1) % len(candies)
+            distribution[next_idx] = candies[idx] // 2 + candies[idx] % 2
+            candies[idx] -= candies[idx] // 2
+        for idx in range(len(candies)):
+            candies[idx] += distribution[idx]
+        if all(x == y for x, y in zip(candies, candies[1:])):
+            break
+    return [times, candies[0]]
