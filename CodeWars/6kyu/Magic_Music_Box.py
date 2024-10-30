@@ -37,3 +37,30 @@
 # The next note is RE, but this time, searching a fitting word, we end doing a complete iteration over the array with finding any, so the function ends and return the definitive array solution: ["DOWN","REPTILE","AMIDST","SOFA","SOLAR","PLANE","SILENCE","MARKDOWN"]
 #
 # ArraysGamesAlgorithms
+# Solution
+def magic_music_box(words):
+    if not words:
+        return words
+    output: list[str] = []
+    order: list[str] = ['DO', 'RE', 'MI', 'FA', 'SOL', 'LA', 'SI']
+    start: int = 0
+    main_valid: bool = True
+    while main_valid:
+        for main_idx in range(len(order)):
+            valid: bool = False
+            for word_idx in range(start, len(words)):
+                if order[main_idx] in words[word_idx] and words[word_idx] not in output:
+                    output.append(words[word_idx])
+                    valid = True
+                    start = word_idx + 1
+                    break
+            if not valid:
+                for word_idx in range(len(words)):
+                    if order[main_idx] in words[word_idx] and words[word_idx] not in output:
+                        output.append(words[word_idx])
+                        valid = True
+                        start = word_idx + 1
+                        break
+                if not valid:
+                    return output
+    return output
