@@ -13,3 +13,13 @@ Calculate the sum of the numbers in the nth row of this triangle (starting at in
 2 --> 3 + 5 = 8
 ArraysListsMathematicsFundamentals
 */
+// Solution
+#include <cmath>
+long long rowSumOddNumbers(unsigned n){
+  unsigned int start = std::pow(n, 2) - (n - 1);
+  unsigned int totalSum = 0;
+  for (unsigned int num = start; num < start + n * 2; num += 2) {
+    totalSum += num;
+  }
+  return totalSum;
+}
