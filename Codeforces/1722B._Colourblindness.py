@@ -58,3 +58,57 @@
 # In the second test case, Vasya can see that the two rows are different.
 #
 # In the third test case, every cell is green or blue, so Vasya will think they are the same.
+# Solution
+# C++ O(N) O(1) String
+#include <iostream>
+#include <vector>
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        std::vector<char> first;
+        std::vector<char> second;
+        for (int j = 0; j < n; ++j) {
+            char letter;
+            std::cin >> letter;
+            first.push_back((letter == 'R'? letter : '0'));
+        }
+        for (int j = 0; j < n; ++j) {
+            char letter;
+            std::cin >> letter;
+            second.push_back((letter == 'R'? letter : '0'));
+        }
+        bool isValid = true;
+        for (int index = 0; index < n; ++index) {
+            if (first[index] != second[index]) {
+                isValid = false;
+                break;
+            }
+        }
+        std::cout << (isValid ? "YES" : "NO") << std::endl;
+    }
+}
+
+# Python O(N) O(1) String
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        first: list = list(sys.stdin.readline().rstrip())
+        second: list = list(sys.stdin.readline().rstrip())
+        is_valid: bool = True
+        for idx in range(n):
+            if (first[idx] == 'R' and second[idx] != 'R') or (first[idx] != 'R' and second[idx] == 'R'):
+                is_valid = False
+                break
+        sys.stdout.write(['NO', 'YES'][is_valid] + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
