@@ -32,3 +32,34 @@
 #
 # 1 <= s.length <= 105
 # s consists only of lowercase English letters.
+# Solution
+# Python O(N) O(N) Two Pointers
+class Solution:
+    def makeFancyString(self, s: str) -> str:
+        output: list[str] = []
+        left: int = 0
+        for right in range(len(s)):
+            if s[left] != s[right]:
+                output.append(s[right])
+                left = right
+            elif right - left + 1 <= 2:
+                output.append(s[right])
+        return ''.join(output)
+
+# C++ O(N) O(N) Two Pointers
+class Solution {
+public:
+    string makeFancyString(string s) {
+        std::string output = "";
+        int left = 0;
+        for (int right = 0; right < s.size(); ++right) {
+            if (s[left] != s[right]) {
+                output += s[right];
+                left = right;
+            } else if (right - left + 1 <= 2) {
+                output += s[right];
+            }
+        }
+        return output;
+    }
+};
