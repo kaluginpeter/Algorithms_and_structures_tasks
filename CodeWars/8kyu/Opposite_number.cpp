@@ -8,3 +8,8 @@ Examples:
 -34: 34
 Fundamentals
 */
+// Solution
+int opposite(int number)
+{
+  return -number;
+}
