@@ -15,6 +15,7 @@
 # 1 <= s.length, goal.length <= 100
 # s and goal consist of lowercase English letters.
 # Solution
+# Python O(N**2) O(N) String
 class Solution:
     def rotateString(self, s: str, goal: str) -> bool:
         for i in range(len(s)):
@@ -22,3 +23,15 @@ class Solution:
                 return True
             s = s[1:]+s[0]
         return False
+
+# C++ O(N) O(N) String
+class Solution {
+public:
+    bool rotateString(string s, string goal) {
+        return s.size() == goal.size() && (s + s).find(goal) != std::string::npos;
+    }
+};
+# Python O(N) O(N) String
+class Solution:
+    def rotateString(self, s: str, goal: str) -> bool:
+        return len(s) == len(goal) and goal in s + s
