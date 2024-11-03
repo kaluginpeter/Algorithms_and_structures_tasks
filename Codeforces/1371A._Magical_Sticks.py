@@ -50,3 +50,30 @@
 #  and he will get one stick with length 4
 # . After that, he will have three sticks with lengths {2,4,4}
 # , so two sticks have the same length, and one stick has the other length.
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        std::cout << (n + 1) / 2 << std::endl;
+    }
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        sys.stdout.write(str((n + 1) // 2) + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
