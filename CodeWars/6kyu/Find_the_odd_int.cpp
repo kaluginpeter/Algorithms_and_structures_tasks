@@ -12,3 +12,18 @@ Examples
 
 Fundamentals
 */
+// Solution
+#include <vector>
+#include <unordered_map>
+
+int findOdd(const std::vector<int>& numbers){
+  std::unordered_map<int, int> hashmap;
+  for (int num : numbers) {
+    ++hashmap[num];
+  }
+  for (auto& pair : hashmap) {
+    if (pair.second % 2) {
+      return pair.first;
+    }
+  }
+}
