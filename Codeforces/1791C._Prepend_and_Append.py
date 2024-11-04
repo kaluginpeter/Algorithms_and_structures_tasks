@@ -88,7 +88,7 @@
 # , and he performed the following operations: 101→01011→1010110
 # .
 # Solution
-# Python O(N) O(1) Two Pointers
+# C++ O(N) O(1) Two Pointers
 #include <iostream>
 #include <string>
 
