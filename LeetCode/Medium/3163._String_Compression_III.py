@@ -58,3 +58,36 @@ class Solution:
                     count += 1
         comp += str(count) + seq[-1]
         return comp
+
+# C++ O(N) O(N) Two Pointers
+class Solution {
+public:
+    string compressedString(string word) {
+        std::string output = "";
+        int left = 0;
+        for (int right = 0; right < word.size(); ++right) {
+            if (word[left] != word[right] || right - left + 1 == 10) {
+                output += std::to_string(right - left);
+                output += word[left];
+                left = right;
+            }
+        }
+        output += std::to_string(word.size() - left);
+        output += word[left];
+        return output;
+    }
+};
+
+# Python O(N) O(N) Two Pointers
+class Solution:
+    def compressedString(self, word: str) -> str:
+        output: list[str] = []
+        left: int = 0
+        for right in range(len(word)):
+            if word[left] != word[right] or right - left + 1 == 10:
+                output.append(str(right - left))
+                output.append(word[left])
+                left = right
+        output.append(str(len(word) - left))
+        output.append(word[left])
+        return ''.join(output)
