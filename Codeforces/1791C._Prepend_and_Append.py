@@ -87,3 +87,49 @@
 # In the fifth test case, the shortest possible string Timur started with is 101
 # , and he performed the following operations: 101→01011→1010110
 # .
+# Solution
+# Python O(N) O(1) Two Pointers
+#include <iostream>
+#include <string>
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        std::string input = "";
+        for (int j = 0; j < n; ++j) {
+            char letter;
+            std::cin >> letter;
+            input += letter;
+        }
+        int left = 0;
+        int right = n - 1;
+        while (left < right && input[left] != input[right]) {
+            ++left;
+            --right;
+        }
+        std::cout << right - left + 1 << std::endl;
+    }
+}
+
+# Python O(N) O(1) Two Pointers
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        s: str = sys.stdin.readline().rstrip()
+        left: int = 0
+        right: int = n - 1
+        while left < right and s[left] != s[right]:
+            left += 1
+            right -= 1
+        sys.stdout.write(str(right - left + 1) + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
