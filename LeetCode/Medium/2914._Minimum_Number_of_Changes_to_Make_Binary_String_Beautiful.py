@@ -36,3 +36,26 @@
 # 2 <= s.length <= 105
 # s has an even length.
 # s[i] is either '0' or '1'.
+# Solution
+# C++ O(N) O(1) String
+class Solution {
+public:
+    int minChanges(string s) {
+        int count = 0;
+        for (int index = 1; index < s.size(); index += 2) {
+            if (s[index] != s[index - 1]) {
+                ++count;
+            }
+        }
+        return count;
+    }
+};
+
+# Python O(N) O(1) String
+class Solution:
+    def minChanges(self, s: str) -> int:
+        count: int = 0
+        for idx in range(1, len(s), 2):
+            if s[idx] != s[idx - 1]:
+                count += 1
+        return count
