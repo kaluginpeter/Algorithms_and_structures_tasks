@@ -22,3 +22,38 @@
 # In the first sample Vasya spends the first two days wearing the socks that he had initially. Then on day three he puts on the socks that were bought on day two.
 #
 # In the second sample Vasya spends the first nine days wearing the socks that he had initially. Then he spends three days wearing the socks that were bought on the third, sixth and ninth days. Than he spends another day wearing the socks that were bought on the twelfth day.
+# Solution
+# C++ O(N) O(1) Simulation
+#include <iostream>
+
+
+int main() {
+    int n, m;
+    std::cin >> n >> m;
+    int days = 0;
+    while (n > 0) {
+        --n;
+        ++days;
+        if (days >= m && days % m == 0) {
+            ++n;
+        }
+    }
+    std::cout << days << std::endl;
+}
+# Python O(N) O(1) Simulation
+import sys
+
+
+def solution(n: int, m: int) -> int:
+    days: int = 0
+    while n:
+        n -= 1
+        days += 1
+        if days >= m and days % m == 0:
+            n += 1
+    return days
+
+
+if __name__ == '__main__':
+    n, m = map(int, sys.stdin.readline().rstrip().split())
+    sys.stdout.write(str(solution(n, m)))
