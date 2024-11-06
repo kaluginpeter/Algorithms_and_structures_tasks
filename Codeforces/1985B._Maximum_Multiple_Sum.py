@@ -57,3 +57,56 @@
 #  is 2+4+6+8+10+12+14=56
 # , which can be proven to be the maximal over all other possible values of x
 # .
+# Solution
+# C++ O(N) O(1) Math Brute Force
+#include <iostream>
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        int totalSum = 0;
+        int choice = 0;
+        for (int num = 2; num <= n; ++num) {
+            int curSum = 0;
+            int mod = num;
+            while (mod <= n) {
+                curSum += mod;
+                mod += num;
+            }
+            if (curSum > totalSum) {
+                totalSum = curSum;
+                choice = num;
+            }
+        }
+        std::cout << choice << std::endl;
+    }
+}
+
+# Python O(N) O(1) Math Brute Force
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        total_sum: int = 0
+        choice: int = 0
+        for num in range(2, n + 1):
+            cur_sum: int = 0
+            mod: int = num
+            while mod <= n:
+                cur_sum += mod
+                mod += num
+            if cur_sum > total_sum:
+                total_sum = cur_sum
+                choice = num
+        sys.stdout.write(str(choice) + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
