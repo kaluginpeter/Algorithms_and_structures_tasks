@@ -13,3 +13,20 @@ Hofstadter Wikipedia Reference http://en.wikipedia.org/wiki/Hofstadter_sequence#
 
 MathematicsAlgorithmsRecursion
 */
+// Solution
+int F(int n);
+int M(int n);
+
+int F(int n) {
+  if (!n) {
+    return 1;
+  }
+  return n - M(F(n - 1));
+}
+
+int M(int n) {
+  if (!n) {
+    return 0;
+  }
+  return n - F(M(n - 1));
+}
