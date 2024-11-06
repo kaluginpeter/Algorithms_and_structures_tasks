@@ -51,3 +51,98 @@ class Solution:
             else:
                 top = nums[i]
         return True
+
+# C++ O(N**2) O(1) Bubble Sort
+class Solution {
+public:
+    int countSetBits(int n) {
+        int bits = 0;
+        while (n) {
+            bits += n & 1;
+            n >>= 1;
+        }
+        return bits;
+    }
+
+    bool canSortArray(vector<int>& nums) {
+        for (int i = 1; i < nums.size(); ++i) {
+            for (int j = 0; j < nums.size() - i; ++j) {
+                if (nums[j] > nums[j + 1]) {
+                    if (countSetBits(nums[j]) != countSetBits(nums[j + 1])) {
+                        return false;
+                    }
+                } else {
+                    int prevNum = nums[j];
+                    nums[j] = nums[j + 1];
+                    nums[j + 1] = prevNum;
+                }
+            }
+        }
+        return true;
+    }
+};
+
+# C++ O(N) O(1) One Pass
+class Solution {
+public:
+    int countSetBits(int n) {
+        int bits = 0;
+        while (n) {
+            bits += n & 1;
+            n >>= 1;
+        }
+        return bits;
+    }
+
+    bool canSortArray(vector<int>& nums) {
+        int curSetBits = countSetBits(nums[0]);
+        int maxCurSegNum = nums[0];
+        int minCurSegNum = nums[0];
+        int maxPrevSegNum = 0;
+        for (int index = 1; index < nums.size(); ++index) {
+            if (countSetBits(nums[index]) == curSetBits) {
+                maxCurSegNum = std::max(maxCurSegNum, nums[index]);
+                minCurSegNum = std::min(minCurSegNum, nums[index]);
+            } else {
+                if (minCurSegNum < maxPrevSegNum) {
+                    return false;
+                }
+                maxPrevSegNum = maxCurSegNum;
+                maxCurSegNum = nums[index];
+                minCurSegNum = nums[index];
+                curSetBits = countSetBits(nums[index]);
+            }
+        }
+        if (minCurSegNum < maxPrevSegNum) {
+            return false;
+        }
+        return true;
+    }
+};
+
+# Python O(N) O(1) One Pass
+class Solution:
+    def count_bit_set(self, n: int) -> int:
+        bits: int = 0
+        while n:
+            bits += n & 1
+            n >>= 1
+        return bits
+
+    def canSortArray(self, nums: List[int]) -> bool:
+        cur_set_bits: int = self.count_bit_set(nums[0])
+        cur_set_min_num: int = nums[0]
+        cur_set_max_num: int = nums[0]
+        prev_set_max_num: int = 0
+        for idx in range(1, len(nums)):
+            if self.count_bit_set(nums[idx]) == cur_set_bits:
+                cur_set_min_num = min(cur_set_min_num, nums[idx])
+                cur_set_max_num = max(cur_set_max_num, nums[idx])
+            else:
+                if cur_set_min_num < prev_set_max_num:
+                    return False
+                prev_set_max_num = cur_set_max_num
+                cur_set_max_num = nums[idx]
+                cur_set_min_num = nums[idx]
+                cur_set_bits = self.count_bit_set(nums[idx])
+        return cur_set_min_num >= prev_set_max_num
