@@ -29,3 +29,43 @@
 #
 # 1 <= candidates.length <= 105
 # 1 <= candidates[i] <= 107
+# Solution
+# Python O(N) O(1) HashMap BitManipulation
+class Solution:
+    def largestCombination(self, candidates: List[int]) -> int:
+        hashmap: list[int] = [0] * 25
+        for num in candidates:
+            n: int = num
+            idx: int = 0
+            while n:
+                hashmap[idx] += n & 1
+                n >>= 1
+                idx += 1
+        max_count: int = 0
+        for idx in range(25):
+            max_count = max(max_count, hashmap[idx])
+        return max_count
+
+# C++ O(N) O(1) HashMap BitManipulation
+class Solution {
+public:
+    int largestCombination(vector<int>& candidates) {
+        std::vector hashmap(25, 0);
+        for (int num : candidates) {
+            int n = num;
+            int index = 0;
+            while (n) {
+                hashmap[index] += n & 1;
+                n >>= 1;
+                ++index;
+            }
+        }
+        int maxCount = 0;
+        for (int index = 0; index < 25; ++index) {
+            if (hashmap[index]) {
+                maxCount = std::max(maxCount, hashmap[index]);
+            }
+        }
+        return maxCount;
+    }
+};
