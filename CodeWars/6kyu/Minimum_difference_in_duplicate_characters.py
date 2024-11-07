@@ -25,3 +25,15 @@
 #
 # "abc" => null
 # Strings
+# Solution
+def min_repeating_character_difference(text):
+    hashmap: dict[str, int] = dict()
+    main_diff: int = float('inf')
+    main_char: str = ''
+    for idx in range(len(text)):
+        if text[idx] in hashmap:
+            if idx - hashmap[text[idx]] < main_diff:
+                main_diff = idx - hashmap[text[idx]]
+                main_char = text[idx]
+        hashmap[text[idx]] = idx
+    return (main_diff, main_char) if main_char else None
