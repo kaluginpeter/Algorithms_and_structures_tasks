@@ -40,3 +40,47 @@
 # from 'e' to 'u' (10 rotations counterclockwise),
 # from 'u' to 's' (2 counterclockwise rotations).
 # In total, 1 + 5 + 10 + 2 = 18 rotations are required.
+# Solution
+# C++ O(N) O(1) Math Greedy String
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string name;
+    std::cin >> name;
+    int moves = 0;
+    char curChar = 'a';
+    for (char letter : name) {
+        int curPos = curChar - 'a' + 1;
+        int nextPos = letter - 'a' + 1;
+        if (nextPos >= curPos) {
+            moves += std::min(nextPos - curPos, 26 - nextPos + curPos);
+        } else {
+            moves += std::min(curPos - nextPos, 26 - curPos + nextPos);
+        }
+        curChar = letter;
+    }
+    std::cout << moves << std::endl;
+}
+
+# Python O(N) O(1) Math Greedy String
+import sys
+
+
+def solution(name: str) -> int:
+    cur_char: str = 'a'
+    moves: int = 0
+    for letter in name:
+        cur_pos: int = ord(cur_char) - 96
+        next_pos: int = ord(letter) - 96
+        if next_pos >= cur_pos:
+            moves += min(next_pos - cur_pos, 26 - next_pos + cur_pos)
+        else:
+            moves += min(cur_pos - next_pos, 26 - cur_pos + next_pos)
+        cur_char = letter
+    return moves
+
+
+if __name__ == '__main__':
+    name: str = sys.stdin.readline().rstrip()
+    sys.stdout.write(str(solution(name)))
