@@ -21,7 +21,7 @@
 #
 # 1 <= n <= 20
 # 1 <= k <= n
-# Solution
+# Solution O(k * 2**N) O(k * 2**N)
 class Solution:
     def combine(self, n: int, k: int) -> List[List[int]]:
         def backtrack(start, current_comb):
@@ -35,3 +35,89 @@ class Solution:
         all_comb = []
         backtrack(1, [])
         return all_comb
+
+# Python O(k * 2**N) O(k * 2**N) Backtracking
+class Solution:
+    def helper(self, num: int, n: int, k: int, init: list[int], output: list[list[int]]) -> None:
+        if len(init) == k:
+            output.append(init.copy())
+            return
+        if num > n:
+            return
+        init.append(num)
+        self.helper(num + 1, n, k, init, output)
+        init.pop()
+        self.helper(num + 1, n, k, init, output)
+
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        output: list[list[int]] = []
+        init: list[int] = []
+        self.helper(1, n, k, init, output)
+        return output
+
+# C++ O(k * 2**N) O(k * 2**N) Backtracking
+class Solution {
+public:
+    void helper(int num, int n, std::vector<int>& init, std::vector<std::vector<int>>& output, int k) {
+        if (init.size() == k) {
+            output.push_back(init);
+            return;
+        }
+        if (num > n) {
+            return;
+        }
+        init.push_back(num);
+        helper(num + 1, n, init, output, k);
+        init.pop_back();
+        helper(num + 1, n, init, output, k);
+    }
+    vector<vector<int>> combine(int n, int k) {
+        std::vector<std::vector<int>> output;
+        std::vector<int> init;
+        helper(1, n, init, output, k);
+        return output;
+    }
+};
+
+# Python O(k * C(n, k)) O(k * C(n, k)) Backtracking
+class Solution:
+    def helper(self, num: int, n: int, k: int, init: list[int], output: list[list[int]]) -> None:
+        if len(init) == k:
+            output.append(init.copy())
+            return
+        if num > n:
+            return
+        for next_num in range(num, n + 1):
+            init.append(next_num)
+            self.helper(next_num + 1, n, k, init, output)
+            init.pop()
+
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        output: list[list[int]] = []
+        init: list[int] = []
+        self.helper(1, n, k, init, output)
+        return output
+# C++ O(k * C(n, k)) O(k * C(n, k)) Backtracking
+class Solution {
+public:
+    void helper(int nextNum, int n, std::vector<int>& init, std::vector<std::vector<int>>& output, int k) {
+        if (init.size() == k) {
+            output.push_back(init);
+            return;
+        }
+        if (nextNum > n) {
+            return;
+        }
+        for (int num = nextNum; num < n + 1; ++num) {
+            init.push_back(num);
+            helper(num + 1, n, init, output, k);
+            init.pop_back();
+        }
+    }
+    vector<vector<int>> combine(int n, int k) {
+        std::vector<std::vector<int>> output;
+        std::vector<int> init;
+        helper(1, n, init, output, k);
+        return output;
+    }
+};
