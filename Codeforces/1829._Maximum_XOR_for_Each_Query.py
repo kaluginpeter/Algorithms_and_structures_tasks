@@ -37,3 +37,34 @@
 # 1 <= maximumBit <= 20
 # 0 <= nums[i] < 2maximumBit
 # nums​​​ is sorted in ascending order.
+# Solution
+# Python O(N) O(N) PrefixSum BitManipulation
+class Solution:
+    def getMaximumXor(self, nums: List[int], maximumBit: int) -> List[int]:
+        bound: int = 2**maximumBit - 1
+        prefix_sum: list[int] = []
+        prefix_sum.append(nums[0])
+        for idx in range(1, len(nums)):
+            prefix_sum.append(prefix_sum[idx - 1] ^ nums[idx])
+        output: list[int] = []
+        for idx in range(len(nums) - 1, -1, -1):
+            output.append(prefix_sum[idx] ^ bound)
+        return output
+
+# C++ O(N) O(N) PrefixSum BitManipulation
+class Solution {
+public:
+    vector<int> getMaximumXor(vector<int>& nums, int maximumBit) {
+        int bound = std::pow(2, maximumBit) - 1;
+        std::vector<int> prefixSum;
+        prefixSum.push_back(nums[0]);
+        for (int index = 1; index < nums.size(); ++index) {
+            prefixSum.push_back(prefixSum[prefixSum.size() - 1] ^ nums[index]);
+        }
+        std::vector<int> output;
+        for (int index = prefixSum.size() - 1; index >=0; --index) {
+            output.push_back(bound ^ prefixSum[index]);
+        }
+        return output;
+    }
+};
