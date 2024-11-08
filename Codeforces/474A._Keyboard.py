@@ -27,3 +27,40 @@
 # s;;upimrrfod;pbr
 # OutputCopy
 # allyouneedislove
+# Solution
+# C++ O(N) O(1) String
+#include <iostream>
+#include <string>
+
+int main() {
+    char shift;
+    std::cin >> shift;
+    std::string typing;
+    std::cin >> typing;
+    std::string alphabet = "qwertyuiopasdfghjkl;zxcvbnm,./";
+    for (char typ : typing) {
+        int index = 0;
+        while (alphabet[index] != typ) {
+            ++index;
+        }
+        std::cout << (shift == 'R'? alphabet[index - 1] : alphabet[index + 1]);
+    }
+}
+
+# Python O(N) O(1) String
+import sys
+
+
+def solution() -> None:
+    alpha: str = 'qwertyuiopasdfghjkl;zxcvbnm,./'
+    shift: str = sys.stdin.readline().rstrip()
+    text: str = sys.stdin.readline().rstrip()
+    for letter in text:
+        idx: int = 0
+        while alpha[idx] != letter:
+            idx += 1
+        sys.stdout.write(alpha[idx + (-1 if shift == 'R' else 1)])
+
+
+if __name__ == '__main__':
+    solution()
