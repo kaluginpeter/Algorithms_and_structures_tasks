@@ -15,3 +15,12 @@ the second one - not at all mandatory, but as a complement - is to get a bit you
 
 AlgorithmsMathematics
 */
+// Solution
+#include <cmath>
+class HiddenSeq
+{
+    public:
+    static unsigned long long fcn(int n) {
+      return std::pow(2, n);
+    };
+};
