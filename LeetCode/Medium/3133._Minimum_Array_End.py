@@ -29,3 +29,32 @@
 # Constraints:
 #
 # 1 <= n, x <= 108
+# Solution
+# Python O(logN) O(1) Bit Manipulation
+class Solution:
+    def minEnd(self, n: int, x: int) -> int:
+        result: int = x
+        n -= 1
+        mask: int = 1
+        while n:
+            if mask & x == 0:
+                result |= (n & 1) * mask
+                n >>= 1
+            mask <<= 1
+        return result
+
+# C++ O(logN) O(1) Bit Manipulation
+class Solution {
+public:
+    long long minEnd(int n, long long x) {
+        long long result = x;
+        --n;
+        for (long long mask = 1; n > 0; mask <<= 1) {
+            if ((mask & x) == 0) {
+                result |= (n & 1) * mask;
+                n >>= 1;
+            }
+        }
+        return result;
+    }
+};
