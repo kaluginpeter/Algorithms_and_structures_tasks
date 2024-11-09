@@ -51,3 +51,98 @@
 # If you have an array a of size n and you reverse its segment [l, r], the array will become:
 #
 # a[1], a[2], ..., a[l - 2], a[l - 1], a[r], a[r - 1], ..., a[l + 1], a[l], a[r + 1], a[r + 2], ..., a[n - 1], a[n].
+# Solution
+# C++ O(N) O(1) Two Pointers
+#include <iostream>
+#include <vector>
+
+int main() {
+    int n;
+    std::cin >> n;
+    std::vector<int> nums;
+    for (int i = 0; i < n; ++i) {
+        int num;
+        std::cin >> num;
+        nums.push_back(num);
+    }
+    int start = 0, end = 0;
+    int left = 0;
+    bool isSeen = false;
+    bool isValid = true;
+    bool hasBeen = false;
+    for (int right = 1; right < n; ++right) {
+        if (nums[left] > nums[right]) {
+            if (hasBeen) {
+                isValid = false;
+                break;
+            }
+            if (!isSeen) {
+                isSeen = true;
+                start = left;
+            }
+        } else if (isSeen && nums[left] < nums[right]) {
+            if (nums[start] > nums[right]) {
+                isValid = false;
+                break;
+            }
+            isSeen = false;
+            hasBeen = true;
+            end = left;
+        }
+        ++left;
+    }
+    if (isSeen) {
+        end = n - 1;
+    }
+    if (start > 0 && nums[end] < nums[start - 1]) {
+        isValid = false;
+    }
+    if (isValid) {
+        std::cout << "yes" << std::endl;
+        std::cout << start + 1 << " " << end + 1 << std::endl;
+    } else {
+        std::cout << "no" << std::endl;
+    }
+}
+
+# Python O(N) O(1) Two Pointers
+import sys
+
+def solution(n: int, nums: list) -> None:
+    start: int = 0
+    end: int = 0
+    left: int = 0
+    is_seen: bool = False
+    has_been: bool = False
+    is_valid: bool = True
+    for right in range(1, n):
+        if nums[left] > nums[right]:
+            if has_been:
+                is_valid = False
+                break
+            if not is_seen:
+                is_seen = True
+                start = left
+        elif is_seen and nums[left] < nums[right]:
+            if nums[start] > nums[right]:
+                is_valid = False
+                break
+            has_been = True
+            is_seen = False
+            end = left
+        left += 1
+    if is_seen:
+        end = n - 1
+    if start > 0 and nums[end] < nums[start - 1]:
+        is_valid = False
+    if is_valid:
+        sys.stdout.write('yes\n')
+        sys.stdout.write(f'{start + 1} {end + 1}')
+    else:
+        sys.stdout.write('no\n')
+
+
+if __name__ == '__main__':
+    n: int = int(sys.stdin.readline().rstrip())
+    nums: list = list(map(int, sys.stdin.readline().rstrip().split()))
+    solution(n, nums)
