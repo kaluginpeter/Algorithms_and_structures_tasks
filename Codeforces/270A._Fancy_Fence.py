@@ -27,3 +27,29 @@
 # In the first test case, it is impossible to build the fence, since there is no regular polygon with angle .
 #
 # In the second test case, the fence is a regular triangle, and in the last test case — a square.
+# C++ O(1) O(1) Math
+#include <iostream>
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int angle;
+        std::cin >> angle;
+        std::cout << (360 % (180 - angle) == 0? "YES" : "NO") << std::endl;
+    }
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        angle: int = int(sys.stdin.readline().rstrip())
+        sys.stdout.write(['YES', 'NO'][360 % (180 - angle) != 0] + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
