@@ -33,3 +33,99 @@
 # 1 <= nums.length <= 1000
 # 1 <= nums[i] <= 1000
 # nums.length == n
+# Solution
+# Python O(NlogM) O(N) Math Binary Search
+class Solution:
+    def get_primes(self, nums: list[int]) -> list[int]:
+        max_el: int = max(nums)
+        sieve: list[int] = [1] * (max_el + 1)
+        sieve[1] = 0
+        for num in range(2, int(sqrt(max_el + 1)) + 1):
+            if sieve[num]:
+                for mod in range(num * num, max_el + 1, num):
+                    sieve[mod] = 0
+        primes: list[int] = []
+        for prime in range(2, max_el + 1):
+            if sieve[prime]:
+                primes.append(prime)
+        return primes
+
+    def binary_search(self, primes: list[int], diff: int, upper_bound: int) -> int:
+        left: int = 0
+        right: int = len(primes) - 1
+        while left <= right:
+            middle: int = left + (right - left) // 2
+            if primes[middle] >= diff or primes[middle] >= upper_bound:
+                right = middle - 1
+            else:
+                left = middle + 1
+        if right + 1 == len(primes) or primes[right + 1] >= upper_bound:
+            return -1
+        return primes[right + 1]
+
+    def primeSubOperation(self, nums: List[int]) -> bool:
+        primes: list[int] = self.get_primes(nums)
+        for idx in range(len(nums) - 1, 0, -1):
+            if nums[idx] <= nums[idx - 1]:
+                diff: int = nums[idx - 1] - nums[idx] + 1
+                prime: int = self.binary_search(primes, diff, nums[idx - 1])
+                if prime < diff:
+                    return False
+                nums[idx - 1] -= prime
+        return True
+
+# C++ O(NlogM) O(N) Math BinarySearch
+class Solution {
+public:
+    std::vector<int> getPrimes(std::vector<int>& nums) {
+        int maxElement = *max_element(nums.begin(), nums.end());
+        vector<int> sieve(maxElement + 1, 1);
+        sieve[1] = 0;
+        for (int i = 2; i <= sqrt(maxElement + 1); i++) {
+            if (sieve[i] == 1) {
+                for (int j = i * i; j <= maxElement; j += i) {
+                    sieve[j] = 0;
+                }
+            }
+        }
+        std::vector<int> primes;
+        for (int prime = 0; prime < maxElement + 1; ++prime) {
+            if (sieve[prime]) {
+                primes.push_back(prime);
+            }
+        }
+        return primes;
+    }
+
+    int binarySearch(std::vector<int> primes, int diff, int upperBound) {
+        int left = 0;
+        int right = primes.size() - 1;
+        while (left <= right) {
+            int middle = left + (right - left) / 2;
+            if (primes[middle] >= diff || primes[middle] >= upperBound) {
+                right = middle - 1;
+            } else {
+                left = middle + 1;
+            }
+        }
+        if (right + 1 == primes.size() || primes[right + 1] >= upperBound) {
+            return -1;
+        }
+        return primes[right + 1];
+    }
+
+    bool primeSubOperation(vector<int>& nums) {
+        std::vector<int> primes = getPrimes(nums);
+        for (int index = nums.size() - 1; index >= 1; --index) {
+            if (nums[index] <= nums[index - 1]) {
+                int diff = nums[index - 1] - nums[index] + 1;
+                int prime = binarySearch(primes, diff, nums[index - 1]);
+                if (prime < diff) {
+                    return false;
+                }
+                nums[index - 1] -= prime;
+            }
+        }
+        return true;
+    }
+};
