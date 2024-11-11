@@ -83,3 +83,38 @@
 #  is the most common element on the subsegment [2,5]
 # , so there exists a subsegment where 4
 #  is the most common element.
+# Solution
+# C++ O(N) O(1)
+#include <iostream>
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n, k;
+        bool isValid = false;
+        std::cin >> n >> k;
+        for (int j = 0; j < n; ++j) {
+            int num;
+            std::cin >> num;
+            if (num == k) {
+                isValid = true;
+            }
+        }
+        std::cout << (isValid? "YES" : "NO") << std::endl;
+    }
+}
+
+# Python O(N) O(1)
+import sys
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n, k = map(int, sys.stdin.readline().rstrip().split())
+        nums: list = list(map(int, sys.stdin.readline().rstrip().split()))
+        sys.stdout.write(['NO', 'YES'][k in nums] + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
