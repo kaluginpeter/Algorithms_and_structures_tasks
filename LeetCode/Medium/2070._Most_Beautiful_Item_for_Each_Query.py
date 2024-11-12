@@ -39,3 +39,71 @@
 # 1 <= items.length, queries.length <= 105
 # items[i].length == 2
 # 1 <= pricei, beautyi, queries[j] <= 109
+# Solution
+# Python O(NlogN) O(N) Sorting Binary Search
+class Solution:
+    def binary_search(self, target: int, arr: list[list[int]]) -> int:
+        left: int = 0
+        right: int = len(arr) - 1
+        while left <= right:
+            middle: int = left + (right - left) // 2
+            if arr[middle][0] <= target:
+                left = middle + 1
+            else:
+                right = middle - 1
+        return arr[left - 1][1] if left else 0
+
+    def maximumBeauty(self, items: List[List[int]], queries: List[int]) -> List[int]:
+        items.sort()
+        best_prices: list[int] = []
+        cur_price, max_beauty = items[0]
+        for item in items:
+            price, beauty = item
+            if price != cur_price:
+                best_prices.append([cur_price, max_beauty])
+                cur_price = price
+            max_beauty = max(max_beauty, beauty)
+        best_prices.append([cur_price, max_beauty])
+        output: list[int] = []
+        for query in queries:
+            output.append(self.binary_search(query, best_prices))
+        return output
+
+# C++ O(NlogN) O(N) Sorting Binary Search
+class Solution {
+public:
+    int binarySearch(int target, std::vector<std::vector<int>>& arr) {
+        int left = 0;
+        int right = arr.size() - 1;
+        while (left <= right) {
+            int middle = left + (right - left) / 2;
+            if (arr[middle][0] <= target) {
+                left = middle + 1;
+            } else {
+                right = middle - 1;
+            }
+        }
+        return (left? arr[left - 1][1] : 0);
+    }
+    vector<int> maximumBeauty(vector<vector<int>>& items, vector<int>& queries) {
+        std::sort(items.begin(), items.end());
+        std::vector<std::vector<int>> bestPrices;
+        int curPrice = items[0][0];
+        int maxBeauty = items[0][1];
+        for (std::vector<int>& item : items) {
+            int price = item[0];
+            int beauty = item[1];
+            if (price != curPrice) {
+                bestPrices.push_back({curPrice, maxBeauty});
+                curPrice = price;
+            }
+            maxBeauty = std::max(maxBeauty, beauty);
+        }
+        bestPrices.push_back({curPrice, maxBeauty});
+        std::vector<int> output;
+        for (int query : queries) {
+            output.push_back(binarySearch(query, bestPrices));
+        }
+        return output;
+    }
+};
