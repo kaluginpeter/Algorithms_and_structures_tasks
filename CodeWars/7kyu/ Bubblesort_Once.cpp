@@ -19,3 +19,19 @@ Given an array of integers, your function bubblesortOnce/bubblesort_once/Bubbles
 
 AlgorithmsTutorialsSorting
 */
+// Solution
+std::vector<int> bubbleSortOnce(const std::vector<int> &input)
+{
+    std::vector<int>output(input);
+    for (int i = input.size() - 1; i >= 0; --i) {
+      for (int j = 0; j < i; ++j) {
+        if (output[j] > output[j + 1]) {
+          int tmp = output[j + 1];
+          output[j + 1] = output[j];
+          output[j] = tmp;
+        }
+      }
+      return output;
+    }
+    return {};
+}
