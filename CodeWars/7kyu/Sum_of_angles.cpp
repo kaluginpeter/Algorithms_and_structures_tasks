@@ -3,3 +3,7 @@ Find the total sum of internal angles (in degrees) in an n-sided simple polygon.
 
 GeometryFundamentals
 */
+// Solution
+int angle(int n) {
+  return (n - 2) * 180;
+}
