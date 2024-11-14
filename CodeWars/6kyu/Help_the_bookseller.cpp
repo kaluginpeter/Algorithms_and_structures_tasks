@@ -27,3 +27,43 @@ category C: 50 books (CDXEF)
 category W: 0 books
 FundamentalsAlgorithms
 */
+// Solution
+#include <unordered_map>
+#include <unordered_set>
+class StockList
+{
+public:
+  static std::string stockSummary(std::vector<std::string> &lstOfArt, std::vector<std::string> &categories) {
+    if (!lstOfArt.size() || !categories.size()) {
+      return "";
+    }
+    std::unordered_map<char, int> hashmap;
+    for (std::string& art : lstOfArt) {
+      std::unordered_set<char> hashset;
+      std::string s;
+      std::stringstream ss(art);
+      int index = 0;
+      int mod = 0;
+      char letter = 'n';
+      while (std::getline(ss, s, ' ')) {
+        if (index) {
+          mod = std::stoi(s);
+        } else {
+          letter = s[0];
+        }
+        ++index;
+      }
+      hashmap[letter] += mod;
+    }
+    std::string output = "";
+    int index = 0;
+    for (const std::string& category : categories) {
+        if (index) {
+            output += " - ";
+        }
+        output += "(" + category + " : " + std::to_string(hashmap[category[0]]) + ")";
+        ++index;
+    }
+    return output;
+  };
+};
