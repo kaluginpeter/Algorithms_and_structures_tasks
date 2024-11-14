@@ -39,3 +39,55 @@
 # m == quantities.length
 # 1 <= m <= n <= 105
 # 1 <= quantities[i] <= 105
+# Solution
+# C++ O(NlogN) O(1) Binary Search
+class Solution {
+public:
+    bool isPossible(int middle, int n, std::vector<int>& quantities) {
+        for (int quantity : quantities) {
+            if (n <= 0) {
+                return false;
+            }
+            n -= quantity / middle + (quantity % middle != 0? 1 : 0);
+        }
+        return n >= 0;
+    }
+
+    int minimizedMaximum(int n, vector<int>& quantities) {
+        int left = 1;
+        int right = *std::max_element(quantities.begin(), quantities.end());
+        int minX = std::pow(10, 5) + 1;
+        while (left <= right) {
+            int middle = left + (right - left) / 2;
+            if (isPossible(middle, n, quantities)) {
+                minX = middle;
+                right = middle - 1;
+            } else {
+                left = middle + 1;
+            }
+        }
+        return minX;
+    }
+};
+
+# Python O(NlogN) O(1) Binary Search
+class Solution:
+    def distribution(self, middle: int, n: int, quantities: list[int]) -> bool:
+        for quantity in quantities:
+            if n <= 0: return False
+            n -= quantity // middle + bool(quantity % middle != 0)
+        return n >= 0
+
+    def minimizedMaximum(self, n: int, quantities: List[int]) -> int:
+        left: int = 1
+        right: int = max(quantities)
+        min_x: int = 10**5 + 1
+        while left <= right:
+            middle: int = left + (right - left) // 2
+            is_possible: bool = self.distribution(middle, n, quantities)
+            if is_possible:
+                min_x = middle
+                right = middle - 1
+            else:
+                left = middle + 1
+        return min_x
