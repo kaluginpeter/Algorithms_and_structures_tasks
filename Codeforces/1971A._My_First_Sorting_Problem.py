@@ -52,3 +52,30 @@
 # 3 3
 # 0 0
 # 9 9
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int x, y;
+        std::cin >> x >> y;
+        std::cout << std::min(x, y) << " " << std::max(x, y) << std::endl;
+    }
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        x, y = map(int, sys.stdin.readline().rstrip().split())
+        sys.stdout.write(f'{min(x, y)} {max(x, y)}\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
