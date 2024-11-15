@@ -79,3 +79,4 @@ def solution(t: int) -> None:
 if __name__ == '__main__':
     t: int = int(sys.stdin.readline().rstrip())
     solution(t)
+
