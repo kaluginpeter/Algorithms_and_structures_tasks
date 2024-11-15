@@ -53,3 +53,48 @@
 #
 # In the fourth test case, a possible way of splitting the set is (2,3)
 # .
+# Solution
+# C++ O(N) O(1) Math Greedy
+#include <iostream>
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        int evens = 0;
+        int odds = 0;
+        for (int j = 0; j < 2 * n; ++j) {
+            int num;
+            std::cin >> num;
+            if (num & 1) {
+                ++odds;
+            } else {
+                ++evens;
+            }
+        }
+        std::cout << (odds == evens? "Yes" : "No") << "\n";
+    }
+}
+
+# Python O(N) O(1) Math Greedy
+import sys
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        evens: int = 0
+        odds: int = 0
+        nums: list = list(map(int, sys.stdin.readline().rstrip().split()))
+        for num in nums:
+            if num & 1:
+                odds += 1
+            else:
+                evens += 1
+        sys.stdout.write('Yes' if odds == evens else 'No')
+        sys.stdout.write('\n')
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
