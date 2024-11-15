@@ -12,3 +12,19 @@
 # Enjoy!
 #
 # Refactoring
+# Solution
+def fix_parentheses(strng):
+    stack: list[str] = []
+    opens: int = 0
+    closed: int = 0
+    for brace in strng:
+        if brace == '(':
+            stack.append(brace)
+            opens += 1
+        else:
+            if not opens:
+                closed += 1
+            else:
+                opens -= 1
+            stack.append(brace)
+    return ''.join(['('] * closed + stack + [')'] * opens)
