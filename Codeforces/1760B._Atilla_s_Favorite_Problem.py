@@ -65,3 +65,43 @@
 # . The smallest alphabet size that contains all of them is 23
 #  (such alphabet can be represented as the string abcdefghijklmnopqrstuvw
 # ).
+# Solution
+# C++ O(N) O(1) String
+#include <iostream>
+#include <string>
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        std::string letters;
+        std::cin >> letters;
+        int maxChar = 0;
+        for (char letter : letters) {
+            if (letter - 'a' > maxChar) {
+                maxChar = letter - 'a';
+            }
+        }
+        std::cout << maxChar + 1 << "\n";
+    }
+}
+
+# Python O(N) O(1) String
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        letters: str = sys.stdin.readline().rstrip()
+        max_char: int = 0
+        for letter in letters:
+            max_char = max(max_char, ord(letter) - 96)
+        sys.stdout.write(str(max_char) + '\n')
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
