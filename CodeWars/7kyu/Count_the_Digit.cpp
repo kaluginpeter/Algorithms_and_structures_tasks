@@ -20,3 +20,28 @@ Note that 121 has twice the digit 1.
 
 Fundamentals
 */
+// Solution
+class CountDig
+{
+public:
+    static int countDigit(int k, int d) {
+      if (k == 0 && d == 0) {
+        return 1;
+      }
+      int count = 0;
+      while (k) {
+        if (k % 10 == d) {
+          ++count;
+        }
+        k /= 10;
+      }
+      return count;
+    }
+    static int nbDig(int n, int d) {
+      int output = 0;
+      for (int k = 0; k <= n; ++k) {
+        output += countDigit(k * k, d);
+      }
+      return output;
+    };
+};
