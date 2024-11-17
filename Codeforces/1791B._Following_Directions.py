@@ -79,3 +79,66 @@
 # (0,0)→R(1,0)→R(2,0)→R(3,0)→U(3,1)→U(3,2)→D(3,1)→D(3,0)→D(3,−1).
 # In the fourth test case, Alperen follows the path
 # (0,0)→L(−1,0)→L(−2,0)→L(−3,0).
+# Solution
+# C++ O(N) O(1) Simulation
+#include <iostream>
+#include <string>
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        std::string moves;
+        std::cin >> moves;
+        bool isValid = false;
+        int row = 0, col = 0;
+        for (char move : moves) {
+            if (move == 'L') {
+                --row;
+            } else if (move == 'R') {
+                ++row;
+            } else if (move == 'U') {
+                ++col;
+            } else {
+                --col;
+            }
+            if (row == 1 && col == 1) {
+                isValid = true;
+                break;
+            }
+        }
+        std::cout << (isValid? "YES" : "NO") << "\n";
+    }
+}
+
+# Python O(N) O(1) Simulation
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        moves: str = sys.stdin.readline().rstrip()
+        is_valid: bool = False
+        row = col = 0
+        for move in moves:
+            if move == 'L':
+                row -= 1
+            elif move == 'R':
+                row += 1
+            elif move == 'U':
+                col += 1
+            else:
+                col -= 1
+            if row == col == 1:
+                is_valid = True
+                break;
+        sys.stdout.write('YES' if is_valid else 'NO')
+        sys.stdout.write('\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
