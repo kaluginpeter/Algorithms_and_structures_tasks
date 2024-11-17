@@ -46,3 +46,45 @@
 # 1 <= queries.length <= 105
 # queries[i].length == 2
 # 0 <= li <= ri < nums.length
+# Solution
+# Python O(N) O(N) Sweep Line
+class Solution:
+    def isZeroArray(self, nums: List[int], queries: List[List[int]]) -> bool:
+        n: int = len(nums)
+        diff_arr: list[int] = [0] * n
+        for query in queries:
+            left, right = query
+            diff_arr[left] += 1
+            if right + 1 < n:
+                diff_arr[right + 1] -= 1
+        counter: int = 0
+        for idx in range(n):
+            counter += diff_arr[idx]
+            if counter < nums[idx]:
+                return False
+        return True
+
+# C++ O(N) O(N) Sweep Line
+class Solution {
+public:
+    bool isZeroArray(vector<int>& nums, vector<vector<int>>& queries) {
+        int n = nums.size();
+        std::vector<int> diffArr(n, 0);
+        for (std::vector<int>& query : queries) {
+            int left = query[0];
+            int right = query[1];
+            ++diffArr[left];
+            if (right + 1 < n) {
+                --diffArr[right + 1];
+            }
+        }
+        int counter = 0;
+        for (int index = 0; index < n; ++index) {
+            counter += diffArr[index];
+            if (counter < nums[index]) {
+                return false;
+            }
+        }
+        return true;
+    }
+};
