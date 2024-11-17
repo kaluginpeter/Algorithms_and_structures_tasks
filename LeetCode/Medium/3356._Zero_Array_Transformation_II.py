@@ -48,3 +48,76 @@
 # queries[i].length == 3
 # 0 <= li <= ri < nums.length
 # 1 <= vali <= 5
+# Solution
+# Python O(NlogN) O(N) Sweep Line Binary Search
+class Solution:
+    def sweep_line(self, bound: int, nums: list[int], queires: list[list[int]]) -> bool:
+        n: int = len(nums)
+        diff_arr: list[int] = [0] * n
+        for idx in range(bound):
+            left, right, val = queires[idx]
+            diff_arr[left] += val
+            if right + 1 < n:
+                diff_arr[right + 1] -= val
+        counter: int = 0
+        for idx in range(n):
+            counter += diff_arr[idx]
+            if counter < nums[idx]:
+                return False
+        return True
+
+    def minZeroArray(self, nums: List[int], queries: List[List[int]]) -> int:
+        left: int = 0
+        right: int = len(queries) + 1
+        result: int = -1
+        while left < right:
+            middle: int = left + (right - left) // 2
+            if self.sweep_line(middle, nums, queries):
+                result = middle
+                right = middle
+            else:
+                left = middle + 1
+        return result
+
+# C++ O(NlogN) O(N) Sweep Line Binary Search
+class Solution {
+public:
+    bool sweepLine(int bound, std::vector<int>& nums, std::vector<std::vector<int>>& queries) {
+        int n = nums.size();
+        std::vector<int> diffArr(n, 0);
+        for (int index = 0; index < bound; ++index) {
+            std::vector<int>& query = queries[index];
+            int left = query[0];
+            int right = query[1];
+            int val = query[2];
+            diffArr[left] += val;
+            if (right + 1 < n) {
+                diffArr[right + 1] -= val;
+            }
+        }
+        int counter = 0;
+        for (int index = 0; index < n; ++index) {
+            counter += diffArr[index];
+            if (counter < nums[index]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    int minZeroArray(vector<int>& nums, vector<vector<int>>& queries) {
+        int left = 0;
+        int right = queries.size() + 1;
+        int result = -1;
+        while (left < right) {
+            int middle = left + (right - left) / 2;
+            if (sweepLine(middle, nums, queries)) {
+                result = middle;
+                right = middle;
+            } else {
+                left = middle + 1;
+            }
+        }
+        return result;
+    }
+};
