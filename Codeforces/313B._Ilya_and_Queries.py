@@ -42,3 +42,56 @@
 # 2
 # 2
 # 0
+# Solution
+# C++ O(N) O(N) Prefix Sum
+#include <iostream>
+#include <string>
+#include <vector>
+
+
+int main() {
+    std::string exams;
+    std::cin >> exams;
+    int n = exams.size();
+    std::vector<int> prefix(n, 0);
+    for (int index = 0; index < n - 1; ++index) {
+        int score = (exams[index] == exams[index + 1]? 1 : 0);
+        if (!index) {
+            prefix[index] = score;
+        } else {
+            prefix[index] = score + prefix[index - 1];
+        }
+    }
+    if (n > 1) {
+        prefix[n - 1] = prefix[n - 2];
+    }
+    int m;
+    std::cin >> m;
+    for (int i = 0; i < m; ++i) {
+        int left, right;
+        std::cin >> left >> right;
+        std::cout << (right - 1? prefix[right - 2] : 0) - (left - 1? prefix[left - 2] : 0) << "\n";
+    }
+}
+
+# Python O(N) O(N) Prefix Sum
+import sys
+
+
+def solution(exams: str, m: int) -> None:
+    n: int = len(exams)
+    prefix: list = [0] * n
+    for idx in range(n - 1):
+        score: int = exams[idx] == exams[idx + 1]
+        prefix[idx] = prefix[idx - 1] + score
+    if n > 1:
+        prefix[-1] = prefix[-2]
+    for _ in range(m):
+        left, right = map(int, sys.stdin.readline().rstrip().split())
+        sys.stdout.write(str((prefix[right - 2] if right - 1 else 0) - (prefix[left - 2] if left - 1 else 0)) + '\n')
+
+
+if __name__ == '__main__':
+    exams: str = sys.stdin.readline().rstrip()
+    m: int = int(sys.stdin.readline().rstrip())
+    solution(exams, m)
