@@ -47,3 +47,83 @@ class Solution(object):
             x = i + len(code) // 2 - 1
             l.append(sum(code[x: x + k: -1]))
         return l
+
+
+# Python O(N) O(N) Prefix Sum
+class Solution:
+    def get_remainder(self, idx: int, n: int, k: int, prefix: list[int], is_negative: bool) -> int:
+        remainder: int = 0
+        if is_negative:
+            if idx - k >= 0:
+                return prefix[idx - 1] - (prefix[idx - k - 1] if idx - k else 0)
+            overhead_idx: int = k - idx
+            return (prefix[idx - 1] if idx else 0) + (prefix[-1] - prefix[-overhead_idx - 1])
+        else:
+            if idx + k < n:
+                return prefix[idx + k] - prefix[idx]
+            overhead_idx: int = k - (n - idx)
+            return (prefix[-1] - prefix[idx]) + prefix[overhead_idx]
+
+    def decrypt(self, code: List[int], k: int) -> List[int]:
+        n: int = len(code)
+        output: list[int] = [0] * n
+        if not k:
+            return output
+        prefix: list[int] = []
+        for idx in range(n):
+            if not idx:
+                prefix.append(code[idx])
+            else:
+                prefix.append(code[idx] + prefix[-1])
+        wholes: int = abs(k) // n * prefix[-1]
+        is_negative: bool = k < 0
+        k = abs(k) % n
+        for idx in range(n):
+            remainder: int = self.get_remainder(idx, n, k, prefix, is_negative)
+            output[idx] = wholes + remainder
+        return output
+
+# C++ O(N) O(N) Prefix Sum
+class Solution {
+public:
+    int getRemainder(int idx, int n, int k, std::vector<int>& prefix, bool isNegative) {
+        int remainder = 0;
+        if (isNegative) {
+            if (idx - k >= 0) {
+                return prefix[idx - 1] - (idx - k? prefix[idx - k - 1] : 0);
+            }
+            int overheadIdx = n - (k - idx);
+            return (idx? prefix[idx - 1] : 0) + (prefix[n - 1] - prefix[overheadIdx - 1]);
+        } else {
+            if (idx + k < n) {
+                return prefix[idx + k] - prefix[idx];
+            }
+            int overheadIdx = k - (n - idx);
+            return (prefix[n - 1] - prefix[idx]) + prefix[overheadIdx];
+        }
+        return remainder;
+    }
+    vector<int> decrypt(vector<int>& code, int k) {
+        int n = code.size();
+        std::vector<int> output(n, 0);
+        if (!k) {
+            return output;
+        }
+        std::vector<int> prefix;
+        for (int idx = 0; idx < n; ++idx) {
+            if (!idx) {
+                prefix.push_back(code[idx]);
+            } else {
+                prefix.push_back(code[idx] + prefix[prefix.size() - 1]);
+            }
+        }
+        int wholes = std::abs(k) / n * prefix[n - 1];
+        bool isNegative = k < 0;
+        k = std::abs(k) % n;
+        for (int idx = 0; idx < n; ++idx) {
+            int remainder = getRemainder(idx, n, k, prefix, isNegative);
+            output[idx] = wholes + remainder;
+        }
+        return output;
+    }
+};
