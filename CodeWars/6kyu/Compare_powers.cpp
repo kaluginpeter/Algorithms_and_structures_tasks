@@ -16,3 +16,28 @@ Only positive integers will be tested, including bigger numbers - you are warned
 
 Algorithms
 */
+// Solution
+#include <iostream>
+#include <cmath>
+#include <utility>
+
+int comparePowers(std::pair<long, long> n1, std::pair<long, long> n2) {
+    if (n1.first == 1 && n2.first == 1) {
+        return 0;
+    }
+    if (n1.first == 1) {
+        return 1;
+    }
+    if (n2.first == 1) {
+        return -1;
+    }
+    double log1 = n1.second * std::log(n1.first);
+    double log2 = n2.second * std::log(n2.first);
+    if (log1 < log2) {
+        return 1;
+    } else if (log1 > log2) {
+        return -1;
+    } else {
+        return 0;
+    }
+}
