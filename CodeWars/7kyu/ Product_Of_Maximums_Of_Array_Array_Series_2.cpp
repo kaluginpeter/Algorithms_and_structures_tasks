@@ -35,3 +35,19 @@ Enjoy Learning !!
 Zizou
 FundamentalsArrays
 */
+// Solution
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int maxProduct (vector<int>numbers , int sub_size)
+{
+  std::sort(numbers.begin(), numbers.end(), std::greater<int>());
+  int n = numbers.size();
+  int output = 1;
+  for (int idx = 0; idx < std::min(n, sub_size); ++idx) {
+    output *= numbers[idx];
+  }
+  return output;
+}
