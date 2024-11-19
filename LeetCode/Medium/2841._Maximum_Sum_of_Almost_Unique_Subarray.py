@@ -30,3 +30,57 @@
 # 1 <= nums.length <= 2 * 104
 # 1 <= m <= k <= nums.length
 # 1 <= nums[i] <= 109
+# Solution
+# Python O(N) O(N) Sliding Window Hashmap
+class Solution:
+    def maxSum(self, nums: List[int], m: int, k: int) -> int:
+        hashmap: dict[int, int] = dict()
+        max_sum: int = 0
+        cur_sum: int = 0
+        size: int = 0
+        left: int = 0
+        for right in range(len(nums)):
+            hashmap[nums[right]] = hashmap.get(nums[right], 0) + 1
+            cur_sum += nums[right]
+            size += 1
+            while size > k:
+                cur_sum -= nums[left]
+                size -= 1
+                hashmap[nums[left]] -= 1
+                if not hashmap[nums[left]]:
+                    del hashmap[nums[left]]
+                left += 1
+            if len(hashmap) >= m:
+                max_sum = max(max_sum, cur_sum)
+        return max_sum
+
+# C++ O(N) O(N) Sliding Window HashMap
+class Solution {
+public:
+    long long maxSum(vector<int>& nums, int m, int k) {
+        std::unordered_map<int, int> hashmap;
+        long long maxSum = 0;
+        long long curSum = 0;
+        int n = nums.size();
+        int size = 0;
+        int left = 0;
+        for (int right = 0; right < n; ++right) {
+            ++hashmap[nums[right]];
+            curSum += nums[right];
+            ++size;
+            while (size > k) {
+                --size;
+                --hashmap[nums[left]];
+                if (!hashmap[nums[left]]) {
+                    hashmap.erase(nums[left]);
+                }
+                curSum -= nums[left];
+                ++left;
+            }
+            if (hashmap.size() >= m) {
+                maxSum = std::max(maxSum, curSum);
+            }
+        }
+        return maxSum;
+    }
+};
