@@ -72,3 +72,63 @@
 # the
 # game
 # aaaaaaaa
+# Solution
+# C++ O(NM) O(1) Simulation Matrix
+#include <iostream>
+#include <vector>
+#include <string>
+
+void printMatrix(std::vector<std::string>& matrix) {
+    for (int row = 0; row < 8; ++row) {
+        for (int col = 0; col < 8; ++col) {
+            if (matrix[row][col] != '.') {
+                while (row < 8 && matrix[row][col] != '.') {
+                    std::cout << matrix[row][col];
+                    ++row;
+                }
+                std::cout << "\n";
+                return;
+            }
+        }
+    }
+}
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        std::vector<std::string> matrix;
+        for (int r = 0; r < 8; ++r) {
+            std::string row;
+            std::cin >> row;
+            matrix.push_back(row);
+        }
+        printMatrix(matrix);
+    }
+}
+
+# Python O(NM) O(1) Simulation Matrix
+import sys
+
+def print_matrix(matrix: list) -> None:
+    for row in range(8):
+        for col in range(8):
+            if matrix[row][col] != '.':
+                while row < 8 and matrix[row][col] != '.':
+                    sys.stdout.write(matrix[row][col])
+                    row += 1
+                sys.stdout.write('\n')
+                return
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        matrix: list = []
+        for r in range(8):
+            row: str = sys.stdin.readline().rstrip()
+            matrix.append(row)
+        print_matrix(matrix)
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
