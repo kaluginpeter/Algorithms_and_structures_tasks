@@ -45,3 +45,55 @@
 # 4
 # 5
 # 18
+# Solution
+# C++ O(logN) O(1) Math
+#include <iostream>
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        long long n;
+        std::cin >> n;
+        long long mod = 1;
+        int output = 0;
+        bool isValid = true;
+        while (isValid) {
+            for (long long num = 1; num < 10; ++num) {
+                if (num * mod <= n) {
+                    ++output;
+                } else {
+                    isValid = false;
+                    std::cout << output << "\n";
+                    break;
+                }
+            }
+            mod = mod * 10 + 1;
+        }
+    }
+}
+
+# Python O(logN) O(1) Math
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        output: int = 0
+        mod: int = 1
+        is_valid: bool = True
+        while is_valid:
+            for num in range(1, 10):
+                if num * mod <= n:
+                    output += 1
+                else:
+                    sys.stdout.write(str(output) + '\n')
+                    is_valid = False
+                    break
+            mod = mod * 10 + 1
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
