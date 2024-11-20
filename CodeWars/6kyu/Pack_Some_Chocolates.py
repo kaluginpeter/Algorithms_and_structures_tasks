@@ -24,3 +24,20 @@
 # # accomplishment, therefore don't use it!
 # make_chocolates (3, 1, 6) => 3
 # Fundamentals
+# Solution
+# return the number of small chocolates required to achieve
+# the desired goal. Return -1 if the goal cannot be achieved
+def make_chocolates(small, big, goal):
+    if not goal:
+        return 0
+    big_quant: int = min(goal // 5, big)
+    goal -= 5 * big_quant
+    if goal < 2 and not big_quant:
+        return -1
+    if goal & 1:
+        if not big_quant:
+            return -1
+        goal += 5
+    if goal // 2 > small:
+        return -1
+    return goal // 2
