@@ -24,3 +24,41 @@
 # For the first sample, Dreamoon could climb in 6 moves with following sequence of steps: {2, 2, 2, 2, 1, 1}.
 #
 # For the second sample, there are only three valid sequence of steps {2, 1}, {1, 2}, {1, 1, 1} with 2, 2, and 3 steps respectively. All these numbers are not multiples of 5.
+# Solution
+# C++ O(logN) O(1) Math
+#include <iostream>
+
+void solution(int n, int m) {
+    int big = n / 2;
+    n %= 2;
+    while ((big + n) % m != 0) {
+        if (!big) {
+            break;
+        }
+        --big;
+        n += 2;
+    }
+    std::cout << ((big + n) % m == 0? big + n : -1) << "\n";
+}
+
+int main() {
+    int n, m;
+    std::cin >> n >> m;
+    solution(n, m);
+}
+# Python O(logN) O(1) Math
+import sys
+
+
+def solution(n: int, m: int) -> None:
+    big: int = n // 2
+    n %= 2
+    while (big + n) % m != 0:
+        if not big:
+            break
+        big -= 1
+        n += 2
+    sys.stdout.write(str([-1, big + n][(big + n) % m == 0]) + '\n')
+if __name__ == '__main__':
+    n, m = map(int, sys.stdin.readline().rstrip().split())
+    solution(n, m)
