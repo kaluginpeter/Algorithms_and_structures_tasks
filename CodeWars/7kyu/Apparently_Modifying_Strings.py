@@ -24,3 +24,13 @@
 # reference that may help: https://www.youtube.com/watch?v=rz5TGN7eUcM
 #
 # StringsFundamentals
+# Solution
+def apparently(st):
+    words: list[str] = st.split()
+    output: list[str] = []
+    for idx in range(len(words)):
+        output.append(words[idx])
+        if words[idx] in ['and', 'but']:
+            if idx + 1 >= len(words) or words[idx + 1] != 'apparently':
+                output.append('apparently')
+    return ' '.join(output)
