@@ -23,3 +23,10 @@
 #
 # SJF([3,10,20,1,2], 0) == 6
 # SchedulingQueuesAlgorithms
+# Solution
+def SJF(jobs, index):
+    time: int = 0
+    for idx in range(len(jobs)):
+        if jobs[idx] < jobs[index] or (jobs[idx] == jobs[index] and idx <= index):
+            time += jobs[idx]
+    return time
