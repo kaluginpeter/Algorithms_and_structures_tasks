@@ -73,3 +73,56 @@
 #  all occur at least three times, so they are all valid outputs.
 #
 # For the sixth test case, all elements are distinct, so none of them occurs at least three times and the answer is -1.
+# Solution
+# C++ O(N) O(N) HashMap
+#include <iostream>
+#include <unordered_map>
+
+void solution(int t) {
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        std::unordered_map<int, int> hashmap;
+        for (int j = 0; j < n; ++j) {
+            int num;
+            std::cin >> num;
+            ++hashmap[num];
+        }
+        int output = -1;
+        for (auto& pair : hashmap) {
+            if (pair.second > 2) {
+                output = pair.first;
+                break;
+            }
+        }
+        std::cout << output << "\n";
+    }
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    solution(t);
+}
+
+# Python O(N) O(N) HashMap
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: list = list(map(int, sys.stdin.readline().rstrip().split()))
+        hashmap: dict = dict()
+        output: int = -1
+        for num in nums:
+            hashmap[num] = hashmap.get(num, 0) + 1
+            if hashmap[num] > 2:
+                output = num
+                break
+        sys.stdout.write(str(output) + '\n')
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
