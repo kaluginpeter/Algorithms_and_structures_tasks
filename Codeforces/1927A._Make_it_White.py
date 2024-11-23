@@ -59,3 +59,58 @@
 # -nd to the 5
 # -th cell (the cells are numbered from 1
 #  from left to right).
+# Solution
+# C++ O(N) O(1) Two Pointers
+#include <iostream>
+#include <string>
+
+void solution(int t) {
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        std::string stripe;
+        std::cin >> stripe;
+        int left = -1;
+        int right = -1;
+        for (int index = 0; index < n; ++index) {
+            if (stripe[index] == 'B') {
+                if (left == -1) {
+                    left = index;
+                    right = index;
+                } else {
+                    right = index;
+                }
+            }
+        }
+        std::cout << right - left + 1 << "\n";
+    }
+}
+
+int main() {
+    int t;
+    std::cin >> t;
+    solution(t);
+}
+# Python O(N) O(1) Two Pointers
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        stripe: str = sys.stdin.readline().rstrip()
+        left: int = -1
+        righ: int = -1
+        for idx in range(n):
+            if stripe[idx] == 'B':
+                if left == -1:
+                    left = idx
+                    right = idx
+                else:
+                    right = idx
+        sys.stdout.write(str(right - left + 1) + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
