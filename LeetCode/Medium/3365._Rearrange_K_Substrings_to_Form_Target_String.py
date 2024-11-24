@@ -49,3 +49,51 @@
 # s.length is divisible by k.
 # s and t consist only of lowercase English letters.
 # The input is generated such that s and t are anagrams of each other.
+# Solution
+# Python O(N) O(N) HashMap
+class Solution:
+    def isPossibleToRearrange(self, s: str, t: str, k: int) -> bool:
+        n: int = len(s)
+        segment_length: int = n // k
+        hashmap: dict[str, int] = dict()
+        segment_s: list[str] = []
+        segment_t: list[str] = []
+        for idx in range(n):
+            segment_s.append(s[idx])
+            segment_t.append(t[idx])
+            if len(segment_s) == segment_length:
+                str_segment_s: str = ''.join(segment_s)
+                str_segment_t: str = ''.join(segment_t)
+                hashmap[str_segment_s] = hashmap.get(str_segment_s, 0) + 1
+                hashmap[str_segment_t] = hashmap.get(str_segment_t, 0) - 1
+                segment_s.clear()
+                segment_t.clear()
+        return all(freq >= 0 for segment, freq in hashmap.items())
+
+# C++ O(N) O(N) HashMap
+class Solution {
+public:
+    bool isPossibleToRearrange(string s, string t, int k) {
+        std::unordered_map<std::string, int> hashmap;
+        int n = s.size();
+        int segmentLength = n / k;
+        std::string segmentS = "";
+        std::string segmentT = "";
+        for (int index = 0; index < n; ++index) {
+            segmentS += s[index];
+            segmentT += t[index];
+            if (segmentS.size() == segmentLength) {
+                ++hashmap[segmentS];
+                --hashmap[segmentT];
+                segmentS = "";
+                segmentT = "";
+            }
+        }
+        for (auto& pair : hashmap) {
+            if (pair.second < 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+};
