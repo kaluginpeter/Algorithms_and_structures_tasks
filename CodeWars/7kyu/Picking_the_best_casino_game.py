@@ -31,3 +31,16 @@
 # Breakeven Steven has a higher EV than Go big or go home (0 vs -0.1) and therefore the function should return that name.
 #
 # ProbabilityMathematicsFundamentalsData ScienceStatistics
+# Solution
+def find_best_game(games):
+    best_game_name: str = ''
+    best_game_ev: float = float('-inf')
+    for game in games:
+        name, probabilities = game
+        cur_ev: float = 0
+        for probability, outcome in probabilities:
+            cur_ev += probability * outcome
+        if cur_ev > best_game_ev:
+            best_game_name = name
+            best_game_ev = cur_ev
+    return best_game_name
