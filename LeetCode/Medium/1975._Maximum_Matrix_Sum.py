@@ -29,3 +29,39 @@
 # n == matrix.length == matrix[i].length
 # 2 <= n <= 250
 # -105 <= matrix[i][j] <= 105
+# Solution
+# Python O(MN) O(1) Greedy Matrix
+class Solution:
+    def maxMatrixSum(self, matrix: List[List[int]]) -> int:
+        negative: int = 0
+        total_sum: int = 0
+        min_value: int = float('inf')
+        for row in range(len(matrix)):
+            for col in range(len(matrix[0])):
+                if matrix[row][col] < 0:
+                    negative += 1
+                    matrix[row][col] *= -1
+                total_sum += matrix[row][col]
+                min_value = min(min_value, matrix[row][col])
+        return total_sum - min_value * 2 if negative & 1 else total_sum
+
+# C++ O(MN) O(1) Greedy Matrix
+class Solution {
+public:
+    long long maxMatrixSum(vector<vector<int>>& matrix) {
+        long long totalSum = 0;
+        int minValue = std::pow(10, 5);
+        int negative = 0;
+        for (int row = 0; row < matrix.size(); ++row) {
+            for (int col = 0; col < matrix[0].size(); ++col) {
+                if (matrix[row][col] < 0) {
+                    ++negative;
+                    matrix[row][col] *= -1;
+                }
+                totalSum += matrix[row][col];
+                minValue = std::min(minValue, matrix[row][col]);
+            }
+        }
+        return (negative % 2? totalSum - minValue * 2 : totalSum);
+    }
+};
