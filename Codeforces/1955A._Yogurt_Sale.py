@@ -47,3 +47,42 @@
 #
 # In the fourth test case of the example, you need to buy four yogurts, each for 5
 #  burles.
+# Solution
+# C++ O(1) O(1) Greedy Math
+#include <iostream>
+
+void solution(int t) {
+    for (int i = 0; i < t; ++i) {
+        int n, a, b;
+        std::cin >> n >> a >> b;
+        if (b >= a * 2) {
+            std::cout << n * a << "\n";
+        } else {
+            std::cout << (n / 2 * b + n % 2 * a) << "\n";
+        }
+    }
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    solution(t);
+}
+
+# Python O(1) O(1) Math Greedy
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n, a, b = map(int, sys.stdin.readline().rstrip().split())
+        if b >= a * 2:
+            sys.stdout.write(str(n * a) + '\n')
+        else:
+            sys.stdout.write(str(n // 2 * b + n % 2 * a) + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
