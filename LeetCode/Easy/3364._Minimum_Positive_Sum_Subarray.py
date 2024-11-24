@@ -49,3 +49,45 @@
 # 1 <= nums.length <= 100
 # 1 <= l <= r <= nums.length
 # -1000 <= nums[i] <= 1000
+# Solution
+# Python O(KN), where K is r - l + 1 O(1) Sliding Window
+class Solution:
+    def minimumSumSubarray(self, nums: List[int], l: int, r: int) -> int:
+        min_sum = float('inf')
+        n: int = len(nums)
+        for window_size in range(l, r + 1):
+            window_sum: int = sum(nums[:window_size])
+            if window_sum > 0:
+                min_sum = min(min_sum, window_sum)
+            for shrink in range(window_size, n):
+                window_sum += nums[shrink]
+                window_sum -= nums[shrink - window_size]
+                if window_sum > 0:
+                    min_sum = min(min_sum, window_sum)
+        return min_sum if min_sum != float('inf') else -1
+
+# C++ O(KN), where K is r - l + 1 O(1) Sliding Window
+class Solution {
+public:
+    int minimumSumSubarray(vector<int>& nums, int l, int r) {
+        int minSum = std::pow(10, 6) + 1;
+        int n = nums.size();
+        for (int windowSize = l; windowSize < r + 1; ++windowSize) {
+            int curSum = 0;
+            for (int index = 0; index < windowSize; ++index) {
+                curSum += nums[index];
+            }
+            if (curSum > 0) {
+                minSum = std::min(minSum, curSum);
+            }
+            for (int shrink = windowSize; shrink < n; ++shrink) {
+                curSum += nums[shrink];
+                curSum -= nums[shrink - windowSize];
+                if (curSum > 0) {
+                    minSum = std::min(minSum, curSum);
+                }
+            }
+        }
+        return (minSum != std::pow(10, 6) + 1? minSum : -1);
+    }
+};
