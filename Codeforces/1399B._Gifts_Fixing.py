@@ -100,3 +100,70 @@
 # choose the third gift and eat one candy from it, so a=[3,3,3]
 #  and b=[2,2,2]
 # .
+# Solution
+# C++ O(N) O(1) Math Greedy
+#include <iostream>
+#include <vector>
+
+void solution(int t) {
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        std::vector<int> candies;
+        int minCandy = 1000000000;
+        for (int j = 0; j < n; ++j) {
+            int candy;
+            std::cin >> candy;
+            minCandy = std::min(minCandy, candy);
+            candies.push_back(candy);
+        }
+        std::vector<int> oranges;
+        int minOrange = 1000000000;
+        for (int j = 0; j < n; ++j) {
+            int orange;
+            std::cin >> orange;
+            minOrange = std::min(minOrange, orange);
+            oranges.push_back(orange);
+        }
+        long long moves = 0;
+        for (int index = 0; index < n; ++index) {
+            int neededCandies = candies[index] - minCandy;
+            int neededOranges = oranges[index] - minOrange;
+            int mainPart = std::min(neededCandies, neededOranges);
+            moves += mainPart;
+            moves += neededCandies + neededOranges - mainPart * 2;
+        }
+        std::cout << moves << "\n";
+    }
+}
+
+int main() {
+    int t;
+    std::cin >> t;
+    solution(t);
+}
+
+# Python O(N) O(1) Math Greedy
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        candies: list = list(map(int, sys.stdin.readline().rstrip().split()))
+        oranges: list = list(map(int, sys.stdin.readline().rstrip().split()))
+        min_candy: int = min(candies)
+        min_orange: int = min(oranges)
+        moves: int = 0
+        for idx in range(n):
+            needed_candies: int = candies[idx] - min_candy
+            needed_oranges: int = oranges[idx] - min_orange
+            main_part: int = min(needed_candies, needed_oranges)
+            moves += main_part
+            moves += needed_candies + needed_oranges - main_part * 2
+        sys.stdout.write(str(moves) + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
