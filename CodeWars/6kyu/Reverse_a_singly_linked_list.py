@@ -7,3 +7,13 @@
 # The final tests will use a very long list. Be aware that a recursive solution will run out of stack.
 #
 # Algorithms
+# Solution
+def reverse_list(node):
+    prev = None
+    cur = node
+    while cur:
+        nxt = cur.next
+        cur.next = prev
+        prev = cur
+        cur = nxt
+    return prev
