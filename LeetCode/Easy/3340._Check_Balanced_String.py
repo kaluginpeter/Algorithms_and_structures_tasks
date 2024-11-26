@@ -30,3 +30,31 @@
 #
 # 2 <= num.length <= 100
 # num consists of digits only
+# Solution
+# Python O(N) O(1) Math String
+class Solution:
+    def isBalanced(self, num: str) -> bool:
+        odds = evens = 0
+        for idx in range(len(num)):
+            if idx & 1:
+                odds += int(num[idx])
+            else:
+                evens += int(num[idx])
+        return evens == odds
+
+# C++ O(N) O(1) Math String
+class Solution {
+public:
+    bool isBalanced(string num) {
+        int odds = 0;
+        int evens = 0;
+        for (int index = 0; index < num.size(); ++index) {
+            if (index % 2) {
+                odds += num[index] - '0';
+            } else {
+                evens += num[index] - '0';
+            }
+        }
+        return odds == evens;
+    }
+};
