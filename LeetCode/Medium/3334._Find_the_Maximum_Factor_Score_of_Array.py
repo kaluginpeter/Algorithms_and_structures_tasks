@@ -44,3 +44,26 @@
 #
 # 1 <= nums.length <= 100
 # 1 <= nums[i] <= 30
+# Solution
+# Python O(N**2) O(N) Math
+def gcd(a, b):
+    return math.gcd(a, b)
+
+def lcm(a, b):
+    return abs(a * b) // gcd(a, b)
+
+def gcd_of_list(numbers):
+    return reduce(gcd, numbers)
+
+def lcm_of_list(numbers):
+    return reduce(lcm, numbers)
+
+class Solution:
+    def maxScore(self, nums: List[int]) -> int:
+        if len(nums) == 1:
+            return nums[0] * nums[0]
+        max_output: int = gcd_of_list(nums) * lcm_of_list(nums)
+        for idx in range(len(nums)):
+            second = nums[:idx] + nums[idx + 1:]
+            max_output = max(max_output, gcd_of_list(second) * lcm_of_list(second))
+        return max_output
