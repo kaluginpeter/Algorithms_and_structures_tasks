@@ -38,3 +38,45 @@
 # 9
 # 4
 # 784
+# Solution
+# C++ O(NlogN) O(N) Math
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+void solution(int t) {
+    for (int i = 0; i < t; ++i) {
+        std::vector<std::pair<int, int>> plane;
+        for (int j = 0; j < 4; ++j) {
+            int x, y;
+            std::cin >> x >> y;
+            plane.push_back({x, y});
+        }
+        std::sort(plane.begin(), plane.end());
+        std::cout << (plane[1].second - plane[0].second) * (plane[3].first - plane[1].first) << "\n";
+    }
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    solution(t);
+}
+
+# Python O(NlogN) O(N) Math
+import sys
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        plane: list[list[int]] = []
+        for i in range(4):
+            x, y = map(int, sys.stdin.readline().rstrip().split())
+            plane.append([x, y])
+        plane.sort()
+        sys.stdout.write(str((plane[1][1] - plane[0][1]) * (plane[3][0] - plane[1][0])) + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
