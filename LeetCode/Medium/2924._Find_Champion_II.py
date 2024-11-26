@@ -40,3 +40,42 @@
 # edges[i][0] != edges[i][1]
 # The input is generated such that if team a is stronger than team b, team b is not stronger than team a.
 # The input is generated such that if team a is stronger than team b and team b is stronger than team c, then team a is stronger than team c.
+# Solution
+# Python O(N) O(N) Graph
+class Solution:
+    def findChampion(self, n: int, edges: List[List[int]]) -> int:
+        states: list[bool] = [True] * n
+        for edge in edges:
+            states[edge[1]] = False
+        is_champion: bool = False
+        champion: int = 0
+        for man in range(n):
+            if states[man]:
+                if is_champion:
+                    return -1
+                is_champion = True
+                champion = man
+        return champion
+
+# C++ O(N) O(N) Graph
+class Solution {
+public:
+    int findChampion(int n, vector<vector<int>>& edges) {
+        std::vector<bool> states(n, true);
+        for (std::vector<int>& edge : edges) {
+            states[edge[1]] = false;
+        }
+        int champion = 0;
+        bool isChampion = false;
+        for (int man = 0; man < n; ++man) {
+            if (states[man]) {
+                if (isChampion) {
+                    return -1;
+                }
+                isChampion = true;
+                champion = man;
+            }
+        }
+        return champion;
+    }
+};
