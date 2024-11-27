@@ -32,3 +32,14 @@
 #
 # Output: 3 (Minimum of 3 green light cycles required)
 # FundamentalsStringsAlgorithms
+# Solution
+def traffic_jam(traffic, green_light_duration):
+    lights: int = 0
+    cur_time: int = 0
+    for time in traffic:
+        if time > cur_time:
+            cur_time = green_light_duration - time
+            lights += 1
+        else:
+            cur_time -= time
+    return lights
