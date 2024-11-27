@@ -91,3 +91,45 @@ class Solution:
             paths[source].append(destination)
             answer.append(self.dijkstra(0, n - 1, paths))
         return answer
+
+# C++ O(K(ElogE)) O(ElogE)
+class Solution {
+public:
+    int dijkstra(int source, int destination, std::unordered_map<int, std::vector<int>>& paths) {
+        std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<std::pair<int, int>>> pq;
+        pq.push({0, source});
+        std::unordered_set<int> seen;
+        while (pq.size()) {
+            int curTime = pq.top().first;
+            int curVertex = pq.top().second;
+            pq.pop();
+            if (curVertex == destination) {
+                return curTime;
+            }
+            if (seen.count(curVertex)) {
+                continue;
+            }
+            seen.insert(curVertex);
+            for (int neighbor : paths[curVertex]) {
+                if (!seen.count(neighbor)) {
+                    pq.push({curTime + 1, neighbor});
+                }
+            }
+        }
+        return -1;
+    }
+    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {
+        std::unordered_map<int, std::vector<int>> paths;
+        for (int vertex = 0; vertex < n; ++ vertex) {
+            paths[vertex].push_back(vertex + 1);
+        }
+        std::vector<int> output;
+        for (std::vector<int>& query : queries) {
+            int source = query[0];
+            int destination = query[1];
+            paths[source].push_back(destination);
+            output.push_back(dijkstra(0, n - 1, paths));
+        }
+        return output;
+    }
+};
