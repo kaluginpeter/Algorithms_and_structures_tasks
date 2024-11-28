@@ -35,3 +35,32 @@
 # Good luck!
 #
 # AlgorithmsArraysListsLogic
+# Solution
+def check_grid(grid, pos, size):
+    output: list[list[int]] = []
+    c, r = pos
+    output.append(grid[r])
+    output.append([grid[row][c] for row in range(size)])
+    top_left_row = r
+    top_left_col = c
+    while top_left_row > 0 and top_left_col > 0:
+        top_left_row -= 1
+        top_left_col -= 1
+    top_left: list[int] = []
+    while top_left_row < size and top_left_col < size:
+        top_left.append(grid[top_left_row][top_left_col])
+        top_left_row += 1
+        top_left_col += 1
+    output.append(top_left)
+    top_right_row = r
+    top_right_col = c
+    while top_right_row > 0 and top_right_col < size - 1:
+        top_right_row -= 1
+        top_right_col += 1
+    top_right: list[int] = []
+    while top_right_row < size and top_right_col >= 0:
+        top_right.append(grid[top_right_row][top_right_col])
+        top_right_row += 1
+        top_right_col -= 1
+    output.append(top_right)
+    return output
