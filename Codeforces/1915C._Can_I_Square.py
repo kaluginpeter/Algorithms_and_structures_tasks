@@ -60,3 +60,45 @@
 #  square.
 #
 # In the third test case, Calin cannot build a square using all the given squares.
+# Solution
+# C++ O(logN) O(1) Math
+#include <iostream>
+#include <cmath>
+
+
+void solution(int t) {
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        long long sum = 0;
+        for (int j = 0; j < n; ++j) {
+            int square;
+            std::cin >> square;
+            sum += square;
+        }
+        long long corner = static_cast<long long>(std::sqrt(sum));
+        std::cout << (corner * corner == sum? "YES" : "NO") << "\n";
+    }
+}
+
+int main() {
+    int t;
+    std::cin >> t;
+    solution(t);
+}
+
+# Python O(logN) O(1) Math
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        sm: int = sum(map(int, sys.stdin.readline().rstrip().split()))
+        corner: int = int(sm**.5)
+        sys.stdout.write(['NO', 'YES'][corner * corner == sm] + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
