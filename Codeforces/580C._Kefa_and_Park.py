@@ -150,3 +150,4 @@ def solution(n: int, m: int) -> None:
 if __name__ == '__main__':
     n, m = map(int, sys.stdin.readline().rstrip().split())
     solution(n, m)
+
