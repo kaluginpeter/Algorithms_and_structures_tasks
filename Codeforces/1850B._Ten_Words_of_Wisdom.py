@@ -92,3 +92,51 @@
 # Response 5 has quality 1
 # .
 # Among these responses, Response 4 has the highest quality.
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+
+void solution(int t) {
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        int winner = 0;
+        int winnerCost = 0;
+        for (int pos = 0; pos < n; ++pos) {
+            int l, s;
+            std::cin >> l >> s;
+            if (s > winnerCost && l <= 10) {
+                winner = pos + 1;
+                winnerCost = s;
+            }
+        }
+        std::cout << winner << "\n";
+    }
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    solution(t);
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        winner: int = 0
+        winner_score: int = 0
+        for pos in range(n):
+            length, score = map(int, sys.stdin.readline().rstrip().split())
+            if score > winner_score and length <= 10:
+                winner = pos + 1
+                winner_score = score
+        sys.stdout.write(str(winner) + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
