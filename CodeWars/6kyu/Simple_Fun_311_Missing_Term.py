@@ -38,3 +38,11 @@
 # The term that little Chou left out in his exercise.
 #
 # Fundamentals
+# Solution
+def missing_term(n, little_chou_sum):
+    term: int = n
+    valid_sum: int = 0
+    while little_chou_sum >= valid_sum:
+        valid_sum += term
+        term += 1
+    return valid_sum - little_chou_sum
