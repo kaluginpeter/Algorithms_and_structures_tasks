@@ -18,4 +18,3 @@ if __name__ == '__main__':
     n: int = int(sys.stdin.readline().rstrip())
     nums: list[str] = sys.stdin.readline().rstrip().split()
     solution(n, nums)
-
