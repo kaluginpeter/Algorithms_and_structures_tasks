@@ -28,3 +28,40 @@
 # choose only 1 employee as a team leader with 9 employees under his responsibility.
 # choose 2 employees as team leaders with 4 employees under the responsibility of each of them.
 # choose 5 employees as team leaders with 1 employee under the responsibility of each of them.
+# Solution
+# C++ O(N) O(1) Brute Force
+#include <iostream>
+
+
+void solution(int n) {
+    int output = 0;
+    for (int teamLeaders = 1; teamLeaders < n; ++teamLeaders) {
+        if ((n - teamLeaders) % teamLeaders == 0) {
+            ++output;
+        }
+    }
+    std::cout << output << "\n";
+}
+
+
+int main() {
+    int n;
+    std::cin >> n;
+    solution(n);
+}
+
+# C++ O(N) O(1) Brute Force
+import sys
+
+
+def solution(n: int) -> None:
+    output: int = 0
+    for team_leaders in range(1, n):
+        if (n - team_leaders) % team_leaders == 0:
+            output += 1
+    sys.stdout.write(str(output) + '\n')
+
+
+if __name__ == '__main__':
+    n: int = int(sys.stdin.readline().rstrip())
+    solution(n)
