@@ -12,3 +12,25 @@
 #   count_change(10, [5,2,3]) # => 4
 #   count_change(11, [5,7]) # => 0
 # PuzzlesRecursion
+# Solution
+# Python
+def count_change(money, coins):
+    dp = [0] * (money + 1)
+    dp[0] = 1
+    for coin in coins:
+        for amount in range(coin, money + 1):
+            dp[amount] += dp[amount - coin]
+    return dp[money]
+
+# C++
+#include <vector>
+unsigned long long countChange(const unsigned int money, const std::vector<unsigned int>& coins) {
+  std::vector<unsigned long long> dp(money + 1, 0);
+  dp[0] = 1;
+  for (unsigned int coin : coins) {
+    for (unsigned int amount = coin; amount <= money; ++amount) {
+      dp[amount] += dp[amount - coin];
+    }
+  }
+  return dp[money];
+}
