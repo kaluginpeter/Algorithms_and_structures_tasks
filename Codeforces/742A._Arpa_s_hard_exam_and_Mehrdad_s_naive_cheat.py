@@ -27,3 +27,39 @@
 # In the first example, last digit of 13781 = 1378 is 8.
 #
 # In the second example, last digit of 13782 = 1378·1378 = 1898884 is 4.
+# Solution
+# Python O(1) O(1) Math
+import sys
+
+
+def solution(n: int) -> None:
+    if n == 0:
+        sys.stdout.write('1\n')
+    else:
+        last_digit_cycle = [6, 8, 4, 2]
+        sys.stdout.write(str(last_digit_cycle[n % 4]) + '\n')
+
+
+if __name__ == '__main__':
+    n: int = int(sys.stdin.readline().rstrip())
+    solution(n)
+
+# C++ O(1) O(1) Math
+#include <iostream>
+#include <vector>
+
+
+void solution(int n) {
+    if (n == 0) {
+        std::cout << 1 << "\n";
+    } else {
+        std::vector<int> lastDigit = {6, 8, 4, 2};
+        std::cout << lastDigit[n % 4] << "\n";
+    }
+}
+
+int main() {
+    int n;
+    std::cin >> n;
+    solution(n);
+}
