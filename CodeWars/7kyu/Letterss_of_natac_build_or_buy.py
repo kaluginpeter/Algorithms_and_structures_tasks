@@ -25,3 +25,7 @@
 # A hand can be empty. In the event a hand is empty, you can't build or buy anything, so return an empty list, see example 3 above.
 # Hand are between 0 and 39 in length.
 # Fundamentals
+# Solution
+def build_or_buy(hand):
+    stack: dict[str, str] = {'road': 'bw','settlement': 'bgws','city': 'ggooo','development': 'gos'}
+    return [name for name, quant in stack.items() if all(it in hand and quant.count(it) <= hand.count(it) for it in quant)]
