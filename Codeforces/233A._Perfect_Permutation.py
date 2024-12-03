@@ -24,3 +24,47 @@
 # 4
 # OutputCopy
 # 2 1 4 3
+# Solution
+# Python O(N) O(N) Math
+import sys
+
+
+def solution(n: int) -> str:
+    if n % 2 != 0:
+        return '-1'
+
+    permutation = []
+    for i in range(1, n + 1, 2):
+        permutation.append(i + 1)  # p[i] is i + 1
+        permutation.append(i)  # p[i + 1] is i
+
+    return ' '.join(map(str, permutation))
+
+
+if __name__ == '__main__':
+    n: int = int(sys.stdin.readline().rstrip())
+    sys.stdout.write(solution(n) + '\n')
+
+# C++ O(N) O(1) Math
+#include <iostream>
+#include <string>
+
+void solution(int& n) {
+    if (n % 2 != 0) {
+        std::cout << "-1\n";
+        return;
+    }
+    std::string output = "";
+    for (int i = 1; i <= n; i += 2) {
+        if (i != 1) {
+            std::cout << " ";
+        }
+        std::cout << std::to_string(i + 1) << " " << std::to_string(i);
+    }
+}
+
+int main() {
+    int n;
+    std::cin >> n;
+    solution(n);
+}
