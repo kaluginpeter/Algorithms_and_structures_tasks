@@ -20,3 +20,17 @@
 # R = Newton
 # φ = degree
 # PhysicsGeometryAlgorithms
+# Solution
+import math
+
+def solution(F1, F2, theta):
+    theta_rad = math.radians(theta)
+    F1_x = F1
+    F1_y = 0
+    F2_x = F2 * math.cos(theta_rad)
+    F2_y = F2 * math.sin(theta_rad)
+    R_x = F1_x + F2_x
+    R_y = F1_y + F2_y
+    R = math.sqrt(R_x**2 + R_y**2)
+    phi = math.degrees(math.atan2(R_y, R_x))
+    return [R, phi]
