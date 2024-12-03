@@ -34,3 +34,35 @@
 # 1 <= spaces.length <= 3 * 105
 # 0 <= spaces[i] <= s.length - 1
 # All the values of spaces are strictly increasing.
+# Solution
+# Python O(N + M) O(N + M) Two Pointers
+class Solution:
+    def addSpaces(self, s: str, spaces: List[int]) -> str:
+        output: list[str] = []
+        spaces_idx: int = 0
+        for idx in range(len(s)):
+            if spaces_idx < len(spaces):
+                if idx == spaces[spaces_idx]:
+                    output.append(' ')
+                    spaces_idx += 1
+            output.append(s[idx])
+        return ''.join(output)
+
+# C++ O(N + M) O(N + M) Two Pointers
+class Solution {
+public:
+    string addSpaces(string s, vector<int>& spaces) {
+        std::string output = "";
+        int spaceIndex = 0;
+        for (int idx = 0; idx < s.size(); ++idx) {
+            if (spaceIndex < spaces.size()) {
+                if (idx == spaces[spaceIndex]) {
+                    output += ' ' ;
+                    ++spaceIndex;
+                }
+            }
+            output += s[idx];
+        }
+        return output;
+    }
+};
