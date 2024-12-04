@@ -36,3 +36,38 @@
 # 1 <= str1.length <= 105
 # 1 <= str2.length <= 105
 # str1 and str2 consist of only lowercase English letters.
+# Solution
+# Python O(N + M) O(1) Two Pointers HashMap
+class Solution:
+    def canMakeSubsequence(self, str1: str, str2: str) -> bool:
+        eng_alp: dict[str, str] = dict()
+        for idx in range(ord('a'), ord('z')):
+            eng_alp[chr(idx)] = chr(idx + 1)
+        eng_alp['z'] = 'a'
+        str1_idx: int = 0
+        str2_idx: int = 0
+        while str1_idx < len(str1) and str2_idx < len(str2):
+            if str1[str1_idx] == str2[str2_idx] or eng_alp[str1[str1_idx]] == str2[str2_idx]:
+                str2_idx += 1
+            str1_idx += 1
+        return str2_idx == len(str2)
+
+# C++ O(N + M) O(1) HashMap Two Pointers
+class Solution {
+public:
+    bool canMakeSubsequence(string str1, string str2) {
+        std::unordered_map<char, char> engAlp;
+        for (char ch = 'a'; ch < 'z'; ++ch) {
+            engAlp[ch] = ch + 1;
+        }
+        engAlp['z'] = 'a';
+        int str1Idx = 0, str2Idx = 0;
+        while (str1Idx < str1.size() && str2Idx < str2.size()) {
+            if (str1[str1Idx] == str2[str2Idx] || engAlp[str1[str1Idx]] == str2[str2Idx]) {
+                ++str2Idx;
+            }
+            ++str1Idx;
+        }
+        return str2Idx == str2.size();
+    }
+};
