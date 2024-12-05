@@ -33,3 +33,69 @@
 # n == start.length == target.length
 # 1 <= n <= 105
 # start and target consist of the characters 'L', 'R', and '_'.
+# Solution
+# Python O(N + M) O(1) Two Pointers
+class Solution:
+    def canChange(self, start: str, target: str) -> bool:
+        start_idx: int = 0
+        target_idx: int = 0
+        while start_idx < len(start) and target_idx < len(target):
+            while start_idx < len(start) and start[start_idx] == '_':
+                start_idx += 1
+            while target_idx < len(target) and target[target_idx] == '_':
+                target_idx += 1
+            if start_idx < len(start) and target_idx < len(target):
+                if target[target_idx] == 'R' and start[start_idx] == 'R' and start_idx <= target_idx:
+                    target_idx += 1
+                    start_idx += 1
+                elif target[target_idx] == 'L' and start[start_idx] == 'L' and start_idx >= target_idx:
+                    target_idx += 1
+                    start_idx += 1
+                else:
+                    return False
+        while start_idx < len(start) and start[start_idx] == '_':
+            start_idx += 1
+        while target_idx < len(target) and target[target_idx] == '_':
+            target_idx += 1
+        return start_idx == len(start) and target_idx == len(target)
+
+# C++ O(N + M) O(1) Two Pointers
+class Solution {
+public:
+    bool canChange(string start, string target) {
+        int startIdx = 0;
+        int targetIdx = 0;
+        while (startIdx < start.size() && targetIdx < target.size()) {
+            while (targetIdx < target.size() && target[targetIdx] == '_') {
+                ++targetIdx;
+            }
+            while (startIdx < start.size() && start[startIdx] == '_') {
+                ++startIdx;
+            }
+            if (startIdx < start.size() && targetIdx < target.size()) {
+                if (target[targetIdx] == 'R') {
+                    if (start[startIdx] == 'R' && targetIdx >= startIdx) {
+                        ++startIdx;
+                        ++targetIdx;
+                    } else {
+                        return false;
+                    }
+                } else if (target[targetIdx] == 'L') {
+                    if (start[startIdx] == 'L' && targetIdx <= startIdx) {
+                        ++startIdx;
+                        ++targetIdx;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+        }
+        while (targetIdx < target.size() && target[targetIdx] == '_') {
+            ++targetIdx;
+        }
+        while (startIdx < start.size() && start[startIdx] == '_') {
+            ++startIdx;
+        }
+        return targetIdx == target.size() && startIdx == start.size();
+    }
+};
