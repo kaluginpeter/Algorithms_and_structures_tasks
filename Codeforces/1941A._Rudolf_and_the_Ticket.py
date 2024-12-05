@@ -73,3 +73,64 @@
 # .
 #
 # In the fourth test case, Rudolf can choose any coin from the left pocket and any coin from the right pocket.
+# Solution
+# C++ O(MN) O(1) Math
+#include <iostream>
+#include <vector>
+
+
+void solution(int t) {
+    for (int i = 0; i < t; ++i) {
+        int n, m, k;
+        std::cin >> n >> m >> k;
+        std::vector<int> firstPocket;
+        for (int j = 0; j < n; ++j) {
+            int coin;
+            std::cin >> coin;
+            firstPocket.push_back(coin);
+        }
+        std::vector<int> secondPocket;
+        for (int j = 0; j < m; ++j) {
+            int coin;
+            std::cin >> coin;
+            secondPocket.push_back(coin);
+        }
+        int output = 0;
+        for (int fC : firstPocket) {
+            for (int sC : secondPocket) {
+                if (fC + sC <= k) {
+                    ++output;
+                }
+            }
+        }
+        std::cout << output << "\n";
+    }
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    solution(t);
+}
+
+# Python O(MN) O(1) Math
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n, m, k = map(int, sys.stdin.readline().rstrip().split())
+        first_pocket: list = list(map(int, sys.stdin.readline().rstrip().split()))
+        second_pocket: list = list(map(int, sys.stdin.readline().rstrip().split()))
+        output: int = 0
+        for f in first_pocket:
+            for s in second_pocket:
+                if f + s <= k:
+                    output += 1
+        sys.stdout.write(str(output) + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
