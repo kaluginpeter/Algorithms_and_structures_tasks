@@ -27,3 +27,11 @@
 # note: (1-1) because 1 is first side and -1 is last side... (= 0) because sum of list without sides (1, -1) = 0
 #
 # FundamentalsAlgorithmsListsData StructuresArrays
+# Solution
+def plastic_balance(lst):
+    while True:
+        if not lst:
+            return lst
+        if lst[0] + lst[-1] == sum(lst[1:-1]):
+            return lst
+        lst = lst[1:-1]
