@@ -32,3 +32,40 @@
 # 1 <= banned.length <= 104
 # 1 <= banned[i], n <= 104
 # 1 <= maxSum <= 109
+# Solution
+# Python O(N) O(M), where M is the length of distinct banned numbers. HashSet
+class Solution:
+    def maxCount(self, banned: List[int], n: int, maxSum: int) -> int:
+        banned_set: set[int] = set(banned)
+        count: int = 0
+        cur_sum: int = 0
+        for num in range(1, n + 1):
+            if num in banned_set:
+                continue
+            if cur_sum + num <= maxSum:
+                cur_sum += num
+                count += 1
+            else:
+                break
+        return count
+
+# C++ O(N) O(M), where M is the length of the distinct banned numbers. Hashset
+class Solution {
+public:
+    int maxCount(vector<int>& banned, int n, int maxSum) {
+        std::unordered_set<int> bannedSet(banned.begin(), banned.end());
+        int curSum = 0;
+        int count = 0;
+        for (int num = 1; num <= n; ++num) {
+            if (bannedSet.count(num)) {
+                continue;
+            } else if (curSum + num <= maxSum) {
+                curSum += num;
+                ++count;
+            } else {
+                break;
+            }
+        }
+        return count;
+    }
+};
