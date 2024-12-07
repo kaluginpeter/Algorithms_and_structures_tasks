@@ -34,3 +34,59 @@
 #
 # 1 <= nums.length <= 105
 # 1 <= maxOperations, nums[i] <= 109
+# Solution
+# Python O(NlogMax(N)) O(1) Binary Search
+class Solution:
+    def minimumSize(self, nums, max_operations):
+        left: int = 1
+        right: int = max(nums)
+        while left < right:
+            middle: int = (left + right) // 2
+            if self.distribution(middle, nums, max_operations):
+                right = middle
+            else:
+                left = middle + 1
+        return left
+
+    def distribution(self, max_balls_in_bag: int, nums: list[int], max_operations: int) -> bool:
+        total_operations: int = 0
+        for num in nums:
+            operations: int = math.ceil(num / max_balls_in_bag) - 1
+            total_operations += operations
+            if total_operations > max_operations:
+                return False
+        return True
+
+# C++ O(NlogMax(N)) O(1) Binary Search
+class Solution {
+public:
+    bool distribution(int& target, std::vector<int>& nums, int& maxOperations) {
+        int totalOperations = 0;
+        for (int num : nums) {
+            int operations = std::ceil(static_cast<double>(num) / static_cast<double>(target)) - 1;
+            totalOperations += operations;
+            if (totalOperations > maxOperations) {
+                return false;
+            }
+        }
+        return true;
+    }
+    int minimumSize(vector<int>& nums, int maxOperations) {
+        int left = 1;
+        int right = nums[0];
+        for (int num : nums) {
+            if (right < num) {
+                right = num;
+            }
+        }
+        while (left < right) {
+            int middle = left + (right - left) / 2;
+            if (distribution(middle, nums, maxOperations)) {
+                right = middle;
+            } else {
+                left = middle + 1;
+            }
+        }
+        return left;
+    }
+};
