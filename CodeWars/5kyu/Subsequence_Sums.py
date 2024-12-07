@@ -19,3 +19,18 @@
 # arr = [9, -2, -5, 8, 6, -10, 0, -4], s = -1 -> 2
 # # [-5, 8, 6, -10], [-5, 8, 6, -10, 0]
 # Dynamic ProgrammingMathematicsAlgorithms
+# Solution
+def subsequence_sums(arr, s):
+    cumulative_sum = 0
+    sum_count = {0: 1}
+    output = 0
+    for num in arr:
+        cumulative_sum += num
+        if (cumulative_sum - s) in sum_count:
+            output += sum_count[cumulative_sum - s]
+        if cumulative_sum in sum_count:
+            sum_count[cumulative_sum] += 1
+        else:
+            sum_count[cumulative_sum] = 1
+
+    return output
