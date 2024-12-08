@@ -39,3 +39,36 @@
 #
 # 1 <= nums.length <= 100
 # -100 <= nums[i] <= 100
+# Solution
+# Python O(N) O(N) Math
+class Solution:
+    def constructTransformedArray(self, nums: List[int]) -> List[int]:
+        n: int = len(nums)
+        output: list[int] = [0] * n
+        for i in range(n):
+            if nums[i] == 0:
+                output[i] = nums[i]
+            elif nums[i] > 0:
+                output[i] = nums[(nums[i] + i) % n]
+            else:
+                output[i] = nums[(i - abs(nums[i]) + n) % n]
+        return output
+
+# C++ O(N) O(N) Math
+class Solution {
+public:
+    vector<int> constructTransformedArray(vector<int>& nums) {
+        int n = nums.size();
+        std::vector<int> output(n, 0);
+        for (int idx = 0; idx < n; ++idx) {
+            if (!nums[idx]) {
+                output[idx] = nums[idx];
+            } else if (nums[idx] > 0) {
+                output[idx] = nums[(idx + nums[idx]) % n];
+            } else {
+                output[idx] = nums[(idx - std::abs(nums[idx]) % n + n) % n];
+            }
+        }
+        return output;
+    }
+};
