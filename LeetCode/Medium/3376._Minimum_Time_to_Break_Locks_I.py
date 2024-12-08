@@ -54,3 +54,22 @@
 # 1 <= n <= 8
 # 1 <= K <= 10
 # 1 <= strength[i] <= 106
+# Solution
+# Python O(N!) O(1) Permutations
+import itertools
+
+class Solution:
+    def time_needed(self, wall: int, energy: int) -> int:
+        return wall // energy + int(wall % energy != 0)
+
+    def findMinimumTime(self, strength: List[int], K: int) -> int:
+        n: int = len(strength)
+        min_time: int = float('inf')
+        for perm in itertools.permutations(strength):
+            time_spent: int = 0
+            current_energy: int = 1
+            for wall_strength in perm:
+                time_spent += self.time_needed(wall_strength, current_energy)
+                current_energy += K
+            min_time = min(min_time, time_spent)
+        return min_time if min_time != float('inf') else -1
