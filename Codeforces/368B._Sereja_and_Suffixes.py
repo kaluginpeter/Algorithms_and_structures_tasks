@@ -38,3 +38,56 @@
 # 3
 # 2
 # 1
+# Solution
+# C++ O(N) O(N) HashSet
+#include <iostream>
+#include <unordered_set>
+#include <vector>
+
+
+void solution(int& n, int& m, std::vector<int>& nums) {
+    std::unordered_set<int> hashset;
+    std::vector<int> suffixArray(n, 0);
+    for (int idx = n - 1; idx >= 0; --idx) {
+        hashset.insert(nums[idx]);
+        suffixArray[idx] = hashset.size();
+    }
+    for (int i = 0; i < m; ++i) {
+        int l;
+        std::cin >> l;
+        std::cout << suffixArray[l - 1] << "\n";
+    }
+}
+
+
+int main() {
+    int n, m;
+    std::cin >> n >> m;
+    std::vector<int> nums;
+    for (int i = 0; i < n; ++i) {
+        int num;
+        std::cin >> num;
+        nums.push_back(num);
+    }
+    solution(n, m, nums);
+}
+
+# Python O(N) O(N) HashSet
+import sys
+
+
+def solution(n: int, m: int, nums: list) -> None:
+    suffix_array: list = [0] * n
+    hashset: set = set()
+    for idx in range(n - 1, -1, -1):
+        hashset.add(nums[idx])
+        suffix_array[idx] = len(hashset)
+    for _ in range(m):
+        l: int = int(sys.stdin.readline().rstrip())
+        sys.stdout.write(str(suffix_array[l - 1]) + '\n')
+
+
+if __name__ == '__main__':
+    n, m = map(int, sys.stdin.readline().rstrip().split())
+    nums: list = list(map(int, sys.stdin.readline().rstrip().split()))
+    solution(n, m, nums)
