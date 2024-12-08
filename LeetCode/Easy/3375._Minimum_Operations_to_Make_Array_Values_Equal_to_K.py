@@ -49,3 +49,24 @@
 # 1 <= nums.length <= 100
 # 1 <= nums[i] <= 100
 # 1 <= k <= 100
+# Solution
+# Python O(N) O(N) HashSet
+class Solution:
+    def minOperations(self, nums: List[int], k: int) -> int:
+        return len({num for num in nums if num > k}) if min(nums) >= k else -1
+
+# C++ O(N) O(N) HashSet
+class Solution {
+public:
+    int minOperations(vector<int>& nums, int k) {
+        std::unordered_set<int> hashset;
+        int minValue = 101;
+        for (int& num : nums) {
+            if (num > k) {
+                hashset.insert(num);
+            }
+            minValue = std::min(minValue, num);
+        }
+        return (minValue >= k? hashset.size() : -1);
+    }
+};
