@@ -69,3 +69,44 @@ class Solution:
             x, y = queries[i]
             queries[i] = output[y] - output[x] == y - x
         return queries
+
+# Solution 12.09.2024
+# C++ O(N) O(N) PrefixSum
+class Solution {
+public:
+    vector<bool> isArraySpecial(vector<int>& nums, vector<vector<int>>& queries) {
+        std::vector<int> prefixSum;
+        int nonSpecials = 0;
+        for (int idx = 0; idx < nums.size(); ++idx) {
+            if (idx && (nums[idx - 1] % 2 == nums[idx] % 2)) {
+                ++nonSpecials;
+            }
+            prefixSum.push_back(nonSpecials);
+        }
+        std::vector<bool> output;
+        for (std::vector<int>& query : queries) {
+            int start = query[0];
+            int end = query[1];
+            int invalids = prefixSum[end] - prefixSum[start];
+            output.push_back(invalids == 0);
+        }
+        return output;
+    }
+};
+
+# Python O(N) O(N) PrefixSum
+class Solution:
+    def isArraySpecial(self, nums: List[int], queries: List[List[int]]) -> List[bool]:
+        prefix_sum: list[int] = []
+        non_specials: int = 0
+        for idx in range(len(nums)):
+            if idx and nums[idx - 1] & 1 == nums[idx] & 1:
+                non_specials += 1
+            prefix_sum.append(non_specials)
+        output: list[bool] = []
+        for query in queries:
+            start, end = query
+            invalids: int = prefix_sum[end]
+            invalids -= prefix_sum[start]
+            output.append(invalids == 0)
+        return output
