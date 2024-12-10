@@ -52,3 +52,70 @@
 # 4 3 2 1
 # 2 2
 # 4
+# Solution
+# C++ O(N) O(N) Simulation
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+
+
+void solution(int& t) {
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        std::vector<int> positions;
+        for (int j = 0; j < n; ++j) {
+            std::string row;
+            std::cin >> row;
+            for (int idx = 0; idx < 4; ++idx) {
+                if (row[idx] == '#') {
+                    positions.push_back(idx + 1);
+                    break;
+                }
+            }
+        }
+        std::reverse(positions.begin(), positions.end());
+        for (int idx = 0; idx < n; ++idx) {
+            if (idx) {
+                std::cout << " ";
+            }
+            std::cout << positions[idx];
+        }
+        std::cout << "\n";
+
+    }
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    solution(t);
+}
+
+# Python O(N) O(N) Simulation
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        positions: list = []
+        for _ in range(n):
+            row: str = sys.stdin.readline().rstrip()
+            for idx in range(4):
+                if row[idx] == '#':
+                    positions.append(idx + 1)
+                    break
+        positions.reverse()
+        for idx in range(n):
+            if idx:
+                sys.stdout.write(' ')
+            sys.stdout.write(str(positions[idx]))
+        sys.stdout.write('\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
