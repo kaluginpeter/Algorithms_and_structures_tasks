@@ -26,3 +26,25 @@
 # "1211" --> 1 + 2 + 1 + 1 --> 5
 #
 # Puzzles
+# Solution
+def look_and_say(start: str) -> str:
+    output: list[str] = []
+    left: int = 0
+    right: int = 0
+    while right < len(start):
+        while right < len(start) and start[left] == start[right]:
+            right += 1
+        output.append(str(right - left))
+        output.append(str(start[left]))
+        left = right
+    return ''.join(output)
+memo: dict[int, int] = dict()
+def look_and_say_and_sum(n):
+    if n in memo:
+        return memo[n]
+    start: str = '1'
+    memo[1] = 1
+    for _ in range(1, n):
+        start = look_and_say(start)
+        memo[_ + 1] = sum(int(num) for num in start)
+    return memo[n]
