@@ -31,7 +31,7 @@
 #
 # 3 <= s.length <= 50
 # s consists of only lowercase English letters.
-# Solution O(N**3) O(1)
+# Solution O(N**3) O(N)
 class Solution:
     def maximumLength(self, s: str) -> int:
         mx = -1
@@ -56,3 +56,47 @@ class Solution:
             else:
                 top = s[i]
         return mx
+
+# Solution
+# Python O(N**2) O(N**2) HashMap
+class Solution:
+    def maximumLength(self, s: str) -> int:
+        hashmap: dict[str, int] = dict()
+        n: int = len(s)
+        for i in range(n):
+            for j in range(i, n):
+                if s[i] == s[j]:
+                    substring: str = s[i:j + 1]
+                    hashmap[substring] = hashmap.get(substring, 0) + 1
+                else:
+                    break
+        max_length: int = -1
+        for substring, freq in hashmap.items():
+            if freq >= 3 and len(substring) > max_length:
+                max_length = len(substring)
+        return max_length
+
+# C++ O(N**2) O(N**2) HashMap
+class Solution {
+public:
+    int maximumLength(string s) {
+        std::unordered_map<std::string, int> hashmap;
+        int n = s.size();
+        for (int i = 0; i < n; ++i) {
+            for (int j = i; j < n; ++j) {
+                if (s[i] == s[j]) {
+                    ++hashmap[s.substr(i, j - i + 1)];
+                } else {
+                    break;
+                }
+            }
+        }
+        int maxLength = 0;
+        for (auto& pair : hashmap) {
+            if (pair.second >= 3 && pair.first.size() > maxLength) {
+                maxLength = pair.first.size();
+            }
+        }
+        return (maxLength? maxLength : -1);
+    }
+};
