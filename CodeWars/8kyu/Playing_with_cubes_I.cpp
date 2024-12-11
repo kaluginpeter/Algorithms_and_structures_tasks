@@ -7,3 +7,15 @@ There's no need to check for negative values!
 initialise the side to 0.
 MathematicsFundamentals
 */
+// Solution
+class Cube {
+private:
+  int side = 0;
+public:
+  int GetSide() {
+    return side;
+  }
+  void SetSide(int num) {
+    side = num;
+  }
+};
