@@ -64,3 +64,62 @@
 # YES
 # NO
 # NO
+# Solution
+# Python O(N) O(1) Math
+import sys
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: list = list(map(int, sys.stdin.readline().rstrip().split()))
+        odds_count: int = 0
+        evens_count: int = 0
+        total_sum: int = 0
+        for num in nums:
+            total_sum += num
+            if num & 1:
+                odds_count += 1
+            else:
+                evens_count += 1
+        sys.stdout.write(['NO', 'YES'][bool(total_sum & 1 or (odds_count and evens_count))] + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
+
+# C++ O(N) O(1) Math
+#include <iostream>
+#include <vector>
+
+
+void solution(int& t) {
+    for (int k = 0; k < t; ++k) {
+        int n;
+        std::cin >> n;
+        int totalSum = 0;
+        int oddCount = 0, evenCount = 0;
+        for (int j = 0; j < n; ++j) {
+            int num;
+            std::cin >> num;
+            totalSum += num;
+            if (num % 2 != 0) {
+                ++oddCount;
+            } else {
+                ++evenCount;
+            }
+        }
+        if (totalSum % 2 == 1 || (oddCount > 0 && evenCount > 0)) {
+            std::cout << "YES" << std::endl;
+        } else {
+            std::cout << "NO" << std::endl;
+        }
+    }
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    solution(t);
+}
