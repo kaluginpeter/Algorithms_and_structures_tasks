@@ -22,3 +22,24 @@
 # The input string will only contain digits 0 or 1.
 # The length of the input string (txt) will be greater than zero.
 # AlgorithmsStrings
+# Solution
+def same_length(txt):
+    if txt[0] == '0': return False
+    prev: int = 0
+    left: int = 0
+    right: int = 0
+    switch: bool = True
+    while right < len(txt):
+        while right < len(txt) and txt[left] == txt[right]:
+            right += 1
+        if prev is None:
+            prev = right - left
+        elif prev != right - left and txt[left] == '0':
+            return False
+        if txt[left] == '1':
+            switch = False
+            prev = right - left
+        else:
+            switch = True
+        left = right
+    return switch
