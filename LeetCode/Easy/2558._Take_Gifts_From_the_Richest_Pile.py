@@ -33,3 +33,41 @@
 # 1 <= gifts.length <= 103
 # 1 <= gifts[i] <= 109
 # 1 <= k <= 103
+# Solution
+# Python O(NlogN + klogN) O(N) Priority Queue
+class Solution:
+    def pickGifts(self, gifts: List[int], k: int) -> int:
+        max_heap: list[int] = []
+        total_sum: int = 0
+        for gift in gifts:
+            total_sum += gift
+            heapq.heappush(max_heap, -gift)
+        for _ in range(k):
+            gift: int = -heapq.heappop(max_heap)
+            total_sum -= gift
+            floor_root: int = math.floor(gift**.5)
+            total_sum += floor_root
+            heapq.heappush(max_heap, -floor_root)
+        return total_sum
+
+# C++ O(NlogN + klogN) O(N) Priority Queue
+class Solution {
+public:
+    long long pickGifts(vector<int>& gifts, int k) {
+        std::priority_queue<int, std::vector<int>> maxHeap;
+        long long totalSum = 0;
+        for (int& gift : gifts) {
+            totalSum += gift;
+            maxHeap.push(gift);
+        }
+        for (int i = 0; i < k; ++i) {
+            int gift = maxHeap.top();
+            maxHeap.pop();
+            totalSum -= gift;
+            int floorRoot = std::floor(std::sqrt(gift));
+            totalSum += floorRoot;
+            maxHeap.push(floorRoot);
+        }
+        return totalSum;
+    }
+};
