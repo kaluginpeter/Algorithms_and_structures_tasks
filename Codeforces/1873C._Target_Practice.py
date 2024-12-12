@@ -73,3 +73,50 @@
 #
 # In the second test case, there aren't any arrows, so the score is 0
 # .
+# Solution
+# Python O(NM) O(1) Math
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        score: int = 0
+        for m in range(10):
+            row: str = sys.stdin.readline().rstrip()
+            for n in range(10):
+                if row[n] == 'X':
+                    score += min((10 - n - 1 if n >= 5 else n) + 1, (10 - m - 1 if m >= 5 else m) + 1)
+        sys.stdout.write(str(score) + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
+
+# C++ O(NM) O(1) Math
+#include <iostream>
+#include <string>
+
+
+void solution(int& t) {
+    for (int i = 0; i < t; ++i) {
+        int score = 0;
+        for (int j = 0; j < 10; ++j) {
+            std::string row;
+            std::cin >> row;
+            for (int k = 0; k < 10; ++k) {
+                if (row[k] == 'X') {
+                    score += std::min((j >= 5? 10 - j - 1 : j) + 1, (k >= 5? 10 - k - 1 : k) + 1);
+                }
+            }
+        }
+        std::cout << score << "\n";
+    }
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    solution(t);
+}
