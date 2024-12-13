@@ -38,3 +38,14 @@
 # ]
 # Return [4,6] for the example above => [4, 6]
 # FundamentalsArraysMatrix
+# Solution
+def x_marks_the_spot(mat):
+    is_been: bool = False
+    row = col = 0
+    for r in range(len(mat)):
+        for c in range(len(mat[0])):
+            if mat[r][c] == 'x':
+                if is_been: return []
+                is_been = True
+                row, col = r, c
+    return [row, col] if is_been else []
