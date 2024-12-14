@@ -73,3 +73,78 @@
 #
 # [3]⇒[3,1]⇒[3,4,1]⇒[3,4,1,1]⇒[3,4,5,1,1]⇒[3,4,5,9,1,1]⇒[3,4,5,2,9,1,1]
 # .
+# Solutuion
+# C++ O(N) O(N) Simulation
+#include <iostream>
+#include <vector>
+
+
+void solution(int& t) {
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        std::vector<int> nums;
+        for (int j = 0; j < n; ++j) {
+            int num;
+            std::cin >> num;
+            nums.push_back(num);
+        }
+        std::vector<int> output(n, 0);
+        int step = n;
+        int curIndex = n;
+        for (int j = 0; j < n; ++j) {
+            if (j % 2 == 0) {
+                curIndex -= step;
+                output[j] = nums[curIndex];
+            } else {
+                curIndex += step;
+                output[j] = nums[curIndex];
+            }
+            --step;
+        }
+        for (int idx = 0; idx < n; ++idx) {
+            if (idx) {
+                std::cout << " ";
+            }
+            std::cout << output[idx];
+        }
+        std::cout << "\n";
+    }
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    solution(t);
+}
+
+# Python O(N) O(N) Simulation
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: list = list(map(int, sys.stdin.readline().rstrip().split()))
+        output: list = [0] * n
+        cur_index: int = n
+        step: int = n
+        for idx in range(n):
+            if idx & 1:
+                cur_index += step
+                output[idx] = nums[cur_index]
+            else:
+                cur_index -= step
+                output[idx] = nums[cur_index]
+            step -= 1
+        for idx in range(n):
+            if idx:
+                sys.stdout.write(' ')
+            sys.stdout.write(str(output[idx]))
+        sys.stdout.write('\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
