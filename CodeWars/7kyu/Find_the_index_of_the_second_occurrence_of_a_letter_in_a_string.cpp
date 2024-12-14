@@ -9,3 +9,18 @@ Good luck ;) And don't forget to rate this kata if you liked it.
 
 FundamentalsStrings
 */
+// Solution
+#include <string>
+
+int secondSymbol(const std::string& str, char symbol) {
+  bool isSeen = false;
+  for (int idx = 0; idx < str.size(); ++idx) {
+    if (str[idx] == symbol) {
+      if (isSeen) {
+        return idx;
+      }
+      isSeen = true;
+    }
+  }
+  return -1;
+}
