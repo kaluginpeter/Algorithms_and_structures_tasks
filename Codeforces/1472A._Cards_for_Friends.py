@@ -79,3 +79,53 @@
 #  sheet into two 1×2
 #  sheets, and then cut each of them into two more sheets. As a result, we get four sheets 1×1
 # .
+# Solution
+# C++ O(log(n + m)) O(1) Math
+#include <iostream>
+#include <cmath>
+
+
+void solution(int& t) {
+    for (int i = 0; i < t; ++i) {
+        int w, h, n;
+        std::cin >> w >> h >> n;
+        int start = 1;
+        while (w > 0 && w % 2 == 0) {
+            w /= 2;
+            start *= 2;
+        }
+        while (h > 0 && h % 2 == 0) {
+            h /= 2;
+            start *= 2;
+        }
+        std::cout << (start >= n? "YES" : "NO") << "\n";
+    }
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    solution(t);
+}
+
+# Python O(log(n + m)) O(1) Math
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        w, h, n = map(int, sys.stdin.readline().rstrip().split())
+        score: int = 1
+        while w and w & 1 == 0:
+            score *= 2
+            w //= 2
+        while h and h & 1 == 0:
+            score *= 2
+            h //= 2
+        sys.stdout.write(['NO', 'YES'][score >= n] + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
