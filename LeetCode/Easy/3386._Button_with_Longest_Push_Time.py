@@ -38,3 +38,40 @@
 # events[i] == [indexi, timei]
 # 1 <= indexi, timei <= 105
 # The input is generated such that events is sorted in increasing order of timei.
+# Solution
+# Python O(N) O(1)
+class Solution:
+    def buttonWithLongestTime(self, events: List[List[int]]) -> int:
+        max_time: int = float('-inf')
+        max_time_idx: int = 0
+        for idx in range(len(events)):
+            if idx == 0:
+                max_time = events[idx][1]
+                max_time_idx = events[idx][0]
+            elif events[idx][1] - events[idx - 1][1] > max_time:
+                max_time = events[idx][1] - events[idx - 1][1]
+                max_time_idx = events[idx][0]
+            elif events[idx][1] - events[idx - 1][1] == max_time:
+                max_time_idx = min(max_time_idx, events[idx][0])
+        return max_time_idx
+
+# C++ O(N) O(1)
+class Solution {
+public:
+    int buttonWithLongestTime(vector<vector<int>>& events) {
+        int maxTime = 0;
+        int maxTimeIdx = 0;
+        for (int idx = 0; idx < events.size(); ++idx) {
+            if (idx == 0) {
+                maxTime = events[idx][1];
+                maxTimeIdx = events[idx][0];
+            } else if (events[idx][1] - events[idx - 1][1] > maxTime) {
+                maxTime = events[idx][1] - events[idx - 1][1];
+                maxTimeIdx = events[idx][0];
+            } else if (events[idx][1] - events[idx - 1][1] == maxTime) {
+                maxTimeIdx = std::min(maxTimeIdx, events[idx][0]);
+            }
+        }
+        return maxTimeIdx;
+    }
+};
