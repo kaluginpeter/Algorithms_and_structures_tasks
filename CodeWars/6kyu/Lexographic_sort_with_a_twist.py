@@ -9,3 +9,15 @@
 # If you like this kata, do checkout my other katas.
 #
 # AlgorithmsArraysSortingData Structures
+# Solution
+from functools import cmp_to_key
+
+def comparator(x: str, y: str) -> int:
+    if x.startswith(y):
+        return -1
+    elif y.startswith(x):
+        return 1
+    return (x > y) - (x < y)
+
+def custom_sort(lst):
+    return sorted(lst, key=cmp_to_key(comparator))
