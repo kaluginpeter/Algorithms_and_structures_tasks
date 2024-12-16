@@ -34,3 +34,107 @@
 # There are no repeated edges and no self-loops in the graph at any point.
 # At most 100 calls will be made for addEdge.
 # At most 100 calls will be made for shortestPath.
+# Solution
+# Python O(N + M + (ElogV)) O(ElogV) Dijkstra Shortest Path Design
+class Graph:
+
+    def __init__(self, n: int, edges: List[List[int]]):
+        self.adj_list: dict[int, list[tuple[int, int]]] = dict()
+        for edge in edges:
+            start, end, weight = edge
+            if start not in self.adj_list:
+                self.adj_list[start] = list()
+            self.adj_list[start].append((weight, end))
+        self.n: int = n
+
+    def addEdge(self, edge: List[int]) -> None:
+        start, end, weight = edge
+        if start not in self.adj_list:
+            self.adj_list[start] = list()
+        self.adj_list[start].append((weight, end))
+
+    def shortestPath(self, node1: int, node2: int) -> int:
+        return self.dijkstra(node1, node2)
+
+    def dijkstra(self, source: int, target: int) -> int:
+        min_heap: list[tuple[int, int]] = []
+        visited: set[int] = set()
+        heapq.heappush(min_heap, (0, source))
+        while min_heap:
+            cur_score, cur_vertex = heapq.heappop(min_heap)
+            if cur_vertex == target:
+                return cur_score
+            if cur_vertex in visited:
+                continue
+            visited.add(cur_vertex)
+            for edge in self.adj_list.get(cur_vertex, []):
+                weight, neighbor = edge
+                if edge not in visited:
+                    heapq.heappush(min_heap, (cur_score + weight, neighbor))
+        return -1
+
+# Your Graph object will be instantiated and called as such:
+# obj = Graph(n, edges)
+# obj.addEdge(edge)
+# param_2 = obj.shortestPath(node1,node2)
+
+# C++ O(N + M + (ElogV)) O(ElogN) Dijkstra Shortest Path Design
+class Graph {
+private:
+    std::unordered_map<int, std::vector<std::pair<int, int>>> adjList;
+    int n = 0;
+public:
+    Graph(int n, vector<vector<int>>& edges) {
+        this->n = n;
+        for (std::vector<int>& edge : edges) {
+            int start = edge[0];
+            int end = edge[1];
+            int weight = edge[2];
+            adjList[start].push_back({weight, end});
+        }
+    };
+
+    void addEdge(vector<int> edge) {
+        int start = edge[0];
+        int end = edge[1];
+        int weight = edge[2];
+        adjList[start].push_back({weight, end});
+    }
+
+    int shortestPath(int node1, int node2) {
+        return dijkstra(node1, node2);
+    }
+
+    int dijkstra(int source, int target) {
+        std::unordered_set<int> visited;
+        std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<std::pair<int, int>>> minHeap;
+        minHeap.push({0, source});
+        while (minHeap.size()) {
+            int curScore = minHeap.top().first;
+            int curVertex = minHeap.top().second;
+            minHeap.pop();
+            if (curVertex == target) {
+                return curScore;
+            }
+            if (visited.count(curVertex)) {
+                continue;
+            }
+            visited.insert(curVertex);
+            for (std::pair<int, int> edge : adjList[curVertex]) {
+                int weight = edge.first;
+                int neighbor = edge.second;
+                if (!visited.count(neighbor)) {
+                    minHeap.push({curScore + weight, neighbor});
+                }
+            }
+        }
+        return -1;
+    }
+};
+
+/**
+ * Your Graph object will be instantiated and called as such:
+ * Graph* obj = new Graph(n, edges);
+ * obj->addEdge(edge);
+ * int param_2 = obj->shortestPath(node1,node2);
+ */
