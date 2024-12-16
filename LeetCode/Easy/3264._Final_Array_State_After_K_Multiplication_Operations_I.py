@@ -42,7 +42,7 @@
 # 1 <= nums[i] <= 100
 # 1 <= k <= 10
 # 1 <= multiplier <= 5
-# Solution Heap Simulation O(NlogN) O(N)
+# Solution Heap Simulation O(NlogN + KlogN) O(N)
 import heapq
 class Solution:
     def getFinalState(self, nums: List[int], k: int, multiplier: int) -> List[int]:
@@ -56,3 +56,23 @@ class Solution:
             curr_num, idx = heapq.heappop(heap)
             nums[idx] = curr_num
         return nums
+
+# C++ O(NlogN + KlogN) O(N) Priority Queue
+class Solution {
+public:
+    vector<int> getFinalState(vector<int>& nums, int k, int multiplier) {
+        std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<std::pair<int, int>>> maxHeap;
+        for (int idx =  0; idx < nums.size(); ++idx) {
+            maxHeap.push({nums[idx], idx});
+        }
+        for (int i = 0; i < k; ++i) {
+            int num = maxHeap.top().first;
+            int idx = maxHeap.top().second;
+            maxHeap.pop();
+            num *= multiplier;
+            nums[idx] = num;
+            maxHeap.push({num, idx});
+        }
+        return nums;
+    }
+};
