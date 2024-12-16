@@ -44,3 +44,26 @@
 # Note
 # See sample tests for more examples and form of results.
 # Fundamentals
+# Solution
+import math
+def simplify(x: int, y: int) -> list[int, int]:
+    has_move: bool = True
+    while has_move:
+        has_move = False
+        for mod in range(2, 103):
+            if x % mod == 0 and y % mod == 0:
+                x //= mod
+                y //= mod
+                has_move = True
+                break
+    return [x, y] if y != 1 else x
+def sum_fractions(fractions: list[list[int, int]]) -> tuple[int, int]:
+    lcm: int = math.lcm(*[denom for numer, denom in fractions])
+    numerator: int = 0
+    for num, denom in fractions:
+        numerator += num * (lcm // denom)
+    return (numerator, lcm)
+def sum_fracts(lst):
+    if not lst: return None
+    numerator, denominator = sum_fractions(lst)
+    return simplify(numerator, denominator)
