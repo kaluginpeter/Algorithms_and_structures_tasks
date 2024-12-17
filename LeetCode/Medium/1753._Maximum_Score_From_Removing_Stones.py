@@ -40,3 +40,50 @@
 # Constraints:
 #
 # 1 <= a, b, c <= 105
+# Solution
+# Python O(NlogN) O(N) Priority Queue Greedy
+class Solution:
+    def maximumScore(self, a: int, b: int, c: int) -> int:
+        max_heap: list[int] = []
+        heapq.heappush(max_heap, -a)
+        heapq.heappush(max_heap, -b)
+        heapq.heappush(max_heap, -c)
+        score: int = 0
+        while len(max_heap) > 1:
+            score += 1
+            x: int = -heapq.heappop(max_heap)
+            y: int = -heapq.heappop(max_heap)
+            x, y = x - 1, y - 1
+            if x > 0:
+                heapq.heappush(max_heap, -x)
+            if y > 0:
+                heapq.heappush(max_heap, -y)
+        return score
+
+# C++ O(NlogN) O(N) Priority Queue Greedy
+class Solution {
+public:
+    int maximumScore(int a, int b, int c) {
+        int score = 0;
+        std::priority_queue<int, std::vector<int>> maxHeap;
+        maxHeap.push(a);
+        maxHeap.push(b);
+        maxHeap.push(c);
+        while (maxHeap.size() > 1) {
+            ++score;
+            int x = maxHeap.top();
+            maxHeap.pop();
+            int y = maxHeap.top();
+            maxHeap.pop();
+            --x;
+            --y;
+            if (x > 0) {
+                maxHeap.push(x);
+            }
+            if (y > 0) {
+                maxHeap.push(y);
+            }
+        }
+        return score;
+    }
+};
