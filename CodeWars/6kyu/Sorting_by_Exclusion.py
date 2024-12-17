@@ -12,3 +12,13 @@
 # Somewhat similar, but harder, kata are Make an increasing sequence and Find the Longest Increasing or Decreasing Combination in an Array
 #
 # SortingAlgorithmsDynamic Programming
+# Solution
+def sort_by_exclusion(words):
+    n: int = len(words)
+    dp: list[int] = [0] * (n + 1)
+    for i in range(1, n + 1):
+        for j in range(i):
+            if words[j - 1] < words[i - 1] and dp[j] > dp[i]:
+                dp[i] = dp[j]
+        dp[i] += 1
+    return n - max(dp)
