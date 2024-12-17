@@ -80,3 +80,43 @@
 #  is achieved when a=9
 # : f(10)=|10−9|+|9−9|+|3−9|=7
 # .
+# Solution
+# C++ O(1) O(1) Brute Force Math
+#include <iostream>
+
+
+void solution(int& t) {
+    for (int i = 0; i < t; ++i) {
+        int x, y, z;
+        std::cin >> x >> y >> z;
+        int minDiff = 10;
+        for (int a = 1; a <= 10; ++a) {
+            minDiff = std::min(minDiff, std::abs(x - a) + std::abs(y - a) + std::abs(z - a));
+        }
+        std::cout << minDiff << "\n";
+    }
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    solution(t);
+}
+
+# Python O(1) O(1) Brute Force Math
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        x, y, z = map(int, sys.stdin.readline().rstrip().split())
+        min_diff: int = 10
+        for a in range(1, 11):
+            min_diff = min(min_diff, abs(x - a) + abs(y - a) + abs(z - a))
+        sys.stdout.write(str(min_diff) + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
