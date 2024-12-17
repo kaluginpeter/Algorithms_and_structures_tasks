@@ -34,3 +34,55 @@
 # For each call to reserve, it is guaranteed that there will be at least one unreserved seat.
 # For each call to unreserve, it is guaranteed that seatNumber will be reserved.
 # At most 105 calls in total will be made to reserve and unreserve.
+# Solution
+# Python O(NlogN) O(N) Priority Queue
+class SeatManager:
+
+    def __init__(self, n: int):
+        self.n: int = n
+        self.min_heap: list[int] = []
+        for seat in range(1, n + 1):
+            heapq.heappush(self.min_heap, seat)
+
+    def reserve(self) -> int:
+        return heapq.heappop(self.min_heap)
+
+    def unreserve(self, seatNumber: int) -> None:
+        heapq.heappush(self.min_heap, seatNumber)
+
+
+# Your SeatManager object will be instantiated and called as such:
+# obj = SeatManager(n)
+# param_1 = obj.reserve()
+# obj.unreserve(seatNumber)
+
+# C++ O(NlogN) O(N) Priority Queue
+class SeatManager {
+private:
+    std::priority_queue<int, std::vector<int>, std::greater<int>> minHeap;
+    int n = 0;
+public:
+    SeatManager(int n) {
+        this->n = n;
+        for (int seat = 1; seat <= n; ++seat) {
+            minHeap.push(seat);
+        }
+    }
+
+    int reserve() {
+        int unreservedSeat = minHeap.top();
+        minHeap.pop();
+        return unreservedSeat;
+    }
+
+    void unreserve(int seatNumber) {
+        minHeap.push(seatNumber);
+    }
+};
+
+/**
+ * Your SeatManager object will be instantiated and called as such:
+ * SeatManager* obj = new SeatManager(n);
+ * int param_1 = obj->reserve();
+ * obj->unreserve(seatNumber);
+ */
