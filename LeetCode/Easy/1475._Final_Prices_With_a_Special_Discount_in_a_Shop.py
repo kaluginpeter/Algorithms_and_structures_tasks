@@ -69,3 +69,29 @@ class Solution:
                 res[stack.pop()] -= price
             stack.append(i)
         return res
+
+# Python O(N) O(N) Monotonic Stack
+class Solution:
+    def finalPrices(self, prices: List[int]) -> List[int]:
+        stack: list[int] = []
+        for i in range(len(prices)):
+            while stack and prices[stack[-1]] >= prices[i]:
+                prices[stack.pop()] -= prices[i]
+            stack.append(i)
+        return prices
+
+# C++ O(N) O(N) Monotonic Stack
+class Solution {
+public:
+    vector<int> finalPrices(vector<int>& prices) {
+        std::vector<int> stack;
+        for (int i = 0; i < prices.size(); ++i) {
+            while (stack.size() && prices[stack[stack.size() - 1]] >= prices[i]) {
+                prices[stack[stack.size() - 1]] -= prices[i];
+                stack.pop_back();
+            }
+            stack.push_back(i);
+        }
+        return prices;
+    }
+};
