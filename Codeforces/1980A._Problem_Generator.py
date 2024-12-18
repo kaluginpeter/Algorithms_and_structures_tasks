@@ -49,3 +49,55 @@
 # 2
 # 5
 # 1
+# Solution
+# C++ O(N) O(1) Counting
+#include <iostream>
+#include <vector>
+#include <string>
+
+
+void solution(int& t) {
+    for (int i = 0; i < t; ++i) {
+        int n, m;
+        std::cin >> n >> m;
+        std::string problems;
+        std::cin >> problems;
+        int totalFreq = 7 * m;
+        std::vector<int> chunks(7, 0);
+        for (char& ch : problems) {
+            ++chunks[ch - 'A'];
+        }
+        for (int& freq : chunks) {
+            totalFreq -= std::min(m, freq);
+        }
+        std::cout << totalFreq << "\n";
+    }
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    solution(t);
+}
+
+# Python O(N) O(1) Counting
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n, m = map(int, sys.stdin.readline().rstrip().split())
+        problems: str = sys.stdin.readline().rstrip()
+        total_freq: int = 7 * m
+        chunks: list = [0] * 7
+        for ch in problems:
+            chunks[ord(ch) - 65] += 1
+        for freq in chunks:
+            total_freq -= min(freq, m)
+        sys.stdout.write(str(total_freq) + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
