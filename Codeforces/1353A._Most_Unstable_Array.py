@@ -62,3 +62,45 @@
 # In the third test case of the example, one of the possible arrays is [0,2,0,3,0]
 #  and the answer is |0−2|+|2−0|+|0−3|+|3−0|=10
 # .
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+
+void solution(int& t) {
+    for (int i = 0; i < t; ++i) {
+        long long n, m;
+        std::cin >> n >> m;
+        if (n == 1) {
+            std::cout << "0\n";
+        } else if (n == 2) {
+            std::cout << m  << "\n";
+        } else {
+            std::cout << m * 2 << "\n";
+        }
+    }
+}
+
+int main() {
+    int t;
+    std::cin >> t;
+    solution(t);
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n, m = map(int, sys.stdin.readline().rstrip().split())
+        if n == 1:
+            sys.stdout.write('0\n')
+        elif n == 2:
+            sys.stdout.write(str(m) + '\n')
+        else:
+            sys.stdout.write(str(m * 2) + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
