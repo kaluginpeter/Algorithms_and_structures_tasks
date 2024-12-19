@@ -28,3 +28,38 @@
 # 1 <= n <= 10
 # 0 <= arr[i] < n
 # All the elements of arr are unique.
+# Solution
+# Python O(N) O(1) Greedy
+class Solution:
+    def maxChunksToSorted(self, arr: List[int]) -> int:
+        chunks: int = 0
+        n: int = len(arr)
+        local_idx: int = 0
+        for idx in range(n):
+            if arr[idx] > idx:
+                local_idx = max(local_idx, arr[idx])
+            elif local_idx == idx:
+                chunks += 1
+                if local_idx + 1 < n:
+                    local_idx += 1
+        return chunks
+# C++ O(N) O(1) Greedy
+class Solution {
+public:
+    int maxChunksToSorted(vector<int>& arr) {
+        int chunks = 0;
+        int n = arr.size();
+        int localIdx = 0;
+        for (int idx = 0; idx < n; ++idx) {
+            if (arr[idx] > idx) {
+                localIdx = std::max(localIdx, arr[idx]);
+            } else if (localIdx == idx) {
+                ++chunks;
+                if (localIdx + 1 < n) {
+                    ++localIdx;
+                }
+            }
+        }
+        return chunks;
+    }
+};
