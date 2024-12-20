@@ -39,3 +39,139 @@
 # The number of nodes in the tree is in the range [1, 214].
 # 0 <= Node.val <= 105
 # root is a perfect binary tree.
+# Solution
+# Python O(N) O(h) DFS
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def dfs(self, x: TreeNode, y: TreeNode, level: int = 0) -> None:
+        if not x:
+            return
+        if level & 1:
+            x.val, y.val = y.val, x.val
+        self.dfs(x.left, y.right, level + 1)
+        if level:
+            self.dfs(x.right, y.left, level + 1)
+
+    def reverseOddLevels(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        self.dfs(root, root)
+        return root
+
+# C++ O(N) O(h) DFS
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    void dfs(TreeNode* x, TreeNode* y, int level) {
+        if (!x) {
+            return;
+        }
+        if (level % 2 != 0) {
+            int tmp = y->val;
+            y->val = x->val;
+            x->val = tmp;
+        }
+        dfs(x->left, y->right, level + 1);
+        if (level) {
+            dfs(x->right, y->left, level + 1);
+        }
+    }
+    TreeNode* reverseOddLevels(TreeNode* root) {
+        dfs(root, root, 0);
+        return root;
+    }
+};
+
+# Python BFS O(N) O(h)
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def bfs(self, root: TreeNode) -> None:
+        cur_nodes: list[TreeNode] = []
+        if root:
+            cur_nodes.append(root)
+        next_nodes: list[TreeNode] = []
+        level: int = 0
+        while cur_nodes:
+            for node in cur_nodes:
+                if node.left:
+                    next_nodes.append(node.left)
+                    next_nodes.append(node.right)
+            level += 1
+            cur_nodes = next_nodes
+            next_nodes = []
+            if level & 1:
+                left: int = 0
+                right: int = len(cur_nodes) - 1
+                while left < right:
+                    cur_nodes[left].val, cur_nodes[right].val = cur_nodes[right].val, cur_nodes[left].val
+                    left += 1
+                    right -= 1
+
+    def reverseOddLevels(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        self.bfs(root)
+        return root
+
+# C++ O(N) O(h) BFS
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* reverseOddLevels(TreeNode* root) {
+        std::vector<TreeNode*> curNodes;
+        std::vector<TreeNode*> nextNodes;
+        if (root) {
+            curNodes.push_back(root);
+        }
+        int level = 0;
+        while (curNodes.size()) {
+            for (TreeNode* node : curNodes) {
+                if (node->left) {
+                    nextNodes.push_back(node->left);
+                    nextNodes.push_back(node->right);
+                }
+            }
+            curNodes = nextNodes;
+            nextNodes = {};
+            ++level;
+            if (level % 2 != 0) {
+                int left = 0;
+                int right = curNodes.size() - 1;
+                while (left < right) {
+                    int tmp = curNodes[right]->val;
+                    curNodes[right]->val = curNodes[left]->val;
+                    curNodes[left]->val = tmp;
+                    ++left;
+                    --right;
+                }
+            }
+        }
+        return root;
+    }
+};
