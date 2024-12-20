@@ -75,3 +75,59 @@
 #  dollars.
 #
 # In the second test case both integers are equal to zero initially, so you dont' have to spend money.
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+
+
+void solution(int& t) {
+    for (int i = 0; i < t; ++i) {
+        int x, y;
+        std::cin >> x >> y;
+        long long a, b;
+        std::cin >> a >> b;
+        long long cost = 0;
+        if ((x > 0 && y > 0) || (x < 0 && y < 0)) {
+            long long diff = std::min(std::abs(x), std::abs(y));
+            if (b <= a * 2) {
+                cost += diff * b;
+                x = std::abs(x) - diff;
+                y = std::abs(y) - diff;
+            }
+        }
+        cost += std::abs(x) * a;
+        cost += std::abs(y) * a;
+        std::cout << cost << "\n";
+    }
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    solution(t);
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        x, y = map(int, sys.stdin.readline().rstrip().split())
+        a, b = map(int, sys.stdin.readline().rstrip().split())
+        cost: int = 0
+        if (x > 0 and y > 0) or (x < 0 and y < 0):
+            diff: int = min(abs(x), abs(y))
+            if b <= a * 2:
+                cost += b * diff
+                x = abs(x) - diff
+                y = abs(y) - diff
+        cost += x * a
+        cost += y * a
+        sys.stdout.write(str(cost) + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
