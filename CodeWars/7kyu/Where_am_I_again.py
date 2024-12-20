@@ -23,3 +23,21 @@
 # While this task doesn't necessarily require a class, it is meant to practice writing classes.
 #
 # Object-oriented ProgrammingFundamentals
+# Solution
+class Walker:
+    def __init__(self):
+        self.x: int = 0
+        self.y: int = 0
+    def walk(self, path: str) -> None:
+        for d in path:
+            match d:
+                case 'e':
+                    self.x += 1
+                case 'w':
+                    self.x -= 1
+                case 'n':
+                    self.y += 1
+                case 's':
+                    self.y -= 1
+    def coords(self) -> tuple[int, int]:
+        return self.x, self.y
