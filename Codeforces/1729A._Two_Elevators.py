@@ -77,3 +77,46 @@
 # In the third test case of the example, the first elevator will arrive in 2
 #  seconds, and the second in 1
 # .
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+
+
+void solution(int& t) {
+    for (int i = 0; i < t; ++i) {
+        int a, b, c;
+        std::cin >> a >> b >> c;
+        int aTime = a - 1;
+        int bTime = (b >= c? b - c : c - b) + c - 1;
+        if (aTime < bTime) {
+            std::cout << 1;
+        } else if (bTime < aTime) {
+            std::cout << 2;
+        } else {
+            std::cout << 3;
+        }
+        std::cout << "\n";
+    }
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    solution(t);
+}
+# Python O(1) O(1) Math
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        a, b, c = map(int, sys.stdin.readline().rstrip().split())
+        a_time: int = a - 1
+        b_time: int = (b - c if b >= c else c - b) + c - 1
+        sys.stdout.write(('1' if a_time < b_time else '2' if b_time < a_time else '3') + '\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
