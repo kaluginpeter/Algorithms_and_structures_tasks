@@ -45,3 +45,47 @@
 #
 # 1 <= nums.length <= 100
 # 1 <= nums[i] <= 100
+# Solution
+# Python O(N) O(N) HashMap
+class Solution:
+    def minimumOperations(self, nums: List[int]) -> int:
+        count: int = 0
+        n: int = len(nums)
+        hashmap: dict[int, int] = dict()
+        for num in nums:
+            hashmap[num] = hashmap.get(num, 0) + 1
+        idx: int = 0
+        while len(hashmap) != n - idx:
+            count += 1
+            for _ in range(min(3, n - idx)):
+                hashmap[nums[idx]] -= 1
+                if not hashmap[nums[idx]]:
+                    del hashmap[nums[idx]]
+                idx += 1
+        return count
+
+# C++ O(N) O(N) HashMap
+class Solution {
+public:
+    int minimumOperations(vector<int>& nums) {
+        std::unordered_map<int, int> hashmap;
+        for (int num : nums) {
+            ++hashmap[num];
+        }
+        int n = nums.size();
+        int idx = 0;
+        int count = 0;
+        while (hashmap.size() != n - idx) {
+            ++count;
+            int bound = n - idx;
+            for (int i = 0; i < std::min(3, bound); ++i) {
+                --hashmap[nums[idx]];
+                if (!hashmap[nums[idx]]) {
+                    hashmap.erase(nums[idx]);
+                }
+                ++idx;
+            }
+        }
+        return count;
+    }
+};
