@@ -30,3 +30,27 @@
 # Shell: only dist is tested.
 #
 # FundamentalsMathematics
+# Solution
+import math
+
+g: float = 9.81
+
+
+def dist(v, mu):  # suppose reaction time is 1
+    v /= 3.6
+    reaction_distance = v * 1
+    braking_distance: float = (v * v) / (2 * mu * g)
+    return reaction_distance + braking_distance
+
+
+def speed(d, mu):  # suppose reaction time is 1
+    a = 1 / (2 * mu * g)
+    b = 1
+    c = -d
+    discriminant = b ** 2 - 4 * a * c
+
+    if discriminant < 0:
+        return None
+    v1 = (-b + math.sqrt(discriminant)) / (2 * a)
+    v2 = (-b - math.sqrt(discriminant)) / (2 * a)
+    return max(v1, v2) * 3.6
