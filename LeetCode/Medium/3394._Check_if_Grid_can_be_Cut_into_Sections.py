@@ -53,3 +53,50 @@
 # 0 <= rectangles[i][0] < rectangles[i][2] <= n
 # 0 <= rectangles[i][1] < rectangles[i][3] <= n
 # No two rectangles overlap.
+# Solution
+# Python O(NlogN) O(N) Monotonic Stack Sorting
+class Solution:
+    def checkValidCuts(self, n: int, rectangles: List[List[int]]) -> bool:
+        rectangles.sort(key=lambda rect: rect[2])  # Sort by end of x axis
+        x_axis: list[list[int]] = []
+        for rect in rectangles:
+            while x_axis and rect[0] < x_axis[-1][2]:
+                x_axis.pop()
+            x_axis.append(rect)
+
+        rectangles.sort(key=lambda rect: rect[3])  # Sort by end of y axis
+        y_axis: list[list[int]] = []
+        for rect in rectangles:
+            while y_axis and rect[1] < y_axis[-1][3]:
+                y_axis.pop()
+            y_axis.append(rect)
+
+        return len(x_axis) >= 3 or len(y_axis) >= 3
+
+# C++ O(NlogN) O(N) Monotonic Stack Sorting
+class Solution {
+public:
+    bool checkValidCuts(int n, vector<vector<int>>& rectangles) {
+        std::sort(rectangles.begin(), rectangles.end(), [](const std::vector<int>& a, const std::vector<int>& b) {
+            return a[2] < b[2];
+        }); // Sort by end of x axis
+        std::vector<int> xAxis;
+        for (std::vector<int>& rectangle : rectangles) {
+            while (xAxis.size() && rectangle[0] < xAxis[xAxis.size() - 1]) {
+                xAxis.pop_back();
+            }
+            xAxis.push_back(rectangle[2]);
+        }
+        std::sort(rectangles.begin(), rectangles.end(), [](const std::vector<int>& a, const std::vector<int>& b) {
+            return a[3] < b[3];
+        }); // Sort by end of y axis
+        std::vector<int> yAxis;
+        for (std::vector<int>& rectangle : rectangles) {
+            while (yAxis.size() && rectangle[1] < yAxis[yAxis.size() - 1]) {
+                yAxis.pop_back();
+            }
+            yAxis.push_back(rectangle[3]);
+        }
+        return xAxis.size() >= 3 || yAxis.size() >= 3;
+    }
+};
