@@ -40,3 +40,63 @@
 # 1 <= queries.length <= 5 * 104
 # queries[i] = [ai, bi]
 # 0 <= ai, bi <= heights.length - 1
+# Solution
+# Python O(MlogM + NlogM) O(M), where M is the length of queries and N is length of heights. Priority Queue
+class Solution:
+    def leftmostBuildingQueries(self, heights: List[int], queries: List[List[int]]) -> List[int]:
+        n: int = len(queries)
+        output: list[int] = [-1] * n
+        bucket: dict[int, list[tuple[int, int]]] = dict()
+        for idx in range(n):
+            a, b = queries[idx]
+            if a > b:
+                a, b = b, a
+            if a == b or heights[a] < heights[b]:
+                output[idx] = b
+                continue
+            elif b not in bucket:
+                bucket[b] = list()
+            bucket[b].append((max(heights[a], heights[b]), idx))
+
+        min_heap: list[tuple[int, int]] = []
+        for idx in range(len(heights)):
+            for pair in bucket.get(idx, []):
+                heapq.heappush(min_heap, pair)
+            while min_heap and heights[idx] > min_heap[0][0]:
+                output[heapq.heappop(min_heap)[1]] = idx
+        return output
+
+# C++ O(MlogM + NlogM) O(M), where M is the length of queries and N is length of heights. Priority Queue
+class Solution {
+public:
+    vector<int> leftmostBuildingQueries(vector<int>& heights, vector<vector<int>>& queries) {
+        std::unordered_map<int, std::vector<std::pair<int, int>>> bucket;
+        std::vector<int> output(queries.size(), -1);
+        for (int idx = 0; idx < queries.size(); ++idx) {
+            int a = queries[idx][0], b = queries[idx][1];
+            if (a > b) {
+                int c = b;
+                b = a;
+                a = c;
+            }
+            if (a == b || heights[a] < heights[b]) {
+                output[idx] = b;
+            } else {
+                bucket[b].push_back(
+                    {std::max(heights[a], heights[b]), idx}
+                );
+            }
+        }
+        std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<std::pair<int, int>>> minHeap;
+        for (int idx = 0; idx < heights.size(); ++idx) {
+            for (std::pair<int, int>& p : bucket[idx]) {
+                minHeap.push(p);
+            }
+            while (minHeap.size() && heights[idx] > minHeap.top().first) {
+                output[minHeap.top().second] = idx;
+                minHeap.pop();
+            }
+        }
+        return output;
+    }
+};
