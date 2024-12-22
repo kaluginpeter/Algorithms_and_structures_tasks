@@ -30,3 +30,37 @@
 #
 # 3 <= nums.length <= 100
 # -100 <= nums[i] <= 100
+# Solution
+# Python O(N) O(1) Sliding Window
+class Solution:
+    def countSubarrays(self, nums: List[int]) -> int:
+        count: int = 0
+        left: int = 0
+        for right in range(2, len(nums)):
+            if right - left + 1 > 3:
+                left += 1
+            if right - left + 1 == 3:
+                if nums[left] + nums[right] == nums[left + 1] / 2:
+                    count += 1
+        return count
+
+# C++ O(N) O(1) Sliding Window
+class Solution {
+public:
+    int countSubarrays(vector<int>& nums) {
+        int count = 0;
+        int left = 0;
+        for (int right = 2; right < nums.size(); ++right) {
+            if (right - left + 1 > 3) {
+                ++left;
+            }
+            if (right - left + 1 == 3) {
+                double diff = nums[left + 1] / 2.0;
+                if (nums[left] + nums[right] == diff) {
+                    ++count;
+                }
+            }
+        }
+        return count;
+    }
+};
