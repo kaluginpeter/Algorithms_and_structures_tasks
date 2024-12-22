@@ -54,3 +54,87 @@
 # 5
 # Note
 # Please note that the answers to the questions may overflow 32-bit integer type.
+# Solution
+# C++ O(NlogN) O(N) Prefix Sum
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+void solution() {
+    int n;
+    std::cin >> n;
+    std::vector<int> v;
+    for (int i = 0; i < n; ++i) {
+        int score;
+        std::cin >> score;
+        v.push_back(score);
+    }
+    std::vector<long long> firstQuestion;
+    for (int idx = 0; idx < n; ++idx) {
+        if (idx) {
+            firstQuestion.push_back(v[idx] + firstQuestion[idx - 1]);
+        } else {
+            firstQuestion.push_back(v[idx]);
+        }
+    }
+    std::sort(v.begin(), v.end());
+    std::vector<long long> secondQuestion;
+    for (int idx = 0; idx < n; ++idx) {
+        if (idx) {
+            secondQuestion.push_back(v[idx] + secondQuestion[idx - 1]);
+        } else {
+            secondQuestion.push_back(v[idx]);
+        }
+    }
+
+    int m;
+    std::cin >> m;
+    for (int i = 0; i < m; ++i) {
+        int t, l, r;
+        std::cin >> t >> l >> r;
+        if (t == 1) {
+            std::cout << (l - 1? firstQuestion[r - 1] - firstQuestion[l - 2] : firstQuestion[r - 1]);
+        } else {
+            std::cout << (l - 1? secondQuestion[r - 1] - secondQuestion[l - 2] : secondQuestion[r - 1]);
+        }
+        std::cout << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(NlogN) O(N) Prefix Sum
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    v: list = list(map(int, sys.stdin.readline().rstrip().split()))
+    first_question: list = []
+    for idx in range(n):
+        if idx:
+            first_question.append(first_question[-1] + v[idx])
+        else:
+            first_question.append(v[idx])
+    second_question: list = []
+    v.sort()
+    for idx in range(n):
+        if idx:
+            second_question.append(second_question[-1] + v[idx])
+        else:
+            second_question.append(v[idx])
+    m: int = int(sys.stdin.readline().rstrip())
+    for _ in range(m):
+        t, l, r = map(int, sys.stdin.readline().rstrip().split())
+        if t == 1:
+            sys.stdout.write(str(first_question[r - 1] - (first_question[l - 2] if l - 1 else 0)))
+        else:
+            sys.stdout.write(str(second_question[r - 1] - (second_question[l - 2] if l - 1 else 0)))
+        sys.stdout.write('\n')
+
+
+if __name__ == '__main__':
+    solution()
