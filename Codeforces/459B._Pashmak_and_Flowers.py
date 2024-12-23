@@ -36,3 +36,69 @@
 # choosing the first and the fifth flowers;
 # choosing the fourth and the second flowers;
 # choosing the fourth and the fifth flowers.
+# Solution
+# C++ O(NlogN) O(1) Sorting
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    std::vector<int> scores;
+    for (int i = 0; i < n; ++i) {
+        int score;
+        std::cin >> score;
+        scores.push_back(score);
+    }
+    std::sort(scores.begin(), scores.end());
+    long long x = 1;
+    long long y = 1;
+    int idx = 0;
+    while (idx + 1 < n && scores[idx] == scores[idx + 1]) {
+        ++x;
+        ++idx;
+    }
+    idx = n - 1;
+    while (idx >= 0 && scores[idx] == scores[idx - 1]) {
+        ++y;
+        --idx;
+    }
+    long long t = x * y;
+    if (scores[0] == scores[n - 1]) {
+        t = x * (x + 1) / 2 - x;
+    }
+    std::cout << scores[n - 1] - scores[0] << " " << t << "\n";
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(NlogN) O(1) Sorting
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    scores: list = list(map(int, sys.stdin.readline().rstrip().split()))
+    scores.sort()
+    x = y = 1
+    idx: int = 0
+    while idx + 1 < n and scores[idx] == scores[idx + 1]:
+        idx += 1
+        x += 1
+    idx = n - 1
+    while idx - 1 >= 0 and scores[idx] == scores[idx - 1]:
+        y += 1
+        idx -= 1
+    t: int = x * y
+    if scores[-1] == scores[0]:
+        t = x * (x + 1) // 2 - x
+    sys.stdout.write(f'{scores[-1] - scores[0]} {t}\n')
+
+
+if __name__ == '__main__':
+    solution()
