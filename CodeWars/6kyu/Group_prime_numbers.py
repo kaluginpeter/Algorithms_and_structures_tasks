@@ -15,3 +15,20 @@
 # Note: large numbers of n will be tested, up to 50000
 #
 # AlgorithmsFundamentals
+# Solution
+from gmpy2 import is_prime
+def get_primes(n, m=2):
+    primes: list[int] = []
+    num: int = 2
+    p: int = 0
+    while p < n:
+        if is_prime(num):
+            p += 1
+            primes.append(num)
+            if len(primes) == m:
+                yield tuple(primes)
+                primes.clear()
+        num += 1
+    if n % m != 0:
+        primes.extend([None] * (max(0, m - len(primes))))
+        yield tuple(primes)
