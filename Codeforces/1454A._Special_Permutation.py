@@ -68,3 +68,66 @@
 # OutputCopy
 # 2 1
 # 2 1 5 3 4
+# Solution
+# Python O(N) O(N) Math
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: list = list(range(n, 0, -1))
+        idx: int = 0
+        for i in range(n):
+            if i + 1 == nums[i]:
+                nums[i], nums[idx] = nums[idx], nums[i]
+                idx += 1
+        for idx in range(n):
+            if idx:
+                sys.stdout.write(' ')
+            sys.stdout.write(str(nums[idx]))
+        sys.stdout.write('\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
+
+# C++ O(N) O(N) Math
+#include <iostream>
+#include <vector>
+
+
+void solution(int& t) {
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        std::vector<int> nums;
+        for (int i = n; i > 0; --i) {
+            nums.push_back(i);
+        }
+        int idx = 0;
+        for (int i = 0; i < n; ++i) {
+            if (i + 1 == nums[i]) {
+                int tmp = nums[idx];
+                nums[idx] = nums[i];
+                nums[i] = tmp;
+                ++idx;
+            }
+        }
+        for (int i = 0; i < n; ++i) {
+            if (i) {
+                std::cout << " ";
+            }
+            std::cout << nums[i];
+        }
+        std::cout << "\n";
+    }
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    solution(t);
+}
