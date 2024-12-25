@@ -15,3 +15,6 @@
 #
 # Hope you have fun:-)!
 # FundamentalsMathematicsArraysMatrix
+# Solution
+def rotate_matrix(arr):
+    return [[arr[r][c] for r in range(len(arr))] for c in range(len(arr[0]) - 1, -1, -1)]
