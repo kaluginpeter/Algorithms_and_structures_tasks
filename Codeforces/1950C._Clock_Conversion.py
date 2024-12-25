@@ -60,3 +60,58 @@
 # 11:59 AM
 # 12:00 PM
 # 09:37 PM
+# C++ O(1) O(1) Greedy
+#include <iostream>
+#include <string>
+
+void solution(int t) {
+    for (int i = 0; i < t; ++i) {
+        std::string time;
+        std::getline(std::cin, time);
+        std::string h_str = time.substr(0, 2);
+        std::string m_str = time.substr(3, 2);
+        int h = std::stoi(h_str);
+        bool past = false;
+
+        if (h >= 12) {
+            past = true;
+        }
+        if (h >= 13) {
+            h -= 12;
+        } else if (h == 0) {
+            h = 12;
+        }
+        std::cout << (h < 10 ? "0" : "") << h << ":" << m_str << " " << (past ? "PM" : "AM") << std::endl;
+    }
+}
+
+int main() {
+    int t;
+    std::cin >> t;
+    std::cin.ignore();
+    solution(t);
+    return 0;
+}
+
+# Python O(1) O(1)
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        h, m = sys.stdin.readline().rstrip().split(':')
+        past: bool = False
+        if h >= '12':
+            past = True
+        if h >= '13':
+            h = str(int(h) - 12)
+            if len(h) == 1:
+                h = '0' + h
+        elif int(h) == 0:
+            h = '12'
+        sys.stdout.write(f'{h}:{m} {"AM" if not past else "PM"}\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
