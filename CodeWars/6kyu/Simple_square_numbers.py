@@ -12,3 +12,18 @@
 # Good luck!
 #
 # Algorithms
+# Solution
+def solve(n):
+    smallest_square = float('inf')
+    for a in range(1, int(n ** 0.5) + 1):
+        if n % a == 0:
+            b = n // a
+            for x, y in [(a, b), (b, a)]:
+                if (x + y) % 2 == 0 and (y - x) % 2 == 0:
+                    m = (x + y) // 2
+                    k = (y - x) // 2
+                    square_k = k * k
+                    if square_k > 0:
+                        smallest_square = min(smallest_square, square_k)
+
+    return smallest_square if smallest_square != float('inf') else -1
