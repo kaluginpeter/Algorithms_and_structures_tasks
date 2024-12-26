@@ -29,3 +29,35 @@
 # 0 <= nums[i] <= 1000
 # 0 <= sum(nums[i]) <= 1000
 # -1000 <= target <= 1000
+# Solution
+# Python O(NS) O(NS) Dynamic Programming
+class Solution:
+
+    def findTargetSumWays(self, nums: List[int], target: int) -> int:
+        dp: dict[int] = defaultdict(int)
+        dp[0] = 1
+        for i in range(len(nums)):
+            next_dp: list[int] = defaultdict(int)
+            for cur_sum, count in dp.items():
+                next_dp[cur_sum + nums[i]] += count
+                next_dp[cur_sum - nums[i]] += count
+            dp = next_dp
+        return dp[target]
+
+# C++ O(NS) O(NS) Dynamic Programming
+class Solution {
+public:
+    int findTargetSumWays(vector<int>& nums, int target) {
+        std::unordered_map<int, int> dp;
+        dp[0] = 1;
+        for (int i = 0; i < nums.size(); ++i) {
+            std::unordered_map<int, int> nextDp;
+            for (auto& pair : dp) {
+                nextDp[pair.first + nums[i]] += pair.second;
+                nextDp[pair.first - nums[i]] += pair.second;
+            }
+            dp = nextDp;
+        }
+        return dp[target];
+    }
+};
