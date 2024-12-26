@@ -50,3 +50,36 @@
 #
 # In the second testcase of the sample, GCD(6,4)+LCM(6,4)=2+12=14
 # .
+# Solution
+# Python O(1) O(1) Greedy Math
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        x: int = int(sys.stdin.readline().rstrip())
+        sys.stdout.write(f'{1} {x - 1}\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
+
+# C++ O(1) O(1) Greedy Math
+#include <iostream>
+
+
+void solution(int& t) {
+    for (int i = 0; i < t; ++i) {
+        int x;
+        std::cin >> x;
+        std::cout << 1 << " " << x - 1 << "\n";
+    }
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    solution(t);
+}
