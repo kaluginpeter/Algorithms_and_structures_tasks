@@ -51,3 +51,18 @@ class Solution:
             profit = max(profit, values[day] + max_prev_day)
             max_prev_day = max(max_prev_day, values[day])
         return profit
+
+# C++ O(N) O(1) Dynamic Programming
+class Solution {
+public:
+    int maxScoreSightseeingPair(vector<int>& values) {
+        int maxPrevDay = values[0];
+        int output = 0;
+        for (int idx = 1; idx < values.size(); ++idx) {
+            --maxPrevDay;
+            output = std::max(output, values[idx] + maxPrevDay);
+            maxPrevDay = std::max(maxPrevDay, values[idx]);
+        }
+        return output;
+    }
+};
