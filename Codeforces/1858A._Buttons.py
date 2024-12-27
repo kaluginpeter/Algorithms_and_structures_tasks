@@ -80,3 +80,49 @@
 # -th button.
 # Anna cannot make the turn, so Katie wins.
 # It can be shown that Katie can win no matter what moves Anna takes.
+# Solution
+# Python O(1) O(1) Math
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        a, b, c = map(int, sys.stdin.readline().rstrip().split())
+        if c & 1:
+            a += c // 2 + 1
+            b += c // 2
+        else:
+            a += c // 2
+            b += c // 2
+        sys.stdout.write('First\n' if a > b else 'Second\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
+
+# C++ O(1) O(1) Math
+#include <iostream>
+
+
+void solution(int& t) {
+    for (int i = 0; i < t; ++i) {
+        int a, b, c;
+        std::cin >> a >> b >> c;
+        if (c % 2 == 0) {
+            a += c / 2;
+            b += c / 2;
+        } else {
+            a += c / 2 + 1;
+            b += c / 2;
+        }
+        std::cout << (a > b? "First" : "Second") << "\n";
+    }
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    solution(t);
+}
