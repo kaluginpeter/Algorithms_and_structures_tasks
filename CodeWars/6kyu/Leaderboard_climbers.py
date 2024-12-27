@@ -38,3 +38,14 @@
 # The strings in the second list will always be something in the leaderboard followed by a space and a + or - sign followed by a number.
 #
 # ListsFundamentals
+# Solution
+def leaderboard_sort(leaderboard, changes):
+    for change in changes:
+        name, score = change.split()
+        idx: int = leaderboard.index(name)
+        leaderboard.remove(name)
+        if '+' in score:
+            leaderboard.insert(idx - int(score[1:]), name)
+        else:
+            leaderboard.insert(idx + int(score[1:]), name)
+    return leaderboard
