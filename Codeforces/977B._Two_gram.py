@@ -39,4 +39,56 @@
 
 # In the second example the only two-gram "ZZ" can be printed because it contained in the string "ZZZAA" two times.
 
+# Solution
+# C++ O(N) O(N) HashMap Greedy
+#include <iostream>
+#include <string>
+#include <unordered_map>
 
+
+void solution(int& n, std::string& sequence) {
+    std::unordered_map<std::string, int> hashmap;
+    for (int i = 0; i < n - 1; ++i) {
+        ++hashmap[sequence.substr(i, 2)];
+    }
+    std::string output;
+    int maxFreq = 0;
+    for (auto& pair : hashmap) {
+        if (pair.second > maxFreq) {
+            output = pair.first;
+            maxFreq = pair.second;
+        }
+    }
+    std::cout << output << "\n";
+}
+
+
+int main() {
+    int n;
+    std::cin >> n;
+    std::string sequence;
+    std::cin >> sequence;
+    solution(n, sequence);
+}
+
+# Python O(N) O(N) HashMap Greedy
+import sys
+
+
+def solution(n: int, sequence: str) -> None:
+    hashmap: dict = dict()
+    for i in range(n - 1):
+        hashmap[sequence[i:i+2]] = hashmap.get(sequence[i:i+2], 0) + 1
+    output: str = ''
+    max_freq: int = 0
+    for substr, freq in hashmap.items():
+        if freq > max_freq:
+            output = substr
+            max_freq = freq
+    sys.stdout.write(f'{output}\n')
+
+if __name__ == '__main__':
+    n: int = int(sys.stdin.readline().rstrip())
+    sequence: str = sys.stdin.readline().rstrip()
+    solution(n, sequence)
+    
