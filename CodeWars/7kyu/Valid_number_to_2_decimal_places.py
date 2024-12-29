@@ -19,3 +19,14 @@
 # List of non-valid numbers: ["hellow 11.99" "11.9" "11" "11." ".9"]
 
 # Regular ExpressionsFundamentals
+# Solution
+def valid_number(n):
+    idx: int = 0
+    while idx < len(n) and n[idx] != '.':
+        if not n[idx].isdigit() and (n[idx] not in '+-' or idx):
+            return False
+        idx += 1
+    idx += 1
+    if idx >= len(n):
+        return False
+    return len(n) - idx == 2 and all(digit.isdigit() for digit in n[idx:])
