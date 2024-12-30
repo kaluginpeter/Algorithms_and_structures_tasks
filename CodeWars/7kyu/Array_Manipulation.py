@@ -11,3 +11,15 @@
 # Note: Return a new array, rather than modifying the passed array.
 #
 # ArraysBinary Search TreesAlgorithms
+# Solution
+def array_manip(array):
+    output: list[int] = []
+    for i in range(len(array)):
+        min_el: int = float('inf')
+        seen: bool = False
+        for j in range(i + 1, len(array)):
+            if array[j] > array[i] and array[j] < min_el:
+                min_el = array[j]
+                seen = True
+        output.append(min_el if seen else -1)
+    return output
