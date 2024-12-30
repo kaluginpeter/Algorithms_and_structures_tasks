@@ -29,3 +29,43 @@
 #
 # 1 <= low <= high <= 105
 # 1 <= zero, one <= low
+# Solution
+# Python O(N) O(N) Dynamic Programming
+class Solution:
+    def countGoodStrings(self, low: int, high: int, zero: int, one: int) -> int:
+        dp: list[int] = [0] * (high + 1)
+        MOD: int = 10**9 + 7
+        dp[0] = 1
+        for L in range(high + 1):
+            if L + one <= high:
+                dp[L + one] = (dp[L + one] + dp[L]) % MOD
+            if L + zero <= high:
+                dp[L + zero] = (dp[L + zero] + dp[L]) % MOD
+        score: int = 0
+        for i in range(low, high + 1):
+            score = (score + dp[i]) % MOD
+        return score
+
+# C++ O(N) O(N) Dynamic Programming
+class Solution {
+public:
+    int countGoodStrings(int low, int high, int zero, int one) {
+        int bound = high + 1;
+        std::vector<int> dp(bound);
+        int MOD = 1000000007;
+        dp[0] = 1;
+        for (int L = 0; L <= high; ++L) {
+            if (L + zero <= high) {
+                dp[L + zero] = (dp[L + zero] + dp[L]) % MOD;
+            }
+            if (L + one <= high) {
+                dp[L + one] = (dp[L + one] + dp[L]) % MOD;
+            }
+        }
+        int score = 0;
+        for (int i = low; i <= high; ++i) {
+            score = (score + dp[i]) % MOD;
+        }
+        return score;
+    }
+};
