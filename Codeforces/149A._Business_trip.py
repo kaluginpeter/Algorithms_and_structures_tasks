@@ -33,3 +33,59 @@
 # Let's consider the first sample test. There it is enough to water the flower during the seventh and the ninth month. Then the flower grows by exactly five centimeters.
 #
 # In the second sample Petya's parents will believe him even if the flower doesn't grow at all (k = 0). So, it is possible for Petya not to water the flower at all.
+# C++ O(NlogN) O(1) Greedy
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+void solution() {
+    int k;
+    std::cin >> k;
+    std::vector<int> waters;
+    for (int i = 0; i < 12; ++i) {
+        int water;
+        std::cin >> water;
+        waters.push_back(water);
+    }
+    if (k == 0) {
+        std::cout << "0\n";
+        return;
+    }
+    std::sort(waters.begin(), waters.end());
+    for (int i = 11; i >= 0; --i) {
+        k -= waters[i];
+        if (k <= 0) {
+            std::cout << 12 - i << "\n";
+            return;
+        }
+    }
+    std::cout << "-1\n";
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(NlogN) O(1) Greedy
+from __future__ import annotations
+import sys
+
+
+def solution() -> None:
+    k: int = int(sys.stdin.readline().rstrip())
+    waters: list[int] = sorted(map(int, sys.stdin.readline().rstrip().split()))
+    if k == 0:
+        sys.stdout.write('0\n')
+        return
+    for i in range(11, -1, -1):
+        k -= waters[i]
+        if k <= 0:
+            sys.stdout.write(str(12 - i) + '\n')
+            return
+    sys.stdout.write('-1\n')
+
+
+if __name__ == '__main__':
+    solution()
