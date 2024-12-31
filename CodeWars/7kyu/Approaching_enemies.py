@@ -11,3 +11,7 @@
 # Tests will have a precision of 3 decimal points. Good luck!
 #
 # PuzzlesGames
+# Solution
+def calculate_time(p1, p2):
+    speed: float = ( (p1[0] - p2[0])**2 + (p1[1] - p2[1])**2 )**.5 / 5
+    return round( ( p2[0]**2 + p2[1]**2 )**.5 / speed, 3)
