@@ -26,3 +26,42 @@
 # 0
 # Note
 # A table for the second sample test is given below. The occurrences of number 12 are marked bold.
+# Solution
+# C++ O(x) O(1) Number Theory
+#include <iostream>
+
+
+void solution() {
+    int n, x;
+    std::cin >> n >> x;
+    int count = 0;
+    int bound = std::min(x, n);
+    for (int m = 1; m <= bound; ++m) {
+        if (x % m == 0 && x / m <= bound) {
+            ++count;
+        }
+    }
+    std::cout << count << "\n";
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(x) O(1) Number Theory
+import sys
+
+
+def solution() -> None:
+    n, x = map(int, sys.stdin.readline().rstrip().split())
+    bound: int = min(n, x)
+    count: int = 0
+    for m in range(1, bound + 1):
+        if x % m == 0 and x // m <= bound:
+            count += 1
+    sys.stdout.write(f'{count}\n')
+
+
+if __name__ == '__main__':
+    solution()
