@@ -38,3 +38,45 @@
 # days is in strictly increasing order.
 # costs.length == 3
 # 1 <= costs[i] <= 1000
+# Solution
+# C++ O(N) O(N) Dynamic Programming
+class Solution {
+public:
+    int mincostTickets(vector<int>& days, vector<int>& costs) {
+        int n = days[days.size() - 1];
+        std::vector<int> dp(n + 1, 0);
+        std::unordered_set<int> travelDays;
+        for (int& travelDay : days) {
+            travelDays.insert(travelDay);
+        }
+        for (int D = 1; D < n + 1; ++D) {
+            if (!travelDays.count(D)) {
+                dp[D] = dp[D - 1];
+            } else {
+                dp[D] = std::min({
+                    dp[D - 1] + costs[0],
+                    dp[std::max(D - 7, 0)] + costs[1],
+                    dp[std::max(D - 30, 0)] + costs[2]
+                });
+            }
+        }
+        return dp[n];
+    }
+};
+
+# Python O(N) O(N) Dynamic Programming
+class Solution:
+    def mincostTickets(self, days: List[int], costs: List[int]) -> int:
+        n: int = days[-1]
+        travel_days: set[int] = set(days)
+        dp: list[int] = [0] * (n + 1)
+        for D in range(1, n + 1):
+            if D not in travel_days:
+                dp[D] = dp[D - 1]
+            else:
+                dp[D] = min(
+                    dp[D - 1] + costs[0],
+                    dp[max(D - 7, 0)] + costs[1],
+                    dp[max(D - 30, 0)] + costs[2]
+                )
+        return dp[n]
