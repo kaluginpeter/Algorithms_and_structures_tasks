@@ -47,3 +47,48 @@ class Solution:
                 count_s -= 1
             total = max(total, count_s)
         return total
+
+# Python O(N) O(N) Prefix Sum
+class Solution:
+    def maxScore(self, s: str) -> int:
+        prefix_sum: list[tuple[int, int]] = []
+        zeros = ones = 0
+        n: int = len(s)
+        for idx in range(n):
+            if s[idx] == '0':
+                zeros += 1
+            else:
+                ones += 1
+            prefix_sum.append((zeros, ones))
+        max_score: int = 0
+        for left in range(n - 1):
+            cur_score: int = prefix_sum[left][0] + prefix_sum[n - 1][1] - prefix_sum[left][1]
+            if cur_score > max_score:
+                max_score = cur_score
+        return max_score
+
+# C++ O(N) O(N) Prefix Sum
+class Solution {
+public:
+    int maxScore(string s) {
+        int n = s.size();
+        std::vector<std::pair<int, int>> prefixSum;
+        int zeros = 0, ones = 0;
+        for (int idx = 0; idx < n; ++idx) {
+            if (s[idx] == '0') {
+                ++zeros;
+            } else {
+                ++ones;
+            }
+            prefixSum.push_back({zeros, ones});
+        }
+        int maxScore = 0;
+        for (int left = 0; left < n - 1; ++left) {
+            int curScore = prefixSum[left].first + prefixSum[n - 1].second - prefixSum[left].second;
+            if (curScore > maxScore) {
+                maxScore = curScore;
+            }
+        }
+        return maxScore;
+    }
+};
