@@ -33,3 +33,58 @@
 # Note
 # In the first case we cannot make a variable exceed 3
 #  in one operation. One way of achieving this in two operations is to perform "b += a" twice.
+# Solution
+# C++ O(logN) O(1) Math
+#include <iostream>
+
+
+void solution(int& t) {
+    for (int i = 0; i < t; ++i) {
+        int a, b, n;
+        std::cin >> a >> b >> n;
+        int steps = 0;
+        if (a < b) {
+            int c = a;
+            a = b;
+            b = c;
+        }
+        while (std::max(a, b) <= n) {
+            ++steps;
+            if (steps % 2 != 0) {
+                b += a;
+            } else {
+                a += b;
+            }
+        }
+        std::cout << steps << "\n";
+    }
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    solution(t);
+}
+# Python O(logN) O(1) Math
+import sys
+
+
+def solution(t: int) -> None:
+    for _ in range(t):
+        a, b, n = map(int, sys.stdin.readline().rstrip().split())
+        if a < b:
+            a, b = b, a
+        steps: int = 0
+        while max(a, b) <= n:
+            steps += 1
+            if steps & 1:
+                b += a
+            else:
+                a += b
+        sys.stdout.write(f'{steps}\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    solution(t)
