@@ -32,3 +32,46 @@
 # sum(words[i].length) <= 3 * 105
 # 1 <= queries.length <= 105
 # 0 <= li <= ri < words.length
+# Solution
+# Python O(N) O(N) Prefix Sum
+class Solution:
+    def vowelStrings(self, words: List[str], queries: List[List[int]]) -> List[int]:
+        vowels: set[str] = {'a', 'e', 'o', 'i', 'u'}
+        prefix_sum: list[int] = []
+        for word in words:
+            score: int = prefix_sum[-1] if prefix_sum else 0
+            if word[0] in vowels and word[-1] in vowels:
+                score += 1
+            prefix_sum.append(score)
+        output: list[int] = []
+        for query in queries:
+            if query[0]:
+                output.append(prefix_sum[query[1]] - prefix_sum[query[0] - 1])
+            else:
+                output.append(prefix_sum[query[1]])
+        return output
+
+# C++ O(N) O(N) Prefix Sum
+class Solution {
+public:
+    vector<int> vowelStrings(vector<string>& words, vector<vector<int>>& queries) {
+        std::unordered_set<char> vowels = {'a', 'e', 'i', 'o', 'u'};
+        std::vector<int> prefixSum;
+        for (std::string& word : words) {
+            int score = (prefixSum.size()? prefixSum[prefixSum.size() - 1] : 0);
+            if (vowels.count(word[0]) && vowels.count(word[word.size() - 1])) {
+                ++score;
+            }
+            prefixSum.push_back(score);
+        }
+        std::vector<int> output;
+        for (std::vector<int>& query : queries) {
+            if (query[0]) {
+                output.push_back(prefixSum[query[1]] - prefixSum[query[0] - 1]);
+            } else {
+                output.push_back(prefixSum[query[1]]);
+            }
+        }
+        return output;
+    }
+};
