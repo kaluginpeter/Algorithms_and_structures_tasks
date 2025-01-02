@@ -23,3 +23,19 @@
 # Happy judging!
 #
 # Object-oriented ProgrammingFundamentals
+# Solution
+def scoreboard(who_ate_what):
+    return [{
+            'name': item['name'],
+            'score': item.get('chickenwings', 0) * 5
+            + item.get('hamburgers', 0) * 3
+            + item.get('hotdogs', 0) * 2
+        } for item in sorted(
+            who_ate_what, key=lambda item: (
+                -(item.get('chickenwings', 0) * 5
+                + item.get('hamburgers', 0) * 3
+                + item.get('hotdogs', 0) * 2),
+                item['name']
+            )
+        )
+    ]
