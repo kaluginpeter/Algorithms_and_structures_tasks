@@ -38,3 +38,62 @@
 # hbnyiyc joll joll euzf joll
 # OutputCopy
 # hbnyiyc joll joll un joll
+# Solution
+# C++ O(N) O(N) HashMap
+#include <iostream>
+#include <string>
+#include <unordered_map>
+
+
+void solution() {
+    int n, m;
+    std::cin >> n >> m;
+    std::unordered_map<std::string, std::string> hashmap;
+    for (int i = 0; i < m; ++i) {
+        std::string x, y;
+        std::cin >> x >> y;
+        hashmap[x] = y;
+    }
+    for (int i = 0; i < n; ++i) {
+        std::string c;
+        std::cin >> c;
+        std::string output = hashmap[c];
+        if (c.size() <= hashmap[c].size()) {
+            output = c;
+        }
+        if (i) {
+            std::cout << " ";
+        }
+        std::cout << output;
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(N) HashMap
+from __future__ import annotations
+import sys
+
+
+def solution() -> None:
+    n, m = map(int, sys.stdin.readline().rstrip().split())
+    hashmap: dict[str, str] = dict()
+    for _ in range(m):
+        x, y = sys.stdin.readline().rstrip().split()
+        hashmap[x] = y
+    words: list[str] = sys.stdin.readline().rstrip().split()
+    for i in range(n):
+        output: str = words[i]
+        if len(hashmap[words[i]]) < len(output):
+            output = hashmap[words[i]]
+        if i:
+            sys.stdout.write(' ')
+        sys.stdout.write(output)
+    sys.stdout.write('\n')
+
+
+if __name__ == '__main__':
+    solution()
