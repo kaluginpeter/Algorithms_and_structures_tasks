@@ -1,0 +1,1 @@
+Solved problems and their solution from "Алгоритмы и Структуры Данных" by Яндекс Практикум
