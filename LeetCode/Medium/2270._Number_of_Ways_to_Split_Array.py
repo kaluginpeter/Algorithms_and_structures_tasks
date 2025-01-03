@@ -32,3 +32,41 @@
 #
 # 2 <= nums.length <= 105
 # -105 <= nums[i] <= 105
+# Solution
+# Python O(N) O(N) Prefix Sum
+class Solution:
+    def waysToSplitArray(self, nums: List[int]) -> int:
+        count: int = 0
+        prefix_sum: list[int] = []
+        for num in nums:
+            if prefix_sum:
+                prefix_sum.append(prefix_sum[-1] + num)
+            else:
+                prefix_sum.append(num)
+        for i in range(len(nums) - 1):
+            if prefix_sum[i] >= prefix_sum[-1] - prefix_sum[i]:
+                count += 1
+        return count
+
+# C++ O(N) O(N) Prefix Sum
+class Solution {
+public:
+    int waysToSplitArray(vector<int>& nums) {
+        int output = 0;
+        int n = nums.size();
+        std::vector<long long> prefixSum(n);
+        for (int i = 0; i < n; ++i) {
+            long long score = 0;
+            if (i) {
+                score += prefixSum[i - 1];
+            }
+            prefixSum[i] = score + nums[i];
+        }
+        for (int i = 0; i < n - 1; ++i) {
+            if (prefixSum[i] >= prefixSum[n - 1] - prefixSum[i]) {
+                ++output;
+            }
+        }
+        return output;
+    }
+};
