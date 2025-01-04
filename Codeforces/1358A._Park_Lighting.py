@@ -53,3 +53,37 @@
 #
 # Possible optimal arrangement of the lanterns for the 3
 # -rd test case of input data example:
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n, m;
+        std::cin >> n >> m;
+        std::cout << (n * m + 1) / 2 << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Math
+from __future__ import annotations
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, m = map(int, sys.stdin.readline().rstrip().split())
+        sys.stdout.write(f'{(n * m + 1) // 2}\n')
+
+
+if __name__ == '__main__':
+    solution()
