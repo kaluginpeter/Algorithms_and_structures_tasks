@@ -11,3 +11,17 @@
 # If they are saying nothing in common, kill both samurai and blame a ninja. (output "death")
 #
 # StringsArraysFundamentals
+# Solution
+def common_ground(s1,s2):
+    hashmap: dict[str, int] = dict()
+    output: list[str] = []
+    idx: int = 0
+    for word in s2.split():
+        if word not in hashmap:
+            hashmap[word] = idx
+        idx += 1
+    for word in set(s1.split()):
+        if word in hashmap:
+            output.append(word)
+    output.sort(key=lambda word: hashmap[word])
+    return ' '.join(output) if output else 'death'
