@@ -28,3 +28,64 @@
 # 0 <= starti <= endi < s.length
 # 0 <= directioni <= 1
 # s consists of lowercase English letters.
+# Solution
+# Python O(N) O(N) Sweep Line
+class Solution:
+    def shiftingLetters(self, s: str, shifts: List[List[int]]) -> str:
+        n: int = len(s)
+        swaps: list[int] = [0] * (n + 1)
+        for start, end, direction in shifts:
+            if direction:
+                swaps[start] += 1
+                swaps[end + 1] -= 1
+            else:
+                swaps[start] -= 1
+                swaps[end + 1] += 1
+        counter: int = 0
+        MOD: int = 26
+        lower: int = 97
+        output: list[str] = []
+        for idx in range(n):
+            counter = (counter + swaps[idx]) % MOD
+            correct_char: int = lower + (ord(s[idx]) - lower + counter) % MOD
+            if correct_char < lower:
+                correct_char += MOD
+            output.append(chr(correct_char))
+        return ''.join(output)
+
+# C++ O(N) O(N) Sweep Line
+class Solution {
+public:
+    string shiftingLetters(string s, vector<vector<int>>& shifts) {
+        int n = s.size();
+        std::vector<int> swaps (n + 1, 0);
+        for (std::vector<int> shift : shifts) {
+            int start = shift[0];
+            int end = shift[1];
+            int direction = shift[2];
+            if (direction == 1) {
+                ++swaps[start];
+                --swaps[end + 1];
+            } else {
+                --swaps[start];
+                ++swaps[end + 1];
+            }
+        }
+        int counter = 0;
+        int MOD = 26;
+        for (int idx = 0; idx < n; ++idx) {
+            counter = counter + swaps[idx];
+            if (counter > 25) {
+                counter -= MOD;
+            } else if (counter < -25) {
+                counter += MOD;
+            }
+            char correctChar = 'a' + (s[idx] - 'a' + counter + MOD) % MOD;
+            if (correctChar < 97) {
+                correctChar += MOD;
+            }
+            s[idx] = correctChar;
+        }
+        return s;
+    }
+};
