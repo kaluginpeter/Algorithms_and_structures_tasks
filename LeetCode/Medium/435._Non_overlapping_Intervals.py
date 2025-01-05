@@ -26,3 +26,36 @@
 # 1 <= intervals.length <= 105
 # intervals[i].length == 2
 # -5 * 104 <= starti < endi <= 5 * 104
+# Solution
+# Python O(NlogN) O(1) Sorting Greedy
+class Solution:
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        intervals.sort(key=lambda x: x[1])
+        count: int = 0
+        cur_end: int = float('-inf')
+        for interval in intervals:
+            if interval[0] >= cur_end:
+                cur_end = interval[1]
+            else:
+                count += 1
+        return count
+
+# C++ O(NlogN) O(1) Sorting Greedy
+class Solution {
+public:
+    int eraseOverlapIntervals(vector<vector<int>>& intervals) {
+        std::sort(intervals.begin(), intervals.end(), [](std::vector<int>& x, std::vector<int>& y){
+            return x[1] < y[1];
+        });
+        int count = 0;
+        int curEnd = INT32_MIN;
+        for (int i = 0; i < intervals.size(); ++i) {
+            if (intervals[i][0] >= curEnd) {
+                curEnd = intervals[i][1];
+            } else {
+                ++count;
+            }
+        }
+        return count;
+    }
+};
