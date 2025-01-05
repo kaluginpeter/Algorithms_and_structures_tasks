@@ -50,3 +50,60 @@
 #  and 8
 #  in another pile. The difference is (2+16)−(4+8)=6
 # .
+# C++ O(N) O(1) Math
+#include <iostream>
+#include <cmath>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        long long upper = std::pow(2, n);
+        int upperSize = 1;
+        int power = 1;
+        while (upperSize < n / 2) {
+            upper += std::pow(2, power);
+            ++power;
+            ++upperSize;
+        }
+        long long lower = 0;
+        while (power < n) {
+            lower += std::pow(2, power);
+            ++power;
+        }
+        std::cout << upper - lower << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(N) Math Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        upper: int = 2 ** n
+        upper_size: int = 1
+        power: int = 1
+        while upper_size < n // 2:
+            upper += 2 ** power
+            power += 1
+            upper_size += 1
+        lower: int = 0
+        while power < n:
+            lower += 2 ** power
+            power += 1
+        sys.stdout.write(f'{upper - lower}\n')
+
+
+if __name__ == '__main__':
+    solution()
