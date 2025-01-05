@@ -37,3 +37,11 @@
 # The iteration expression or operation to be performed is always incremental
 # The range of upper boundary is as follows: 1 <= V <= 20
 # Algorithms
+# Solution
+def count_loop_iterations(arr):
+    output: list[int] = []
+    prev: int = 1
+    for op, incl in arr:
+        output.append( prev * (op + int(incl)) + prev )
+        prev = prev * (op + int(incl))
+    return output
