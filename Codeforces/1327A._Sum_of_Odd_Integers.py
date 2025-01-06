@@ -66,3 +66,39 @@
 #
 # In the sixth test case, you cannot represent 16
 #  as the sum of five distinct positive odd integers.
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+#include <cmath>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n, k;
+        std::cin >> n >> k;
+        long long s = std::pow(k, 2);
+        std::cout << (n >= s && n % 2 == k % 2? "YES" : "NO") << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, k = map(int, sys.stdin.readline().rstrip().split())
+        s: int = k ** 2
+        sys.stdout.write(['NO', 'YES'][n >= s and n % 2 == k % 2] + '\n')
+
+
+if __name__ == '__main__':
+    solution()
