@@ -55,3 +55,45 @@ class Solution:
             right_sm_ones += right_frq_ones
             ans[i] += right_sm_ones
         return ans
+
+# Solution
+# Python O(N) O(N) Prefix Sum
+class Solution:
+    def minOperations(self, boxes: str) -> List[int]:
+        n: int = len(boxes)
+        output: list[int] = [0] * n
+        prev: int = 0
+        ones: int = 0
+        for i in range(n):
+            output[i] += prev
+            ones += boxes[i] == '1'
+            prev += ones
+        prev, ones = 0, 0
+        for i in range(n - 1, -1, -1):
+            output[i] += prev
+            ones += boxes[i] == '1'
+            prev += ones
+        return output
+
+# C++ O(N) O(N) Prefix Sum
+class Solution {
+public:
+    vector<int> minOperations(string boxes) {
+        int n = boxes.size();
+        std::vector<int> output (n, 0);
+        int prev = 0, ones = 0;
+        for (int i = 0; i < n; ++i) {
+            output[i] += prev;
+            ones += (boxes[i] == '1'? 1 : 0);
+            prev += ones;
+        }
+        prev = 0;
+        ones = 0;
+        for (int i = n - 1; i >= 0; --i) {
+            output[i] += prev;
+            ones += (boxes[i] == '1'? 1 : 0);
+            prev = prev + ones;
+        }
+        return output;
+    }
+};
