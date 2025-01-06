@@ -3,3 +3,7 @@
 # If you complete this kata and there are no issues, please remember to give it a ready vote and a difficulty rating. :)
 #
 # GeometryFundamentals
+# Solution
+from math import pi
+def volume(r, h):
+    return int(1/3 * pi*r**2*h)
