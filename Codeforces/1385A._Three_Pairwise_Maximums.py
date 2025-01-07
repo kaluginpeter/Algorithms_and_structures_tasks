@@ -64,3 +64,54 @@
 # NO
 # YES
 # 1 1 1000000000
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+#include <algorithm>
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int x, y, z;
+        std::cin >> x >> y >> z;
+
+        // We can construct a, b, c as follows
+        int a = std::min(x, y);
+        int b = std::min(x, z);
+        int c = std::min(y, z);
+
+        // Check if max conditions hold
+        if (std::max(a, b) == x && std::max(a, c) == y && std::max(b, c) == z) {
+            std::cout << "YES\n";
+            std::cout << a << " " << b << " " << c << "\n";
+        } else {
+            std::cout << "NO\n";
+        }
+    }
+}
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        x, y, z = map(int, sys.stdin.readline().rstrip().split())
+        a: inb = min(x, y)
+        b: int = min(x, z)
+        c: int = min(y, z)
+        if max(a, b) == x and max(a, c) == y and max(b, c) == z:
+            sys.stdout.write('YES\n')
+            sys.stdout.write(f'{a} {b} {c}\n')
+        else:
+            sys.stdout.write('NO\n')
+
+
+if __name__ == '__main__':
+    solution()
