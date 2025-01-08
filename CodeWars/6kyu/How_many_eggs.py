@@ -20,3 +20,23 @@
 # 3. Each chicken's egg production goes down by 20% each year, NOT the total number of eggs produced by each 'batch' of chickens. While this might appear to be the same thing, it doesn't once non-integers come into play so take care that this is reflected in your kata!
 #
 # Algorithms
+def egged(year, span):
+    if not year:
+        return 'No chickens yet!'
+    total_eggs: int = 0
+    coops: list[list[int, int]] = [[300, span], [300, span], [300, span]]
+    for _ in range(year):
+        total_eggs = 0
+        coop_idx: int = 0
+        while coop_idx < len(coops):
+            outcome: int = coops[coop_idx][0]
+            total_eggs += outcome
+            coops[coop_idx][1] -= 1
+            coops[coop_idx][0] = int(outcome - (outcome * 0.20))
+            if not coops[coop_idx][1]:
+                coops[len(coops) - 1], coops[coop_idx] = coops[coop_idx], coops[len(coops) - 1]
+                coops.pop()
+            else:
+                coop_idx += 1
+        coops.extend([[300, span], [300, span], [300, span]])
+    return total_eggs
