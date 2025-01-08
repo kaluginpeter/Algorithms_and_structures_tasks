@@ -53,3 +53,112 @@ class Solution:
                 if words[j].startswith(words[i]) and words[j].endswith(words[i]):
                     count += 1
         return count
+
+
+# Python O(KM) O(KM), where K is the length of words and M is the length of longest word. Trie
+class TrieNode:
+    def __init__(self) -> None:
+        self.childs: dict[tuple[str, str], TrieNode] = dict()
+        self.count: int = 0
+
+
+class PrefixTrie:
+    def __init__(self) -> None:
+        self.head: TrieNode = TrieNode()
+
+    def insert_word(self, word: str) -> None:
+        tmp: TrieNode = self.head
+        for letter_idx in range(len(word)):
+            letter: str = word[letter_idx]
+            pair: tuple[str, str] = (letter, word[len(word) - letter_idx - 1])
+            if pair not in tmp.childs:
+                tmp.childs[pair] = TrieNode()
+            tmp = tmp.childs[pair]
+        tmp.count += 1
+
+    def get_prefix(self, word: str) -> int:
+        prefixes: int = 0
+        tmp: TrieNode = self.head
+        for idx in range(len(word)):
+            pair: tuple[str, str] = (word[idx], word[len(word) - idx - 1])
+            if pair not in tmp.childs:
+                break
+            tmp = tmp.childs[pair]
+            prefixes += tmp.count
+        return prefixes
+
+
+class Solution:
+    def countPrefixSuffixPairs(self, words: List[str]) -> int:
+        prefix_trie: PrefixTrie = PrefixTrie()
+        output: int = 0
+        for word in words:
+            output += prefix_trie.get_prefix(word)
+            prefix_trie.insert_word(word)
+        return output
+
+# C++ O(KM) O(KM) where K is the length of words and M is the length of the longest word. Trie
+struct TupleHash {
+    size_t operator()(const std::tuple<char, char>& tuple) const {
+        size_t hash1 = std::hash<char>()(std::get<0>(tuple));
+        size_t hash2 = std::hash<char>()(std::get<1>(tuple));
+        return hash1 ^ (hash2 << 1);
+    }
+};
+
+
+class TrieNode {
+public:
+    std::unordered_map<std::tuple<char, char>, TrieNode, TupleHash> childs;
+    int count = 0;
+    TrieNode() {};
+};
+
+class PrefixTrie {
+public:
+    TrieNode* head;
+    PrefixTrie() {
+        head = new TrieNode();
+    };
+
+    void insertWord(std::string& word) {
+        TrieNode* tmp = head;
+        int n = word.size();
+        for (int idx = 0; idx < n; ++idx) {
+            std::tuple<char, char> pair = {word[idx], word[n - idx - 1]};
+            if (!tmp->childs.count(pair)) {
+                tmp->childs[pair] = TrieNode();
+            }
+            tmp = &tmp->childs[pair];
+        }
+        ++tmp->count;
+    }
+
+    long long getPrefixes(std::string& word) {
+        long long prefixes = 0;
+        int n = word.size();
+        TrieNode* tmp = head;
+        for (int idx = 0; idx < n; ++idx) {
+            std::tuple<char, char> pair = {word[idx], word[n - idx - 1]};
+            if (!tmp->childs.count(pair)) {
+                break;
+            }
+            tmp = &tmp->childs[pair];
+            prefixes += tmp->count;
+        }
+        return prefixes;
+    }
+};
+
+class Solution {
+public:
+    long long countPrefixSuffixPairs(vector<string>& words) {
+        PrefixTrie prefixTrie = PrefixTrie();
+        long long output = 0;
+        for (std::string& word : words) {
+            output += prefixTrie.getPrefixes(word);
+            prefixTrie.insertWord(word);
+        }
+        return output;
+    }
+};
