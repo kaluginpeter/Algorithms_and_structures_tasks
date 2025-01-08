@@ -46,3 +46,30 @@
 # 1 <= p.length <= 50
 # s contains only lowercase English letters.
 # p contains only lowercase English letters and exactly one '*'
+# Solution
+# Python O(N) O(1) Greedy
+class Solution:
+    def hasMatch(self, s: str, p: str) -> bool:
+        first, second = p.split('*')
+        return first in s and second in s[s.index(first) + len(first):]
+
+# C++ O(1) O(1) Greedy
+class Solution {
+public:
+    bool hasMatch(string s, string p) {
+        std::string first = "";
+        std::string second = "";
+        bool afterStar = false;
+        for (char& letter : p) {
+            if (letter == '*') {
+                afterStar = true;
+            } else if (afterStar) {
+                second += letter;
+            } else {
+                first += letter;
+            }
+        }
+        int index = s.find(first);
+        return index != std::string::npos && s.find(second, index + first.size()) != std::string::npos;
+    }
+};
