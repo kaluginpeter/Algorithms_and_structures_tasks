@@ -91,3 +91,98 @@
 # 0 <= newPriority <= 109
 # At most 2 * 105 calls will be made in total to add, edit, rmv, and execTop methods.
 # The input is generated such that taskId will be valid.
+# Solution
+# Python O(NlogN) O(N) AVL-Tree HashMap
+from sortedcontainers import SortedList
+class TaskManager:
+    def __init__(self, tasks: List[List[int]]):
+        self.pool: list[tuple[int, int, int]] = SortedList()
+        self.tasks: dict[int, tuple[int, int, int]] = dict()
+        for task in tasks:
+            user_id, task_id, priority = task
+            self.pool.add((priority, task_id, user_id))
+            self.tasks[task_id] = (priority, task_id, user_id)
+
+    def add(self, userId: int, taskId: int, priority: int) -> None:
+        self.pool.add((priority, taskId, userId))
+        self.tasks[taskId] = (priority, taskId, userId)
+
+    def edit(self, taskId: int, newPriority: int) -> None:
+        triplet: tuple[int, int, int] = self.tasks[taskId]
+        self.pool.discard(triplet)
+        self.pool.add((newPriority, triplet[1], triplet[2]))
+        self.tasks[taskId] = (newPriority, triplet[1], triplet[2])
+
+    def rmv(self, taskId: int) -> None:
+        triplet: tuple[int, int, int] = self.tasks[taskId]
+        del self.tasks[taskId]
+        self.pool.discard(triplet)
+
+    def execTop(self) -> int:
+        if not self.pool:
+            return -1
+        triplet: tuple[int, int, int] = self.pool[-1]
+        self.pool.discard(triplet)
+        del self.tasks[triplet[1]]
+        return triplet[-1]
+
+
+# Your TaskManager object will be instantiated and called as such:
+# obj = TaskManager(tasks)
+# obj.add(userId,taskId,priority)
+# obj.edit(taskId,newPriority)
+# obj.rmv(taskId)
+# param_4 = obj.execTop()
+
+# C++ O(NlogN) O(N) AVL-Tree HashMap
+class TaskManager {
+public:
+    std::set<std::tuple<int, int, int>> pool;
+    std::unordered_map<int, std::tuple<int, int, int>> taskIDs;
+
+    TaskManager(vector<vector<int>>& tasks) {
+        for (std::vector<int>& task : tasks) {
+            std::tuple<int, int, int> triple = {task[2], task[1], task[0]};
+            pool.insert(triple);
+            taskIDs[task[1]] = triple;
+        }
+    }
+
+    void add(int userId, int taskId, int priority) {
+        std::tuple<int, int, int> triple = {priority, taskId, userId};
+        pool.insert(triple);
+        taskIDs[taskId] = triple;
+    }
+
+    void edit(int taskId, int newPriority) {
+        std::tuple<int, int, int> triple = taskIDs[taskId];
+        pool.erase(triple);
+        pool.insert({newPriority, std::get<1>(triple), std::get<2>(triple)});
+        taskIDs[taskId] = {newPriority, std::get<1>(triple), std::get<2>(triple)};
+    }
+
+    void rmv(int taskId) {
+        std::tuple<int, int, int> triple = taskIDs[taskId];
+        pool.erase(triple);
+        taskIDs.erase(taskId);
+    }
+
+    int execTop() {
+        if (!pool.size()) {
+            return -1;
+        }
+        std::tuple<int, int, int> triple = *pool.rbegin();
+        pool.erase(triple);
+        taskIDs.erase(std::get<1>(triple));
+        return std::get<2>(triple);
+    }
+};
+
+/**
+ * Your TaskManager object will be instantiated and called as such:
+ * TaskManager* obj = new TaskManager(tasks);
+ * obj->add(userId,taskId,priority);
+ * obj->edit(taskId,newPriority);
+ * obj->rmv(taskId);
+ * int param_4 = obj->execTop();
+ */
