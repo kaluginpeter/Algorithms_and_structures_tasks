@@ -68,3 +68,36 @@
 #
 # In the third example test case, the vessels initially contain the same amount of water, so no moves are needed. The answer is 0
 # .
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int a, b, c;
+        std::cin >> a >> b >> c;
+        int diff = std::abs(a - b);
+        std::cout << (diff / (c * 2) + (diff % (c * 2) == 0? 0 : 1)) << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        a, b, c = map(int, sys.stdin.readline().rstrip().split())
+        diff: int = abs(a - b)
+        sys.stdout.write(f'{diff // (c * 2) + int(diff % (c * 2) != 0)}\n')
+
+
+if __name__ == '__main__':
+    solution()
