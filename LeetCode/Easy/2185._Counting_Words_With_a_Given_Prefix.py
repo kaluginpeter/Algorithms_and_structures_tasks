@@ -25,3 +25,22 @@ class Solution:
             if words[i].startswith(pref):
                 count += 1
         return count
+
+# Python O(NM) O(1) String Matching
+class Solution:
+    def prefixCount(self, words: List[str], pref: str) -> int:
+        return sum(word.startswith(pref) for word in words)
+
+# C++ O(NM) O(1) String Matching
+class Solution {
+public:
+    int prefixCount(vector<string>& words, string pref) {
+        int count = 0;
+        for (std::string& word : words) {
+            if (word.find(pref) == 0) {
+                ++count;
+            }
+        }
+        return count;
+    }
+};
