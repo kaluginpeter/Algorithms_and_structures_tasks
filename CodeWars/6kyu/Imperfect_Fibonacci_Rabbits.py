@@ -23,3 +23,19 @@
 # n = 8, b = 3, l = 4
 # return 423
 # Algorithms
+def imperfect_fib_rabbits(n, b, l):
+    rabbits_by_age = [0] * (l)
+    rabbits_by_age[0] = 1
+
+    for month in range(n):
+        new_borns = 0
+
+        for age in range(1, l):
+            new_borns += rabbits_by_age[age] * b
+
+        for age in range(l - 1, 0, -1):
+            rabbits_by_age[age] = rabbits_by_age[age - 1]
+
+        rabbits_by_age[0] = new_borns
+    total_rabbits = sum(rabbits_by_age)
+    return total_rabbits
