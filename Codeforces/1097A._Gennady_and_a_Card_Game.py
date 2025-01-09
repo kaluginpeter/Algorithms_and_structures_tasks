@@ -46,3 +46,52 @@
 # In the second example, you cannot play any card.
 #
 # In the third example, you can play an Ace of Diamonds (AD) because it has the same suit as a Four of Diamonds (4D), which lies on the table.
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+#include <string>
+#include <vector>
+
+
+void solution() {
+    std::string target;
+    std::cin >> target;
+    std::vector<std::string> pool;
+    for (int i = 0; i < 5; ++i) {
+        std::string card;
+        std::cin >> card;
+        pool.push_back(card);
+    }
+    bool isMove = false;
+    for (int idx = 0; idx < 5; ++idx) {
+        if (target[0] == pool[idx][0] || target[1] == pool[idx][1]) {
+            isMove = true;
+            break;
+        }
+    }
+    std::cout << (isMove? "YES" : "NO") << std::endl;
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Greedy
+from __future__ import annotations
+import sys
+
+
+def solution() -> None:
+    target: str = sys.stdin.readline().rstrip()
+    pool: list[str] = sys.stdin.readline().rstrip().split()
+    is_move: bool = False
+    for card in pool:
+        if target[0] == card[0] or target[1] == card[1]:
+            is_move = True
+            break
+    sys.stdout.write(f'{"YES" if is_move else "NO"}\n')
+
+
+if __name__ == '__main__':
+    solution()
