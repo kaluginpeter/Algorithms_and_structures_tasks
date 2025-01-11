@@ -25,3 +25,39 @@
 # 1 <= s.length <= 105
 # s consists of lowercase English letters.
 # 1 <= k <= 105
+# Solution
+# Python O(N) O(D), where D=26 HashMap Greedy
+class Solution:
+    def canConstruct(self, s: str, k: int) -> bool:
+        histogram: list[int] = [0] * 26
+        for ch in s:
+            histogram[ord(ch) - 97] += 1
+        evens = odds = 0
+        for i in range(26):
+            if histogram[i] & 1:
+                odds += 1
+                evens += histogram[i] - 1
+            else:
+                evens += histogram[i]
+        return odds <= k and evens + odds >= k
+
+# C++ O(N) O(D), where D=26 HashMap Greedy
+class Solution {
+public:
+    bool canConstruct(string s, int k) {
+        std::vector<int> histogram (26, 0);
+        for (char& letter : s) {
+            ++histogram[letter - 'a'];
+        }
+        int evens = 0, odds = 0;
+        for (int i = 0; i < 26; ++i) {
+            if (histogram[i] % 2 != 0) {
+                ++odds;
+                evens += histogram[i] - 1;
+            } else {
+                evens += histogram[i];
+            }
+        }
+        return (odds <= k && evens + odds >= k);
+    }
+};
