@@ -71,3 +71,64 @@
 #
 # For the second test case, we can take the single problem and compose a round using the problem with difficulty 10
 # .
+# Solution
+# C++ O(NlogN) O(1) Sorting Greedy
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n, k;
+        std::scanf("%d %d", &n, &k);
+        std::vector<int> tasks;
+        for (int j = 0; j < n; ++j) {
+            int task;
+            std::cin >> task;
+            tasks.push_back(task);
+        }
+        std::sort(tasks.begin(), tasks.end());
+        int max_segment = 1;
+        int left = 0;
+        for (int right = 1; right < n; ++right) {
+            if (tasks[right] - tasks[right - 1] > k) {
+                max_segment = std::max(max_segment, right - left);
+                left = right;
+            } else {
+                max_segment = std::max(max_segment, right - left + 1);
+            }
+        }
+        std::cout << n - max_segment << "\n";
+    }
+}
+
+int main() {
+    solution();
+}
+
+# Python O(NlogN) O(1) Sorting Greedy
+from __future__ import annotations
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, k = map(int, sys.stdin.readline().rstrip().split())
+        tasks: list[int] = sorted(map(int, sys.stdin.readline().rstrip().split()))
+        max_segment: int = 1
+        left: int = 0
+        for right in range(1, n):
+            if tasks[right] - tasks[right - 1] > k:
+                max_segment = max(max_segment, right - left)
+                left = right
+            else:
+                max_segment = max(max_segment, right - left + 1)
+        sys.stdout.write(str(n - max_segment) + '\n')
+
+
+if __name__ == '__main__':
+    solution()
