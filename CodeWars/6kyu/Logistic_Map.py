@@ -22,3 +22,15 @@
 # Note: this one is taken (and a bit complicated) from a problem a real world AAA company [whose name I won't tell here] used in their interview. It was done by a friend of mine. It is nothing that difficult and I assume it is their own version of the FizzBuzz problem, but consider candidates were given about 30 mins to solve it.
 #
 # Graph TheoryMatrixArraysListsAlgorithms
+# Solution
+def manhattan_distance(x: tuple[int, int], y: tuple[int, int]) -> int:
+    return abs(x[0] - y[0]) + abs(x[1] - y[1])
+
+def logistic_map(width, height, xs, ys):
+    output: list[list[int]] = [[None] * width for _ in range(height)]
+    if not xs:
+        return output
+    for row in range(height):
+        for col in range(width):
+            output[row][col] = min(manhattan_distance((row, col), point) for point in zip(ys, xs))
+    return output
