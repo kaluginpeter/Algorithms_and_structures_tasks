@@ -37,3 +37,71 @@
 # 1 <= n <= 105
 # s[i] is either '(' or ')'.
 # locked[i] is either '0' or '1'.
+# Solution
+# Python O(N) O(N) Stack Greedy
+class Solution:
+    def canBeValid(self, s: str, locked: str) -> bool:
+        if len(s) & 1: return False
+        close: list[int] = []
+        extra: list[int] = []
+        for i in range(len(s)):
+            if s[i] == ')':
+                if locked[i] == '1':
+                    if close: close.pop()
+                    elif extra: extra.pop()
+                    else: return False
+                else:
+                    extra.append(i)
+            else:
+                if locked[i] == '1':
+                    close.append(i)
+                else:
+                    extra.append(i)
+        while close and extra:
+            if close[-1] < extra[-1]:
+                close.pop()
+                extra.pop()
+            else: break
+        return len(close) == 0
+
+# C++ O(N) O(N) Stack Greedy
+class Solution {
+public:
+    bool canBeValid(string s, string locked) {
+        if (s.size() % 2 != 0) {
+            return false;
+        }
+        std::stack<int> open;
+        std::stack<int> extra;
+        for (int i = 0; i < s.size(); ++i) {
+            if (s[i] == '(') {
+                if (locked[i] == '1') {
+                    open.push(i);
+                } else {
+                    extra.push(i);
+                }
+            } else {
+                if (locked[i] == '1') {
+                    if (!open.empty()) {
+                        open.pop();
+                    } else if (!extra.empty()) {
+                        extra.pop();
+                    } else {
+                        return false;
+                    }
+                } else {
+                    extra.push(i);
+                }
+            }
+        }
+        while (!open.empty() && !extra.empty()) {
+            if (open.top() < extra.top()) {
+                open.pop();
+                extra.pop();
+            } else {
+                break;
+            }
+        }
+        return open.empty();
+    }
+};
