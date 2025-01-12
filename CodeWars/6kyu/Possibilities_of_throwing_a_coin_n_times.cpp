@@ -15,3 +15,23 @@ Careful with performance!! You'll have to pass 3 basic test (n = 1, n = 2, n = 3
 
 MathematicsStatisticsPermutationsPerformance
 */
+// Solution
+void backtrack(int n, std::string& path, std::string& output) {
+    if (!n) {
+        output += path + ',';
+        return;
+    }
+    path += 'H';
+    backtrack(n - 1, path, output);
+    path.pop_back();
+    path += 'T';
+    backtrack(n - 1, path, output);
+    path.pop_back();
+}
+
+std::string coin(int n) {
+    std::string output = "";
+    std::string path = "";
+    backtrack(n, path, output);
+    return output.substr(0, output.size() - 1);
+}
