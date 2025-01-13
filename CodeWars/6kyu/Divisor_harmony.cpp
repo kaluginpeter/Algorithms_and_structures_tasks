@@ -36,3 +36,27 @@ Sub-array division
 
 Algorithms
 */
+double getComposition(int n) {
+  int s = 0;
+  for (int d = 1; d <= n; ++d) {
+    if (n % d == 0) {
+      s += d;
+    }
+  }
+  return static_cast<double>(s) / static_cast<double>(n);
+}
+
+int solve(int a, int b) {
+    int output = 0;
+    std::unordered_map<double, std::vector<int>> hashmap;
+    for (int i = a; i < b; ++i) {
+        double pool = getComposition(i);
+        hashmap[pool].push_back(i);
+    }
+    for (auto& p : hashmap) {
+        if (p.second.size() > 1) {
+            output += *std::min(p.second.begin(), p.second.end());
+        }
+    }
+    return output;
+}
