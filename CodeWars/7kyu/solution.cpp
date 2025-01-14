@@ -18,3 +18,13 @@ The function name contains sort because this simulates radix sort.
 
 Algorithms
 */
+// Solution
+#include <vector>
+
+int sort_by_bit(const std::vector<int>& array) {
+    int output = 0;
+    for (int b : array) {
+        output |= (1 << b);
+    }
+    return output;
+}
