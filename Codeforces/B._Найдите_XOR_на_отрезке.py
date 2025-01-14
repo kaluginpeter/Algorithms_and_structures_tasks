@@ -1,4 +1,3 @@
-
 # B. Найдите XOR на отрезке
 # ограничение по времени на тест3 секунды
 # ограничение по памяти на тест256 мегабайт
@@ -79,3 +78,53 @@
 # 1
 # 0
 # 1
+# Solution
+# C++ O(N) O(N) PrefixSum
+#include <bits/stdc++.h>
+
+
+void solution () {
+    int n;
+    std::cin >> n;
+    std::vector<long long> prefixSum (n + 1, 0);
+    for (int i = 0; i < n; ++i) {
+        int num;
+        std::cin >> num;
+        prefixSum[i + 1] = prefixSum[i] ^ num;
+    }
+    int q;
+    std::cin >> q;
+    for (int i = 0; i < q; ++i) {
+        int l, r;
+        std::cin >> l >> r;
+        std::cout << (prefixSum[l - 1] ^ prefixSum[r]) << "\n";
+    }
+}
+
+
+int main () {
+    std::ios::sync_with_stdio(NULL);
+    std::cin.tie(NULL);
+    std::cout.tie(NULL);
+    solution();
+}
+
+# Python O(N) O(N) PrefixSum
+from __future__ import annotations
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    prefix_sum: list[int] = [0] * (n + 1)
+    nums: iter[int] = map(int, sys.stdin.readline().rstrip().split())
+    for i in range(n):
+        prefix_sum[i + 1] = prefix_sum[i] ^ next(nums)
+    q: int = int(sys.stdin.readline().rstrip())
+    for _ in range(q):
+        l, r = map(int, sys.stdin.readline().rstrip().split())
+        sys.stdout.write(str(prefix_sum[l - 1] ^ prefix_sum[r]) + '\n')
+
+
+if __name__ == '__main__':
+    solution()
