@@ -51,3 +51,35 @@ class Solution:
                 top += ans[i-1]
             ans.append(top)
         return ans
+
+# Python O(N) O(N) HashMap
+class Solution:
+    def findThePrefixCommonArray(self, A: List[int], B: List[int]) -> List[int]:
+        n: int = len(A)
+        hashmap: list[int] = [0] * (n + 1)
+        output: list[int] = [0] * n
+        for i in range(n):
+            hashmap[A[i]] += 1
+            hashmap[B[i]] += 1
+            if hashmap[A[i]] > 1: output[i] += 1
+            if A[i] != B[i] and hashmap[B[i]] > 1: output[i] += 1
+            if i: output[i] += output[i - 1]
+        return output
+
+# C++ O(N) O(N) HashMap
+class Solution {
+public:
+    vector<int> findThePrefixCommonArray(vector<int>& A, vector<int>& B) {
+        int n = A.size();
+        std::vector<int> hashmap (n + 1, 0);
+        std::vector<int> output (n, 0);
+        for (int i = 0; i < n; ++i) {
+            ++hashmap[A[i]];
+            ++hashmap[B[i]];
+            if (hashmap[A[i]] > 1) ++output[i];
+            if (A[i] != B[i] && hashmap[B[i]] > 1) ++output[i];
+            if (i) output[i] += output[i - 1];
+        }
+        return output;
+    }
+};
