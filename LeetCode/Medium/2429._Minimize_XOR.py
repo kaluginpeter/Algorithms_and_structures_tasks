@@ -29,3 +29,41 @@
 # Constraints:
 #
 # 1 <= num1, num2 <= 109
+# Solution
+# Python O(logN) O(1) Bit Manipulation
+class Solution:
+    def minimizeXor(self, num1: int, num2: int) -> int:
+        num1_bits: int = num1.bit_count()
+        num2_bits: int = num2.bit_count()
+        if num1_bits == num2_bits: return num1
+        elif num1_bits > num2_bits:
+            diff: int = num1_bits - num2_bits
+            for _ in range(diff):
+                num1 &= (num1 - 1)
+        else:
+            diff: int = num2_bits - num1_bits
+            for _ in range(diff):
+                num1 |= (num1 + 1)
+        return num1
+
+# C++ O(logN) O(1) Bit Manipulation
+class Solution {
+public:
+    int minimizeXor(int num1, int num2) {
+        int num1Bits = __builtin_popcount(num1);
+        int num2Bits = __builtin_popcount(num2);
+        if (num1Bits == num2Bits) return num1;
+        if (num1Bits > num2Bits) {
+            int diff = num1Bits - num2Bits;
+            for (int i = 0; i < diff; ++i) {
+                num1 = num1 & (num1 - 1);
+            }
+        } else {
+            int diff = num2Bits - num1Bits;
+            for (int i = 0; i < diff; ++i) {
+                num1 = num1 | (num1 + 1);
+            }
+        }
+        return num1;
+    }
+};
