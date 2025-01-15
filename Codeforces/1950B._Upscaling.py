@@ -56,3 +56,58 @@
 # ##..##..
 # ..##..##
 # ..##..##
+# Solution
+# C++ O(N**2) O(N) Simulation
+#include <bits/stdc++.h>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        for (int j = 0; j < n; ++j) {
+            std::string row = "";
+            char first = (j % 2 == 0? '#' : '.');
+            char second = (j % 2 == 0? '.' : '#');
+            bool flag = false;
+            for (int k = 0; k < 2 * n; ++k) {
+                if (k % 2 == 0) flag = !flag;
+                if (flag) row += first;
+                else row += second;
+            }
+            std::cout << row << "\n" << row << "\n";
+        }
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N**2) O(N) Simulation
+from __future__ import annotations
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        for j in range(n):
+            first: str = '#' if j % 2 == 0 else '.'
+            second: str = '.' if j % 2 == 0 else '#'
+            flag: bool = False
+            row: list[str] = []
+            for k in range(2*n):
+                if k % 2 == 0: flag = not flag
+                if flag: row.append(first)
+                else: row.append(second)
+            sys.stdout.write(''.join(row) + '\n')
+            sys.stdout.write(''.join(row) + '\n')
+
+
+if __name__ == '__main__':
+    solution()
