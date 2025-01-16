@@ -51,3 +51,47 @@
 # NO
 # YES
 # YES
+# Solution
+# C++ O(N) O(1) Math
+#include <bits/stdc++.h>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        std::string sequence;
+        std::cin >> sequence;
+        int a = 0, b = 0, c = 0;
+        for (char& ch : sequence) {
+            if (ch == 'A') ++a;
+            else if (ch == 'B') ++b;
+            else ++c;
+        }
+        std::cout << (a + c == b? "YES" : "NO") << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        sequence: str = sys.stdin.readline().rstrip()
+        a = b = c = 0
+        for ch in sequence:
+            if ch == 'A': a += 1
+            elif  ch == 'B': b += 1
+            else: c += 1
+        sys.stdout.write(['NO', 'YES'][a + c == b] + '\n')
+
+
+if __name__ == '__main__':
+    solution()
