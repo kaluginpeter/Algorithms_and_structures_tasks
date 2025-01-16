@@ -12,3 +12,23 @@ Hint: The harmonic mean is the total number of divisors divided by the sum of th
 
 MathematicsFundamentalsAlgorithms
 */
+// Solution
+#include <cmath>
+
+bool isOre(unsigned int n){
+    if (n == 0) return false;
+    double totalSum = 0;
+    int count = 0;
+    for (unsigned int i = 1; i <= sqrt(n); ++i) {
+        if (n % i == 0) {
+            totalSum += (double)1 / (double)i;
+            count++;
+            if (i != n / i) {
+                totalSum += (double)1 / (double)(n / i);
+                count++;
+            }
+        }
+    }
+    double result = (double)count / totalSum;
+    return fabs(result - round(result)) < 1e-9;
+}
