@@ -26,3 +26,36 @@
 #
 # 1 <= nums1.length, nums2.length <= 105
 # 0 <= nums1[i], nums2[j] <= 109
+# Solution
+# Python O(M + N) O(1) Bit Manipulation
+class Solution:
+    def xorAllNums(self, nums1: List[int], nums2: List[int]) -> int:
+        output: int = 0
+        n: int = len(nums1)
+        m: int = len(nums2)
+        for num in nums1:
+            if m & 1 == 0: output ^= 0
+            else: output ^= num
+        for num in nums2:
+            if n & 1 == 0: output ^= 0
+            else: output ^= num
+        return output
+
+# C++ O(M + N) O(1) Bit Manipulation
+class Solution {
+public:
+    int xorAllNums(vector<int>& nums1, vector<int>& nums2) {
+        int output = 0;
+        int n = nums1.size();
+        int m = nums2.size();
+        for (int& num : nums1) {
+            if (m % 2 == 0) output ^= 0;
+            else output ^= num;
+        }
+        for (int& num : nums2) {
+            if (n % 2 == 0) output ^= 0;
+            else output ^= num;
+        }
+        return output;
+    }
+};
