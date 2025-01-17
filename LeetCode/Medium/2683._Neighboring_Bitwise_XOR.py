@@ -38,3 +38,23 @@
 # n == derived.length
 # 1 <= n <= 105
 # The values in derived are either 0's or 1's
+# Solution
+# Python O(N) O(1) Bit Manipulation
+class Solution:
+    def doesValidArrayExist(self, derived: List[int]) -> bool:
+        output: int = 0
+        for num in derived:
+            output ^= num
+        return not output
+
+# C++ O(N) O(1) Bit Manipulation
+class Solution {
+public:
+    bool doesValidArrayExist(vector<int>& derived) {
+        int output = 0;
+        for (int& num : derived) {
+            output ^= num;
+        }
+        return !output;
+    }
+};
