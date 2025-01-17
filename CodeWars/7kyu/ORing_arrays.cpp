@@ -12,3 +12,27 @@ orArrays([1,2],[1,2,3]) == [1,2,3]
 orArrays([1,2,3],[1,2,3],3) == [1,2,3]
 ArraysListsBinaryFundamentals
 */
+// Solution
+#include <vector>
+
+std::vector<int> orArrays(const std::vector<int>& arr1, const std::vector<int>& arr2, int separator = 0){
+  unsigned long left = 0;
+  unsigned long right = 0;
+  std::vector<int> output;
+  while (left < arr1.size() && right < arr2.size()) {
+    output.push_back(arr1[left] | arr2[right]);
+    ++left;
+    ++right;
+  }
+  if (arr1.size() != arr2.size()) {
+    while (right < arr2.size()) {
+      output.push_back(separator | arr2[right]);
+      ++right;
+    }
+    while (left < arr1.size()) {
+      output.push_back(separator | arr1[left]);
+      ++left;
+    }
+  }
+  return output;
+}
