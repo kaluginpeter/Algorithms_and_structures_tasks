@@ -36,3 +36,36 @@
 # In the second test case, the three ordered pairs of (a,b)
 #  that work are (3,1),(2,2),(1,3)
 # .
+# Solution
+# C++ O(1) O(1) Math
+#include <bits/stdc++.h>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        std::cout << n - 1 << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        sys.stdout.write(str(n - 1) + '\n')
+
+
+if __name__ == '__main__':
+    solution()
