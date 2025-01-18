@@ -27,3 +27,34 @@ First there are some static tests, later on random tests too...
 Hope you have fun:-)!
 StringsFundamentalsMathematicsArrays
 */
+// Solution
+#include <bits/stdc++.h>
+std::string calculateArray(std::string stringArray)
+{
+    std::string result = "";
+    std::istringstream stream(stringArray);
+    std::string item;
+    std::vector<int> numbers;
+
+    while (std::getline(stream, item, ';')) {
+        if (!item.empty()) {
+            if ((item[0] == '-' && item.size() > 1 && std::all_of(item.begin() + 1, item.end(), ::isdigit)) ||
+                (std::all_of(item.begin(), item.end(), ::isdigit))) {
+                numbers.push_back(std::atoi(item.c_str()));
+            }
+        }
+    }
+
+    int totalSum = std::accumulate(numbers.begin(), numbers.end(), 0);
+    int av = (int)std::round((double)totalSum / (double)numbers.size());
+    std::string second = std::to_string(av);
+    result += second + ',';
+    int third = 0;
+    for (char& d : second) {
+      third += static_cast<int>(d) - 48;
+    }
+    result += std::to_string(third) + ',';
+    result += (third % 5 == 0? "TRUE" : "FALSE");
+
+    return result;
+}
