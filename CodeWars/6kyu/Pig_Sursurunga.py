@@ -42,3 +42,51 @@
 # Good luck!
 #
 # StringsRegular ExpressionsFundamentals
+# Solution
+def sursurungal(txt):
+    words: list[str] = []
+    cur_sep: str = ''
+    prev_i: int = 0
+    i: int = 0
+    while i < len(txt):
+        if txt[i] == ' ':
+            if i - prev_i: words.append(txt[prev_i:i])
+            cur_sep += txt[i]
+            i += 1
+            prev_i = i
+        elif txt[i] == '\n':
+            if i - prev_i: words.append(txt[prev_i:i])
+            i += 1
+            prev_i = i
+            cur_sep += '\n'
+        else:
+            if cur_sep: words.append(cur_sep)
+            cur_sep = ''
+            i += 1
+    if cur_sep:
+        words.append(cur_sep)
+    if prev_i != len(txt):
+        words.append(txt[prev_i:len(txt)])
+
+    for i in range(len(words)):
+        if not words[i].isdigit(): continue
+        number: int = int(words[i])
+        if number <= 1: continue
+        word: str = words[i + 2]
+        if number == 2:
+            if word.endswith('s'):
+                words[i + 2] = "bu" + word[:-1]
+            else:
+                words[i + 2] = "bu" + word
+        elif number <= 9:
+            if word.endswith('s'):
+                words[i + 2] = word[:-1] + "zo"
+            else:
+                words[i + 2] = word + "zo"
+        else:
+            if word.endswith('s'):
+                words[i + 2] = "ga" + word[:-1] + "ga"
+            else:
+                words[i + 2] = "ga" + word + "ga"
+
+    return ''.join(words)
