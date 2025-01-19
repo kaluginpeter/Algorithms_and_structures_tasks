@@ -70,3 +70,42 @@
 #
 #
 # One of the possible solutions to the second test case:
+# Solution
+# C++ O(1) O(1) Math
+#include <bits/stdc++.h>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int a, b, c, d;
+        std::cin >> a >> b >> c >> d;
+        int x = b;
+        int y = std::max(b, c - x + 1);
+        int z = c;
+        std::printf("%d %d %d\n", x, y, z);
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        a, b, c, d = map(int, sys.stdin.readline().rstrip().split())
+        x: int = b
+        y: int = max(b, c - x + 1)
+        z: int = c
+        sys.stdout.write(f'{x} {y} {z}\n')
+
+
+if __name__ == '__main__':
+    solution()
