@@ -32,3 +32,48 @@
 # {1, 3, 6, 10, 15}, 
 # {1, 4, 10, 20, 35}, 
 # {1, 5, 15, 35, 70}.
+# Solution
+# C++ O(N**2) O(N**2) Matrix
+#include <bits/stdc++.h>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    std::vector<std::vector<int>> matrix (n, std::vector<int>(n, 0));
+    for (int i = 0; i < n; ++i) {
+        if (i == 0) {
+            for (int j = 0; j < n; ++j) {
+                matrix[i][j] = 1;
+            }
+        }
+        matrix[i][0] = 1;
+    }
+    for (int i = 1; i < n; ++i) {
+        for (int j = 1; j < n; ++j) {
+            matrix[i][j] = matrix[i - 1][j] + matrix[i][j - 1];
+        }
+    }
+    std::cout << matrix[n - 1][n - 1] << "\n";
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N**2) O(N**2) Matrix
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    matrix: list[list[int]] = [[1] * n for _ in range(n)]
+    for i in range(1, n):
+        for j in range(1, n):
+            matrix[i][j] = matrix[i - 1][j] + matrix[i][j - 1]
+    sys.stdout.write(str(matrix[-1][-1]) + '\n')
+
+
+if __name__ == '__main__':
+    solution()
