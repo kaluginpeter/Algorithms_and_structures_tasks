@@ -30,3 +30,46 @@
 # 1 <= arr[i], mat[r][c] <= m * n
 # All the integers of arr are unique.
 # All the integers of mat are unique.
+# Solution
+# Python O(NM) O(NM) Matrix HashMap Counting
+class Solution:
+    def firstCompleteIndex(self, arr: List[int], mat: List[List[int]]) -> int:
+        n: int = len(mat)
+        m: int = len(mat[0])
+        hashmap: dict[int, tuple[int, int]] = dict()
+        row_freq: list[int] = [m] * n
+        col_freq: list[int] = [n] * m
+        for row in range(n):
+            for col in range(m):
+                hashmap[mat[row][col]] = (row, col)
+
+        for idx in range(n * m):
+            row, col = hashmap[arr[idx]]
+            row_freq[row] -= 1
+            col_freq[col] -= 1
+            if not row_freq[row] or not col_freq[col]: return idx
+
+# C++ O(NM) O(NM) Matrix HashMap Counting
+class Solution {
+public:
+    int firstCompleteIndex(vector<int>& arr, vector<vector<int>>& mat) {
+        int n = mat.size();
+        int m = mat[0].size();
+        std::unordered_map<int, std::pair<int, int>> hashmap;
+        std::vector<int> rowFreq (n, m);
+        std::vector<int> colFreq (m, n);
+        for (int row = 0; row < n; ++row) {
+            for (int col = 0; col < m; ++col) {
+                hashmap[mat[row][col]] = {row, col};
+            }
+        }
+        for (int idx = 0; idx < n * m; ++idx) {
+            int row = hashmap[arr[idx]].first;
+            int col = hashmap[arr[idx]].second;
+            --rowFreq[row];
+            --colFreq[col];
+            if (!rowFreq[row] || !colFreq[col]) return idx;
+        }
+        return -1;
+    }
+};
