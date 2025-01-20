@@ -14,3 +14,24 @@ Test examples:
 "This is my first ROT13 excercise!" -> "Guvf vf zl svefg EBG13 rkprepvfr!"
 StringsCiphersRegular ExpressionsAlgorithms
 */
+// Solution
+#include <string>
+char rot13(char ch) {
+    if ('a' <= ch && ch <= 'z') {
+        // Shift lowercase letters
+        return (ch - 'a' + 13) % 26 + 'a';
+    } else if ('A' <= ch && ch <= 'Z') {
+        // Shift uppercase letters
+        return (ch - 'A' + 13) % 26 + 'A';
+    } else {
+        // Non-alphabetical characters remain unchanged
+        return ch;
+    }
+}
+std::string rot13(const std::string& str) {
+  std::string output = "";
+  for (unsigned long idx = 0; idx < str.size(); ++idx) {
+    output += rot13(str[idx]);
+  }
+  return output;
+}
