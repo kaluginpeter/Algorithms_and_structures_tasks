@@ -82,3 +82,51 @@
 # In the sixth test case, you can first leave the order unchanged (operation 1), then choose l=1,r=5
 #  and get the sum −((−1)+(−2)+(−3)+(−4)+(−5))=15
 #  (operation 2).
+# Solution
+# C++ O(N) O(1) Math
+#include <bits/stdc++.h>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        int positiveSum = 0;
+        for (int j = 0; j < n; ++j) {
+            int num;
+            std::cin >> num;
+            positiveSum += std::abs(num);
+        }
+        std::cout << positiveSum << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Math
+from __future__ import annotations
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        a: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+        positive_sum: int = sum(x for x in a if x > 0)
+        negative_numbers: list[int] = [x for x in a if x < 0]
+        if not negative_numbers:
+            sys.stdout.write(str(positive_sum) + '\n')
+        else:
+            total_negative_abs = sum(abs(x) for x in negative_numbers)
+            sys.stdout.write(str(positive_sum + total_negative_abs) + '\n')
+
+
+if __name__ == '__main__':
+    solution()
