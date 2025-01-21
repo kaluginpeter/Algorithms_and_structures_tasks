@@ -40,3 +40,37 @@
 # n == grid[r].length
 # 1 <= n <= 5 * 104
 # 1 <= grid[r][c] <= 105
+# Solution
+# Python O(N) O(1) PrefixSum Greedy Matrix
+class Solution:
+    def gridGame(self, grid: List[List[int]]) -> int:
+        first_row_sum: int = sum(grid[0])
+        second_row_sum: int = 0
+        second_robot_score: int = float('inf')
+        for i in range(len(grid[0])):
+            first_row_sum -= grid[0][i]
+            second_robot_score = min(second_robot_score, max(first_row_sum, second_row_sum))
+            second_row_sum += grid[1][i]
+        return second_robot_score
+
+# C++ O(N) O(1) PrefixSum Greedy Matrix
+class Solution {
+public:
+    long long gridGame(vector<vector<int>>& grid) {
+        int n = grid[0].size();
+        long long firstRowSum = 0;
+        for (int i = 0; i < n; ++i) {
+            firstRowSum += grid[0][i];
+        }
+        long long secondRowSum = 0;
+        long long secondRobotScore = INT64_MAX;
+        for (int i = 0; i < n; ++i) {
+            firstRowSum -= grid[0][i];
+            secondRobotScore = std::min(
+                secondRobotScore, std::max(firstRowSum, secondRowSum)
+            );
+            secondRowSum += grid[1][i];
+        }
+        return secondRobotScore;
+    }
+};
