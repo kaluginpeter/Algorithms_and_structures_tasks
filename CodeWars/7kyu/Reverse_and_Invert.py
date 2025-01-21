@@ -4,4 +4,6 @@
 # Remove all types other than integer.
 #
 # ListsFundamentals
-# Solu
+# Solution
+def reverse_invert(lst):
+    return [[-1, 1][num < 0] * int(str(abs(num))[::-1]) for num in lst if type(num) is int]
