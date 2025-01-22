@@ -64,3 +64,56 @@
 # In the third test case, Robin takes 3
 #  gold and so only gives gold to 3
 #  other people.
+# Solution
+# C++ O(N) O(1) Greedy
+#include <bits/stdc++.h>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n, k;
+        int shares = 0;
+        int stock = 0;
+        std::cin >> n >> k;
+        for (int j = 0; j < n; ++j) {
+            int num;
+            std::cin >> num;
+            if (num >= k) stock += num;
+            else if (!num && stock) {
+                --stock;
+                ++shares;
+            }
+        }
+        std::cout << shares << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Greedy
+from __future__ import annotations
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, k = map(int, sys.stdin.readline().rstrip().split())
+        nums: iter[int] = map(int, sys.stdin.readline().rstrip().split())
+        stock: int = 0
+        shares: int = 0
+        for num in nums:
+            if num >= k: stock += num
+            elif not num and stock:
+                stock -= 1
+                shares += 1
+        sys.stdout.write(str(shares) + '\n')
+
+
+if __name__ == '__main__':
+    solution()
