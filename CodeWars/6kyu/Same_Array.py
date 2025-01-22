@@ -9,3 +9,10 @@
 #
 # [[]] is not applicable because if the array of array are to contain anything, there have to be two numbers.
 # 100 randomly generated tests that can contains either "s
+# Solution
+def same(arr_a, arr_b):
+    for arr in arr_a: arr.sort()
+    for arr in arr_b: arr.sort()
+    arr_a.sort()
+    arr_b.sort()
+    return arr_a == arr_b
