@@ -13,3 +13,17 @@ Crystal    -9999 < n < 9999
 Ruby       -9999 < n < 9999
 Fundamentals
 */
+// Solution
+std::vector<int> seqToOne(int n) {
+  std::vector<int> output;
+  if (n < 0) {
+    for (int num = n; num <= 1; ++num) {
+      output.push_back(num);
+    }
+  } else {
+    for (int num = n; num >= 1; --num) {
+      output.push_back(num);
+    }
+  }
+  return output;
+}
