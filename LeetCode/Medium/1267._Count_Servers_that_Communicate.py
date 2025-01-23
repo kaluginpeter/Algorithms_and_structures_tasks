@@ -34,3 +34,48 @@
 # 1 <= m <= 250
 # 1 <= n <= 250
 # grid[i][j] == 0 or 1
+# Solution
+# Python O(NM) O(N + M) Matrix Counting
+class Solution:
+    def countServers(self, grid: List[List[int]]) -> int:
+        n: int = len(grid)
+        m: int = len(grid[0])
+        rows: list[int] = [0] * n
+        cols: list[int] = [0] * m
+        for row in range(n):
+            for col in range(m):
+                if grid[row][col]:
+                    rows[row] += 1
+                    cols[col] += 1
+        communicate: int = 0
+        for row in range(n):
+            for col in range(m):
+                if grid[row][col] and (rows[row] > 1 or cols[col] > 1):
+                    communicate += 1
+        return communicate
+
+# C++ O(NM) O(N + M) Matrix Counting
+class Solution {
+public:
+    int countServers(vector<vector<int>>& grid) {
+        int n = grid.size();
+        int m = grid[0].size();
+        std::vector<int> rows (n, 0);
+        std::vector<int> cols(m, 0);
+        for (int row = 0; row < n; ++row) {
+            for (int col = 0; col < m; ++col) {
+                if (grid[row][col]) {
+                    ++rows[row];
+                    ++cols[col];
+                }
+            }
+        }
+        int communicate = 0;
+        for (int row = 0; row < n; ++row) {
+            for (int col = 0; col < m; ++col) {
+                if (grid[row][col] && (rows[row] > 1 || cols[col] > 1)) communicate += 1;
+            }
+        }
+        return communicate;
+    }
+};
