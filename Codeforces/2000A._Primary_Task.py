@@ -51,3 +51,36 @@
 # NO
 # YES
 # NO
+# Solution
+# C++ O(1) O(1) Greedy
+#include <bits/stdc++.h>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        std::string n;
+        std::cin >> n;
+        std::cout << (n.size() >= 3 && n[0] == '1' && n[1] == '0' && ((n[2] == '1' && n.size() > 3) || (n[2] != '0' && n[2] != '1'))? "YES" : "NO") << "\n";
+    }
+}
+
+
+int main () {
+    solution();
+}
+
+# Python O(1) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: str = sys.stdin.readline().rstrip()
+        sys.stdout.write(['NO', 'YES'][len(n) >= 3 and n.startswith('10') and ((n[2] == '1' and len(n) > 3) or (n[2] not in '01'))] + '\n')
+
+
+if __name__ == '__main__':
+    solution()
