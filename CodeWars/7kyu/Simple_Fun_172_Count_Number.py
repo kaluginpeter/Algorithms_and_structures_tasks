@@ -33,3 +33,12 @@
 # The number of times x occurs in the table.
 #
 # Algorithms
+# Solution
+def count_number(n, x):
+    count = 0
+    for i in range(1, n + 1):
+        if x % i == 0:
+            j = x // i
+            if j <= n:
+                count += 1
+    return count
