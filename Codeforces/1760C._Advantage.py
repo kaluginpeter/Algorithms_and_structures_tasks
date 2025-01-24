@@ -84,3 +84,61 @@
 #  and the largest strength of a participant different from the fourth one is 7
 # , so the answer for the fourth participant is 5−7=−2
 # .
+# Solution
+# C++ O(NlogN) O(N) HashMap Sorting
+#include <bits/stdc++.h>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        std::vector<int> nums;
+        std::unordered_map<int, int> hashmap;
+        for (int j = 0; j < n; ++j) {
+            int num;
+            std::cin >> num;
+            nums.push_back(num);
+            hashmap[j] = num;
+        }
+        std::sort(nums.begin(), nums.end());
+        for (int j = 0; j < n; ++j) {
+            if (hashmap[j] == nums[n - 1]) {
+                std::cout << hashmap[j] - nums[n - 2] << " ";
+            } else {
+                std::cout << hashmap[j] - nums[n - 1] << " ";
+            }
+        }
+        std::cout << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(NlogN) O(N) Sorting Hashmap
+from __future__ import annotations
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+        maps: dict[int, int] = {idx:nums[idx] for idx in range(n)}
+        nums.sort()
+        for i in range(n):
+            if maps[i] == nums[-1]:
+                sys.stdout.write(f'{maps[i] - nums[-2]} ')
+            else:
+                sys.stdout.write(f'{maps[i] - nums[-1]} ')
+        sys.stdout.write('\n')
+
+
+if __name__ == '__main__':
+    solution()
