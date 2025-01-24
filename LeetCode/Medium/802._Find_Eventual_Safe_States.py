@@ -31,3 +31,70 @@
 # graph[i] is sorted in a strictly increasing order.
 # The graph may contain self-loops.
 # The number of edges in the graph will be in the range [1, 4 * 104].
+# Solution
+# Python O(V + E) O(V + E) Topological Sorting Graph
+class Solution:
+    def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
+        n: int = len(graph)
+        adj_list: list[list[int]] = [[] for _ in range(n)]
+        indegree: list[int] = [0] * n
+        for source in range(n):
+            for destination in graph[source]:
+                adj_list[destination].append(source)
+                indegree[source] += 1
+        cur_nodes: list[int] = []
+        next_nodes: list[int] = []
+        for vertex in range(n):
+            if not indegree[vertex]: cur_nodes.append(vertex)
+        safe: list[bool] = [False] * n
+        while cur_nodes:
+            for vertex in cur_nodes:
+                safe[vertex] = True
+                for neighbor in adj_list[vertex]:
+                    indegree[neighbor] -= 1
+                    if not indegree[neighbor]:
+                        next_nodes.append(neighbor)
+            cur_nodes = next_nodes
+            next_nodes = []
+        output: list[int] = []
+        for vertex in range(n):
+            if safe[vertex]: output.append(vertex)
+        return output
+
+# C++ O(V + E) O(V + E) Topological Sorting Graph
+class Solution {
+public:
+    vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
+        int n = graph.size();
+        std::vector<std::vector<int>> adjList (n, std::vector<int>());
+        std::vector<int> indegree (n, 0);
+        for (int source = 0; source < n; ++source) {
+            for (int& destination : graph[source]) {
+                adjList[destination].push_back(source);
+                ++indegree[source];
+            }
+        }
+        std::vector<int> curNodes;
+        std::vector<int> nextNodes;
+        for (int vertex = 0; vertex < n; ++vertex) {
+            if (!indegree[vertex]) curNodes.push_back(vertex);
+        }
+        std::vector<bool> safe (n, false);
+        while (curNodes.size() > 0) {
+            for (int& vertex : curNodes) {
+                safe[vertex] = true;
+                for (int& neighbor : adjList[vertex]) {
+                    --indegree[neighbor];
+                    if (!indegree[neighbor]) nextNodes.push_back(neighbor);
+                }
+            }
+            curNodes = nextNodes;
+            nextNodes = {};
+        }
+        std::vector<int> output;
+        for (int vertex = 0; vertex < n; ++vertex) {
+            if (safe[vertex]) output.push_back(vertex);
+        }
+        return output;
+    }
+};
