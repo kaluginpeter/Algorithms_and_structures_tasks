@@ -38,3 +38,51 @@
 # 1 <= nums.length <= 105
 # 1 <= nums[i] <= 109
 # 1 <= limit <= 109
+# Solution
+# Python O(NlogN) O(N) Sorting Greedy
+class Solution:
+    def lexicographicallySmallestArray(self, nums: List[int], limit: int) -> List[int]:
+        output: list[int] = sorted(nums)
+        groups: list[list[int]] = []
+        hashmap: dict[int, int] = dict()
+        for num in output:
+            if not groups:
+                groups.append(deque([num]))
+            elif num - groups[-1][-1] <= limit:
+                groups[-1].append(num)
+            else:
+                groups.append(deque([num]))
+            hashmap[num] = len(groups) - 1
+        for idx in range(len(nums)):
+            output[idx] = groups[hashmap[nums[idx]]].popleft()
+        return output
+
+# C++ O(NlogN) O(N) Greedy
+class Solution {
+public:
+    vector<int> lexicographicallySmallestArray(vector<int>& nums, int limit) {
+        std::vector<int> output = nums;
+        std::sort(output.begin(), output.end());
+        std::vector<std::queue<int>> groups;
+        std::unordered_map<int, int> hashmap;
+        for (int& num : output) {
+            if (groups.empty()) {
+                std::queue<int> newGroup;
+                newGroup.push(num);
+                groups.push_back(newGroup);
+            } else if (num - groups[groups.size() - 1].back() <= limit) {
+                groups[groups.size() - 1].push(num);
+            } else {
+                std::queue<int> newGroup;
+                newGroup.push(num);
+                groups.push_back(newGroup);
+            }
+            hashmap[num] = groups.size() - 1;
+        }
+        for (int idx = 0; idx < nums.size(); ++idx) {
+            output[idx] = groups[hashmap[nums[idx]]].front();
+            groups[hashmap[nums[idx]]].pop();
+        }
+        return output;
+    }
+};
