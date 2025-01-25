@@ -45,3 +45,48 @@
 # Another kid asks for 20 packs. Kay and Gerda do not have them, so the kid goes away distressed.
 # Carrier bring 40 packs, now Kay and Gerda have 42 packs.
 # Kid asks for 20 packs and receives them. There are 22 packs remaining.
+# Solution
+# C++ O(N) O(1) Math Greedy
+#include <bits/stdc++.h>
+
+
+void solution() {
+    int n;
+    long long x;
+    std::cin >> n >> x;
+    int distress = 0;
+    for (int i = 0; i < n; ++i) {
+        char move;
+        long long amount;
+        std::cin >> move >> amount;
+        if (move == '+') x += amount;
+        else if (amount > x) ++distress;
+        else {
+            x -= amount;
+        }
+    }
+    std::cout << x << " " << distress << "\n";
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Math Greedy
+import sys
+
+
+def solution() -> None:
+    n, x = map(int, sys.stdin.readline().rstrip().split())
+    distress: int = 0
+    for _ in range(n):
+        move, amount = sys.stdin.readline().rstrip().split()
+        if move == '+': x += int(amount)
+        elif int(amount) > x: distress += 1
+        else: x -= int(amount)
+    sys.stdout.write(f'{x} {distress}\n')
+
+
+if __name__ == '__main__':
+    solution()
