@@ -45,3 +45,106 @@
 # 2 <= n <= 105
 # 0 <= favorite[i] <= n - 1
 # favorite[i] != i
+# Soluion
+# We should solve Need For Speed Most Wanted: Black Edition by 2005
+#
+# Intro
+# Hi, I'm Josie Maran, I play Mia in Need for Speed: Most Wanted
+# In the game you can drive without any rules
+# But-oh... in life, be careful on the road
+#
+# Complexity
+# Since you black list contains only 15 racers, you anyways should won them all. So time complexity will be linear
+#
+# Time complexity: O(N)
+# Also when you won a black list player yor take his car. So you need a garage to contain all 15 black list players cars. So memory complexity also will be linear
+#
+# Space complexity: O(N)
+# Code
+# Python O(N) O(N)
+class Solution:
+    def maximumInvitations(self, favorite: List[int]) -> int:
+        black_list_players: int = len(favorite)
+        black_list: list[int] = [0] * black_list_players
+        for rider in range(black_list_players):
+            opponent: int = favorite[rider]
+            black_list[opponent] += 1
+        cur_riders: list[int] = []
+        next_riders: list[int] = []
+        for rider in range(black_list_players):
+            if not black_list[rider]: cur_riders.append(rider)
+        wins: list[int] = [1] * black_list_players
+        while cur_riders:
+            for cur_rider in cur_riders:
+                opponent: int = favorite[cur_rider]
+                wins[opponent] = max(wins[opponent], wins[cur_rider] + 1)
+                black_list[opponent] -= 1
+                if not black_list[opponent]: next_riders.append(opponent)
+            cur_riders = next_riders
+            next_riders = []
+        won_races_in_row: int = 0
+        black_list_battles: int = 0
+        for black_list_rider in range(black_list_players):
+            if not black_list[black_list_rider]: continue
+            races_won: int = 0
+            cur_rider: int = black_list_rider
+            while black_list[cur_rider]:
+                races_won += 1
+                black_list[cur_rider] = 0
+                opponent: int = favorite[cur_rider]
+                cur_rider = opponent
+            if races_won == 2:
+                opponent: int = favorite[black_list_rider]
+                black_list_battles += wins[black_list_rider] + wins[opponent]
+            else:
+                won_races_in_row = max(won_races_in_row, races_won)
+        most_wanted: int = max(won_races_in_row, black_list_battles)
+        return most_wanted
+
+# C++ O(N) O(N)
+cclass Solution {
+public:
+    int maximumInvitations(vector<int>& favorite) {
+        int blackListPlayers = favorite.size();
+        std::vector<int> blackList (blackListPlayers, 0);
+        for (int rider = 0; rider < blackListPlayers; ++rider) {
+            int opponent = favorite[rider];
+            ++blackList[opponent];
+        }
+        std::vector<int> curRiders;
+        std::vector<int> nextRiders;
+        for (int rider = 0; rider < blackListPlayers; ++rider) {
+            if (!blackList[rider]) curRiders.push_back(rider);
+        }
+        std::vector<int> wins (blackListPlayers, 1);
+        while (!curRiders.empty()) {
+            for (int& curRider : curRiders) {
+                int opponent = favorite[curRider];
+                wins[opponent] = std::max(wins[opponent], wins[curRider] + 1);
+                --blackList[opponent];
+                if (!blackList[opponent]) nextRiders.push_back(opponent);
+            }
+            curRiders = nextRiders;
+            nextRiders = {};
+        }
+        int wonRacesInRow = 0;
+        int blackListBattles = 0;
+        for (int rider = 0; rider < blackListPlayers; ++rider) {
+            if (!blackList[rider]) continue;
+            int racesWon = 0;
+            int curRider = rider;
+            while (blackList[curRider]) {
+                ++racesWon;
+                blackList[curRider] = 0;
+                int opponent = favorite[curRider];
+                curRider = opponent;
+            }
+            if (racesWon == 2) {
+                int opponent = favorite[rider];
+                blackListBattles += wins[rider] + wins[opponent];
+            } else wonRacesInRow = std::max(wonRacesInRow, racesWon);
+        }
+        int mostWanted = std::max(wonRacesInRow, blackListBattles);
+        return mostWanted;
+    }
+};
