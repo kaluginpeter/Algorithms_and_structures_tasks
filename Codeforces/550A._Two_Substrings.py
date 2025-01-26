@@ -28,3 +28,40 @@
 # In the second sample test there are the following occurrences of the substrings: BACFAB.
 #
 # In the third sample test there is no substring "AB" nor substring "BA".
+# Solution
+# C++ O(N) O(1) String
+#include <bits/stdc++.h>
+
+
+void solution() {
+    std::string pattern;
+    std::cin >> pattern;
+    std::string x = "AB";
+    std::string y = "BA";
+    std::cout << (
+        (
+            (pattern.find(x) != std::string::npos && pattern.find(y, pattern.find(x) + 2) != std::string::npos)
+            || (pattern.find(y) != std::string::npos && pattern.find(x, pattern.find(y) + 2) != std::string::npos)
+        )? "YES" : "NO"
+    ) << "\n";
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) String
+import sys
+
+def solution() -> None:
+    pattern: str = sys.stdin.readline().rstrip()
+    x: str = 'AB'
+    y: str = 'BA'
+    sys.stdout.write(['NO', 'YES'][
+        (x in pattern and y in pattern[pattern.index(x) + 2:])
+        or (y in pattern and x in pattern[pattern.index(y) + 2:])
+    ] + '\n')
+
+if __name__ == '__main__':
+    solution()
