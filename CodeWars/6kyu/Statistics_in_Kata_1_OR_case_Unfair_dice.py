@@ -41,3 +41,12 @@
 # If asked for the rolls 1 and 2 then you would need to sum the probabilities, both 1/6 therefore 2/6 and return this. As above, you will need to return it as a decimal and not a fraction.
 #
 # ProbabilityStatistics
+# Solution
+def mutually_exclusive(dice, call1, call2):
+    if sum(d[1] for d in dice) != 1.0: return
+    pa: float = 0
+    pb: float = 0
+    for d in dice:
+        if d[0] == call1: pa = d[1]
+        elif d[0] == call2: pb = d[1]
+    return f'{pa + pb - (pa + pb) // 6:.2f}'
