@@ -45,7 +45,7 @@
 # 2 <= n <= 105
 # 0 <= favorite[i] <= n - 1
 # favorite[i] != i
-# Soluion
+# Solution
 # We should solve Need For Speed Most Wanted: Black Edition by 2005
 #
 # Intro
