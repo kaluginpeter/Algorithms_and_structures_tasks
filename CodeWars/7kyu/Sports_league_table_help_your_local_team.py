@@ -11,3 +11,17 @@
 # Write a function which takes three parameters: first team's name, second team's name, and the result of the match (in Python version the league_table will be passed as an additional argument). The function must add the correct points to teams 1 and 2 based on the result of the match, and reorder the array based on new the league positions. League positions should be based first on the number of points then if points are equal, alphabetically. The function must also return the updated league table.
 #
 # FundamentalsArraysAlgorithms
+# Solution
+def league_calculate(team1, team2, result, league_table):
+    x: int = 0
+    y: int = 0
+    for i in range(len(league_table)):
+        if league_table[i][0] == team1: x = i
+        elif league_table[i][0] == team2: y = i
+    if result == 'draw':
+        league_table[x][1] += 1
+        league_table[y][1] += 1
+    else:
+        league_table[x][1] += 3
+    league_table.sort(key=lambda p: (-p[1], p[0]))
+    return league_table
