@@ -64,3 +64,61 @@
 # 3 1 1
 # YES
 # 111111110 111111110 111111110 111111110 111111110 111111110 111111110 111111110 111111120
+# Solution
+# C++ O(k) O(1) Math Greedy
+#include <bits/stdc++.h>
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        long long n, k;
+        std::cin >> n >> k;
+        if (n >= k && (n % 2 == k % 2)) {
+            std::cout << "YES\n";
+            for (int j = 0; j < k - 1; ++j) {
+                std::cout << "1 ";
+            }
+            std::cout << n - (k - 1) << "\n";
+            continue;
+        }
+        if (n >= 2 * k && (n % 2 == 0)) {
+            std::cout << "YES\n";
+            for (int j = 0; j < k - 1; ++j) {
+                std::cout << "2 ";
+            }
+            std::cout << n - 2 * (k - 1) << "\n";
+            continue;
+        }
+        std::cout << "NO\n";
+    }
+}
+
+int main() {
+    solution();
+}
+
+# Python O(k) O(1) Math Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, k = map(int, sys.stdin.readline().rstrip().split())
+        if n >= k and (n % 2 == k % 2):
+            sys.stdout.write('YES\n')
+            for j in range(k - 1):
+                sys.stdout.write('1 ')
+            sys.stdout.write(str(n - (k - 1)) + '\n')
+        elif n >= 2 * k and n % 2 == 0:
+            sys.stdout.write('YES\n')
+            for j in range(k - 1):
+                sys.stdout.write('2 ')
+            sys.stdout.write(str(n - 2 * (k - 1)) + '\n')
+        else:
+            sys.stdout.write('NO\n')
+
+
+if __name__ == '__main__':
+    solution()
