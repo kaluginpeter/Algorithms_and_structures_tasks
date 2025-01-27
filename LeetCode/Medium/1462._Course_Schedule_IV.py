@@ -40,3 +40,72 @@
 # 1 <= queries.length <= 104
 # 0 <= ui, vi <= numCourses - 1
 # ui != vi
+# Solution
+# Python O(Q(V + E)) O(V + E) Graph Depth-First-Search
+class Solution:
+    def dfs(self, adj_list: dict[int, list[int]], source: int, destination: int, n: int) -> bool:
+        colors: list[str] = ['white'] * n
+        call_stack: list[int] = [source]
+        while call_stack:
+            vertex: int = call_stack.pop()
+            if vertex == destination: return True
+            if colors[vertex] == 'white':
+                colors[vertex] = 'grey'
+                call_stack.append(vertex)
+                for neighbor in adj_list.get(vertex, []):
+                    if colors[neighbor] == 'white': call_stack.append(neighbor)
+            elif colors[vertex] == 'grey':
+                colors[vertex] = 'black'
+        return False
+
+    def checkIfPrerequisite(self, numCourses: int, prerequisites: List[List[int]], queries: List[List[int]]) -> List[
+        bool]:
+        adj_list: dict[int, list[int]] = dict()
+        for prereq in prerequisites:
+            before, after = prereq
+            if before not in adj_list: adj_list[before] = []
+            adj_list[before].append(after)
+        output: list[bool] = []
+        for query in queries:
+            seen: list[bool] = [False] * numCourses
+            x, y = query
+            output.append(self.dfs(adj_list, x, y, numCourses))
+
+        return output
+
+# C++ O(Q(V + E)) O(V + E) Graph Depth-First-Search
+class Solution {
+public:
+    bool dfs(std::unordered_map<int, std::vector<int>>& adjList, int& source, int& destination, int& n) {
+        std::vector<std::string> colors (n, "white");
+        std::vector<int> callStack = {source};
+        while (!callStack.empty()) {
+            int& vertex = callStack[callStack.size() - 1];
+            callStack.pop_back();
+            if (vertex == destination) return true;
+            if (colors[vertex] == "white") {
+                colors[vertex] = "grey";
+                callStack.push_back(vertex);
+                for (int& neighbor : adjList[vertex]) {
+                    if (colors[neighbor] == "white") callStack.push_back(neighbor);
+                }
+            } else if (colors[vertex] == "grey") colors[vertex] = "black";
+        }
+        return false;
+    }
+    vector<bool> checkIfPrerequisite(int numCourses, vector<vector<int>>& prerequisites, vector<vector<int>>& queries) {
+        std::unordered_map<int, std::vector<int>> adjList;
+        for (std::vector<int>& prereq : prerequisites) {
+            int source = prereq[0];
+            int destination = prereq[1];
+            adjList[source].push_back(destination);
+        }
+        std::vector<bool> output;
+        for (std::vector<int>& query : queries) {
+            int& x = query[0];
+            int& y = query[1];
+            output.push_back(dfs(adjList, x, y, numCourses));
+        }
+        return output;
+    }
+};
