@@ -62,3 +62,68 @@
 # In the second test case, all rearrangements of aaaaa
 #  are equal to aaaaa
 # .
+# Solution
+# Python O(N) O(1) String
+from __future__ import annotations
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        s: list[str] = list(sys.stdin.readline().rstrip())
+        is_valid: bool = False
+        x: int = 0
+        y: int = 0
+        for idx in range(1, len(s)):
+            if s[idx] != s[idx - 1]:
+                is_valid = True
+                x = idx
+                y = idx - 1
+                break
+        if is_valid:
+            sys.stdout.write('YES\n')
+            s[x], s[y] = s[y], s[x]
+            sys.stdout.write(''.join(s) + '\n')
+        else:
+            sys.stdout.write('NO\n')
+
+
+if __name__ == '__main__':
+    solution()
+
+# C++ O(N) O(1)
+#include <bits/stdc++.h>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        std::string s;
+        std::cin >> s;
+        bool isValid = false;
+        int x = 0;
+        int y = 0;
+        for (int idx = 1; idx < s.size(); ++idx) {
+            if (s[idx] != s[idx - 1]) {
+                isValid = true;
+                x = idx - 1;
+                y = idx;
+                break;
+            }
+        }
+        if (isValid) {
+            std::cout << "YES\n";
+            std::swap(s[x], s[y]);
+            std::cout << s << "\n";
+        } else {
+            std::cout << "NO\n";
+        }
+    }
+}
+
+
+int main() {
+    solution();
+}
