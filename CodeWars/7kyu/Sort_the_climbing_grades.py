@@ -9,3 +9,7 @@
 # Please do vote, rank, and provide any feedback on the kata.
 #
 # FundamentalsListsData StructuresSortingArraysStrings
+# Solution
+def sort_grades(lst):
+    pos: dict[str, int] = {'VB': -1, 'V0': 1, 'V0+': 2,}
+    return sorted(lst, key=lambda x: (pos.get(x, 2), (int(x[1:]) if x not in {'VB', 'V0+'} else 0)))
