@@ -63,3 +63,76 @@ class Solution:
         for start_vertex, end_vertex in edges:
             if not disjoints_set.union(start_vertex, end_vertex):
                 return [start_vertex, end_vertex]
+
+# Python O(N) O(N) Disjoint Set Union
+class DSU:
+    def __init__(self, n: int) -> None:
+        self.ranks: list[int] = [1] * (n + 1)
+        self.parents: list[int] = list(range(n + 1))
+    def find_parent(self, x: int) -> int:
+        while self.parents[x] != self.parents[self.parents[x]]:
+            self.parents[x] = self.parents[self.parents[x]]
+        return self.parents[x]
+    def union(self, x: int, y: int) -> bool:
+        x_root: int = self.find_parent(x)
+        y_root: int = self.find_parent(y)
+        if x_root == y_root: return False
+        if self.ranks[x_root] >= self.ranks[y_root]:
+            self.parents[y_root] = x_root
+            self.ranks[x_root] += self.ranks[y_root]
+        else:
+            self.parents[x_root] = y_root
+            self.ranks[y_root] += self.ranks[x_root]
+        return True
+class Solution:
+    def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
+        n: int = len(edges)
+        dsu: DSU = DSU(n)
+        for edge in edges:
+            if not dsu.union(*edge):
+                return edge
+
+# C++ O(N) O(N) Disjoint Set Union
+class DSU {
+public:
+    std::vector<int> ranks;
+    std::vector<int> parents;
+    DSU(int n) {
+        ranks = std::vector<int>(n + 1);
+        parents = std::vector<int>(n + 1, 1);
+        for (int i = 0; i <= n; ++i) {
+            parents[i] = i;
+        }
+    };
+    int findParent(int x) {
+        while (parents[x] != parents[parents[x]]) {
+            parents[x] = parents[parents[x]];
+        }
+        return parents[x];
+    }
+    bool unionFind(int x, int y) {
+        int xRoot = findParent(x);
+        int yRoot = findParent(y);
+        if (xRoot == yRoot) return false;
+        if (ranks[xRoot] >= ranks[yRoot]) {
+            ranks[xRoot] += ranks[yRoot];
+            parents[yRoot] = xRoot;
+        } else {
+            ranks[yRoot] += ranks[xRoot];
+            parents[xRoot] = yRoot;
+        }
+        return true;
+    }
+};
+
+class Solution {
+public:
+    vector<int> findRedundantConnection(vector<vector<int>>& edges) {
+        int n = edges.size();
+        DSU dsu = DSU(n);
+        for (std::vector<int>& edge : edges) {
+            if (!dsu.unionFind(edge[0], edge[1])) return edge;
+        }
+        return {0, 0};
+    }
+};
