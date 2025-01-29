@@ -47,3 +47,30 @@
 # In the third example, there are 8
 #  participants but only 5
 #  pens. Since the Cossack does not have enough pens, the answer is "No".
+# Solution
+# C++ O(1) O(1) Math Greedy
+#include <bits/stdc++.h>
+
+
+void solution() {
+    int n, m, k;
+    std::cin >> n >> m >> k;
+    std::cout << (n <= std::min(m, k)? "Yes" : "No") << "\n";
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Greedy Math
+import sys
+
+
+def solution() -> None:
+    n, m, k = map(int, sys.stdin.readline().rstrip().split())
+    sys.stdout.write(['No', 'Yes'][n <= min(m, k)] + '\n')
+
+
+if __name__ == '__main__':
+    solution()
