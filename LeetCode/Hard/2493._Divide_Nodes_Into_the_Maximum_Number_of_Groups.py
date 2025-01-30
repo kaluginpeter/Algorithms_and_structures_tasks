@@ -38,3 +38,135 @@
 # 1 <= ai, bi <= n
 # ai != bi
 # There is at most one edge between any pair of vertices.
+# Solution
+# Python O(N(N + M)) O(N) Depth-First-Search Graph
+class Solution:
+    def magnificentSets(self, n: int, edges: list[list[int]]) -> int:
+        adj_list: list[list[int]] = [[] for _ in range(n)]
+        for edge in edges:
+            adj_list[edge[0] - 1].append(edge[1] - 1)
+            adj_list[edge[1] - 1].append(edge[0] - 1)
+        colors: list[int] = [-1] * n
+        for vertex in range(n):
+            if colors[vertex] != -1: continue
+            colors[vertex] = 0
+            if not self.is_bipartite(adj_list, vertex, colors): return -1
+        distances: list[int] = [
+            self.get_longest_shortest_path(adj_list, vertex, n)
+            for vertex in range(n)
+        ]
+        max_number_of_groups: int = 0
+        visited: list[bool] = [False] * n
+        for vertex in range(n):
+            if visited[vertex]: continue
+            max_number_of_groups += self.get_number_of_groups_for_component(
+                adj_list, vertex, distances, visited
+            )
+        return max_number_of_groups
+
+    def is_bipartite(self, adj_list: list[list[int]], source: int, colors: list[int]) -> bool:
+        for neighbor in adj_list[source]:
+            if colors[neighbor] == colors[source]: return False
+            if colors[neighbor] != -1: continue
+            colors[neighbor] = (colors[source] + 1) % 2
+            if not self.is_bipartite(adj_list, neighbor, colors): return False
+        return True
+
+    def get_longest_shortest_path(self, adj_list: list[list[int]], source: int, n: int) -> int:
+        cur_nodes: list[int] = [source]
+        next_nodes: list[int] = []
+        visited: list[bool] = [False] * n
+        visited[source] = True
+        distance: int = 0
+        while cur_nodes:
+            for cur_node in cur_nodes:
+                for neighbor in adj_list[cur_node]:
+                    if visited[neighbor]: continue
+                    visited[neighbor] = True
+                    next_nodes.append(neighbor)
+            distance += 1
+            cur_nodes = next_nodes
+            next_nodes = []
+        return distance
+
+    def get_number_of_groups_for_component(
+        self, adj_list: list[list[int]], vertex: int, distances: list[int], visited: list[bool]
+    ) -> int:
+        max_number_of_groups: int = distances[vertex]
+        visited[vertex] = True
+        for neighbor in adj_list[vertex]:
+            if visited[neighbor]: continue
+            max_number_of_groups = max(
+                max_number_of_groups,
+                self.get_number_of_groups_for_component(
+                    adj_list, neighbor, distances, visited
+                ),
+            )
+        return max_number_of_groups
+
+# C++ O(N(N + M)) O(N) Depth-First-Search Graph
+class Solution {
+public:
+    bool isBipartite(std::vector<std::vector<int>>& adjList, int& vertex, std::vector<int>& colors) {
+        for (int& neighbor : adjList[vertex]) {
+            if (colors[neighbor] == colors[vertex]) return false;
+            if (colors[neighbor] != -1) continue;
+            colors[neighbor] = (colors[vertex] + 1) % 2;
+            if (!isBipartite(adjList, neighbor, colors)) return false;
+        }
+        return true;
+    }
+    int getLongest(std::vector<std::vector<int>>& adjList, int& source, int& n) {
+        std::vector<int> curNodes = {source};
+        std::vector<int> nextNodes;
+        std::vector<bool> seen (n, false);
+        seen[source] = true;
+        int distance = 0;
+        while (!curNodes.empty()) {
+            for (int& vertex : curNodes) {
+                for (int& neighbor : adjList[vertex]) {
+                    if (seen[neighbor]) continue;
+                    seen[neighbor] = true;
+                    nextNodes.push_back(neighbor);
+                }
+            }
+            curNodes = nextNodes;
+            nextNodes = {};
+            ++distance;
+        }
+        return distance;
+    }
+    int getNumberOfGroups(std::vector<std::vector<int>>& adjList, int& source, std::vector<int>& distances, std::vector<bool>& seen) {
+        int maxNumberOfGroups = distances[source];
+        seen[source] = true;
+        for (int& neighbor : adjList[source]) {
+            if (seen[neighbor]) continue;
+            maxNumberOfGroups = std::max(maxNumberOfGroups, getNumberOfGroups(adjList, neighbor, distances, seen));
+        }
+        return maxNumberOfGroups;
+    }
+    int magnificentSets(int n, vector<vector<int>>& edges) {
+        std::vector<std::vector<int>> adjList (n);
+        for (std::vector<int>& edge : edges) {
+            adjList[edge[0] - 1].push_back(edge[1] - 1);
+            adjList[edge[1] - 1].push_back(edge[0] - 1);
+        }
+        std::vector<int> colors (n, -1);
+        for (int vertex = 0; vertex < n; ++vertex) {
+            if (colors[vertex] != -1) continue;
+            colors[vertex] = 0;
+            if (!isBipartite(adjList, vertex, colors)) return -1;
+        }
+        std::vector<int> distances;
+        for (int vertex = 0; vertex < n; ++vertex) {
+            distances.push_back(getLongest(adjList, vertex, n));
+        }
+        int maxNumberOfGroups = 0;
+        std::vector<bool> seen (n, false);
+        for (int vertex = 0; vertex < n; ++vertex) {
+            if (seen[vertex]) continue;
+            maxNumberOfGroups += getNumberOfGroups(adjList, vertex, distances, seen);
+        }
+        return maxNumberOfGroups;
+    }
+};
