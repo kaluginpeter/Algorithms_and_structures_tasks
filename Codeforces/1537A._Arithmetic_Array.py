@@ -73,3 +73,55 @@
 # . The arithmetic mean becomes −2+42
 #  which is equal to 1
 # .
+# Solution
+# C++ O(N) O(1) Math Greedy
+#include <bits/stdc++.h>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        int S = 0;
+        for (int j = 0; j < n; ++j) {
+            int num;
+            std::cin >> num;
+            S += num;
+        }
+        if (S == n) {
+            std::cout << "0\n";
+        } else if (S < n) {
+            std::cout << "1\n";
+        } else {
+            std::cout << S - n << "\n";
+        }
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Math Greedy
+from __future__ import annotations
+import sys
+
+def min_operations_to_good_array(n: int, nums: list[int]) -> int:
+    S: int = sum(nums)
+    if S == n: return 0
+    elif S < n: return 1
+    return S - n
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+        sys.stdout.write(str(min_operations_to_good_array(n, nums)) + '\n')
+
+
+if __name__ == '__main__':
+    solution()
