@@ -19,3 +19,32 @@ Focus attention on efficiency
 
 MathematicsAlgorithms
 */
+// Solution
+#include <unordered_set>
+#include <queue>
+#include <vector>
+class DoubleLinear
+{
+public:
+    static int dblLinear(int n) {
+      std::unordered_set<int> uSet;
+      std::priority_queue<int, std::vector<int>, std::greater<int>> uHeap;
+      uSet.insert(1);
+      uHeap.push(1);
+      for (int i = 0; i < n; ++i) {
+        int sm = uHeap.top();
+        uHeap.pop();
+        int y = 2 * sm + 1;
+        int z = 3 * sm + 1;
+        if (!uSet.count(y)) {
+          uSet.insert(y);
+          uHeap.push(y);
+        }
+        if (!uSet.count(z)) {
+          uSet.insert(z);
+          uHeap.push(z);
+        }
+      }
+      return uHeap.top();
+    };
+};
