@@ -62,3 +62,54 @@
 #  turn into 01
 # . Then, after Bob's move string s
 #  become empty and Alice can not make any move.
+# Solution
+# C++ O(N) O(N) Stack String Greedy
+#include <bits/stdc++.h>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        std::string moves;
+        std::cin >> moves;
+        std::stack<char> store;
+        bool isAliceWin = false;
+        for (char& ch : moves) {
+            if (!store.size() || store.top() == ch) {
+                store.push(ch);
+            } else {
+                store.pop();
+                isAliceWin = !isAliceWin;
+            }
+        }
+        std::cout << (isAliceWin? "DA" : "NET") << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(N) Stack String Greedy
+from __future__ import annotations
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        moves: str = sys.stdin.readline().rstrip()
+        stack: list[str] = []
+        is_alice_win: bool = False
+        for ch in moves:
+            if not stack or stack[-1] == ch: stack.append(ch)
+            else:
+                stack.pop()
+                is_alice_win = not is_alice_win
+        sys.stdout.write('{}\n'.format('DA' if is_alice_win else 'NET'))
+
+
+if __name__ == '__main__':
+    solution()
