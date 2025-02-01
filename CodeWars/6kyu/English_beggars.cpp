@@ -13,3 +13,17 @@ Note 2: do not modify the input array.
 
 QueuesArraysListsRecursionFundamentals
 */
+// Solution
+#include <vector>
+
+std::vector<int> beggars(const std::vector<int>& values, unsigned int n){
+  std::vector<int> output;
+  for (unsigned int beggar = 0; beggar < n; ++beggar) {
+    int outcome = 0;
+    for (unsigned long idx = beggar; idx < values.size(); idx += n) {
+        outcome += values[idx];
+    }
+    output.push_back(outcome);
+  }
+  return output;
+}
