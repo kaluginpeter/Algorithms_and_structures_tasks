@@ -44,3 +44,20 @@
 class Solution:
     def isArraySpecial(self, nums: List[int]) -> bool:
         return all(x % 2 != y % 2 for x, y in zip(nums, nums[1:]))
+
+
+# Python O(N) O(1)
+class Solution:
+    def isArraySpecial(self, nums: List[int]) -> bool:
+        return all(nums[i - 1] & 1 != nums[i] & 1 for i in range(1, len(nums)))
+
+# C++ O(N) O(1)
+class Solution {
+public:
+    bool isArraySpecial(vector<int>& nums) {
+        for (int i = 1; i < nums.size(); ++i) {
+            if (nums[i - 1] % 2 == nums[i] % 2) return false;
+        }
+        return true;
+    }
+};
