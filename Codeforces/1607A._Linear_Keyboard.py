@@ -61,3 +61,52 @@
 # 68
 # 0
 # 74
+# Solution
+# C++ O(Nd) O(1) Greedy
+#include <bits/stdc++.h>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        std::string alp, phrase;
+        std::cin >> alp >> phrase;
+        int moves = 0;
+        int prev = -1;
+        for (char& ch : phrase) {
+            int cur = alp.find(ch);
+            if (prev == -1) prev = cur;
+            moves += std::abs(cur - prev);
+            prev = cur;
+        }
+        std::cout << moves << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(Nd) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        alph: str = sys.stdin.readline().rstrip()
+        phrase: str = sys.stdin.readline().rstrip()
+        moves: int = 0
+        prev: int = -1
+        for ch in phrase:
+            cur: int = alph.index(ch)
+            if prev == -1: prev = cur
+            moves += abs(cur - prev)
+            prev = cur
+        sys.stdout.write('{}\n'.format(moves))
+
+
+if __name__ == '__main__':
+    solution()
