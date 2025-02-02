@@ -18,3 +18,29 @@ If you liked it, go for either the previous kata or the next kata of the series!
 
 StringsRegular ExpressionsFundamentals
 */
+// Solution
+#include <unordered_map>
+bool hasSubpattern(const std::string& str){
+  if (str.size() == 1) return false;
+  std::unordered_map<char, int> hashmap;
+  for (const char& ch : str) {
+    ++hashmap[ch];
+  }
+  int y = 0;
+  for (auto& p : hashmap) {
+    y = std::max(y, p.second);
+  }
+  for (int d = 1; d <= y; ++d) {
+    bool isValid = true;
+    for (auto& p : hashmap) {
+      if (p.second % d != 0) {
+        isValid = false;
+        break;
+      }
+    }
+    if (isValid) {
+      if (d > 1 || (d == 1 && hashmap.size() == 1)) return true;
+    }
+  }
+  return false;
+}
