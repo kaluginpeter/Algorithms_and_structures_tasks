@@ -54,3 +54,44 @@
 # 12
 # 0
 # 30
+# Solution
+# C++ O(N) O(1) String
+#include <bits/stdc++.h>
+
+
+void solution() {
+    std::string pi = "314159265358979323846264338327";
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        std::string digits;
+        std::cin >> digits;
+        int idx = 0;
+        while (idx < std::min(30, (int)digits.size()) && pi[idx] == digits[idx]) {
+            ++idx;
+        }
+        std::cout << idx << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) String
+import sys
+
+
+def solution() -> None:
+    pi: str = '314159265358979323846264338327'
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        stock: str = sys.stdin.readline().rstrip()
+        idx: int = 0
+        while idx < min(30, len(stock)) and pi[idx] == stock[idx]: idx += 1
+        sys.stdout.write(f'{idx}\n')
+
+
+if __name__ == '__main__':
+    solution()
