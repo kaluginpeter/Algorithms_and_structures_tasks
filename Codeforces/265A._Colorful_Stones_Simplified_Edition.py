@@ -33,3 +33,40 @@
 # BBRBGGRGRGBBBRBGRBRBBBBRBRRRBGBBGBBRRBBGGRBRRBRGRB
 # OutputCopy
 # 15
+# Solution
+# C++ O(N) O(1) Greedy
+#include <bits/stdc++.h>
+
+
+void solution() {
+    std::string s;
+    std::cin >> s;
+    std::string t;
+    std::cin >> t;
+    int start = 0;
+    for (int idx = 0; idx < t.size(); ++idx) {
+        if (s[start] == t[idx]) ++start;
+    }
+    std::cout << start + 1 << "\n";
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    s: str = sys.stdin.readline().rstrip()
+    t: str = sys.stdin.readline().rstrip()
+    start: int = 0
+    for idx in range(len(t)):
+        if s[start] == t[idx]: start += 1
+    sys.stdout.write(f'{start + 1}\n')
+
+
+if __name__ == '__main__':
+    solution()
