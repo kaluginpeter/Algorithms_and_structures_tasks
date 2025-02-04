@@ -37,3 +37,48 @@
 # pppwwwqqq
 # qpwwpqwpqpw
 # pqpqpqpq
+# Solution
+# C++ O(N) O(N) String
+#include <bits/stdc++.h>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        std::string a;
+        std::cin >> a;
+        std::string b = "";
+        for (int i = a.size() - 1; i >= 0; --i) {
+            if (a[i] == 'p') b += 'q';
+            else if (a[i] == 'q') b += 'p';
+            else b += 'w';
+        }
+        std::cout << b << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(N) String
+from __future__ import annotations
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        a: str = sys.stdin.readline().rstrip()
+        b: list[str] = []
+        for ch in reversed(a):
+            if ch == 'p': b.append('q')
+            elif ch == 'q': b.append('p')
+            else: b.append('w')
+        sys.stdout.write(''.join(b) + '\n')
+
+
+if __name__ == '__main__':
+    solution()
