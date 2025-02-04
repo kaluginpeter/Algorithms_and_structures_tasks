@@ -8,3 +8,23 @@ uniqueInOrder("ABBCcAD")         == {'A', 'B', 'C', 'c', 'A', 'D'}
 uniqueInOrder([1,2,2,3,3])       == {1,2,3}
 AlgorithmsFundamentals
 */
+// Solution
+#include <string>
+#include <vector>
+
+template <typename T> std::vector<T> uniqueInOrder(const std::vector<T>& iterable){
+  std::vector<T> output;
+  int n = iterable.size();
+  for (int i = 0; i < n; ++i) {
+    if (!i || iterable[i - 1] != iterable[i]) output.push_back(iterable[i]);
+  }
+  return output;
+}
+std::vector<char> uniqueInOrder(const std::string& iterable){
+  std::vector<char> output;
+  int n = iterable.size();
+  for (int i = 0; i < n; ++i) {
+    if (!i || iterable[i - 1] != iterable[i]) output.push_back(iterable[i]);
+  }
+  return output;
+}
