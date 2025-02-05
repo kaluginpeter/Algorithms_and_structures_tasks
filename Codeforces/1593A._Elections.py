@@ -41,3 +41,46 @@
 # 5 5 0
 # 0 1001 1001
 # 1000000001 0 1000000001
+# Solution
+# C++ O(1) O(1) Math Greedy
+#include <bits/stdc++.h>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int a, b, c;
+        std::cin >> a >> b >> c;
+        if (a > std::max(b, c)) std::cout << "0 ";
+        else std::cout << std::max(b, c) - a + 1<< " ";
+        if (b > std::max(a, c)) std::cout << "0 ";
+        else std::cout << std::max(a, c) - b + 1 << " ";
+        if (c > std::max(a, b)) std::cout << "0\n";
+        else std::cout << std::max(a, b) - c + 1 << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Math Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        a, b, c = map(int, sys.stdin.readline().rstrip().split())
+        if a > max(b, c): sys.stdout.write('0 ')
+        else: sys.stdout.write(f'{max(b, c) - a + 1} ')
+        if b > max(a, c): sys.stdout.write('0 ')
+        else: sys.stdout.write(f'{max(a, c) - b + 1} ')
+        if c > max(a, b): sys.stdout.write('0\n')
+        else: sys.stdout.write(f'{max(a, b) - c + 1}\n')
+
+
+if __name__ == '__main__':
+    solution()
