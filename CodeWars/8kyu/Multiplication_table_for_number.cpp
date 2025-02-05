@@ -19,3 +19,19 @@ Note: newlines should be added between rows, but there should be no trailing new
 
 FundamentalsStrings
 */
+// Solution
+#include <string>
+
+std::string multi_table(int number)
+{
+    std::string output = "";
+    for (int i = 1; i < 11; ++i) {
+      output += std::to_string(i);
+      output += " * ";
+      output += std::to_string(number);
+      output += " = ";
+      output += std::to_string(i * number);
+      if (i != 10) output += "\n";
+    }
+    return output; // good luck
+}
