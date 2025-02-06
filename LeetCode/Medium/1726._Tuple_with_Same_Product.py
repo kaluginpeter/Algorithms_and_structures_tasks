@@ -25,3 +25,84 @@
 # 1 <= nums.length <= 1000
 # 1 <= nums[i] <= 104
 # All elements in nums are distinct.
+# Solution
+# Python O(N**2) O(N**2) HashMap
+class Solution:
+    def tupleSameProduct(self, nums: List[int]) -> int:
+        hashmap: dict[int, list[tuple[int, int]]] = dict()
+        n: int = len(nums)
+        for c in range(n):
+            for d in range(n):
+                if c == d: continue
+                prod: int = nums[c] * nums[d]
+                if prod not in hashmap: hashmap[prod] = []
+                hashmap[prod].append([c, d])
+
+        output: int = 0
+        for a in range(n):
+            for b in range(n):
+                if a == b: continue
+                prod: int = nums[a] * nums[b]
+                for c, d in hashmap.get(prod, []):
+                    if (a != c and a != d) and (b != c and b != d): output += 1
+        return output
+
+# C++ O(N**2) O(N**2) Hashmap
+class Solution {
+public:
+    int tupleSameProduct(vector<int>& nums) {
+        std::unordered_map<int, std::vector<std::pair<int, int>>> hashmap;
+        int n = nums.size();
+        for (int c = 0; c < n; ++c) {
+            for (int d = 0; d < n; ++d) {
+                if (c == d) continue;
+                hashmap[nums[c] * nums[d]].push_back({c, d});
+            }
+        }
+        int output = 0;
+        for (int a = 0; a < n; ++a) {
+            for (int b = 0; b < n; ++b) {
+                if (a == b) continue;
+                int prod = nums[a] * nums[b];
+                for (std::pair<int, int>& p : hashmap[prod]) {
+                    if ((a != p.first && a != p.second) && (b != p.first && b != p.second)) ++output;
+                }
+            }
+        }
+        return output;
+    }
+};
+
+# Python O(N**2) O(N**2) Hashmap
+class Solution:
+    def tupleSameProduct(self, nums: List[int]) -> int:
+        hashmap: dict[int, int] = dict()
+        n: int = len(nums)
+        for c in range(n):
+            for d in range(c + 1, n):
+                prod: int = nums[c] * nums[d]
+                hashmap[prod] = hashmap.get(prod, 0) + 1
+
+        output: int = 0
+        for _, freq in hashmap.items():
+            if freq > 1: output += (freq - 1) * freq * 4
+        return output
+
+# C++ O(N**2) O(N**2) Hashmap
+class Solution {
+public:
+    int tupleSameProduct(vector<int>& nums) {
+        std::unordered_map<int, int> hashmap;
+        int n = nums.size();
+        for (int c = 0; c < n; ++c) {
+            for (int d = c + 1; d < n; ++d) {
+                ++hashmap[nums[c] * nums[d]];
+            }
+        }
+        int output = 0;
+        for (auto& p : hashmap) {
+            if (p.second > 1) output += (p.second - 1) * p.second * 4;
+        }
+        return output;
+    }
+};
