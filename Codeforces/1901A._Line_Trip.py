@@ -104,3 +104,68 @@
 # travel to the point 0
 # , then your car's gas tank contains 3
 #  liters of fuel.
+# Solution
+# C++ O(N) O(1) Greedy
+#include <bits/stdc++.h>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n, x;
+        std::cin >> n >> x;
+        std::vector<int> stations (n, 0);
+        for (int j = 0; j < n; ++j) {
+            std::cin >> stations[j];
+        }
+        int output = stations[0];
+        bool overhead = false;
+        for (int j = 1; j < n; ++j) {
+            if (stations[j] > x) {
+                int nextGas = output = stations[j] - stations[j - 1];
+                if (j && (x - stations[j - 1]) * 2 > output) {
+                    output = std::min((x - stations[j - 1]) * 2, nextGas);
+                } else output = std::max(output, nextGas);
+                overhead = true;
+                break;
+            }
+            else {
+                output = std::max(output, stations[j] - stations[j - 1]);
+            }
+        }
+        if (!overhead) output = std::max(output, (x - stations[n - 1]) * 2);
+        std::cout << output << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Greedy
+from __future__ import annotations
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, x = map(int, sys.stdin.readline().rstrip().split())
+        nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+        output: int = nums[0]
+        overhead: bool = False
+        for i in range(1, n):
+            if nums[i] > x:
+                overhead = True
+                next_gas: int = nums[i] - nums[i - 1]
+                if i: output = output = max(output, min(next_gas, (x - nums[j]) * 2))
+                else: output = max(output, next_gas)
+            else: output = max(output, nums[i] - nums[i - 1])
+        if not overhead: output = max(output, (x - nums[-1]) * 2)
+        sys.stdout.write(str(output) + '\n')
+
+
+if __name__ == '__main__':
+    solution()
