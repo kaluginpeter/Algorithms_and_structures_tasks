@@ -67,3 +67,44 @@ class Solution:
                 if colors[y] == 1: count += 1 # if value is 1(it means that we got unique color) so just increment count
             output.append(count) # append to the answer list given count of unique colors
         return output
+
+
+# Python O(N) O(N) HashMap
+class Solution:
+    def queryResults(self, limit: int, queries: List[List[int]]) -> List[int]:
+        hashmap: dict[int, int] = dict()
+        have_color: dict[int, int] = dict()
+        output: list[int] = []
+        for ball, color in queries:
+            if ball in have_color:
+                hashmap[have_color[ball]] -= 1
+                if not hashmap[have_color[ball]]:
+                    del hashmap[have_color[ball]]
+            hashmap[color] = hashmap.get(color, 0) + 1
+            have_color[ball] = color
+            output.append(len(hashmap))
+        return output
+
+# C++ O(N) O(N) HashMap
+class Solution {
+public:
+    vector<int> queryResults(int limit, vector<vector<int>>& queries) {
+        std::unordered_map<int, int> hashmap;
+        std::unordered_map<int, int> haveColor;
+        std::vector<int> output;
+        for (std::vector<int>& query : queries) {
+            int ball = query[0], color = query[1];
+            if (haveColor.count(ball)) {
+                --hashmap[haveColor[ball]];
+                if (!hashmap[haveColor[ball]]) {
+                    hashmap.erase(haveColor[ball]);
+                    }
+            }
+            ++hashmap[color];
+            haveColor[ball] = color;
+            output.push_back(hashmap.size());
+
+        }
+        return output;
+    }
+};
