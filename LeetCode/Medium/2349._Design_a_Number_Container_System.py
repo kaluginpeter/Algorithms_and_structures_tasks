@@ -33,3 +33,58 @@
 #
 # 1 <= index, number <= 109
 # At most 105 calls will be made in total to change and find.
+# Solution
+# Python O(NlogN) O(N) Binary-Search-Tree Hashmap
+from sortedcontainers import SortedList
+
+
+class NumberContainers:
+
+    def __init__(self) -> None:
+        self.index_to_phone: dict[int, int] = dict()
+        self.phone_to_index: dict[int, SortedList[int]] = dict()
+
+    def change(self, index: int, number: int) -> None:
+        if self.index_to_phone.get(index):
+            self.phone_to_index[self.index_to_phone[index]].discard(index)
+        self.index_to_phone[index] = number
+        if number not in self.phone_to_index:
+            self.phone_to_index[number] = SortedList()
+        self.phone_to_index[number].add(index)
+
+    def find(self, number: int) -> int:
+        if not self.phone_to_index.get(number, None): return -1
+        return self.phone_to_index[number][0]
+
+# Your NumberContainers object will be instantiated and called as such:
+# obj = NumberContainers()
+# obj.change(index,number)
+# param_2 = obj.find(number)
+
+# C++ O(NlogN) O(N) Binary-Search-Tree Hashmap
+class NumberContainers {
+public:
+    std::unordered_map<int, int> indexToPhone;
+    std::unordered_map<int, std::set<int>> phoneToIndex;
+    NumberContainers() {};
+
+    void change(int index, int number) {
+        if (indexToPhone[index]) {
+            phoneToIndex[indexToPhone[index]].erase(index);
+        }
+        indexToPhone[index] = number;
+        phoneToIndex[number].insert(index);
+    }
+
+    int find(int number) {
+        if (!phoneToIndex[number].size()) return -1;
+        return *phoneToIndex[number].begin();
+    }
+};
+
+/**
+ * Your NumberContainers object will be instantiated and called as such:
+ * NumberContainers* obj = new NumberContainers();
+ * obj->change(index,number);
+ * int param_2 = obj->find(number);
+ */
