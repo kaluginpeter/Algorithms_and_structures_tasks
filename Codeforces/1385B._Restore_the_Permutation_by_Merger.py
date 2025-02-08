@@ -87,3 +87,54 @@
 # 1 2 3 4 5
 # 1 2 3
 # 2 3 4 1
+# Solution
+# C++ O(N) O(N) HashSet Greedy
+#include <bits/stdc++.h>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        std::vector<int> nums (2 * n);
+        for (int j = 0; j < 2 * n; ++j) {
+            std::cin >> nums[j];
+        }
+        std::unordered_set<int> seen;
+        for (int& num : nums) {
+            if (!seen.count(num)) {
+                std::cout << num << " ";
+                seen.insert(num);
+            }
+        }
+        std::cout << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(N) HashSet Greedy
+from __future__ import annotations
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: iter[int] = map(int, sys.stdin.readline().rstrip().split())
+        seen: set[int] = set()
+        for num in nums:
+            if num not in seen:
+                seen.add(num)
+                sys.stdout.write(f'{num} ')
+        sys.stdout.write('\n')
+
+
+if __name__ == '__main__':
+    solution()
