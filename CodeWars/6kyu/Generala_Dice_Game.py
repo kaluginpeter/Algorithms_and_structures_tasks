@@ -13,3 +13,14 @@
 # String of length 5,
 # Each character will be a number between 1 and 6
 # GamesAlgorithms
+# Solution
+def points(dice):
+    s_d: set[str] = set(dice)
+    if len(s_d) == 1: return 50
+    if any(dice.count(d) == 4 for d in s_d): return 40
+    if len(s_d) == 2 and any(dice.count(d) == 3 for d in s_d): return 30
+    ordering: list[str] = sorted(s_d)
+    if len(s_d) == 5:
+        if ordering[0] == '1': ordering.pop(0)
+        return 20 if all(int(y) - int(x) == 1 for x, y in zip(ordering, ordering[1:])) else 0
+    return 0
