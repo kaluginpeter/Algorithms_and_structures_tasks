@@ -63,3 +63,59 @@
 # 5
 # 3
 # 2
+# Solution
+# C++ O(N) O(1) Math
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        std::vector<int> nums (n, 0);
+        for (int j = 0; j < n; ++j) {
+            std::cin >> nums[j];
+        }
+        int minIdx = 0;
+        int maxIdx = 0;
+        for (int idx = 0; idx < n; ++idx) {
+            if (nums[idx] < nums[minIdx]) minIdx = idx;
+            if (nums[idx] > nums[maxIdx]) maxIdx = idx;
+        }
+        if (minIdx > maxIdx) std::swap(minIdx, maxIdx);
+        std::cout << std::min({
+            maxIdx + 1, n - minIdx, minIdx + 1 + (n - maxIdx)
+        }) << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Math
+from __future__ import annotations
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+        min_idx: int = 0
+        max_idx: int = 0
+        for idx in range(n):
+            if nums[idx] < nums[min_idx]: min_idx = idx
+            if nums[idx] > nums[max_idx]: max_idx = idx
+        if min_idx > max_idx: min_idx, max_idx = max_idx, min_idx
+        sys.stdout.write(f'{min(max_idx + 1, n - min_idx, min_idx + 1 + (n - max_idx))}\n')
+
+
+if __name__ == '__main__':
+    solution()
