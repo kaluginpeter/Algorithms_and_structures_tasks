@@ -51,3 +51,43 @@
 # 1 <= elements.length <= 105
 # 1 <= groups[i] <= 105
 # 1 <= elements[i] <= 105
+# Solution
+# Python O(N + MlogM) O(1) Math Number Theory
+class Solution:
+    def assignElements(self, groups: List[int], elements: List[int]) -> List[int]:
+        bound: int = 100_001 # 10^5+1
+        seen: set[int] = set()
+        sieve: list[int] = [-1] * bound
+        for idx in range(len(elements)):
+            divisor: int = elements[idx]
+            if divisor in seen: continue
+            seen.add(divisor)
+            for multiply in range(divisor, bound, divisor):
+                if sieve[multiply] == -1: sieve[multiply] = idx
+        output: list[int] = []
+        for group in groups:
+            output.append(sieve[group])
+        return output
+
+# C++ O(N + MlogM) O(1) Math Number Theory
+class Solution {
+public:
+    vector<int> assignElements(vector<int>& groups, vector<int>& elements) {
+        int bound = 100001; // 10^5+1
+        std::unordered_set<int> seen;
+        std::vector sieve (bound, -1);
+        for (int idx = 0; idx < elements.size(); ++idx) {
+            int divisor = elements[idx];
+            if (seen.count(divisor)) continue;
+            seen.insert(divisor);
+            for (int multiply = divisor; multiply < bound; multiply += divisor) {
+                if (sieve[multiply] == -1) sieve[multiply] = idx;
+            }
+        }
+        std::vector<int> output;
+        for (int& group : groups) {
+            output.push_back(sieve[group]);
+        }
+        return output;
+    }
+};
