@@ -30,3 +30,32 @@
 #
 # 1 <= prices.length <= 3 * 104
 # 0 <= prices[i] <= 104
+# Solution
+# Python O(N) O(1) Greedy
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        profit: int = 0
+        cur_stock: int = float('inf')
+        for price in prices:
+            if price < cur_stock: cur_stock = price
+            elif price > cur_stock:
+                profit += price - cur_stock
+                cur_stock = price
+        return profit
+
+# C++ O(N) O(1) Greedy
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int profit = 0;
+        int curStock = -1;
+        for (int& price : prices) {
+            if ((curStock == -1) || (price < curStock)) curStock = price;
+            else if (price > curStock) {
+                profit += price - curStock;
+                curStock = price;
+            }
+        }
+        return profit;
+    }
+};
