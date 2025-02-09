@@ -25,3 +25,31 @@
 #
 # 1 <= nums.length <= 105
 # 1 <= nums[i] <= 109
+# Solution
+# Python O(N) O(N) HashMap Counting
+class Solution:
+    def countBadPairs(self, nums: List[int]) -> int:
+        n: int = len(nums)
+        hashmap: dict[int, int] = dict()
+        valid: int = 0
+        for idx in range(n):
+            diff: int = nums[idx] - idx
+            hashmap[diff] = hashmap.get(diff, 0) + 1
+            valid += hashmap[diff]
+        return n * (n + 1) // 2 - valid
+
+# C++ O(N) O(N) HashMap Counting
+class Solution {
+public:
+    long long countBadPairs(vector<int>& nums) {
+        int n = nums.size();
+        std::unordered_map<int, int> hashmap;
+        long long valid = 0;
+        for (int i = 0; i < n; ++i) {
+            int diff = nums[i] - i;
+            ++hashmap[diff];
+            valid += hashmap[diff];
+        }
+        return (long long)n * (n + 1) / 2 - valid;
+    }
+};
