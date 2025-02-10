@@ -30,3 +30,43 @@
 # In the second sample at any possible arrangement one team will always have two participants and the other team will always have one participant. Thus, the number of pairs of friends will always be equal to one.
 #
 # In the third sample minimum number of newly formed friendships can be achieved if participants were split on teams consisting of 2 people, maximum number can be achieved if participants were split on teams of 1, 1 and 4 people.
+# Solution
+# C++ O(1) O(1) Math
+#include <bits/stdc++.h>
+
+
+void solution() {
+    long long n, m;
+    std::cin >> n >> m;
+    long long mx = (n - m + 1) * (n - m) / 2;
+    long long mn = 0;
+    if (n % m == 0) mn = (n / m) * (n / m - 1) / 2 * m;
+    else {
+        long long mean = n / m;
+        mn = mean * (mean - 1) / 2 * (m - n % m) + (mean + 1) * (mean) / 2 * (n % m);
+    }
+    std::cout << mn << " " << mx << "\n";
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+def solution() -> None:
+    n, m = map(int, sys.stdin.readline().rstrip().split())
+    mx: int = (n - m + 1) * (n - m) // 2
+    mn: int = 0
+    if n % m == 0: mn = (n // m) * (n // m - 1) // 2 * m
+    else:
+        mean: int = n // m
+        mn = mean * (mean - 1) // 2 * (m - n % m) + (mean + 1) * mean // 2 * (n % m)
+    sys.stdout.write(f'{mn} {mx}\n')
+
+
+
+if __name__ == '__main__':
+    solution()
