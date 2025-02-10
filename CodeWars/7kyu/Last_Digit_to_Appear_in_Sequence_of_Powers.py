@@ -14,3 +14,15 @@
 # Please note: The Last digit to appear can be in the same number as the penultimate one. For example for n = 8, the last digit to appear is 7, although 3 appears slightly before it, in the same number: 8, 64, 512, 4096, 32768, ...
 #
 # Fundamentals
+# Solution
+def ldta(n):
+    pool: set[str] = set()
+    num: int = n
+    idx: int = 0
+    while idx < 15:
+        idx += 1
+        for ch in str(num):
+            pool.add(ch)
+            if len(pool) == 10: return int(ch)
+        num *= n
+    return None
