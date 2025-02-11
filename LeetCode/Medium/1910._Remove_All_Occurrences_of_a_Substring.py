@@ -33,3 +33,28 @@
 # 1 <= s.length <= 1000
 # 1 <= part.length <= 1000
 # s​​​​​​ and part consists of lowercase English letters.
+# Solution
+# Python O(NM) O(NM) Stack Simulation
+class Solution:
+    def removeOccurrences(self, s: str, part: str) -> str:
+        stack: list[str] = []
+        for ch in s:
+            stack.append(ch)
+            if ''.join(stack[-len(part):]) == part:
+                for _ in range(len(part)): stack.pop()
+        return ''.join(stack)
+
+# C++ O(NM) O(NM) Stack Simulation
+class Solution {
+public:
+    string removeOccurrences(string s, string part) {
+        std::string output = "";
+        for (char& ch : s) {
+            output.push_back(ch);
+            if (output.ends_with(part)) {
+                for (int i = 0; i < part.size(); ++i) output.pop_back();
+            }
+        }
+        return output;
+    }
+};
