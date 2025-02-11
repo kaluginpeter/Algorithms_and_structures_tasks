@@ -39,3 +39,48 @@
 # Note
 # In the first example Polycarp tried to send a file with name contains number 33
 # , written in Roman numerals. But he can not just send the file, because it name contains three letters "x" in a row. To send the file he needs to remove any one of this letters.
+# Solution
+# C++ O(N) O(1) Greedy
+#include <bits/stdc++.h>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    std::string filename;
+    std::cin >> filename;
+    int deleted = 0;
+    int xCount = 0;
+    for (char& ch : filename) {
+        if (ch == 'x') {
+            if (xCount == 2) ++deleted;
+            else ++xCount;
+        } else xCount = 0;
+    }
+    std::cout << deleted << "\n";
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    filename: str = sys.stdin.readline().rstrip()
+    deleted: int = 0
+    x_count: int = 0
+    for ch in filename:
+        if ch == 'x':
+            if x_count == 2: deleted += 1
+            else: x_count += 1
+        else: x_count = 0
+    sys.stdout.write(f'{deleted}\n')
+
+
+if __name__ == '__main__':
+    solution()
