@@ -78,3 +78,52 @@
 # YES
 # NO
 # YES
+# Solution
+# C++ O(N) O(1) Greedy
+#include <bits/stdc++.h>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n, s, m;
+        std::cin >> n >> s >> m;
+        bool hasShower = false;
+        int prevEnd = 0;
+        for (int j = 0; j < n; ++j) {
+            int start, end;
+            std::cin >> start >> end;
+            if (start - prevEnd >= s) hasShower = true;
+            prevEnd = std::max(prevEnd, end);
+        }
+        if (m - prevEnd >= s) hasShower = true;
+        std::cout << (hasShower? "YES" : "NO") << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, s, m = map(int, sys.stdin.readline().rstrip().split())
+        has_shower: bool = False
+        prev_end: int = 0
+        for i in range(n):
+            start, end = map(int, sys.stdin.readline().rstrip().split())
+            if start - prev_end >= s: has_shower = True
+            prev_end = max(prev_end, end)
+        if m - prev_end >= s: has_shower = True
+        sys.stdout.write(f'{["NO", "YES"][has_shower]}\n')
+
+
+if __name__ == '__main__':
+    solution()
