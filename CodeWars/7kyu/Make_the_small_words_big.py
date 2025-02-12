@@ -15,3 +15,10 @@
 # e.g: "it's / I'm" should become: "t's / I'M"
 #
 # Fundamentals
+# Solution
+def small_word_helper(sentence):
+    output: list[str] = []
+    for word in sentence.split():
+        if len(word) <= 3: output.append(word.upper())
+        else: output.append(''.join(ch for ch in word if ch not in 'aeoiuAEOIU'))
+    return ' '.join(output)
