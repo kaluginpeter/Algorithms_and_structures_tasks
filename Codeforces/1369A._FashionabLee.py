@@ -48,3 +48,36 @@
 # -sided polygon) is not beautiful, a square (a regular 4
 # -sided polygon) is beautiful and a regular 12
 # -sided polygon (is shown below) is beautiful as well.
+# Solution
+# C++ O(1) O(1) Math
+#include <bits/stdc++.h>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d", &n);
+        std::cout << (n % 4 == 0? "YES" : "NO") << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        sys.stdout.write(['NO', 'YES'][n % 4 == 0] + '\n')
+
+
+if __name__ == '__main__':
+    solution()
