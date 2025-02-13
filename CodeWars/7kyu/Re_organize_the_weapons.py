@@ -13,3 +13,13 @@
 # Return "Not a character" for invalid inputs.
 #
 # Fundamentals
+# Solution
+def identify_weapon(n):
+    match n:
+        case 'Laval': return 'Laval-Shado Valious'
+        case 'Cragger': return 'Cragger-Vengdualize'
+        case 'Lagravis': return 'Lagravis-Blazeprowlor'
+        case 'Crominus': return 'Crominus-Grandorius'
+        case 'Tormak': return 'Tormak-Tygafyre'
+        case 'LiElla': return 'LiElla-Roarburn'
+        case _: return 'Not a character'
