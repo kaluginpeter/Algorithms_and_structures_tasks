@@ -37,3 +37,36 @@
 # 1 <= nums[i] <= 109
 # 1 <= k <= 109
 # The input is generated such that an answer always exists. That is, there exists some sequence of operations after which all elements of the array are greater than or equal to k.
+# Solution
+# Python O(NlogN) O(N) Priority Queue Simulation
+class Solution:
+    def minOperations(self, nums: List[int], k: int) -> int:
+        operations: int = 0
+        heapq.heapify(nums)
+        while len(nums) > 1 and nums[0] < k:
+            operations += 1
+            x, y = heapq.heappop(nums), heapq.heappop(nums)
+            heapq.heappush(nums, x * 2 + y)
+        return operations
+
+# C++ O(NlogN) O(N) PriorityQueue Simulation
+class Solution {
+public:
+    int minOperations(vector<int>& nums, int k) {
+        int operations = 0;
+        std::priority_queue<long long, std::vector<long long>, std::greater<long long>> minHeap;
+        for (int& num : nums) {
+            minHeap.push(num);
+        }
+        while (minHeap.size() > 1 && minHeap.top() < k) {
+            ++operations;
+            long long x = minHeap.top();
+            minHeap.pop();
+            long long y = minHeap.top();
+            minHeap.pop();
+            long long z = x * 2 + y;
+            minHeap.push(z);
+        }
+        return operations;
+    }
+};
