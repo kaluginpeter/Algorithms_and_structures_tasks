@@ -61,3 +61,52 @@
 # aaa
 # czz
 # auz
+# Solution
+# C++ O(1) O(1) Greedy
+#include <bits/stdc++.h>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        std::string output = "";
+        int x = std::max(1, n - 52);
+        output += (char)(x+96);
+        n -= x;
+        int y = std::max(1, n - 26);
+        output += (char)(y+96);
+        n -= y;
+        output += (char)(n+96);
+        std::cout << output << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        output: list[str] = []
+        x: int = max(1, n - 52)
+        output.append(chr(x + 96))
+        n -= x
+        y: int = max(1, n - 26)
+        output.append(chr(y + 96))
+        n -= y
+        output.append(chr(n + 96))
+        sys.stdout.write(''.join(output) + '\n')
+
+
+if __name__ == '__main__':
+    solution()
