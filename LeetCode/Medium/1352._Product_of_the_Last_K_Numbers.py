@@ -41,3 +41,57 @@
 #
 #
 # Follow-up: Can you implement both GetProduct and Add to work in O(1) time complexity instead of O(k) time complexity?
+# Solution
+# Python O(1) O(N) Math PrefixSum
+class ProductOfNumbers:
+
+    def __init__(self):
+        self.prefix_sum: list[int] = []
+
+    def add(self, num: int) -> None:
+        if not num:
+            self.prefix_sum.clear()
+            return
+        self.prefix_sum.append(num * (self.prefix_sum[-1] if self.prefix_sum else 1))
+
+    def getProduct(self, k: int) -> int:
+        n: int = len(self.prefix_sum)
+        if n < k: return 0
+        elif n == k: return self.prefix_sum[-1]
+        return self.prefix_sum[n - 1] // self.prefix_sum[n - k - 1]
+
+
+# Your ProductOfNumbers object will be instantiated and called as such:
+# obj = ProductOfNumbers()
+# obj.add(num)
+# param_2 = obj.getProduct(k)
+
+# C++ O(1) O(N) PrefixSum Math
+class ProductOfNumbers {
+private:
+    std::vector<int> prefixSum;
+public:
+    ProductOfNumbers() {};
+
+    void add(int num) {
+        if (!num) {
+            prefixSum.clear();
+            return;
+        }
+        prefixSum.push_back(num * (prefixSum.size()? prefixSum.back() : 1));
+    }
+
+    int getProduct(int k) {
+        int n = prefixSum.size();
+        if (n < k) return 0;
+        else if (n == k) return prefixSum[n - 1];
+        return prefixSum[n - 1] / prefixSum[n - k - 1];
+    }
+};
+
+/**
+ * Your ProductOfNumbers object will be instantiated and called as such:
+ * ProductOfNumbers* obj = new ProductOfNumbers();
+ * obj->add(num);
+ * int param_2 = obj->getProduct(k);
+ */
