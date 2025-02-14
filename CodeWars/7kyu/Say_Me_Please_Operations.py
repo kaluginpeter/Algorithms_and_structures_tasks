@@ -22,3 +22,16 @@
 # 4 * 5 = 20  --> multiplication
 # 5 + 20 = 25 --> addition
 # AlgorithmsLogicStringsLists
+# Solution
+def say_me_operations(string_numbers):
+    operations: list[str] = []
+    words: list[str] = string_numbers.split()
+    for i in range(len(words) - 2):
+        x: int = int(words[i])
+        y: int = int(words[i + 1])
+        z: int = int(words[i + 2])
+        if x + y == z: operations.append('addition')
+        elif x - y == z: operations.append('subtraction')
+        elif x * y == z: operations.append('multiplication')
+        else: operations.append('division')
+    return ', '.join(operations)
