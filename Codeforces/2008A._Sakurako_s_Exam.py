@@ -64,3 +64,43 @@
 #  — it is possible to add the signs '+' or '-' to get 0
 #  as a result (+1+1−2−2+2=0
 # );
+# Solution
+# Python O(1) O(1) Math Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        a, b = map(int, sys.stdin.readline().rstrip().split())
+        if not b:
+            sys.stdout.write(['NO', 'YES'][a % 2 == 0] + '\n')
+        elif not a:
+            sys.stdout.write(['NO', 'YES'][b % 2 == 0] + '\n')
+        else:
+            sys.stdout.write(['NO', 'YES'][(a + b * 2) % 2 == 0] + '\n')
+
+
+if __name__ == '__main__':
+    solution()
+
+# C++ O(1) O(1) Math Greedy
+#include <bits/stdc++.h>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int a, b;
+        std::cin >> a >> b;
+        if (!b) std::cout << (a % 2 == 0? "YES" : "NO") << "\n";
+        else if (!a) std::cout << (b % 2 == 0? "YES" : "NO") << "\n";
+        else std::cout << ((a + b * 2) % 2 == 0? "YES" : "NO") << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
