@@ -11,3 +11,11 @@
 # digits   = 3   #  [3, 1, 4]
 # expected = 6   #  sqrt(3^2 + 1^2 + 4^2) = 5.099 --> 6
 # Algorithms
+# Solution
+def square_pi(digits):
+    pi: str = '31415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679'
+    acc: int = 0
+    for i in range(digits):
+        acc += int(pi[i]) ** 2
+    diff: float = acc**.5
+    return int(diff) + 1 if diff != int(diff) else int(diff)
