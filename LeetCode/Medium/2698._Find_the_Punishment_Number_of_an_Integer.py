@@ -30,3 +30,38 @@
 # Constraints:
 #
 # 1 <= n <= 1000
+# Solution
+# Python O(N * 2^log(N)) O(log(N)) Backtracking
+class Solution:
+    def check(self, pow_i: int, n: int) -> bool:
+        if pow_i < n or n < 0: return False
+        if pow_i == n: return True
+        for power in (10, 100, 1000):
+            if self.check(pow_i // power, n - pow_i % power): return True
+        return False
+
+    def punishmentNumber(self, n: int) -> int:
+        output: int = 0
+        for i in range(1, n + 1):
+            if self.check(i * i, i):
+                output += i * i
+        return output
+
+# C++ O(N * 2^log(N)) O(log(N)) Backtracking
+class Solution {
+public:
+    bool check(int powI, int i) {
+        if (powI < i || i < 0) return false;
+        if (powI == i) return true;
+        for (int power = 10; power <= 1000; power *= 10) {
+            if (check(powI / power, i - powI % power)) return true;
+        }
+        return false;
+    }
+    int punishmentNumber(int n) {
+        int output = 0;
+        for (int i = 1; i <=n; ++i)
+        if (check(i * i, i)) output += i * i;
+        return output;
+    }
+};
