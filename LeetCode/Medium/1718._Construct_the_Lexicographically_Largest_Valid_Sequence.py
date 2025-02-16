@@ -25,3 +25,66 @@
 # Constraints:
 #
 # 1 <= n <= 20
+# Solution
+# Python O(N!) O(N) Backtracking
+class Solution:
+    def backtrack(
+        self, start: int, used: list[bool], output: list[int], n: int
+    ) -> bool:
+        if start == len(output): return True
+        if output[start]: return self.backtrack(start + 1, used, output, n)
+        for num in range(n, 0, -1):
+            if used[num]: continue
+            used[num] = True
+            output[start] = num
+            if num == 1:
+                if self.backtrack(start + 1, used, output, n): return True
+            elif start + num < len(output) and not output[start + num]:
+                output[start + num] = num
+                if self.backtrack(start + 1, used, output, n): return True
+                output[start + num] = 0
+            output[start] = 0
+            used[num] = False
+        return False
+
+    def constructDistancedSequence(self, n: int) -> List[int]:
+        bound: int = n * 2 - 1
+        output: list[int] = [0] * bound
+        used: list[bool] = [False] * (n + 1)
+        length: int = 0
+        self.backtrack(length, used, output, n)
+        return output
+
+# C++ O(!N) O(N) Backtracking
+class Solution {
+public:
+    bool backtrack(int start, std::vector<int>& output, std::vector<bool>& used, int& n) {
+        if (start == output.size()) return true;
+        if (output[start]) return backtrack(start + 1, output, used, n);
+        for (int num = n; num > 0; --num) {
+            if (used[num]) continue;
+            used[num] = true;
+            output[start] = num;
+            if (num == 1) {
+                if (backtrack(start + 1, output, used, n)) return true;
+            }
+            else if ((start + num < output.size()) && (!output[start + num])) {
+                output[start + num] = num;
+                if (backtrack(start + 1, output, used, n)) return true;
+                output[start + num] = 0;
+            }
+            output[start] = 0;
+            used[num] = false;
+        }
+        return false;
+    }
+
+    vector<int> constructDistancedSequence(int n) {
+        int bound = n * 2 - 1;
+        std::vector<int> output (bound, 0);
+        std::vector<bool> used (n + 1, false);
+        int start = 0;
+        backtrack(start, output, used, n);
+        return output;
+    }
+};
