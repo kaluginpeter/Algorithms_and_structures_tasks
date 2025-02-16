@@ -89,3 +89,62 @@
 # .
 # The final sequence was [9,3,1]
 # , which matches the input.
+# Solution
+# C++ O(N) O(N) Simulation
+#include <bits/stdc++.h>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d", &n);
+        std::vector<int> nums (n);
+        for (int j = 0; j < n; ++j) {
+            std::cin >> nums[j];
+        }
+        for (int j = 0; j < n; ++j) {
+            int b;
+            std::cin >> b;
+            std::string moves;
+            std::cin >> moves;
+            for (char& move : moves) {
+                if (move == 'D') nums[j] = (nums[j] + 1) % 10;
+                else {
+                    --nums[j];
+                    if (nums[j] == -1) nums[j] = 9;
+                }
+            }
+        }
+        for (int& lock : nums) std::printf("%d ", lock);
+        std::cout << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(N) Simulation
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+        for lock in range(n):
+            b, moves = sys.stdin.readline().rstrip().split()
+            for move in moves:
+                if move == 'D': nums[lock] = (nums[lock] + 1) % 10
+                else:
+                    nums[lock] -= 1
+                    if nums[lock] == -1: nums[lock] = 9
+        sys.stdout.write(' '.join(str(lock) for lock in nums) + '\n')
+
+
+if __name__ == '__main__':
+    solution()
