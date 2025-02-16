@@ -21,3 +21,50 @@
 # n = 22 --> Should return -1 since 1/22 ~ 0.0 45 45 45 45 ...
 # Please ask before translating..
 # FundamentalsMathematics
+# Solution
+from math import gcd
+
+def cycle(n):
+    if gcd(n, 10) != 1:
+        return -1
+
+    def totient(n):
+        result = n
+        p = 2
+        while p * p <= n:
+            if n % p == 0:
+                while n % p == 0:
+                    n //= p
+                result -= result // p
+            p += 1
+        if n > 1:
+            result -= result // n
+        return result
+
+    def modular_exponentiation(base, exponent, modulus):
+        result = 1
+        base %= modulus
+        while exponent > 0:
+            if exponent % 2 == 1:
+                result = (result * base) % modulus
+            base = (base * base) % modulus
+            exponent //= 2
+        return result
+
+    def divisors(n):
+        divs = []
+        i = 1
+        while i * i <= n:
+            if n % i == 0:
+                divs.append(i)
+                if i != n // i:
+                    divs.append(n // i)
+            i += 1
+        return sorted(divs)
+
+
+    phi_n = totient(n)
+    for k in divisors(phi_n):
+        if modular_exponentiation(10, k, n) == 1:
+            return k
+    return 0 # or -1 if no cycle found, depending on requirements
