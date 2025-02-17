@@ -101,3 +101,56 @@
 #  the array would become {2,3,3,3,2}
 # , the sum would be 2+3+3+3+2=13
 #  which is odd, so the answer is "YES".
+# Solution
+# C++ O(N + Q) O(N) PrefixSum
+#include <bits/stdc++.h>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n, q;
+        std::scanf("%d %d", &n, &q);
+        std::vector<long long> prefixSum = {0};
+        for (int j = 0; j < n; ++j) {
+            long long num;
+            std::cin >> num;
+            prefixSum.push_back(prefixSum.back() + num);
+        }
+        for (int j = 0; j < q; ++j) {
+            int left, right, k;
+            std::scanf("%d %d %d", &left, &right, &k);
+            long long extra = (right - left + 1) * k;
+            long long subtract = prefixSum[right] - prefixSum[left - 1];
+            std::cout << ((prefixSum[n] - subtract + extra) % 2 != 0? "YES" : "NO") << "\n";
+        }
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N + Q) O(N) PrefixSum
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, q = map(int, sys.stdin.readline().rstrip().split())
+        nums: iter[int] = map(int, sys.stdin.readline().rstrip().split())
+        prefix_sum: list[int] = [0]
+        for _ in range(n):
+            prefix_sum.append(prefix_sum[-1] + next(nums))
+        for _ in range(q):
+            left, right, k = map(int, sys.stdin.readline().rstrip().split())
+            extra: int = (right - left + 1) * k
+            subtract: int = prefix_sum[right] - prefix_sum[left - 1]
+            sys.stdout.write(['NO', 'YES'][(prefix_sum[n] - subtract + extra) & 1] + '\n')
+
+
+if __name__ == '__main__':
+    solution()
