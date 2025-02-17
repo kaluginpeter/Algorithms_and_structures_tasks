@@ -30,3 +30,14 @@
 # [ {5,8 , (1,(2,6,(9,100,107),890,(1,(5,6))), (3,4,5)), "rvbc" }, {"fnyh", "esa", 6}, {("cev","cdv",20), 18}   ] -> False ( Since "1","6" and "5" appear twice)
 #
 # ListsArraysSets
+# Solution
+g: set = set()
+def check_unique(arr, level: int = 0):
+    if not arr: return True
+    if level == 0: g.clear()
+    for i in arr:
+        if isinstance(i, tuple) or isinstance(i, frozenset) or isinstance(i, set):
+            if not check_unique(i, level+1): return False
+        elif i in g: return False
+        else: g.add(i)
+    return True
