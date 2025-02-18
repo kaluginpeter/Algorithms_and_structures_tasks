@@ -68,3 +68,59 @@
 #
 # For 5
 # th case: We must select all elements  — but overall sum is not odd.
+# Solution
+# Python O(N) O(1) Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, x = map(int, sys.stdin.readline().rstrip().split())
+        nums: iter[int] = map(int, sys.stdin.readline().rstrip().split())
+        total_sum: int = 0
+        even: int = 0
+        odd: int = 0
+        for i in range(n):
+            num: int = next(nums)
+            total_sum += num
+            if num & 1: odd += 1
+            else: even += 1
+        if n == x and not (total_sum & 1):
+            sys.stdout.write('NO\n')
+        elif x & 1: sys.stdout.write(['NO', 'YES'][odd > 0] + '\n')
+        else: sys.stdout.write(['NO', 'YES'][odd > 0 and even > 0] + '\n')
+
+if __name__ == '__main__':
+    solution();
+
+# C++ O(N) O(1) Math
+#include <bits/stdc++.h>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n, x;
+        std::scanf("%d %d", &n, &x);
+        int even = 0;
+        int odd = 0;
+        int totalSum = 0;
+        for (int j = 0; j < n; ++j) {
+            int num;
+            std::cin >> num;
+            totalSum += num;
+            if (num % 2 != 0) ++odd;
+            else ++even;
+        }
+        if (n == x && totalSum % 2 == 0) std::cout << "NO\n";
+        else if (x % 2 == 0) std::cout << (odd > 0 && even > 0? "YES" : "NO") << "\n";
+        else std::cout << (odd > 0? "YES" : "NO") << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
