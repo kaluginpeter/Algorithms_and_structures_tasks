@@ -32,3 +32,34 @@
 #
 # 1 <= pattern.length <= 8
 # pattern consists of only the letters 'I' and 'D'.
+# Solution
+# C++ O(N) O(N) Stack Greedy String
+class Solution {
+public:
+    string smallestNumber(string pattern) {
+        std::string output = "";
+        std::vector<int> stack;
+        for (int num = 0; num < pattern.size() + 1; ++num) {
+            stack.push_back(num + 1);
+            if (num == pattern.size() || pattern[num] == 'I') {
+                while (stack.size()) {
+                    output += std::to_string(stack.back());
+                    stack.pop_back();
+                }
+            }
+        }
+        return output;
+    }
+};
+
+# Python O(N) O(N) Stack Greedy String
+class Solution:
+    def smallestNumber(self, pattern: str) -> str:
+        output: list[str] = []
+        stack: list[int] = []
+        for num in range(len(pattern) + 1):
+            stack.append(num + 1)
+            if num == len(pattern) or pattern[num] == 'I':
+                while stack:
+                    output.append(str(stack.pop()))
+        return ''.join(output)
