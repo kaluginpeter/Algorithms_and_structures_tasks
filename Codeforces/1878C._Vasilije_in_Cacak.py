@@ -79,3 +79,54 @@
 # In the second test case n=5, k=3, x=3
 # , there is no three numbers which satisfies the condition, so the answer is "NO". It can be shown that there are no three numbers whose sum is 3
 # .
+# Solution
+# C++ O(1) O(1) Math
+#include <bits/stdc++.h>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n, k;
+        long long x;
+        std::scanf("%d %d %lld", &n, &k, &x);
+        long long a = n - k + 1;
+        long long d = 1;
+        long long c = k;
+        std::cout
+        << (
+            ((c / 2.0 * (2 * a + (c - 1) * d)) >= x)
+            && ((k / 2.0 * (2 * 1 + (k - 1) * 1)) <= x)? "YES" : "NO"
+        )
+        << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, k, x = map(int, sys.stdin.readline().rstrip().split())
+        a: int = n - k + 1
+        c: int = k
+        d: int = 1
+        sys.stdout.write(
+            ['NO', 'YES'][
+                ((c / 2 * (2 * a + (c - 1) * d)) >= x)
+                and ((k / 2 * (2 * 1 + (k - 1) * 1)) <= x)
+            ]
+        )
+        sys.stdout.write('\n')
+
+
+if __name__ == '__main__':
+    solution()
