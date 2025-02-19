@@ -31,3 +31,59 @@
 #
 # 1 <= n <= 10
 # 1 <= k <= 100
+# Solution
+# Python O(2**N) O(N) Backtracking
+class Solution:
+    cur_k: int = 0
+    answer: list[str] = []
+    def backtrack(self, cursub: list[str], n: int, k: int) -> bool:
+        if len(cursub) == n:
+            if self.cur_k == k:
+                self.answer = cursub
+                return True
+            return False
+        for letter in 'abc':
+            if cursub and cursub[-1] == letter: continue
+            cursub.append(letter)
+            if len(cursub) == n: self.cur_k += 1
+            if self.backtrack(cursub, n, k): return True
+            cursub.pop()
+        return False
+
+    def getHappyString(self, n: int, k: int) -> str:
+        self.cur_k = 0
+        self.answer = []
+        cursub: list[str] = []
+        self.backtrack(cursub, n, k)
+        return ''.join(self.answer)
+
+# C++ O(2**N) O(N) Backtracking
+class Solution {
+private:
+    int curK = 0;
+public:
+    bool backtrack(std::string& substr, int& n, int& k) {
+        if ((curK == k) || (substr.size() == n)) {
+            if (curK == k && substr.size() == n) return true;
+            return false;
+        } else if (curK > k) return false;
+
+        for (int idx = 97; idx < 97 + 3; ++idx) {
+            if (substr.size() && substr.back() - 'a' == idx - 97) continue;
+            else if (substr.size() + 1 > n) continue;
+            substr.push_back((char)idx);
+            if (substr.size() == n) ++curK;
+            if (backtrack(substr, n, k)) return true;
+            substr.pop_back();
+        }
+        return false;
+    };
+
+    string getHappyString(int n, int k) {
+        std::vector<bool> used (n, false);
+        std::string substr = "";
+        curK = 0;
+        backtrack(substr, n, k);
+        return substr;
+    }
+};
