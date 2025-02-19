@@ -32,3 +32,31 @@
 # [output] an integer array
 #
 # Algorithms
+# Solution
+def table_game(table):
+    output: list[int] = [
+        table[0][0], table[0][-1],
+        table[-1][0], table[-1][-1]
+    ]
+
+    table[0][1] -= table[0][0]
+    table[1][0] -= table[0][0]
+    table[1][1] -= table[0][0]
+    table[0][0] = 0
+
+    table[0][1] -= table[0][-1]
+    table[1][-1] -= table[0][-1]
+    table[1][1] -= table[0][-1]
+    table[0][-1] = 0
+
+    table[-1][1] -= table[-1][0]
+    table[1][0] -= table[-1][0]
+    table[1][1] -= table[-1][0]
+    table[-1][0] = 0
+
+    table[-1][1] -= table[-1][-1]
+    table[1][-1] -= table[-1][-1]
+    table[1][1] -= table[-1][-1]
+    table[-1][-1] = 0
+
+    return output if all(all(num == 0 for num in row) for row in table) else [-1]
