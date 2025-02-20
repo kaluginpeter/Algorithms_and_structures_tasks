@@ -24,3 +24,15 @@
 # Unfortunately most often Codewars compresses all white spaces into one.
 # See other examples in the "Sample tests".
 # FundamentalsStrings
+# Solution
+def hist(s):
+    histogram: dict[str, int] = dict()
+    for letter in s:
+        histogram[letter] = histogram.get(letter, 0) + 1
+    output: list[str] = []
+    for letter in sorted(histogram.keys()):
+        if letter not in 'uwxz': continue
+        output.append(
+            f'{letter}  {histogram[letter]}' + ' ' * (5 if histogram[letter] < 10 else 4) + f'{"*" * histogram[letter]}'
+        )
+    return '\r'.join(output)
