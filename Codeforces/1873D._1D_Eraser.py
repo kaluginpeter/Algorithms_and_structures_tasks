@@ -68,3 +68,56 @@
 #
 # In the third test case you can perform the following operations:
 # BWBWB→BWWWW→WWWWW
+# Solution
+# C++ O(N) O(1) Sliding Window Greedy
+#include <bits/stdc++.h>
+using namespace std;
+
+
+void solution() {
+    int t;
+    cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n, k;
+        cin >> n >> k;
+        string pattern;
+        cin >> pattern;
+        int operations = 0;
+        int left = 0;
+        while (left < n) {
+            if (pattern[left] == 'B') {
+                left += k - 1;
+                ++operations;
+            }
+            ++left;
+        }
+        printf("%d\n", operations);
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Sliding Window Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, k = map(int, sys.stdin.readline().rstrip().split())
+        pattern: str = sys.stdin.readline().rstrip()
+        left: int = 0
+        operations: int = 0
+        while left < n:
+            if pattern[left] == 'B':
+                left += k - 1
+                operations += 1
+            left += 1
+        sys.stdout.write(f'{operations}\n')
+
+
+if __name__ == '__main__':
+    solution()
