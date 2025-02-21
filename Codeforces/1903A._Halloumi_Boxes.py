@@ -67,3 +67,52 @@
 # In the fourth test case, we can reverse the first two boxes and the last two boxes.
 #
 # In the fifth test case, it can be shown that it's impossible to sort the boxes.
+# Solution
+# C++ O(N) O(1) Greedy
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void solution() {
+    int t;
+    scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n, k;
+        scanf("%d %d", &n, &k);
+        int inversions = 0;
+        int prev = 0;
+        for (int j = 0; j < n; ++j) {
+            int num;
+            cin >> num;
+            if (prev > num) ++inversions;
+            prev = num;
+        }
+        cout << (!inversions || k > 1? "YES" : "NO") << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, k = map(int, sys.stdin.readline().rstrip().split())
+        nums: iter[int] = map(int, sys.stdin.readline().rstrip().split())
+        inversions: int = 0
+        previous: int = 0
+        for i in range(n):
+            num: int = next(nums)
+            if previous > num: inversions += 1
+            previous = num
+        sys.stdout.write(['NO', 'YES'][not inversions or k > 1] + '\n')
+
+
+if __name__ == '__main__':
+    solution()
