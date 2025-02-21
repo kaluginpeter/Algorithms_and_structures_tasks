@@ -34,3 +34,11 @@
 # To avoid discussions, please round the result with something analogous to printf "%.2f".
 #
 # Fundamentals
+# Solution
+from math import floor
+def interp(f, l, u, n):
+    output: list[float] = []
+    d: float = (u - l) / n
+    for i in range(n):
+        output.append(floor(f(l + i * d) * 100) / 100)
+    return output
