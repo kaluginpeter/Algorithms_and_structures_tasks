@@ -30,3 +30,13 @@
 # This kata was inspired by A for Apple, but takes a different approach to generating letters.
 #
 # StringsASCII Art
+# Solution
+def generate_C(size):
+    output: list[str] = []
+    for _ in range(size):
+        output.append('C' * (5 * size))
+    for _ in range(3 * size):
+        output.append('C' * size)
+    for _ in range(size):
+        output.append('C' * (5 * size))
+    return '\n'.join(output)
