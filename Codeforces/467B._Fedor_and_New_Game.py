@@ -32,3 +32,50 @@
 # 4
 # OutputCopy
 # 3
+# Solution
+# C++ O(N) O(N) BitMask
+#include <bits/stdc++.h>
+
+using namespace std;
+
+
+void solution() {
+    int n, m, k;
+    scanf("%d %d %d", &n, &m, &k);
+    vector<bitset<64>> players;
+    for (int i = 0; i < m + 1; ++i) {
+        long long player;
+        scanf("%d", &player);
+        bitset<64> y(player);
+        players.push_back(y);
+    }
+    int friends = 0;
+    for (int i = 0; i < m; ++i) {
+        if ((players[m] ^ players[i]).count() <= k) ++friends;
+    }
+    printf("%d\n", friends);
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(N) BitSet
+import sys
+
+
+def solution() -> None:
+    n, m, k = map(int, sys.stdin.readline().rstrip().split())
+    players: list[int] = []
+    for _ in range(m + 1):
+        player: int = int(sys.stdin.readline().rstrip())
+        players.append(player)
+    friends: int = 0
+    for i in range(m):
+        if (players[m] ^ players[i]).bit_count() <= k: friends += 1
+    sys.stdout.write(f'{friends}\n')
+
+
+if __name__ == '__main__':
+    solution()
