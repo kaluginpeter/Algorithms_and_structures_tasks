@@ -15,3 +15,20 @@
 # An example: expected_party_rank(44, 40, 2, -25) should return [A,C,B]
 #
 # Fundamentals
+# Solution
+def expected_party_rank(voteA, voteB, swingA, swingB):
+    new_voteA = voteA + swingA
+    new_voteB = voteB + swingB
+    new_voteA = max(0, new_voteA)
+    new_voteB = max(0, new_voteB)
+    total_votes_AB = new_voteA + new_voteB
+    voteC = 100 - total_votes_AB
+    new_voteC = max(0, voteC)
+    parties = [
+        ('A', new_voteA),
+        ('B', new_voteB),
+        ('C', new_voteC)
+    ]
+    sorted_parties = sorted(parties, key=lambda x: (-x[1], x[0]))
+    ranked_order = [party[0] for party in sorted_parties]
+    return ranked_order
