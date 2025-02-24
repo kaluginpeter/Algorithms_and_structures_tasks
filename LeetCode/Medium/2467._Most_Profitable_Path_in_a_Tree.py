@@ -54,3 +54,103 @@
 # 1 <= bob < n
 # amount.length == n
 # amount[i] is an even integer in the range [-104, 104].
+# Solution
+# C++ O(N) O(N) Depth-First-Search Breadth-First-Search Tree
+class Solution {
+public:
+    bool makeBobMove(int source, int time, unordered_map<int, int>& bobPath, vector<bool>& seen, vector<vector<int>>& tree) {
+        seen[source] = true;
+        bobPath[source] = time;
+        if (source == 0) return true;
+        for (int& vertex : tree[source]) {
+            if (!seen[vertex]) {
+                if (makeBobMove(vertex, time + 1, bobPath, seen, tree)) return true;
+            }
+        }
+        bobPath.erase(source);
+        return false;
+    }
+    int mostProfitablePath(vector<vector<int>>& edges, int bob, vector<int>& amount) {
+        int n = amount.size();
+        vector<vector<int>> tree (n, vector<int>());
+        for (vector<int>& edge : edges) {
+            int x = edge[0];
+            int y = edge[1];
+            tree[x].push_back(y);
+            tree[y].push_back(x);
+        }
+        vector<bool> seen (n, false);
+        unordered_map<int, int> bobPath;
+        makeBobMove(bob, 0, bobPath, seen, tree);
+        seen = vector<bool>(n, false);
+        int maxIncome = INT_MIN;
+        deque<tuple<int, int, int>> path;
+        path.push_back({0, 0, 0});
+        while (!path.empty()) {
+            auto [source, time, income] = path.front();
+            path.pop_front();
+            if (!bobPath.count(source) || bobPath[source] > time) {
+                income += amount[source];
+            } else if (bobPath[source] == time) {
+                income += amount[source] / 2;
+            }
+            for (int& vertex : tree[source]) {
+                if (!seen[vertex]) {
+                    path.push_back({vertex, time + 1, income});
+                }
+            }
+            if (tree[source].size() == 1 && source != 0) {
+                maxIncome = max(maxIncome, income);
+            }
+            seen[source] = true;
+        }
+        return maxIncome;
+    }
+};
+
+# Python O(N) O(N) Depth-First-Search Breadth-First-Search Tree
+class Solution:
+    def __init__(self) -> None:
+        self.bob_path: dict[int, int] = dict()
+        self.visited: list[bool] = []
+        self.tree: list[list[int]] = []
+
+    def mostProfitablePath(self, edges: list[list[int, int]], bob: int, amount: list[int]) -> int:
+        n: int = len(amount)
+        max_income: float = float("-inf")
+        self.tree = [[] for _ in range(n)]
+        self.bob_path = {}
+        self.visited = [False] * n
+        node_queue: deque[tuple[int, int, int]] = deque([(0, 0, 0)])
+        for edge in edges:
+            self.tree[edge[0]].append(edge[1])
+            self.tree[edge[1]].append(edge[0])
+        self.find_bob_path(bob, 0)
+        self.visited = [False] * n
+        while node_queue:
+            source_node, time, income = node_queue.popleft()
+            if (
+                source_node not in self.bob_path
+                or time < self.bob_path[source_node]
+            ):
+                income += amount[source_node]
+            elif time == self.bob_path[source_node]:
+                income += amount[source_node] // 2
+            if len(self.tree[source_node]) == 1 and source_node != 0:
+                max_income = max(max_income, income)
+            for adjacent_node in self.tree[source_node]:
+                if not self.visited[adjacent_node]:
+                    node_queue.append((adjacent_node, time + 1, income))
+            self.visited[source_node] = True
+        return max_income
+
+    def find_bob_path(self, source_node: int, time: int) -> bool:
+        self.bob_path[source_node] = time
+        self.visited[source_node] = True
+        if source_node == 0: return True
+        for adjacent_node in self.tree[source_node]:
+            if not self.visited[adjacent_node]:
+                if self.find_bob_path(adjacent_node, time + 1):
+                    return True
+        self.bob_path.pop(source_node, None)
+        return False
