@@ -27,3 +27,6 @@
 # We can remove one element of 2,3,4. Whichever element is removed, the maximum gap always be 2.
 #
 # Algorithms
+# Solution
+def min_max_gap(arr):
+    return max(min(arr[i + 1] - arr[i - 1] for i in range(1, len(arr) - 1)), max(arr[i] - arr[i - 1] for i in range(1, len(arr))))
