@@ -96,3 +96,72 @@
 # In the sixth test case, one occurrence of the characters "b" and "d" can be removed, resulting in the string "acac", which can be rearranged to the string "acca".
 #
 # In the ninth test case, one occurrence of the characters "t" and "k" can be removed, resulting in the string "aagaa", which is a palindrome.
+# Solution
+# C++ O(N) O(26) String Hashing
+#include <bits/stdc++.h>
+
+using namespace std;
+
+
+void solution() {
+    int t;
+    scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n, k;
+        scanf("%d %d", &n, &k);
+        string s;
+        cin >> s;
+        vector<int> histogram (26, 0);
+        for (char& letter : s) {
+            ++histogram[letter - 'a'];
+        }
+        bool hasOdd = false;
+        for (int i = 0; i < 26; ++i) {
+            if (histogram[i]) {
+                if (histogram[i] % 2 != 0) {
+                    if (!hasOdd) hasOdd = true;
+                    else --k;
+                }
+                if (k < 0) {
+                    printf("NO\n");
+                    break;
+                }
+            }
+        }
+        if (k < 0) continue;
+        printf("YES\n");
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(26) Hashing
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, k = map(int, sys.stdin.readline().rstrip().split())
+        s: str = sys.stdin.readline().rstrip()
+        histogram: list[int] = [0] * 26
+        for letter in s:
+            histogram[ord(letter) - 97] += 1
+        has_odd: bool = False
+        for i in range(26):
+            if histogram[i]:
+                if histogram[i] & 1:
+                    if not has_odd: has_odd = True
+                    else: k -= 1
+                    if k < 0:
+                        sys.stdout.write('NO\n')
+                        break
+        if k < 0: continue
+        sys.stdout.write('YES\n')
+
+
+if __name__ == '__main__':
+    solution()
