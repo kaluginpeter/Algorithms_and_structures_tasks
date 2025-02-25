@@ -28,3 +28,45 @@
 #
 # 1 <= arr.length <= 105
 # 1 <= arr[i] <= 100
+# Solution
+# Python O(N) O(1) Math DynamicProgramming
+class Solution:
+    def numOfSubarrays(self, arr: List[int]) -> int:
+        MOD: int = 1000000007
+        output: int = 0
+        prefix_sum: int = 0
+        odd_subs: int = 0
+        even_subs: int = 0
+        for num in arr:
+            prefix_sum += num
+            if prefix_sum & 1:
+                output = (output % MOD + (even_subs + 1) % MOD) % MOD
+                odd_subs += 1
+            else:
+                output = (output % MOD + odd_subs % MOD) % MOD
+                even_subs += 1
+        return output
+
+# C++ O(N) O(1) Math DynamicProgramming
+class Solution {
+public:
+    int numOfSubarrays(vector<int>& arr) {
+        int MOD = 1000000007;
+        int prefixSum = 0;
+        int evenSubs = 0;
+        int oddSubs = 0;
+        int output = 0;
+        for (int i = 0; i < arr.size(); ++i) {
+            prefixSum += arr[i];
+            if (prefixSum % 2 != 0) {
+                output = (output % MOD + (evenSubs + 1) % MOD) % MOD;
+                ++oddSubs;
+            } else {
+                output = (output % MOD + oddSubs % MOD) % MOD;
+                ++evenSubs;
+            }
+
+        }
+        return output;
+    }
+};
