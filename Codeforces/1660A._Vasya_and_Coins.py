@@ -75,3 +75,38 @@
 #  burle without change.
 # In the fourth test case you don't have any coins, and he can't even pay 1
 #  burle.
+# Solution
+# C++ O(1) O(1) Math Greedy
+#include <iostream>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int a, b;
+        std::scanf("%d %d", &a, &b);
+        if (!a) std::printf("1\n");
+        else std::printf("%d\n", a + b * 2 + 1);
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Math Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        a, b = map(int, sys.stdin.readline().rstrip().split())
+        if not a: sys.stdout.write('1\n')
+        else: sys.stdout.write(f'{a + b * 2 + 1}\n')
+
+
+if __name__ == '__main__':
+    solution()
