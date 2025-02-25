@@ -16,3 +16,12 @@
 # You can assume that all the necessary functions are provided.
 #
 # Puzzles
+# Solution
+def merry_christmas(funcs):
+    output: list[str] = []
+    for ch in 'Merry Christmas!':
+        for f in funcs:
+            if f() == ch:
+                output.append(f.__name__)
+                break
+    return ','.join(output)
