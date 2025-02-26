@@ -55,3 +55,48 @@
 #
 # In the second sample, the longest increasing subsequence will be [1,3,4,5,9]
 # .
+# Solution
+# C++ O(N) O(N) HashSet
+#include <iostream>
+#include <unordered_set>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d", &n);
+        std::unordered_set<int> hashset;
+        for (int i = 0; i < n; ++i) {
+            int num;
+            std::scanf("%d", &num);
+            hashset.insert(num);
+        }
+        std::printf("%d\n", hashset.size());
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(N) HashSet
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: iter[int] = map(int, sys.stdin.readline().rstrip().split())
+        hashset: set[int] = set()
+        for num in nums:
+            hashset.add(num)
+        sys.stdout.write(f'{len(hashset)}\n')
+
+
+
+if __name__ == '__main__':
+    solution()
