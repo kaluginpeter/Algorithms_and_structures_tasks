@@ -17,3 +17,8 @@
 # the argument limit is empty, then default limit = 1000 emails;
 # Good luck!
 # FundamentalsLogicMathematics
+# Solution
+def get_percentage(sent, limit=1000):
+    if sent == 0: return 'No e-mails sent'
+    if sent >= limit: return 'Daily limit is reached'
+    return f'{int(100 / limit * sent)}%'
