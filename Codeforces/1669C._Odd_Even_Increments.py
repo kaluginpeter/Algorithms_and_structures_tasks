@@ -66,3 +66,62 @@
 # For the fourth test case, we can perform one operation and increase all elements at odd positions by 1
 # , thus obtaining the array [1001,1,1001,1,1001]
 # , and all elements become odd so the answer is "YES".
+# Solution
+# C++ O(N) O(1) Math Greedy
+#include <bits/stdc++.h>
+using namespace std;
+
+
+void solution() {
+    int t;
+    scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        scanf("%d", &n);
+        vector<int> nums (n, 0);
+        for (int j = 0; j < n; ++j) scanf("%d", &nums[j]);
+        int x = nums[0] % 2;
+        int y = nums[1] % 2;
+        bool isValid = true;
+        for (int idx = 0; idx < n; ++idx) {
+            if (idx % 2 == 0 && nums[idx] % 2 != x) {
+                isValid = false;
+                break;
+            } else if (idx % 2 == 1 && nums[idx] % 2 != y) {
+                isValid = false;
+                break;
+            }
+        }
+        cout << (isValid? "YES" : "NO") << "\n";
+    }
+}
+
+
+int main() {
+	solution();
+}
+
+# Python O(N) O(1) Math Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+        x: int = nums[0] & 1
+        y: int = nums[1] & 1
+        is_valid: bool = True
+        for i in range(n):
+            if i & 1 and nums[i] & 1 != y:
+                is_valid = False
+                break
+            elif i & 1 == 0 and nums[i] & 1 != x:
+                is_valid = False
+                break
+        sys.stdout.write(['NO', 'YES'][is_valid] + '\n')
+
+
+if __name__ == '__main__':
+    solution()
