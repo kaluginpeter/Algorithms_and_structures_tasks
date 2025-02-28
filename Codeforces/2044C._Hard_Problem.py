@@ -49,3 +49,44 @@
 #  monkeys want to sit in the front row, but only 3
 #  seats are available. The monkeys that have no preference and the monkeys who prefer sitting in the second row can sit in the second row together. Thus, the answer is 3+2=5
 # .
+# Solution
+# C++ O(1) O(1) Math Greedy
+#include <iostream>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int m, a, b, c;
+        std::scanf("%d %d %d %d", &m, &a, &b, &c);
+        int seats = 0;
+        seats += std::min(m, a);
+        seats += std::min(m, b);
+        seats += std::min(m - std::min(m, a) + m - std::min(m, b), c);
+        std::printf("%d\n", seats);
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Math Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        m, a, b, c = map(int, sys.stdin.readline().rstrip().split())
+        seats: int = 0
+        seats += min(m, a)
+        seats += min(m, b)
+        seats += min(m - min(m, a) + m - min(m, b), c)
+        sys.stdout.write(f'{seats}\n')
+
+
+if __name__ == '__main__':
+    solution()
