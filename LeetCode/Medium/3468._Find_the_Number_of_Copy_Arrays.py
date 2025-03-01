@@ -53,3 +53,31 @@
 # bounds.length == n
 # bounds[i].length == 2
 # 1 <= bounds[i][0] <= bounds[i][1] <= 109
+# Solution
+# Python O(N) O(1) Greedy
+class Solution:
+    def countArrays(self, original: List[int], bounds: List[List[int]]) -> int:
+        prev_min: int = bounds[0][0]
+        prev_max: int = bounds[0][1]
+        for i in range(1, len(bounds)):
+            diff: int = original[i] - original[i - 1]
+            prev_min = max(prev_min + diff, bounds[i][0])
+            prev_max = min(prev_max + diff, bounds[i][1])
+            if prev_min > prev_max: return 0
+        return prev_max - prev_min + 1
+
+# C++ O(N) O(1) Greedy
+class Solution {
+public:
+    int countArrays(vector<int>& original, vector<vector<int>>& bounds) {
+        int prevMin = bounds[0][0];
+        int prevMax = bounds[0][1];
+        for (int i = 1; i < bounds.size(); ++i) {
+            int diff = original[i] - original[i - 1];
+            prevMin = std::max(bounds[i][0], prevMin + diff);
+            prevMax = std::min(bounds[i][1], prevMax + diff);
+            if (prevMin > prevMax) return 0;
+        }
+        return prevMax - prevMin + 1;
+    }
+};
