@@ -34,3 +34,46 @@
 #
 # 2 <= nums.length <= 2000
 # 0 <= nums[i] <= 1000
+# Solution
+# Python O(N) O(1) Two Pointers
+class Solution:
+    def applyOperations(self, nums: List[int]) -> List[int]:
+        n: int = len(nums)
+        for i in range(n - 1):
+            if nums[i] == nums[i + 1]:
+                nums[i] *= 2
+                nums[i + 1] = 0
+        zero_idx: int = 0
+        nums_idx: int = 0
+        while zero_idx < n and nums_idx < n:
+            while zero_idx < n and nums[zero_idx]: zero_idx += 1
+            while nums_idx< n and not nums[nums_idx]: nums_idx += 1
+            if zero_idx < n and nums_idx < n and nums_idx > zero_idx:
+                nums[zero_idx], nums[nums_idx] = nums[nums_idx], nums[zero_idx]
+            nums_idx += 1
+        return nums
+
+# C++ O(N) O(1) Two Pointers
+class Solution {
+public:
+    vector<int> applyOperations(vector<int>& nums) {
+        int n = nums.size();
+        for (int i = 0; i < n - 1; ++i) {
+            if (nums[i] == nums[i + 1]) {
+                nums[i] *= 2;
+                nums[i + 1] = 0;
+            }
+        }
+        int zeroIdx = 0;
+        int numIdx = 0;
+        while (zeroIdx < n && numIdx < n) {
+            while (zeroIdx < n && nums[zeroIdx]) ++zeroIdx;
+            while (numIdx < n && !nums[numIdx]) ++numIdx;
+            if (zeroIdx < n && numIdx < n && numIdx > zeroIdx) {
+                std::swap(nums[zeroIdx], nums[numIdx]);
+            }
+            ++numIdx;
+        }
+        return nums;
+    }
+};
