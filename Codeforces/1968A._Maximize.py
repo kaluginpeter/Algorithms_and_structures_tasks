@@ -49,3 +49,46 @@
 # 1
 # 750
 # 3
+# Solution
+# C++ O(NlogN) O(1) Math
+#include <bits/stdc++.h>
+using namespace std;
+
+
+void solution() {
+    int t;
+    scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int x;
+        scanf("%d", &x);
+        int y = -1;
+        int yValue = -1;
+        for (int d = 1; d < x; ++d) {
+            int gcdXD = gcd(x, d);
+            if (gcdXD + d >= yValue) {
+                yValue = gcdXD + d;
+                y = d;
+            }
+        }
+        printf("%d\n", y);
+    }
+}
+
+
+int main() {
+	solution();
+}
+
+# Python O(1) O(1) Number Theory
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        x: int = int(sys.stdin.readline().rstrip())
+        sys.stdout.write(f'{x - 1}\n')
+
+
+if __name__ == '__main__':
+    solution()
