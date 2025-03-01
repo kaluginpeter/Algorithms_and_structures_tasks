@@ -17,3 +17,8 @@
 # length: 5
 # expected result: [9, 7, 1, 2, 3, 4, 5, 8, 6]
 # ArraysSortingData StructuresAlgorithms
+# Solution
+def sect_sort(arr: list[int], start: int, bound: int = 0):
+    n: int = len(arr)
+    if not bound: bound = n
+    return arr[:start] + sorted(arr[start:start+bound]) + arr[start+bound:]
