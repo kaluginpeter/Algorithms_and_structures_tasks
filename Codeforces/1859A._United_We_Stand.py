@@ -108,3 +108,116 @@
 # In the fifth test case, we can obtain b=[4,8,4]
 #  and c=[12,12]
 # .
+# Solution
+# C++ O(N) O(1) Number Theory
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d", &n);
+        std::vector<int> nums (n, 0);
+        for (int j = 0; j < n; ++j) {
+            std::scanf("%d", &nums[j]);
+        }
+        // First case - define if there at least two distinct numbers
+        bool isDistinct = true;
+        int largestNumberCount = 0;
+        int largestNumber = 0;
+        for (int& num : nums) {
+            if (num > largestNumber) {
+                if (largestNumber != 0) isDistinct = false;
+                largestNumber = num;
+                largestNumberCount = 1;
+            } else {
+                if (num == largestNumber) {
+                    ++largestNumberCount;
+                    continue;
+                }
+                isDistinct = false;
+            };
+        }
+        if (!isDistinct) {
+            std::printf("%d %d\n", n - largestNumberCount, largestNumberCount);
+            for (int& num : nums) {
+                if (num != largestNumber) std::printf("%d ", num);
+            }
+            std::printf("\n");
+            for (int j = 0; j < largestNumberCount; ++j) std::printf("%d ", largestNumber);
+            std::printf("\n");
+            continue;
+        }
+        // Second case - separate array by divisible parity
+        int odds = 0;
+        int evens = 0;
+        for (int& num : nums) {
+            if (num & 1) ++odds;
+            else ++evens;
+        }
+        if (evens > 0 && odds > 0) {
+            std::printf("%d %d\n", evens, odds);
+            for (int& num : nums) {
+                if (num & 1 == 0) std::printf("%d ", num);
+            }
+            for (int& num : nums) {
+                if (num & 1) std::printf("%d ", num);
+            }
+            std::printf("\n");
+        } else std::printf("-1\n");
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Number Theory
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+
+        is_distinct: bool = True
+        largest_number: int = 0
+        largest_number_count: int = 0
+        for num in nums:
+            if num > largest_number:
+                if largest_number != 0: is_distinct = False
+                largest_number = num
+                largest_number_count = 1
+            else:
+                if num == largest_number:
+                    largest_number_count += 1
+                    continue
+                is_distinct = False
+        if not is_distinct:
+            sys.stdout.write('{} {}\n'.format(n - largest_number_count, largest_number_count))
+            sys.stdout.write(' '.join(str(num) for num in nums if num != largest_number) + '\n')
+            sys.stdout.write(' '.join(str(largest_number) for _ in range(largest_number_count)) + '\n')
+            continue
+        odds: int = 0
+        evens: int = 0
+        for num in nums:
+            if num & 1:
+                odds += 1
+            else:
+                evens += 1
+        if odds and evens:
+            sys.stdout.write('{} {}\n'.format(evens, odds))
+            sys.stdout.write(' '.join(str(num) for num in nums if num & 1 == 0) + '\n')
+            sys.stdout.write(' '.join(str(num) for num in nums if num & 1) + '\n')
+        else:
+            sys.stdout.write('-1\n')
+
+
+if __name__ == '__main__':
+    solution()
