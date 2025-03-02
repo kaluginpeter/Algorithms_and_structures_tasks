@@ -29,3 +29,84 @@
 # All Node.val are unique.
 # p != q
 # p and q will exist in the tree.
+# Solution
+# Python O(N) O(N) Breadth-First-Search
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def lowestCommonAncestor(self, root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
+        parent: dict[TreeNode, TreeNode] = dict()
+        parent[root] = None
+        depth: dict[TreeNode, int] = dict()
+        cur_depth: int = -1
+        cur_nodes: list[TreeNode] = [root]
+        next_nodes: list[TreeNode] = []
+        while cur_nodes:
+            cur_depth += 1
+            for node in cur_nodes:
+                depth[node] = cur_depth
+                if node.left:
+                    parent[node.left] = node
+                    next_nodes.append(node.left)
+                if node.right:
+                    parent[node.right] = node
+                    next_nodes.append(node.right)
+            cur_nodes = next_nodes
+            next_nodes = []
+        while depth[q] > depth[p]: q = parent[q]
+        while depth[p] > depth[q]: p = parent[p]
+        while p != q:
+            p = parent[p]
+            q = parent[q]
+        return p
+
+# C++ O(N) O(N) Breadth-First-Search
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        unordered_map<TreeNode*, TreeNode*> parent;
+        unordered_map<TreeNode*, int> depth;
+        int curDepth = -1;
+        parent[root] = nullptr;
+        vector<TreeNode*> curNodes;
+        vector<TreeNode*> nextNodes;
+        curNodes.push_back(root);
+        while (!curNodes.empty()) {
+            ++curDepth;
+            for (TreeNode* node : curNodes) {
+                depth[node] = curDepth;
+                if (node->left) {
+                    parent[node->left] = node;
+                    nextNodes.push_back(node->left);
+                }
+                if (node->right) {
+                    parent[node->right] = node;
+                    nextNodes.push_back(node->right);
+                }
+            }
+            curNodes = nextNodes;
+            nextNodes.clear();
+        }
+        while (depth[q] > depth[p]) q = parent[q];
+        while (depth[p] > depth[q]) p = parent[p];
+        while (p != q) {
+            q = parent[q];
+            p = parent[p];
+        }
+        return q;
+    }
+};
