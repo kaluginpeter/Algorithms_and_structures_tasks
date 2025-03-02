@@ -11,3 +11,18 @@
 # Divisor harmony
 #
 # Fundamentals
+# Solution
+def solve(a,b):
+    primes: list[int] = []
+    while b & 1 == 0:
+        if not primes: primes.append(2)
+        b //= 2
+    bound: int = int(b**.5) + 1
+    for d in range(3, bound + 1, 2):
+        while b % d == 0:
+            if not primes or primes[-1] != d:
+                primes.append(d)
+            b //= d
+    if b > 2:
+        primes.append(b)
+    return all(a % prime == 0 for prime in primes)
