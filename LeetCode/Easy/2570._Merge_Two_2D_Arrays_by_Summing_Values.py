@@ -57,3 +57,64 @@ class Solution:
             res.append(nums2[right])
             right += 1
         return res
+
+# Python O(N + M) O(N + M) Two Pointers
+class Solution:
+    def mergeArrays(self, nums1: List[List[int]], nums2: List[List[int]]) -> List[List[int]]:
+        output: list[list[int]] = []
+        n: int = len(nums1)
+        m: int = len(nums2)
+        left: int = 0
+        right: int = 0
+        while left < n and right < m:
+            if nums1[left][0] < nums2[right][0]:
+                output.append(nums1[left])
+                left += 1
+            elif nums2[right][0] < nums1[left][0]:
+                output.append(nums2[right])
+                right += 1
+            else:
+                output.append([nums1[left][0], nums1[left][1] + nums2[right][1]])
+                left += 1
+                right += 1
+        while left < n:
+            output.append(nums1[left])
+            left += 1
+        while right < m:
+            output.append(nums2[right])
+            right += 1
+        return output
+
+# C++ O(N + M) O(N + M) Two Pointers
+class Solution {
+public:
+    vector<vector<int>> mergeArrays(vector<vector<int>>& nums1, vector<vector<int>>& nums2) {
+        vector<vector<int>> output;
+        int n = nums1.size();
+        int m = nums2.size();
+        int left = 0;
+        int right = 0;
+        while (left < n && right < m) {
+            if (nums1[left][0] < nums2[right][0]) {
+                output.push_back(nums1[left]);
+                ++left;
+            } else if (nums2[right][0] < nums1[left][0]) {
+                output.push_back(nums2[right]);
+                ++right;
+            } else {
+                output.push_back({nums1[left][0], nums1[left][1] + nums2[right][1]});
+                ++left;
+                ++right;
+            }
+        }
+        while (left < n) {
+            output.push_back(nums1[left]);
+            ++left;
+        }
+        while (right < m) {
+            output.push_back(nums2[right]);
+            ++right;
+        }
+        return output;
+    }
+};
