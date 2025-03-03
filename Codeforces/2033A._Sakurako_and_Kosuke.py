@@ -81,29 +81,23 @@ int main() {
 }
 
 # Python O(logN) O(1) Simulation
-#include <iostream>
+import sys
 
 
-void solution() {
-    int t;
-    std::scanf("%d", &t);
-    for (int i = 0; i < t; ++i) {
-        int n;
-        std::scanf("%d", &n);
-        bool isFirst = false;
-        int bound = 0;
-        int move = 1;
-        while (bound <= n && bound >= -n) {
-            isFirst = !isFirst;
-            if (isFirst) bound += -(2 * move - 1);
-            else bound += 2 * move - 1;
-            ++move;
-        }
-        std::cout << (isFirst? "Sakurako" : "Kosuke") << "\n";
-    }
-}
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        bound: int = 0
+        move: int = 1
+        is_first: bool = False
+        while -n <= bound <= n:
+            is_first = not is_first
+            if is_first: bound += -(2 * move - 1)
+            else: bound += 2 * move - 1
+            move += 1
+        sys.stdout.write(['Kosuke', 'Sakurako'][is_first] + '\n')
 
 
-int main() {
-    solution();
-}
+if __name__ == '__main__':
+    solution()
