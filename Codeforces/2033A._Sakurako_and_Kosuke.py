@@ -51,3 +51,59 @@
 # Sakurako
 # Kosuke
 # Sakurako
+# Solution
+# C++ O(logN) O(1) Simulation
+#include <iostream>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d", &n);
+        bool isFirst = false;
+        int bound = 0;
+        int move = 1;
+        while (bound <= n && bound >= -n) {
+            isFirst = !isFirst;
+            if (isFirst) bound += -(2 * move - 1);
+            else bound += 2 * move - 1;
+            ++move;
+        }
+        std::cout << (isFirst? "Sakurako" : "Kosuke") << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(logN) O(1) Simulation
+#include <iostream>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d", &n);
+        bool isFirst = false;
+        int bound = 0;
+        int move = 1;
+        while (bound <= n && bound >= -n) {
+            isFirst = !isFirst;
+            if (isFirst) bound += -(2 * move - 1);
+            else bound += 2 * move - 1;
+            ++move;
+        }
+        std::cout << (isFirst? "Sakurako" : "Kosuke") << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
