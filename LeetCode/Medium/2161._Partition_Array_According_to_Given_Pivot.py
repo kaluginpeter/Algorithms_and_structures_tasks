@@ -45,3 +45,55 @@ class Solution:
             else:
                 equals_to_pivot.append(num)
         return less_than_pivot + equals_to_pivot + more_than_pivot
+
+# Python O(N) O(D + K) Two Pointers
+class Solution:
+    def pivotArray(self, nums: List[int], pivot: int) -> List[int]:
+        n: int = len(nums)
+        less_than: list[int] = []
+        greater_than: list[int] = []
+        for num in nums:
+            if num < pivot: less_than.append(num)
+            elif num > pivot: greater_than.append(num)
+        nums_idx: int = 0
+        for i in range(len(less_than)):
+            nums[nums_idx] = less_than[i]
+            nums_idx += 1
+        for i in range(n - len(less_than) - len(greater_than)):
+            nums[nums_idx] = pivot
+            nums_idx += 1
+        for i in range(len(greater_than)):
+            nums[nums_idx] = greater_than[i]
+            nums_idx += 1
+        return nums
+
+# C++ O(N) O(D + K) Two Pointers
+class Solution {
+public:
+    vector<int> pivotArray(vector<int>& nums, int pivot) {
+        int n = nums.size();
+        vector<int> lessThan;
+        vector<int> greaterThan;
+        for (int i = 0; i < n; ++i) {
+            if (nums[i] < pivot) {
+                lessThan.push_back(nums[i]);
+            } else if (nums[i] > pivot) {
+                greaterThan.push_back(nums[i]);
+            }
+        }
+        int numsIdx = 0;
+        for (int i = 0; i < lessThan.size(); ++i) {
+            nums[numsIdx] = lessThan[i];
+            ++numsIdx;
+        }
+        for (int i = 0; i < n - greaterThan.size() - lessThan.size(); ++i) {
+            nums[numsIdx] = pivot;
+            ++numsIdx;
+        }
+        for (int i = 0; i < greaterThan.size(); ++i) {
+            nums[numsIdx] = greaterThan[i];
+            ++numsIdx;
+        }
+        return nums;
+    }
+};
