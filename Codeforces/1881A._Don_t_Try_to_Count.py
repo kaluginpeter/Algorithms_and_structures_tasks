@@ -113,3 +113,61 @@
 # ", where the substring is highlighted in red.
 #
 # In the fourth test case of the example, it can be shown that it is impossible to obtain the desired string as a substring.
+# Solution
+# C++ O(M) O(N) String
+#include <iostream>
+#include <string>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n, m;
+        std::scanf("%d %d", &n, &m);
+        std::string a, b;
+        std::cin >> a >> b;
+        bool isMatch = false;
+        int move = 0;
+        while (n <= m * 25) {
+            if (a.find(b) != std::string::npos) {
+                isMatch = true;
+                break;
+            }
+            ++move;
+            n += n;
+            a = a + a;
+        }
+        std::cout << (isMatch? move : -1) << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(M) O(N) String
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, m = map(int, sys.stdin.readline().rstrip().split())
+        a: str = sys.stdin.readline().rstrip()
+        b: str = sys.stdin.readline().rstrip()
+        is_valid: bool = False
+        move: int = 0
+        while n <= m * 25:
+            if b in a:
+                is_valid = True
+                break;
+            n += n
+            a = a + a
+            move += 1
+        sys.stdout.write(str([-1, move][is_valid]) + '\n')
+
+
+if __name__ == '__main__':
+    solution()
