@@ -22,3 +22,6 @@
 # The deciphered note.
 #
 # Puzzles
+# Solution
+def stolen_lunch(note):
+    return ''.join(ch if ((not ch.isalpha() and not ch.isdigit()) or (not ch.isdigit() and ch > 'j')) else chr(int(ch) + 97) if ch.isdigit() else str(ord(ch) - 97) for ch in note)
