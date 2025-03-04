@@ -23,3 +23,23 @@
 # Constraints:
 #
 # 1 <= n <= 107
+# Solution
+# Python O(logN) O(1) Math
+class Solution:
+    def checkPowersOfThree(self, n: int) -> bool:
+        while n:
+            if n % 3 == 2: return False
+            n //= 3
+        return True
+
+# C++ O(logN) O(1) Math
+class Solution {
+public:
+    bool checkPowersOfThree(int n) {
+        while (n) {
+            if (n % 3 == 2) return false;
+            n /= 3;
+        }
+        return true;
+    }
+};
