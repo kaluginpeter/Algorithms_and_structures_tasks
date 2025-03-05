@@ -30,3 +30,15 @@
 # Should take a boolean array as its first parameter and a single boolean as its second parameter, which, if true, should indicate that the disjunction should be exclusive as opposed to inclusive.
 # Should return true or false.
 # LogicMathematicsAlgorithms
+# Solution
+def disjunction(operands, is_exclusive):
+    if not operands: return is_exclusive
+    prev: bool = operands[0]
+    for cur in operands[1:]:
+        if prev == cur:
+            if is_exclusive: prev = False
+            else: prev = cur or prev
+        else:
+            if is_exclusive: prev = True
+            else: prev = cur or prev
+    return prev
