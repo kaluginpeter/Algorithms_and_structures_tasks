@@ -37,3 +37,67 @@
 # Employee 1
 # Employees 2 and 4
 # Employees 3 and 5
+# Solution
+# C++ O(V + E) O(V + E) Graphs
+#include <iostream>
+#include <vector>
+#include <queue>
+
+
+void solution() {
+    int n;
+    std::scanf("%d", &n);
+    std::vector<std::vector<int>> child (n + 1, std::vector<int>());
+    std::queue<int> q;
+    for (int i = 1; i <= n; ++i) {
+        int j;
+        std::scanf("%d", &j);
+        if (j == -1) q.push(i);
+        else child[j].push_back(i);
+    }
+    int groups = 0;
+    while (!q.empty()) {
+        ++groups;
+        int bound = q.size();
+        for (int i = 0; i < bound; ++i) {
+            int& vertex = q.front();
+            q.pop();
+            if (!child[vertex].empty()) {
+                for (int& employee : child[vertex]) q.push(employee);
+            }
+        }
+    }
+
+    std::printf("%d\n", groups);
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(V + E) O(V + E) Graphs
+import sys
+from collections import deque
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    child: list[list[int]] = [[] for _ in range(n + 1)]
+    queue: deque[int] = deque()
+    for i in range(1, n + 1):
+        j: int = int(sys.stdin.readline().rstrip())
+        if j == -1: queue.append(i)
+        else: child[j].append(i)
+    groups: int = 0
+    while queue:
+        groups += 1
+        bound: int = len(queue)
+        for _ in range(bound):
+            vertex: int = queue.popleft()
+            if child[vertex]:
+                for employee in child[vertex]: queue.append(employee)
+    sys.stdout.write('{}\n'.format(groups))
+
+
+if __name__ == '__main__':
+    solution()
