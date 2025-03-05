@@ -24,3 +24,40 @@
 # Constraints:
 #
 # 1 <= n <= 105
+# Solution
+# Python O(N) O(1) Simulation
+class Solution:
+    def coloredCells(self, n: int) -> int:
+        colors: int = 0
+        for i in range(1, n + 1):
+            quant: int = i + (i - 1)
+            if i != n: quant *= 2
+            colors += quant
+        return colors
+
+# C++ O(N) O(1) Simulation
+class Solution {
+public:
+    long long coloredCells(int n) {
+        long long colors = 0;
+        for (int i = 1; i <= n; ++i) {
+            int quant = i + (i - 1);
+            if (i != n) quant *= 2;
+            colors += quant;
+        }
+        return colors;
+    }
+};
+
+# Python O(1) O(1) Math
+class Solution:
+    def coloredCells(self, n: int) -> int:
+        return 1 + n * (n - 1) * 2
+
+# C++ O(1) O(1) Math
+class Solution {
+public:
+    long long coloredCells(int n) {
+        return 1LL + (long long)n * (n - 1) * 2LL;
+    }
+};
