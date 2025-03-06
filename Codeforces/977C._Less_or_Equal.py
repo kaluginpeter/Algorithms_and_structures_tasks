@@ -56,3 +56,68 @@
 # In the second example you cannot choose any number that only 2
 #  elements of the given sequence will be less than or equal to this number because 3
 #  elements of the given sequence will be also less than or equal to this number.
+# Solution
+# C++ O(NlogN) O(1) Binary Search
+#include <iostream>
+#include <vector>
+
+
+int getLE(int& middle, std::vector<int>& nums) {
+    int le = 0;
+    for (int& num : nums) {
+        if (num <= middle) ++le;
+    }
+    return le;
+}
+
+
+void solution() {
+    int n, k;
+    std::scanf("%d %d", &n, &k);
+    std::vector<int> nums (n, 0);
+    for (int i = 0; i < n; ++i) std::scanf("%d", &nums[i]);
+    int left = 1;
+    int right = 1000000000;
+    while (left <= right) {
+        int middle = left + (right - left) / 2;
+        int le = getLE(middle, nums);
+        if (le == k) {
+            std::printf("%d", middle);
+            return;
+        } else if (le > k) right = middle - 1;
+        else left = middle + 1;
+    }
+    std::printf("-1\n");
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(NlogN) O(1) Binary Search
+import sys
+
+
+def get_le(middle: int, nums: list[int]) -> int:
+    return sum(num <= middle for num in nums)
+
+
+def solution() -> None:
+    n, k = map(int, sys.stdin.readline().rstrip().split())
+    nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    left: int = 1
+    right: int = 1000000000
+    while left <= right:
+        middle: int = left + ((right - left) >> 1)
+        le: int = get_le(middle, nums)
+        if le == k:
+            sys.stdout.write('{}\n'.format(middle))
+            return
+        elif le > k: right = middle - 1
+        else: left = middle + 1
+    sys.stdout.write('-1\n')
+
+
+if __name__ == '__main__':
+    solution()
