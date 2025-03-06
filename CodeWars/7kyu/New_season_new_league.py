@@ -15,3 +15,10 @@
 # 1:'Leeds United' (first last season) 2:'Arsenal' (alphabetical) 3:'Coventry' (alphabetical) 4:'Liverpool' (alphabetical) 5:'Manchester City' (alphabetical)
 #
 # Algorithms
+# Solution
+def premier_league_standings(teams):
+    output: dict[int, str] = {1:teams[1]}
+    clubs: list[str] = sorted(team for team in teams.values() if team != teams[1])
+    for place in range(len(clubs)):
+        output[2 + place] = clubs[place]
+    return output
