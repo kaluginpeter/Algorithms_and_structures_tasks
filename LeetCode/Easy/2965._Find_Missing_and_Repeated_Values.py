@@ -23,7 +23,7 @@
 # For all x that 1 <= x <= n * n there is exactly one x that is not equal to any of the grid members.
 # For all x that 1 <= x <= n * n there is exactly one x that is equal to exactly two of the grid members.
 # For all x that 1 <= x <= n * n except two of them there is exatly one pair of i, j that 0 <= i, j <= n - 1 and grid[i][j] == x.
-# Solution O(N) O(N) Math
+# Solution O(N*2) O(N) Math
 class Solution(object):
     def findMissingAndRepeatedValues(self, grid):
         """
@@ -39,3 +39,47 @@ class Solution(object):
                     rep_num = grid[i][j]
                 sn.add(grid[i][j])
         return [rep_num, (sm - total) + rep_num]
+
+
+# Python O(N**2) O(1) Math
+class Solution:
+    def findMissingAndRepeatedValues(self, grid: List[List[int]]) -> List[int]:
+        n: int = len(grid)
+        matrix_sum: int = 0
+        matrix_sum_square: int = 0
+        for i in range(n):
+            for j in range(n):
+                matrix_sum += grid[i][j]
+                matrix_sum_square += grid[i][j] * grid[i][j]
+        c: int = n * n
+        correct_sum: int = c * (c + 1) // 2
+        correct_sum_square: int = c * (c + 1) * (2 * c + 1) // 6
+        a: int = correct_sum - matrix_sum
+        b: int = correct_sum_square - matrix_sum_square
+        d: int = (b - a * a) // (2 * a)
+        r: int = a + d
+        return [d, r]
+
+# C++ O(N**2) O(1) Math
+class Solution {
+public:
+    vector<int> findMissingAndRepeatedValues(vector<vector<int>>& grid) {
+        int n = grid.size();
+        long long matrixSum = 0;
+        long long matrixSumSquare = 0;
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < n; ++j) {
+                matrixSum += grid[i][j];
+                matrixSumSquare += grid[i][j] * grid[i][j];
+            }
+        }
+        long long c = n * n;
+        long long correctSum = c * (c + 1) / 2;
+        long long correctSumSquare = c * (c + 1) * (2 * c + 1) / 6;
+        int a = correctSum - matrixSum;
+        int b = correctSumSquare - matrixSumSquare;
+        int d = (b - a * a) / (2 * a);
+        int r = a + d;
+        return {d, r};
+    }
+};
