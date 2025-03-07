@@ -24,3 +24,54 @@
 # Constraints:
 #
 # 1 <= left <= right <= 106
+# Solution
+# Python O(R**.5 * R + 2M) O(R) Number Theory Math
+class Solution:
+    def closestPrimes(self, left: int, right: int) -> List[int]:
+        sieve: list[bool] = [True] * (right + 1)
+        bound: int = int(right**.5) + 1
+        for d in range(2, bound):
+            if not sieve[d]: continue
+            for p in range(d + d, right + 1, d):
+                sieve[p] = False
+        output: list[int, int] = [-1, -1]
+        a = b = -1
+        min_diff: int = float('inf')
+        for p in range(max(2, left), right + 1):
+            if not sieve[p]: continue
+            a, b = b, a
+            b = p
+            if a != -1 and b - a < min_diff:
+                min_diff = b - a
+                output = [a, b]
+        return output
+
+# C++ O(R**.5 * R + 2M) O(R) NumberTheory Math
+class Solution {
+public:
+    vector<int> closestPrimes(int left, int right) {
+        vector<bool> sieve (right + 1, true);
+        int bound = sqrt(right) + 1;
+        for (int d = 2; d <= bound; ++d) {
+            if (!sieve[d]) continue;
+            for (int p = d + d; p <= right; p += d) {
+                sieve[p] = false;
+            }
+        }
+        int minDiff = INT32_MAX;
+        vector<int> output = {-1, -1};
+        int a = -1, b = -1;
+        for (int p = max(2, left); p <= right; ++p) {
+            if (sieve[p]) {
+                swap(a, b);
+                b = p;
+                if (a != -1 && b - a < minDiff) {
+                    minDiff = b - a;
+                    output[0] = a;
+                    output[1] = b;
+                }
+            }
+        }
+        return output;
+    }
+};
