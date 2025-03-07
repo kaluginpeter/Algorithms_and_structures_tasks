@@ -179,3 +179,13 @@
 #
 # regressionLine([56,42,72,36,63,47,55,49,38,42,68,60], [147,125,160,118,149,128,150,145,115,140,152,155]) == (80.7777, 1.138)
 # StatisticsGeometryFundamentalsData Science
+# Solution
+def regression_line(x, y):
+    """ Return the a (intercept)
+        and b (slope) of Regression Line
+        (Y on X).
+    """
+    n: int = len(x)
+    a: float = (sum(i**2 for i in x) * sum(y) - sum(x) * sum(x[i] * y[i] for i in range(n))) / (n * sum(i**2 for i in x) - sum(x)**2)
+    b: float = (n * sum(x[i] * y[i] for i in range(n)) - sum(x) * sum(y)) / (n * sum(i**2 for i in x) - sum(x)**2)
+    return (round(a, 4), round(b, 4))
