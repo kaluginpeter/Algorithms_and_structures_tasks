@@ -33,3 +33,50 @@
 # Firstly child 1 gets 2 candies and go home. Then child 2 gets 2 candies and go to the end of the line. Currently the line looks like [3, 4, 5, 2] (indices of the children in order of the line). Then child 3 gets 2 candies and go home, and then child 4 gets 2 candies and goes to the end of the line. Currently the line looks like [5, 2, 4]. Then child 5 gets 2 candies and goes home. Then child 2 gets two candies and goes home, and finally child 4 gets 2 candies and goes home.
 #
 # Child 4 is the last one who goes home.
+# Solution
+# C++ O(N) O(1) Math Greedy
+#include <iostream>
+
+
+void solution() {
+    int n, m;
+    std::scanf("%d %d", &n, &m);
+    int prevReps = 0;
+    int player = 0;
+    for (int i = 0; i < n; ++i) {
+        int desire;
+        std::scanf("%d", &desire);
+        int reps = desire / m + (int)(desire % m != 0);
+        if (reps >= prevReps) {
+            prevReps = reps;
+            player = i + 1;
+        }
+    }
+    std::printf("%d\n", player);
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Math Greedy
+import sys
+
+
+def solution() -> None:
+    n, m = map(int, sys.stdin.readline().rstrip().split())
+    last: int = 0
+    reps: int = 0
+    players: iter[int] = map(int, sys.stdin.readline().rstrip().split())
+    for player in range(1, n + 1):
+        desire: int = next(players)
+        rep: int = desire // m + int(desire % m != 0)
+        if rep >= reps:
+            reps = rep
+            last = player
+    sys.stdout.write('{}\n'.format(last))
+
+
+if __name__ == '__main__':
+    solution()
