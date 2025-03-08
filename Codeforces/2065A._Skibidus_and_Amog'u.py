@@ -57,3 +57,36 @@
 # chungi
 # ntarsi
 # skibidi
+# Solution
+# C++ O(N) O(1) String
+#include <iostream>
+#include <string>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        std::string word;
+        std::cin >> word;
+        std::cout << word.substr(0, word.size() - 2) << "i\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+# Python O(N) O(1) String
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        word: str = sys.stdin.readline().rstrip()
+        sys.stdout.write('{}{}\n'.format(word[:-2], 'i'))
+
+
+if __name__ == '__main__':
+    solution()
