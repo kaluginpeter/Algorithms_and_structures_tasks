@@ -32,3 +32,45 @@
 # 1 <= n <= 100
 # blocks[i] is either 'W' or 'B'.
 # 1 <= k <= n
+# Solution
+# Python O(N) O(1) Sliding Window
+class Solution:
+    def minimumRecolors(self, blocks: str, k: int) -> int:
+        white = black = 0
+        left: int = 0
+        for right in range(k):
+            if blocks[right] == 'W': white += 1
+            else: black += 1
+        needed: int = white
+        for right in range(k, len(blocks)):
+            if blocks[right] == 'W': white += 1
+            else: black += 1
+            if blocks[left] == 'W': white -= 1
+            else: black -= 1
+            if white < needed: needed = white
+            left += 1
+        return needed
+
+# C++ O(N) O(1) Sliding Window
+class Solution {
+public:
+    int minimumRecolors(string blocks, int k) {
+        int left = 0;
+        int black = 0;
+        int white = 0;
+        for (int right = 0; right < k; ++right) {
+            if (blocks[right] == 'W') ++white;
+            else ++black;
+        }
+        int needed = white;
+        for (int right = k; right < blocks.size(); ++right) {
+            if (blocks[right] == 'W') ++white;
+            else ++black;
+            if (blocks[left] == 'W') --white;
+            else --black;
+            if (white < needed) needed = white;
+            ++left;
+        }
+        return needed;
+    }
+};
