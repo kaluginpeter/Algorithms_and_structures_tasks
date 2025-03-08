@@ -29,3 +29,21 @@
 # distributeGifts(20,[30,40,100])
 # hould return "Mission Failed!"
 # Puzzles
+# Solution
+def dfs(start: int, n: int, wishes: list[int], path: list[int]) -> bool:
+    if n == 0: return True
+    while start >= 0 and wishes[start] > n:
+        start -= 1
+    if start < 0: return False
+    path.append(wishes[start])
+    if dfs(start - 1, n - wishes[start], wishes, path): return True
+    path.pop()
+    return dfs(start - 1, n, wishes, path)
+
+def distribute_gifts(n, wishes):
+    wishes.sort()
+    while wishes and wishes[-1] > n:
+        wishes.pop()
+    path: list[int] = []
+    dfs(len(wishes) - 1, n, wishes, path)
+    return path or 'Mission Failed!'
