@@ -42,3 +42,35 @@
 # n == fruits.length == baskets.length
 # 1 <= n <= 100
 # 1 <= fruits[i], baskets[i] <= 1000
+# Solution
+# Python O(N**2) O(1) Simulation BruteForce
+class Solution:
+    def numOfUnplacedFruits(self, fruits: List[int], baskets: List[int]) -> int:
+        output: int = 0
+        for cap in fruits:
+            for i in range(len(baskets)):
+                if baskets[i] >= cap:
+                    baskets[i] = -1
+                    break
+            else: output += 1
+        return output
+
+# C++ O(N**2) O(1) Simulation BruteForce
+class Solution {
+public:
+    int numOfUnplacedFruits(vector<int>& fruits, vector<int>& baskets) {
+        int output = 0;
+        for (int& fruit : fruits) {
+            bool isUnplaced = true;
+            for (int i = 0; i < baskets.size(); ++i) {
+                if (baskets[i] >= fruit) {
+                    baskets[i] = -1;
+                    isUnplaced = false;
+                    break;
+                }
+            }
+            if (isUnplaced) ++output;
+        }
+        return output;
+    }
+};
