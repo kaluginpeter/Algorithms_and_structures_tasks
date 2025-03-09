@@ -39,3 +39,68 @@
 # 1 <= n <= 105
 # 1 <= nums1[i], nums2[i] <= 106
 # 1 <= k <= n
+# Solution
+# Python O(NlogN) O(N) Priority Queue Sorting
+class Solution:
+    def findMaxSum(self, nums1: List[int], nums2: List[int], k: int) -> List[int]:
+        n: int = len(nums1)
+        orders: list[int] = sorted(range(n), key=lambda idx: (nums1[idx], nums2[idx]))
+        min_heap: list[int] = []
+        cur_sum: int = 0
+        output: list[int] = [0] * n
+        for i in range(n):
+            idx: int = orders[i]
+            if i and nums1[orders[i - 1]] == nums1[idx]:
+                output[idx] = output[orders[i - 1]]
+            else: output[idx] = cur_sum
+            if len(min_heap) < k:
+                heapq.heappush(min_heap, nums2[idx])
+                cur_sum += nums2[idx]
+            elif min_heap[0] < nums2[idx]:
+                cur_sum -= heapq.heappop(min_heap)
+                heapq.heappush(min_heap, nums2[idx])
+                cur_sum += nums2[idx]
+        return output
+
+# C++ O(NlogN) O(N) PriorityQueue Sorting
+vector<int> sortedIndices(const vector<int>& nums1, const vector<int>& nums2) {
+    int n = nums1.size();
+    vector<int> indices(n);
+    for (int i = 0; i < n; ++i) {
+        indices[i] = i;
+    }
+    sort(indices.begin(), indices.end(), [&](int a, int b) {
+        if (nums1[a] != nums1[b]) {
+            return nums1[a] < nums1[b];
+        }
+        return nums2[a] < nums2[b];
+    });
+    return indices;
+}
+
+class Solution {
+public:
+    vector<long long> findMaxSum(vector<int>& nums1, vector<int>& nums2, int k) {
+        int n = nums1.size();
+        vector<int> orders = sortedIndices(nums1, nums2);
+        vector<long long> output (n, 0);
+        priority_queue<int, vector<int>, greater<int>> minHeap;
+        long long curSum = 0;
+        for (int i = 0; i < n; ++i) {
+            int idx = orders[i];
+            if (i && nums1[orders[i - 1]] == nums1[idx]) {
+                output[idx] = output[orders[i - 1]];
+            } else output[idx] = curSum;
+            if (minHeap.size() < k) {
+                minHeap.push(nums2[idx]);
+                curSum += (long long)nums2[idx];
+            } else if (minHeap.top() < nums2[idx]) {
+                curSum -= (long long)minHeap.top();
+                minHeap.pop();
+                minHeap.push(nums2[idx]);
+                curSum += (long long)nums2[idx];
+            }
+        }
+        return output;
+    }
+};
