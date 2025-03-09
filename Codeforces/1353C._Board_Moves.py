@@ -65,3 +65,47 @@
 # 0
 # 40
 # 41664916690999888
+# Solution
+# C++ O(N) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d", &n);
+        long long output = 0;
+        long long move = 1;
+        for (int length = 1; length < n; length += 2) {
+            output += ((long long)length * 4LL + 4LL) * move;
+            ++move;
+        }
+        std::printf("%lld\n", output);
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        output: int = 0
+        move: int = 1
+        for length in range(1, n, 2):
+            output += (length * 4 + 4) * move
+            move += 1
+        sys.stdout.write('{}\n'.format(output))
+
+
+if __name__ == '__main__':
+    solution()
