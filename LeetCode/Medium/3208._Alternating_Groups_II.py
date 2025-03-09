@@ -70,3 +70,29 @@ class Solution:
             if right - left_pointer + 1 >= k:
                 groups += 1
         return groups
+
+# Python O(N + K) O(1) Sliding Window
+class Solution:
+    def numberOfAlternatingGroups(self, colors: List[int], k: int) -> int:
+        output: int = 0
+        n: int = len(colors)
+        left: int = 0
+        for right in range(1, n + k - 1):
+            if colors[right % n] == colors[(right - 1) % n]: left = right
+            elif right - left + 1 >= k: output += 1
+        return output
+
+# C++ O(N + K) O(1) SlidingWindow
+class Solution {
+public:
+    int numberOfAlternatingGroups(vector<int>& colors, int k) {
+        int output = 0;
+        int n = colors.size();
+        int left = 0;
+        for (int right = 1; right < n + k - 1; ++right) {
+            if (colors[right % n] == colors[(right - 1) % n]) left = right;
+            else if (right - left + 1 >= k) ++output;
+        }
+        return output;
+    }
+};
