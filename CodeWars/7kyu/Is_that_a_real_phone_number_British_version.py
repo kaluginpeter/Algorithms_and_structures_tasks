@@ -19,3 +19,11 @@
 # Good Luck Romeo/Juliette!
 #
 # Regular ExpressionsStringsAlgorithms
+# Solution
+def validate_number(st):
+    st = st.replace('+44', '0', 1).replace('-', '')
+    if not st.startswith('07'):
+        return 'Plenty more fish in the sea'
+    if len(st[2:]) == 9 and all(ch.isdigit() for ch in st[2:]):
+        return 'In with a chance'
+    return 'Plenty more fish in the sea'
