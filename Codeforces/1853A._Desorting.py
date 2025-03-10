@@ -91,3 +91,56 @@
 #
 # In the third case, the array is already not sorted, so we perform 0
 #  operations.
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+#include <vector>
+#include <cstdint>
+
+int main() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d", &n);
+        std::vector<int> nums (n, 0);
+        for (int j = 0; j < n; ++j) std::scanf("%d", &nums[j]);
+        bool notSorted = false;
+        for (int j = 0; j < n - 1; ++j) {
+            if (nums[j] > nums[j + 1]) {
+                notSorted = true;
+                break;
+            }
+        }
+        if (notSorted) {
+            std::printf("0\n");
+            continue;
+        }
+        int diff = INT32_MAX;
+        for (int j = 0; j < n - 1; ++j) {
+            diff = std::min(diff, nums[j + 1] - nums[j]);
+        }
+        std::printf("%d\n", diff / 2 + 1);
+    }
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+        if any(nums[i] > nums[i + 1] for i in range(n - 1)):
+            sys.stdout.write('0\n')
+            continue
+        diff: int = float('inf')
+        for i in range(n - 1):
+            diff = min(diff, nums[i + 1] - nums[i])
+        sys.stdout.write('{}\n'.format(diff // 2 + 1))
+
+
+if __name__ == '__main__':
+    solution()
