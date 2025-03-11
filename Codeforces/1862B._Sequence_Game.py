@@ -89,3 +89,56 @@
 # The first sample is explained in the problem statement.
 #
 # In the second sample, Vika could have chosen the original sequence.
+# Solution
+# C++ O(N) O(N) Simulation Greedy
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d", &n);
+        std::vector<int> nums;
+        int count = 0;
+        for (int j = 0; j < n; ++j) {
+            int num;
+            std::scanf("%d", &num);
+            if (nums.empty() || nums.back() <= num) nums.push_back(num);
+            else {
+                nums.push_back(num);
+                nums.push_back(num);
+            }
+        }
+        std::printf("%d\n", nums.size());
+        for (int j = 0; j < nums.size(); ++j) std::printf("%d ", nums[j]);
+        if (!nums.empty()) std::printf("\n");
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(N) Simulation Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: iter[int] = map(int, sys.stdin.readline().rstrip().split())
+        sequence: list[int] = []
+        for i in range(n):
+            num: int = next(nums)
+            if not sequence or sequence[-1] <= num: sequence.append(num)
+            else: sequence.append(num); sequence.append(num)
+        sys.stdout.write('{}\n{}\n'.format(len(sequence), ' '.join(str(num) for num in sequence)))
+
+
+if __name__ == '__main__':
+    solution()
