@@ -18,3 +18,20 @@
 #                  [(1, 2), (4, 6)], (1, 4) -> [(1, 6)]
 # [(0, 2), (3, 6), (7, 7), (9, 12)], (1, 8) -> [(0, 8), (9, 12)]
 # MathematicsFundamentals
+# Solution
+import bisect
+def interval_insert (myl, interval):
+    bisect.insort(myl, interval)
+    output: list[tuple[int, int]] = []
+    prev_end: int = 0
+    prev_start: int = 0
+    for i in range(len(myl)):
+        if not i:
+            prev_start, prev_end = myl[i]
+        elif myl[i][0] > prev_end:
+            output.append((prev_start, prev_end))
+            prev_start, prev_end = myl[i]
+        else:
+            prev_end = max(prev_end, myl[i][1])
+    output.append((prev_start, prev_end))
+    return output
