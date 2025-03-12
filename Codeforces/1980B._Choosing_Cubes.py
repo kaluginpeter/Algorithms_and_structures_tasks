@@ -86,3 +86,55 @@
 # YES
 # YES
 # NO
+# Solution
+# C++ O(N) O(1) Greedy Counting
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n, f, k;
+        std::scanf("%d %d %d", &n, &f, &k);
+        std::vector<int> nums (n, 0);
+        for (int j = 0; j < n; ++j) {
+            std::scanf("%d", &nums[j]);
+        }
+        int greaterThan = 0;
+        int equal = 0;
+        for (int j = 0; j < n; ++j) {
+            if (j == f - 1) continue;
+            else if (nums[j] > nums[f - 1]) ++greaterThan;
+            else if (nums[j] == nums[f - 1]) ++equal;
+        }
+        if (greaterThan >= k) std::printf("NO\n");
+        else if (greaterThan + equal >= k) std::printf("MAYBE\n");
+        else std::printf("YES\n");
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Greedy Counting
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, f, k = map(int, sys.stdin.readline().rstrip().split())
+        nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+        greaterThan: int = sum(num > nums[f - 1] for num in nums)
+        equal: int = sum(num == nums[f - 1] for num in nums) - 1
+        if greaterThan >= k: sys.stdout.write('NO\n')
+        elif greaterThan + equal >= k: sys.stdout.write('MAYBE\n')
+        else: sys.stdout.write('YES\n')
+
+
+if __name__ == '__main__':
+    solution()
