@@ -26,6 +26,52 @@
 # nums is sorted in a non-decreasing order.
 # Follow up: Can you solve the problem in O(log(n)) time complexity?
 # Solution
+# Python O(N) O(1) Greedy
 class Solution:
     def maximumCount(self, nums: List[int]) -> int:
         return max(sum(1 for i in nums if i < 0), sum(1 for i in nums if i > 0))
+
+# Python O(logN) O(1) Binary Search
+class Solution:
+    def maximumCount(self, nums: List[int]) -> int:
+        n: int = len(nums)
+        left: int = 0
+        right: int = n - 1
+        while left <= right:
+            middle: int = left + ((right - left) >> 1)
+            if nums[middle] >= 0: right = middle - 1
+            else: left = middle + 1
+        negative: int = left
+        left = 0
+        right = n - 1
+        while left <= right:
+            middle: int = left + ((right - left) >> 1)
+            if nums[middle] <= 0: left = middle + 1
+            else: right = middle - 1
+        positive: int = n - right - 1
+        return max(negative, positive)
+
+# C++ O(logN) O(1) Binary Search
+class Solution {
+public:
+    int maximumCount(vector<int>& nums) {
+        int n = nums.size();
+        int left = 0;
+        int right = n - 1;
+        while (left <= right) {
+            int middle = left + ((right - left) >> 1);
+            if (nums[middle] >= 0) right = middle - 1;
+            else left = middle + 1;
+        }
+        int negative = left;
+        left = 0;
+        right = n - 1;
+        while (left <= right) {
+            int middle = left + ((right - left) >> 1);
+            if (nums[middle] <= 0) left = middle + 1;
+            else right = middle - 1;
+        }
+        int positive = n - right - 1;
+        return std::max(negative, positive);
+    }
+};
