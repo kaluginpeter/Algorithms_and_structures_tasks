@@ -49,3 +49,12 @@
 # Enjoy it! Translations into another languages will be released soon.
 #
 # MathematicsData StructuresMatrixLinear AlgebraFundamentals
+# Solution
+def avg_diags(m):
+    n: int = len(m)
+    avg1: list[int] = [m[i][i] for i in range(n) if i & 1 and m[i][i] >= 0]
+    avg2: list[int] = [m[i][n - i - 1] for i in range(n) if not (n - i - 1 & 1) and m[i][n - i - 1] < 0]
+    output: list[int, int] = []
+    output.append(round(sum(avg1) / len(avg1)) if avg1 else -1)
+    output.append(round(abs(sum(avg2) / len(avg2))) if avg2 else -1)
+    return output
