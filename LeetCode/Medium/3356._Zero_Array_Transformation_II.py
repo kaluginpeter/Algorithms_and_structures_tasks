@@ -121,3 +121,66 @@ public:
         return result;
     }
 };
+
+# Python O(NlogK) O(N) BinarySearch LineSweep
+class Solution:
+    def check(self, nums: list[int], queries: list[list[int]], k: int) -> bool:
+        n: int = len(nums)
+        sweep_line: list[int] = [0] * n
+        for i in range(k):
+            start, end, val = queries[i]
+            sweep_line[start] += val
+            if end + 1 < n: sweep_line[end + 1] -= val
+        cur_sum: int = 0
+        for i in range(n):
+            cur_sum += sweep_line[i]
+            if cur_sum < nums[i]: return False
+        return True
+
+    def minZeroArray(self, nums: List[int], queries: List[List[int]]) -> int:
+        n: int = len(nums)
+        left: int = 0
+        right: int = len(queries)
+        answer: int = -1
+        while left <= right:
+            middle: int = left + ((right - left) >> 1)
+            if self.check(nums, queries, middle):
+                answer = middle
+                right = middle - 1
+            else: left = middle + 1
+        return answer
+
+# C++ O(NlogK) O(N) BinarySearch SweepLine
+class Solution {
+public:
+    bool check(vector<int>& nums, vector<vector<int>>& queries, int& k) {
+        int n = nums.size();
+        vector<int> sweepLine(n, 0);
+        for (int i = 0; i < k; ++i) {
+            sweepLine[queries[i][0]] += queries[i][2];
+            if (queries[i][1] + 1 < n) sweepLine[queries[i][1] + 1] -= queries[i][2];
+        }
+        int curSum = 0;
+        for (int i = 0; i < n; ++i) {
+            curSum += sweepLine[i];
+            if (curSum < nums[i]) return false;
+        }
+        return true;
+    }
+    int minZeroArray(vector<int>& nums, vector<vector<int>>& queries) {
+        int n = nums.size();
+        int left = 0;
+        int right = queries.size();
+        int answer = -1;
+        while (left <= right) {
+            int middle = left + ((right - left) >> 1);
+            bool canMake = check(nums, queries, middle);
+            if (canMake){
+                answer = middle;
+                right = middle - 1;
+            }
+            else left = middle + 1;
+        }
+        return answer;
+    }
+};
