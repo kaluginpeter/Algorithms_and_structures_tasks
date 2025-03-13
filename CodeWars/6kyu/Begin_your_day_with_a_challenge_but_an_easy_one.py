@@ -14,3 +14,11 @@
 # In C, the results are to be assigned to seperate pointers.
 #
 # Puzzles
+# Solution
+def one_two_three(n):
+    x: int = 0
+    y: str = int(('1' * n) if n else 0)
+    while n:
+        x = x * 10 + min(n, 9)
+        n -= min(n, 9)
+    return [x, y]
