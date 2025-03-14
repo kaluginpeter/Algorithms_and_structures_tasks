@@ -110,3 +110,31 @@
 # 1<=k<=30. All matrix elements lie between 1 and 100 inclusive. Division of elements is integer division.
 #
 # MatrixArrays
+# Solution
+def matrix_div(result, factor, position):
+    if position == 0:
+        m = len(result)
+        p = len(result[0][0])
+        A = []
+        for i in range(m):
+            row = []
+            for k in range(p):
+                B_k0 = factor[k][0]
+                C_element = result[i][0][k]
+                a_ik = C_element // B_k0
+                row.append(a_ik)
+            A.append(row)
+        return A
+    else:
+        p = len(factor[0])
+        n = len(result[0])
+        B = []
+        for k in range(p):
+            row = []
+            for j in range(n):
+                A_0k = factor[0][k]
+                C_element = result[0][j][k]
+                b_kj = C_element // A_0k
+                row.append(b_kj)
+            B.append(row)
+        return B
