@@ -23,3 +23,47 @@
 # 1 <= candies.length <= 105
 # 1 <= candies[i] <= 107
 # 1 <= k <= 1012
+# Solution
+# Python O(NlogM) O(1) Binary Search
+class Solution:
+    def check(self, candies: list[int], k: int, middle: int) -> bool:
+        output: int = 0
+        for candy in candies:
+            output += candy // middle
+        return output >= k
+    def maximumCandies(self, candies: List[int], k: int) -> int:
+        left: int = 1
+        right: int = 10**7
+        answer: int = 0
+        while left <= right:
+            middle: int = left + ((right - left) >> 1)
+            if self.check(candies, k, middle):
+                answer = middle
+                left = middle + 1
+            else: right = middle - 1
+        return answer
+
+# C++ O(NlogM) O(1) BinarySearch
+class Solution {
+public:
+    bool check(vector<int>& candies, long long& k, int& middle) {
+        long long output = 0;
+        for (int& candy : candies) {
+            output += (long long)candy / middle;
+        }
+        return output >= k;
+    }
+    int maximumCandies(vector<int>& candies, long long k) {
+        int left = 1;
+        int right = 10000000;
+        int answer = 0;
+        while (left <= right) {
+            int middle = left + ((right - left) >> 1);
+            if (check(candies, k, middle)) {
+                answer = middle;
+                left = middle + 1;
+            } else right = middle - 1;
+        }
+        return answer;
+    }
+};
