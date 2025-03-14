@@ -80,3 +80,153 @@
 #
 # In the fourth test case of the example, one of the possible answers is [1–,−1000000000–––––––––––––,1–,−1000000000–––––––––––––,1–,−1000000000–––––––––––––]
 # .
+# Solution
+# C++ O(N) O(1) Greedy SlidingWindow
+#include <iostream>
+#include <vector>
+#include <cstdint>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d", &n);
+        std::vector<int> nums (n, 0);
+        for (int j = 0; j < n; ++j) std::scanf("%d", &nums[j]);
+        long long maxPositive = INT64_MIN;
+        int positiveLength = 0;
+        bool isPositive = true;
+        int left = 0;
+        int right = 0;
+        while (right < n) {
+            if (isPositive) {
+                while (left < n && nums[left] < 0) ++left;
+                if (left == n) break;
+                right = std::max(right, left + 1);
+                int curPositive = nums[left];
+                while (right < n && nums[right] >= 0) {
+                    curPositive = std::max(curPositive, nums[right]);
+                    ++right;
+                }
+                if (maxPositive == INT64_MIN) maxPositive = 0;
+                ++positiveLength;
+                maxPositive += (long long)curPositive;
+                left = right;
+            } else {
+                while (left < n && nums[left] >= 0) ++left;
+                if (left == n) break;
+                right = std::max(right, left + 1);
+                int curNegative = nums[left];
+                while (right < n && nums[right] < 0) {
+                    curNegative = std::max(curNegative, nums[right]);
+                    ++right;
+                }
+                ++positiveLength;
+                maxPositive += (long long)curNegative;
+                left = right;
+            }
+            isPositive = !isPositive;
+        }
+
+        long long maxNegative = INT64_MIN;
+        int negativeLength = 0;
+        isPositive = false;
+        left = 0;
+        right = 0;
+        while (right < n) {
+            if (isPositive) {
+                while (left < n && nums[left] < 0) ++left;
+                if (left == n) break;
+                right = std::max(right, left + 1);
+                int curPositive = nums[left];
+                while (right < n && nums[right] >= 0) {
+                    curPositive = std::max(curPositive, nums[right]);
+                    ++right;
+                }
+                maxNegative += (long long)curPositive;
+                ++negativeLength;
+                left = right;
+            } else {
+                while (left < n && nums[left] >= 0) ++left;
+                if (left == n) break;
+                right = std::max(right, left + 1);
+                int curNegative = nums[left];
+                while (right < n && nums[right] < 0) {
+                    curNegative = std::max(curNegative, nums[right]);
+                    ++right;
+                }
+                if (maxNegative == INT64_MIN) maxNegative = 0;
+                maxNegative += (long long) curNegative;
+                ++negativeLength;
+                left = right;
+            }
+            isPositive = !isPositive;
+        }
+        if (positiveLength > negativeLength) std::printf("%lld\n", maxPositive);
+        else if (positiveLength < negativeLength) std::printf("%lld\n", maxNegative);
+        else std::printf("%lld\n", std::max(maxPositive, maxNegative));
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) SlidingWindow Greedy
+import sys
+
+
+def get_pass(nums: list[int], is_positive: bool) -> tuple[int, int]:
+    n: int = len(nums)
+    length: int = 0
+    cur_sum = float('-inf')
+    left: int = 0
+    right: int = 0
+    while right < n:
+        if is_positive:
+            while left < n and nums[left] < 0: left += 1
+            if left == n: break
+            cur_number: int = nums[left]
+            right = max(right, left + 1)
+            while right < n and nums[right] >= 0:
+                cur_number = max(cur_number, nums[right])
+                right += 1
+            if cur_sum == float('-inf'): cur_sum = 0
+            cur_sum += cur_number
+            left = right
+            length += 1
+        else:
+            while left < n and nums[left] >= 0: left += 1
+            if left == n: break
+            cur_number: int = nums[left]
+            right = max(right, left + 1)
+            while right < n and nums[right] < 0:
+                cur_number = max(cur_number, nums[right])
+                right += 1
+            if cur_sum == float('-inf'): cur_sum = 0
+            cur_sum += cur_number
+            left = right
+            length += 1
+        is_positive = not is_positive
+    return (cur_sum, length)
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+        max_positive, positive_length = get_pass(nums, True)
+        max_negative, negative_length = get_pass(nums, False)
+        if positive_length > negative_length:
+            sys.stdout.write('{}\n'.format(max_positive))
+        elif positive_length < negative_length:
+            sys.stdout.write('{}\n'.format(max_negative))
+        else: sys.stdout.write('{}\n'.format(max(max_negative, max_positive)))
+
+
+if __name__ == '__main__':
+    solution()
