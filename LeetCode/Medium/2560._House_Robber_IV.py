@@ -32,3 +32,53 @@
 # 1 <= nums.length <= 105
 # 1 <= nums[i] <= 109
 # 1 <= k <= (nums.length + 1)/2
+# Solution
+# Python O(NlogM) O(N) DynamicProgramming BinarySearch
+class Solution:
+
+    def can_get(self, nums: list[int], k: int, middle: int) -> bool:
+        n: int = len(nums)
+        dp: list[int] = [0] * (n + 1)
+        for i in range(n):
+            if nums[i] > middle: dp[i + 1] = dp[i]
+            else: dp[i + 1] = max((dp[i - 1] if i else 0) + 1, dp[i])
+        return dp[n] >= k
+
+    def minCapability(self, nums: List[int], k: int) -> int:
+        left: int = 1
+        right: int = 10**10
+        answer: int = right
+        while left <= right:
+            middle: int = left + ((right - left) >> 1)
+            if self.can_get(nums, k, middle):
+                answer = middle
+                right = middle - 1
+            else: left = middle + 1
+        return answer
+
+# C++ O(NlogM) O(N) DynamicProgramming BinarySearch
+class Solution {
+public:
+    bool canGet(vector<int>& nums, int& k, long long& middle) {
+        int n = nums.size();
+        vector<int> dp (n + 1, 0);
+        for (int i = 0; i < n; ++i) {
+            if (nums[i] > middle) dp[i + 1] = dp[i];
+            else dp[i + 1] = max((i > 0? dp[i - 1] : 0) + 1, dp[i]);
+        }
+        return dp[n] >= k;
+    }
+    int minCapability(vector<int>& nums, int k) {
+        long long left = 1;
+        long long right = 10000000000;
+        int answer = INT32_MAX;
+        while (left <= right) {
+            long long middle = left + ((right - left) >> 1);
+            if (canGet(nums, k, middle)) {
+                answer = middle;
+                right = middle - 1;
+            } else left = middle + 1;
+        }
+        return answer;
+    }
+};
