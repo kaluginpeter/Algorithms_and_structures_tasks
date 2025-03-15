@@ -9,3 +9,12 @@ contains_all(items, {1, 2, 3})  # should == true
 contains_all(items, {1, 5, 13}) # should == false because 13 is not in the items array
 ArraysFundamentals
 */
+// Solution
+#include <vector>
+
+bool contains_all(const std::vector<int>& arr, const std::vector<int>& target) {
+  for (const int& num : target) {
+    if (!std::count(arr.begin(), arr.end(), num)) return false;
+  }
+  return true;
+}
