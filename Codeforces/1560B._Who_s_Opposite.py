@@ -72,3 +72,49 @@
 #  looking at each other consists of 4
 #  people. Therefore, the person with the number 10
 #  doesn't occur in the circle.
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+#include <cmath>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int a, b, c;
+        std::scanf("%d %d %d", &a, &b, &c);
+        int n = 2 * std::abs(a - b);
+        if (n <= 0 || n % 2 != 0 || std::max(a, std::max(b, c)) > n) {
+            std::printf("-1\n");
+            continue;
+        }
+        int d = (c + n / 2) % n;
+        if (!d) d = n;
+        std::printf("%d\n", d);
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        a, b, c = map(int, sys.stdin.readline().rstrip().split())
+        n: int = 2 * abs(a - b)
+        if n <= 0 or n % 2 != 0 or max(a, b, c) > n:
+            sys.stdout.write('-1\n')
+            continue
+        d: int = (c + n // 2) % n
+        if d == 0: d = n
+        sys.stdout.write('{}\n'.format(d))
+
+if __name__ == '__main__':
+    solution()
