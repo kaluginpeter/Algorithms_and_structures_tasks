@@ -45,3 +45,32 @@
 #
 # 1 <= nums.length <= 100
 # -100 <= nums[i] <= 100
+# Solution
+# Python O(N) O(N) Sets Greedy
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        x: list[int] = [num for num in nums if num >= 0]
+        if not x: return max(nums)
+        return sum(set(x))
+
+# C++ O(N) O(N) Sets Greedy
+class Solution {
+public:
+    int maxSum(vector<int>& nums) {
+        int n = nums.size();
+        int negative = 0;
+        for (int& num : nums) {
+            if (num < 0) ++negative;
+        }
+        if (negative == n) return *max_element(nums.begin(), nums.end());
+        unordered_set<int> seen;
+        int output = 0;
+        for (int& num : nums) {
+            if (num > 0 && !seen.count(num)) {
+                seen.insert(num);
+                output += num;
+            }
+        }
+        return output;
+    }
+};
