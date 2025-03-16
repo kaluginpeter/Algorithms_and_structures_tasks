@@ -35,3 +35,102 @@
 # 1 <= queries.length <= nums.length <= 105
 # 1 <= nums[i] <= 106
 # 0 <= queries[i] < nums.length
+# Solution
+# Python O(N + KlogN) O(N + K) HashMap BinarySearch
+class Solution:
+    def solveQueries(self, nums: List[int], queries: List[int]) -> List[int]:
+        hashmap: dict[int, list[int]] = dict()
+        n: int = len(nums)
+        for i in range(n):
+            if nums[i] not in hashmap: hashmap[nums[i]] = []
+            hashmap[nums[i]].append(i)
+        output: list[int] = [-1] * len(queries)
+        for i in range(len(queries)):
+            target: int = nums[queries[i]]
+            if len(hashmap[target]) == 1: continue
+            y: int = queries[i]
+            idx: int = 0
+            left: int = 0
+            right: int = len(hashmap[target]) - 1
+
+            while left <= right:
+                middle: int = left + ((right - left) >> 1)
+                if hashmap[target][middle] > y:
+                    right = middle - 1
+                elif hashmap[target][middle] < y:
+                    left = middle + 1
+                else:
+                    idx = middle
+                    break
+
+            answer: int = float('inf')
+            left_neighbor: int = idx - 1
+            if left_neighbor < 0: left_neighbor = len(hashmap[target]) - 1
+            right_neighbor: int = (idx + 1) % len(hashmap[target])
+
+            if left_neighbor < idx:
+                answer = min(answer, y - hashmap[target][left_neighbor])
+                answer = min(answer, n - y + hashmap[target][left_neighbor])
+            else:
+                answer = min(answer, hashmap[target][left_neighbor] - y)
+                answer = min(answer, n - hashmap[target][left_neighbor] + y)
+
+            if right_neighbor < idx:
+                answer = min(answer, y - hashmap[target][right_neighbor])
+                answer = min(answer, n - y + hashmap[target][right_neighbor])
+            else:
+                answer = min(answer, hashmap[target][right_neighbor] - y)
+                answer = min(answer, n - hashmap[target][right_neighbor] + y)
+
+            output[i] = answer
+        return output
+
+# C++ O(N + KlogN) O(N + K) HashMap BinarySearch
+class Solution {
+public:
+    vector<int> solveQueries(vector<int>& nums, vector<int>& queries) {
+        int n = nums.size();
+        unordered_map<int, vector<int>> hashmap;
+        for (int i = 0; i < n; ++i) {
+            hashmap[nums[i]].push_back(i);
+        }
+        vector<int> output (queries.size(), -1);
+        for (int i = 0; i < queries.size(); ++i) {
+            int target = queries[i];
+            if (hashmap[nums[target]].size() == 1) continue;
+            int left = 0;
+            int right = hashmap[nums[target]].size() - 1;
+            int idx = 0;
+            while (left <= right) {
+                int middle = left + ((right - left) >> 1);
+                if (hashmap[nums[target]][middle] > target) right = middle - 1;
+                else if (hashmap[nums[target]][middle] < target) left = middle + 1;
+                else {
+                    idx = middle;
+                    break;
+                }
+            }
+            int leftNeighbor = idx - 1;
+            if (leftNeighbor < 0) leftNeighbor = hashmap[nums[target]].size() - 1;
+            int rightNeighbor = (idx + 1) % hashmap[nums[target]].size();
+            int answer = n;
+
+            if (leftNeighbor < idx) {
+                answer = min(answer, n - target + hashmap[nums[target]][leftNeighbor]);
+                answer = min(answer, target - hashmap[nums[target]][leftNeighbor]);
+            } else {
+                answer = min(answer, n - hashmap[nums[target]][leftNeighbor] + target);
+                answer = min(answer, hashmap[nums[target]][leftNeighbor] - target);
+            }
+            if (rightNeighbor < idx) {
+                answer = min(answer, n - target + hashmap[nums[target]][rightNeighbor]);
+                answer = min(answer, target - hashmap[nums[target]][rightNeighbor]);
+            } else {
+                answer = min(answer, n - hashmap[nums[target]][rightNeighbor] + target);
+                answer = min(answer, hashmap[nums[target]][rightNeighbor] - target);
+            }
+            output[i] = answer;
+        }
+        return output;
+    }
+};
