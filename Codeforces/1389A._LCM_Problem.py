@@ -48,3 +48,39 @@
 # 14 21
 # 2 4
 # -1 -1
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int l, r;
+        std::scanf("%d %d", &l, &r);
+        int x = l;
+        if (r / l < 2) std::printf("-1 -1\n");
+        else std::printf("%d %d\n", x, x * 2);
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        l, r = map(int, sys.stdin.readline().rstrip().split())
+        if r // l < 2: sys.stdout.write('-1 -1\n')
+        else: sys.stdout.write('{} {}\n'.format(l, l * 2))
+
+
+if __name__ == '__main__':
+    solution()
