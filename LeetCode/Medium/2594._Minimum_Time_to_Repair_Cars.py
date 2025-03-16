@@ -1,4 +1,3 @@
-
 # You are given an integer array ranks representing the ranks of some mechanics. ranksi is the rank of the ith mechanic. A mechanic with a rank r can repair n cars in r * n2 minutes.
 #
 # You are also given an integer cars representing the total number of cars waiting in the garage to be repaired.
@@ -35,3 +34,50 @@
 # 1 <= ranks.length <= 105
 # 1 <= ranks[i] <= 100
 # 1 <= cars <= 106
+# Solution
+# Python O(NlogM) O(1) BinarySearch
+class Solution:
+    def check(self, ranks: list[int], cars: int, middle: int) -> bool:
+        for rank in ranks:
+            can_make: int = int((middle // rank)**.5)
+            cars -= can_make
+        return cars <= 0
+
+    def repairCars(self, ranks: List[int], cars: int) -> int:
+        answer: int = 0
+        left: int = 0
+        right: int = 10**14
+        while left <= right:
+            middle: int = left + ((right - left) >> 1)
+            if self.check(ranks, cars, middle):
+                answer = middle
+                right = middle - 1
+            else: left = middle + 1
+        return answer
+
+# C++ O(NlogM) O(1) BinarySearch
+class Solution {
+public:
+    bool check(vector<int>& ranks, int& cars, long long middle) {
+        long long maked = static_cast<long long>(cars);
+        for (int& rank : ranks) {
+            long long canMake = (long long)sqrt((double)(middle / rank));
+            maked -= canMake;
+        }
+        return maked <= 0;
+    }
+
+    long long repairCars(vector<int>& ranks, int cars) {
+        long long left = 0;
+        long long right = 100000000000000; // 10^14
+        long long answer = 0;
+        while (left <= right) {
+            long long middle = left + ((right - left) >> 1);
+            if (check(ranks, cars, middle)) {
+                answer = middle;
+                right = middle - 1;
+            } else left = middle + 1;
+        }
+        return answer;
+    }
+};
