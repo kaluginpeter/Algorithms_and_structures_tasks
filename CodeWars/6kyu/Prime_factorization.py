@@ -6,3 +6,22 @@
 #
 # PrimeFactorizer(24).factor #should return { 2: 3, 3: 1 }
 # Algorithms
+# Solution
+class PrimeFactorizer:
+    def __init__(self, x: int) -> None:
+        self.x: int = x
+
+    @property
+    def factor(self) -> dict[int, int]:
+        output: dict[int, int] = dict()
+        while not (self.x & 1):
+            output[2] = output.get(2, 0) + 1
+            self.x //= 2
+        bound: int = int(self.x**.5) + 1
+        for prime in range(3, bound, 2):
+            while self.x % prime == 0:
+                output[prime] = output.get(prime, 0) + 1
+                self.x //= prime
+        if self.x > 2:
+            output[self.x] = 1
+        return output
