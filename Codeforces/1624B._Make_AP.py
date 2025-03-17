@@ -120,3 +120,76 @@
 # .
 #
 # In the fifth test case, it is impossible to make an AP.
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        long long a, b, c;
+        std::scanf("%lld %lld %lld", &a, &b, &c);
+        // a case
+        bool isValid = false;
+        long long x = b - (c - b);
+        if (x >= a && x % a == 0 && (c - b == b - x)) isValid = true;
+        // b case
+        x = a + (c - a) / 2;
+        if (x >= b && x % b == 0 && (x - a == c - x)) isValid = true;
+        // c case
+        x = b + (b - a);
+        if (x >= c && x % c == 0 && (b - a == x - b)) isValid = true;
+
+        // a case
+        x = b + (b - c);
+        if (x >= a && x % a == 0 && (a - b == b - c)) isValid = true;
+        // b case
+        x = a - (a - c) / 2;
+        if (x >= b && x % b == 0 && (a - x == x - c)) isValid = true;
+        // c case
+        x = b - (a - b);
+        if (x >= c && x % c == 0 && (a - b == b - x)) isValid = true;
+        std::cout << (isValid? "YES" : "NO") << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        a, b, c = map(int, sys.stdin.readline().rstrip().split())
+        #  a case
+        is_valid: bool = False
+        x: int = b - (c - b)
+        if x >= a and x % a == 0 and (c - b == b - x): is_valid = True
+        #  b case
+        x = a + (c - a) // 2
+        if x >= b and x % b == 0 and (x - a == c - x): is_valid = True
+        #  c case
+        x = b + (b - a)
+        if x >= c and x % c == 0 and (b - a == x - b): is_valid = True
+
+        #  a case
+        x = b + (b - c)
+        if x >= a and x % a == 0 and (a - b == b - c): is_valid = True
+        #  b case
+        x = a - (a - c) / 2
+        if x >= b and x % b == 0 and (a - x == x - c): is_valid = True
+        #  c case
+        x = b - (a - b)
+        if x >= c and x % c == 0 and (a - b == b - x): is_valid = True
+        sys.stdout.write('{}\n'.format(['NO', 'YES'][is_valid]))
+
+
+if __name__ == '__main__':
+    solution()
