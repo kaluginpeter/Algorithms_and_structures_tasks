@@ -65,3 +65,10 @@
 # start<end
 # Date Time
 # Solution
+from datetime import timedelta
+
+def get_date(start, end, width, pos):
+    x = (end - start).total_seconds()
+    y = x / width * pos
+    z = start + timedelta(seconds=y)
+    return z.strftime('%Y-%m-%dT%H:%M')
