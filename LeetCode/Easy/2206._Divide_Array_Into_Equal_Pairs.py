@@ -23,6 +23,31 @@
 # 1 <= n <= 500
 # 1 <= nums[i] <= 500
 # Solution
+# Python O(N**2) O(N)
 class Solution:
     def divideArray(self, nums: List[int]) -> bool:
         return all(nums.count(i) % 2 == 0 for i in set(nums))
+
+
+# Python O(N) O(N) HashMap Counting
+class Solution:
+    def divideArray(self, nums: List[int]) -> bool:
+        hashmap: dict[int, int] = dict()
+        for num in nums:
+            hashmap[num] = hashmap.get(num, 0) + 1
+        return all(not (freq & 1) for freq in hashmap.values())
+
+# C++ O(N) O(N) HashMap Counting
+class Solution {
+public:
+    bool divideArray(vector<int>& nums) {
+        unordered_map<int, int> hashmap;
+        for (int& num : nums) {
+            ++hashmap[num];
+        }
+        for (auto& p : hashmap) {
+            if (p.second % 2 != 0) return false;
+        }
+        return true;
+    }
+};
