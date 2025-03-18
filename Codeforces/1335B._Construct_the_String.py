@@ -69,3 +69,89 @@
 #  distinct (unique) letters,
 # "eelte": it contains 3
 #  distinct (unique) letters.
+# Solution
+# C++ O(N) O(N) SlidingWindow Constructive
+#include <iostream>
+#include <string>
+#include <vector>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n, a, b;
+        std::scanf("%d %d %d", &n, &a, &b);
+        std::string output = "";
+        std::vector<int> hashmap (26, 0);
+        int distinct = 0;
+        int left = 0;
+        for (int right = 0; right < n; ++right) {
+            if (right - left + 1 > a) {
+                --hashmap[output[left] - 'a'];
+                if (!hashmap[output[left] - 'a']) --distinct;
+                ++left;
+            }
+            if (distinct == b) {
+                for (int idx = 0; idx < 26; ++idx) {
+                    if (hashmap[idx]) {
+                        ++hashmap[idx];
+                        output.push_back(static_cast<char>(idx + 'a'));
+                        break;
+                    }
+                }
+            } else {
+                for (int idx = 0; idx < 26; ++idx) {
+                    if (!hashmap[idx]) {
+                        ++distinct;
+                        ++hashmap[idx];
+                        output.push_back(static_cast<char>(idx + 'a'));
+                        break;
+                    }
+                }
+            }
+        }
+        std::cout << output << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(N) SlidingWindow Constructive
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, a, b = map(int, sys.stdin.readline().rstrip().split())
+        output: list[str] = []
+        hashmap: list[int] = [0] * 26
+        left: int = 0
+        distinct: int = 0
+        for right in range(n):
+            if right - left + 1 > a:
+                hashmap[ord(output[left]) - 97] -= 1
+                if not hashmap[ord(output[left]) - 97]: distinct -= 1
+                left += 1
+            if distinct == b:
+                for idx in range(26):
+                    if hashmap[idx]:
+                        hashmap[idx] += 1
+                        output.append(chr(idx + 97))
+                        break
+            else:
+                for idx in range(26):
+                    if not hashmap[idx]:
+                        distinct += 1
+                        hashmap[idx] += 1
+                        output.append(chr(idx + 97))
+                        break
+        sys.stdout.write('{}\n'.format(''.join(output)))
+
+
+if __name__ == '__main__':
+    solution()
