@@ -36,3 +36,34 @@
 # // floors 4, 13, 14, 18, 24, 34, 40-49, 54, 64, 74, 84, 94, 104, 113, 114, 118, 124 are skipped
 # // rooms 4, 13, 14, 24, 34, 40-49, 54, 64, 74, 84, 94, 104, 113, 114, 124 are skipped
 # Puzzles
+# Solution
+def room_number(real_floor, total_rooms):
+    def is_unlucky_floor(floor):
+        return '4' in str(floor) or '13' in str(floor) or '18' in str(floor)
+    def is_unlucky_room(room):
+        return '4' in str(room) or '13' in str(room)
+    actual_floor = 0
+    current_floor = 1
+    while actual_floor < real_floor:
+        if not is_unlucky_floor(current_floor):
+            actual_floor += 1
+        current_floor += 1
+    current_floor -= 1
+    floor_digits = len(str(current_floor - 1))
+    room_digits = 2 if total_rooms <= 99 else 3
+    room_numbers = []
+    room_count = 0
+    room_num = 1
+    while room_count < total_rooms:
+        if not is_unlucky_room(room_num):
+            padded_room_num = str(room_num)
+            room_str = f"{current_floor}{padded_room_num.zfill(room_digits)}"
+            room_numbers.append(room_str)
+            room_count += 1
+        room_num += 1
+    bound: int = len(room_numbers[-1])
+    for i in range(len(room_numbers)):
+        if len(room_numbers[i]) < bound:
+            room_numbers[i] = f'{current_floor * int("1" + "0"*(bound - len(room_numbers[i])))}{room_numbers[i][len(str(current_floor)):]}'
+        else: break
+    return room_numbers
