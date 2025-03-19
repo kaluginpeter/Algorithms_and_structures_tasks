@@ -60,3 +60,45 @@
 # . The sum is divisible by k=8
 #  and the maximum is equal to 1
 # .
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n, k;
+        std::scanf("%d %d", &n, &k);
+        long long x = k;
+        if (n > k) x = x * (n / k + (n % k == 0? 0 : 1));
+        if (x % n == 0) std::printf("%lld\n", x / n);
+        else std::printf("%lld\n", std::min(
+            x - (x / n) * (n - 1),
+            x / n + 1
+            )
+        );
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, k = map(int, sys.stdin.readline().rstrip().split())
+        x: int = k
+        if n > k: x = x * (n // k + (n % k != 0))
+        sys.stdout.write('{}\n'.format(min(x // n + 1, x - x // n * (n - 1))))
+
+
+if __name__ == '__main__':
+    solution()
