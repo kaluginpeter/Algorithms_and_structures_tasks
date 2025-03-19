@@ -14,3 +14,17 @@
 # Enjoy it!!
 #
 # FundamentalsMathematicsPermutations
+# Solution
+from itertools import permutations
+
+
+def sc_perm_comb(num):
+    digits = sorted(str(num))
+    unique_numbers = set()
+
+    for r in range(1, len(digits) + 1):
+        for p in permutations(digits, r):
+            if p[0] != '0':
+                unique_numbers.add(int(''.join(p)))
+
+    return sum(unique_numbers)
