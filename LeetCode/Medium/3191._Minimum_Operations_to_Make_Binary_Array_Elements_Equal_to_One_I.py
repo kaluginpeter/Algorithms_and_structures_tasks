@@ -49,3 +49,44 @@ class Solution:
                 nums[idx], nums[idx + 1], nums[idx + 2] = 1, int(not nums[idx + 1]), int(not nums[idx + 2])
             idx += 1
         return [-1, count][nums[-2] == nums[-1] == 1]
+
+
+# Python O(N) O(N) Queue
+class Solution:
+    def minOperations(self, nums: List[int]) -> int:
+        q: list[int] = deque()
+        output: int = 0
+        steps: int = 0
+        for i in range(len(nums)):
+            if q and i - 3 >= q[0]:
+                steps -= 1
+                q.popleft()
+            if not ((nums[i] + steps) % 2):
+                if i + 3 > len(nums): return -1
+                steps += 1
+                output += 1
+                q.append(i)
+        return output
+
+# C++ O(N) O(N) Queue
+class Solution {
+public:
+    int minOperations(vector<int>& nums) {
+        int steps = 0;
+        int output = 0;
+        queue<int> q;
+        for (int i = 0; i < nums.size(); ++i) {
+            if (!q.empty() && i - 3 >= q.front()) {
+                q.pop();
+                --steps;
+            }
+            if (!((nums[i] + steps) % 2)) {
+                if (i + 3 > nums.size()) return -1;
+                ++steps;
+                ++output;
+                q.push(i);
+            }
+        }
+        return output;
+    }
+};
