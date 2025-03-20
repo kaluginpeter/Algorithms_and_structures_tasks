@@ -50,3 +50,118 @@
 # query[i].length == 2
 # 0 <= si, ti <= n - 1
 # si != ti
+# Solution
+# Python O(ElogV) O(V) DisjointSetUnion Graph
+class DSU:
+    def __init__(self, n: int) -> None:
+        self.parent: list[int] = [-1] * n
+        self.cost: list[int] = [2097151] * n
+        self.rank: list[int] = [1] * n
+
+    def find_parent(self, x: int) -> int:
+        if self.parent[x] == -1: self.parent[x] = x
+        while x != self.parent[x]:
+            self.parent[x] = self.parent[self.parent[x]]
+            x = self.parent[x]
+        return self.parent[x]
+
+    def union(self, x: int, y: int, weight: int) -> None:
+        parent_x: int = self.find_parent(x)
+        parent_y: int = self.find_parent(y)
+        if parent_x == parent_y:
+            self.cost[parent_x] &= weight
+            return
+        if self.rank[parent_x] > self.rank[parent_y]:
+            self.rank[parent_x] += self.rank[parent_y]
+            self.parent[parent_y] = parent_x
+            self.cost[parent_x] &= weight & self.cost[parent_y]
+        else:
+            self.rank[parent_y] += self.rank[parent_x]
+            self.parent[parent_x] = parent_y
+            self.cost[parent_y] &= weight & self.cost[parent_x]
+
+    def get_min_path(self, x: int, y: int) -> int:
+        parent_x: int = self.find_parent(x)
+        parent_y: int = self.find_parent(y)
+        if parent_x != parent_y: return -1
+        return self.cost[parent_x]
+
+
+class Solution:
+    def minimumCost(self, n: int, edges: List[List[int]], query: List[List[int]]) -> List[int]:
+        dsu: DSU = DSU(n)
+        for u, v, weight in edges:
+            dsu.union(u, v, weight)
+        output: list[int] = [-1] * len(query)
+        for i in range(len(query)):
+            output[i] = dsu.get_min_path(*query[i])
+        return output
+
+# C++ O(ElogV) O(V) DisjointSetUnion Graph
+class DSU {
+private:
+    vector<int> parent;
+    vector<int> rank;
+    vector<unsigned int> costs;
+public:
+    DSU(int n) {
+        parent.resize(n, -1);
+        rank.resize(n, 1);
+        costs.resize(n, -1);
+    };
+
+    int findParent(int x) {
+        while (parent[x] != x) {
+            parent[x] = parent[parent[x]];
+            x = parent[x];
+        }
+        return parent[x];
+    }
+
+    void union_(int& x, int& y, int& weight) {
+        if (parent[x] == -1) parent[x] = x;
+        if (parent[y] == -1) parent[y] = y;
+        int parentX = findParent(x);
+        int parentY = findParent(y);
+        if (parentX == parentY) {
+            costs[parentX] = costs[parentX] & weight & costs[parentY];
+            return;
+        }
+        if (rank[parentX] > rank[parentY]) {
+            rank[parentX] += rank[parentY];
+            parent[parentY] = parentX;
+            costs[parentX] = costs[parentX] & weight & costs[parentY];
+        } else {
+            rank[parentY] += rank[parentX];
+            parent[parentX] = parentY;
+            costs[parentY] = costs[parentY] & weight & costs[parentX];
+        }
+    }
+    int findMinPath(int& u, int& v) {
+        if (parent[u] == -1) parent[u] = u;
+        if (parent[v] == -1) parent[v] = v;
+        int parentX = findParent(u);
+        int parentY = findParent(v);
+        if (parentX != parentY) return -1;
+        return costs[parentX];
+    }
+};
+
+
+class Solution {
+public:
+    vector<int> minimumCost(int n, vector<vector<int>>& edges, vector<vector<int>>& query) {
+        DSU dsu (n);
+        for (vector<int>& edge : edges) {
+            int& u = edge[0];
+            int& v = edge[1];
+            int& w = edge[2];
+            dsu.union_(u, v, w);
+        }
+        vector<int> output (query.size(), -1);
+        for (int i = 0; i < query.size(); ++i) {
+            output[i] = dsu.findMinPath(query[i][0], query[i][1]);
+        }
+        return output;
+    }
+};
