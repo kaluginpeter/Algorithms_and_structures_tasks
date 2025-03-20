@@ -7,3 +7,6 @@
 # "hello" ---> "hellu"
 # "codewars" ---> "cudewors"
 # StringsFundamentals
+# Solution
+def convert(st):
+    return st.translate(str.maketrans('ao', 'ou'))
