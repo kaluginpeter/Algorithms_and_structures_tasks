@@ -46,3 +46,42 @@
 # 5&4&3=0
 # .
 # Hence, 3 is the answer.
+# Solution
+# C++ O(logN) O(1) Math
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+void solution() {
+    int t;
+    scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        scanf("%d", &n);
+        int highest_power = 1;
+        while (highest_power * 2 <= n) highest_power *= 2;
+        printf("%d\n", highest_power - 1);
+    }
+}
+
+int main() {
+    solution();
+}
+
+# Python O(logN) O(1) Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        k: int = 1
+        while k * 2 <= n: k *= 2
+        sys.stdout.write('{}\n'.format(k - 1))
+
+
+
+if __name__ == '__main__':
+    solution()
