@@ -407,3 +407,14 @@
 #
 # N.B. In C, input is limited to 0 <= n <= 63
 # FundamentalsData StructuresAlgorithmsMathematicsLogic
+# Solution
+def f(n):
+    if n == 0: return [1, 1]
+    sum_coefficients = [2 ** k for k in range(n + 1)]
+    cumulative_sum = []
+    total = 0
+    for s in sum_coefficients:
+        total += s
+        cumulative_sum.append(total)
+    result = sum_coefficients + [cumulative_sum[-1]]
+    return result
