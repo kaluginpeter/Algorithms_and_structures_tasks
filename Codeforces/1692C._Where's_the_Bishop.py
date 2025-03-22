@@ -72,3 +72,64 @@
 # The first test case is pictured in the statement. Since the bishop lies in the intersection row 4
 #  and column 3
 # , the correct output is 4 3.
+# Solution
+# C++ O(N) O(N) Matrix
+#include <iostream>
+#include <vector>
+#include <string>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        std::vector<std::string> board;
+        std::string row;
+        for (int j = 0; j < 8; ++j) {
+            std::cin >> row;
+            board.push_back(row);
+        }
+        int x = 0, y = 0;
+        for (int r = 1; r < 7; ++r) {
+            for (int c = 1; c < 7; ++c) {
+                if (board[r - 1][c - 1] == '#' && board[r - 1][c + 1] == '#' && board[r + 1][c - 1] == '#' && board[r + 1][c + 1] == '#' && board[r][c] == '#') {
+                    x = r;
+                    y = c;
+                    break;
+                }
+            }
+            if (x) break;
+        }
+        std::printf("%d %d\n", x + 1, y + 1);
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(N) Matrix
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        board: list[str] = []
+        for i in range(8):
+            if not i: sys.stdin.readline()
+            row: str = sys.stdin.readline().rstrip()
+            board.append(row)
+        x = y = 0
+        for r in range(1, 7):
+            for c in range(1, 7):
+                if board[r - 1][c - 1] == '#' and board[r - 1][c + 1] == '#' and board[r + 1][c - 1] == '#' and board[r + 1][c + 1] == '#' and board[r][c] == '#':
+                    x, y = r, c
+                    break
+            if x: break
+        sys.stdout.write('{} {}\n'.format(x + 1, y + 1))
+
+
+if __name__ == '__main__':
+    solution()
