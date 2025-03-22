@@ -32,3 +32,89 @@
 # 0 <= ai, bi <= n - 1
 # ai != bi
 # There are no repeated edges.
+# Solution
+# Python O(|V| + |E|) O(|V| + |E|) Graph Coloring
+class Solution:
+    def dfs(self, start: int, adj_list: list[list[int]], components: list[int], component: int) -> int:
+        components[start] = component
+        edges: int = 1
+        q: list[int] = [start]
+        while q:
+            vertex: int = q.pop()
+            for neighbor in adj_list[vertex]:
+                if components[neighbor] == -1:
+                    edges += 1
+                    components[neighbor] = component
+                    q.append(neighbor)
+        return edges
+
+    def countCompleteComponents(self, n: int, edges: List[List[int]]) -> int:
+        adj_list: list[list[int]] = [[] for _ in range(n)]
+        for u, v in edges:
+            adj_list[u].append(v)
+            adj_list[v].append(u)
+        components: list[int] = [-1] * n
+        components_edges: list[int] = []
+        component: int = 0
+        for vertex in range(n):
+            if components[vertex] == -1:
+                amount_edges: int = self.dfs(vertex, adj_list, components, component)
+                component += 1
+                components_edges.append(amount_edges)
+        complete_components: int = component
+        for vertex in range(n):
+            if components_edges[components[vertex]] != len(adj_list[vertex]) + 1:
+                if components_edges[components[vertex]] != -1:
+                    complete_components -= 1
+                    components_edges[components[vertex]] = -1
+        return complete_components
+
+# C++ O(|V| + |E|) O(|V| + |E|) Graph Coloring
+class Solution {
+public:
+    int dfs(int& start, vector<vector<int>>& adjList, vector<int>& components, int& component) {
+        int edges = 1;
+        components[start] = component;
+        queue<int> q;
+        q.push(start);
+        while (!q.empty()) {
+            int& vertex = q.front();
+            q.pop();
+            for (int& neighbor : adjList[vertex]) {
+                if (components[neighbor] == -1) {
+                    components[neighbor] = component;
+                    q.push(neighbor);
+                    ++edges;
+                }
+            }
+        }
+        return edges;
+    }
+    int countCompleteComponents(int n, vector<vector<int>>& edges) {
+        vector<vector<int>> adjList (n, vector<int>());
+        for (vector<int>& edge : edges) {
+            adjList[edge[0]].push_back(edge[1]);
+            adjList[edge[1]].push_back(edge[0]);
+        }
+        vector<int> components (n, -1);
+        vector<int> componentsEdges;
+        int component = 0;
+        for (int vertex = 0; vertex < n; ++vertex) {
+            if (components[vertex] == -1) {
+                int amountEdges = dfs(vertex, adjList, components, component);
+                ++component;
+                componentsEdges.push_back(amountEdges);
+            }
+        }
+        int completeComponents = component;
+        for (int vertex = 0; vertex < n; ++vertex) {
+            if (componentsEdges[components[vertex]] != adjList[vertex].size() + 1) {
+                if (componentsEdges[components[vertex]] != -1) {
+                    --completeComponents;
+                    componentsEdges[components[vertex]] = -1;
+                }
+            }
+        }
+        return completeComponents;
+    }
+};
