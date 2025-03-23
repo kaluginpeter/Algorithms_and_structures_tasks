@@ -50,3 +50,105 @@
 # 1 <= m == properties[i].length <= 100
 # 1 <= properties[i][j] <= 100
 # 1 <= k <= m
+# Solution
+# O(NND) O(N) UnionFind Set
+class DSU:
+    def __init__(self, n: int) -> None:
+        self.parent: list[int] = list(range(n))
+        self.rank: list[int] = [1] * n
+        self.components: int = n
+
+    def find_parent(self, x: int) -> int:
+        while x != self.parent[x]:
+            self.parent[x] = self.parent[self.parent[x]]
+            x = self.parent[x]
+        return self.parent[x]
+
+    def union(self, x: int, y: int) -> None:
+        parent_x: int = self.find_parent(x)
+        parent_y: int = self.find_parent(y)
+        if parent_x == parent_y: return
+        self.components -= 1
+        if self.rank[parent_x] > self.rank[parent_y]:
+            self.rank[parent_x] += self.rank[parent_y]
+            self.parent[parent_y] = parent_x
+        else:
+            self.rank[parent_y] += self.rank[parent_x]
+            self.parent[parent_x] = parent_y
+
+
+class Solution:
+    def numberOfComponents(self, properties: List[List[int]], k: int) -> int:
+        n: int = len(properties)
+        dsu: DSU = DSU(n)
+        us_n: list[set[int]] = [set(properties[i]) for i in range(n)]
+        for i in range(n):
+            for j in range(n):
+                if i == j: continue
+                if len(us_n[i] & us_n[j]) >= k:
+                    dsu.union(i, j)
+        return dsu.components
+
+# C++ O(NND) O(N) UnionFind Set
+class DSU {
+private:
+    vector<int> parent;
+    vector<int> rank;
+    int components;
+public:
+    DSU(int n) {
+        parent.resize(n, -1);
+        rank.resize(n, 1);
+        components = n;
+    };
+
+    int findParent(int x) {
+        if (parent[x] == -1) parent[x] = x;
+        while (parent[x] != x) {
+            parent[x] = parent[parent[x]];
+            x = parent[x];
+        }
+        return parent[x];
+    }
+
+    int getComponents() {
+        return components;
+    }
+
+    void union_(int& x, int& y) {
+        int parentX = findParent(x);
+        int parentY = findParent(y);
+        if (parentX == parentY) return;
+        --components;
+        if (rank[parentX] > rank[parentY]) {
+            rank[parentX] += rank[parentY];
+            parent[parentY] = parentX;
+        } else {
+            rank[parentY] += rank[parentX];
+            parent[parentX] = parentY;
+        }
+    }
+};
+
+class Solution {
+public:
+    int numberOfComponents(vector<vector<int>>& properties, int k) {
+        int n = properties.size();
+        DSU dsu (n);
+        vector<unordered_set<int>> usN;
+        for (int i = 0; i < n; ++i) {
+            usN.push_back(unordered_set<int>(properties[i].begin(), properties[i].end()));
+        }
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < n; ++j) {
+                if (i == j) continue;
+                int both = 0;
+                for (auto& num : usN[j]) {
+                    if (usN[i].count(num)) ++both;
+                }
+                if (both >= k) dsu.union_(i, j);
+            }
+        }
+        return dsu.getComponents();
+    }
+};
