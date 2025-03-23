@@ -33,3 +33,16 @@
 # 1 <= n <= 1000
 # 1 <= w <= 1000
 # 1 <= maxWeight <= 109
+# Solution
+# C++ O(1) O(1) Math Greedy
+class Solution {
+public:
+    int maxContainers(int n, int w, int maxWeight) {
+        return min(maxWeight / w, n * n);
+    }
+};
+
+# Python O(1) O(1) Math Greedy
+class Solution:
+    def maxContainers(self, n: int, w: int, maxWeight: int) -> int:
+        return min(maxWeight // w, n * n)
