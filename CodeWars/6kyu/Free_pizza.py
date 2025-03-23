@@ -8,3 +8,10 @@
 # See example test case for more details.
 #
 # FundamentalsPuzzles
+# Solution
+def pizza_rewards(customers, min_orders, min_price):
+    eligible: set[str] = set()
+    for customer, orders in customers.items():
+        if sum(price >= min_price for price in orders) >= min_orders:
+            eligible.add(customer)
+    return eligible
