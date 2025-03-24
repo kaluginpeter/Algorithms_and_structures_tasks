@@ -78,3 +78,40 @@
 # 987654321−887654321=108
 # .
 # Note that in each test case, we get the maximum possible round number.
+# Solution
+# C++ O(logN) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        long long n;
+        std::scanf("%lld", &n);
+        long long valid = 1;
+        while (valid * 10 <= n) valid *= 10;
+        std::printf("%lld\n", n - valid);
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(logN) O(1) Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        base: int = 1
+        while base * 10 <= n: base *= 10
+        sys.stdout.write('{}\n'.format(n - base))
+
+
+if __name__ == '__main__':
+    solution()
