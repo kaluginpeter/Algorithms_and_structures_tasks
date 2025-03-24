@@ -22,3 +22,8 @@
 # The index of the last person standing.
 #
 # Puzzles
+# Solution
+def circle_slash(n):
+    L = 1
+    while L * 2 <= n: L *= 2
+    return 2 * (n - L) + 1
