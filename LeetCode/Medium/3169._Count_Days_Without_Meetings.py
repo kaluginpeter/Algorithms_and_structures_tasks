@@ -57,3 +57,36 @@ class Solution:
                 start, end = meetings[i]
         days -= end - start + 1
         return days
+
+# Python O(NlogN) O(1) Sorting
+class Solution:
+    def countDays(self, days: int, meetings: List[List[int]]) -> int:
+        meetings.sort()
+        output: int = 0
+        prev_end: int = 0
+        for start, end in meetings:
+            if start > prev_end:
+                output += start - prev_end - 1
+                prev_end = end
+            else: prev_end = max(prev_end, end)
+        if days - prev_end: output += days - prev_end
+        return output
+
+# C++ O(NlogN) O(1) Sorting
+class Solution {
+public:
+    int countDays(int days, vector<vector<int>>& meetings) {
+        sort(meetings.begin(), meetings.end());
+        int prevEnd = 0;
+        int output = 0;
+        for (vector<int>& meeting : meetings) {
+            if (meeting[0] > prevEnd) {
+                output += meeting[0] - prevEnd - 1;
+                prevEnd = meeting[1];
+            } else prevEnd = max(prevEnd, meeting[1]);
+        }
+        if (days - prevEnd > 0) output += days - prevEnd;
+        return output;
+
+    }
+};
