@@ -63,3 +63,48 @@
 # NO
 # YES
 # YES
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+#include <vector>
+#include <cmath>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d", &n);
+        std::vector<int> nums (n, 0);
+        for (int j = 0; j < n; ++j) std::scanf("%d", &nums[j]);
+        bool isValid = true;
+        for (int j = 1; j < n; ++j) {
+            int diff = std::abs(nums[j - 1] - nums[j]);
+            if (diff != 5 && diff != 7) {
+                isValid = false;
+                break;
+            }
+        }
+        std::cout << (isValid? "YES" : "NO") << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+        sys.stdout.write('{}\n'.format(['NO', 'YES'][all(abs(nums[i - 1] - nums[i]) in {5, 7} for i in range(1, n))]))
+
+
+if __name__ == '__main__':
+    solution()
