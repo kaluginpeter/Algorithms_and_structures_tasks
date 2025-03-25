@@ -100,3 +100,50 @@ public:
         return xAxis.size() >= 3 || yAxis.size() >= 3;
     }
 };
+
+# Python O(NlogN) O(1) Array Sorting
+class Solution:
+    def checkValidCuts(self, n: int, rectangles: List[List[int]]) -> bool:
+        rectangles.sort()
+        vertical_cuts: int = 0
+        prev_end: int = rectangles[0][2]
+        for i in range(1, len(rectangles)):
+            if rectangles[i][0] >= prev_end:
+                vertical_cuts += 1
+            prev_end = max(prev_end, rectangles[i][2])
+        if vertical_cuts >= 2: return True
+        rectangles.sort(key=lambda x: (x[1], x[3]))
+        prev_end = rectangles[0][3]
+        horizontal_cuts: int = 0
+        for i in range(1, len(rectangles)):
+            if rectangles[i][1] >= prev_end:
+                horizontal_cuts += 1
+            prev_end = max(prev_end, rectangles[i][3])
+        return horizontal_cuts >= 2
+
+# C++ O(NlogN) O(1) Array Sorting Greedy
+class Solution {
+public:
+    static bool horizontalComp(const vector<int>& left, const vector<int>& right) {
+        if (left[1] != right[1]) return left[1] < right[1];
+        return left[3] < right[3];
+    }
+    bool checkValidCuts(int n, vector<vector<int>>& rectangles) {
+        std::sort(rectangles.begin(), rectangles.end());
+        int verticalCuts = 0;
+        int prevEnd = rectangles[0][2];
+        for (int i = 1; i < rectangles.size(); ++i) {
+            if (rectangles[i][0] >= prevEnd) ++verticalCuts;
+            prevEnd = std::max(prevEnd, rectangles[i][2]);
+        }
+        if (verticalCuts >= 2) return true;
+        std::sort(rectangles.begin(), rectangles.end(), horizontalComp);
+        int horizontalCuts = 0;
+        prevEnd = rectangles[0][3];
+        for (int i = 1; i < rectangles.size(); ++i) {
+            if (rectangles[i][1] >= prevEnd) ++horizontalCuts;
+            prevEnd = std::max(prevEnd, rectangles[i][3]);
+        }
+        return horizontalCuts >= 2;
+    }
+};
