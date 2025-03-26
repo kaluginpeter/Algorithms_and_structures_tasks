@@ -86,3 +86,55 @@
 # The final array has a length of 1
 # , so the answer is 1
 # . It can be proven that Sho cannot obtain an array with a longer length.
+# Solution
+# C++ O(N) O(D) HashMap Greedy
+#include <iostream>
+#include <unordered_map>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        std::unordered_map<int, int> hashmap;
+        int n;
+        std::scanf("%d", &n);
+        for (int j = 0; j < n; ++j) {
+            int num;
+            std::scanf("%d", &num);
+            ++hashmap[num];
+        }
+        int operations = 0;
+        for (auto& p: hashmap) {
+            operations += p.second - 1;
+        }
+        std::cout << (operations % 2 == 0? n - operations : n - operations - 1) << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(D) HashMap Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: iter[int] = map(int, sys.stdin.readline().rstrip().split())
+        hashmap: dict[int, int] = dict()
+        for i in range(n):
+            num: int = next(nums)
+            hashmap[num] = hashmap.get(num, 0) + 1
+        operations: int = 0
+        for num, freq in hashmap.items():
+            operations += freq - 1
+        sys.stdout.write('{}\n'.format([n - operations, n - operations - 1][operations & 1]))
+
+
+if __name__ == '__main__':
+    solution()
