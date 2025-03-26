@@ -20,3 +20,20 @@
 # Maya won't forget to thank you at the end of her article :)
 #
 # StringsRegular ExpressionsFundamentals
+# Solution
+alph: dict[str, int] = {
+    "a" : 6, "b" : 1 , "d" : 7,
+    "e" : 4, "i" : 3, "l" : 2,
+    "m" : 9, "n" : 8, "o" : 0, "t" : 5
+}
+
+def hidden(num):
+    output: list[str] = []
+    while num:
+        x: int = num % 10
+        for ch, code in alph.items():
+            if code == x:
+                output.append(ch)
+                break
+        num //= 10
+    return ''.join(reversed(output))
