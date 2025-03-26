@@ -37,3 +37,45 @@
 # 1 <= m, n <= 105
 # 1 <= m * n <= 105
 # 1 <= x, grid[i][j] <= 104
+# Solution
+# Python O(NM + L + NM) O(L + NM) Sorting Matrix Greedy
+class Solution:
+    def minOperations(self, grid: List[List[int]], x: int) -> int:
+        hashmap: list[int] = [0] * (10000 + 1)
+        for row in grid:
+            for num in row: hashmap[num] += 1
+        nums: list[int] = []
+        for num in range(1, len(hashmap)):
+            for j in range(hashmap[num]): nums.append(num)
+        median: int = nums[len(nums) // 2]
+        operations: int = 0
+        for num in nums:
+            diff: int = abs(num - median)
+            if diff % x != 0: return -1
+            operations += diff // x
+        return operations
+
+# C++ O(NM + L + NM) O(L + NM) Matrix Greedy Sorting
+class Solution {
+public:
+    int minOperations(vector<vector<int>>& grid, int x) {
+        vector<int> hashmap (1e4 + 1, 0);
+        for (int i = 0; i < grid.size(); ++i) {
+            for (int j = 0; j < grid[0].size(); ++j) {
+                ++hashmap[grid[i][j]];
+            }
+        }
+        vector<int> nums;
+        for (int num = 1; num < hashmap.size(); ++num) {
+            for (int i = 0; i < hashmap[num]; ++i) nums.push_back(num);
+        }
+        int median = nums[nums.size() / 2];
+        int operations = 0;
+        for (int& num : nums) {
+            int diff = abs(num - median);
+            if (diff % x != 0) return -1;
+            operations += diff / x;
+        }
+        return operations;
+    }
+};
