@@ -1,4 +1,3 @@
-
 # An element x of an integer array arr of length m is dominant if more than half the elements of arr have a value of x.
 #
 # You are given a 0-indexed integer array nums of length n with one dominant element.
@@ -43,3 +42,56 @@
 # 1 <= nums.length <= 105
 # 1 <= nums[i] <= 109
 # nums has exactly one dominant element.
+# Solution
+# Python O(N) O(1) Greedy Counting Array
+class Solution:
+    def minimumIndex(self, nums: List[int]) -> int:
+        n: int = len(nums)
+        max_num, freq_max_num = nums[0], 0
+        for num in nums:
+            if num == max_num: freq_max_num += 1
+            else: freq_max_num -= 1
+            if not freq_max_num:
+                max_num, freq_max_num = num, 1
+        freq_max_num = 0
+        for num in nums:
+            if num == max_num: freq_max_num += 1
+        left_part: int = 0
+        for i in range(n):
+            if nums[i] == max_num:
+                left_part += 1
+                freq_max_num -= 1
+            if left_part * 2 > i + 1 and freq_max_num * 2 > n - i - 1:
+                return i
+        return -1
+
+# C++ O(N) O(1) Greedy Array Counting
+class Solution {
+public:
+    int minimumIndex(vector<int>& nums) {
+        int n = nums.size(), maxNum = nums[0], freqMaxNum = 0;
+        for (int &num : nums) {
+            if (num == maxNum) ++freqMaxNum;
+            else --freqMaxNum;
+            if (!freqMaxNum) {
+                maxNum = num;
+                freqMaxNum = 1;
+            }
+        }
+        freqMaxNum = 0;
+        for (int &num : nums) {
+            if (num == maxNum) ++freqMaxNum;
+        }
+        int leftPart = 0;
+        for (int i = 0; i < n; ++i) {
+            if (nums[i] == maxNum) {
+                ++leftPart;
+                --freqMaxNum;
+            }
+            if ((leftPart * 2 > i + 1) && (freqMaxNum * 2 > n - i - 1)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+};
