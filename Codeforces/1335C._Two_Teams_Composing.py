@@ -83,3 +83,55 @@
 #  and the second team is [4,4,4]
 # . Note, that there are some other ways to construct two valid teams of size 3
 # .
+# Solution
+# C++ O(N) O(D) HashMap
+#include <iostream>
+#include <unordered_map>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d", &n);
+        std::unordered_map<int, int> hashmap;
+        for (int j = 0; j < n; ++j) {
+            int num;
+            std::scanf("%d", &num);
+            ++hashmap[num];
+        }
+        int maxFreq = 0;
+        for (auto &p : hashmap) {
+            if (p.second > maxFreq) maxFreq = p.second;
+        }
+        std::printf("%d\n", ((int)hashmap.size() > maxFreq? maxFreq : std::min((int)hashmap.size(), maxFreq - 1)));
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(D) HashMap Counting
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: iter[int] = map(int, sys.stdin.readline().rstrip().split())
+        hashmap: dict[int, int] = dict()
+        for i in range(n):
+            num: int = next(nums)
+            hashmap[num] = hashmap.get(num, 0) + 1
+        max_freq: int = 0
+        for num, freq in hashmap.items():
+            if freq > max_freq: max_freq = freq
+        sys.stdout.write('{}\n'.format(max_freq if len(hashmap) > max_freq else min(len(hashmap), max_freq - 1)))
+
+
+if __name__ == '__main__':
+    solution()
