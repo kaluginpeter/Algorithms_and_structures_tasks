@@ -26,3 +26,24 @@
 #         Crazy programmer 04: Elephant and fridge
 #
 # Puzzles
+# Solution
+def find_super_man(s):
+    s = s.lower()
+    pattern: str = 'superman'
+    idx: int = 0
+    stack: list[int] = []
+    for i in range(len(s)):
+        if s[i] == pattern[idx]:
+            if stack and stack[-1] + 1 == i: return 'Are you crazy?'
+            stack.append(i)
+            idx += 1
+            if idx == len(pattern): return 'Hi, SuperMan!'
+    stack.clear()
+    idx = 0
+    for i in range(len(s) - 1, -1, -1):
+        if s[i] == pattern[idx]:
+            if stack and stack[-1] - 1 == i: return 'Are you crazy?'
+            stack.append(i)
+            idx += 1
+            if idx == len(pattern): return 'Hi, SuperMan!'
+    return 'Are you crazy?'
