@@ -83,3 +83,62 @@
 # 3
 # 9
 # 15
+# Solution
+# C++ O(NlogN) O(1) Sorting Greedy
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n, k;
+        std::scanf("%d %d", &n, &k);
+        std::vector<int> nums (k, 0);
+        for (int j = 0; j < k; ++j) std::scanf("%d", &nums[j]);
+        std::sort(nums.begin(), nums.end());
+        long long output = 0;
+        int x = nums[k - 1];
+        for (int j = 0; j < k; ++j) {
+            if (n - x > nums[j]) {
+                output += nums[j] - 1 + nums[j];
+                x += nums[j];
+            } else {
+                output += n - x + (n - x - 1);
+                break;
+            }
+        }
+        std::printf("%lld\n", output);
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(NlogN) O(1) Greedy Sorting
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, k = map(int, sys.stdin.readline().rstrip().split())
+        nums: list[int] = sorted(map(int, sys.stdin.readline().rstrip().split()))
+        x: int = nums[-1]
+        output: int = 0
+        for num in nums:
+            if n - x > num:
+                x += num
+                output += num - 1 + num
+            else:
+                output += n - x + (n - x - 1)
+                break
+        sys.stdout.write('{}\n'.format(output))
+
+
+if __name__ == '__main__':
+    solution()
