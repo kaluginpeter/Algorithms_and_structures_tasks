@@ -97,3 +97,57 @@
 # In the fifth test case, there exists a sequence of actions that requires only 2
 #  type 1
 #  actions.
+# Solution
+# C++ O(N) O(1) String Greedy
+#include <iostream>
+#include <string>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d", &n);
+        std::string blocks;
+        std::cin >> blocks;
+        int waters = 0;
+        int inRow = 0;
+        for (int j = 0; j < n; ++j) {
+            if (blocks[j] == '.') {
+                ++inRow;
+                ++waters;
+                if (inRow == 3) break;
+            } else inRow = 0;
+        }
+        std::printf("%d\n", (inRow == 3? 2 : waters));
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Greedy String
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        blocks: str = sys.stdin.readline().rstrip()
+        waters: int = 0
+        in_row: int = 0
+        for block in blocks:
+            if block == '.':
+                waters += 1
+                in_row += 1
+                if in_row == 3: break
+            else: in_row = 0
+        sys.stdout.write('{}\n'.format([waters, 2][in_row == 3]))
+
+
+if __name__ == '__main__':
+    solution()
