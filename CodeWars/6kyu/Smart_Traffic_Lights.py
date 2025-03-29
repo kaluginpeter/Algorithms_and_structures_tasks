@@ -15,3 +15,12 @@
 # t = SmartTrafficLight([10, "27th ave"], [10, "3rd st"])
 # t.turngreen()  ==  null
 # FundamentalsObject-oriented Programming
+# Solution
+class SmartTrafficLight:
+    def __init__(self, st1, st2):
+        self.cars: list[list[int, str]] = sorted((st1, st2))
+        if st1[0] == st2[0]: self.cars.clear()
+
+    def turngreen(self):
+        if not self.cars: return None
+        return self.cars.pop()[1]
