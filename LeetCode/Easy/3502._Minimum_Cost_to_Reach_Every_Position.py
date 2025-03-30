@@ -42,3 +42,27 @@
 #
 # 1 <= n == cost.length <= 100
 # 1 <= cost[i] <= 100
+# Solution
+# Python O(N) O(1) Greedy
+class Solution:
+    def minCosts(self, cost: List[int]) -> List[int]:
+        output: list[int] = []
+        cur: int = float('inf')
+        for i in range(len(cost)):
+            if cost[i] < cur: cur = cost[i]
+            output.append(cur)
+        return output
+
+# C++ O(N) O(1) Greedy
+class Solution {
+public:
+    vector<int> minCosts(vector<int>& cost) {
+        vector<int> output;
+        int cur = INT32_MAX;
+        for (int i = 0; i < cost.size(); ++i) {
+            if (cost[i] < cur) cur = cost[i];
+            output.push_back(cur);
+        }
+        return output;
+    }
+};
