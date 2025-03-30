@@ -56,3 +56,55 @@
 #
 # 1 <= s.length, t.length <= 30
 # s and t consist of lowercase English letters.
+# Solution
+# Python O(N**5) O(N + M) String
+class Solution:
+    def is_palindrome(self, s: str) -> bool:
+        left: int = 0
+        right: int = len(s) - 1
+        while left < right:
+            if s[left] != s[right]: return False
+            left += 1
+            right -= 1
+        return True
+
+    def longestPalindrome(self, s: str, t: str) -> int:
+        output: int = 0
+        for s_l in range(len(s)):
+            for s_r in range(s_l, len(s) + 1):
+                for t_l in range(len(t)):
+                    for t_r in range(t_l, len(t) + 1):
+                        if self.is_palindrome(s[s_l:s_r] + t[t_l:t_r]):
+                            output = max(output, (s_r - s_l) + (t_r - t_l))
+        return output
+
+# C++ O(N**5) O(N + M) String
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        int left = 0, right = s.size() - 1;
+        while (left < right) {
+            if (s[left] != s[right]) return false;
+            ++left;
+            --right;
+        }
+        return true;
+    }
+
+    int longestPalindrome(string s, string t) {
+        int n = s.size(), m = t.size();
+        int output = 0;
+        for (int sL = 0; sL < n; ++sL) {
+            for (int sR = sL; sR <= n; ++sR) {
+                for (int tL = 0; tL < m; ++tL) {
+                    for (int tR = tL; tR <= m; ++tR) {
+                        if (isPalindrome(s.substr(sL, sR - sL) + t.substr(tL, tR - tL))) {
+                            output = max(output, (sR - sL) + (tR - tL));
+                        }
+                    }
+                }
+            }
+        }
+        return output;
+    }
+};
