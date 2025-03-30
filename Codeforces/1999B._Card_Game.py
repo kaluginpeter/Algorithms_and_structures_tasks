@@ -81,3 +81,42 @@
 # . Suneet wins the first round. Then, Suneet flips 3
 #  and Slavic flips 6
 # . Slavic wins the round. Nobody wins since both players won an equal amount of rounds.
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int a1, a2, b1, b2;
+        std::scanf("%d %d %d %d", &a1, &a2, &b1, &b2);
+        int wins = 0;
+        if ((a1 > b1 && a2 >= b2) || (a1 >= b1 && a2 > b2)) wins += 2;
+        if ((a2 > b1 && a1 >= b2) || (a2 >= b1 && a1 > b2)) wins += 2;
+        std::printf("%d\n", wins);
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        a1, a2, b1, b2 = map(int, sys.stdin.readline().rstrip().split())
+        wins: int = 0
+        if (a1 > b1 and a2 >= b2) or (a1 >= b1 and a2 > b2): wins += 2
+        if (a2 > b1 and a1 >= b2) or (a2 >= b1 and a1 > b2): wins += 2
+        sys.stdout.write('{}\n'.format(wins))
+
+
+if __name__ == '__main__':
+    solution()
