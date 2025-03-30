@@ -24,3 +24,51 @@
 #
 # 1 <= s.length <= 500
 # s consists of lowercase English letters.
+# Solution
+# Python O(N) O(D) Two Pointers HashMap
+class Solution:
+    def partitionLabels(self, s: str) -> List[int]:
+        n: int = len(s)
+        end: list[int] = [-1] * 26
+        for i in range(n - 1, -1, -1):
+            code: int = ord(s[i]) - 97
+            if end[code] == -1: end[code] = i
+        output: list[int] = []
+        left: int = 0
+        right: int = end[ord(s[left]) - 97]
+        for middle in range(n):
+            if end[ord(s[middle]) - 97] == middle and middle == right:
+                output.append(right - left + 1)
+                right += 1
+                if right < n:
+                    left = right
+                    right = end[ord(s[right]) - 97]
+            elif end[ord(s[middle]) - 97] > right: right = end[ord(s[middle]) - 97]
+        return output
+
+# C++ O(N) O(D) TwoPointers HashMap
+class Solution {
+public:
+    vector<int> partitionLabels(string s) {
+        int n = s.size();
+        vector<int> end(26, -1);
+        for (int i = n - 1; i >= 0; --i) {
+            int code = s[i] - 'a';
+            if (end[code] == -1) end[code] = i;
+        }
+        vector<int> output;
+        int left = 0;
+        int right = end[s[left] - 'a'];
+        for (int middle = 0; middle < n; ++middle) {
+            if (end[s[middle] - 'a'] == middle && middle == right) {
+                output.push_back(right - left + 1);
+                ++right;
+                if (right < n) {
+                    left = right;
+                    right = end[s[left] - 'a'];
+                }
+            } else if (end[s[middle] - 'a'] > right) right = end[s[middle] - 'a'];
+        }
+        return output;
+    }
+};
