@@ -14,3 +14,6 @@
 #
 # (and after sortByBinaryOnes is: ["1111", "111", "11", "101", "1"])
 # ArraysListsAlgorithmsSortingBinaryBits
+# Solution
+def sort_by_binary_ones (numList):
+    return sorted(numList, key=lambda x: (-x.bit_count(), len(bin(x)), x))
