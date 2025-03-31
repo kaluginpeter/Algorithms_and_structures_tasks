@@ -77,3 +77,56 @@
 # In the third test case, s
 # ="x", it is required to get s
 # ="y". Obviously, this cannot be done.
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+#include <string>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        std::string sequence;
+        char target;
+        std::cin >> sequence >> target;
+        int n = sequence.size();
+        bool isValid = false;
+        for (int pos = 0; pos < n; ++pos) {
+            if (sequence[pos] == target) {
+                if (pos % 2 == 0 && (n - pos - 1) % 2 == 0) {
+                    isValid = true;
+                    break;
+                }
+            }
+        }
+        std::cout << (isValid? "YES" : "NO") << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        sequence: str = sys.stdin.readline().rstrip()
+        target: str = sys.stdin.readline().rstrip()
+        n: int = len(sequence)
+        is_valid: bool = False
+        for pos in range(n):
+            if sequence[pos] == target:
+                if not (pos & 1) and not ((n - pos - 1) & 1):
+                    is_valid = True
+                    break
+        sys.stdout.write('{}\n'.format(['NO', 'YES'][is_valid]))
+
+
+if __name__ == '__main__':
+    solution()
