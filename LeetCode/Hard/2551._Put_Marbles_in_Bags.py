@@ -31,3 +31,34 @@
 #
 # 1 <= k <= weights.length <= 105
 # 1 <= weights[i] <= 109
+# Solution
+# Python O(NlogN) O(N) Sorting Greedy
+class Solution:
+    def putMarbles(self, weights: List[int], k: int) -> int:
+        n: int = len(weights)
+        pairs: list[int] = []
+        for i in range(n - 1):
+            pairs.append(weights[i] + weights[i + 1])
+        pairs.sort()
+        max_diff: int = 0
+        for i in range(k - 1):
+            max_diff += pairs[n - 2 - i] - pairs[i]
+        return max_diff
+
+# C++ O(NlogN) O(N) Sorting Greedy
+class Solution {
+public:
+    long long putMarbles(vector<int>& weights, int k) {
+        int n = weights.size();
+        vector<int> pairs;
+        for (int i = 0; i < n - 1; ++i) {
+            pairs.push_back(weights[i] + weights[i + 1]);
+        }
+        sort(pairs.begin(), pairs.end());
+        long long maxDiff = 0;
+        for (int i = 0; i < k - 1; ++i) {
+            maxDiff += pairs[n - 2 - i] - pairs[i];
+        }
+        return maxDiff;
+    }
+};
