@@ -64,3 +64,66 @@
 # In the third test case, you need to buy a 1
 #  package of 6
 #  shovels.
+# Solution
+# C++ O(sqrt(N)) O(1) Math NumberTheory
+#include <iostream>
+#include <cmath>
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n, k;
+        std::scanf("%d %d", &n, &k);
+
+        if (k >= n) {
+            std::printf("1\n");
+            continue;
+        }
+
+        int max_divisor = 1;
+        int bound = std::sqrt(n);
+        for (int d = 1; d <= bound; ++d) {
+            if (n % d == 0) {
+                if (d <= k && d > max_divisor) {
+                    max_divisor = d;
+                }
+                int counterpart = n / d;
+                if (counterpart <= k && counterpart > max_divisor) {
+                    max_divisor = counterpart;
+                }
+            }
+        }
+        std::printf("%d\n", n / max_divisor);
+    }
+}
+
+int main() {
+    solution();
+}
+
+# Python O(sqrt(N)) O(1) NumberTheory Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, k = map(int, sys.stdin.readline().rstrip().split())
+        if k >= n:
+            sys.stdout.write('1\n')
+            continue
+        max_divisor: int = 1
+        bound: int = int(n**.5) + 1
+        for d in range(1, bound + 1):
+            if n % d == 0:
+                if d <= k and d > max_divisor:
+                    max_divisor = d
+                counterpart: int = n // d
+                if counterpart <= k and counterpart > max_divisor:
+                    max_divisor = counterpart
+        sys.stdout.write('{}\n'.format(n // max_divisor))
+
+
+if __name__ == '__main__':
+    solution()
