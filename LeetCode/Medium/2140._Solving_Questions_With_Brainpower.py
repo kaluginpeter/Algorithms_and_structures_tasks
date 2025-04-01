@@ -35,3 +35,38 @@
 # 1 <= questions.length <= 105
 # questions[i].length == 2
 # 1 <= pointsi, brainpoweri <= 105
+# Solution
+# Python O(N) O(N) Dynamic Programming
+class Solution:
+    def mostPoints(self, questions: List[List[int]]) -> int:
+        n: int = len(questions)
+        dp: list[int] = [0] * (n + 1)
+        for i in range(n):
+            jump: int = questions[i][1] + 1
+            cost: int = questions[i][0]
+            if i: dp[i] = max(dp[i], dp[i - 1])
+            if i + jump >= n:
+                dp[n] = max(dp[n], dp[i] + cost)
+            else:
+                dp[i + jump] = max(dp[i + jump], dp[i] + cost)
+        return dp[n]
+
+# C++ O(N) O(N) DynamicProgramming
+class Solution {
+public:
+    long long mostPoints(vector<vector<int>>& questions) {
+        int n = questions.size();
+        vector<long long> dp (n + 1, 0);
+        for (int i = 0; i < n; ++i) {
+            int jump = questions[i][1] + 1;
+            int &cost = questions[i][0];
+            if (i) dp[i] = max(dp[i], dp[i - 1]);
+            if (i + jump >= n) {
+                dp[n] = max(dp[n], dp[i] + cost);
+            } else {
+                dp[i + jump] = max(dp[i + jump], dp[i] + cost);
+            }
+        }
+        return dp[n];
+    }
+};
