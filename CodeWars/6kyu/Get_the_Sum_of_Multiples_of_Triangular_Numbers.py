@@ -47,3 +47,10 @@
 # Enjoy it!!
 #
 # FundamentalsMathematics
+# Solution
+from math import lcm
+def sum_mult_triangnum(n, m):
+    nums: list[int] = [i * (i + 1) // 2 for i in range(1, n + 1)]
+    x: int = lcm(*nums)
+    step: int = nums[1] - nums[0]
+    return sum(x * y for y in range(step, step + m - 1)) + x
