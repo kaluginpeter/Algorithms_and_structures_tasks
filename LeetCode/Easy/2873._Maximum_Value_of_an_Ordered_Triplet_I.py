@@ -29,3 +29,35 @@
 #
 # 3 <= nums.length <= 100
 # 1 <= nums[i] <= 106
+# Solution
+# Python O(N) O(1) Two Pointers Greedy
+class Solution:
+    def maximumTripletValue(self, nums: List[int]) -> int:
+        output: int = 0
+        left: int = 0
+        middle: int = 1
+        max_idx: int = middle
+        for right in range(2, len(nums)):
+            output = max(output, (nums[left] - nums[middle]) * nums[right])
+            if (nums[left] - nums[middle] <= nums[max_idx] - nums[right]) or (nums[middle] >= nums[right]):
+                middle = right
+            if (max_idx < middle) and (nums[left] < nums[max_idx]): left = max_idx
+            if nums[max_idx] < nums[right]: max_idx = right
+        return output
+
+# C++ O(N) O(1) TwoPointers Greedy
+class Solution {
+public:
+    long long maximumTripletValue(vector<int>& nums) {
+        long long output = 0;
+        int left = 0, middle = 1;
+        int maxIdx = 1;
+        for (int right = 2; right < nums.size(); ++right) {
+            output = max(output, (static_cast<long long>(nums[left]) - nums[middle]) * nums[right]);
+            if ((nums[left] - nums[middle] <= nums[maxIdx] - nums[right]) || (nums[middle] >= nums[right])) middle = right;
+            if (maxIdx < middle && nums[left] < nums[maxIdx]) left = maxIdx;
+            if (nums[maxIdx] < nums[right]) maxIdx = right;
+        }
+        return output;
+    }
+};
