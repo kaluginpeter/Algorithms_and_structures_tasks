@@ -66,3 +66,59 @@
 # , and 3
 #  satisfy the given condition, so the answer is 1
 # .
+# Solution
+# Python O(N) O(N) Prefix Sum
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: iter[int] = map(int, sys.stdin.readline().rstrip().split())
+        prefix_sum: list[int] = [0]
+        for _ in range(n):
+            prefix_sum.append(prefix_sum[-1] + (next(nums) == 2))
+        answer: int = -1
+        for k in range(1, n):
+            if prefix_sum[k] == prefix_sum[n] - prefix_sum[k]:
+                answer = k
+                break
+        sys.stdout.write('{}\n'.format(answer))
+
+
+if __name__ == '__main__':
+    solution()
+
+# C++ O(N) O(N) PrefixSum
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d", &n);
+        std::vector<int> prefixSum = {0};
+        for (int j = 0; j < n; ++j) {
+            int num;
+            std::scanf("%d", &num);
+            prefixSum.push_back(prefixSum.back() + static_cast<int>(num == 2));
+        }
+        int answer = -1;
+        for (int k = 1; k < n; ++k) {
+            if (prefixSum[k] == prefixSum[n] - prefixSum[k]) {
+                answer = k;
+                break;
+            }
+        }
+        std::printf("%d\n", answer);
+    }
+}
+
+
+int main() {
+    solution();
+}
