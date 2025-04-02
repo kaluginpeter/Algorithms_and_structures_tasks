@@ -8,3 +8,14 @@
 # Note: input will always be a string
 #
 # Fundamentals
+# Solution
+def letters_to_numbers(s):
+    score: int = 0
+    for char in s:
+        if char.isupper():
+            score += (ord(char) - 64) * 2
+        elif char.islower():
+            score += ord(char) - 96
+        elif char.isdigit():
+            score += int(char)
+    return score
