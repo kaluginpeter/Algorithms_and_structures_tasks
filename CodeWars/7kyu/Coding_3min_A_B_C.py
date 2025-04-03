@@ -35,3 +35,18 @@
 # Tidy up the room
 # Waiting for a Bus
 # PuzzlesGames
+# Solution
+def find_a_b(numbers, c):
+    num_to_idx: dict[int, int] = dict()
+    answer: list[int, int] = []
+    for i in range(len(numbers)):
+        if numbers[i] and c / numbers[i] in num_to_idx:
+            if not answer or (num_to_idx[c / numbers[i]] < num_to_idx[answer[0]]):
+                answer = [c // numbers[i], numbers[i]]
+        if not numbers[i] and not c:
+            if len(numbers) == 1: return None
+            if i: return [numbers[0], 0]
+            else: return [0, numbers[i + 1]]
+        if numbers[i] not in num_to_idx:
+            num_to_idx[numbers[i]] = i
+    return answer or None
