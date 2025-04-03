@@ -48,3 +48,54 @@
 #  is the maximum Fibonacciness that can be achieved. This can be done by setting a3
 #  to 18
 # .
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int a1, a2, a4, a5;
+        std::scanf("%d %d %d %d", &a1, &a2, &a4, &a5);
+        int maxFib = 1;
+        // 1 case a1 + a2
+        int x = a1 + a2;
+        if (a2 + x == a4) ++maxFib;
+        if (x + a4 == a5) ++maxFib;
+        // 2 case a4 - a2
+        x = a4 - a2;
+        int fibs = 1;
+        if (a1 + a2 == x) ++fibs;
+        if (x + a4 == a5) ++fibs;
+        std::printf("%d\n", std::max(maxFib, fibs));
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        a1, a2, a4, a5 = map(int, sys.stdin.readline().rstrip().split())
+        max_fibs: int = 1
+        x: int = a1 + a2
+        if a2 + x == a4: max_fibs += 1
+        if x + a4 == a5: max_fibs += 1
+        fibs: int = 1
+        x = a4 - a2
+        if a1 + a2 == x: fibs += 1
+        if x + a4 == a5: fibs += 1
+        sys.stdout.write('{}\n'.format(max(max_fibs, fibs)))
+
+
+if __name__ == '__main__':
+    solution()
