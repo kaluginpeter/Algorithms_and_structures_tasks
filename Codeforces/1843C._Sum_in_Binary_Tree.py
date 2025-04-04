@@ -58,3 +58,45 @@
 # , 10
 # , sum of their numbers equals 1+2+5+10=18
 # .
+# Solution
+# C++ O(logN) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        long long n;
+        std::scanf("%lld", &n);
+        long long score = 0;
+        while (n) {
+            score += n;
+            n /= 2;
+        }
+        std::printf("%lld\n", score);
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(logN) O(1) Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        score: int = 0
+        while n:
+            score += n
+            n //= 2
+        sys.stdout.write('{}\n'.format(score))
+
+
+if __name__ == '__main__':
+    solution()
