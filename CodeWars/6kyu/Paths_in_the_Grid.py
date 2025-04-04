@@ -22,3 +22,12 @@
 # Hint: use mathematical permutation and combination
 #
 # FundamentalsMathematics
+# Solution
+dp: list[list[int]] = [[0] * (1001) for _ in range(1001)]
+dp[0][0] = 1
+for r in range(1001):
+    for c in range(1001):
+        if r: dp[r][c] += dp[r - 1][c]
+        if c: dp[r][c] += dp[r][c - 1]
+def number_of_routes(m, n):
+    return dp[n][m]
