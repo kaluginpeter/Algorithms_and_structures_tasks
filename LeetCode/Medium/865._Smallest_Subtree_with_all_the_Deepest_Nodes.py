@@ -36,3 +36,81 @@
 #
 #
 # Note: This question is the same as 1123: https://leetcode.com/problems/lowest-common-ancestor-of-deepest-leaves/
+# Solution
+# Python O(N) O(N) BreadthFirstSearch HashMap
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def subtreeWithAllDeepest(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        cur_nodes: list[TreeNode] = [root]
+        next_nodes: list[TreeNode] = []
+        path: list[int] = [-1] * 1001
+        while cur_nodes:
+            for vertex in cur_nodes:
+                if vertex.left:
+                    next_nodes.append(vertex.left)
+                    path[vertex.left.val] = vertex
+                if vertex.right:
+                    next_nodes.append(vertex.right)
+                    path[vertex.right.val] = vertex
+            if not next_nodes: break
+            cur_nodes = next_nodes
+            next_nodes = []
+        while len(cur_nodes) > 1:
+            parents: list[TreeNode] = []
+            for child in cur_nodes:
+                if not parents or parents[-1] != path[child.val]:
+                    parents.append(path[child.val])
+            cur_nodes = parents
+        return cur_nodes[0]
+
+# C++ O(N) O(N) BreadthFirstSearch HashMap
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* subtreeWithAllDeepest(TreeNode* root) {
+        vector<TreeNode *> curNodes;
+        vector<TreeNode *> nextNodes;
+        vector<TreeNode*> path (1001, nullptr);
+        curNodes.push_back(root);
+        while (!curNodes.empty()) {
+            for (TreeNode *vertex : curNodes) {
+                if (vertex->left){
+                    nextNodes.push_back(vertex->left);
+                    path[vertex->left->val] = vertex;
+                }
+                if (vertex->right) {
+                    nextNodes.push_back(vertex->right);
+                    path[vertex->right->val] = vertex;
+                }
+            }
+            if (nextNodes.empty()) break;
+            curNodes = nextNodes;
+            nextNodes.clear();
+        }
+        while (curNodes.size() > 1) {
+            vector<TreeNode *> parents;
+            for (TreeNode *child : curNodes) {
+                if (parents.empty() || parents.back() != path[child->val]) {
+                    parents.push_back(path[child->val]);
+                }
+            }
+            curNodes = parents;
+        }
+        return curNodes[0];
+    }
+};
