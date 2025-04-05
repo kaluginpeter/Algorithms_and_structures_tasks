@@ -85,3 +85,59 @@
 # .
 # As you can see, three of them are good, so the answer is 3
 # .
+# Solution
+# Python O(NlogN) O(N) Priority Queue Greedy
+import sys
+import heapq
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+        max_heap: list[int] = []
+        cur_sum: int = 0
+        matches: int = 0
+        for num in nums:
+            cur_sum += num
+            heapq.heappush(max_heap, -num)
+            x: int = -max_heap[0]
+            if x == cur_sum - x: matches += 1
+        sys.stdout.write('{}\n'.format(matches))
+
+
+if __name__ == '__main__':
+    solution()
+
+# C++ O(NlogN) O(N) PriorityQueue Greedy
+#include <iostream>
+#include <vector>
+#include <queue>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d", &n);
+        std::vector<long long> nums (n, 0);
+        for (int j = 0; j < n; ++j) std::scanf("%lld", &nums[j]);
+        std::priority_queue<long long, std::vector<long long>> maxHeap;
+        int matches = 0;
+        long long curSum = 0;
+        for (long long &num : nums) {
+            maxHeap.push(num);
+            curSum += num;
+            long long x = maxHeap.top();
+            if (x == curSum - x) ++matches;
+        }
+        std::printf("%d\n", matches);
+    }
+}
+
+
+int main() {
+    solution();
+}
