@@ -23,3 +23,19 @@
 # Happy coding!!!
 #
 # AlgorithmsMathematicsData StructuresFundamentals
+# Solution
+def get_divisors(n: int) -> int:
+    divs: int = 1
+    bound: int = int(n**.5) + 1
+    for d in range(1, bound):
+        if n % d == 0: divs += 1 + (n // d != d)
+    return divs
+memo: list[int] = [0]
+def count_pairs_int(diff, n_max):
+    while len(memo) < n_max:
+        memo.append(get_divisors(len(memo)))
+    matches: int = 0
+    for num in range(diff, n_max):
+        if memo[num] == memo[num - diff]:
+            matches += 1
+    return matches
