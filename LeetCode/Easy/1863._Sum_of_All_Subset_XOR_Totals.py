@@ -44,7 +44,7 @@
 #
 # 1 <= nums.length <= 12
 # 1 <= nums[i] <= 20
-# Solution Sombinatoric O(2^N) O(N)
+# Solution Combinatoric O(2^N) O(N)
 class Solution:
     from itertools import combinations
     def subsetXORSum(self, nums: List[int]) -> int:
@@ -56,3 +56,54 @@ class Solution:
                     xor ^= num
                 total += xor
         return total
+
+
+# Python O(2^N) O(N) Backtracking Combinations Bit Manipulations
+class Solution:
+    score: int = 0
+    def backtrack(self, idx: int, nums: list[int], cur_sum: int) -> None:
+        if idx == len(nums): return
+        for next_idx in range(idx, len(nums)):
+            next_sum: int = cur_sum ^ nums[next_idx]
+            self.score += next_sum
+            self.backtrack(next_idx + 1, nums, next_sum)
+
+    def subsetXORSum(self, nums: List[int]) -> int:
+        self.score = 0
+        self.backtrack(0, nums, 0)
+        return self.score
+
+# C++ O(2^N) O(N) Backtracking Combinations BitManipulations
+class Solution {
+public:
+    void backtrack(int idx, vector<int>& nums, int curSum, int& score) {
+        if (idx == nums.size()) return;
+        for (int nextIdx = idx; nextIdx < nums.size(); ++nextIdx) {
+            int nextSum = curSum ^ nums[nextIdx];
+            score += nextSum;
+            backtrack(nextIdx + 1, nums, nextSum, score);
+        }
+    }
+    int subsetXORSum(vector<int>& nums) {
+        int score = 0;
+        backtrack(0, nums, 0, score);
+        return score;
+    }
+};
+
+# Python O(N) O(1) BitMasking Math BitManipulations
+class Solution:
+    def subsetXORSum(self, nums: List[int]) -> int:
+        score: int = 0
+        for num in nums: score |= num
+        return score << (len(nums) - 1)
+
+# C++ O(N) O(1) BitMasking Math BitManipulations
+class Solution {
+public:
+    int subsetXORSum(vector<int>& nums) {
+        int score = 0;
+        for (int &num : nums) score |= num;
+        return score << (nums.size() - 1);
+    }
+};
