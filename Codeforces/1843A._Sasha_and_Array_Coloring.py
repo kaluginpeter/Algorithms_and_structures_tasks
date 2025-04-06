@@ -85,3 +85,56 @@
 # In the third example, the optimal coloring is [1,6,3,9]
 # , the answer is (9−1)+(6−3)=11
 # .
+# Solution
+# C++ O(NlogN) O(1) Sorting Two Pointers
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d", &n);
+        std::vector<int> nums (n, 0);
+        for (int j = 0; j < n; ++j) std::scanf("%d", &nums[j]);
+        std::sort(nums.begin(), nums.end());
+        int score = 0;
+        int left = 0, right = n - 1;
+        while (left < right) {
+            score += nums[right] - nums[left];
+            ++left;
+            --right;
+        }
+        std::printf("%d\n", score);
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(NlogN) O(1) Sorting TwoPointers
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: list[int] = sorted(map(int, sys.stdin.readline().rstrip().split()))
+        score: int = 0
+        left: int = 0
+        right: int = n - 1
+        while left < right:
+            score += nums[right] - nums[left]
+            left += 1
+            right -= 1
+        sys.stdout.write('{}\n'.format(score))
+
+
+if __name__ == '__main__':
+    solution()
