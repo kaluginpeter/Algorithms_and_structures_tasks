@@ -17,3 +17,13 @@
 # Your task is to write a function that can validate the correct UVB-76 message. Function should return true if message is in correct format and false otherwise.
 #
 # AlgorithmsStringsRegular Expressions
+# Solution
+def validate(message):
+    if not message.startswith('MDZHB'): return False
+    if len(message.split()) != 8: return False
+    _, fd, sd, w, *args_ = message.split()
+    if len(fd) != 2 or not fd.isdigit(): return False
+    if len(sd) != 3 or not sd.isdigit(): return False
+    if not all(letter.isupper() for letter in w): return False
+    if not all(len(num) == 2 and num.isdigit() for num in args_): return False
+    return True
