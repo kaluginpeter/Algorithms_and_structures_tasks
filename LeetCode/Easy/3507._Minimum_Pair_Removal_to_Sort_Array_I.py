@@ -36,3 +36,44 @@
 #
 # 1 <= nums.length <= 50
 # -1000 <= nums[i] <= 1000
+# Solution
+# Python O(N^2) O(1) BruteForce
+class Solution:
+    def minimumPairRemoval(self, nums: List[int]) -> int:
+        operations: int = 0
+        n: int = len(nums)
+        while not all(nums[i] <= nums[i + 1] for i in range(n - 1)):
+            start: int = 0
+            for i in range(1, n - 1):
+                if nums[start] + nums[start + 1] > nums[i] + nums[i + 1]:
+                    start = i
+            nums[start] += nums.pop(start + 1)
+            operations += 1
+            n -= 1
+        return operations
+
+# C++ O(N^2) O(1) BruteForce
+class Solution {
+public:
+    bool valid(vector<int>& nums) {
+        for (int i = 0; i < nums.size() - 1; ++i) {
+            if (nums[i] > nums[i + 1]) return false;
+        }
+        return true;
+    };
+
+    int minimumPairRemoval(vector<int>& nums) {
+        int n = nums.size(), operations = 0;
+        while (!valid(nums)) {
+            int start = 0;
+            for (int i = 1; i < n - 1; ++i) {
+                if (nums[start] + nums[start + 1] > nums[i] + nums[i + 1]) start = i;
+            }
+            nums[start] += nums[start + 1];
+            nums.erase(nums.begin() + start + 1);
+            --n;
+            ++operations;
+        }
+        return operations;
+    }
+};
