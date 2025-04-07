@@ -60,3 +60,56 @@
 # .
 #
 # In the third encrypted message, zero characters are added to each letter.
+# Solution
+# C++ O(N) O(1) String Greedy TwoPointers
+#include <iostream>
+#include <string>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d", &n);
+        std::string sequence;
+        std::cin >> sequence;
+        std::string output = "";
+        int left = 0, right = left + 1;
+        while (right < n) {
+            while (right < n && sequence[left] != sequence[right]) ++right;
+            output.push_back(sequence[left]);
+            ++right;
+            left = right;
+            ++right;
+        }
+        std::cout << output << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) String Greedy TwoPointers
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        sequence: str = sys.stdin.readline().rstrip()
+        output: list[str] = []
+        left: int = 0
+        right: int = left + 1
+        while right < n:
+            while right < n and sequence[left] != sequence[right]: right += 1
+            output.append(sequence[left])
+            left, right = right + 1, right + 2
+        sys.stdout.write('{}\n'.format(''.join(output)))
+
+
+if __name__ == '__main__':
+    solution()
