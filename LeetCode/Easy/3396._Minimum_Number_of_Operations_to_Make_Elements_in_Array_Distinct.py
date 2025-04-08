@@ -89,3 +89,41 @@ public:
         return count;
     }
 };
+
+
+# Python O(N) O(D) HashMap Greedy
+class Solution:
+    def minimumOperations(self, nums: List[int]) -> int:
+        n, operations = len(nums), 0
+        histogram: dict[int, int] = dict()
+        for num in nums: histogram[num] = histogram.get(num, 0) + 1
+        idx: int = 0
+        while idx < n and len(histogram) != n - idx:
+            bound: int = min(3, n - idx)
+            for _ in range(bound):
+                histogram[nums[idx]] -= 1
+                if not histogram[nums[idx]]: del histogram[nums[idx]]
+                idx += 1
+            operations += 1
+        return operations
+
+# C++ O(N) O(D) HashMap Greedy
+class Solution {
+public:
+    int minimumOperations(vector<int>& nums) {
+        int n = nums.size(), operations = 0;
+        unordered_map<int, int> histogram;
+        for (int &num : nums) ++histogram[num];
+        int idx = 0;
+        while (idx < n && histogram.size() != n - idx) {
+            int bound = min(3, n - idx);
+            for (int i = 0; i < bound; ++i) {
+                --histogram[nums[idx]];
+                if (!histogram[nums[idx]]) histogram.erase(nums[idx]);
+                ++idx;
+            }
+            ++operations;
+        }
+        return operations;
+    }
+};
