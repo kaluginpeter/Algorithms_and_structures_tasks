@@ -75,3 +75,59 @@
 #
 # For the third test case, it doesn't matter how we split the string, the answer will always be 2
 # .
+# Solution
+# C++ O(N) O(D) HashMap PrefixSum Greedy
+#include <iostream>
+#include <string>
+#include <unordered_map>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d", &n);
+        std::string sequence;
+        std::cin >> sequence;
+        std::unordered_map<char, int> prefixSum, suffixSum;
+        for (int idx = 0; idx < n; ++idx) ++suffixSum[sequence[idx]];
+        int output = 0;
+        for (int idx = 0; idx < n; ++idx) {
+            ++prefixSum[sequence[idx]];
+            --suffixSum[sequence[idx]];
+            if (!suffixSum[sequence[idx]]) suffixSum.erase(sequence[idx]);
+            if (idx + 1 < n) output = std::max(output, static_cast<int>(prefixSum.size() + suffixSum.size()));
+        }
+        std::printf("%d\n", output);
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(D) PrefixSum HashMap
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        sequence: str = sys.stdin.readline().rstrip()
+        prefix_sum: dict[str, int] = dict()
+        suffix_sum: dict[str, int] = dict()
+        for letter in sequence: suffix_sum[letter] = suffix_sum.get(letter, 0) + 1
+        output: int = 0
+        for i in range(n):
+            prefix_sum[sequence[i]] = prefix_sum.get(sequence[i], 0) + 1
+            suffix_sum[sequence[i]] -= 1
+            if not suffix_sum[sequence[i]]: del suffix_sum[sequence[i]]
+            if i + 1 < n: output = max(output, len(prefix_sum) + len(suffix_sum))
+        sys.stdout.write('{}\n'.format(output))
+
+
+if __name__ == '__main__':
+    solution()
