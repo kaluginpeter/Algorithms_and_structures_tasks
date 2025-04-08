@@ -26,3 +26,38 @@
 #
 # 1 <= nums.length, k <= 105
 # 0 <= nums[i] <= 106
+# Solution
+# Python O(NlogN) O(N) PriorityQueue Greedy
+class Solution:
+    def maximumProduct(self, nums: List[int], k: int) -> int:
+        min_heap: list[int] = []
+        for num in nums: heapq.heappush(min_heap, num)
+        for _ in range(k):
+            num: int = heapq.heappop(min_heap)
+            heapq.heappush(min_heap, num + 1)
+        output: int = 1
+        MOD: int = 1000000007
+        while min_heap:
+            output = output * heapq.heappop(min_heap) % MOD
+        return output
+
+# C++ O(NlogN) O(N) PriorityQueue Greedy
+class Solution {
+public:
+    int maximumProduct(vector<int>& nums, int k) {
+        priority_queue<int, vector<int>, greater<int>> minHeap (nums.begin(), nums.end());
+        for (int i = 0; i < k; ++i) {
+            int num = minHeap.top();
+            minHeap.pop();
+            ++num;
+            minHeap.push(num);
+        }
+        long long MOD = 1000000007;
+        long long output = 1;
+        while (!minHeap.empty()) {
+            output = output * static_cast<long long>(minHeap.top()) % MOD;
+            minHeap.pop();
+        }
+        return static_cast<int>(output);
+    }
+};
