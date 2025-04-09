@@ -31,3 +31,41 @@
 #
 # 0 <= word1.length, word2.length <= 500
 # word1 and word2 consist of lowercase English letters.
+# Solution
+# Python O(NM) O(M) DynamicProgramming Strings
+class Solution:
+    def minDistance(self, word1: str, word2: str) -> int:
+        n, m = len(word1), len(word2)
+        prev_dp, cur_dp = list(range(m + 1)), list(range(m + 1))
+        for i in range(1, n + 1):
+            cur_dp[0] = i
+            for j in range(1, m + 1):
+                cur_dp[j] = min(
+                    prev_dp[j - 1] + int(word1[i - 1] != word2[j - 1]),
+                    prev_dp[j] + 1,
+                    cur_dp[j - 1] + 1,
+                )
+            prev_dp = cur_dp[::]
+        return prev_dp[m]
+
+# C++ O(NM) O(M) DynamicProgramming Strings
+class Solution {
+public:
+    int minDistance(string word1, string word2) {
+        int n = word1.size(), m = word2.size();
+        vector<int> prevDp(m + 1, 0), curDp(m + 1, 0);
+        for (int i = 0; i <= m; ++i) prevDp[i] = i;
+        for (int i = 1; i <= n; ++i) {
+            curDp[0] = i;
+            for (int j = 1; j <= m; ++j) {
+                curDp[j] = std::min({
+                    prevDp[j - 1] + static_cast<int>(word1[i - 1] != word2[j - 1]),
+                    prevDp[j] + 1,
+                    curDp[j - 1] + 1,
+                });
+            }
+            prevDp.assign(curDp.cbegin(), curDp.cend());
+        }
+        return prevDp[m];
+    }
+};
