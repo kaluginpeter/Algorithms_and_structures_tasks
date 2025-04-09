@@ -82,3 +82,43 @@
 # .
 # Lightning Strike 7−10=−3
 # .
+# Solution
+# C++ O(N) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int h, n, m;
+        std::scanf("%d %d %d", &h, &n, &m);
+        bool isValid = false;
+        for (int j = 0; j < n; ++j) {
+            if (h <= h / 2 + 10) break;
+            h = h / 2 + 10;
+        }
+        std::cout << (h <= 10 * m? "YES" : "NO") << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+# Python O(N) O(1) Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        h, n, m = map(int, sys.stdin.readline().rstrip().split())
+        for _ in range(n):
+            if h <= h // 2 + 10: break
+            h = h // 2 + 10
+        sys.stdout.write('{}\n'.format(['NO', 'YES'][h <= 10 * m]))
+
+
+if __name__ == '__main__':
+    solution()
