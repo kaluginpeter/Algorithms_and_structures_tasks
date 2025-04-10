@@ -34,3 +34,47 @@
 # 1 <= s.length <= floor(log10(finish)) + 1
 # s only consists of numeric digits which are at most limit.
 # s does not have leading zeros.
+# Solution
+# Python O(logN) O(logN) DynamicProgramming String
+class Solution:
+    def calc(self, x: str, s: str, limit: int) -> int:
+        if len(x) < len(s): return 0
+        if len(x) == len(s): return x >= s
+        start_point: str = x[len(x) - len(s):]
+        count: int = 0
+        places: int = len(x) - len(s)
+        for i in range(places):
+            if limit < int(x[i]):
+                count += pow(limit + 1, places - i)
+                return count
+            count += int(x[i]) * pow(limit + 1, places - i - 1)
+        if start_point >= s: count += 1
+        return count
+
+    def numberOfPowerfulInt(self, start: int, finish: int, limit: int, s: str) -> int:
+        return self.calc(str(finish), s, limit) - self.calc(str(start - 1), s, limit)
+
+# C++ O(logN) O(logN) DynamicProgramming String
+class Solution {
+public:
+    long long calc(string x, string s, int limit) {
+        if (x.length() < s.length()) return 0;
+        if (x.length() == s.length()) return x >= s ? 1 : 0;
+        string startPoint = x.substr(x.length() - s.length(), s.length());
+        long long count = 0;
+        int places = x.length() - s.length();
+        for (int i = 0; i < places; ++i) {
+            if (limit < (x[i] - '0')) {
+                count += pow(limit + 1, places - i);
+                return count;
+            }
+            count += static_cast<long long>(x[i] - '0') * pow(limit + 1, places - 1 - i);
+        }
+        if (startPoint >= s) ++count;
+        return count;
+    }
+
+    long long numberOfPowerfulInt(long long start, long long finish, int limit, string s) {
+        return calc(to_string(finish), s, limit) - calc(to_string(start - 1), s, limit);
+    }
+};
