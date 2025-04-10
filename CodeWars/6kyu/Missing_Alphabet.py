@@ -18,3 +18,17 @@
 # You don't need to validate input, the input string will always contain a certain amount of lowercase letters (min 1 / max 50).
 #
 # StringsAlgorithmsGames
+# Solution
+import bisect
+def insert_missing_letters(st: str) -> str:
+    extra: list[int] = list(range(65, 91))
+    for letter in st:
+        if ord(letter.upper()) in extra: extra.remove(ord(letter.upper()))
+    output: list[str] = []
+    seen: set[str] = set()
+    for letter in st:
+        output.append(letter)
+        if letter not in seen:
+            seen.add(letter)
+            output.append(''.join(chr(code) for code in extra[bisect.bisect_right(extra, ord(letter.upper())):]))
+    return ''.join(output)
