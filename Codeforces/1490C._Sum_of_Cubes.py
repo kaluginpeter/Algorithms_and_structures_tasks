@@ -85,3 +85,57 @@
 # The number 703657519796
 #  is represented as 57793+79933
 # .
+# Solution
+# C++ O(cubeRoot(N)) O(1) Math Greedy
+#include <iostream>
+#include <cmath>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        long long n;
+        std::scanf("%lld", &n);
+        int bound = std::cbrt(n);
+        bool isValid = false;
+        for (int i = 1; i <= bound; ++i) {
+            long long diff = static_cast<double>(n) - static_cast<long long>(i) * i * i;
+            if (diff < 1) continue;
+            double j = std::cbrt(diff);
+            if (static_cast<long long>(j) == j) {
+                isValid = true;
+                break;
+            }
+        }
+        std::cout << (isValid? "YES" : "NO") << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+# Python O(cubeRoot(N)) O(1) Math Greedy
+import sys
+import math
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        bound: int = int(math.cbrt(n))
+        is_valid: bool = False
+        for i in range(1, bound + 1):
+            diff: int = n - i ** 3
+            if diff < 1: continue
+            j: float = math.cbrt(diff)
+            if int(j) == j:
+                is_valid = True
+                break
+        sys.stdout.write('{}\n'.format('YES' if is_valid else 'NO'))
+
+
+if __name__ == '__main__':
+    solution()
