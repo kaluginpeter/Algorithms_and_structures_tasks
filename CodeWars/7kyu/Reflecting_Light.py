@@ -12,3 +12,30 @@
 # Also, once completing this kata, please do not rate it based off of the difficulty level(kyu) and instead on whether you think it is a good kata.
 #
 # GeometryAlgorithms
+# Solution
+def reflections(max_x, max_y):
+    x: int = 0
+    y: int = 0
+    up: bool = True
+    right: bool = True
+    first: bool = True
+    while (x, y) not in {(max_x, max_y), (0, 0), (max_x, 0), (0, max_y)} or first:
+        if first: first = False
+        if up:
+            y += 1
+        else:
+            y -= 1
+        if right:
+            x += 1
+        else:
+            x -= 1
+
+        if not x:
+            right = not right
+        elif x == max_x:
+            right = not right
+        if not y:
+            up = not up
+        elif y == max_y:
+            up = not up
+    return (x, y) in {(0, 0), (max_x, max_y)}
