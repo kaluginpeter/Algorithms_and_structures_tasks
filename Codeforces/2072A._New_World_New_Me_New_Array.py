@@ -66,3 +66,39 @@
 #
 # In the seventh example, only one operation a3=−7
 #  is needed.
+# Solution
+# C++ O(1) O(1) Math Greedy
+#include <iostream>
+#include <cmath>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n, k, p;
+        std::scanf("%d %d %d", &n, &k, &p);
+        if (n * p < std::abs(k)) std::printf("-1\n");
+        else printf("%d\n", std::abs(k) / p + static_cast<int>(std::abs(k) % p != 0));
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Math Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, k, p = map(int, sys.stdin.readline().rstrip().split())
+        if n * p < abs(k): sys.stdout.write('-1\n')
+        else: sys.stdout.write('{}\n'.format(abs(k) // p + int(abs(k) % p != 0)))
+
+
+if __name__ == '__main__':
+    solution()
