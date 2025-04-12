@@ -23,3 +23,14 @@
 # Have fun and don't pee into the wrong urinal ;)
 #
 # Fundamentals
+# Solution
+def get_free_urinals(urinals):
+    if '11' in urinals: return -1
+    urinals_: list[str] = list(urinals)
+    free: int = 0
+    for i in range(len(urinals)):
+        if urinals_[i] == '0':
+            if (not i or urinals_[i - 1] == '0') and (i + 1 == len(urinals) or urinals_[i + 1] == '0'):
+                urinals_[i] = '1'
+                free += 1
+    return free
