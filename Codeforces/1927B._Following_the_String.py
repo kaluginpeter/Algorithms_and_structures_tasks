@@ -67,3 +67,61 @@
 # a
 # aaaaaaaa
 # dijkstra
+# Solution
+# C++ O(N) O(D) HashMap Greedy
+#include <iostream>
+#include <string>
+#include <vector>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        std::vector<int> hashmap(26, 0);
+        std::string output = "";
+        int n;
+        std::scanf("%d", &n);
+        for (int j = 0; j < n; ++j) {
+            int freq;
+            std::scanf("%d", &freq);
+            for (int code = 0; code < 26; ++code) {
+                if (hashmap[code] == freq) {
+                    output.push_back(static_cast<char>(code + 97));
+                    ++hashmap[code];
+                    break;
+                }
+            }
+        }
+        std::cout << output << std::endl;
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(D) HashMap Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: iter[int] = map(int, sys.stdin.readline().rstrip().split())
+        hashmap: list[int] = [0] * 26
+        output: list[str] = []
+        for _ in range(n):
+            i: int = next(nums)
+            for code in range(26):
+                if hashmap[code] == i:
+                    output.append(chr(code + 97))
+                    hashmap[code] += 1
+                    break
+        sys.stdout.write('{}\n'.format(''.join(output)))
+
+
+if __name__ == '__main__':
+    solution()
