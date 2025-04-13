@@ -69,3 +69,49 @@
 # , the second element is 1&1
 # , and the third element is 3&1
 # .
+# Solution
+# C++ O(N) O(1) BitWise
+#include <iostream>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d", &n);
+        int output = -1;
+        for (int j = 0; j < n; ++j) {
+            int num;
+            std::scanf("%d", &num);
+            if (!j) output = num;
+            else output &= num;
+        }
+        std::printf("%d\n", output);
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) BitWise
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: iter[int] = map(int, sys.stdin.readline().rstrip().split())
+        output: int = -1
+        for i in range(n):
+            num: int = next(nums)
+            if not i: output = num
+            else: output &= num
+        sys.stdout.write('{}\n'.format(output))
+
+
+if __name__ == '__main__':
+    solution()
