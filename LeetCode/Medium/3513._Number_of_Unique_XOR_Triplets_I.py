@@ -47,3 +47,29 @@
 # 1 <= n == nums.length <= 105
 # 1 <= nums[i] <= n
 # nums is a permutation of integers from 1 to n.
+# Solution
+# Python O(logN) O(1) Math Bit
+class Solution:
+    def uniqueXorTriplets(self, nums: List[int]) -> int:
+        n: int = len(nums)
+        if n < 3: return n
+        exponent: int = 0
+        while n:
+            exponent += 1
+            n >>= 1
+        return pow(2, exponent)
+
+# C++ O(logN) O(1) Math Bit
+class Solution {
+public:
+    int uniqueXorTriplets(vector<int>& nums) {
+        int n = nums.size();
+        if (n < 3) return n;
+        int exponent = 0;
+        while (n) {
+            ++exponent;
+            n >>= 1;
+        }
+        return pow(2, exponent);
+    }
+};
