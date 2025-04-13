@@ -47,3 +47,41 @@
 # 1 <= s.length <= 105
 # s consists of lowercase English letters.
 # s is guaranteed to be palindromic.
+# Solution
+# Python O(N) O(N) HashMap Greedy
+class Solution:
+    def smallestPalindrome(self, s: str) -> str:
+        hashmap: list[int] = [0] * 26
+        for letter in s: hashmap[ord(letter) - 97] += 1
+        median: int = -1
+        left_part: list[str] = []
+        for code in range(26):
+            if hashmap[code] & 1 and median == -1: median = code + 97
+            for _ in range(hashmap[code] // 2):
+                left_part.append(chr(code + 97))
+        output: list[str] = left_part[::]
+        if median != -1: output.append(chr(median))
+        return ''.join(output) + ''.join(reversed(left_part))
+
+# C++ O(N) O(N) HashMap Greedy
+class Solution {
+public:
+    string smallestPalindrome(string s) {
+        vector<int> hashmap(26, 0);
+        for (char &letter : s) ++hashmap[letter - 'a'];
+        int median = -1;
+        string leftPart = "";
+        for (int code = 0; code < 26; ++code) {
+            if (hashmap[code] & 1 && median == -1) median = code + 97;
+            for (int i = 0; i < hashmap[code] / 2; ++i) {
+                leftPart.push_back(static_cast<char>(code + 97));
+            }
+        }
+        string palindrom = leftPart;
+        if (median != -1) palindrom.push_back(static_cast<char>(median));
+        for (string::const_reverse_iterator letter = leftPart.crbegin(); letter != leftPart.crend(); ++letter) {
+            palindrom.push_back(*letter);
+        }
+        return palindrom;
+    }
+};
