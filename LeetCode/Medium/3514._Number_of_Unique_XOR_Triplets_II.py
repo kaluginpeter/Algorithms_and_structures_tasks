@@ -39,3 +39,37 @@
 #
 # 1 <= nums.length <= 1500
 # 1 <= nums[i] <= 1500
+# Solution
+# Python O(N^2) O(N^2) HashSet Bit
+class Solution:
+    def uniqueXorTriplets(self, nums: List[int]) -> int:
+        if len(nums) == 1: return 1
+        hashset: set[int] = set()
+        n: int = len(nums)
+        for i in range(n):
+            for j in range(i + 1, n):
+                hashset.add(nums[i] ^ nums[j])
+        output: set[int] = set()
+        for num in nums:
+            for h in hashset:
+                output.add(num ^ h)
+        return len(output)
+
+# C++ O(N^2) O(N^2) HashSet Bit
+class Solution {
+public:
+    int uniqueXorTriplets(vector<int>& nums) {
+        unordered_set<int> twice, output;
+        int n = nums.size();
+        if (n == 1) return 1;
+        for (int i = 0; i < n; ++i) {
+            for (int j = i + 1; j < n; ++j) {
+                twice.insert(nums[i] ^ nums[j]);
+            }
+        }
+        for (int &num : nums) {
+            for (auto &h : twice) output.insert(num ^ h);
+        }
+        return output.size();
+    }
+};
