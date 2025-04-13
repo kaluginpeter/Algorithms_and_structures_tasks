@@ -55,3 +55,21 @@
 # Constraints:
 #
 # 1 <= x, y, z <= 100
+# Solution
+# Python O(1) O(1) Greedy
+class Solution:
+    def findClosest(self, x: int, y: int, z: int) -> int:
+        diff_x: int = abs(x - z)
+        diff_y: int = abs(y - z)
+        if diff_x < diff_y: return 1
+        elif diff_x > diff_y: return 2
+        return 0
+
+# C++ O(1) O(1) Greedy
+class Solution {
+public:
+    int findClosest(int x, int y, int z) {
+        int diffX = abs(x - z), diffY = abs(y - z);
+        return (diffX != diffY? (diffX < diffY? 1 : 2) : 0);
+    }
+};
