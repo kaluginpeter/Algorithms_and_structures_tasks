@@ -41,3 +41,16 @@
 # 1 <= nums.length <= 1000
 # 1 <= nums[i] <= 1000
 # 1 <= k <= 100
+# Solution
+# Python O(N) O(1) Greedy
+class Solution:
+    def minOperations(self, nums: List[int], k: int) -> int:
+        return sum(nums) % k
+
+# C++ O(N) O(1) Greedy
+class Solution {
+public:
+    int minOperations(vector<int>& nums, int k) {
+        return accumulate(nums.begin(), nums.end(), 0) % k;
+    }
+};
