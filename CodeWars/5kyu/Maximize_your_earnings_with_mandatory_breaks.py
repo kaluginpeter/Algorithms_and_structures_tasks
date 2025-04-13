@@ -17,3 +17,21 @@
 # Original idea by @daryjoe.
 #
 # Dynamic Programming
+# Solution
+def maximize_earnings(earnings, k):
+    if not earnings: return 0
+    n = len(earnings)
+    dp = [[-1 for _ in range(k + 1)] for _ in range(n + 1)]
+    dp[0][0] = 0
+    for i in range(1, n + 1):
+        current_earning = earnings[i - 1]
+        max_prev = max(dp[i - 1][j] for j in range(k + 1))
+        if max_prev != -1: dp[i][0] = max_prev
+        for j in range(1, k + 1):
+            if dp[i - 1][j - 1] != -1:
+                if dp[i][j] == -1:
+                    dp[i][j] = dp[i - 1][j - 1] + current_earning
+                else:
+                    dp[i][j] = max(dp[i][j], dp[i - 1][j - 1] + current_earning)
+    max_earnings = max(dp[n][j] for j in range(k + 1))
+    return max_earnings if max_earnings != -1 else 0
