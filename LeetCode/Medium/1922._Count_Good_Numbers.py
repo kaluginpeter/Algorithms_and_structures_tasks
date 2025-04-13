@@ -25,3 +25,28 @@
 # Constraints:
 #
 # 1 <= n <= 1015
+# Solution
+# Python O(logN) O(logN) Math Recursion
+class Solution:
+    def countGoodNumbers(self, n: int) -> int:
+        MOD: int = 1000000007
+        odd: int = pow(4, n // 2, MOD)
+        if n & 1: return pow(5, n // 2 + 1, MOD) * odd % MOD
+        return pow(5, n // 2, MOD) * odd % MOD
+
+# C++ O(logN) O(logN) Math Recursion
+class Solution {
+public:
+    long long powByModule(int x, long long n, int m) {
+        if (!n) return 1LL;
+        else if (n & 1) return x * powByModule(x, n - 1, m) % m;
+        long long even = powByModule(x, n / 2, m) % m;
+        return even * even % m;
+    }
+    int countGoodNumbers(long long n) {
+        int MOD = 1000000007;
+        long long odd = powByModule(4, n / 2, MOD);
+        if (n & 1) return powByModule(5, n / 2 + 1, MOD) * odd % MOD;
+        return powByModule(5, n / 2, MOD) * odd % MOD;
+    }
+};
