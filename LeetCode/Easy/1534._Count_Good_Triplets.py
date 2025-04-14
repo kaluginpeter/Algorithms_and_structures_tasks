@@ -43,3 +43,32 @@ class Solution:
                     elif abs(arr[i]  - arr[k]) <= c:
                         ans += 1
         return ans
+
+# Python O(N^3) O(1) BruteForce
+class Solution:
+    def countGoodTriplets(self, arr: List[int], a: int, b: int, c: int) -> int:
+        good: int = 0
+        for i in range(len(arr)):
+            for j in range(i + 1, len(arr)):
+                for k in range(j + 1, len(arr)):
+                    if abs(arr[i] - arr[j]) <= a and abs(arr[j] - arr[k]) <= b and abs(arr[i] - arr[k]) <= c:
+                        good += 1
+        return good
+
+# C++ O(N^3) O(1) BruteForce
+class Solution {
+public:
+    int countGoodTriplets(vector<int>& arr, int a, int b, int c) {
+        int good = 0;
+        for (int i = 0; i < arr.size(); ++i) {
+            for (int j = i + 1; j < arr.size(); ++j) {
+                for (int k = j + 1; k < arr.size(); ++k) {
+                    if (abs(arr[i] - arr[j]) <= a && abs(arr[j] - arr[k]) <= b && abs(arr[i] - arr[k]) <= c) {
+                        ++good;
+                    }
+                }
+            }
+        }
+        return good;
+    }
+};
