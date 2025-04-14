@@ -61,3 +61,51 @@
 #  icons, red squares represent 2×2
 #  icons
 # The solution for the third test case can look as follows:
+# Solution
+# C++ O(1) O(1) Math Greedy
+#include <iostream>
+#include <cmath>
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int x, y;
+        std::cin >> x >> y;
+        int screens = 0;
+        int screensForY = (y + 1) / 2;
+        screens = screensForY;
+        int remainingCells;
+        if (y % 2 == 1) remainingCells = 11;
+        else remainingCells = 0;
+        int totalRemainingCells = screensForY * 15 - y * 4;
+        x = std::max(0, x - totalRemainingCells);
+        if (x > 0) screens += (x + 14) / 15;
+        std::cout << screens << std::endl;
+    }
+}
+
+int main() {
+    solution();
+    return 0;
+}
+
+# Python O(1) O(1) Math Greedy
+import sys
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        x, y = map(int, sys.stdin.readline().rstrip().split())
+        screens_for_y: int = (y + 1) // 2
+        screens: int = screens_for_y
+        remaining_cells: int = 0
+        if y & 1: remaining_cells = 11
+        total_remaining_cells: int = screens_for_y * 15 - y * 4
+        x = max(0, x - total_remaining_cells)
+        if x > 0: screens += (x + 14) // 15
+        sys.stdout.write('{}\n'.format(screens))
+
+
+if __name__ == '__main__':
+    solution()
