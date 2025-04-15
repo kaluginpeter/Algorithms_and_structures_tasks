@@ -26,3 +26,84 @@
 # 3 <= n <= 105
 # 0 <= nums1[i], nums2[i] <= n - 1
 # nums1 and nums2 are permutations of [0, 1, ..., n - 1].
+# Solution
+# Python O(NlogN) O(N) BinaryIndexedTree
+class FenwickTree:
+    def __init__(self, size: int) -> None:
+        self.tree: list[int] = [0] * (size + 1)
+
+    def update(self, index: int, delta: int) -> None:
+        index += 1
+        while index < len(self.tree):
+            self.tree[index] += delta
+            index += index & -index
+
+    def query(self, index: int) -> int:
+        index += 1
+        output: int = 0
+        while index:
+            output += self.tree[index]
+            index -= index & -index
+        return output
+
+
+class Solution:
+    def goodTriplets(self, nums1: List[int], nums2: List[int]) -> int:
+        n: int = len(nums1)
+        pos2: list[int] = [0] * n
+        pos1: list[int] = [0] * n
+        for i in range(n): pos2[nums2[i]] = i
+        for i in range(n): pos1[pos2[nums1[i]]] = i
+        tree: FenwickTree = FenwickTree(n)
+        inversions: int = 0
+        for number in range(n):
+            pos: int = pos1[number]
+            left: int = tree.query(pos)
+            tree.update(pos, 1)
+            right: int = (n - 1 - pos) - (number - left)
+            inversions += left * right
+        return inversions
+
+# C++ O(NlogN) O(N) BinaryIndexedTree
+class FenwickTree {
+public:
+    FenwickTree(int size) : tree(size + 1, 0) {}
+    void update(int index, int delta) {
+        ++index;
+        while (index < tree.size()) {
+            tree[index] += delta;
+            index += index & -index;
+        }
+    }
+    int query(int index) {
+        ++index;
+        int res = 0;
+        while (index > 0) {
+            res += tree[index];
+            index -= index & -index;
+        }
+        return res;
+    }
+private:
+    vector<int> tree;
+};
+
+class Solution {
+public:
+    long long goodTriplets(vector<int>& nums1, vector<int>& nums2) {
+        int n = nums1.size();
+        vector<int> pos2(n), pos1(n);
+        for (int i = 0; i < n; i++) pos2[nums2[i]] = i;
+        for (int i = 0; i < n; i++) pos1[pos2[nums1[i]]] = i;
+        FenwickTree tree(n);
+        long long inversions = 0;
+        for (int number = 0; number < n; number++) {
+            int pos = pos1[number];
+            int left = tree.query(pos);
+            tree.update(pos, 1);
+            int right = (n - 1 - pos) - (number - left);
+            inversions += static_cast<long long>(left) * right;
+        }
+        return inversions;
+    }
+};
