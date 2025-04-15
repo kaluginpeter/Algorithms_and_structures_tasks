@@ -29,3 +29,15 @@
 # You get self-awarded bonus points if your answer runs in O(n) time and memory constraints.
 #
 # ListsAlgorithms
+# Solution
+def split_workload(workload):
+    if not workload: return None, None
+    bob: int = sum(workload)
+    jim: int = 0
+    split_, difference = 0, abs(bob)
+    for i in range(len(workload)):
+        bob -= workload[i]
+        jim += workload[i]
+        if abs(bob - jim) < difference:
+            split_, difference = i + 1, abs(bob - jim)
+    return (split_, difference)
