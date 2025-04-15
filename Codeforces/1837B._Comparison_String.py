@@ -75,3 +75,70 @@
 #
 # In the second test case of the example, the array can be [42,37,13,37,42]
 # .
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+#include <string>
+#include <algorithm>
+
+void solution() {
+    int t;
+    std::cin >> t;
+    while (t--) {
+        int n;
+        std::cin >> n;
+        std::string s;
+        std::cin >> s;
+
+        int max_incr = 1;
+        int max_decr = 1;
+        int current_incr = 1;
+        int current_decr = 1;
+
+        for (int i = 0; i < n; ++i) {
+            if (s[i] == '<') {
+                current_incr++;
+                current_decr = 1;
+                max_incr = std::max(max_incr, current_incr);
+            } else {
+                current_decr++;
+                current_incr = 1;
+                max_decr = std::max(max_decr, current_decr);
+            }
+        }
+
+        int min_cost = std::max(max_incr, max_decr);
+        std::cout << min_cost << std::endl;
+    }
+}
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        s: str = sys.stdin.readline().rstrip()
+        max_incr: int = 1
+        max_decr: int = 1
+        current_incr: int = 1
+        current_decr: int = 1
+        for op in s:
+            if op == '<':
+                current_incr += 1
+                current_decr = 1
+                max_incr = max(max_incr, current_incr)
+            else:
+                current_decr += 1
+                current_incr = 1
+                max_decr = max(max_decr, current_decr)
+        sys.stdout.write('{}\n'.format(max(max_incr, max_decr)))
+
+
+if __name__ == '__main__':
+    solution()
