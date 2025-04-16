@@ -26,3 +26,43 @@
 #
 # 1 <= nums.length <= 105
 # 1 <= nums[i], k <= 109
+# Solution
+# Python O(N) O(D) SlidingWindow Greedy
+class Solution:
+    def countGood(self, nums: List[int], k: int) -> int:
+        n: int = len(nums)
+        hashmap: dict[int, int] = dict()
+        output: int = 0
+        left: int = 0
+        cur_pairs: int = 0
+        for right in range(n):
+            hashmap[nums[right]] = hashmap.get(nums[right], 0) + 1
+            cur_pairs += hashmap[nums[right]] - 1
+            while left <= right and cur_pairs >= k:
+                output += n - right
+                cur_pairs -= hashmap[nums[left]] - 1
+                hashmap[nums[left]] -= 1
+                left += 1
+        return output
+
+# C++ O(N) O(D) SlidingWindow Greedy
+class Solution {
+public:
+    long long countGood(vector<int>& nums, int k) {
+        int n = nums.size(), curPairs = 0;
+        long long output = 0;
+        int left = 0;
+        unordered_map<int, int> hashmap;
+        for (int right = 0; right < n; ++right) {
+            ++hashmap[nums[right]];
+            curPairs += hashmap[nums[right]] - 1;
+            while (left <= right && curPairs >= k) {
+                output += n - right;
+                curPairs -= hashmap[nums[left]] - 1;
+                --hashmap[nums[left]];
+                ++left;
+            }
+        }
+        return output;
+    }
+};
