@@ -36,3 +36,6 @@
 # Setting Places for the Dead
 # Four Letter Words ~ Anagrams
 # Shuffle an Integer
+# Solution
+def minimum_percentage(foods):
+    return max(0, 100 - sum(100 - p for p in foods))
