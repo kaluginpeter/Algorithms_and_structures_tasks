@@ -31,3 +31,28 @@ class Solution:
                 if nums[i] == nums[j] and i * j % k == 0:
                     count += 1
         return count
+
+
+# Python O(N^2) O(1) BruteForce
+class Solution:
+    def countPairs(self, nums: List[int], k: int) -> int:
+        total_pairs: int = 0
+        for i in range(len(nums)):
+            for j in range(i):
+                if nums[i] == nums[j] and i * j % k == 0:
+                    total_pairs += 1
+        return total_pairs
+
+# C++ O(N^2) O(1) BruteForce
+class Solution {
+public:
+    int countPairs(vector<int>& nums, int k) {
+        int totalPairs = 0, n = nums.size();
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < i; ++j) {
+                if (nums[i] == nums[j] && i * j % k == 0) ++totalPairs;
+            }
+        }
+        return totalPairs;
+    }
+};
