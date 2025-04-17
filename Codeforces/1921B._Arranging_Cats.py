@@ -94,3 +94,57 @@
 # In the second test case, there is nothing to do — the only cat is already sitting in the correct box.
 #
 # In the third test case of input data, it takes three days to place a cat in each box.
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+#include <string>
+#include <cmath>
+
+
+void solution() {
+    int t;
+    std::scanf("%d\n", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d\n", &n);
+        std::string start, end;
+        std::cin >> start >> end;
+        int extra = 0, needed = 0;
+        for (int j = 0; j < n; ++j) {
+            if (start[j] != end[j]) {
+                if (start[j] == '0') ++extra;
+                else ++needed;
+            }
+        }
+        int rem = std::abs(extra - needed);
+        std::printf("%d\n", rem + std::min(extra, needed));
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        start: str = sys.stdin.readline().rstrip()
+        end: str = sys.stdin.readline().rstrip()
+        extra: int = 0
+        needed: int = 0
+        for i in range(n):
+            if start[i] != end[i]:
+                if start[i] == '0': extra += 1
+                else: needed += 1
+        rem: int = abs(extra - needed)
+        sys.stdout.write('{}\n'.format(rem + min(extra, needed)))
+
+
+if __name__ == '__main__':
+    solution()
