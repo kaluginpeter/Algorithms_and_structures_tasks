@@ -80,3 +80,44 @@
 # . Array will become [2,1,4,3,3]
 #  and all elements are less or equal than d=4
 # .
+# Solution
+# C++ O(NlogN) O(1) Sorting Greedy
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n, k;
+        std::scanf("%d %d", &n, &k);
+        std::vector<int> nums(n, 0);
+        for (int j = 0; j < n; ++j) std::scanf("%d", &nums[j]);
+        std::sort(nums.begin(), nums.end());
+        if ((nums[0] + nums[1] <= k) || (nums[n - 1] <= k)) std::cout << "YES";
+        else std::cout << "NO";
+        std::cout << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(NlogN) O(1) Sorting Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, k = map(int, sys.stdin.readline().rstrip().split())
+        nums: list[int] = sorted(map(int, sys.stdin.readline().rstrip().split()))
+        sys.stdout.write('{}\n'.format(['NO', 'YES'][nums[-1] <= k or nums[0] + nums[1] <= k]))
+
+
+if __name__ == '__main__':
+    solution()
