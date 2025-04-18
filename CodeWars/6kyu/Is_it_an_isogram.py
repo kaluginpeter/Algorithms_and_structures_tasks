@@ -10,3 +10,11 @@
 # letter case is not important (= case insensitive)
 # non-letter characters (e.g. hyphens) should be ignored
 # AlgorithmsStrings
+# Solution
+def is_isogram(word):
+    if not word or not isinstance(word, str): return False
+    hashmap: dict[str, int] = dict()
+    for letter in word:
+        if letter.isalpha():
+            hashmap[letter.lower()] = hashmap.get(letter.lower(), 0) + 1
+    return len(set(hashmap.values())) == 1
