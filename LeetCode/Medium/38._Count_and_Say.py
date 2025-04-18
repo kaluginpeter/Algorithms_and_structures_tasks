@@ -50,3 +50,50 @@ class Solution:
                 new_permut.append(str(count) + prev_digit)
             permut = ''.join(new_permut)
         return permut
+
+
+# Python O(KN) O(N) String
+class Solution:
+    def get_rle(self, s: list[str]) -> None:
+        new_s: list[str] = []
+        left: int = 0
+        for right in range(len(s)):
+            if s[left] != s[right]:
+                new_s.append(str(right - left))
+                new_s.append(s[left])
+                left = right
+        new_s.append(str(len(s) - left))
+        new_s.append(s[left])
+        s[::] = new_s[::]
+
+    def countAndSay(self, n: int) -> str:
+        output: list[str] = ['1']
+        for i in range(1, n):
+            self.get_rle(output)
+        return ''.join(output)
+
+# C++ O(KN) O(N) String
+class Solution {
+public:
+    void getRLE(string &s) {
+        string newS = "";
+        int left = 0;
+        for (int right = 0; right < s.size(); ++right) {
+            if (s[left] != s[right]) {
+                newS += to_string(right - left);
+                newS.push_back(s[left]);
+                left = right;
+            }
+        }
+        newS += to_string(static_cast<int>(s.size()) - left);
+        newS.push_back(s[left]);
+        s = newS;
+    }
+    string countAndSay(int n) {
+        string output = "1";
+        for (int i = 1; i < n; ++i) {
+            getRLE(output);
+        }
+        return output;
+    }
+};
