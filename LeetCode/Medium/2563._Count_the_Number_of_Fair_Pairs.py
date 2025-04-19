@@ -70,3 +70,82 @@ public:
         return output;
     }
 };
+
+
+# Python O(NlogN) O(1) BinarySearch
+class Solution:
+    def rightmost_binary_search(self, i: int, nums: list[int], lower: int, upper: int) -> int:
+        output: int = -1
+        left: int = 0
+        right: int = i - 1
+        while left <= right:
+            middle: int = left + ((right - left) >> 1)
+            if (lower - nums[i] <= nums[middle]) and (upper - nums[i] >= nums[middle]):
+                output = middle
+                left = middle + 1
+            elif lower - nums[i] > nums[middle]: left = middle + 1
+            else: right = middle - 1
+        return output
+    def leftmost_binary_search(self, i: int, nums: list[int], lower: int, upper: int) -> int:
+        output: int = -1
+        left: int = 0
+        right: int = i - 1
+        while left <= right:
+            middle: int = left + ((right - left) >> 1)
+            if (lower - nums[i] <= nums[middle]) and (upper - nums[i] >= nums[middle]):
+                output = middle
+                right = middle - 1
+            elif lower - nums[i] > nums[middle]: left = middle + 1
+            else: right = middle - 1
+        return output
+    def countFairPairs(self, nums: List[int], lower: int, upper: int) -> int:
+        nums.sort()
+        output: int = 0
+        for i in range(len(nums) - 1, 0, -1):
+            right: int = self.rightmost_binary_search(i, nums, lower, upper)
+            left: int = self.leftmost_binary_search(i, nums, lower, upper)
+            if right == left == -1: continue
+            output += right - left + 1
+        return output
+
+# C++ O(NlogN) O(1) BinarySearch
+class Solution {
+public:
+    int rightmostBinarySearch(int &idx, vector<int> &nums, int &lower, int &upper) {
+        int left = 0, right = idx - 1;
+        int output = -1;
+        while (left <= right) {
+            int middle = left + ((right - left) >> 1);
+            if ((lower - nums[idx] <= nums[middle]) && (upper - nums[idx] >= nums[middle])) {
+                output = middle;
+                left = middle + 1;
+            } else if (lower - nums[idx] > nums[middle]) left = middle + 1;
+            else right = middle - 1;
+        }
+        return output;
+    }
+    int leftmostBinarySearch(int &idx, vector<int> &nums, int &lower, int &upper) {
+        int left = 0, right = idx - 1;
+        int output = -1;
+        while (left <= right) {
+            int middle = left + ((right - left) >> 1);
+            if ((lower - nums[idx] <= nums[middle]) && (upper - nums[idx] >= nums[middle])) {
+                output = middle;
+                right = middle - 1;
+            } else if (lower - nums[idx] > nums[middle]) left = middle + 1;
+            else right = middle - 1;
+        }
+        return output;
+    }
+    long long countFairPairs(vector<int>& nums, int lower, int upper) {
+        sort(nums.begin(), nums.end());
+        long long output = 0;
+        for (int idx = nums.size() - 1; idx > 0; --idx) {
+            int right = rightmostBinarySearch(idx, nums, lower, upper);
+            int left = leftmostBinarySearch(idx, nums, lower, upper);
+            if ((left == -1) && (right == -1)) continue;
+            output += right - left + 1;
+        }
+        return output;
+    }
+};
