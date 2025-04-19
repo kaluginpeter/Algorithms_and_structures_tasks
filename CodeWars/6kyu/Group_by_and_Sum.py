@@ -27,3 +27,22 @@
 # all inputs are valid
 # arguments will never be empty
 # Fundamentals
+# Solution
+def group(arr, idx):
+    output: dict[tuple[int], list[int]] = dict()
+    seen: set[int] = set()
+    n: int = len(arr)
+    aggregate: list[int] = [i for i in range(n) if i not in idx]
+    for i in range(n):
+        if i in seen: continue
+        seen.add(i)
+        cur_aggregate: list[int] = [arr[i][j] for j in aggregate if j < len(arr[i])]
+        for j in range(i + 1, n):
+            if all(arr[i][k] == arr[j][k] for k in idx):
+                seen.add(j)
+                for k in range(len(aggregate)):
+                    if aggregate[k] >= len(arr[j]): continue
+                    cur_aggregate[k] += arr[j][aggregate[k]]
+        output[tuple(arr[i][j] for j in idx)] = cur_aggregate
+
+    return output
