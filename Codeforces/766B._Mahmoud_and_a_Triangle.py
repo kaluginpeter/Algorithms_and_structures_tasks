@@ -26,3 +26,48 @@
 # NO
 # Note
 # For the first example, he can use line segments with lengths 2, 4 and 5 to form a non-degenerate triangle.
+# Solution
+# C++ O(NlogN) O(1) Greedy Geometry
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+void solution() {
+    int n;
+    std::scanf("%d", &n);
+    std::vector<int> nums(n, 0);
+    for (int i = 0; i < n; ++i) std::scanf("%d", &nums[i]);
+    std::sort(nums.begin(), nums.end());
+    bool isValid = false;
+    for (int i = 0; i < n - 2; ++i) {
+        if (static_cast<long long>(nums[i]) + nums[i + 1] > nums[i + 2]) {
+            isValid = true;
+            break;
+        }
+    }
+    std::cout << (isValid? "YES" : "NO") << '\n';
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(NlogN) O(1) Sorting Geometry
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    nums: list[int] = sorted(map(int, sys.stdin.readline().rstrip().split()))
+    is_valid: bool = False
+    for i in range(n - 2):
+        if nums[i] + nums[i + 1] > nums[i + 2]:
+            is_valid = True
+            break
+    sys.stdout.write('{}\n'.format(['NO', 'YES'][is_valid]))
+
+
+if __name__ == '__main__':
+    solution()
