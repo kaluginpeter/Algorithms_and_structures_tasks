@@ -24,3 +24,32 @@
 #
 # 1 <= answers.length <= 1000
 # 0 <= answers[i] < 1000
+# Solution
+# Python O(N) O(D) HashMap Greedy Math
+class Solution:
+    def numRabbits(self, answers: List[int]) -> int:
+        seen: dict[int, int] = dict()
+        for same in answers:
+            seen[same + 1] = seen.get(same + 1, 0) + 1
+        rabbits: int = 0
+        for same, members in seen.items():
+            whole: int = members // same
+            rabbits += whole * same
+            if same * whole != members: rabbits += same
+        return rabbits
+
+# C++ O(N) O(D) HashMap Greedy Math
+class Solution {
+public:
+    int numRabbits(vector<int>& answers) {
+        unordered_map<int, int> seen;
+        for (int &same : answers) ++seen[same + 1];
+        int rabbits = 0;
+        for (auto &p : seen) {
+            int whole = p.second / p.first;
+            rabbits += whole * p.first;
+            if (p.first * whole != p.second) rabbits += p.first;
+        }
+        return rabbits;
+    }
+};
