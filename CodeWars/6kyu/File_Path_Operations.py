@@ -49,3 +49,25 @@
 # Please post any questions or suggestion in the discourse section. Thank you!
 # Thank to all users who contributed to this kata! I appreciate your input!
 # FundamentalsStringsRestricted
+# Solution
+class FileMaster():
+    def __init__(self, filepath):
+        self.path: str = filepath
+    def extension(self):
+        idx: int = len(self.path) - 1
+        while idx and self.path[idx] != '.':
+            idx -= 1
+        return self.path[idx + 1:]
+    def filename(self):
+        right: int = len(self.path) - 1
+        while right and self.path[right] != '.':
+            right -= 1
+        left: int = right - 1
+        while left and self.path[left] != '/':
+            left -= 1
+        return self.path[left + 1:right]
+    def dirpath(self):
+        right: int = len(self.path) - 1
+        while right and self.path[right] != '/':
+            right -= 1
+        return self.path[:right + 1]
