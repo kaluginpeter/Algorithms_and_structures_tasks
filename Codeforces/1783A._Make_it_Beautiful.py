@@ -66,3 +66,73 @@
 # 2 4 1 5 3
 # YES
 # 1 4 4
+# Solution
+# C++ O(NlogN) O(N) HashSet Greedy Sorting
+#include <iostream>
+#include <vector>
+#include <unordered_set>
+#include <algorithm>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d", &n);
+        std::vector<int> nums(n, 0);
+        for (int j = 0; j < n; ++j) std::scanf("%d", &nums[j]);
+        std::unordered_set<int> seen;
+        for (int &num : nums) seen.insert(num);
+        if (seen.size() == 1 && n > 1) std::printf("NO\n");
+        else {
+            std::printf("YES\n");
+            std::sort(nums.begin(), nums.end(), std::greater<int>());
+            int left = 0, right = n - 1;
+            while (left <= right) {
+                if (left && nums[left] == nums[left - 1]) {
+                    std::printf("%d ", nums[right]);
+                    --right;
+                } else {
+                    std::printf("%d ", nums[left]);
+                    ++left;
+                }
+            }
+            std::printf("\n");
+        }
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(NlogN) O(N) HashSet Sorting Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+        if len(set(nums)) == 1 and n > 1:
+            sys.stdout.write('NO\n')
+        else:
+            sys.stdout.write('YES\n')
+            nums.sort(reverse=True)
+            left: int = 0
+            right: int = n - 1
+            while left <= right:
+                if left and nums[left] == nums[left - 1]:
+                    sys.stdout.write('{} '.format(nums[right]))
+                    right -= 1
+                else:
+                    sys.stdout.write('{} '.format(nums[left]))
+                    left += 1
+            sys.stdout.write('\n')
+
+
+if __name__ == '__main__':
+    solution()
