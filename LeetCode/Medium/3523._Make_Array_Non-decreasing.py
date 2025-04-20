@@ -36,3 +36,29 @@
 #
 # 1 <= nums.length <= 2 * 105
 # 1 <= nums[i] <= 2 * 105
+# Solution
+# Python O(N) O(1) Greedy
+class Solution:
+    def maximumPossibleSize(self, nums: List[int]) -> int:
+        prev: int = 0
+        length: int = 0
+        for num in nums:
+            if prev <= num:
+                prev = num
+                length += 1
+        return length
+
+# C++ O(N) O(1) Greedy
+class Solution {
+public:
+    int maximumPossibleSize(vector<int>& nums) {
+        int prev = 0, length = 0;
+        for (int &num : nums) {
+            if (prev <= num) {
+                prev = num;
+                ++length;
+            };
+        }
+        return length;
+    }
+};
