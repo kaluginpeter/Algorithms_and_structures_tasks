@@ -64,3 +64,39 @@
 # 1 <= n <= 105
 # instructions[i] is either "add" or "jump".
 # -105 <= values[i] <= 105
+# Solution
+# Python O(N) O(N) Simulation HashSet
+class Solution:
+    def calculateScore(self, instructions: List[str], values: List[int]) -> int:
+        seen: set[int] = set()
+        score: int = 0
+        i: int = 0
+        while i < len(instructions) and i >= 0:
+            if i in seen: break
+            seen.add(i)
+            if instructions[i] == 'add':
+                score += values[i]
+                i += 1
+            else: i += values[i]
+        return score
+
+# C++ O(N) O(N) Simulation HashSet
+class Solution {
+public:
+    long long calculateScore(vector<string>& instructions, vector<int>& values) {
+        unordered_set<int> seen;
+        long long score = 0;
+        int i = 0;
+        while (i < instructions.size() && i >= 0) {
+            if (seen.count(i)) break;
+            seen.insert(i);
+            if (instructions[i] == "add") {
+                score += values[i];
+                ++i;
+            } else {
+                i += values[i];
+            }
+        }
+        return score;
+    }
+};
