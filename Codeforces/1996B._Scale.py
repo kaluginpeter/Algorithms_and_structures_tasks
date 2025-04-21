@@ -138,3 +138,59 @@
 # 11111111
 # 11111111
 # 11111111
+# Solution
+# C++ (NM) O(M) Matrix
+#include <iostream>
+#include <string>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n, k;
+        std::scanf("%d %d", &n, &k);
+        int curR = 0;
+        for (int j = 0; j < n; ++j) {
+            std::string row;
+            std::cin >> row;
+            if (j != curR) continue;
+            curR += k;
+            int curC = 0;
+            while (curC < n) {
+                std::cout << row[curC];
+                curC += k;
+            }
+            std::cout << std::endl;
+        }
+
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(NM) O(M) Matrix
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, k = map(int, sys.stdin.readline().rstrip().split())
+        cur_r: int = 0
+        for j in range(n):
+            row: str = sys.stdin.readline().rstrip()
+            if j != cur_r: continue
+            cur_r += k
+            cur_c: int = 0
+            while cur_c < n:
+                sys.stdout.write('{}'.format(row[cur_c]))
+                cur_c += k
+            sys.stdout.write('\n')
+
+
+if __name__ == '__main__':
+    solution()
