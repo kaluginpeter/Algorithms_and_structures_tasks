@@ -41,3 +41,29 @@
 # 1 <= n <= 105
 # -105 <= differences[i] <= 105
 # -105 <= lower <= upper <= 105
+# Solution
+# Python O(N) O(1) Greedy
+class Solution:
+    def numberOfArrays(self, differences: List[int], lower: int, upper: int) -> int:
+        min_val = max_val = point = 0
+        for diff in differences:
+            point += diff
+            min_val = min(min_val, point)
+            max_val = max(max_val, point)
+            if max_val - min_val > upper - lower: return 0
+        return (upper - lower) - (max_val - min_val) + 1
+
+# C++ O(N) O(1) Greedy
+class Solution {
+public:
+    int numberOfArrays(vector<int>& differences, int lower, int upper) {
+        int minVal = 0, maxVal = 0, point = 0;
+        for (int &diff : differences) {
+            point += diff;
+            minVal = min(minVal, point);
+            maxVal = max(maxVal, point);
+            if (maxVal - minVal > upper - lower) return 0;
+        }
+        return (upper - lower) - (maxVal - minVal) + 1;
+    }
+};
