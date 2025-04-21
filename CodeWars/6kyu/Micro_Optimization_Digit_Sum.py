@@ -8,3 +8,6 @@
 # 50 random tests of n <= 2^64
 # 50 random tests of n <= 2^120000
 # Fundamentals
+# Solution
+def digit_sum(n):
+    return sum(int(d) for d in str(n))
