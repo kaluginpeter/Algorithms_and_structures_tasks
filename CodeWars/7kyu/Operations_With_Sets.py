@@ -16,3 +16,7 @@
 # No doubt, an easy kata to warm up before doing the more complex ones. Enjoy it!
 #
 # FundamentalsData StructuresMathematics
+# Solution
+def process_2arrays(arr1, arr2):
+    x, y = set(arr1), set(arr2)
+    return[len(x & y), len(x - y) + len(y - x), len(x - y), len(y - x)]
