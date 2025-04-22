@@ -78,3 +78,36 @@
 #  and b=0
 # .
 # Since both Alice's wallet and Bob's wallet are empty, Bob is unable to make a move. Hence, Alice wins.
+# Solution
+# C++ O(1) O(1) Math Greedy
+#include <iostream>
+
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int x, y;
+        std::scanf("%d %d", &x, &y);
+        std::cout << ((static_cast<long long>(x) + y) & 1? "Alice" : "Bob") << std::endl;
+    }
+}
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Math Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        x, y = map(int, sys.stdin.readline().rstrip().split())
+        sys.stdout.write('{}\n'.format(['Bob', 'Alice'][(x + y) & 1]))
+
+
+if __name__ == '__main__':
+    solution()
