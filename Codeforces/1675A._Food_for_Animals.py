@@ -51,3 +51,64 @@
 # YES
 # NO
 # NO
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int a, b, c, x, y;
+        std::scanf("%d %d %d %d %d", &a, &b, &c, &x, &y);
+        if (x <= a) x = 0;
+        else {
+            int extra = x - a;
+            if (extra > c) {
+                std::cout << "NO\n";
+                continue;
+            }
+            c -= extra;
+        }
+        if (y <= b) y = 0;
+        else {
+            int extra = y - b;
+            if (extra && extra > c) {
+                std::cout << "NO\n";
+                continue;
+            }
+        }
+        std::cout << "YES\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        a, b, c, x, y = map(int, sys.stdin.readline().rstrip().split())
+        if x > a:
+            extra: int = x - a
+            if extra > c:
+                sys.stdout.write('NO\n')
+                continue
+            c -= extra
+        if y > b:
+            extra: int = y - b
+            if extra > c:
+                sys.stdout.write('NO\n')
+                continue
+        sys.stdout.write('YES\n')
+
+
+if __name__ == '__main__':
+    solution()
