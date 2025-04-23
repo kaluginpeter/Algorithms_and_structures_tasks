@@ -23,3 +23,40 @@
 # Constraints:
 #
 # 1 <= n <= 104
+# Solution
+# Python O(NlogN) O(logN) Hashmap
+class Solution:
+    def countLargestGroup(self, n: int) -> int:
+        hashmap: dict[int, int] = dict()
+        max_group: int = 0
+        for num in range(1, n + 1):
+            digit_sum: int = 0
+            while num:
+                digit_sum += num % 10
+                num //= 10
+            hashmap[digit_sum] = hashmap.get(digit_sum, 0) + 1
+            max_group = max(max_group, hashmap[digit_sum])
+        return sum(group == max_group for digit_sum, group in hashmap.items())
+
+# C++ O(NlogN) O(logN) HashMap
+class Solution {
+public:
+    int countLargestGroup(int n) {
+        unordered_map<int, int> hashmap;
+        int maxSum = 0;
+        for (int num = 1; num <= n; ++num) {
+            int digitSum = 0, cnum = num;
+            while (cnum) {
+                digitSum += cnum % 10;
+                cnum /= 10;
+            }
+            ++hashmap[digitSum];
+            maxSum = max(maxSum, hashmap[digitSum]);
+        }
+        int output = 0;
+        for (auto & p : hashmap) {
+            if (p.second == maxSum) ++output;
+        }
+        return output;
+    }
+};
