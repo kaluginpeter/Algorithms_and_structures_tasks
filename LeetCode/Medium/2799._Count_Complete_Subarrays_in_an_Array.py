@@ -25,3 +25,42 @@
 #
 # 1 <= nums.length <= 1000
 # 1 <= nums[i] <= 2000
+# Solution
+# Python O(N) O(D) SlidingWindow HashMap
+class Solution:
+    def countCompleteSubarrays(self, nums: List[int]) -> int:
+        bound: int = len(set(nums))
+        window: dict[int, int] = dict()
+        left: int = 0
+        output: int = 0
+        already_valid: int = 0
+        for right in range(len(nums)):
+            window[nums[right]] = window.get(nums[right], 0) + 1
+            while len(window) == bound:
+                already_valid += 1
+                window[nums[left]] -= 1
+                if not window[nums[left]]: del window[nums[left]]
+                left += 1
+            output += already_valid
+        return output
+
+# C++ O(N) O(D) SlidingWindow HashMap
+class Solution {
+public:
+    int countCompleteSubarrays(vector<int>& nums) {
+        int bound = unordered_set<int>(nums.begin(), nums.end()).size();
+        unordered_map<int, int> window;
+        int left = 0, alreadyValid = 0, output = 0;
+        for (int right = 0; right < nums.size(); ++right) {
+            ++window[nums[right]];
+            while (window.size() == bound) {
+                ++alreadyValid;
+                --window[nums[left]];
+                if (!window[nums[left]]) window.erase(nums[left]);
+                ++left;
+            }
+            output += alreadyValid;
+        }
+        return output;
+    }
+};
