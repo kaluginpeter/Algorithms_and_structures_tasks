@@ -8,3 +8,14 @@
 #
 # status([6, 9, 3, 8, 2, 3, 1]) = [6, 3, 2, 1, 9, 3, 8]
 # ArraysAlgorithms
+# Solution
+import heapq
+def status(nums):
+    min_heap: list[int] = []
+    for i in range(len(nums)):
+        status: int = i + sum(num < nums[i] for num in nums)
+        heapq.heappush(min_heap, (status, i))
+    output: list[int] = []
+    while min_heap:
+        output.append(nums[heapq.heappop(min_heap)[1]])
+    return output
