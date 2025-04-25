@@ -46,3 +46,33 @@
 # 1 <= nums[i] <= 109
 # 1 <= modulo <= 109
 # 0 <= k < modulo
+# Solution
+# Python O(N) O(M) PrefixSum HashMap
+class Solution:
+    def countInterestingSubarrays(self, nums: List[int], modulo: int, k: int) -> int:
+        output: int = 0
+        hashmap: dict[int, int] = dict()
+        hashmap[0] = 1
+        cnt: int = 0
+        for i in range(len(nums)):
+            if nums[i] % modulo == k: cnt += 1
+            output += hashmap.get((cnt + modulo - k) % modulo, 0)
+            hashmap[cnt % modulo] = hashmap.get(cnt % modulo, 0) + 1
+        return output
+
+# C++ O(N) O(M) PrefixSum HashMap
+class Solution {
+public:
+    long long countInterestingSubarrays(vector<int>& nums, int modulo, int k) {
+        long long output = 0;
+        int cnt = 0;
+        unordered_map<int, int> hashmap;
+        hashmap[0] = 1;
+        for (int i = 0; i < nums.size(); ++i) {
+            if (nums[i] % modulo == k) ++cnt;
+            output += hashmap[(cnt + modulo - k) % modulo];
+            ++hashmap[cnt % modulo];
+        }
+        return output;
+    }
+};
