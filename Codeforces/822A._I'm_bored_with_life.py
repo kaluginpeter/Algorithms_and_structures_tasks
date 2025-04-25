@@ -22,3 +22,32 @@
 # Consider the sample.
 #
 # 4! = 1·2·3·4 = 24. 3! = 1·2·3 = 6. The greatest common divisor of integers 24 and 6 is exactly 6.
+# Solution
+# C++ O(N) O(1) Math
+#include <iostream>
+#include <cmath>
+
+
+void solution() {
+    int a, b;
+    std::scanf("%d %d", &a, &b);
+    std::cout << (int)std::tgamma(std::min(a, b) + 1) << "\n";
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Math
+from math import factorial
+import sys
+
+
+def solution() -> None:
+    a, b = map(int, sys.stdin.readline().rstrip().split())
+    sys.stdout.write('{}\n'.format(factorial(min(a, b))))
+
+
+if __name__ == '__main__':
+    solution()
