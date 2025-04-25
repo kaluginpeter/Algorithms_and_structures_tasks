@@ -16,3 +16,15 @@
 # Note: Your solution will have to be efficient as the running time of your algorithm will be put to a test.
 #
 # AlgorithmsDynamic Programming
+# Solution
+def pack_backpack(scores, weights, capacity):
+    n: int = len(scores)
+    prev_row: list[int] = [0] * (capacity + 1)
+    cur_row: list[int] = [0] * (capacity + 1)
+    for i in range(n):
+        for cap in range(capacity, 0, -1):
+            cur_row[cap] = prev_row[cap]
+            if weights[i] <= cap:
+                cur_row[cap] = max(cur_row[cap], scores[i] + prev_row[cap - weights[i]])
+        prev_row = cur_row[::]
+    return prev_row[capacity]
