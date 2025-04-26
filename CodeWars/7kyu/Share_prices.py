@@ -17,3 +17,10 @@
 # Hint: Try to write the function in a functional manner!
 #
 # LogicAlgorithms
+# Solution
+def share_price(invested, changes):
+    for change in changes:
+        if change < 0:
+            invested -= invested * (change * -1 / 100)
+        else: invested += invested * (change / 100)
+    return f'{invested:.2f}'
