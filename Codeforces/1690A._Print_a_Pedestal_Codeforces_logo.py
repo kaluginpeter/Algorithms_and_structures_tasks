@@ -75,3 +75,49 @@
 #  blocks. Therefore, the answer 4 5 2 fits.
 #
 # In the second set, the only suitable answer is: 2 3 1.
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d", &n);
+        int x = std::max(n / 3 - 2, 1);
+        while (x + x + x + 3 < n) ++x;
+        int middle = x + 1;
+        while (x > 1 && x + middle + middle + 1 > n) --x;
+        int upper = middle + 1;
+        while (middle > x + 1 && x + middle + upper > n) --middle;
+        std::printf("%d %d %d\n", middle, upper, x);
+
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        lower: int = max(n // 3 - 2, 1)
+        while lower + lower + lower + 3 < n: lower += 1
+        middle: int = lower + 1
+        while lower > 1 and lower + middle + middle + 1 > n: lower -= 1
+        upper: int = middle + 1
+        while middle > lower + 1 and lower + middle + upper > n: middle -= 1
+        sys.stdout.write('{} {} {}\n'.format(middle, upper, lower))
+
+
+if __name__ == '__main__':
+    solution()
