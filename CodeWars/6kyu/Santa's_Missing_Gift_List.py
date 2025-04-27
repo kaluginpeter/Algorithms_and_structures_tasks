@@ -25,3 +25,11 @@
 # You should help Santa by decoding his own list and recreate the missing list for him. Santa's elf wants the list sorted alphabetically by the toys, so you should help them as well and list the toys in a sorted order.
 #
 # BinaryAlgorithms
+# Solution
+def gifts(number):
+    output: list[str] = []
+    for cost in reversed(GIFTS.keys()):
+        if cost <= number:
+            output.append(GIFTS[cost])
+            number -= cost
+    return sorted(output)
