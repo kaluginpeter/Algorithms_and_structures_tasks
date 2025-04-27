@@ -64,3 +64,24 @@ public:
         return count;
     }
 };
+
+
+# Python O(N) O(1) SlidingWindow
+class Solution:
+    def countSubarrays(self, nums: List[int]) -> int:
+        output: int = 0
+        for i in range(len(nums) - 2):
+            if nums[i] + nums[i + 2] == nums[i + 1] / 2: output += 1
+        return output
+
+# C++ O(N) O(1) SlidingWindow
+class Solution {
+public:
+    int countSubarrays(vector<int>& nums) {
+        int output = 0;
+        for (int i = 0; i < nums.size() - 2; ++i) {
+            if (nums[i] + nums[i + 2] == nums[i + 1] / 2.0) ++output;
+        }
+        return output;
+    }
+};
