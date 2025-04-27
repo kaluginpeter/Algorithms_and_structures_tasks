@@ -63,3 +63,42 @@
 #
 # In the second test case, he cannot perform an operation on any index. Therefore, the answer is still the length of the initial string, 8
 # .
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+#include <string>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        std::string word;
+        std::cin >> word;
+        int matched = 0;
+        for (int i = 0; i < word.size() - 1; ++i) {
+            if (word[i] == word[i + 1]) ++matched;
+        }
+        std::printf("%d\n", (matched >= 1? 1 : word.size()));
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        word: str = sys.stdin.readline().rstrip()
+        matched: int = sum(word[i] == word[i + 1] for i in range(len(word) - 1))
+        sys.stdout.write('{}\n'.format([len(word), 1][matched >= 1]))
+
+
+if __name__ == '__main__':
+    solution()
