@@ -36,3 +36,44 @@
 # 1 <= responses[i].length <= 1000
 # 1 <= responses[i][j].length <= 10
 # responses[i][j] consists of only lowercase English letters
+# Solution
+# Python O(N) O(N) HashMap Counting
+class Solution:
+    def findCommonResponse(self, responses: List[List[str]]) -> str:
+        hashmap: dict[int, int] = defaultdict(int)
+        output: str = ''
+        for response in responses:
+            seen: set[str] = set()
+            for word in response:
+                if word not in seen:
+                    seen.add(word)
+                    hashmap[word] += 1
+                    if hashmap[output] < hashmap[word]:
+                        output = word
+                    elif hashmap[output] == hashmap[word]:
+                        if output > word: output = word
+        return output
+
+# C++ O(N) O(N) HashMap Counting
+class Solution {
+public:
+    string findCommonResponse(vector<vector<string>>& responses) {
+        unordered_map<string, int> hashmap;
+        string output = "";
+        for (vector<string> &response : responses) {
+            unordered_set<string> seen;
+            for (string &word : response) {
+                if (!seen.count(word)) {
+                    seen.insert(word);
+                    ++hashmap[word];
+                    if (hashmap[output] < hashmap[word]) {
+                        output = word;
+                    } else if (hashmap[output] == hashmap[word]) {
+                        if (output > word) output = word;
+                    }
+                }
+            }
+        }
+        return output;
+    }
+};
