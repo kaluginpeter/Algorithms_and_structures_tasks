@@ -39,3 +39,35 @@
 # 0 <= sourceUniti, targetUniti < n
 # 1 <= conversionFactori <= 109
 # It is guaranteed that unit 0 can be converted into any other unit through a unique combination of conversions without using any conversions in the opposite direction.
+# Solution
+# Python O(N) O(N) HashMap
+class Solution:
+    def baseUnitConversions(self, conversions: List[List[int]]) -> List[int]:
+        n: int = len(conversions)
+        MOD: int = 1000000007
+        hashmap: dict[int, int] = defaultdict(int)
+        for i in range(n):
+            from_, to_, freq = conversions[i]
+            hashmap[to_] += max(1, hashmap[from_]) * freq % MOD
+        output: list[int] = []
+        for i in range(n + 1):
+            output.append(hashmap[i] % MOD)
+        output[0] += 1
+        return output
+
+# C++ O(N) O(N) HashMap
+class Solution {
+public:
+    vector<int> baseUnitConversions(vector<vector<int>>& conversions) {
+        int n = conversions.size(), MOD = 1e9 + 7;
+        unordered_map<int, int> hashmap;
+        for (int i = 0; i < n; ++i) {
+            int from_ = conversions[i][0], to_ = conversions[i][1], freq = conversions[i][2];
+            hashmap[to_] = (hashmap[to_] + static_cast<long long>(max(1, hashmap[from_])) % MOD * freq % MOD) % MOD;
+        }
+        vector<int> output(n + 1, 0);
+        for (int i = 0; i <= n; ++i) output[i] = hashmap[i];
+        ++output[0];
+        return output;
+    }
+};
