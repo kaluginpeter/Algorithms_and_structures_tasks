@@ -49,3 +49,89 @@
 # 1 <= queries.length <= 105
 # queries[i] == [ui, vi]
 # 0 <= ui, vi < n
+# Solution
+# Python O(MlogN) O(N) UnionFind Graph
+class DSU:
+    def __init__(self, n: int) -> None:
+        self.rank: list[int] = [0] * n
+        self.parent: list[int] = list(range(n))
+
+    def find(self, i: int) -> int:
+        while i != self.parent[i]:
+            self.parent[i] = self.parent[self.parent[i]]
+            i = self.parent[i]
+        return i
+
+    def union(self, x: int, y: int) -> None:
+        x_parent: int = self.find(x)
+        y_parent: int = self.find(y)
+        if x_parent == y_parent: return
+
+        if self.rank[x_parent] < self.rank[y_parent]:
+            self.parent[x_parent] = y_parent
+        elif self.rank[y_parent] < self.rank[x_parent]:
+            self.parent[y_parent] = x_parent
+        else:
+            self.parent[y_parent] = x_parent
+            self.rank[x_parent] += 1
+
+
+class Solution:
+    def pathExistenceQueries(self, n: int, nums: List[int], maxDiff: int, queries: List[List[int]]) -> List[bool]:
+        ds: DSU = DSU(n)
+        for i in range(n - 1):
+            if nums[i + 1] - nums[i] <= maxDiff:
+                ds.union(i, i + 1)
+        output: list[bool] = []
+        for v, u in queries:
+            output.append(ds.find(v) == ds.find(u))
+        return output
+
+# C++ O(MlogN) O(N) Graph UnionFind
+class DSU {
+private:
+    vector<int> parents;
+    vector<int> rank;
+    int n;
+public:
+    DSU (int n_) : n(n_), rank(n_, 1), parents(n_, 0) {
+        for (int i = 0; i < n; ++i) parents[i] = i;
+    }
+
+    int find(int x) {
+        while (x != parents[x]) {
+            parents[x] = parents[parents[x]];
+            x = parents[x];
+        }
+        return x;
+    }
+
+    void union_(int x, int y) {
+        int xParent = find(x);
+        int yParent = find(y);
+        if (xParent == yParent) return;
+        if (rank[xParent] >= rank[yParent]) {
+            rank[xParent] += rank[yParent];
+            parents[yParent] = xParent;
+        } else {
+            rank[yParent] += rank[xParent];
+            parents[xParent] = yParent;
+        }
+    }
+};
+
+
+class Solution {
+public:
+    vector<bool> pathExistenceQueries(int n, vector<int>& nums, int maxDiff, vector<vector<int>>& queries) {
+        DSU ds(n);
+        for (int i = 0; i < nums.size() - 1; ++i) {
+            if (nums[i + 1] - nums[i] <= maxDiff) ds.union_(i, i + 1);
+        }
+        vector<bool> output;
+        for (vector<int> &query : queries) {
+            output.push_back(ds.find(query[0]) == ds.find(query[1]));
+        }
+        return output;
+    }
+};
