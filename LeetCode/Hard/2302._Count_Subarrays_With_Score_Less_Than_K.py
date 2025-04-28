@@ -35,3 +35,35 @@
 # 1 <= nums.length <= 105
 # 1 <= nums[i] <= 105
 # 1 <= k <= 1015
+# Solution
+# Python O(N) O(1) SlidingWindow
+class Solution:
+    def countSubarrays(self, nums: List[int], k: int) -> int:
+        output: int = 0
+        score: int = 0
+        left: int = 0
+        for right in range(len(nums)):
+            score += nums[right]
+            while score * (right - left + 1) >= k:
+                score -= nums[left]
+                left += 1
+            output += right - left + 1
+        return output
+
+# C++ O(N) O(1) SlidingWindow
+class Solution {
+public:
+    long long countSubarrays(vector<int>& nums, long long k) {
+        long long score = 0, output = 0;
+        int left = 0;
+        for (int right = 0; right < nums.size(); ++right) {
+            score += nums[right];
+            while (score * (right - left + 1) >= k) {
+                score -= nums[left];
+                ++left;
+            }
+            output += right - left + 1;
+        }
+        return output;
+    }
+};
