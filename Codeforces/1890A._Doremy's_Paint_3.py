@@ -61,4 +61,89 @@
 #  is good because a1+a2=a2+a3=3
 # .
 #
-# In the third test case, it can be shown that no permutation is good.
+#
+# Solution
+# C++ O(N) O(N) HashMap
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+#include <algorithm>
+
+using namespace std;
+
+
+void solution() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n;
+        cin >> n;
+        vector<int> a(n);
+        for (int i = 0; i < n; ++i) {
+            cin >> a[i];
+        }
+        unordered_map<int, int> cnt;
+        for (int num : a) {
+            cnt[num]++;
+        }
+        if (cnt.size() > 2) {
+            cout << "No" << endl;
+        } else if (cnt.size() == 1) {
+            cout << "Yes" << endl;
+        } else {
+            auto it = cnt.begin();
+            int a_count = it->second;
+            ++it;
+            int b_count = it->second;
+            if (n % 2 == 0) {
+                if (a_count == b_count) {
+                    cout << "Yes" << endl;
+                } else {
+                    cout << "No" << endl;
+                }
+            } else {
+                int high = (n + 1) / 2;
+                int low = (n - 1) / 2;
+                if ((a_count == high && b_count == low) || (a_count == low && b_count == high)) {
+                    cout << "Yes" << endl;
+                } else {
+                    cout << "No" << endl;
+                }
+            }
+        }
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(N) HashMap
+from collections import Counter
+import sys
+
+
+def solution() -> None:
+    t = int(sys.stdin.readline())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline())
+        a: list[int] = list(map(int, sys.stdin.readline().split()))
+        cnt: dict[int, int] = Counter(a)
+        if len(cnt) > 2: sys.stdout.write('NO\n')
+        elif len(cnt) == 1: sys.stdout.write('YES\n')
+        else:
+            counts: list[int] = list(cnt.values())
+            a_count, b_count = counts[0], counts[1]
+            if n % 2 == 0:
+                if a_count == b_count: sys.stdout.write('YES\n')
+                else: sys.stdout.write('NO\n')
+            else:
+                high: int = (n + 1) // 2
+                low: int = (n - 1) // 2
+                if (a_count == high and b_count == low) or (a_count == low and b_count == high):
+                    sys.stdout.write('YES\n')
+                else: sys.stdout.write('NO\n')
+
+if __name__ == '__main__':
+    solution()
