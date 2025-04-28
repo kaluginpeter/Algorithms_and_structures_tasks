@@ -14,3 +14,17 @@
 # Based, inspired and stolen with love from Learn to Program, by Chris Pine
 #
 # StringsArraysFundamentals
+# Solution
+def deaf_grandma(you):
+    output: list[str] = []
+    for word in you:
+        if word.isupper():
+            if word == 'BYE':
+                output.append('OK, BYE!')
+                break
+            else:
+                output.append('NO, NOT SINCE 1938!')
+        else:
+            output.append('HUH?! SPEAK UP, SONNY!')
+
+    return output
