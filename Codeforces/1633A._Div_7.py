@@ -51,3 +51,85 @@
 # . Note that you cannot print 077
 #  or 77
 # .
+# Solution
+# C++ O(logN) O(1) Math Greedy
+#include <iostream>
+#include <cmath>
+
+
+int diff(int other, int n) {
+    int output = 0;
+    while (other && n) {
+        if (other % 10 != n % 10) ++output;
+        other /= 10;
+        n /= 10;
+    }
+    int extraOther = 0, extraN = 0;
+    while (other) {
+        ++extraOther;
+        other /= 10;
+    }
+    while (n) {
+        ++extraN;
+        n /= 10;
+    }
+    return output + std::abs(extraOther - extraN);
+}
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d", &n);
+        if (n % 7 == 0) {
+            std::printf("%d\n", n);
+            continue;
+        }
+        int upper = 7 - n % 7, lower = n % 7;
+        std::printf("%d\n", n + (diff(n + upper, n) <= diff(n - lower, n)? upper : -lower));
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(logN) O(1) Math Greedy
+import sys
+
+
+def diff(other: int, n: int) -> int:
+    output: int = 0
+    while other and n:
+        if other % 10 != n % 10:
+            output += 1
+        other //= 10
+        n //= 10
+    extra_other: int = 0
+    extra_n: int = 0
+    while other:
+        extra_other += 1
+        other //= 10
+    while n:
+        extra_n += 1
+        n //= 10
+    return output + abs(extra_other - extra_n)
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        if n % 7 == 0:
+            sys.stdout.write('{}\n'.format(n))
+            continue
+        upper: int = 7 - n % 7
+        lower: int = n % 7
+        sys.stdout.write('{}\n'.format(n + [-lower, upper][diff(n + upper, n) <= diff(n - lower, n)]))
+
+
+if __name__ == '__main__':
+    solution()
