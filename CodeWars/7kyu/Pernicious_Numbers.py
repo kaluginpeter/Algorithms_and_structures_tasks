@@ -30,3 +30,16 @@
 # 1 is not a prime number and 2 is a prime number.
 #
 # ArraysBinaryAlgorithms
+# Solution
+def check(x: int) -> bool:
+    n: int = x.bit_count()
+    if n == 1: return False
+    bound: int = int(n**.5) + 1
+    for d in range(2, bound):
+        if n % d == 0: return False
+    return True
+
+def pernicious(n):
+    n = int(n)
+    if n <= 1: return 'No pernicious numbers'
+    return [num for num in range(2, n + 1) if check(num)] or 'No pernicious numbers'
