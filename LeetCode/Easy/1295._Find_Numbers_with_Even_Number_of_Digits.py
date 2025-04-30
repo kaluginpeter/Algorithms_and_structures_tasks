@@ -28,8 +28,6 @@ class Solution:
 
 
 # Python O(NlogM) O(1) Math
-
-
 class Solution:
     def get_digits(self, n: int) -> int:
         digits: int = 0
@@ -46,3 +44,22 @@ class Solution:
         return output
 
 # C++ O(NlogM) O(1) Math
+class Solution {
+public:
+    int getDigits(int n) {
+        int digits = 0;
+        while (n) {
+            ++digits;
+            n /= 10;
+        }
+        return digits;
+    }
+
+    int findNumbers(vector<int>& nums) {
+        int output = 0;
+        for (int num : nums) {
+            if ((getDigits(num) & 1) == 0) ++output;
+        }
+        return output;
+    }
+};
