@@ -4,3 +4,6 @@
 # ['jo', 'nelson', 'jurie'] -->  ['Jo', 'Nelson', 'Jurie']
 # ['KARLY', 'DANIEL', 'KELSEY'] --> ['Karly', 'Daniel', 'Kelsey']
 # StringsArraysFundamentals
+# Solution
+def cap_me(arr):
+    return [name.title() for name in arr]
