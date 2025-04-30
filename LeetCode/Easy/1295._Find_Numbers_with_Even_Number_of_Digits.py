@@ -25,3 +25,24 @@
 class Solution:
     def findNumbers(self, nums: List[int]) -> int:
         return sum(1 for i in nums if len(str(i)) % 2 == 0)
+
+
+# Python O(NlogM) O(1) Math
+
+
+class Solution:
+    def get_digits(self, n: int) -> int:
+        digits: int = 0
+        while n:
+            digits += 1
+            n //= 10
+        return digits
+
+    def findNumbers(self, nums: List[int]) -> int:
+        output: int = 0
+        for num in nums:
+            if not (self.get_digits(num) & 1):
+                output += 1
+        return output
+
+# C++ O(NlogM) O(1) Math
