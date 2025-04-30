@@ -91,3 +91,62 @@
 # . By removing its only element, you will get an empty array, so its sum is 0
 # . Hence, the answer is 1
 # .
+# Solution
+# C++ O(N) O(1) HashMap Greedy
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d", &n);
+        long long totalSum = 0;
+        std::vector<int> hashmap(3, 0);
+        for (int j = 0; j < n; ++j) {
+            int x;
+            std::scanf("%d", &x);
+            ++hashmap[x % 3];
+            totalSum += x;
+        }
+        if (totalSum % 3 == 0) {
+            std::printf("0\n");
+            continue;
+        }
+        int rm = (hashmap[totalSum % 3] ? 1 : 3);
+        int add = 3 - totalSum % 3;
+        std::printf("%d\n", std::min(rm, add));
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) HashMap
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+        hashmap: list[int] = [0] * 3
+        total_sum: int = 0
+        for num in nums:
+            hashmap[num % 3] += 1
+            total_sum += num
+        if total_sum % 3 == 0:
+            sys.stdout.write('0\n')
+            continue
+        rm: int = [3, 1][bool(hashmap[total_sum % 3])]
+        add: int = 3 - total_sum % 3
+        sys.stdout.write('{}\n'.format(min(rm, add)))
+
+
+if __name__ == '__main__':
+    solution()
