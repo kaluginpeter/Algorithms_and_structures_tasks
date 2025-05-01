@@ -38,3 +38,51 @@
 # In the first sample, Kolya will squeeze the juice from two oranges and empty the waste section afterwards.
 #
 # In the second sample, the orange won't fit in the juicer so Kolya will have no juice at all.
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+
+
+void solution() {
+    int n, b, d;
+    std::scanf("%d %d %d", &n, &b, &d);
+    int output = 0;
+    long long totalJuice = 0;
+    for (int i = 0; i < n; ++i) {
+        int orange;
+        std::scanf("%d", &orange);
+        if (orange > b) continue;
+        totalJuice += orange;
+        if (totalJuice > d) {
+            ++output;
+            totalJuice = 0;
+        }
+    }
+    std::printf("%d\n", output);
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    n, b, d = map(int, sys.stdin.readline().rstrip().split())
+    oranges: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    output: int = 0
+    total_juice: int = 0
+    for orange in oranges:
+        if orange > b: continue
+        total_juice += orange
+        if total_juice > d:
+            output += 1
+            total_juice = 0
+    sys.stdout.write('{}\n'.format(output))
+
+
+if __name__ == '__main__':
+    solution()
