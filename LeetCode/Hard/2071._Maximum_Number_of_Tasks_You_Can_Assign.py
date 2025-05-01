@@ -43,3 +43,82 @@
 # 1 <= n, m <= 5 * 104
 # 0 <= pills <= m
 # 0 <= tasks[i], workers[j], strength <= 109
+# Solution
+# Python O(NlogN + MlogM + log(min(N, M))NlogM) O(N) BinarySearch BinarySearchTree
+class Solution:
+    def binary_search(self, stock: list[int], task: int) -> int:
+        output: int = -1
+        left: int = 0
+        right: int = len(stock) - 1
+        while left <= right:
+            middle: int = left + ((right - left) >> 1)
+            if stock[middle] >= task:
+                output = stock[middle]
+                right = middle - 1
+            else: left = middle + 1
+        return output
+
+    def check(self, middle: int, pills: int, tasks: list[int], stock: list[int], strength: int) -> bool:
+        for i in range(middle - 1, -1, -1):
+            if stock[-1] >= tasks[i]:
+                stock.remove(stock[-1])
+            else:
+                if not pills: return False
+                weakest_possible: int = self.binary_search(stock, tasks[i] - strength)
+                if weakest_possible == -1: return False
+                stock.remove(weakest_possible)
+                pills -= 1
+        return True
+
+    def maxTaskAssign(self, tasks: List[int], workers: List[int], pills: int, strength: int) -> int:
+        tasks.sort()
+        workers.sort()
+        output: int = 0
+        left: int = 1
+        n, m = len(tasks), len(workers)
+        right: int = min(n, m)
+        while left <= right:
+            middle: int = left + ((right - left) >> 1)
+            stock: list[int] = SortedList()
+            for i in range(m - middle, m): stock.add(workers[i])
+            if self.check(middle, pills, tasks, stock, strength):
+                output = middle
+                left = middle + 1
+            else: right = middle - 1
+        return output
+
+# C++ O(NlogN + MlogM + log(min(N, M))NlogM) O(N) BinarySearch BinarySearchTree
+class Solution {
+public:
+    bool check(int middle, int pills, multiset<int> &stock, vector<int> &tasks, int &strength) {
+        for (int i = middle - 1; i >= 0; --i) {
+            if (auto worker = prev(stock.end()); *worker >= tasks[i]) {
+                stock.erase(worker);
+            } else {
+                if (!pills) return false;
+                auto weakestPossible = stock.lower_bound(tasks[i] - strength);
+                if (weakestPossible == stock.end()) return false;
+                stock.erase(weakestPossible);
+                --pills;
+            }
+        }
+        return true;
+    }
+
+    int maxTaskAssign(vector<int>& tasks, vector<int>& workers, int pills, int strength) {
+        int n = tasks.size(), m = workers.size();
+        sort(tasks.begin(), tasks.end());
+        sort(workers.begin(), workers.end());
+        int left = 1, right = min(n, m), output = 0;
+        while (left <= right) {
+            int middle = left + ((right - left) >> 1);
+            multiset<int> stock;
+            for (int i = m - middle;i < m; ++i) stock.insert(workers[i]);
+            if (check(middle, pills, stock, tasks, strength)) {
+                output = middle;
+                left = middle + 1;
+            } else right = middle - 1;
+        }
+        return output;
+    }
+};
