@@ -9,3 +9,9 @@
 # "1,2,3,,,4,,5,,," --> [1,2,3,4,5]
 # ",,,,,,,"         --> []
 # StringsAlgorithms
+# Solution
+def string_to_int_list(s):
+    output: list[int] = []
+    for item in s.split(','):
+        if item: output.append(int(item))
+    return output
