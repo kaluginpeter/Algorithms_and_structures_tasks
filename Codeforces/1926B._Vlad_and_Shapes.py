@@ -91,3 +91,77 @@
 # TRIANGLE
 # TRIANGLE
 # SQUARE
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+#include <vector>
+#include <string>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d", &n);
+        std::vector<std::string> grid;
+        for (int j = 0; j < n; ++j) {
+            std::string row;
+            std::cin >> row;
+            grid.push_back(row);
+        }
+        bool isSquare = false;
+        for (int r = 0; r < n; ++r) {
+            bool isBreak = false;
+            for (int c = 0; c < n; ++c) {
+                if (grid[r][c] == '1') {
+                    int width = r;
+                    int length = c;
+                    while (width < n && grid[width][c] == '1') ++width;
+                    while (length < n && grid[r][length] == '1') ++length;
+                    if (width - r == length - c) isSquare = true;
+                    isBreak = true;
+                    break;
+                }
+            }
+            if (isBreak) break;
+        }
+        std::cout << (isSquare ? "SQUARE" : "TRIANGLE") << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        grid: list[str] = []
+        for _ in range(n):
+            row: str = sys.stdin.readline().rstrip()
+            grid.append(row)
+        is_square: bool = False
+        for r in range(n):
+            is_break: bool = False
+            for c in range(n):
+                if grid[r][c] == '1':
+                    is_break = True
+                    width: int = r
+                    while width < n and grid[width][c] == '1': width += 1
+                    length: int = c
+                    while length < n and grid[r][length] == '1': length += 1
+                    if width - r == length - c: is_square = True
+                    break
+            if is_break: break
+        sys.stdout.write('{}\n'.format(['TRIANGLE', 'SQUARE'][is_square]))
+
+
+if __name__ == '__main__':
+    solution()
