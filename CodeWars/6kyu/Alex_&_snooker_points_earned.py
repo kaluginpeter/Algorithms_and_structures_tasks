@@ -27,3 +27,19 @@
 # for example: "Bn14Bn14Bn8P9"
 #
 # StringsArrays
+# Solution
+def frame(balls):
+    if 'W' in balls: return 'Foul'
+    score: int = 0
+    i: int = 0
+    while i < len(balls):
+        for key, point in blz.items():
+            if balls[i:].startswith(key):
+                i += len(key)
+                x: int = 0
+                while i < len(balls) and balls[i].isdigit():
+                    x = x * 10 + int(balls[i])
+                    i += 1
+                score += point * max(x, 1)
+        if score > 147: return 'invalid data'
+    return score
