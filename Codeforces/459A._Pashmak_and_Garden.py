@@ -26,3 +26,131 @@
 # 0 0 1 2
 # OutputCopy
 # -1
+# Solution
+# C++ O(1) O(1) ConstructiveAlgorithm
+#include <iostream>
+#include <cmath>
+
+
+void solution() {
+    int x1, y1, x2, y2;
+    std::scanf("%d %d %d %d", &x1, &y1, &x2, &y2);
+    if (x1 == x2) {
+        int diff = std::abs(y1 - y2);
+        if (x1 + diff <= 1000) {
+            std::printf("%d %d %d %d\n", x1 + diff, y1, x2 + diff, y2);
+            return;
+        } else {
+            std::printf("%d %d %d %d\n", x1 - diff, y1, x2 - diff, y2);
+            return;
+        }
+    } else if (y1 == y2) {
+        int diff = std::abs(x1 - x2);
+        if (y1 + diff <= 1000) {
+            std::printf("%d %d %d %d\n", x1, y1 + diff, x2, y2 + diff);
+            return;
+        } else {
+            std::printf("%d %d %d %d\n", x1, y1 - diff, x2, y2 - diff);
+            return;
+        }
+    } else if (y1 > y2) {
+        if (x1 > x2) {
+            int diff = x1 - x2;
+            if (diff != y1 - y2) {
+                std::printf("-1\n");
+                return;
+            }
+            std::printf("%d %d %d %d\n", x1, y1 - diff, x1 - diff, y1);
+            return;
+        } else {
+            int diff = y1 - y2;
+            if (diff != x2 - x1) {
+                std::printf("-1\n");
+                return;
+            }
+            std::printf("%d %d %d %d\n", x1 + diff, y1, x1, y1 - diff);
+            return;
+        }
+    } else {
+        if (x2 > x1) {
+            int diff = x2 - x1;
+            if (diff != y2 - y1) {
+                std::printf("-1\n");
+                return;
+            }
+            std::printf("%d %d %d %d\n", x2, y2 - diff, x2 - diff, y2);
+            return;
+        } else {
+            int diff = y2 - y1;
+            if (diff != x1 - x2) {
+                std::printf("-1\n");
+                return;
+            }
+            std::printf("%d %d %d %d\n", x2 + diff, y2, x2, y2 - diff);
+            return;
+        }
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) ConstructiveAlgorithm
+import sys
+
+
+def solution() -> None:
+    x1, y1, x2, y2 = map(int, sys.stdin.readline().rstrip().split())
+    if x1 == x2:
+        diff: int = abs(y1 - y2)
+        if x1 + diff <= 1000:
+            sys.stdout.write('{} {} {} {}\n'.format(x1 + diff, y1, x2 + diff, y2))
+            return
+        else:
+            sys.stdout.write('{} {} {} {}\n'.format(x1 - diff, y1, x2 - diff, y2))
+            return
+    elif y1 == y2:
+        diff: int = abs(x1 - x2)
+        if y1 + diff <= 1000:
+            sys.stdout.write('{} {} {} {}\n'.format(x1, y1 + diff, x2, y2 + diff))
+            return
+        else:
+            sys.stdout.write('{} {} {} {}\n'.format(x1, y1 - diff, x2, y2 - diff))
+            return
+    elif y1 > y2:
+        if x1 > x2:
+            diff: int = x1 - x2
+            if diff != y1 - y2:
+                sys.stdout.write('-1\n')
+                return
+            sys.stdout.write('{} {} {} {}\n'.format(x1, y1 - diff, x1 - diff, y1))
+            return
+        else:
+            diff: int = y1 - y2
+            if diff != x2 - x1:
+                sys.stdout.write('-1\n')
+                return
+            sys.stdout.write('{} {} {} {}\n'.format(x1 + diff, y1, x1, y1 - diff))
+            return
+    else:
+        if x2 > x1:
+            diff: int = x2 - x1
+            if diff != y2 - y1:
+                sys.stdout.write('-1\n')
+                return
+            sys.stdout.write('{} {} {} {}\n'.format(x2, y2 - diff, x2 - diff, y2))
+            return
+        else:
+            diff: int = y2 - y1
+            if diff != x1 - x2:
+                sys.stdout.write('-1\n')
+                return
+            sys.stdout.write('{} {} {} {}\n'.format(x2 + diff, y2, x2, y2 - diff))
+            return
+
+
+
+if __name__ == '__main__':
+    solution()
