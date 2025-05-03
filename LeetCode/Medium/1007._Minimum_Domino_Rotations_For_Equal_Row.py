@@ -29,3 +29,43 @@
 # 2 <= tops.length <= 2 * 104
 # bottoms.length == tops.length
 # 1 <= tops[i], bottoms[i] <= 6
+# Solution
+# Python O(N) O(1) Greedy
+class Solution:
+    def check(self, target: int, tops: list[int], bottoms: list[int]) -> int:
+        moves: int = 0
+        for domino in range(len(tops)):
+            if tops[domino] != target:
+                if bottoms[domino] != target: return float('inf')
+                moves += 1
+        return moves
+
+    def minDominoRotations(self, tops: List[int], bottoms: List[int]) -> int:
+        output: int = float('inf')
+        for i in range(1, 6 + 1):
+            output = min(output, self.check(i, tops, bottoms), self.check(i, bottoms, tops))
+        return output if output != float('inf') else -1
+
+# C++ O(N) O(1) Greedy
+class Solution {
+public:
+    int check(int target, vector<int> &tops, vector<int> &bottoms) {
+        int moves = 0;
+        for (int domino = 0; domino < tops.size(); ++domino) {
+            if (tops[domino] != target) {
+                if (bottoms[domino] != target) return INT32_MAX;
+                else ++moves;
+            }
+        }
+        return moves;
+    }
+
+    int minDominoRotations(vector<int>& tops, vector<int>& bottoms) {
+        int output = INT32_MAX;
+        for (int i = 1; i <= 6; ++i) {
+            output = std::min(output, check(i, tops, bottoms));
+            output = std::min(output, check(i, bottoms, tops));
+        }
+        return (output == INT32_MAX ? -1 : output);
+    }
+};
