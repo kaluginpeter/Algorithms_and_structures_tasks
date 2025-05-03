@@ -7,3 +7,6 @@
 # You need to write a function that checks whether all of the digits of a non-negative integer number are a part of the specified base: for example, the number 17253 is valid for base-8, because this base contains the digits 0, 1, 2, 3, 4, 5, 6, 7, but the number 19823 is not valid for this base, because it contains the digits 9 and 8 which are not a part of base-8.
 #
 # Note: numbers will be checked against bases from 2 to 36. For digits > 9 (A, B, etc.) such digits will always be uppercase. The function should return a boolean: true for numbers that are valid for a specified numeral system and false otherwise.
+# Solution
+def validate_base(num, base):
+    return all(int(i) < base if i.isdigit() else ord(i) - 55 < base for i in num)
