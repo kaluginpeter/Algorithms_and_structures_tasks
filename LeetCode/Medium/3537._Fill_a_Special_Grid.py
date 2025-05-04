@@ -62,3 +62,43 @@
 # Constraints:
 #
 # 0 <= N <= 10
+# Solution
+# Python O(N^2) O(N^2) Matrix Recursion Math
+class Solution:
+    def proccess_quad(self, top: int, left: int, size: int, value: int, grid: list[list[int]]) -> None:
+            if size == 1:
+                grid[top][left] = value
+                return
+            half: int = size // 2
+            self.proccess_quad(top, left + half, half, value, grid)
+            self.proccess_quad(top + half, left + half, half, value + half * half, grid)
+            self.proccess_quad(top + half, left, half, value + 2 * half * half, grid)
+            self.proccess_quad(top, left, half, value + 3 * half * half, grid)
+
+    def specialGrid(self, N: int) -> List[List[int]]:
+        n: int = 2**N
+        grid: list[list[int]] = [[0 for _ in range(n)] for _ in range(n)]
+        self.proccess_quad(0, 0, n, 0, grid)
+        return grid
+
+# C++ O(N^2) O(N^2) Math Recursion Matrix
+class Solution {
+public:
+    void proccessQuad(int top, int left, int size, int value, vector<vector<int>> &grid) {
+        if (size == 1) {
+            grid[top][left] = value;
+            return;
+        }
+        int half = size / 2;
+        proccessQuad(top, left + half, half, value, grid);
+        proccessQuad(top + half, left + half, half, value + half * half, grid);
+        proccessQuad(top + half, left, half, value + 2 * half * half, grid);
+        proccessQuad(top, left, half, value + 3 * half * half, grid);
+    }
+    vector<vector<int>> specialGrid(int N) {
+        int n = std::pow(2, N);
+        vector<vector<int>> grid(n, std::vector<int>(n, 0));
+        proccessQuad(0, 0, n, 0, grid);
+        return grid;
+    }
+};
