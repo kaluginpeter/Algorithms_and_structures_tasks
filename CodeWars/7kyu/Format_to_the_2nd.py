@@ -10,3 +10,12 @@
 # Write a function that takes a variable number of integers and returns the string to be printed out.
 #
 # StringsFundamentals
+# Solution
+def print_nums(*args):
+    if not args: return ''
+    x: int = max(args)
+    width: int = 0
+    while x:
+        width += 1
+        x //= 10
+    return '\n'.join(f'{"0" * (width - len(str(num)))}{num}' for num in args)
