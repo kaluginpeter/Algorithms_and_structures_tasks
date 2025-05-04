@@ -52,3 +52,62 @@
 # In the third example, it is impossible to transform 48
 #  to 72
 # .
+# Solution
+# C++ O(logN) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int n, m;
+    std::scanf("%d %d", &n, &m);
+    if (n == m) {
+        std::printf("0\n");
+        return;
+    }
+    if (m % n != 0) {
+        std::printf("-1\n");
+        return;
+    }
+    int q = m / n;
+    int moves = 0;
+    while (q % 2 == 0) {
+        ++moves;
+        q /= 2;
+    }
+    while (q % 3 == 0) {
+        ++moves;
+        q /= 3;
+    }
+    std::printf("%d\n", (q == 1 ? moves : -1));
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(logN) O(1) Math
+import sys
+
+
+def solution() -> None:
+    n, m = map(int, sys.stdin.readline().rstrip().split())
+    if n == m:
+        sys.stdout.write('0\n')
+        return
+    if m % n != 0:
+        sys.stdout.write('-1\n')
+        return
+    q: int = m // n
+    moves: int = 0
+    while q % 2 == 0:
+        moves += 1
+        q //= 2
+    while q % 3 == 0:
+        moves += 1
+        q //= 3
+    sys.stdout.write('{}\n'.format([-1, moves][q == 1]))
+
+
+if __name__ == '__main__':
+    solution()
