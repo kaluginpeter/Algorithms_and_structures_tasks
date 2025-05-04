@@ -44,3 +44,40 @@
 # Constraints:
 #
 # 10 <= n <= 109
+# Solution
+# Python O(logN + D) O(D) BucketSort Greedy
+class Solution:
+    def maxProduct(self, n: int) -> int:
+        hashmap: list[int] = [0] * 10
+        while n:
+            hashmap[n % 10] += 1
+            n //= 10
+        left: int = 9
+        while left and not hashmap[left]: left -= 1
+        right: int = 9
+        if right == left and hashmap[left] == 1: right -= 1
+        while right and not hashmap[right]:
+            right -= 1
+            if left == right and hashmap[left] == 1: right -= 1
+        return left * right
+
+# C++ O(logN + D) O(D) BucketSort Greedy
+class Solution {
+public:
+    int maxProduct(int n) {
+        vector<int> hashmap(10, 0);
+        while (n) {
+            ++hashmap[n % 10];
+            n /= 10;
+        }
+        int left = 9;
+        while (left && !hashmap[left]) --left;
+        int right = 9;
+        if (right == left && hashmap[left] == 1) --right;
+        while (right && !hashmap[right]) {
+            --right;
+            if (left == right && hashmap[left] == 1) --right;
+        }
+        return left * right;
+    }
+};
