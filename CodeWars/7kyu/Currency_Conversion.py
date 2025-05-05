@@ -17,3 +17,9 @@
 # Using your understanding of converting currencies in conjunction with the preloaded conversion-rates table (CONVERSION_RATES), properly convert your dollars into the correct amount of foreign currency.
 #
 # FundamentalsMathematicsAlgebra
+# Solution
+def convert_my_dollars(usd, currency):
+    money: int = usd * CONVERSION_RATES[currency]
+    if currency[0].lower() not in 'aeoiu':
+        money = int(str(CONVERSION_RATES[currency]), 2) * usd
+    return 'You now have {} of {}.'.format(money, currency)
