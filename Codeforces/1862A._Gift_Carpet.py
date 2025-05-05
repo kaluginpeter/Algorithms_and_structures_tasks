@@ -63,3 +63,67 @@
 # In the first sample, Vika can read her name from left to right.
 #
 # In the second sample, Vika cannot read the character "v", so she will not like the carpet.
+# Solution
+# C++ O(NM) O(1) Greedy
+#include <iostream>
+#include <vector>
+#include <string>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n, m;
+        std::scanf("%d %d", &n, &m);
+        std::vector<std::string> grid;
+        for (int j = 0; j < n; ++j) {
+            std::string row;
+            std::cin >> row;
+            grid.push_back(row);
+        }
+        std::string name = "vika";
+        int idx = 0;
+        for (int c = 0; c < m; ++c) {
+            for (int r = 0; r < n; ++r) {
+                if (grid[r][c] == name[idx]) {
+                    ++idx;
+                    break;
+                }
+            }
+            if (idx == 4) break;
+        }
+        std::cout << (idx == 4 ? "YES" : "NO") << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(NM) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, m = map(int, sys.stdin.readline().rstrip().split())
+        grid: list[str] = []
+        for _ in range(n):
+            row: str = sys.stdin.readline().rstrip()
+            grid.append(row)
+        name: str = 'vika'
+        idx: int = 0
+        for c in range(m):
+            for r in range(n):
+                if grid[r][c] == name[idx]:
+                    idx += 1
+                    break
+            if idx == 4: break
+        sys.stdout.write('{}\n'.format(['NO', 'YES'][idx == 4]))
+
+
+if __name__ == '__main__':
+    solution()
