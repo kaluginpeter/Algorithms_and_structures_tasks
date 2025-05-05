@@ -22,3 +22,25 @@
 # Constraints:
 #
 # 1 <= n <= 1000
+# Solution
+# Python O(N) O(N) DynamicProgramming
+class Solution:
+    def numTilings(self, n: int) -> int:
+        MOD: int = 1000000007
+        dp: list[int] = [1] * (n + 1)
+        for i in range(2, n + 1):
+            dp[i] = (2 * dp[i - 1] % MOD + (dp[i - 3] if i - 3 >= 0 else 0)) % MOD
+        return dp[n]
+
+# C++ O(N) ON(N) DynamicProgramming
+class Solution {
+public:
+    int numTilings(int n) {
+        int MOD = 1e9 + 7;
+        vector<int> dp(n + 1, 1);
+        for (int i = 2; i <= n; ++i) {
+            dp[i] = (2 * dp[i - 1] % MOD + (i - 3 >= 0 ? dp[i - 3] : 0)) % MOD;
+        }
+        return dp[n];
+    }
+};
