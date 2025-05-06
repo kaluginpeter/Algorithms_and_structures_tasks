@@ -48,3 +48,47 @@
 # 1
 # 2
 # 4
+# Solution
+# C++ O(1) O(1) Greedy
+#include <iostream>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d", &n);
+        if (n == 1) {
+            std::cout << 2 << '\n';
+            continue;
+        }
+        int moves = n / 3;
+        if (n % 3 != 0) ++moves;
+        std::cout << moves << '\n';
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        if n == 1:
+            sys.stdout.write('2\n')
+            continue
+        moves: int = n // 3
+        if n % 3 != 0: moves += 1
+        sys.stdout.write('{}\n'.format(moves))
+
+
+if __name__ == '__main__':
+    solution()
