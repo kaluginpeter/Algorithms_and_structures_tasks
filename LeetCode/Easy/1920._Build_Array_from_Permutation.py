@@ -28,3 +28,45 @@
 class Solution:
     def buildArray(self, nums):
         return [nums[nums[i]] for i in range(len(nums))]
+
+
+# Python O(N) O(1) Math
+class Solution:
+    def buildArray(self, nums: List[int]) -> List[int]:
+        n: int = len(nums)
+        for i in range(n):
+            nums[i] += 1000 * (nums[nums[i]] % 1000)
+        for i in range(n):
+            nums[i] //= 1000
+        return nums
+
+# C++ O(N) O(1) Math
+class Solution {
+public:
+    vector<int> buildArray(vector<int>& nums) {
+        int n = nums.size();
+        for (int i = 0; i < n; ++i) {
+            nums[i] += 1000 * (nums[nums[i]] % 1000);
+        }
+        for (int i = 0; i < n; ++i) {
+            nums[i] /= 1000;
+        }
+        return nums;
+    }
+};
+
+# Python O(N) O(N) Simulation
+class Solution:
+    def buildArray(self, nums: List[int]) -> List[int]:
+        return [nums[i] for i in nums]
+
+# C++ O(N) O(N) Simulation
+class Solution {
+public:
+    vector<int> buildArray(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> output(n, 0);
+        for (int i = 0; i < n; ++i) output[i] = nums[nums[i]];
+        return output;
+    }
+};
