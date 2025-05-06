@@ -21,3 +21,8 @@
 # Note: Numpy is disabled.
 #
 # Linear AlgebraMathematicsMatrixAlgorithms
+# Solution
+def trace(matrix):
+    if not matrix or max(len(row) for row in matrix) != len(matrix):
+        return None
+    return sum(matrix[i][i] for i in range(len(matrix)))
