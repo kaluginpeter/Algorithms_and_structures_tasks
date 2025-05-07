@@ -108,3 +108,67 @@ public:
         return -1;
     }
 };
+
+
+# Python O(NM + ElogV) O(NM + E) Dijkstra Matrix ShortestPath Graph PriorityQueue
+class Solution:
+    def minTimeToReach(self, moveTime: List[List[int]]) -> int:
+        n: int = len(moveTime)
+        m: int = len(moveTime[0])
+        min_heap: list[tuple[int, tuple[int, int]]] = [(0, (0, 0))]
+        seen: list[list[bool]] = [[False] * m for _ in range(n)]
+        cost: list[list[int]] = [[float('inf')] * m for _ in range(n)]
+        seen[0][0] = True
+        cost[0][0] = 0
+        moves: list[tuple[int, int]] = [
+            (-1, 0), (0, 1), (1, 0), (0, -1)
+        ]
+        while min_heap:
+            cell: tuple[int, int] = min_heap[0][1]
+            time: int = min_heap[0][0]
+            heapq.heappop(min_heap)
+            if cell == (n - 1, m - 1): return time
+            for x, y in moves:
+                next_row, next_col = cell[0] + x, cell[1] + y
+                if not (0 <= next_row < n) or not (0 <= next_col < m): continue
+                next_time: int = max(time, moveTime[next_row][next_col]) + 1
+                if not seen[next_row][next_col] or next_time < cost[next_row][next_col]:
+                    seen[next_row][next_col] = True
+                    cost[next_row][next_col] = next_time
+                    heapq.heappush(min_heap, (next_time, (next_row, next_col)))
+        return -1
+
+# C++ O(NM + ElogV) O(NM + E) Dijkstra ShortestPath Matrix PriorityQueue Graph
+class Solution {
+public:
+    int minTimeToReach(vector<vector<int>>& moveTime) {
+        int n = moveTime.size(), m = moveTime[0].size();
+        priority_queue<tuple<int, pair<int, int>>, vector<tuple<int, pair<int, int>>>, greater<tuple<int, pair<int, int>>>> minHeap;
+        vector<pair<int, int>> moves = {
+            {-1, 0}, {0, 1}, {1, 0}, {0, -1}
+        };
+        vector<vector<bool>> seen (n, vector<bool>(m, false));
+        vector<vector<int>> cost(n, vector<int>(m, INT32_MAX));
+        cost[0][0] = 0;
+        seen[0][0] = true;
+        minHeap.push({0, {0, 0}});
+        while (!minHeap.empty()) {
+            pair<int, int> cell = get<1>(minHeap.top());
+            int time = get<0>(minHeap.top());
+            minHeap.pop();
+            if (cell.first == n - 1 && cell.second == m - 1) return time;
+            for (const pair<int, int> &move : moves) {
+                int nextRow = cell.first + move.first;
+                int nextCol = cell.second + move.second;
+                if (nextRow < 0 || nextRow == n || nextCol < 0 || nextCol == m) continue;
+                int nextTime = max(time, moveTime[nextRow][nextCol]) + 1;
+                if (!seen[nextRow][nextCol] || nextTime < cost[nextRow][nextCol]) {
+                    minHeap.push({nextTime, {nextRow, nextCol}});
+                    seen[nextRow][nextCol] = true;
+                    cost[nextRow][nextCol] = nextTime;
+                }
+            }
+        }
+        return -1;
+    }
+};
