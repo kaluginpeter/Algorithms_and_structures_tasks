@@ -38,3 +38,49 @@
 # 0
 # Note
 # In the first test case you have to delete the third and forth symbols from string 010011 (it turns into 0111).
+# Solution
+# C++ O(N) O(1) TwoPointers
+#include <iostream>
+#include <string>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        std::string sequence;
+        std::cin >> sequence;
+        int output = 0;
+        int left = 0, right = sequence.size() - 1;
+        while (left < right && sequence[left] == '0') ++left;
+        while (left < right && sequence[right] == '0') --right;
+        while (left < right) {
+            if (sequence[left] == '0') ++output;
+            ++left;
+        }
+        std::printf("%d\n", output);
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) TwoPointers
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        sequence: str = sys.stdin.readline().rstrip()
+        left: int = 0
+        right: int = len(sequence) - 1
+        while left < right and sequence[left] == '0': left += 1
+        while left < right and sequence[right] == '0': right -= 1
+        sys.stdout.write('{}\n'.format(sum(sequence[i] == '0' for i in range(left, right))))
+
+
+if __name__ == '__main__':
+    solution()
