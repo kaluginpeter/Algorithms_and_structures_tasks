@@ -24,3 +24,36 @@
 # 7
 # Note
 # Consider the first test sample. Manao can fail his first push and push the wrong button. In this case he will already be able to guess the right one with his second push. And his third push will push the second right button. Thus, in the worst-case scenario he will only need 3 pushes.
+# Solution
+# C++ O(N) O(1) Math
+#include <iostream>
+
+void solution() {
+    int n;
+    std::scanf("%d", &n);
+    long long output = 0;
+    for (int i = 0; i < n; ++i) {
+        output += (n - i) * i + 1;
+    }
+    std::printf("%lld\n", output);
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Math
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    output: int = 0
+    for i in range(n):
+        output += (n - i) * i + 1
+    sys.stdout.write('{}\n'.format(output))
+
+
+if __name__ == '__main__':
+    solution()
