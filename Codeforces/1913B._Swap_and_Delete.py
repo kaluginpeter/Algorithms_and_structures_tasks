@@ -92,3 +92,76 @@
 #  =
 #  1010001110. All swap operations are free, so the total cost is 0
 # .
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+#include <string>
+#include <cmath>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        std::string segment;
+        std::cin >> segment;
+        int zeros = 0, ones = 0;
+        for (char &digit : segment) {
+            if (digit == '0') ++zeros;
+            else ++ones;
+        }
+        int output = 0;
+        for (char &digit : segment) {
+            if (digit == '0') {
+                if (!ones) {
+                    output += zeros;
+                    break;
+                }
+                else --ones;
+
+            } else {
+                if (!zeros) {
+                    output += ones;
+                    break;
+                }
+                else --zeros;
+            }
+        }
+        std::printf("%d\n", output);
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        segment: str = sys.stdin.readline().rstrip()
+        zeros = ones = 0
+        for digit in segment:
+            if digit == '0': zeros += 1
+            else: ones += 1
+        output: int = 0
+        for digit in segment:
+            if digit == '0':
+                if not ones:
+                    output += zeros
+                    break
+                ones -= 1
+            else:
+                if not zeros:
+                    output += ones
+                    break
+                zeros -= 1
+        sys.stdout.write('{}\n'.format(output))
+
+
+if __name__ == '__main__':
+    solution()
