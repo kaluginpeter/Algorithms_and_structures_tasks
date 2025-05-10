@@ -25,3 +25,37 @@
 #
 # 1 <= nums1.length, nums2.length <= 105
 # 0 <= nums1[i], nums2[i] <= 106
+# Solution
+# Python O(N) O(1) Math Greedy Array
+class Solution:
+    def minSum(self, nums1: List[int], nums2: List[int]) -> int:
+        zeros_x = zeros_y = sum_x = sum_y = 0
+        for num in nums1:
+            sum_x += num
+            if not num: zeros_x += 1
+        for num in nums2:
+            sum_y += num
+            if not num: zeros_y += 1
+        if sum_x < sum_y + zeros_y and not zeros_x: return -1
+        elif sum_y < sum_x + zeros_x and not zeros_y: return -1
+        return max(sum_x + zeros_x, sum_y + zeros_y)
+
+# C++ O(N) O(1) Math Greedy Array
+class Solution {
+public:
+    long long minSum(vector<int>& nums1, vector<int>& nums2) {
+        long long sumX = 0, sumY = 0;
+        int zerosX = 0, zerosY = 0;
+        for (int &num : nums1) {
+            sumX += num;
+            if (!num) ++zerosX;
+        }
+        for (int &num : nums2) {
+            sumY += num;
+            if (!num) ++zerosY;
+        }
+        if (sumX < sumY + zerosY && !zerosX) return -1;
+        if (sumY < sumX + zerosX && !zerosY) return -1;
+        return max(sumX + zerosX, sumY + zerosY);
+    }
+};
