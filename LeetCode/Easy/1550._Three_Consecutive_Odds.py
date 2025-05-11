@@ -36,3 +36,23 @@ class Solution:
                 if in_a_row == 3: return True
             else: in_a_row = 0
         return False
+
+# Python O(N) O(1) BitManipulation
+class Solution:
+    def threeConsecutiveOdds(self, arr: List[int]) -> bool:
+        for i in range(len(arr) - 2):
+            if (arr[i] & 1) + (arr[i + 1] & 1) + (arr[i + 2] & 1) == 3: return True
+        return False
+
+# C++ O(N) O(1) BitManipulation
+class Solution {
+public:
+    bool threeConsecutiveOdds(vector<int>& arr) {
+        for (int i = 0; i < static_cast<int>(arr.size()) - 2; ++i) {
+            if ((arr[i] & 1) + (arr[i + 1] & 1) + (arr[i + 2] & 1) == 3) {
+                return true;
+            }
+        }
+        return false;
+    }
+};
