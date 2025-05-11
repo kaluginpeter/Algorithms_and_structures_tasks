@@ -29,3 +29,37 @@ Performance should not be a issue. If Pat can flip 1,000 pancakes with diameters
 
 ArraysSorting
 */
+// Solution
+#include <vector>
+
+std::vector<int> flipPancakes(std::vector<int>& stack) {
+    std::vector<int> output;
+    int bound = stack.size() - 1;
+    while (bound > 0) {
+        int right = bound - 1;
+        for (int middle = right - 1; middle >= 0; --middle) {
+            if (stack[middle] >= stack[right]) right = middle;
+        }
+        if (stack[right] <= stack[bound]) {
+            --bound;
+            continue;
+        }
+        output.push_back(right);
+        int left = 0;
+        while (left < right) {
+            std::swap(stack[left], stack[right]);
+            ++left;
+            --right;
+        }
+        output.push_back(bound);
+        right = bound;
+        left = 0;
+        while (left < right) {
+            std::swap(stack[left], stack[right]);
+            ++left;
+            --right;
+        }
+        --bound;
+    }
+    return output;
+}
