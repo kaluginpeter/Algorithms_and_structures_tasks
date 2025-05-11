@@ -75,3 +75,53 @@
 # In the second and fourth test cases of the example, Dima cannot go on any day due to the high temperature, so there are no suitable dates.
 #
 # In the third test case of the example, Dima can only go on the dates [1, 2, 3].
+# Solution
+# C++ O(N) O(1) Math Combinatorics TwoPointers
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n, k, q;
+        std::scanf("%d %d %d", &n, &k, &q);
+        std::vector<int> days(n, 0);
+        for (int j = 0; j < n; ++j) std::scanf("%d", &days[j]);
+        int left = 0;
+        long long output = 0;
+        for (int right = 0; right < n; ++right) {
+            if (days[right] > q) {
+                left = right + 1;
+            }
+            output += std::max(0, right - left + 1 - k + 1);
+        }
+        std::printf("%lld\n", output);
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Math Combinatorics TwoPointers
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, k, q = map(int, sys.stdin.readline().rstrip().split())
+        days: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+        output: int = 0
+        left: int = 0
+        for right in range(n):
+            if days[right] > q: left = right + 1
+            output += max(0, right - left + 1 - k + 1)
+        sys.stdout.write('{}\n'.format(output))
+
+
+if __name__ == '__main__':
+    solution()
