@@ -56,3 +56,55 @@ class Solution:
                         digits_count[second_digit] += 1
                 digits_count[first_digit] += 1
         return output
+
+# Python O(N^3) O(N^3) Combinatorics
+class Solution:
+    def findEvenNumbers(self, digits: List[int]) -> List[int]:
+        digits.sort()
+        output: list[int] = []
+        first, second, third = set(), set(), set()
+        n: int = len(digits)
+        for i in range(n):
+            if not digits[i] or digits[i] in first: continue
+            for j in range(n):
+                if j == i or digits[j] in second: continue
+                for k in range(n):
+                    if k in [i, j] or digits[k] & 1 or digits[k] in third: continue
+                    output.append(digits[i] * 100 + digits[j] * 10 + digits[k])
+                    first.add(digits[i])
+                    second.add(digits[j])
+                    third.add(digits[k])
+                third.clear()
+            second.clear()
+        return output
+
+# C++ O(N^3) O(N^3) Combinatorics
+class Solution {
+public:
+    vector<int> findEvenNumbers(vector<int>& digits) {
+        int n = digits.size();
+        sort(digits.begin(), digits.end());
+        vector<int> output;
+        unordered_set<int> first, second, third;
+        for (int i = 0; i < n; ++i) {
+            if (!digits[i]) continue;
+            else if (first.count(digits[i])) continue;
+            for (int j = 0; j < n; ++j) {
+                if (i == j) continue;
+                else if (second.count(digits[j])) continue;
+                for (int k = 0; k < n; ++k) {
+                    if ((digits[k] & 1) == 1) continue;
+                    else if (k == i || k == j) continue;
+                    else if (third.count(digits[k])) continue;
+                    output.push_back(digits[i] * 100 + digits[j] * 10 + digits[k]);
+                    first.insert(digits[i]);
+                    second.insert(digits[j]);
+                    third.insert(digits[k]);
+                }
+                third.clear();
+            }
+            second.clear();
+        }
+        return output;
+    }
+};
