@@ -72,3 +72,52 @@
 # In the third test case, the string does not describe a meowing because it lacks a sequence of 'o' or 'O' characters between 'e' and 'w'.
 #
 # In the fourth test case, the string contains the character 'U', so it does not describe a meowing.
+# Solution
+# C++ O(N) O(N) String Greedy
+#include <iostream>
+#include <string>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d", &n);
+        std::string sequence;
+        std::cin >> sequence;
+        std::string pattern = "meow";
+        std::string output = "";
+        for (int j = 0; j < n; ++j) {
+            if (!j || output[output.size() - 1] != std::tolower(sequence[j])) {
+                output.push_back(std::tolower(sequence[j]));
+            }
+        }
+        std::cout << (output == pattern? "YES" : "NO") << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(N) String Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        sequence: str = sys.stdin.readline().rstrip()
+        output: list[str] = []
+        pattern: list[str] = list('meow')
+        for j in range(n):
+            if not j or output[-1] != sequence[j].lower():
+                output.append(sequence[j].lower())
+        sys.stdout.write('{}\n'.format(['NO', 'YES'][output == pattern]))
+
+
+if __name__ == '__main__':
+    solution()
