@@ -54,3 +54,36 @@
 # , the only solution is a=2
 #  and b=4
 # .
+# Solution
+# C++ O(1) O(1) Math Greedy
+#include <iostream>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int p;
+        std::scanf("%d", &p);
+        std::printf("%d\n%d\n", 2, p - 1);
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Math Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        p: int = int(sys.stdin.readline().rstrip())
+        sys.stdout.write('{}\n{}\n'.format(2, p - 1))
+
+
+if __name__ == '__main__':
+    solution()
