@@ -11,3 +11,11 @@ Tests round answers to 6 decimal places.
 
 GeometryFundamentals
 */
+// Solution
+double dot_product(const Vector& a, const Vector& b){
+    double output = 0;
+    output += a.x * b.x;
+    output += a.y * b.y;
+    output += a.z * b.z;
+    return output;
+}
