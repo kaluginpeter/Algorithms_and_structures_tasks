@@ -103,3 +103,40 @@ class Solution:
         for letter in range(26):
             count += hashmap[letter]
         return count % (10**9 + 7)
+
+# Python O(N + T) O(1) HashMap Greedy Simulation DynamicProgramming
+class Solution:
+    def lengthAfterTransformations(self, s: str, t: int) -> int:
+        MOD: int = 1000000007
+        hashmap: list[int] = [0] * 26
+        for char in s: hashmap[ord(char) - 97] += 1
+        for _ in range(t):
+            next_hashmap: list[int] = [0] * 26
+            for i in range(26):
+                next_hashmap[(i + 1) % 26] = (next_hashmap[(i + 1) % 26] + hashmap[i]) % MOD
+                if i == 25: next_hashmap[1] = (next_hashmap[1] + hashmap[i]) % MOD
+            hashmap = next_hashmap
+        output: int = 0
+        for freq in hashmap: output = (output + freq) % MOD
+        return output
+
+# C++ O(N + T) O(1) HashMap Simulation Greedy DynamicProgramming
+class Solution {
+public:
+    int lengthAfterTransformations(string s, int t) {
+        int MOD = 1e9 + 7;
+        vector<int> hashmap(26, 0);
+        for (char &letter : s) ++hashmap[letter - 'a'];
+        for (int i = 0; i < t; ++i) {
+            vector<int> nextHashmap(26, 0);
+            for (int idx = 0; idx < 26; ++idx) {
+                nextHashmap[(idx + 1) % 26] = (nextHashmap[(idx + 1) % 26] + hashmap[idx]) % MOD;
+                if (idx == 25) nextHashmap[1] = (nextHashmap[1] + hashmap[idx]) % MOD;
+            }
+            hashmap = nextHashmap;
+        }
+        int output = 0;
+        for (int idx = 0; idx < 26; ++idx) output = (output + hashmap[idx]) % MOD;
+        return output;
+    }
+};
