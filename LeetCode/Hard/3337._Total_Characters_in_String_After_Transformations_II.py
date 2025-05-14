@@ -60,3 +60,125 @@
 # 1 <= t <= 109
 # nums.length == 26
 # 1 <= nums[i] <= 25
+# Solution
+# Python O(N * log(T) * 26^3) O(26^2) DynamicProgramming Matrix Math
+MOD = 10**9 + 7
+class Matrix:
+    def __init__(self, other: 'Matrix' = None) -> None:
+        self.a: list[list[int]] = [[0] * 26 for _ in range(26)]
+        if not other: return
+        for i in range(L):
+            for j in range(L):
+                self.a[i][j] = other.a[i][j]
+
+    def __mul__(self, other: 'Matrix') -> 'Matrix':
+        output: Matrix = Matrix()
+        for i in range(26):
+            for j in range(26):
+                for k in range(26):
+                    output.a[i][j] = (output.a[i][j] + self.a[i][k] * other.a[k][j]) % MOD
+        return output
+
+    @staticmethod
+    def create() -> 'Matrix':
+        output: 'Matrix' = Matrix()
+        for i in range(26): output.a[i][i] = 1
+        return output
+
+    @staticmethod
+    def multiplication(x: 'Matrix', y: int) -> 'Matrix':
+        output: Matrix = Matrix.create()
+        cur: Matrix = x
+        while y:
+            if y & 1: output = output * cur
+            cur = cur * cur
+            y >>= 1
+        return output
+
+class Solution:
+    def lengthAfterTransformations(
+        self, s: str, t: int, nums: List[int]
+    ) -> int:
+        T: Matrix = Matrix()
+        for i in range(26):
+            for step in range(1, nums[i] + 1):
+                T.a[(i + step) % 26][i] = 1
+
+        output: Matrix = Matrix.multiplication(T, t)
+        hashmap: list[int] = [0] * 26
+        for letter in s: hashmap[ord(letter) - 97] += 1
+        total = 0
+        for i in range(26):
+            for j in range(26):
+                total = (total + output.a[i][j] * hashmap[j]) % MOD
+        return total
+
+# C++ O(N * log(T) * 26^3) O(26^2) DynamicProgramming Math Matrix
+static constexpr int L = 26;
+static constexpr int MOD = 1000000007;
+
+struct Mat {
+    int a[L][L];
+    Mat() { memset(a, 0, sizeof(a)); }
+    Mat(const Mat &that) {
+        for (int i = 0; i < L; ++i) {
+            for (int j = 0; j < L; ++j) a[i][j] = that.a[i][j];
+        }
+    }
+    Mat& operator=(const Mat &that) {
+        if (this != &that) {
+            for (int i = 0; i < L; ++i) {
+                for (int j = 0; j < L; ++j) a[i][j] = that.a[i][j];
+            }
+        }
+        return *this;
+    }
+};
+
+Mat operator*(const Mat &u, const Mat &v) {
+    Mat w;
+    for (int i = 0; i < L; ++i) {
+        for (int j = 0; j < L; ++j) {
+            for (int k = 0; k < L; ++k) {
+                w.a[i][j] = (w.a[i][j] + static_cast<long long>(u.a[i][k]) * v.a[k][j]) % MOD;
+            }
+        }
+    }
+    return w;
+}
+
+Mat init() {
+    Mat w;
+    for (int i = 0; i < L; ++i) w.a[i][i] = 1;
+    return w;
+}
+
+Mat multiplication(const Mat &x, int y) {
+    Mat output = init(), cur = x;
+    while (y) {
+        if (y & 1) output = output * cur;
+        cur = cur * cur;
+        y >>= 1;
+    }
+    return output;
+}
+
+class Solution {
+public:
+    int lengthAfterTransformations(string s, int t, vector<int>& nums) {
+        Mat T;
+        for (int i = 0; i < 26; ++i) {
+            for (int step = 1; step <= nums[i]; ++step) T.a[(i + step) % 26][i] = 1;
+        }
+        Mat res = multiplication(T, t);
+        int output = 0;
+        vector<int> hashmap(26, 0);
+        for (char &letter : s) ++hashmap[letter - 'a'];
+        for (int i = 0; i < 26; ++i) {
+            for (int j = 0; j < 26; ++j) {
+                output = (output + static_cast<long long>(res.a[i][j]) * hashmap[j]) % MOD;
+            }
+        }
+        return output;
+    }
+};
