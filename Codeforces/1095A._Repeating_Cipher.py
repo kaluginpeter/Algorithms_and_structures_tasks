@@ -60,3 +60,48 @@
 # z
 # OutputCopy
 # z
+# Solution
+# C++ O(N) O(N) String
+#include <iostream>
+#include <string>
+
+
+void solution() {
+    int n;
+    std::scanf("%d", &n);
+    std::string sequence;
+    std::cin >> sequence;
+    std::string output = "";
+    int step = 1, idx = 0;
+    while (idx < n) {
+        output.push_back(sequence[idx]);
+        idx += step;
+        ++step;
+    }
+    std::cout << output << "\n";
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(N) String
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    sequence: str = sys.stdin.readline().rstrip()
+    output: list[str] = []
+    step: int = 1
+    idx: int = 0
+    while idx < n:
+        output.append(sequence[idx])
+        idx += step
+        step += 1
+    sys.stdout.write('{}\n'.format(''.join(output)))
+
+
+if __name__ == '__main__':
+    solution()
