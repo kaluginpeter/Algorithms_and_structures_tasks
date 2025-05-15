@@ -30,3 +30,61 @@
 # OutputCopy
 # 2 2
 # 2 2
+# Solution
+# C++ O(N) O(1) Math Greedy
+#include <iostream>
+#include <vector>
+#include <cstdint>
+
+
+void solution() {
+    int n;
+    std::scanf("%d", &n);
+    std::vector<int> cities;
+    for (int i = 0; i < n; ++i) {
+        int city;
+        std::scanf("%d", &city);
+        cities.push_back(city);
+    }
+    for (int i = 0; i < n; ++i) {
+        long long left = INT64_MAX, right = INT64_MIN;
+        if (!i) left = cities[i + 1] - cities[i];
+        else if (i + 1 == n) left = cities[i] - cities[i - 1];
+        else left = std::min(cities[i + 1] - cities[i], cities[i] - cities[i - 1]);
+
+        if (!i) right = cities[n - 1] - cities[i];
+        else if (i + 1 == n) right = cities[i] - cities[0];
+        else right = std::max(cities[i] - cities[0], cities[n - 1] - cities[i]);
+        std::printf("%lld %lld\n", left, right);
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Math Greedy
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    cities: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    for i in range(n):
+        left: int = 0
+        right: int = 0
+        if not i:
+            left = cities[i + 1] - cities[i]
+            right = cities[n - 1] - cities[i]
+        elif i + 1 == n:
+            left = cities[i] - cities[i - 1]
+            right = cities[i] - cities[0]
+        else:
+            left = min(cities[i + 1] - cities[i], cities[i] - cities[i - 1])
+            right = max(cities[n - 1] - cities[i], cities[i] - cities[0])
+        sys.stdout.write('{} {}\n'.format(left, right))
+
+
+if __name__ == '__main__':
+    solution()
