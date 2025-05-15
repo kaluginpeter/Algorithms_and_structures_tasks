@@ -35,3 +35,54 @@
 # groups[i] is either 0 or 1.
 # words consists of distinct strings.
 # words[i] consists of lowercase English letters.
+# Solution
+# Python O(N) O(N) String Greedy
+class Solution:
+    def getLongestSubsequence(self, words: List[str], groups: List[int]) -> List[str]:
+        start_ones: list[str] = []
+        start_zeros: list[str] = []
+        n: int = len(words)
+        left: int = 0
+        is_one: bool = True
+        while left < n:
+            while left < n and groups[left] != is_one: left += 1
+            if left == n: break
+            start_ones.append(words[left])
+            left += 1
+            is_one = not is_one
+        is_one = False
+        left = 0
+        while left < n:
+            while left < n and groups[left] != is_one: left += 1
+            if left == n: break
+            start_zeros.append(words[left])
+            left += 1
+            is_one = not is_one
+        return [start_zeros, start_ones][len(start_ones) > len(start_zeros)]
+
+# C++ O(N) O(N) String Greedy
+class Solution {
+public:
+    vector<string> getLongestSubsequence(vector<string>& words, vector<int>& groups) {
+        vector<string> startOnes, startZeros;
+        int left = 0, n = words.size();
+        bool isOne = true;
+        while (left < n) {
+            while (left < n && groups[left] != (isOne? 1 : 0)) ++left;
+            if (left == n) break;
+            startOnes.push_back(words[left]);
+            ++left;
+            isOne = !isOne;
+        }
+        isOne = false;
+        left = 0;
+        while (left < n) {
+            while (left < n && groups[left] != (isOne? 1 : 0)) ++left;
+            if (left == n) break;
+            startZeros.push_back(words[left]);
+            ++left;
+            isOne = !isOne;
+        }
+        return (startOnes.size() > startZeros.size()? startOnes : startZeros);
+    }
+};
