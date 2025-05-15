@@ -1,3 +1,4 @@
+/*
 # No Story
 #
 # No Description
@@ -48,3 +49,18 @@
 # Play Tetris : Shape anastomosis
 # Play FlappyBird : Advance Bravely
 # Puzzles
+*/
+// Solution
+std::string testit(std::string s)
+{
+    if (s.size() < 2) return s;
+    std::string output = "";
+    for (int i = 0; i < static_cast<int>(s.size()); i += 2) {
+        if (i + 1 == s.size()) {
+            output.push_back(s[i]);
+            continue;
+        }
+        output.push_back(static_cast<char>(((s[i] - 96) + (s[i + 1] - 96)) / 2 + 96));
+    }
+    return output;
+}
