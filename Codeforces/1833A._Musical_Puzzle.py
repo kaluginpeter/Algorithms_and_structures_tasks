@@ -56,3 +56,63 @@
 # In the second sample, you need to record the melodies "ab", "ba", "ac", and "ca".
 #
 # In the third sample, the only necessary melody is "aa".
+# Solution
+# C++ O(N) O(N) String HashSet
+#include <iostream>
+#include <string>
+#include <unordered_set>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d", &n);
+        std::string notes;
+        std::cin >> notes;
+        std::unordered_set<std::string> seen;
+        seen.insert(notes.substr(0, 2));
+        int differ = 1;
+        int idx = 1;
+        while (idx + 1 < n) {
+            if (seen.count(notes.substr(idx, 2))) ++idx;
+            else {
+                seen.insert(notes.substr(idx, 2));
+                ++differ;
+                ++idx;
+            }
+        }
+        std::printf("%d\n", differ);
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(N) HashSet String
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        notes: str = sys.stdin.readline().rstrip()
+        seen: set[str] = set()
+        seen.add(notes[:2])
+        differ: int = 1
+        idx: int = 1
+        while idx + 1 < n:
+            if notes[idx:idx + 2] in seen: idx += 1
+            else:
+                differ += 1
+                seen.add(notes[idx:idx + 2])
+                idx += 1
+        sys.stdout.write('{}\n'.format(differ))
+
+
+if __name__ == '__main__':
+    solution()
