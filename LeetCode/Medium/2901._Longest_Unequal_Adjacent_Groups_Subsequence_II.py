@@ -57,3 +57,69 @@
 # 1 <= groups[i] <= n
 # words consists of distinct strings.
 # words[i] consists of lowercase English letters.
+# Solution
+# Python O(N^2) O(N) DynamicProgramming
+class Solution:
+    def hamming_distance(self, x: str, y: str) -> int:
+        return sum(x[i] != y[i] for i in range(len(x)))
+
+    def getWordsInLongestSubsequence(self, words: List[str], groups: List[int]) -> List[str]:
+        n: int = len(words)
+        dp: list[int] = [1] * n
+        prev: list[int] = [-1] * n
+        for i in range(n):
+            for j in range(i):
+                if groups[i] == groups[j] or len(words[i]) != len(words[j]): continue
+                diff: int = self.hamming_distance(words[i], words[j])
+                if diff != 1: continue
+                if dp[j] + 1 > dp[i]:
+                    prev[i] = j
+                    dp[i] = dp[j] + 1
+        best_choice: int = 0
+        for i in range(n):
+            if dp[i] > dp[best_choice]: best_choice = i
+        output: list[str] = []
+        while best_choice != -1:
+            output.append(words[best_choice])
+            best_choice = prev[best_choice]
+        output.reverse()
+        return output
+
+# C++ O(N^2) O(N) DynamicProgramming
+class Solution {
+public:
+    int hammingDistance(string &x, string &y) {
+        int diff = 0;
+        for (int i = 0; i < x.size(); ++i) {
+            if (x[i] != y[i]) ++diff;
+        }
+        return diff;
+    }
+
+    vector<string> getWordsInLongestSubsequence(vector<string>& words, vector<int>& groups) {
+        int n = words.size();
+        vector<int> dp(n, 1), prev(n, -1);
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < i; ++j) {
+                if (groups[i] == groups[j] || words[i].size() != words[j].size()) continue;
+                int dist = hammingDistance(words[i], words[j]);
+                if (dist != 1) continue;
+                if (dp[j] + 1 > dp[i]) {
+                    prev[i] = j;
+                    dp[i] = dp[j] + 1;
+                }
+            }
+        }
+        int bestChoice = 0;
+        for (int i = 0; i < n; ++i) {
+            if (dp[i] > dp[bestChoice]) bestChoice = i;
+        }
+        vector<string> output;
+        while (bestChoice != -1) {
+            output.push_back(words[bestChoice]);
+            bestChoice = prev[bestChoice];
+        }
+        reverse(output.begin(), output.end());
+        return output;
+    }
+};
