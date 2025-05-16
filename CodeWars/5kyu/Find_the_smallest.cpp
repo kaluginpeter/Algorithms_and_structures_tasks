@@ -23,3 +23,38 @@ Have a look at "Sample Tests" to see the input and output in each language
 
 Fundamentals
 */
+// Solution
+#include <vector>
+#include <algorithm>
+#include <climits>
+#include <string>
+
+using namespace std;
+
+class ToSmallest {
+public:
+    static vector<long long> smallest(long long n) {
+        string numStr = to_string(n);
+        vector<long long> result = {n, 0, 0};
+        long long minNum = n;
+        int len = numStr.length();
+
+        for (int i = 0; i < len; ++i) {
+            char digit = numStr[i];
+            string tempStr = numStr.substr(0, i) + numStr.substr(i + 1);
+            for (int j = 0; j <= tempStr.length(); ++j) {
+                string newStr = tempStr.substr(0, j) + digit + tempStr.substr(j);
+                long long newNum = stoll(newStr);
+                if (newNum < minNum) {
+                    minNum = newNum;
+                    result = {newNum, i, j};
+                } else if (newNum == minNum) {
+                    if (i < result[1] || (i == result[1] && j < result[2])) {
+                        result = {newNum, i, j};
+                    }
+                }
+            }
+        }
+        return result;
+    }
+};
