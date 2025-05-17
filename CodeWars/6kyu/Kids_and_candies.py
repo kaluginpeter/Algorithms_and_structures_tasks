@@ -9,3 +9,7 @@
 # It's ensured that at least one kid will participate in the party.
 #
 # Algorithms
+# Solution
+from math import lcm
+def candies_to_buy(amount_of_kids_invited):
+    return lcm(*range(1, amount_of_kids_invited + 1))
