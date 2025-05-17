@@ -31,3 +31,46 @@
 # 3 disk:
 # 4 disk:
 # 5 disk:
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+#include <string>
+
+
+void solution() {
+    int n;
+    std::scanf("%d", &n);
+    std::string start, end;
+    std::cin >> start >> end;
+    int operations = 0;
+    for (int i = 0; i < n; ++i) {
+        int x = static_cast<int>(start[i]), y = static_cast<int>(end[i]);
+        if (x > y) std::swap(x, y);
+        operations += std::min(y - x, x + 10 - y);
+    }
+    std::printf("%d\n", operations);
+}
+
+
+int main() {
+    solution();
+}
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    start: str = sys.stdin.readline().rstrip()
+    end: str = sys.stdin.readline().rstrip()
+    operations: int = 0
+    for i in range(n):
+        x: int = int(start[i])
+        y: int = int(end[i])
+        if x > y: x, y = y, x
+        operations += min(y - x, x + 10 - y)
+    sys.stdout.write('{}\n'.format(operations))
+
+
+if __name__ == '__main__':
+    solution()
