@@ -58,3 +58,39 @@ class Solution:
                 twos -= 1
             if current_idx < n and nums[current_idx] == 1:
                 current_idx += 1
+
+
+# Python O(N) O(1) TwoPointers
+class Solution:
+    def sortColors(self, nums: List[int]) -> None:
+        left: int = 0
+        middle: int = 0
+        right: int = len(nums) - 1
+        while middle <= right:
+            if nums[middle] == 0:
+                nums[left], nums[middle] = nums[middle], nums[left]
+                left += 1
+                middle += 1
+            elif nums[middle] == 2:
+                nums[middle], nums[right] = nums[right], nums[middle]
+                right -= 1
+            else: middle += 1
+
+# C++ O(N) O(1) TwoPointers
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        int left = 0, right = nums.size() - 1;
+        int middle = 0;
+        while (middle <= right) {
+            if (nums[middle] == 0) {
+                swap(nums[left], nums[middle]);
+                ++left;
+                ++middle;
+            } else if (nums[middle] == 2) {
+                swap(nums[right], nums[middle]);
+                --right;
+            } else ++middle;
+        }
+    }
+};
