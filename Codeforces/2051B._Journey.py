@@ -57,3 +57,59 @@
 # In the third example, Monocarp will cover 3+4+1+3+4+1=16
 #  kilometers over the first six days. Since n=16
 # , Monocarp will complete his journey on the sixth day.
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n, a, b, c;
+        std::scanf("%d %d %d %d", &n, &a, &b, &c);
+        int leap = a + b + c;
+        int wholes = n / leap;
+        n %= leap;
+        wholes *= 3;
+        if (n > 0) {
+            ++wholes;
+            n -= a;
+        }
+        if (n > 0) {
+            ++wholes;
+            n -= b;
+        }
+        if (n > 0) ++wholes;
+        std::printf("%d\n", wholes);
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, a, b, c = map(int, sys.stdin.readline().rstrip().split())
+        leap: int = a + b + c
+        wholes: int = n // leap * 3
+        n %= leap
+        if n > 0:
+            wholes += 1
+            n -= a
+        if n > 0:
+            wholes += 1
+            n -= b
+        if n > 0: wholes += 1
+        sys.stdout.write('{}\n'.format(wholes))
+
+
+if __name__ == '__main__':
+    solution()
