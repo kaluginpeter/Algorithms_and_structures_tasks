@@ -84,3 +84,41 @@
 # .
 #
 # In the third test case, it can be proven that it is impossible to sort the permutation.
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int iter = 0; iter < t; ++iter) {
+        int n;
+        std::scanf("%d", &n);
+        std::vector<int> nums(n, 0);
+        for (int i = 0; i < n; ++i) std::scanf("%d", &nums[i]);
+        std::cout << (nums[0] == *std::min_element(nums.begin(), nums.end())? "YES" : "NO") << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+        sys.stdout.write('{}\n'.format(['NO', 'YES'][nums[0] == min(nums)]))
+
+
+if __name__ == '__main__':
+    solution()
