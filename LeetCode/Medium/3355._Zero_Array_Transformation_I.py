@@ -88,3 +88,36 @@ public:
         return true;
     }
 };
+
+# Python O(N + M) O(N) SweepLine
+class Solution:
+    def isZeroArray(self, nums: List[int], queries: List[List[int]]) -> bool:
+        n: int = len(nums)
+        sweep_line: list[int] = [0] * (n + 1)
+        for left, right in queries:
+            sweep_line[left] += 1
+            sweep_line[right + 1] -= 1
+        counter: int = 0
+        for i in range(n):
+            counter += sweep_line[i]
+            if nums[i] > counter: return False
+        return True
+
+# C++ O(N + M) O(N) SweepLine
+class Solution {
+public:
+    bool isZeroArray(vector<int>& nums, vector<vector<int>>& queries) {
+        int n = nums.size();
+        vector<int> sweepLine(n + 1, 0);
+        for (vector<int> &query : queries) {
+            ++sweepLine[query[0]];
+            --sweepLine[query[1] + 1];
+        }
+        int counter = 0;
+        for (int idx = 0; idx < n; ++idx) {
+            counter += sweepLine[idx];
+            if (nums[idx] > counter) return false;
+        }
+        return true;
+    }
+};
