@@ -65,3 +65,16 @@ Car Park Escape
 
 ArraysStringsFundamentals
 */
+// Solution
+#include <algorithm>
+std::vector<std::string> wave(std::string y){
+  std::vector<std::string> output;
+  for (std::string::size_type i = 0; i < y.size(); ++i) {
+    if (!std::isalpha(y[i])) continue;
+    std::string copy = y;
+    std::transform(copy.begin(), copy.end(), copy.begin(), ::tolower);
+    copy[i] = std::toupper(copy[i]);
+    output.push_back(copy);
+  }
+  return output;
+}
