@@ -69,3 +69,49 @@
 # 50 1 1 1000000000
 # Note
 # Here is a visualization of the first test case.
+# Solution
+# C++ O(1) O(1) Math Greedy
+#include <iostream>
+#include <cmath>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int iter = 0; iter < t; ++iter) {
+        int n, m, i, j;
+        std::scanf("%d %d %d %d", &n, &m, &i, &j);
+        long long case1 = (
+            std::abs(i - 1) + std::abs(j - 1)
+            + (n - 1) + (m - 1)
+        );
+        long long case2 = std::abs(i - 1) + std::abs(m - j) + std::abs(n - 1) + std::abs(m - 1);
+        if (case1 >= case2) std::printf("%d %d %d %d\n", 1, 1, n, m);
+        else std::printf("%d %d %d %d\n", 1, m, n, 1);
+
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Math Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, m, i, j = map(int, sys.stdin.readline().rstrip().split())
+        case1: int = abs(i - 1) + abs(j - 1) + abs(n - 1) + abs(m - 1)
+        case2: int = abs(i - 1) + abs(m - j) + abs(n - 1) + abs(m - 1)
+        if case1 >= case2:
+            sys.stdout.write('{} {} {} {}\n'.format(1, 1, n, m))
+        else:
+            sys.stdout.write('{} {} {} {}\n'.format(1, m, n, 1))
+
+
+if __name__ == '__main__':
+    solution()
