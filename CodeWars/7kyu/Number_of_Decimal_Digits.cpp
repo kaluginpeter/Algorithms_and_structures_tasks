@@ -5,3 +5,15 @@ All inputs will be valid.
 
 StringsFundamentals
 */
+// Solution
+#include <stdint.h>
+
+int digits(uint64_t n) {
+  if (!n) return 1;
+  int places = 0;
+  while (n) {
+    ++places;
+    n /= 10;
+  }
+  return places;
+}
