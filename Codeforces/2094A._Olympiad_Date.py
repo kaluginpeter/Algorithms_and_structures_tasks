@@ -44,3 +44,60 @@
 # 0
 # 8
 # 15
+# Solution
+# C++ O(N) O(D) HashMap
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d", &n);
+        std::vector<int> hashmap(10, 0);
+        hashmap[0] = 3;
+        hashmap[1] = 1;
+        hashmap[2] = 2;
+        hashmap[3] = 1;
+        hashmap[5] = 1;
+        int output = 0;
+        for (int j = 0; j < n; ++j) {
+            int x;
+            std::scanf("%d", &x);
+            --hashmap[x];
+            if (hashmap[0] <= 0 && hashmap[1] <= 0 && hashmap[2] <= 0 && hashmap[3] <= 0 && hashmap[5] <= 0) {
+                if (output == 0) output = j + 1;
+            }
+        }
+        std::printf("%d\n", output);
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(D) HashMap
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: iter[int] = map(int, sys.stdin.readline().rstrip().split())
+        hashmap: list[int] = [3, 1, 2, 1, 0, 1, 0, 0, 0, 0]
+        output: int = 0
+        for i in range(n):
+            x: int = next(nums)
+            hashmap[x] -= 1
+            if all(num <= 0 for num in hashmap):
+                if not output: output = i + 1
+        sys.stdout.write('{}\n'.format(output))
+
+
+if __name__ == '__main__':
+    solution()
