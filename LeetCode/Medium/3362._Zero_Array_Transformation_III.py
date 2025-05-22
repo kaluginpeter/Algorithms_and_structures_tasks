@@ -51,3 +51,50 @@
 # 1 <= queries.length <= 105
 # queries[i].length == 2
 # 0 <= li <= ri < nums.length
+# Solution
+# Python O(MlogM + N) O(N + M) PriorityQueue Greedy
+class Solution:
+    def maxRemoval(self, nums: List[int], queries: List[List[int]]) -> int:
+        queries.sort(key=lambda query: query[0])
+        max_heap: list[int] = []
+        sweep_line: list[int] = [0] * (len(nums) + 1)
+        counter: int = 0
+        j: int = 0
+        for i in range(len(nums)):
+            counter += sweep_line[i]
+            while j < len(queries) and queries[j][0] == i:
+                heapq.heappush(max_heap, -queries[j][1])
+                j += 1
+            while counter < nums[i] and max_heap and -max_heap[0] >= i:
+                counter += 1
+                sweep_line[-heapq.heappop(max_heap) + 1] -= 1
+            if counter < nums[i]: return -1
+        return len(max_heap)
+
+# C++ O(MlogM + N) O(N + M) PriorityQueue Greedy
+class Solution {
+public:
+    int maxRemoval(vector<int>& nums, vector<vector<int>>& queries) {
+        sort(queries.begin(), queries.end(),
+             [](const vector<int>& a, const vector<int>& b) {
+                 return a[0] < b[0];
+             });
+        priority_queue<int> maxHeap;
+        vector<int> sweepLine(nums.size() + 1, 0);
+        int operations = 0;
+        for (int i = 0, j = 0; i < nums.size(); ++i) {
+            operations += sweepLine[i];
+            while (j < queries.size() && queries[j][0] == i) {
+                maxHeap.push(queries[j][1]);
+                ++j;
+            }
+            while (operations < nums[i] && !maxHeap.empty() && maxHeap.top() >= i) {
+                ++operations;
+                sweepLine[maxHeap.top() + 1] -= 1;
+                maxHeap.pop();
+            }
+            if (operations < nums[i]) return -1;
+        }
+        return maxHeap.size();
+    }
+};
