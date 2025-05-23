@@ -44,3 +44,34 @@
 # edges[i].length == 2
 # 0 <= edges[i][0], edges[i][1] <= n - 1
 # The input is generated such that edges represent a valid tree.
+# Solution
+# Python O(N) O(N) DynamicProgramming
+class Solution:
+    def maximumValueSum(self, nums: List[int], k: int, edges: List[List[int]]) -> int:
+        n: int = len(nums)
+        dp: list[list[int]] = [[0] * 2 for _ in range(n + 1)]
+        dp[n][0] = float('-inf')
+        for i in range(n - 1, -1, -1):
+            for j in range(2):
+                make: int = dp[i + 1][j ^ 1] + (nums[i] ^ k)
+                not_make: int = dp[i + 1][j] + nums[i]
+                dp[i][j] = max(make, not_make)
+        return dp[0][1]
+
+# C++ O(N) O(N) DynamicProgramming
+class Solution {
+public:
+    long long maximumValueSum(vector<int>& nums, int k, vector<vector<int>>& edges) {
+        int n = nums.size();
+        vector<vector<long long>> dp(n + 1, vector<long long>(2, 0));
+        dp[n][0] = numeric_limits<long long>::min();
+        for (int i = n - 1; i >= 0; --i) {
+            for (int j = 0; j < 2; ++j) {
+                long long make = dp[i + 1][j ^ 1] + (nums[i] ^ k);
+                long long notMake = dp[i + 1][j] + nums[i];
+                dp[i][j] = max(make, notMake);
+            }
+        }
+        return dp[0][1];
+    }
+};
