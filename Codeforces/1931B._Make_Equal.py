@@ -84,3 +84,64 @@
 # pour 1
 #  unit of water from the second vessel to the fourth, then a=[3,3,3,3,3]
 # .
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d", &n);
+        std::vector<int> nums(n, 0);
+        for (int j = 0; j < n; ++j) std::scanf("%d", &nums[j]);
+        long long totalSum = 0;
+        for (int j = 0; j < n; ++j) totalSum += nums[j];
+        int average = totalSum / n;
+        int counter = 0;
+        bool isValid = true;
+        for (int j = 0; j < n; ++j) {
+            if (nums[j] < average) {
+                if (nums[j] + counter < average) {
+                    isValid = false;
+                    break;
+                } else counter -= average - nums[j];
+            } else counter += nums[j] - average;
+        }
+        std::cout << (isValid && !counter? "YES" : "NO") << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+        average: int = sum(nums) // n
+        counter: int = 0
+        is_valid: bool = True
+        for i in range(n):
+            if nums[i] < average:
+                if nums[i] + counter < average:
+                    is_valid = False
+                    break
+                counter -= average - nums[i]
+            else: counter += nums[i] - average
+        sys.stdout.write('{}\n'.format(['NO', 'YES'][is_valid and not counter]))
+
+
+if __name__ == '__main__':
+    solution()
