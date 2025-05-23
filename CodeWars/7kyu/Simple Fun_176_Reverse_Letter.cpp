@@ -14,3 +14,13 @@ A string consists of lowercase latin letters, digits and symbols.
 [output] a string
 Fundamentals
 */
+// Solution
+std::string reverse_letter(const std::string &str)
+{
+    std::string output = "", strCopy = str;;
+    std::reverse(strCopy.begin(), strCopy.end());
+    for (std::string::size_type i = 0; i < str.size(); ++i) {
+      if (std::isalpha(strCopy[i])) output.push_back(strCopy[i]);
+    }
+    return output;
+}
