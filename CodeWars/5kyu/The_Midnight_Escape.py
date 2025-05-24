@@ -53,3 +53,40 @@
 # Good luck, have fun!
 #
 # AlgorithmsRiddlesPerformance
+# Solution
+def solve(people):
+    if len(people) == 1:
+        return [[people[0][0]]]
+    people.sort(key=lambda x: x[1])
+    names = [p[0] for p in people]
+    times = [p[1] for p in people]
+    i = j = len(people) - 1
+
+    result = []
+    n = len(people)
+
+    while n > 3:
+        option1 = times[0] + times[i] + times[0] + times[i - 1]
+        option2 = times[0] + times[1] + times[i] + times[1]
+
+        if option1 < option2:
+            result.append([names[0], names[i]])
+            result.append([names[0]])
+            result.append([names[0], names[i - 1]])
+            result.append([names[0]])
+        else:
+            result.append([names[0], names[1]])
+            result.append([names[0]])
+            result.append([names[i - 1], names[i]])
+            result.append([names[1]])
+        n -= 2
+        i -= 2
+
+    if n == 3:
+        result.append([names[0], names[2]])
+        result.append([names[0]])
+        result.append([names[0], names[1]])
+    elif n == 2: result.append([names[0], names[1]])
+    else: result.append([names[0]])
+
+    return result
