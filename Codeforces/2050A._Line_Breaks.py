@@ -68,3 +68,49 @@
 # 2
 # 1
 # 0
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+#include <string>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n, m;
+        std::scanf("%d %d", &n, &m);
+        int words = 0, totalLength = 0;
+        for (int j = 0; j < n; ++j) {
+            std::string word;
+            std::cin >> word;
+            totalLength += word.size();
+            if (totalLength <= m) ++words;
+        }
+        std::printf("%d\n", words);
+    }
+}
+
+
+int main() {
+    solution();
+}
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, m = map(int, sys.stdin.readline().rstrip().split())
+        total_length: int = 0
+        valid: int = 0
+        for i in range(n):
+            word: str = sys.stdin.readline().rstrip()
+            total_length  += len(word)
+            if total_length <= m: valid += 1
+        sys.stdout.write('{}\n'.format(valid))
+
+
+if __name__ == '__main__':
+    solution()
