@@ -41,3 +41,21 @@ class Solution:
 class Solution:
     def findWordsContaining(self, words: List[str], x: str) -> List[int]:
         return [k for k, v in enumerate(words) if x in v]
+
+
+# Python O(N) O(N) String
+class Solution:
+    def findWordsContaining(self, words: List[str], x: str) -> List[int]:
+        return [i for i in range(len(words)) if x in words[i]]
+
+# C++ O(N) O(N) String
+class Solution {
+public:
+    vector<int> findWordsContaining(vector<string>& words, char x) {
+        vector<int> output;
+        for (int i = 0; i < words.size(); ++i) {
+            if (words[i].find(x) != std::string::npos) output.push_back(i);
+        }
+        return output;
+    }
+};
