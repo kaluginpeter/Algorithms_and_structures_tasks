@@ -36,3 +36,56 @@
 #
 # 1 <= s.length <= 10
 # s consists of only digits.
+# Solution
+# Python O(|S|^2 + |P|sqrt(max(P)) + |P|log|P|) O(|P|) Math Sorting Greedy
+class Solution:
+    def is_prime(self, x: int) -> bool:
+        if x % 2 == 0 and x != 2: return False
+        bound: int = int(x**.5) + 1
+        for d in range(3, bound, 2):
+            if x % d == 0: return False
+        return True
+
+    def sumOfLargestPrimes(self, s: str) -> int:
+        primes: list[int] = []
+        seen: set[int] = set()
+        for i in range(len(s)):
+            for j in range(i, len(s)):
+                number: int = int(s[i:j + 1])
+                if self.is_prime(number) and number != 1 and number not in seen:
+                    seen.add(number)
+                    primes.append(number)
+        if len(primes) < 3: return sum(primes)
+        primes.sort()
+        return sum(primes[-3:])
+
+# C++ O(|S|^2 + |P|sqrt(max(P)) + |P|log|P|) O(|P|) Math Sorting Greedy
+class Solution {
+public:
+    bool isPrime(long long x) {
+        if (x % 2 == 0 && x != 2) return false;
+        long long bound = sqrt(x) + 1;
+        for (long long d = 3; d < bound; d += 2) {
+            if (x % d == 0) return false;
+        }
+        return true;
+    }
+
+    long long sumOfLargestPrimes(string s) {
+        vector<long long> primes;
+        unordered_set<long long> seen;
+        int n = s.size();
+        for (int i = 0; i < n; ++i) {
+            for (int j = i; j < n; ++j) {
+                long long number = stoll(s.substr(i, j - i + 1));
+                if (isPrime(number) && number != 1 && !seen.count(number)) {
+                    primes.push_back(number);
+                    seen.insert(number);
+                }
+            }
+        }
+        if (primes.size() < 3) return accumulate(primes.begin(), primes.end(), 0LL);
+        sort(primes.begin(), primes.end());
+        return accumulate(primes.begin() + (primes.size() - 3), primes.end(), 0LL);
+    }
+};
