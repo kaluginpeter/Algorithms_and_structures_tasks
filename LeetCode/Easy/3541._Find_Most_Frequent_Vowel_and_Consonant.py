@@ -39,3 +39,32 @@
 #
 # 1 <= s.length <= 100
 # s consists of lowercase English letters only.
+# Solution
+# Python O(N) O(D) String HashMap
+class Solution:
+    def maxFreqSum(self, s: str) -> int:
+        vowels: dict[str, int] = defaultdict(int)
+        consonants: dict[str, int] = defaultdict(int)
+        for letter in s:
+            if letter in 'aeoiu': vowels[letter] += 1
+            else: consonants[letter] += 1
+        x: int = max(vowels.values()) if vowels else 0
+        y: int = max(consonants.values()) if consonants else 0
+        return x + y
+
+# C++ O(N) O(D) HashMap String
+class Solution {
+public:
+    int maxFreqSum(string s) {
+        vector<int> vowels(26, 0), consonants(26, 0);
+        string vows = "aeoiu";
+        for (char &letter : s) {
+            if (vows.find(letter) != string::npos) ++vowels[letter - 'a'];
+            else ++consonants[letter - 'a'];
+        }
+        int maxVowel = 0, maxConsonant = 0;
+        for (const auto freq : vowels) maxVowel = max(maxVowel, freq);
+        for (const auto freq : consonants) maxConsonant = max(maxConsonant, freq);
+        return maxVowel + maxConsonant;
+    }
+};
