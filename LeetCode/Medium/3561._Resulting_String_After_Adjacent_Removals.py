@@ -47,3 +47,32 @@
 #
 # 1 <= s.length <= 105
 # s consists only of lowercase English letters.
+# Solution
+# Python O(N) O(N) Stack String Greedy
+class Solution:
+    def resultingString(self, s: str) -> str:
+        n: int = len(s)
+        stack: list[str] = []
+        for char in s:
+            if not stack or abs((ord(stack[-1]) - 97) - (ord(char) - 97)) not in [1, 25]:
+                stack.append(char)
+            else: stack.pop()
+        return ''.join(stack)
+
+# C++ O(N) O(N) Stack String Greedy
+class Solution {
+public:
+    string resultingString(string s) {
+        string output = "";
+        for (string::size_type i = 0; i < s.size(); ++i) {
+            char &letter = s[i];
+            if (!output.size()) output.push_back(letter);
+            else {
+                int diff = abs((output[output.size() - 1] - 'a' + 1) - (letter - 'a' + 1));
+                if (diff == 1 || diff == 25) output.pop_back();
+                else output.push_back(letter);
+            }
+        }
+        return output;
+    }
+};
