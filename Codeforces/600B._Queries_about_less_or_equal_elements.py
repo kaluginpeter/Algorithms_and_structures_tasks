@@ -64,3 +64,29 @@ int main() {
 }
 
 # Python O(NlogN + MlogN) O(1) Sorting BinarySearch
+import sys
+
+def rightmost_binary_search(target: int, arr: list[int]) -> int:
+    left: int = 0
+    right: int = len(arr) - 1
+    output: int = -1
+    while left <= right:
+        middle: int = left + ((right - left) >> 1)
+        if arr[middle] <= target:
+            output = middle
+            left = middle + 1
+        else: right = middle - 1
+    return output + 1
+
+def solution() -> None:
+    n, m = map(int, sys.stdin.readline().rstrip().split())
+    a: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    b: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    a.sort()
+    for target in b:
+        sys.stdout.write('{} '.format(rightmost_binary_search(target, a)))
+    sys.stdout.write('\n')
+
+
+if __name__ == '__main__':
+    solution()
