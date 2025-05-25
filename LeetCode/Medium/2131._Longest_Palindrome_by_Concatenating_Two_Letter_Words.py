@@ -33,3 +33,51 @@
 # 1 <= words.length <= 105
 # words[i].length == 2
 # words[i] consists of lowercase English letters.
+# Solution
+# Python O(N) O(N) HashMap String Greedy
+class Solution:
+    def longestPalindrome(self, words: List[str]) -> int:
+        hashmap: dict[str, int] = dict()
+        for word in words:
+            hashmap[word] = hashmap.get(word, 0) + 1
+        output: int = 0
+        is_median: bool = False
+        seen: set[str] = set()
+        for word, freq in hashmap.items():
+            if word in seen: continue
+            if word[0] == word[1]:
+                if freq & 1: is_median = True
+                output += freq // 2 * 2 * 2
+            else:
+                mirror: str = word[::-1]
+                output += min(freq, hashmap.get(mirror, 0)) * 2 * 2
+                seen.add(mirror)
+        return output + (2 if is_median else 0)
+
+# C++ O(N) O(N) HashMap String Greedy
+class Solution {
+public:
+    int longestPalindrome(vector<string>& words) {
+        unordered_map<string, int> hashmap;
+        for (string &word : words) {
+            ++hashmap[word];
+        }
+        int output = 0;
+        unordered_set<string> seen;
+        bool isMedian = false;
+        for (const auto &p : hashmap) {
+            if (seen.count(p.first)) continue;
+            if (p.first[0] == p.first[1]) {
+                if (p.second & 1) isMedian = true;
+                output += p.second / 2 * 2 * 2;
+            } else {
+                string mirror = p.first;
+                reverse(mirror.begin(), mirror.end());
+                int mirrorCount = (hashmap.count(mirror)? hashmap[mirror] : 0);
+                output += min(p.second, mirrorCount) * 2 * 2;
+                seen.insert(mirror);
+            }
+        }
+        return output + (isMedian? 2 : 0);
+    }
+};
