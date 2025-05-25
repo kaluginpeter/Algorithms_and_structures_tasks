@@ -35,3 +35,22 @@
 # 2 <= k <= 105
 # 1 <= n, m <= 2 * k
 # The input is generated such that it is always possible to transport the logs.
+# Solution
+# Python O(1) O(1) Math Greedy
+class Solution:
+    def minCuttingCost(self, n: int, m: int, k: int) -> int:
+        cost: int = 0
+        cost += max(0, k * (n - k))
+        cost += max(0, k * (m - k))
+        return cost
+
+# C++ O(1) O(1) Math Greedy
+class Solution {
+public:
+    long long minCuttingCost(int n, int m, int k) {
+        long long output = 0;
+        output += max(0LL, static_cast<long long>(k) * (n - k));
+        output += max(0LL, static_cast<long long>(k) * (m - k));
+        return output;
+    }
+};
