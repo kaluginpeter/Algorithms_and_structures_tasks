@@ -26,3 +26,41 @@
 # 3 1 4 1 5
 # OutputCopy
 # 4 2 4 2 5
+# Solution
+# C++ O(NlogN + MlogN) O(1) Sorting BinarySearch
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int rightmostBinarySearch(long long &target, std::vector<long long> &arr) {
+    int left = 0, right = arr.size() - 1;
+    int output = -1;
+    while (left <= right) {
+        int middle = left + ((right - left) >> 1);
+        if (arr[middle] <= target) {
+            output = middle;
+            left = middle + 1;
+        } else right = middle - 1;
+    }
+    return output + 1;
+}
+
+void solution() {
+    int n, m;
+    std::scanf("%d %d", &n, &m);
+    std::vector<long long> a(n, 0), b(m, 0);
+    for (int i = 0; i < n; ++i) std::scanf("%lld", &a[i]);
+    for (int i = 0; i < m; ++i) std::scanf("%lld", &b[i]);
+    std::sort(a.begin(), a.end());
+    for (int i = 0; i < m; ++i) {
+        std::printf("%d ", rightmostBinarySearch(b[i], a));
+    }
+    std::printf("\n");
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(NlogN + MlogN) O(1) Sorting BinarySearch
