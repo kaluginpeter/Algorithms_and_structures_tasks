@@ -47,3 +47,81 @@
 # edges[i] == [ui, vi]
 # 1 <= ui, vi <= n
 # edges represents a valid tree.
+# Solution
+# Python O(N + H) O(N + H) DynamicProgramming Breadth-First-Searth Tree
+class Solution:
+    def assignEdgeWeights(self, edges: List[List[int]]) -> int:
+        adj_list: dict[int, list[int]] = defaultdict(list)
+        for u, v in edges:
+            adj_list[u].append(v)
+            adj_list[v].append(u)
+        n: int = len(edges) + 1
+        prev: list[int] = [-1] * (n + 1)
+        cur_nodes: list[int] = [1]
+        next_nodes: list[int] = []
+        dest: int = 1
+        seen: set[int] = set()
+        while cur_nodes:
+            for node in cur_nodes:
+                seen.add(node)
+                dest = node
+                for neighbor in adj_list[node]:
+                    if neighbor in seen: continue
+                    prev[neighbor] = node
+                    next_nodes.append(neighbor)
+            cur_nodes = next_nodes
+            next_nodes = []
+        m: int = 0
+        while dest != -1:
+            m += 1
+            dest = prev[dest]
+        even: list[int] = [1] * (m + 1)
+        odd: list[int] = [1] * (m + 1)
+        mod: int = 1000000007
+        for i in range(2, m + 1):
+            odd[i] = (even[i - 1] + odd[i - 1]) % mod
+            even[i] = (odd[i - 1] + even[i - 1]) % mod
+        return odd[m - 1]
+
+# C++ O(N + H) O(N + H) DynamicProgramming Breadth-First-Search Tree
+class Solution {
+public:
+    int assignEdgeWeights(vector<vector<int>>& edges) {
+        int n = edges.size() + 1;
+        unordered_map<int, vector<int>> adjList;
+        for (vector<int> &edge : edges) {
+            int u = edge[0], v = edge[1];
+            adjList[u].push_back(v);
+            adjList[v].push_back(u);
+        }
+        unordered_set<int> seen;
+        vector<int> curNodes = {1}, nextNodes, parent(n + 1, -1);
+        int destination = 1;
+        while (!curNodes.empty()) {
+            for (int &node : curNodes) {
+                destination = node;
+                seen.insert(node);
+                for (int neighbor : adjList[node]) {
+                    if (seen.count(neighbor)) continue;
+                    nextNodes.push_back(neighbor);
+                    parent[neighbor] = node;
+                }
+            }
+            curNodes = nextNodes;
+            nextNodes.clear();
+        }
+        int m = 0;
+        while (destination != -1) {
+            ++m;
+            destination = parent[destination];
+        }
+        int mod = 1e9 + 7;
+        vector<int> even(m + 1, 1), odd(m + 1, 1);
+        for (int i = 2; i <= m; ++i) {
+            even[i] = (odd[i - 1] + even[i - 1]) % mod;
+            odd[i] = (even[i - 1] + odd[i - 1]) % mod;
+        }
+        return odd[m - 1];
+
+    }
+};
