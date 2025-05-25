@@ -16,3 +16,19 @@ Please also try Simple remove duplicates
 
 StringsFundamentals
 */
+// Solution
+#include <unordered_set>
+
+std::string solve(std::string a, std::string b) {
+    std::string output = "";
+    std::unordered_set<char> seenA, seenB ;
+    for (char &letter : a) seenA.insert(letter);
+    for (char &letter : b) seenB.insert(letter);
+    for (char &letter : a) {
+        if (!seenB.count(letter)) output.push_back(letter);
+    }
+    for (char &letter : b) {
+        if (!seenA.count(letter)) output.push_back(letter);
+    }
+    return output;
+}
