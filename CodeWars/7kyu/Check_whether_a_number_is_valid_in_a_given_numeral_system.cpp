@@ -11,3 +11,14 @@ Note: numbers will be checked against bases from 2 to 36. For digits > 9 (A, B, 
 
 AlgorithmsLogicRegular Expressions
 */
+// Solution
+#include <string>
+
+bool validateBase(std::string num, unsigned int base) {
+  for (std::string::size_type i = 0; i < num.size(); ++i) {
+    if (std::isalpha(num[i])) {
+      if (num[i] - 55 >= base) return false;
+    } else if (num[i] - '0' >= base) return false;
+  }
+  return true;
+}
