@@ -52,3 +52,23 @@ class Solution:
     def differenceOfSums(self, n: int, m: int) -> int:
         k = n // m
         return n * (n + 1) // 2 - (k + 1) * k * m
+
+
+# Python O(1) O(1) Math
+class Solution:
+    def differenceOfSums(self, n: int, m: int) -> int:
+        total_sum: int = n * (n + 1) / 2
+        num2: int = (n // m) / 2 * (2 * m + (n // m - 1) * m)
+        num1: int = total_sum - num2
+        return int(num1 - num2)
+
+# C++ O(1) O(1) Math
+class Solution {
+public:
+    int differenceOfSums(int n, int m) {
+        int totalSum = n * (n + 1) / 2;
+        int num2 = static_cast<double>(n / m) / 2 * (2 * m + (n / m - 1) * m);
+        int num1 = totalSum - num2;
+        return num1 - num2;
+    }
+};
