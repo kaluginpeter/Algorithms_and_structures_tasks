@@ -11,3 +11,30 @@ For information on algebraic notation, see https://en.wikipedia.org/wiki/Algebra
 
 Algorithms
 */
+// Solution
+#include <string>
+#include <vector>
+int knight(std::string start, std::string finish) {
+  std::vector<std::pair<int, int>> directions = {
+    {-2, -1}, {-2, 1}, {-1, 2}, {1, 2}, {2, 1}, {2, -1}, {-1, -2}, {1, -2}
+  };
+  std::vector<std::vector<int>> seen(9, std::vector<int>(9, false));
+  std::vector<std::pair<int, int>> curMoves = {{start[0] - 'a' + 1, start[1] - '0'}}, nextMoves;
+  int steps = -1;
+  while (!curMoves.empty()) {
+    ++steps;
+    for (const std::pair<int, int> &move : curMoves) {
+      if (move.first == finish[0] - 'a' + 1 && move.second == (finish[1] - '0')) return steps;
+      for (const std::pair<int, int> &direction : directions) {
+        int nextRow = move.first + direction.first;
+        int nextCol = move.second + direction.second;
+        if (nextRow <= 0 || nextRow > 8 || nextCol <= 0 || nextCol > 8 || seen[nextRow][nextCol]) continue;
+        seen[nextRow][nextCol] = true;
+        nextMoves.push_back({nextRow, nextCol});
+      }
+    }
+    curMoves = nextMoves;
+    nextMoves.clear();
+  }
+  return -1;
+}
