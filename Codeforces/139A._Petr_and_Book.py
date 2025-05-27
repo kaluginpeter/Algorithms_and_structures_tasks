@@ -34,3 +34,66 @@
 # Note to the second sample:
 #
 # On Monday of the first week Petr will read the first page. On Monday of the second week Petr will read the second page and will finish reading the book.
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+#include <vector>
+#include <numeric>
+
+
+void solution() {
+    int n;
+    std::scanf("%d", &n);
+    std::vector<int> days(7, 0);
+    for (int i = 0; i < 7; ++i) std::scanf("%d", &days[i]);
+    int totalSum = std::accumulate(days.begin(), days.end(), 0);
+    n %= totalSum;
+    if (!n) {
+        for (int i = 6; i >= 0; --i) {
+            if (days[i]) {
+                std::printf("%d\n", i + 1);
+                return;
+            }
+        }
+    }
+    int output = 1;
+    for (int i = 0; i < 7; ++i) {
+        if (!days[i]) continue;
+        if (n <= days[i]) {
+            output = i + 1;
+            break;
+        } else n -= days[i];
+    }
+    std::printf("%d\n", output);
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    days: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    total_sum: int = sum(days)
+    n %= total_sum
+    if not n:
+        for i in range(6, -1, -1):
+            if days[i]:
+                sys.stdout.write('{}\n'.format(i + 1))
+                return
+    output: int = 0
+    for i in range(7):
+        if n <= days[i]:
+            output = i + 1
+            break
+        else: n -= days[i]
+    sys.stdout.write('{}\n'.format(output))
+
+
+if __name__ == '__main__':
+    solution()
