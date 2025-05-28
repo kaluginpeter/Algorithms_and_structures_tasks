@@ -7,3 +7,6 @@
 # If there is no such number in the array, 0 should be returned.
 #
 # Fundamentals
+# Solution
+def magic_sum(arr):
+    return sum(num for num in arr if '3' in str(num) and num & 1)
