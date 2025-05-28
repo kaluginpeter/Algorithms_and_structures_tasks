@@ -62,3 +62,46 @@
 # 2
 # 3
 # 0
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d", &n);
+        int cuts = 0;
+        for (int j = 0; j < n; ++j) {
+            int x, y;
+            std::scanf("%d %d", &x, &y);
+            if (x > y) ++cuts;
+        }
+        std::printf("%d\n", cuts);
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        cuts: int = 0
+        for _ in range(n):
+            x, y = map(int, sys.stdin.readline().rstrip().split())
+            if x > y: cuts += 1
+        sys.stdout.write('{}\n'.format(cuts))
+
+
+if __name__ == '__main__':
+    solution()
