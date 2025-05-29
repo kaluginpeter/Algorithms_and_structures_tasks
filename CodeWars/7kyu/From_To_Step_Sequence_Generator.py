@@ -16,3 +16,6 @@
 # "From" and "To" numbers are always integer, which can be negative or positive independently. "Step" can always be positive.
 #
 # ArraysFundamentals
+# Solution
+def generator (_from, _to, _step):
+    return list(range(_from, _to + [-1, 1][_from <= _to], _step * [-1, 1][_from <= _to])) if _step else []
