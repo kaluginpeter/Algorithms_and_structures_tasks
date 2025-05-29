@@ -41,3 +41,52 @@
 # 3
 # 1
 # 4
+# Solution
+# C++ O(N) O(D) HashMap
+#include <iostream>
+#include <string>
+#include <vector>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d", &n);
+        std::string contest;
+        std::cin >> contest;
+        std::vector<int> count(26, 0);
+        for (char c : contest) ++count[c - 'A'];
+        int solved = 0;
+        for (int i = 0; i < 26; ++i) {
+            if (count[i] >= (i + 1)) ++solved;
+        }
+        std::printf("%d\n", solved);
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(D) HashMap
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        contest: str = sys.stdin.readline().rstrip()
+        hashmap: list[int] = [0] * 26
+        for problem in contest: hashmap[ord(problem) - 65] += 1
+        solved: int = 0
+        for problem in range(26):
+            if hashmap[problem] >= (problem + 1): solved += 1
+        sys.stdout.write('{}\n'.format(solved))
+
+
+if __name__ == '__main__':
+    solution()
