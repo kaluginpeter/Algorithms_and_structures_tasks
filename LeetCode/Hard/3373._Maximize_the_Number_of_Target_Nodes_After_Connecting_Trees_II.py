@@ -48,3 +48,111 @@
 # edges2[i] = [ui, vi]
 # 0 <= ui, vi < m
 # The input is generated such that edges1 and edges2 represent valid trees.
+# Solution
+# Python O(N + M) O(N) Breadth-First-Search Greedy Tree
+class Solution:
+    def count_even_neighbors(self, source: int, adj_list: list[list[int]]) -> int:
+        cur_nodes: list[int] = [source]
+        next_nodes: list[int] = []
+        seen: set[int] = set()
+        seen.add(source)
+        output: int = 0
+        step: int = 0
+        while cur_nodes:
+            for node in cur_nodes:
+                if (step & 1) == 0: output += 1
+                for neighbor in adj_list[node]:
+                    if neighbor in seen: continue
+                    seen.add(neighbor)
+                    next_nodes.append(neighbor)
+            cur_nodes = next_nodes
+            next_nodes = []
+            step += 1
+        return output
+
+    def maxTargetNodes(self, edges1: List[List[int]], edges2: List[List[int]]) -> List[int]:
+        n: int = len(edges1) + 1
+        m: int = len(edges2) + 1
+        adj_list_edges1: list[list[int]] = [[] for _ in range(n)]
+        adj_list_edges2: list[list[int]] = [[] for _ in range(m)]
+        for u, v in edges1:
+            adj_list_edges1[u].append(v)
+            adj_list_edges1[v].append(u)
+        for u, v in edges2:
+            adj_list_edges2[u].append(v)
+            adj_list_edges2[v].append(u)
+        even_neighbors_from_second_tree: int = self.count_even_neighbors(0, adj_list_edges2)
+        extra: int = max(even_neighbors_from_second_tree, m - even_neighbors_from_second_tree)
+        even_neighbors_from_first_tree: int = self.count_even_neighbors(0, adj_list_edges1)
+        odd_neighbors_from_first_tree: int = n - even_neighbors_from_first_tree
+        cur_nodes: list[int] = [0]
+        next_nodes: list[int] = []
+        output: list[int] = [0] * n
+        step: int = 0
+        while cur_nodes:
+            for node in cur_nodes:
+                output[node] = [even_neighbors_from_first_tree, odd_neighbors_from_first_tree][step & 1] + extra
+                for neighbor in adj_list_edges1[node]:
+                    if output[neighbor]: continue
+                    next_nodes.append(neighbor)
+            cur_nodes = next_nodes
+            next_nodes = []
+            step += 1
+        return output
+
+# C++ O(N + M) O(N) Breadth-First-Search Tree Greedy
+class Solution {
+public:
+    int countEvenNeighbors(int source, vector<vector<int>> &adjList) {
+        vector<int> curNodes = {source}, nextNodes;
+        unordered_set<int> seen;
+        seen.insert(source);
+        int output = 0, step = 0;
+        while (!curNodes.empty()) {
+            for (int &node : curNodes) {
+                if ((step & 1) == 0) ++output;
+                for (int &neighbor : adjList[node]) {
+                    if (seen.count(neighbor)) continue;
+                    seen.insert(neighbor);
+                    nextNodes.push_back(neighbor);
+                }
+            }
+            curNodes = nextNodes;
+            nextNodes.clear();
+            ++step;
+        }
+        return output;
+    }
+    vector<int> maxTargetNodes(vector<vector<int>>& edges1, vector<vector<int>>& edges2) {
+        int n = edges1.size() + 1, m = edges2.size() + 1;
+        vector<vector<int>> adjListEdges1(n, vector<int>()), adjListEdges2(m, vector<int>());
+        for (vector<int> &edge : edges1) {
+            adjListEdges1[edge[0]].push_back(edge[1]);
+            adjListEdges1[edge[1]].push_back(edge[0]);
+        }
+        for (vector<int> &edge : edges2) {
+            adjListEdges2[edge[0]].push_back(edge[1]);
+            adjListEdges2[edge[1]].push_back(edge[0]);
+        }
+        int evenNeighborsFromSecondTree = countEvenNeighbors(0, adjListEdges2);
+        int extra = max(evenNeighborsFromSecondTree, m - evenNeighborsFromSecondTree);
+        int evenNeighborsFromFirstTree = countEvenNeighbors(0, adjListEdges1);
+        int oddNeighborsFromFirstTree = n - evenNeighborsFromFirstTree;
+        vector<int> output(n, 0);
+        vector<int> curNodes = {0}, nextNodes;
+        int step = 0;
+        while (!curNodes.empty()) {
+            for (int &node : curNodes) {
+                output[node] = (step & 1? oddNeighborsFromFirstTree : evenNeighborsFromFirstTree) + extra;
+                for (int &neighbor : adjListEdges1[node]) {
+                    if (output[neighbor]) continue;
+                    nextNodes.push_back(neighbor);
+                }
+            }
+            curNodes = nextNodes;
+            nextNodes.clear();
+            ++step;
+        }
+        return output;
+    }
+};
