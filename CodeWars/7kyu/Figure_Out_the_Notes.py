@@ -11,3 +11,7 @@
 # "D", 5   -->  "G"
 # "E", 18  -->  "A#"
 # Algorithms
+# Solution
+def what_note(string, fret):
+    notes: list[str] =  ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#']
+    return notes[(notes.index(string.upper()) + fret) % 12]
