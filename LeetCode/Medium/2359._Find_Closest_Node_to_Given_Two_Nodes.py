@@ -33,3 +33,70 @@
 # -1 <= edges[i] < n
 # edges[i] != i
 # 0 <= node1, node2 < n
+# Solution
+# Python O(N) O(N) Depth-First-Search Tree
+class Solution:
+    def destinate_all(self, source: int, adj_list: list[int], seen: list[int]) -> None:
+        step: int = 0
+        cur_node: int = source
+        while cur_node != -1:
+            seen[cur_node] = step
+            if adj_list[cur_node] != -1 and seen[adj_list[cur_node]] == -1: cur_node = adj_list[cur_node]
+            else: cur_node = -1
+            step += 1
+
+    def closestMeetingNode(self, edges: List[int], node1: int, node2: int) -> int:
+        n: int = len(edges)
+        adj_list: list[int] = [-1] * n
+        for vertex in range(n):
+            adj_list[vertex] = edges[vertex]
+        seen_node1: list[int] = [-1] * n
+        seen_node2: list[int] = [-1] * n
+        self.destinate_all(node1, adj_list, seen_node1)
+        self.destinate_all(node2, adj_list, seen_node2)
+        output: int = -1
+        distance: int = -1
+        for vertex in range(n):
+            if seen_node1[vertex] == -1 or seen_node2[vertex] == -1: continue
+            new_distance: int = max(seen_node1[vertex], seen_node2[vertex])
+            if output == -1 or new_distance < distance:
+                output = vertex
+                distance = new_distance
+        return output
+
+# C++ O(N) O(N) Depth-First-Search Tree
+class Solution {
+public:
+    void destinateAll(int source, vector<int> &adjList, vector<int> &seen) {
+        int step = 0;
+        int curNode = source;
+        while (curNode != -1) {
+            seen[curNode] = step;
+            if (adjList[curNode] != -1 && seen[adjList[curNode]] == -1) curNode = adjList[curNode];
+            else curNode = -1;
+            ++step;
+        }
+    }
+
+    int closestMeetingNode(vector<int>& edges, int node1, int node2) {
+        int n = edges.size();
+        vector<int> adjList(n, -1);
+        for (int vertex = 0; vertex < n; ++vertex) {
+            if (edges[vertex] == -1) continue;
+            adjList[vertex] = edges[vertex];
+        }
+        vector<int> seenNode1 (n, -1), seenNode2(n, -1);
+        destinateAll(node1, adjList, seenNode1);
+        destinateAll(node2, adjList, seenNode2);
+        int output = -1, distance = -1;
+        for (int vertex = 0; vertex < n; ++vertex) {
+            if (seenNode1[vertex] == -1 || seenNode2[vertex] == -1) continue;
+            int newDistance = max(seenNode1[vertex], seenNode2[vertex]);
+            if (output == -1 || newDistance < distance) {
+                output = vertex;
+                distance = newDistance;
+            }
+        }
+        return output;
+    }
+};
