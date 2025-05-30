@@ -55,3 +55,53 @@
 # -1
 # 34 36
 # 20 25
+# Solution
+# C++ O(sqrt(N)) O(1) Math
+#include <iostream>
+#include <cmath>
+
+
+int getPair(int n) {
+    int bound = std::sqrt(n);
+    return (bound * bound == n? bound : -1);
+}
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d", &n);
+        int output = getPair(n);
+        if (output == -1) std::printf("-1\n");
+        else std::printf("%d %d\n", output, 0);
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(sqrt(N)) O(1) Math
+import sys
+import math
+
+
+def get_pair(n: int) -> int:
+    bound: int = int(math.sqrt(n))
+    return [-1, bound][bound * bound == n]
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        output: int = get_pair(n)
+        if output == -1: sys.stdout.write('-1\n')
+        else: sys.stdout.write('{} {}\n'.format(output, 0))
+
+
+if __name__ == '__main__':
+    solution()
