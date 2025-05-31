@@ -77,3 +77,64 @@
 # , and 16
 #  is divisible by 2
 # .
+# Solution
+# C++ O(NlogN) O(1) Greedy Sorting
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d", &n);
+        std::vector<int> nums(n, 0);
+        for (int j = 0; j < n; ++j) std::scanf("%d", &nums[j]);
+        std::sort(nums.begin(), nums.end());
+        int left = n - 1;
+        if (nums[0] & 1) {
+            while (left >= 0 && (nums[left] & 1) == 0) --left;
+        } else {
+            while (left >= 0 && nums[left] & 1) --left;
+        }
+        int right = 0;
+        if (nums[n - 1] & 1) {
+            while (right < n && (nums[right] & 1) == 0) ++right;
+        } else {
+            while (right < n && nums[right] & 1) ++right;
+        }
+        std::printf("%d\n", std::min(right, n - left - 1));
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(NlogN) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: list[int] = sorted(map(int, sys.stdin.readline().rstrip().split()))
+        left: int = 0
+        if nums[n - 1] & 1:
+            while left < n and (nums[left] & 1) == 0: left += 1
+        else:
+            while left < n and nums[left] & 1: left += 1
+        right: int = n - 1
+        if nums[0] & 1:
+            while right >= 0 and (nums[right] & 1) == 0: right -= 1
+        else:
+            while right >= 0 and nums[right] & 1: right -= 1
+        sys.stdout.write('{}\n'.format(min(left, n - right - 1)))
+
+
+if __name__ == '__main__':
+    solution()
