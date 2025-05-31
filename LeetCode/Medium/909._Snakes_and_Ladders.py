@@ -39,3 +39,74 @@
 # 2 <= n <= 20
 # board[i][j] is either -1 or in the range [1, n2].
 # The squares labeled 1 and n2 are not the starting points of any snake or ladder.
+# Solution
+# Python O(N^2) O(N^2) Breadth-First-Search Matrix
+class Solution:
+    def snakesAndLadders(self, board: List[List[int]]) -> int:
+        board.reverse()
+        n: int = len(board)
+        dp: list[list[int]] = [[401] * n for _ in range(n)]
+        cur_nodes: list[tuple[int, int]] = [(0, 0)]
+        next_nodes: list[tuple[int, int]] = []
+        dp[0][0] = 0
+        while cur_nodes:
+            for row, col in cur_nodes:
+                path: int = dp[row][[col, n - col - 1][row & 1]]
+                for move in range(1, 7):
+                    next_ceil: int = row * n + col + move
+                    if next_ceil >= n * n: continue
+                    next_row: int = next_ceil // n
+                    next_col: int = next_ceil % n
+                    if board[next_row][[next_col, n - next_col - 1][next_row & 1]] != -1:
+                        next_ceil: int = board[next_row][[next_col, n - next_col - 1][next_row & 1]] - 1
+                        next_row_jump: int = next_ceil // n
+                        next_col_jump: int = next_ceil % n
+                        if path + 1 < dp[next_row_jump][[next_col_jump, n - next_col_jump - 1][next_row_jump & 1]]:
+                            dp[next_row_jump][[next_col_jump, n - next_col_jump - 1][next_row_jump & 1]] = path + 1
+                            next_nodes.append((next_row_jump, next_col_jump))
+                    elif path + 1 < dp[next_row][[next_col, n - next_col - 1][next_row & 1]]:
+                        dp[next_row][[next_col, n - next_col - 1][next_row & 1]] = path + 1
+                        next_nodes.append((next_row, next_col))
+            cur_nodes = next_nodes
+            next_nodes = []
+        return [dp[n - 1][[n - 1, 0][(n - 1) & 1]], -1][dp[n - 1][[n - 1, 0][(n - 1) & 1]] == 401]
+
+# C++ O(N^2) O(N^2) Breadth-First-Search Matrix
+class Solution {
+public:
+    int snakesAndLadders(vector<vector<int>>& board) {
+        reverse(board.begin(), board.end());
+        int n = board.size();
+        vector<vector<int>> dp(n, vector<int>(n, 401));
+        vector<pair<int, int>> curNodes, nextNodes;
+        curNodes.push_back({0, 0});
+        dp[0][0] = 0;
+        while (!curNodes.empty()) {
+            for (pair<int, int> &cell : curNodes) {
+                int row = cell.first, col = cell.second;
+                int path = dp[row][(row & 1? n - col - 1 : col)];
+                for (int move = 1; move <= 6; ++move) {
+                    int nextCell = row * n + col + move;
+                    if (nextCell >= n * n) continue;
+                    int nextRow = nextCell / n;
+                    int nextCol = nextCell % n;
+                    if (board[nextRow][(nextRow & 1? n - nextCol - 1 : nextCol)] != -1) {
+                        int nextCell = board[nextRow][(nextRow & 1? n - nextCol - 1 : nextCol)] - 1;
+                        int nextRow = nextCell / n;
+                        int nextCol = nextCell % n;
+                        if (path + 1 < dp[nextRow][(nextRow & 1? n - nextCol - 1 : nextCol)]) {
+                            dp[nextRow][(nextRow & 1? n - nextCol - 1 : nextCol)] = path + 1;
+                            nextNodes.push_back({nextRow, nextCol});
+                        }
+                    } else if (path + 1 < dp[nextRow][(nextRow & 1? n - nextCol - 1 : nextCol)]) {
+                        dp[nextRow][(nextRow & 1? n - nextCol - 1 : nextCol)] = path + 1;
+                        nextNodes.push_back({nextRow, nextCol});
+                    }
+                }
+            }
+            curNodes = nextNodes;
+            nextNodes.clear();
+        }
+        return (dp[n - 1][(n & 1? n - 1 : 0)] == 401? -1 : dp[n - 1][(n & 1? n - 1 : 0)]);
+    }
+};
