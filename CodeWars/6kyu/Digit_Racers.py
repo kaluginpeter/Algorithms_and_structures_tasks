@@ -33,3 +33,37 @@
 # output : a string formatted as in the above example.
 #
 # StringsSortingFundamentals
+# Solution
+def digit_racers(s):
+    hashmap: dict[str, int] = dict()
+    absent: list[bool] = [False] * 10
+    for digit in s:
+        absent[int(digit)] = True
+        hashmap[digit] = hashmap.get(digit, 0) + 1
+    racers: list[tuple[str, int]] = sorted(
+        hashmap.items(),
+        key=lambda racer: (racer[1], -s[::-1].index(racer[0])),
+        reverse=True
+    )
+    output: list[str] = []
+    left: int = 0
+    right: int = 0
+    n: int = len(racers)
+    for place in range(len(racers)):
+        winners: list[str] = []
+        while right < n and racers[left][1] == racers[right][1]:
+            winners.append(racers[right])
+            right += 1
+        left = right
+        if place + 1 == 1:
+            output.append('1st place: {}'.format(', '.join(winner[0] for winner in winners)))
+        elif place + 1 == 2:
+            output.append('2nd place: {}'.format(', '.join(winner[0] for winner in winners)))
+        elif place + 1 == 3:
+            output.append('3rd place: {}'.format(', '.join(winner[0] for winner in winners)))
+        else: output.append('{}th place: {}'.format(str(place + 1), ', '.join(winner[0] for winner in winners)))
+        if left == n: break
+    absent_digits: list[str] = [str(digit) for digit in range(10) if not absent[digit]]
+    if not absent_digits: output.append('All digits present')
+    else: output.append('Absent digits: {}'.format(', '.join(absent_digits)))
+    return '\n'.join(output)
