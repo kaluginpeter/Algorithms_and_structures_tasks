@@ -79,3 +79,37 @@
 # , and 4
 #  respectively, meaning there are a total of 3
 #  values.
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d", &n);
+        std::printf("%d\n", n * n / 4 + 1);
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        sys.stdout.write('{}\n'.format(n * n // 4 + 1))
+
+
+if __name__ == '__main__':
+    solution()
