@@ -20,3 +20,25 @@
 #
 # 1 <= n <= 106
 # 1 <= limit <= 106
+# Solution
+# Python O(min(N, limits)) O(1) Math
+class Solution:
+    def distributeCandies(self, n: int, limit: int) -> int:
+        output: int = 0
+        m: int = min(n, limit)
+        for i in range(m + 1):
+            output += max(0, m - abs(n - i - m) + 1)
+        return output
+
+# C++ O(min(N, limits)) O(1) Math
+class Solution {
+public:
+    long long distributeCandies(int n, int limit) {
+        long long output = 0;
+        int m = min(n, limit);
+        for (int i = 0; i <= m; ++i) {
+            output += max(0, m - abs((n - i) - m) + 1);
+        }
+        return output;
+    }
+};
