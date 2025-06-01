@@ -39,3 +39,18 @@
 # Good luck!
 #
 # StringsRegular ExpressionsPuzzles
+# Solution
+from math import gcd
+def treasure_code(clue):
+    letters: list[str] = []
+    nums: list[int] = []
+    num: int = 0
+    for letter in clue:
+        if letter.isalpha():
+            letters.append(letter)
+            if num: nums.append(num)
+            num = 0
+        else: num = num * 10 + int(letter)
+    if num: nums.append(num)
+    div: int = gcd(*nums)
+    return ''.join(letters[i] + str(nums[i] // div) for i in range(len(letters)))
