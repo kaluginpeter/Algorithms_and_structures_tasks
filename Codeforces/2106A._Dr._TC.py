@@ -81,3 +81,54 @@
 # In the third example, the following strings will be written on the board: [10000,01000,00100,00010,00001]
 # ; so there are five 1
 # s written on the board.
+# Solution
+# C++ O(N) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int N;
+        long long n;
+        std::scanf("%d %lld", &N, &n);
+        long long n_ = n;
+        int ones = 0;
+        while (n_) {
+            if (n_ & 1) ++ones;
+            n_ /= 10;
+        }
+        int output = 0;
+        for (int j = 0; j < N; ++j) {
+            if (n & 1) output += ones - 1;
+            else output += ones + 1;
+            n /= 10;
+        }
+        std::printf("%d\n", output);
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(N) Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        x: str = sys.stdin.readline().rstrip()
+        ones: int = sum(char == '1' for char in x)
+        output: int = 0
+        for char in x:
+            output += ones + [1, -1][char == '1']
+        sys.stdout.write('{}\n'.format(output))
+
+
+if __name__ == '__main__':
+    solution()
