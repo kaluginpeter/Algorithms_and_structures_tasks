@@ -26,3 +26,33 @@
 # n == ratings.length
 # 1 <= n <= 2 * 104
 # 0 <= ratings[i] <= 2 * 104
+# Solution
+# Python O(N) O(N) Greedy
+class Solution:
+    def candy(self, ratings: List[int]) -> int:
+        n: int = len(ratings)
+        childrens: list[int] = [1] * n
+        for i in range(1, n):
+            if ratings[i] > ratings[i - 1]: childrens[i] = childrens[i - 1] + 1
+        for i in range(n - 2, -1, -1):
+            if ratings[i] > ratings[i + 1]:
+                if childrens[i] <= childrens[i + 1]: childrens[i] = childrens[i + 1] + 1
+        return sum(childrens)
+
+# C++ O(N) O(N) Greedy
+class Solution {
+public:
+    int candy(vector<int>& ratings) {
+        int output = 0, n = ratings.size();
+        vector<int> childrens(n, 1);
+        for (int i = 1; i < n; ++i) {
+            if (ratings[i] > ratings[i - 1]) childrens[i] = childrens[i - 1] + 1;
+        }
+        for (int i = n - 2; i >= 0; --i) {
+            if (ratings[i] > ratings[i + 1]) {
+                if (childrens[i] <= childrens[i + 1]) childrens[i] = childrens[i + 1] + 1;
+            }
+        }
+        return accumulate(childrens.begin(), childrens.end(), 0);
+    }
+};
