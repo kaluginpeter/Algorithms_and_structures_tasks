@@ -22,3 +22,9 @@
 # fly -> flies
 #
 # Algorithms
+# Solution
+def pluralize(word):
+    if word[-1] in {'s', 'x', 'z'}: return word + 'es'
+    elif word[-2:] in {'ch', 'sh'}: return word + 'es'
+    elif len(word) > 1 and word[-2] not in 'aeoiu' and word[-1] == 'y': return word[:-1] + 'ies'
+    return word + 's'
