@@ -11,3 +11,10 @@
 # NOTE: Although x ≤ 4000, m can be very very LARGE. Where necessary, the way of handling big integers appropriate to the language should be used.
 #
 # Mathematics
+# Solution
+def all_nines(x):
+    if x % 10 in {2, 4, 5, 6, 8, 0}: return -1
+    start: int = 9
+    while start % x != 0:
+        start = start * 10 + 9
+    return start // x
