@@ -41,3 +41,69 @@
 # Each box is contained in one box at most.
 # 0 <= initialBoxes.length <= n
 # 0 <= initialBoxes[i] < n
+# Solution
+# Python O(N^2) O(N) Breadth-First-Search Greedy
+class Solution:
+    def maxCandies(self, status: List[int], candies: List[int], keys: List[List[int]], containedBoxes: List[List[int]], initialBoxes: List[int]) -> int:
+        n: int = len(candies)
+        output: int = 0
+        in_stock: list[int] = [0] * n
+        have_key: list[int] = [0] * n
+        candidates: list[int] = []
+        for init_box in initialBoxes:
+            in_stock[init_box] = 1
+            candidates.append(init_box)
+        for _ in range(n):
+            discover_something: bool = False
+            new_opens: list[int] = []
+            i: int = 0
+            while i < len(candidates):
+                box: int = candidates[i]
+                if in_stock[box] and (status[box] or have_key[box]):
+                    discover_something = True
+                    output += candies[box]
+                    for new_box in containedBoxes[box]:
+                        in_stock[new_box] = 1
+                        new_opens.append(new_box)
+                    for new_key in keys[box]: have_key[new_key] = 1
+                    candidates[i], candidates[-1] = candidates[-1], candidates[i]
+                    candidates.pop()
+                else: i += 1
+            if not discover_something: break
+            for new_box in new_opens: candidates.append(new_box)
+        return output
+
+# C++ O(N^2) O(N) Breadth-First-Search Greedy
+class Solution {
+public:
+    int maxCandies(vector<int>& status, vector<int>& candies, vector<vector<int>>& keys, vector<vector<int>>& containedBoxes, vector<int>& initialBoxes) {
+        int n = candies.size(), output = 0;
+        vector<int> inStock(n, 0), haveKey(n, 0), candidates;
+        for (int &initBox : initialBoxes) {
+            inStock[initBox] = 1;
+            candidates.push_back(initBox);
+        }
+        for (int t = 0; t < n; ++t) {
+            bool discoverSomething = false;
+            int i = 0;
+            vector<int> newOpens;
+            while (i < candidates.size()) {
+                int box = candidates[i];
+                if (inStock[box] && (status[box] || haveKey[box])) {
+                    discoverSomething = true;
+                    output += candies[box];
+                    for (int &newBox : containedBoxes[box]) {
+                        newOpens.push_back(newBox);
+                        inStock[newBox] = 1;
+                    }
+                    for (int &newKey : keys[box]) haveKey[newKey] = 1;
+                    swap(candidates[i], candidates[candidates.size() - 1]);
+                    candidates.pop_back();
+                } else ++i;
+            }
+            if (!discoverSomething) break;
+            for (int &box : newOpens) candidates.push_back(box);
+        }
+        return output;
+    }
+};
