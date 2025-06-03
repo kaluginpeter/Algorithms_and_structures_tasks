@@ -47,3 +47,52 @@
 # In the second test Vasya should write contests on days number 1, 3, 5 and 7, in other days do sport. Thus, he will not have a rest for a single day.
 #
 # In the third test Vasya can do sport either on a day number 1 or number 2. He can not do sport in two days, because it will be contrary to the his limitation. Thus, he will have a rest for only one day.
+# Solution
+# Python O(N) O(N) DynamicProgramming
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    a: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    dp: list[list[int]] = [[float('inf')] * 3 for _ in range(n + 1)]
+    dp[0][0] = 0
+    for i in range(1, n + 1):
+        current: int = a[i - 1]
+        dp[i][0] = min(dp[i - 1][0], dp[i - 1][1], dp[i - 1][2]) + 1
+        if current == 1 or current == 3: dp[i][1] = min(dp[i - 1][0], dp[i - 1][2])
+        if current == 2 or current == 3: dp[i][2] = min(dp[i - 1][0], dp[i - 1][1])
+    sys.stdout.write('{}\n'.format(min(dp[n][0], dp[n][1], dp[n][2])))
+
+
+if __name__ == '__main__':
+    solution()
+
+# C++ O(N) O(N) DynamicProgramming
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+constexpr int INF = 1e9;
+
+void solution() {
+    int n;
+    std::scanf("%d", &n);
+    std::vector<int> a(n, 0);
+    for (int i = 0; i < n; ++i) std::scanf("%d", &a[i]);
+    std::vector<std::vector<int>> dp(n + 1, std::vector<int>(3, INF));
+    dp[0][0] = 0;
+    for (int i = 1; i <= n; ++i) {
+        int current = a[i - 1];
+        dp[i][0] = std::min({dp[i - 1][0], dp[i - 1][1], dp[i - 1][2]}) + 1;
+        if (current == 1 || current == 3) dp[i][1] = std::min(dp[i - 1][0], dp[i - 1][2]);
+        if (current == 2 || current == 3) dp[i][2] = std::min(dp[i - 1][0], dp[i - 1][1]);
+    }
+
+    std::printf("%d\n", std::min({dp[n][0], dp[n][1], dp[n][2]}));
+}
+
+
+int main() {
+    solution();
+}
