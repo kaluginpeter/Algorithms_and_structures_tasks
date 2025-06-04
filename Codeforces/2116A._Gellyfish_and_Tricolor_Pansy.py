@@ -73,3 +73,36 @@
 #
 # In the second test case, Flower's knight has only 1
 #  HP. Gellyfish will attack Flower's knight in the first round. Then Flower's knight will no longer be able to attack, allowing Gellyfish to win.
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int a, b, c, d;
+        std::scanf("%d %d %d %d", &a, &b, &c, &d);
+        std::cout << (std::min(b, d) <= std::min(a, c)? "Gellyfish" : "Flower") << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        a, b, c, d = map(int, sys.stdin.readline().rstrip().split())
+        sys.stdout.write('{}\n'.format(['Flower', 'Gellyfish'][min(b, d) <= min(a, c)]))
+
+
+if __name__ == '__main__':
+    solution()
