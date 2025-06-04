@@ -37,3 +37,14 @@
 # ['Y', '-', 'R', '-', '-', '-', '-']
 # ['Y', 'R', 'Y', '-', '-', 'R', 'Y']
 # ArraysFundamentals
+# Solution
+def connect_four_place(columns):
+    output: list[list[str]] = [['-' for _ in range(7)] for _ in range(6)]
+    is_first: bool = True
+    for c in columns:
+        for i in range(6):
+            if i + 1 == 6 or output[i + 1][c] != '-':
+                output[i][c] = ['R', 'Y'][is_first]
+                break
+        is_first = not is_first
+    return output
