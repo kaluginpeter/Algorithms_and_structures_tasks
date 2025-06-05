@@ -67,3 +67,51 @@
 #
 # (())(())→())(()
 # , which is not a correct bracket sequence.
+# Solution
+# C++ O(N) O(N) Stack String
+#include <iostream>
+#include <vector>
+#include <string>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        std::string sequence;
+        std::cin >> sequence;
+        std::vector<char> stock;
+        int empty = 0;
+        for (char &letter : sequence) {
+            if (stock.empty()) ++empty;
+            if (letter == '(') stock.push_back(letter);
+            else stock.pop_back();
+        }
+        std::cout << (empty > 1? "YES" : "NO") << std::endl;
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(N) Stack String
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        sequence: str = sys.stdin.readline().rstrip()
+        stock: list[str] = []
+        empty: int = 0
+        for letter in sequence:
+            if not stock: empty += 1
+            if letter == '(': stock.append(letter)
+            else: stock.pop()
+        sys.stdout.write('{}\n'.format(['NO', 'YES'][empty > 1]))
+
+
+if __name__ == '__main__':
+    solution()
