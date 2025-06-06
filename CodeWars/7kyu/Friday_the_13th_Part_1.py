@@ -19,3 +19,6 @@
 # Happy Friday the 13th!
 #
 # FundamentalsArrays
+# Solution
+def kill_count(counselors, jason):
+    return [name for name, hp in counselors if hp < jason]
