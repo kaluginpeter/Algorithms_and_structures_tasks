@@ -37,3 +37,58 @@
 #
 # 1 <= s.length <= 105
 # s consists of only English lowercase letters.
+# Solution
+# Python O(N) O(N) String Stack Greedy
+class Solution:
+    def robotWithString(self, s: str) -> str:
+        hashmap: list[int] = [0] * 26
+        for letter in s: hashmap[ord(letter) - 97] += 1
+        t: list[str] = []
+        i: int = 0
+        output: list[str] = []
+        while i < len(s) or t:
+            left: int = [0, 27][i == len(s)]
+            right: int = 27 if not len(t) else ord(t[-1]) - 97
+            have_less: bool = False
+            for j in range(left, right):
+                if hashmap[j]:
+                    have_less = True
+                    break
+            if have_less:
+                t.append(s[i])
+                hashmap[ord(s[i]) - 97] -= 1
+                i += 1
+            else:
+                output.append(t.pop())
+        return ''.join(output)
+
+# C++ O(N) O(N) String Stack Greedy
+class Solution {
+public:
+    string robotWithString(string s) {
+        vector<int> hashmap(26, 0);
+        for (char &letter : s) ++hashmap[letter - 'a'];
+        string output = "", t = "";
+        int i = 0;
+        while (i < s.size() || !t.empty()) {
+            int left = (i == s.size()? 27 : 0);
+            int right = (t.size()? t[t.size() - 1] - 'a' : 27);
+            bool haveLess = false;
+            for (int j = left; j < right; ++j) {
+                if (hashmap[j]) {
+                    haveLess = true;
+                    break;
+                }
+            }
+            if (!haveLess) {
+                output.push_back(t[t.size() - 1]);
+                t.pop_back();
+            } else {
+                --hashmap[s[i] - 'a'];
+                t.push_back(s[i]);
+                ++i;
+            }
+        }
+        return output;
+    }
+};
