@@ -90,3 +90,55 @@
 # , so 3
 #  cells are painted in color 0
 # , which can be shown to be maximum.
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n, x;
+        std::scanf("%d %d", &n, &x);
+        int num = (!x? 1 : 0);
+        for (int j = 0; j < n; ++j) {
+            if (num == n) {
+                std::printf("%d ", x);
+                break;
+            } else {
+                std::printf("%d ", num);
+                ++num;
+                if (num == x) ++num;
+            }
+        }
+        std::printf("\n");
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, x = map(int, sys.stdin.readline().rstrip().split())
+        num: int = [0, 1][x == 0]
+        for i in range(n):
+            if num == n:
+                sys.stdout.write('{} '.format(x))
+                break
+            sys.stdout.write('{} '.format(num))
+            num += 1
+            if num == x: num += 1
+        sys.stdout.write('\n')
+
+
+if __name__ == '__main__':
+    solution()
