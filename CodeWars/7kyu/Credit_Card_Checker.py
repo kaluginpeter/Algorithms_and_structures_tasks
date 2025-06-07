@@ -17,3 +17,13 @@
 # for reference check: https://en.wikipedia.org/wiki/Luhn_algorithm
 #
 # FundamentalsAlgorithms
+# Solution
+def valid_card(card):
+    x: int = 0
+    digits: str = ''.join(reversed(card.split()))
+    for i in range(len(digits)):
+        if (i & 1) == 0:
+            y: int = int(digits[i]) * 2
+            x += [y, y - 9][y > 9]
+        else: x += int(digits[i])
+    return x % 10 == 0
