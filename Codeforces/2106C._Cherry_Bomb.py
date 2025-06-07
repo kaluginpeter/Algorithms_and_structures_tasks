@@ -115,3 +115,83 @@
 #  are: [4,2,3,0,1],[7,5,6,3,4],
 #  and [9,7,8,5,6]
 # .
+# Solution
+# C++ O(N) O(1) Greedy Math
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <cmath>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n, k;
+        std::scanf("%d %d", &n, &k);
+        std::vector<int> a(n, 0), b(n, 0);
+        for (int j = 0; j < n; ++j) std::scanf("%d", &a[j]);
+        for (int j = 0; j < n; ++j) std::scanf("%d", &b[j]);
+        int prevX = -1;
+        bool wasOther = false;
+        for (int j = 0; j < n; ++j) {
+            if (b[j] != -1) {
+                wasOther = true;
+                if (prevX == -1) {
+                    prevX = a[j] + b[j];
+                }
+                if (a[j] + b[j] != prevX) {
+                    prevX = -2;
+                    break;
+                }
+            }
+        }
+        if (prevX == -2) {
+            std::printf("0\n");
+            continue;
+        }
+        // 'x' can be determined, he is in 'prevX' if b is not entire in '-1', in that case
+        // 'prevX' is equal to '-1'
+        if (prevX != -1 && (*std::max_element(a.begin(), a.end()) > prevX || (prevX - *std::min_element(a.begin(), a.end())) > k)) {
+            std::printf("0\n");
+            continue;
+        }
+        std::printf("%d\n", (!wasOther? std::max(0, 1 + *std::min_element(a.begin(), a.end()) + k - *std::max_element(a.begin(), a.end())) : 1));
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Greedy Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, k = map(int, sys.stdin.readline().rstrip().split())
+        a: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+        b: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+        prev_x: int = -1
+        was_other: bool = False
+        for j in range(n):
+            if b[j] != -1:
+                was_other = True
+                if prev_x == -1: prev_x = a[j] + b[j]
+                if a[j] + b[j] != prev_x:
+                    prev_x = -2
+                    break
+        if prev_x == -2:
+            sys.stdout.write('0\n')
+            continue
+        if prev_x != -1 and (max(a) > prev_x or (prev_x - min(a)) > k):
+            sys.stdout.write('0\n')
+            continue
+        sys.stdout.write('{}\n'.format([max(0, 1 + (min(a) + k - max(a))), 1][was_other]))
+
+
+if __name__ == '__main__':
+    solution()
