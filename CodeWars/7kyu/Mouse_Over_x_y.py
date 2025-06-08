@@ -38,3 +38,12 @@
 # there will be roughly 15 tests
 # There will be no more than 400 rectangles in each test.
 # There will be 100 queries to process for each test
+# Solution
+class MouseOver:
+    def __init__(self, rectangles):
+        self.rectangles: list[tuple[int, int, int, int]] = rectangles
+
+    def find_rectangle(self, x, y):
+        for x_, y_, width, height in self.rectangles:
+            if x_ <= x <= x_ + width and y_ <= y <= y_ + height:
+                return (x_, y_, width, height)
