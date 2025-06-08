@@ -106,3 +106,113 @@
 # In the second test case, it can be proven that there is no suitable array d
 # , so the answer is −1
 # .
+# Solution
+# C++ O(N) O(N) SweepLine Greedy
+#include <iostream>
+#include <vector>
+#include <deque>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int rep = 0; rep < t; ++rep) {
+        int n; std::scanf("%d", &n);
+        std::vector<int> plan(n, 0);
+        for (int i = 0; i < n; ++i) std::scanf("%d", &plan[i]);
+        std::vector<std::pair<int, int>> obstacles;
+        for (int i = 0; i < n; ++i) {
+            int l, r; std::scanf("%d %d", &l, &r);
+            obstacles.push_back({l, r});
+        }
+        int height = 0;
+        bool isValid = true;
+        std::vector<int> extra;
+        for (int i = 0; i < n; ++i) {
+            if (plan[i] == 1) ++height;
+            int needRise = 0;
+            if (obstacles[i].second < height) {
+                isValid = false;
+                break;
+            }
+            if (height < obstacles[i].first) {
+                needRise += obstacles[i].first - height;
+                height = obstacles[i].first;
+            }
+            extra.push_back(needRise);
+        }
+        if (!isValid) {
+            std::printf("-1\n"); continue;
+        }
+        int counter = 0;
+        for (int i = n - 1; i >= 0; --i) {
+            counter += extra[i];
+            if (plan[i] == -1) {
+                if (counter) {
+                    --counter;
+                    --height;
+                    plan[i] = 1;
+                } else plan[i] = 0;
+            } else if (plan[i] == 1) --height;
+            if (i - 1 >= 0 && obstacles[i - 1].second < height) break;
+        }
+        if (counter) {
+            std::printf("-1\n"); continue;
+        }
+        for (int i = 0; i < n; ++i) std::printf("%d ", plan[i]);
+        std::printf("\n");
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(N) SweepLine Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        plan: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+        obstacles: list[tuple[int, int]] = []
+        for i in range(n):
+            l, r = map(int, sys.stdin.readline().rstrip().split())
+            obstacles.append((l, r))
+        height: int = 0
+        is_valid: bool = True
+        extra: list[int] = []
+        for i in range(n):
+            if plan[i] == 1: height += 1
+            need_rise: int = 0
+            if obstacles[i][1] < height:
+                is_valid = False
+                break
+            if height < obstacles[i][0]:
+                need_rise += obstacles[i][0] - height
+                height = obstacles[i][0]
+            extra.append(need_rise)
+        if not is_valid:
+            sys.stdout.write('-1\n')
+            continue
+        counter: int = 0
+        for i in range(n - 1, -1, -1):
+            counter += extra[i]
+            if plan[i] == -1:
+                if counter:
+                    counter -= 1
+                    height -= 1
+                    plan[i] = 1
+                else: plan[i] = 0
+            elif plan[i] == 1: height -= 1
+            if i - 1 >= 0 and obstacles[i - 1][1] < height: break
+        if counter:
+            sys.stdout.write('-1\n')
+            continue
+        sys.stdout.write('{}\n'.format(' '.join(map(str, plan))))
+
+if __name__ == '__main__':
+    solution()
