@@ -62,3 +62,40 @@ public:
         return output;
     }
 };
+
+
+# Python O(N) O(log10(N)) Depth-First-Search
+
+
+class Solution:
+    def dfs(self, number: int, n: int, output: list[int]) -> None:
+        if number <= n and number:
+            output.append(number)
+        elif number > n:
+            return
+        for digit in range(10):
+            if number * 10 + digit == 0: continue
+            self.dfs(number * 10 + digit, n, output)
+
+    def lexicalOrder(self, n: int) -> List[int]:
+        output: list[int] = []
+        self.dfs(0, n, output)
+        return output
+
+# C++ O(N) O(log10(N)) Depth-First-Search
+class Solution {
+public:
+    void dfs(int number, const int &n, vector<int> &output) {
+        if (number <= n && number) output.push_back(number);
+        else if(number > n) return;
+        for (int digit = 0; digit < 10; ++digit) {
+            if (number * 10 + digit == 0) continue;
+            dfs(number * 10 + digit, n, output);
+        }
+    }
+    vector<int> lexicalOrder(int n) {
+        vector<int> output;
+        dfs(0, n, output);
+        return output;
+    }
+};
