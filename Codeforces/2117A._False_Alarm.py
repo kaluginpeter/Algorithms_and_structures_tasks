@@ -77,3 +77,55 @@
 # In the second test case, Yousef has a 3-second button, but he would need at least a 4-second button to reach the exit. Therefore, the answer is NO.
 #
 # In the third test case, Yousef can turn on the button before starting to move. All the doors will stay open until he reaches the exit.
+# Solution
+# C++ O(N) O(1) TwoPointers Greedy
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n, x;
+        std::scanf("%d %d", &n, &x);
+        std::vector<int> nums(n, 0);
+        for (int j = 0; j < n; ++j) std::scanf("%d", &nums[j]);
+        int left = 0;
+        while (left < n && nums[left] == 0) ++left;
+        if (left == n) {
+            std::printf("YES\n");
+            continue;
+        }
+        int right = n - 1;
+        while (right >= 0 && nums[right] == 0) --right;
+        std::cout << (right - left + 1 <= x? "YES" : "NO") << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) TwoPointers Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, x = map(int, sys.stdin.readline().rstrip().split())
+        nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+        left: int = 0
+        while left < n and nums[left] == 0: left += 1
+        if left == n:
+            sys.stodut.write('YES\n')
+            continue
+        right: int = n - 1
+        while right >= 0 and nums[right] == 0: right -= 1
+        sys.stdout.write('{}\n'.format(['NO', 'YES'][right - left + 1 <= x]))
+
+
+if __name__ == '__main__':
+    solution()
