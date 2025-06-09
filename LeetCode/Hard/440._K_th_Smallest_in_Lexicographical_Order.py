@@ -71,3 +71,56 @@ public:
         return current_number;
     }
 };
+
+# Python O(log(N)^2) O(1) Trie Math
+class Solution:
+    def count_steps(self, n: int, number1: int, number2: int) -> int:
+        needed: int = 0
+        while number1 <= n:
+            needed += min(n + 1, number2) - number1
+            number1 *= 10
+            number2 *= 10
+        return needed
+
+    def findKthNumber(self, n: int, k: int) -> int:
+        k -= 1
+        current_number: int = 1
+        while k > 0:
+            needed_steps: int = self.count_steps(n, current_number, current_number + 1)
+            if needed_steps <= k:
+                k -= needed_steps
+                current_number += 1
+            else:
+                k -= 1
+                current_number *= 10
+        return current_number
+
+# C++ O(log(N)^2) O(1) Trie Math
+class Solution {
+public:
+    long int countSteps(long int n, long int number1, long int number2) {
+        long int needed = 0;
+        while (number1 <= n) {
+            needed += std::min(n + 1, number2) - number1;
+            number1 *= 10;
+            number2 *= 10;
+        }
+        return needed;
+    }
+
+    int findKthNumber(long int n, long int k) {
+        --k;
+        int currentNumber = 1;
+        while (k > 0) {
+            int neededSteps = countSteps(n, currentNumber, currentNumber + 1);
+            if (neededSteps <= k) {
+                k -= neededSteps;
+                ++currentNumber;
+            } else {
+                --k;
+                currentNumber *= 10;
+            }
+        }
+        return currentNumber;
+    }
+};
