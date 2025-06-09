@@ -21,3 +21,29 @@
 # Good luck!
 #
 # AlgorithmsArrays
+# Solution
+def insert_barrels(warehouse, barrels):
+    counter: int = len(barrels)
+    if warehouse.count('') < counter: return warehouse
+    places: list[tuple[int, int]] = []
+    left: int = 0
+    n: int = len(warehouse)
+    while left < n:
+        while left < n and warehouse[left] != '':
+            left += 1
+        right: int = left
+        while right < n and warehouse[right] == '': right += 1
+        if right - left < counter:
+            left = right
+            continue
+        places.append((left, right - 1))
+        left = right
+    places.sort(key=lambda x: (x[1] - x[0], x[0]))
+    for start, end in places:
+        i: int = start
+        while i <= end and counter:
+            warehouse[i] = '0'
+            counter -= 1
+            i += 1
+        if not counter: break
+    return warehouse
