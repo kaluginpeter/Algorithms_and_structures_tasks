@@ -48,3 +48,13 @@
 # Play Tetris : Shape anastomosis
 # Play FlappyBird : Advance Bravely
 # Puzzles
+# Solution
+def testit(s):
+    if len(s) < 2: return s
+    output: list[str] = []
+    for i in range(0, len(s), 2):
+        if i + 1 == len(s):
+            output.append(s[i])
+            continue
+        output.append(chr(((ord(s[i]) - 96) + (ord(s[i + 1]) - 96)) // 2 + 96))
+    return ''.join(output)
