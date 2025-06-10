@@ -96,3 +96,66 @@
 # The maximum number of operations we can perform is 4
 # . Any permutation with a score of 4
 #  is valid.
+# Solution
+# C++ O(N) O(N) TwoPointers
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d", &n);
+        std::vector<int> output(n, 0);
+        int left = 0, right = n - 1, x = 1;
+        bool isLeft = true;
+        for (int j = 0; j < n; ++j) {
+            if (isLeft) {
+                output[left] = x;
+                ++left;
+            } else {
+                output[right] = x;
+                --right;
+            }
+            isLeft = !isLeft;
+            ++x;
+        }
+        for (int j = 0; j < n; ++j) std::printf("%d ", output[j]);
+        std::printf("\n");
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(N) TwoPointers
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        output: list[int] = [0] * n
+        left: int = 0
+        right: int = n - 1
+        is_left: bool = True
+        x: int = 1
+        for i in range(n):
+            if is_left:
+                output[left] = x
+                left += 1
+            else:
+                output[right] = x
+                right -= 1
+            is_left = not is_left
+            x += 1
+        sys.stdout.write('{}\n'.format(' '.join(str(num) for num in output)))
+
+
+if __name__ == '__main__':
+    solution()
