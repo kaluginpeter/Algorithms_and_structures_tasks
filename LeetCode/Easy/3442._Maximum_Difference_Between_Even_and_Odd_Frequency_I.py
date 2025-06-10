@@ -35,3 +35,32 @@
 # 3 <= s.length <= 100
 # s consists only of lowercase English letters.
 # s contains at least one character with an odd frequency and one with an even frequency.
+# Solution
+# Python O(N) O(D) HashMap String
+class Solution:
+    def maxDifference(self, s: str) -> int:
+        hashmap: list[int] = [0] * 26
+        for letter in s: hashmap[ord(letter) - 97] += 1
+        mx_odd: int = 0
+        mn_even: int = len(s)
+        for freq in hashmap:
+            if not freq: continue
+            elif freq & 1: mx_odd = max(mx_odd, freq)
+            else: mn_even = min(mn_even, freq)
+        return mx_odd - mn_even
+
+# C++ O(N) O(D) HashMap String
+class Solution {
+public:
+    int maxDifference(string s) {
+        vector<int> hashmap(26, 0);
+        for (char &letter : s) ++hashmap[letter - 'a'];
+        int mxOdd = 0, mnEven = s.size();
+        for (int &freq : hashmap) {
+            if (!freq) continue;
+            if (freq & 1) mxOdd = max(mxOdd, freq);
+            else mnEven = min(mnEven, freq);
+        }
+        return mxOdd - mnEven;
+    }
+};
