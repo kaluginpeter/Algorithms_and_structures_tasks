@@ -25,3 +25,13 @@
 # [3,6,9,2,5,8,1,4,8,7]                8
 # [9,8,7,1,2,3,9,7,1,2,3,4,4,5,5,6,6]  8
 # AlgorithmsPuzzles
+# Solution
+def duplicate_or_unique(inList):
+    # 1 case
+    x: int = sum(inList)
+    n: int = len(inList) * (len(inList) - 1) // 2
+    if inList.count(x - n) == 2: return x - n
+    # 2 case
+    n = (len(inList) + 1) // 2
+    n = n * (n + 1)
+    return n - x
