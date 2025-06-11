@@ -74,3 +74,64 @@
 # NO
 # YES
 # YES
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+#include <string>
+#include <cmath>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n, k;
+        std::scanf("%d %d", &n, &k);
+        std::string sequence;
+        std::cin >> sequence;
+        int ones = 0, zeros = 0;
+        for (char &letter : sequence) {
+            if (letter == '1') ++ones;
+            else ++zeros;
+        }
+        if (zeros / 2 + ones / 2 < k) {
+            std::cout << "NO\n";
+            continue;
+        }
+        for (int j = 0; j < k; ++j) {
+            if (ones > zeros) ones -= 2;
+            else zeros -= 2;
+        }
+        std::cout << (ones - zeros == 0? "YES" : "NO") << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, k = map(int, sys.stdin.readline().rstrip().split())
+        sequence: str = sys.stdin.readline().rstrip()
+        zeros: int = 0
+        ones: int = 0
+        for letter in sequence:
+            if letter == '1': ones += 1
+            else: zeros += 1
+        if ones // 2 + zeros // 2 < k:
+            sys.stdout.write('NO\n')
+            continue
+        for i in range(k):
+            if ones > zeros: ones -= 2
+            else: zeros -= 2
+        sys.stdout.write('{}\n'.format(['NO', 'YES'][zeros - ones == 0]))
+
+if __name__ == '__main__':
+    solution()
