@@ -20,3 +20,13 @@
 # [output] an integer
 #
 # Puzzles
+# Solution
+def array_conversion(arr):
+    make_sum: bool = True
+    while len(arr) > 1:
+        if make_sum:
+            arr = [arr[i] + arr[i + 1] for i in range(0, len(arr), 2)]
+        else:
+            arr = [arr[i] * arr[i + 1] for i in range(0, len(arr), 2)]
+        make_sum = not make_sum
+    return arr[0]
