@@ -30,3 +30,24 @@
 #
 # 2 <= nums.length <= 100
 # -100 <= nums[i] <= 100
+# Solution
+# Python O(N) O(1) String Greedy
+class Solution:
+    def maxAdjacentDistance(self, nums: List[int]) -> int:
+        n: int = len(nums)
+        output: int = abs(nums[0] - nums[-1])
+        for i in range(n - 1):
+            output = max(output, abs(nums[i] - nums[i + 1]))
+        return output
+
+# C++ O(N) O(1) String Greedy
+class Solution {
+public:
+    int maxAdjacentDistance(vector<int>& nums) {
+        int n = nums.size(), output = abs(nums[0] - nums[n - 1]);
+        for (int i = 0; i < n - 1; ++i) {
+            output = max(output, abs(nums[i] - nums[i + 1]));
+        }
+        return output;
+    }
+};
