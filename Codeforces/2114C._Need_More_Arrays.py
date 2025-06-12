@@ -105,3 +105,53 @@
 # , the arrays [1,2,2]
 #  and [4]
 #  will be written.
+# Solution
+# C++ O(N) O(1) Greedy SlidingWindow
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        std::vector<int> nums(n, 0);
+        for (int j = 0; j < n; ++j) std::cin >> nums[j];
+        int output = 0;
+        int left = 0, right = 0;
+        while (left < n) {
+            while (right < n && nums[right] - nums[left] <= 1) ++right;
+            ++output;
+            left = right;
+        }
+        std::printf("%d\n", output);
+    }
+}
+
+
+int main() {
+    solution();
+}
+# Python O(N) O(1) Greedy SlidingWindow
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+        left: int = 0
+        right: int = 0
+        output: int = 0
+        while left < n:
+            while right < n and nums[right] - nums[left] <= 1: right += 1
+            output += 1
+            left = right
+        sys.stdout.write('{}\n'.format(output))
+
+
+if __name__ == '__main__':
+    solution()
