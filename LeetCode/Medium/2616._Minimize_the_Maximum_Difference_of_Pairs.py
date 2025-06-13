@@ -24,3 +24,63 @@
 # 1 <= nums.length <= 105
 # 0 <= nums[i] <= 109
 # 0 <= p <= (nums.length)/2
+# Solution
+# Python O(NlogN + NlogD) O(1) BinarySearch Sorting Greedy
+class Solution:
+    def check(self, target: int, nums: list[int], p: int) -> bool:
+        i: int = 0
+        count: int = 0
+        while i < len(nums) - 1:
+            if nums[i + 1] - nums[i] <= target:
+                i += 1
+                count += 1
+            i += 1
+        return count >= p
+
+    def minimizeMax(self, nums: List[int], p: int) -> int:
+        if not p: return 0
+        nums.sort()
+        n: int = len(nums)
+        left: int = 0
+        right: int = nums[-1] - nums[0]
+        output: int = 0
+        while left <= right:
+            middle: int = left + ((right - left) >> 1)
+            if self.check(middle, nums, p):
+                output = middle
+                right = middle - 1
+            else:
+                left = middle + 1
+        return output
+
+# C++ O(NlogN + NlogD) O(1) Sorting BinarySearch Greedy
+class Solution {
+public:
+    bool check(int &target, std::vector<int> &nums, int &p) {
+        int i = 0, count = 0;
+        while (i < nums.size() - 1) {
+            if (nums[i + 1] - nums[i] <= target) {
+                ++i;
+                ++count;
+            }
+            ++i;
+        }
+        return count >= p;
+    }
+
+    int minimizeMax(vector<int>& nums, int p) {
+        if (!p) return 0;
+        int n = nums.size();
+        std::sort(nums.begin(), nums.end());
+        int output = 0;
+        int left = 0, right = nums[n - 1] - nums[0];
+        while (left <= right) {
+            int middle = left + ((right - left) >> 1);
+            if (check(middle, nums, p)) {
+                output = middle;
+                right = middle - 1;
+            } else left = middle + 1;
+        }
+        return output;
+    }
+};
