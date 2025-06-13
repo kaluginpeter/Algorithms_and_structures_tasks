@@ -94,3 +94,66 @@
 # In the third test case, the only partition we can make is b1=[5,4,3,2,1]
 # . Any other partition will not satisfy the condition. Therefore, the answer is 1
 # .
+# Solution
+# C++ O(N) O(N) HashSet Greedy
+#include <iostream>
+#include <vector>
+#include <unordered_set>
+
+
+void solution() {
+    int t;
+    std::scanf("%d", &t);
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::scanf("%d", &n);
+        std::vector<int> nums(n, 0);
+        for (int j = 0; j < n; ++j) std::scanf("%d", &nums[j]);
+        int output = 1;
+        std::unordered_set<int> curHashset = {nums[0]}, nextHashset;
+        for (int right = 1; right < n; ++right) {
+            nextHashset.insert(nums[right]);
+            if (curHashset.count(nums[right])) {
+                curHashset.erase(nums[right]);
+                if (curHashset.empty()) {
+                    ++output;
+                    curHashset = nextHashset;
+                    nextHashset.clear();
+                }
+            }
+        }
+        std::printf("%d\n", output);
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(N) HashSet Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+        cur_hashset: set[int] = set()
+        next_hashset: set[int] = set()
+        cur_hashset.add(nums[0])
+        output: int = 1
+        for right in range(1, n):
+            next_hashset.add(nums[right])
+            if nums[right] in cur_hashset:
+                cur_hashset.remove(nums[right])
+                if not cur_hashset:
+                    output += 1
+                    cur_hashset = next_hashset
+                    next_hashset = set()
+        sys.stdout.write('{}\n'.format(output))
+
+
+if __name__ == '__main__':
+    solution()
