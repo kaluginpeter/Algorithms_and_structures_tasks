@@ -73,3 +73,90 @@
 #  operations of the second type. The array becomes [0,0,0,0,0]
 # .
 # In the first, third, fourth, and sixth test cases, it can be proven that it is impossible to make all elements equal to zero using any number of operations.
+# Solution
+# C++ O(N) O(1) Greedy Math
+#include <iostream>
+#include <vector>
+#include <numeric>
+
+void solution() {
+    int n;
+    std::cin >> n;
+    std::vector<long long> a(n);
+    for (int i = 0; i < n; ++i) std::cin >> a[i];
+
+    if (n < 2) {
+        std::cout << "YES\n";
+        return;
+    }
+
+    long long k_numerator = a[n - 1] - a[0];
+    if (k_numerator % (n - 1) != 0) {
+        std::cout << "NO\n";
+        return;
+    }
+    long long k = k_numerator / (n - 1);
+    for (int i = 0; i < n; ++i) {
+        if (a[i] != a[0] + (long long)i * k) {
+            std::cout << "NO\n";
+            return;
+        }
+    }
+    long long y_numerator = a[0] - k;
+
+    if (y_numerator < 0 || y_numerator % (n + 1) != 0) {
+        std::cout << "NO\n";
+        return;
+    }
+    long long y = y_numerator / (n + 1);
+    long long x = y + k;
+    if (x < 0) {
+        std::cout << "NO\n";
+        return;
+    }
+    std::cout << "YES\n";
+}
+
+int main() {
+    std::ios_base::sync_with_stdio(false);
+    std::cin.tie(NULL);
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) solution();
+    return 0;
+}
+# Python O(N) O(1) Greedy NumberTheory
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    a: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    if n < 2:
+        sys.stdout.write('YES\n')
+        return
+    k_numerator: int = a[-1] - a[0]
+    if k_numerator % (n - 1) != 0:
+        sys.stdout.write('NO\n')
+        return
+    k: int = k_numerator // (n - 1)
+    for i in range(n):
+        if a[i] != a[0] + i * k:
+            sys.stdout.write('NO\n')
+            return
+    y_numerator: int = a[0] - k
+    if y_numerator < 0 or y_numerator % (n + 1) != 0:
+        sys.stdout.write('NO\n')
+        return
+    y: int = y_numerator // (n + 1)
+    x: int = y + k
+    if x < 0:
+        sys.stdout.write('NO\n')
+        return
+    sys.stdout.write('YES\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        solution()
