@@ -58,3 +58,14 @@ public:
 };
 GamesAlgorithmsLogicFundamentals
 */
+// Solution
+std::string declareWinner(Fighter* fighter1, Fighter* fighter2, std::string firstAttacker)
+{
+    bool isFirst = (*fighter1).getName() == firstAttacker;
+    while ((*fighter1).getHealth() > 0 && (*fighter2).getHealth() > 0) {
+        if (isFirst) (*fighter2).setHealth((*fighter2).getHealth() - (*fighter1).getDamagePerAttack());
+        else (*fighter1).setHealth((*fighter1).getHealth() - (*fighter2).getDamagePerAttack());
+        isFirst = !isFirst;
+    }
+    return ((*fighter1).getHealth() > 0 ? (*fighter1).getName() : (*fighter2).getName());
+}
