@@ -30,3 +30,47 @@
 # Constraints:
 #
 # 1 <= num <= 108
+# Solution
+# Python O(log10(N)) O(log10(N)) Greedy
+class Solution:
+    def minMaxDifference(self, num: int) -> int:
+        digits: list[int] = []
+        while num:
+            digits.append(num % 10)
+            num //= 10
+        max_value: int = 0
+        min_value: int = 0
+        n: int = len(digits)
+        right: int = n - 1
+        while right >= 0 and digits[right] == 9: right -= 1
+        target: int = digits[right] if right >= 0 else 9
+        for i in range(n - 1, -1, -1):
+            max_value = max_value * 10 + (9 if digits[i] == target else digits[i])
+        target = digits[n - 1]
+        for i in range(n - 1, -1, -1):
+            min_value = min_value * 10 + (0 if digits[i] == target else digits[i])
+        return max_value - min_value
+
+# C++ O(log10(N)) O(log10(N)) Greedy
+class Solution {
+public:
+    int minMaxDifference(int num) {
+        std::vector<int> digits;
+        while (num) {
+            digits.push_back(num % 10);
+            num /= 10;
+        }
+        int maxValue = 0, minValue = 0;
+        int n = digits.size(), right = n - 1;
+        while (right >= 0 && digits[right] == 9) --right;
+        int target = (right >= 0 ? digits[right] : 9);
+        for (int i = n - 1; i >= 0; --i) {
+            maxValue = maxValue * 10 + (digits[i] == target ? 9 : digits[i]);
+        }
+        target = digits[n - 1];
+        for (int i = n - 1; i >= 0; --i) {
+            minValue = minValue * 10 + (digits[i] == target ? 0 : digits[i]);
+        }
+        return maxValue - minValue;
+    }
+};
