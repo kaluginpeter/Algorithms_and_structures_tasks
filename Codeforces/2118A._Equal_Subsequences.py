@@ -71,3 +71,41 @@
 #  subsequences is the same, both being 0
 # , and the sequence contains exactly five 1
 #  characters.
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n, k;
+        std::cin >> n >> k;
+        for (int j = 0; j < k; ++j) std::cout << 1;
+        for (int j = 0; j < n - k; ++j) std::cout << 0;
+        std::cout << "\n";
+
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, k = map(int, sys.stdin.readline().rstrip().split())
+        for i in range(k): sys.stdout.write('1')
+        for i in range(n - k): sys.stdout.write('0')
+        sys.stdout.write('\n')
+
+
+if __name__ == '__main__':
+    solution()
