@@ -13,3 +13,11 @@
 #     for tick in range(100):
 #         someDisplayFunction(ticker(text, width, tick));
 # Fundamentals
+# Solution
+def ticker(text, width, tick):
+    text = ' ' * width + text
+    tick %= len(text)
+    output: list[str] = []
+    for i in range(tick, tick + width):
+        output.append(text[i % len(text)])
+    return ''.join(output)
