@@ -12,3 +12,16 @@ Don't forget about the indexing pitfall ;)
 
 ArraysFundamentals
 */
+// Solution
+#include <vector>
+
+std::vector<int> seqList(int first, int c, std::size_t l)
+{
+    std::vector<int> output;
+    int x = first;
+    for (std::size_t i = 0; i < l; ++i) {
+      output.push_back(x);
+      x += c;
+    }
+    return output;
+}
