@@ -58,3 +58,51 @@
 # One of the possible sequences of actions in the second test case is:
 #
 # [0,0,0]→[1,0,0]→[1,1,0]→[1,1,2]→[3,1,2]→[3,5,2]→[5,5,2]→[5,5,5]
+# Solution
+# C++ O(log(N)) O(1) Math Greedy
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int x;
+        std::cin >> x;
+        std::vector<int> nums = {0, 0, 0};
+        int ops = 0;
+        while (nums[0] != x) {
+            nums[0] = std::min(nums[1] * 2 + 1, x);
+            std::sort(nums.begin(), nums.end());
+            ++ops;
+        }
+        std::cout << ops << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(log(N)) O(1) Math Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        x: int = int(sys.stdin.readline().rstrip())
+        nums: list[int] = [0, 0, 0]
+        ops: int = 0
+        while nums[0] != x:
+            ops += 1
+            nums[0] = min(x, nums[1] * 2 + 1)
+            nums.sort()
+        sys.stdout.write('{}\n'.format(ops))
+
+
+if __name__ == '__main__':
+    solution()
