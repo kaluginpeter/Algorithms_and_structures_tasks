@@ -30,3 +30,32 @@
 # n == nums.length
 # 2 <= n <= 1000
 # 1 <= nums[i] <= 109
+# Solution
+# Python O(N) O(1) Greedy Array
+class Solution:
+    def maximumDifference(self, nums: List[int]) -> int:
+        min_value: int = nums[0]
+        max_value: int = nums[0]
+        output: int = 0
+        for i in range(len(nums)):
+            if nums[i] < min_value:
+                min_value = max_value = nums[i]
+            elif nums[i] > max_value: max_value = nums[i]
+            output = max(output, max_value - min_value)
+        return output if output else -1
+
+# C++ O(N) O(1) Greedy Array
+class Solution {
+public:
+    int maximumDifference(vector<int>& nums) {
+        int minValue = nums[0], maxValue = nums[0], output = 0;
+        for (int i = 0; i < nums.size(); ++i) {
+            if (nums[i] < minValue) {
+                minValue = nums[i];
+                maxValue = nums[i];
+            } else if (nums[i] > maxValue) maxValue = nums[i];
+            output = std::max(output, maxValue - minValue);
+        }
+        return (output ? output : -1);
+    }
+};
