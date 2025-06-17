@@ -27,3 +27,15 @@
 # Vault experience (2): Hack my terminal!
 # Vault experience (3): Populate the vaults
 # Fundamentals
+# Solution
+int thirstyIn(int water, std::vector<int> ageOfDweller)
+{
+    if (ageOfDweller.empty()) return -1;
+    double daily = 0;
+    for (int &cost : ageOfDweller) {
+        if (cost < 18) ++daily;
+        else if (cost <= 50) daily += 2;
+        else daily += 1.5;
+    }
+    return static_cast<int>(water / daily);
+}
