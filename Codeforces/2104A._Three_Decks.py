@@ -54,3 +54,43 @@
 #  cards in all three decks.
 #
 # In the fourth test case, it is also impossible to make the number of cards in all three decks equal.
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int a, b, c;
+        std::cin >> a >> b >> c;
+        if (a >= b || b >= c) {
+            std::cout << "NO'\n";
+            continue;
+        }
+        std::cout << ((c - (b - a) - b) % 3 == 0 && (c - (b - a) - b >= 0)? "YES" : "NO") << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        a, b, c = map(int, sys.stdin.readline().rstrip().split())
+        if a >= b or b >= c:
+            sys.stdout.write('NO\n')
+            continue
+        sys.stdout.write('{}\n'.format(['NO', 'YES'][(c - (b - a) - b) % 3 == 0 and (c - (b - a) - b) >= 0]))
+
+
+if __name__ == '__main__':
+    solution()
