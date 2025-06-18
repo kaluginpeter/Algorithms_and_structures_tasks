@@ -14,3 +14,9 @@
 # calculate("B & A | C", {"A": 1, "B": 0, "C": 1})   # returns 1
 # # B & A | C = 0 & 1 | 1 = 0 | 1 = 1
 # Fundamentals
+# Solution
+def calculate(expr: str, values: dict[str, int]) -> int:
+    for letter, value in values.items():
+        expr = expr.replace(letter, str(value))
+    expr = expr.replace('&', 'and').replace('|', 'or')
+    return eval(expr)
