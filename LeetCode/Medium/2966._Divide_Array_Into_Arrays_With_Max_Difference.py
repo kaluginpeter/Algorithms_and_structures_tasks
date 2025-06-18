@@ -42,3 +42,55 @@ class Solution(object):
             else:
                 l.append(nums[i:i+3])
         return l
+
+
+# Python O(N * 1e5) O(1e5) CountingSort
+class Solution:
+    def divideArray(self, nums: List[int], k: int) -> List[List[int]]:
+        hashmap: list[int] = [0] * 100001
+        for num in nums: hashmap[num] += 1
+        output: list[list[int]] = []
+        chunk: list[int] = []
+        num: int = 1
+        while num < len(hashmap):
+            if not hashmap[num]:
+                num += 1
+                continue
+            if len(chunk) > 1 and num - chunk[0] > k:
+                output.clear()
+                return output
+            chunk.append(num)
+            if len(chunk) == 3:
+                output.append(chunk)
+                chunk = []
+            hashmap[num] -= 1
+        return output
+
+# C++ O(N * 1e5) O(1e5) CountingSort
+class Solution {
+public:
+    vector<vector<int>> divideArray(vector<int>& nums, int k) {
+        std::vector<int> hashmap(1e5 + 1, 0);
+        for (int &num : nums) ++hashmap[num];
+        std::vector<std::vector<int>> output;
+        std::vector<int> chunk;
+        int num = 1;
+        while (num < hashmap.size()) {
+            if (!hashmap[num]) {
+                ++num;
+                continue;
+            };
+            if (chunk.size() > 1 && num - chunk[0] > k) {
+                output.clear();
+                return output;
+            }
+            --hashmap[num];
+            chunk.push_back(num);
+            if (chunk.size() == 3) {
+                output.push_back(chunk);
+                chunk.clear();
+            }
+        }
+        return output;
+    }
+};
