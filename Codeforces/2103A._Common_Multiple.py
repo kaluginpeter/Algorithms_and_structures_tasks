@@ -77,3 +77,43 @@
 #  is not beautiful, so the maximum size of a subsequence of array a
 #  that is beautiful is 4
 # .
+# Solution
+# C++ O(N) O(D) HashSet
+#include <iostream>
+#include <set>
+using namespace std;
+
+void solution() {
+    int t;
+    cin >> t;
+    for (int j = 0; j < t; ++j) {
+        int n;
+        cin >> n;
+        set<int> s;
+        for (int i = 0; i < n; i++) {
+            int a;
+            cin >> a;
+            s.insert(a);
+        }
+        cout << s.size() << '\n';
+    }
+}
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(D) HashSet
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: set[int] = set(map(int, sys.stdin.readline().rstrip().split()))
+        sys.stdout.write('{}\n'.format(len(nums)))
+
+
+if __name__ == '__main__':
+    solution()
