@@ -98,3 +98,66 @@
 # In the fifth test case, the following path can be taken: 2→1→2→3
 # . The number of steps is 3
 # .
+# Solution
+# C++ O(NlogN) O(N) Sorting Greedy
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n, s;
+        std::cin >> n >> s;
+        std::vector<int> nums(n, 0);
+        for (int j = 0; j < n; ++j) std::cin >> nums[j];
+        nums.push_back(s);
+        std::sort(nums.begin(), nums.end());
+        int left = 0, right = n, pos = 0;
+        while (left <= right) {
+            int middle = left + ((right - left) >> 1);
+            if (nums[middle] == s) {
+                pos = middle;
+                break;
+            } else if (nums[middle] < s) left = middle + 1;
+            else right = middle - 1;
+        }
+        int extra = nums[n] - nums[0];
+        std::cout << (std::min(nums[pos] - nums[0], nums[n] - nums[pos]) + extra) << std::endl;
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(NlogN) O(N) Sorting
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, s = map(int, sys.stdin.readline().rstrip().split())
+        nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+        nums.append(s)
+        nums.sort()
+        left: int = 0
+        right: int = n
+        pos: int = 0
+        while left <= right:
+            middle: int = left + ((right - left) >> 1)
+            if nums[middle] == s:
+                pos = middle
+                break
+            elif nums[middle] < s: left = middle + 1
+            else: right = middle - 1
+        extra: int = nums[n] - nums[0]
+        sys.stdout.write('{}\n'.format(min(nums[pos] - nums[0], nums[n] - nums[pos]) + extra))
+
+
+if __name__ == '__main__':
+    solution()
