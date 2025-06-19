@@ -50,3 +50,10 @@
 # The above permutation is therefore not allowed, since at least one element has changed index by more than 1.
 #
 # FundamentalsAlgorithmsPuzzlesMathematicsDiscrete Mathematics
+# Solution
+def permuts(n):
+    a: int = 0
+    b: int = 1
+    for i in range(n):
+        a, b = b, a + b
+    return b
