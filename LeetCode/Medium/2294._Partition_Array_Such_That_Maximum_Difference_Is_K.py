@@ -41,3 +41,31 @@
 # 1 <= nums.length <= 105
 # 0 <= nums[i] <= 105
 # 0 <= k <= 105
+# Solution
+# Python O(NlogN) O(1) Sorting Greedy
+class Solution:
+    def partitionArray(self, nums: List[int], k: int) -> int:
+        nums.sort()
+        segments: int = 1
+        left: int = 0
+        for right in range(len(nums)):
+            if nums[right] - nums[left] > k:
+                segments += 1
+                left = right
+        return segments
+
+# C++ O(NlogN) O(1) Sorting Greedy
+class Solution {
+public:
+    int partitionArray(vector<int>& nums, int k) {
+        std::sort(nums.begin(), nums.end());
+        int segments = 1, left = 0;
+        for (int right = 0; right < nums.size(); ++right) {
+            if (nums[right] - nums[left] > k) {
+                ++segments;
+                left = right;
+            }
+        }
+        return segments;
+    }
+};
