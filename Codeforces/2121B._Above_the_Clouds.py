@@ -135,3 +135,71 @@
 #  equals a+c=
 #  "abca". The string b
 #  is a substring of this string.
+# Solution
+# C++ O(N) O(1) Greedy HashMap
+#include <iostream>
+#include <string>
+#include <vector>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        std::string sequence;
+        std::cin >> sequence;
+        std::vector<int> hashmap(26, 0);
+        bool isValid = false;
+        for (int j = 0; j < n; ++j) {
+            if (hashmap[sequence[j] - 'a'] && j + 1 < n) {
+                isValid = true;
+                break;
+            }
+            ++hashmap[sequence[j] - 'a'];
+        }
+        hashmap = std::vector<int>(26, 0);
+        for (int j = n - 1; j >= 0; --j) {
+            if (hashmap[sequence[j] - 'a'] && j) {
+                isValid = true;
+                break;
+            }
+            ++hashmap[sequence[j] - 'a'];
+        }
+        std::cout << (isValid ? "YES" : "NO") << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Greedy HashMap
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        sequence: str = sys.stdin.readline().rstrip()
+        is_valid: bool = False
+        hashmap: list[int] = [0] * 26
+        for j in range(n):
+            if hashmap[ord(sequence[j]) - 97] and j + 1 < n:
+                is_valid = True
+                break
+            hashmap[ord(sequence[j]) - 97] += 1
+        hashmap = [0] * 26
+        for j in range(n - 1, -1, -1):
+            if hashmap[ord(sequence[j]) - 97] and j:
+                is_valid = True
+                break
+            hashmap[ord(sequence[j]) - 97] += 1
+        sys.stdout.write('{}\n'.format(['NO', 'YES'][is_valid]))
+
+
+if __name__ == '__main__':
+    solution()
