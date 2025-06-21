@@ -45,3 +45,23 @@ If n = 16, output should be:
                 6
 ASCII ArtFundamentals
 */
+// Solution
+std::string pattern(int n)
+{
+    std::string output = "";
+    for (int i = 1; i <= n; ++i) {
+        std::string row = "", identation = " ";
+        for (int j = 0; j < i; ++j) row += identation;
+        bool flag = true;
+        int count = 0;
+        while (count < n - (i - 1)) {
+          if (flag) {
+            ++count;
+            row += std::to_string(i % 10);
+          } else row += identation;
+          flag = !flag;
+        }
+        output += (i == 1 ? "" : "\n") + row;
+    }
+    return output;
+}
