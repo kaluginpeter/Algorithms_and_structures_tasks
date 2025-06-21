@@ -39,3 +39,39 @@
 # 1 <= word.length <= 105
 # 0 <= k <= 105
 # word consists only of lowercase English letters.
+# Python O(N + D^2) O(D) HashMap Greedy
+class Solution:
+    def minimumDeletions(self, word: str, k: int) -> int:
+        hashmap: list[int] = [0] * 26
+        for letter in word: hashmap[ord(letter) - 97] += 1
+        output: int = len(word)
+        for i in range(26):
+            if not hashmap[i]: continue
+            ops: int = 0
+            for j in range(26):
+                if not hashmap[j]: continue
+                elif hashmap[j] < hashmap[i]: ops += hashmap[j]
+                elif hashmap[j] > hashmap[i] + k: ops += hashmap[j] - (hashmap[i] + k)
+            output = min(output, ops)
+        return output
+
+# C++ O(N + D^2) O(D) HashMap Greedy
+class Solution {
+public:
+    int minimumDeletions(string word, int k) {
+        std::vector<int> hashmap(26, 0);
+        for (char &letter : word) ++hashmap[letter - 'a'];
+        int output = word.size();
+        for (int i = 0; i < 26; ++i) {
+            if (!hashmap[i]) continue;
+            int ops = 0;
+            for (int j = 0; j < 26; ++j) {
+                if (!hashmap[j]) continue;
+                if (hashmap[j] < hashmap[i]) ops += hashmap[j];
+                else if (hashmap[j] > hashmap[i] + k) ops += hashmap[j] - (hashmap[i] + k);
+            }
+            output = std::min(output, ops);
+        }
+        return output;
+    }
+};
