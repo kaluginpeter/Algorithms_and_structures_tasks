@@ -46,3 +46,61 @@
 # • Jerry takes an apple from the first box as well. The array a becomes [0, 1, 2]. Jerry loses because
 # max(0, 1, 2) − min(0, 1, 2) = 2 > k.
 # Page 1 of 1
+# Solution
+# C++ O(N) O(1) Greedy Math
+#include <iostream>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n, k;
+        std::cin >> n >> k;
+        int minNumber = 2e9, maxNumber = 0, maxNumberFreq = 0;
+        long long totalApples = 0;
+        for (int j = 0; j < n; ++j) {
+            int apple;
+            std::cin >> apple;
+            totalApples += apple;
+            minNumber = std::min(minNumber, apple);
+            if (apple == maxNumber) ++maxNumberFreq;
+            else if (apple > maxNumber) {
+                maxNumber = apple;
+                maxNumberFreq = 1;
+            }
+        }
+        if ((maxNumber - minNumber - 1 > k) || (maxNumber - minNumber > k && maxNumberFreq > 1)) {
+            std::cout << "Jerry\n";
+            continue;
+        }
+        std::cout << (totalApples & 1 ? "Tom" : "Jerry") << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Greedy Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, k = map(int, sys.stdin.readline().rstrip().split())
+        apples: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+        total_apples: int = sum(apples)
+        min_number: int = min(apples)
+        max_number: int = max(apples)
+        max_number_freq: int = apples.count(max_number)
+        if (max_number - min_number - 1 > k) or (max_number - min_number > k and max_number_freq > 1):
+            sys.stdout.write('Jerry\n')
+            continue
+        sys.stdout.write('{}\n'.format(['Jerry', 'Tom'][total_apples & 1]))
+
+
+if __name__ == '__main__':
+    solution()
