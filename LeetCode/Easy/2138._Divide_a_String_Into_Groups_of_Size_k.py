@@ -59,3 +59,40 @@ class Solution:
         for i in range(0, len(s), k):
             ans += [so[i:i+k]]
         return ans
+
+
+# Python O(N) O(N) Simulation
+class Solution:
+    def divideString(self, s: str, k: int, fill: str) -> List[str]:
+        output: list[str] = []
+        word: list[str] = []
+        for i in range(len(s)):
+            word.append(s[i])
+            if (i + 1) % k == 0:
+                output.append(''.join(word))
+                word.clear()
+        if word:
+            while len(word) < k: word.append(fill)
+            output.append(''.join(word))
+        return output
+
+# C++ O(N) O(N) Simulation
+class Solution {
+public:
+    vector<string> divideString(string s, int k, char fill) {
+        std::vector<std::string> output;
+        std::string word = "";
+        for (std::string::size_type i = 0; i < s.size(); ++i) {
+            word.push_back(s[i]);
+            if ((i + 1) % k == 0) {
+                output.push_back(word);
+                word.clear();
+            }
+        }
+        if (!word.empty()) {
+            while (word.size() < k) word.push_back(fill);
+            output.push_back(word);
+        }
+        return output;
+    }
+};
