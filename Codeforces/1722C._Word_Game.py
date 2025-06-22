@@ -55,3 +55,86 @@
 # The word def
 #  was written by the second guy only — he gets 3
 #  points.
+# Solution
+# C++ O(N) O(D) HashSet Greedy
+#include <iostream>
+#include <string>
+#include <unordered_set>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        std::unordered_set<std::string> first, second, third;
+        for (int j = 0; j < n; ++j) {
+            std::string word;
+            std::cin >> word;
+            first.insert(word);
+        }
+        for (int j = 0; j < n; ++j) {
+            std::string word;
+            std::cin >> word;
+            second.insert(word);
+        }
+        for (int j = 0; j < n; ++j) {
+            std::string word;
+            std::cin >> word;
+            third.insert(word);
+        }
+        int x = 0, y = 0, z = 0;
+        for (auto itr = first.cbegin(); itr != first.cend(); ++itr) {
+            if (second.count(*itr) && third.count(*itr)) continue;
+            else if (second.count(*itr) || third.count(*itr)) ++x;
+            else x += 3;
+        }
+        for (auto itr = second.cbegin(); itr != second.cend(); ++itr) {
+            if (first.count(*itr) && third.count(*itr)) continue;
+            else if (first.count(*itr) || third.count(*itr)) ++y;
+            else y += 3;
+        }
+        for (auto itr = third.cbegin(); itr != third.cend(); ++itr) {
+            if (first.count(*itr) && second.count(*itr)) continue;
+            else if (first.count(*itr) || second.count(*itr)) ++z;
+            else z += 3;
+        }
+        std::cout << x << " " << y << " " << z << std::endl;
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(D) HashSet Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        first: set[str] = set(sys.stdin.readline().rstrip().split())
+        second: set[str] = set(sys.stdin.readline().rstrip().split())
+        third: set[str] = set(sys.stdin.readline().rstrip().split())
+        x = y = z = 0
+        for word in first:
+            if word in second and word in third: continue
+            elif word in second or word in third: x += 1
+            else: x += 3
+        for word in second:
+            if word in first and word in third: continue
+            elif word in first or word in third: y += 1
+            else: y += 3
+        for word in third:
+            if word in first and word in second: continue
+            elif word in first or word in second: z += 1
+            else: z += 3
+        sys.stdout.write('{} {} {}\n'.format(x, y, z))
+
+
+if __name__ == '__main__':
+    solution()
