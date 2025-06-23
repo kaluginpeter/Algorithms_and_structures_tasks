@@ -115,3 +115,110 @@
 # In the sixth test case, you can choose r=3
 #  and c=2
 # .
+# Solution
+# C++ O(NM) O(NM) Greedy HashSet
+#include <iostream>
+#include <vector>
+#include <unordered_set>
+#include <algorithm>
+
+void solve() {
+    int n, m;
+    std::cin >> n >> m;
+    std::vector<std::vector<int>> grid(n, std::vector<int>(m));
+    int max_val = 0;
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            std::cin >> grid[i][j];
+            if (grid[i][j] > max_val) max_val = grid[i][j];
+        }
+    }
+    std::vector<std::pair<int, int>> max_locations;
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            if (grid[i][j] == max_val) max_locations.push_back({i, j});
+        }
+    }
+    if (max_locations.size() <= 1) {
+        std::cout << max_val - 1 << std::endl;
+        return;
+    }
+    bool can_cover_all = false;
+    int r1 = max_locations[0].first;
+    int c1 = max_locations[0].second;
+    std::unordered_set<int> remaining_cols;
+    for (const auto& loc : max_locations) {
+        if (loc.first != r1) remaining_cols.insert(loc.second);
+    }
+    if (remaining_cols.size() <= 1) can_cover_all = true;
+
+    if (!can_cover_all) {
+        std::unordered_set<int> remaining_rows;
+        for (const auto& loc : max_locations) {
+            if (loc.second != c1) remaining_rows.insert(loc.first);
+        }
+        if (remaining_rows.size() <= 1) can_cover_all = true;
+    }
+    std::cout << (can_cover_all ? max_val - 1 : max_val) << std::endl;
+
+}
+
+void solution() {
+    int t;
+    std::cin >> t;
+    while (t > 0) {
+        solve();
+        --t;
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(NM) O(NM) Greedy HashSet
+import sys
+
+
+def solve() -> None:
+    n, m = map(int, sys.stdin.readline().rstrip().split())
+    grid: list[list[int]] = []
+    for _ in range(n):
+        row: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+        grid.append(row)
+    max_val: int = 0
+    for i in range(n):
+        for j in range(m):
+            if grid[i][j] > max_val: max_val = grid[i][j]
+    max_locations: list[tuple[int, int]] = []
+    for i in range(n):
+        for j in range(m):
+            if grid[i][j] == max_val: max_locations.append((i, j))
+
+    if len(max_locations) <= 1:
+        sys.stdout.write('{}\n'.format(max_val - 1))
+        return
+    can_cover_all: bool = False
+    r1: int = max_locations[0][0]
+    c1: int = max_locations[0][1]
+    remaining_cols: set[int] = set()
+    for r, c in max_locations:
+        if r != r1: remaining_cols.add(c)
+    if len(remaining_cols) <= 1: can_cover_all = True
+    if not can_cover_all:
+        remaining_rows: set[int] = set()
+        for r, c in max_locations:
+            if c != c1: remaining_rows.add(r)
+        if len(remaining_rows) <= 1: can_cover_all = True
+
+    sys.stdout.write('{}\n'.format([max_val, max_val - 1][can_cover_all]))
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solve()
+
+
+if __name__ == '__main__':
+    solution()
