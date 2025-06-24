@@ -31,3 +31,48 @@
 # 1 <= nums[i] <= 1000
 # key is an integer from the array nums.
 # 1 <= k <= nums.length
+# Solution
+# Python O(N) O(N) Greedy
+class Solution:
+    def findKDistantIndices(self, nums: List[int], key: int, k: int) -> List[int]:
+        n: int = len(nums)
+        segments: list[tuple[int, int]] = []
+        for i in range(n):
+            if nums[i] == key:
+                segments.append((max(0, i - k), min(n - 1, i + k)))
+        output: list[int] = []
+        if not segments: return output
+        start, end = segments[0]
+        for next_start, next_end in segments:
+            if end >= next_start: end = max(end, next_end)
+            else:
+                for j in range(start, end + 1): output.append(j)
+                start, end = next_start, next_end
+        for j in range(start, end + 1): output.append(j)
+        return output
+
+# C++ O(N) O(N) Greedy
+class Solution {
+public:
+    vector<int> findKDistantIndices(vector<int>& nums, int key, int k) {
+        int n = nums.size();
+        std::vector<pair<int, int>> segments;
+        for (int i = 0; i < n; ++i) {
+            if (nums[i] == key) segments.push_back({std::max(0, i - k), std::min(n - 1, i + k)});
+        }
+        std::vector<int> output;
+        if (segments.empty()) return output;
+        int start = segments[0].first, end = segments[0].second;
+        for (int i = 0; i < segments.size(); ++i) {
+            if (end >= segments[i].first) {
+                end = std::max(end, segments[i].second);
+            } else {
+                for (int j = start; j <= end; ++j) output.push_back(j);
+                start = segments[i].first;
+                end = segments[i].second;
+            }
+        }
+        for (int j = start; j <= end; ++j) output.push_back(j);
+        return output;
+    }
+};
