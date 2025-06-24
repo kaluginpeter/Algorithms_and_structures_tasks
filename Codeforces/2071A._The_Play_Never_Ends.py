@@ -47,3 +47,43 @@
 #
 # In the second test case, the spectator of the first match will play in the 2
 # nd match regardless of the result of the first match.
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        if (n == 1) {
+            std::cout << "YES\n";
+            continue;
+        }
+        std::cout << ((n - 1) % 3 == 0 ? "YES" : "NO") << std::endl;
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        if n == 1:
+            sys.stdout.write('YES\n')
+            continue
+        sys.stdout.write('{}\n'.format(['NO', 'YES'][(n - 1) % 3 == 0]))
+
+
+if __name__ == '__main__':
+    solution()
