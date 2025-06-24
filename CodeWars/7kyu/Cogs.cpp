@@ -20,3 +20,12 @@ Cogs
 Cogs 2
 Fundamentals
 */
+// Solution
+double cog_rpm(const std::vector<int>& cogs)
+{
+    if (cogs.empty()) return 0.0;
+    if (cogs.size() == 1) return 1.0;
+    double direction_multiplier = (cogs.size() % 2 == 0) ? -1.0 : 1.0;
+    double speed_ratio = static_cast<double>(cogs.front()) / cogs.back();
+    return speed_ratio * direction_multiplier;
+}
