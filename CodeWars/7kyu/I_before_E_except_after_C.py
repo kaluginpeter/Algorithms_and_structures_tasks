@@ -26,3 +26,32 @@
 # "cieee" --> "ceeei"
 # "eiicieeceie" --> "iieceeiceei"
 # StringsRegular Expressions
+# Solution
+def i_before_e(s):
+    output = []
+    i = 0
+    n = len(s)
+    while i < n:
+        if s[i] == 'c':
+            output.append('c')
+            i += 1
+            eis = []
+            while i < n and (s[i] == 'e' or s[i] == 'i'):
+                eis.append(s[i])
+                i += 1
+            e_count = eis.count('e')
+            i_count = eis.count('i')
+            output.extend(['e'] * e_count + ['i'] * i_count)
+        else:
+            if s[i] != 'e' and s[i] != 'i':
+                output.append(s[i])
+                i += 1
+            else:
+                eis = []
+                while i < n and (s[i] == 'e' or s[i] == 'i'):
+                    eis.append(s[i])
+                    i += 1
+                i_count = eis.count('i')
+                e_count = eis.count('e')
+                output.extend(['i'] * i_count + ['e'] * e_count)
+    return ''.join(output)
