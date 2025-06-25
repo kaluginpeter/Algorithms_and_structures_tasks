@@ -54,3 +54,34 @@
 # On the first test case, the four given points form a square, so the answer is "Yes".
 #
 # On the second test case, the four given points do not form a square, so the answer is "No".
+# Solution
+# C++ O(1) O(1) Greedy
+#include <iostream>
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int l, r, d, u;
+        std::cin >> l >> r >> d >> u;
+        std::cout << (l == r && r == d && d == u ? "Yes" : "No") << std::endl;
+    }
+}
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        l, r, d, u = map(int, sys.stdin.readline().rstrip().split())
+        sys.stdout.write('{}\n'.format(['No', 'Yes'][l == r == d == u]))
+
+
+if __name__ == '__main__':
+    solution()
