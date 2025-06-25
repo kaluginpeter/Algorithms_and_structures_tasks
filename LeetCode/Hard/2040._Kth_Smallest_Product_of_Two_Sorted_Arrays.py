@@ -38,3 +38,51 @@
 # -105 <= nums1[i], nums2[j] <= 105
 # 1 <= k <= nums1.length * nums2.length
 # nums1 and nums2 are sorted.
+# Solution
+# Python O(NlogClogM) O(1) BinarySearch
+class Solution:
+    # Pytnon way to use binary search manually, will get TLE
+    def count(self, nums2: list[int], x1: int, bound: int) -> int:
+        match x1:
+            case x1 if x1 > 0:
+                return bisect_right(nums2, bound // x1)
+            case x1 if x1 < 0:
+                return len(nums2) - bisect_left(nums2, -(-bound // x1))
+            case 0: return [0, len(nums2)][bound >= 0]
+
+    def kthSmallestProduct(self, nums1: List[int], nums2: List[int], k: int) -> int:
+        n1: int = len(nums1)
+        left: int = -10000000001
+        right: int = 10000000001
+        while left <= right:
+            middle: int = left + ((right - left) >> 1)
+            pairs: int = 0
+            for i in range(n1): pairs += self.count(nums2, nums1[i], middle)
+            if pairs < k: left = middle + 1
+            else: right = middle - 1
+        return left
+
+# C++ O(NlogClogM) O(1) BinarySearch
+class Solution {
+public:
+    int count_(std::vector<int> &nums2, long long x1, long long bound) {
+        int n2 = nums2.size(), left = 0, right = n2 - 1;
+        while (left <= right) {
+            int middle = left + ((right - left) >> 1);
+            if (x1 >= 0 && nums2[middle] * x1 <= bound || x1 < 0 && nums2[middle] * x1 > bound) left = middle + 1;
+            else right = middle - 1;
+        }
+        return (x1 >= 0 ? left : n2 - left);
+    }
+    long long kthSmallestProduct(vector<int>& nums1, vector<int>& nums2, long long k) {
+        int n1 = nums1.size();
+        long long left = -1e10 - 1, right = 1e10 + 1;
+        while (left <= right) {
+            long long middle = left + ((right - left) >> 1), pairs = 0;
+            for (int i = 0; i < n1; ++i) pairs += count_(nums2, nums1[i], middle);
+            if (pairs < k) left = middle + 1;
+            else right = middle - 1;
+        }
+        return left;
+    }
+};
