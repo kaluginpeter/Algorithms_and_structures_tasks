@@ -29,3 +29,55 @@
 # 1 <= s.length <= 1000
 # s[i] is either '0' or '1'.
 # 1 <= k <= 109
+# Solution
+# Python O(|S|logK) O(|S| + logK) Greedy
+class Solution:
+    def can_add(self, digits: list[int], k_digits: list[int]) -> bool:
+        if len(digits) < len(k_digits): return True
+        x: int = 0
+        y: int = 0
+        for i in range(len(digits)):
+            x += digits[i] * (1 << (i + 1))
+            y += k_digits[i] * (1 << (i + 1))
+        return x <= y
+
+    def longestSubsequence(self, s: str, k: int) -> int:
+        k_digits: list[int] = []
+        while k:
+            k_digits.append(k % 2)
+            k //= 2
+        digits: list[int] = []
+        for i in range(len(s) - 1, -1, -1):
+            digits.append(int(s[i]))
+            if s[i] == '1' and (len(digits) > len(k_digits) or not self.can_add(digits, k_digits)):
+                digits.pop()
+        return len(digits)
+
+# C++ O(|S|logK) O(|S| + logK) Greedy
+class Solution {
+public:
+    bool canAdd(std::vector<int> &digits, std::vector<int> &kDigits) {
+        if (digits.size() < kDigits.size()) return true;
+        int x = 0, y = 0;
+        for (int i = 0; i < digits.size(); ++i) {
+            x += digits[i] * (1 << (i + 1));
+            y += kDigits[i] * (1 << (i + 1));
+        }
+        return x <= y;
+    }
+
+    int longestSubsequence(string s, int k) {
+        std::vector<int> kDigits;
+        while (k) {
+            kDigits.push_back(k % 2);
+            k /= 2;
+        }
+        int n = s.size();
+        std::vector<int> digits;
+        for (int i = n - 1; i >= 0; --i) {
+            digits.push_back(s[i] - '0');
+            if (s[i] == '1' && (digits.size() > kDigits.size() || !canAdd(digits, kDigits))) digits.pop_back();
+        }
+        return digits.size();
+    }
+};
