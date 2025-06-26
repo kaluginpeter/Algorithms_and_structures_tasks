@@ -56,3 +56,45 @@
 #
 # In the second example, the array a=[7,7,7]
 #  is suitable.
+# Solution
+# C++ O(N) O(1) String Greedy
+#include <iostream>
+#include <string>
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int rep = 0; rep < t; ++rep) {
+        int n;
+        std::cin >> n;
+        std::string sequence = "";
+        for (int i = 0; i < n - 2; ++i) {
+            char letter;
+            std::cin >> letter;
+            sequence.push_back(letter);
+        }
+        std::string pattern = "101";
+        std::cout << (sequence.find(pattern) != std::string::npos ? "NO" : "YES") << std::endl;
+
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) String Greedy
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        sequence: str = sys.stdin.readline().rstrip().replace(' ', '')
+        sys.stdout.write('{}\n'.format(['YES', 'NO']['101' in sequence]))
+
+
+if __name__ == '__main__':
+    solution()
