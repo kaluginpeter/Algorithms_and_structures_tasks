@@ -68,3 +68,51 @@
 # .
 #
 # In the third example, Bob cannot choose a point to guarantee his victory.
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int a, x, y;
+        std::cin >> a >> x >> y;
+        if ((x < a && y > a) || (y < a && x > a)) {
+            std::cout << "NO\n";
+            continue;
+        }
+        int alice = std::max(std::abs(a - x), std::abs(a - y));
+        int bob = std::abs(x - y);
+        bob = bob / 2 + (bob & 1);
+
+        std::cout << (alice > bob? "YES" : "NO") << std::endl;
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        a, x, y = map(int, sys.stdin.readline().rstrip().split())
+        if (x < a and y > a) or (y < a and x > a):
+            sys.stdout.write('NO\n')
+            continue
+        alice: int = max(abs(a - x), abs(a - y))
+        bob: int = abs(x - y)
+        bob = bob // 2 + (bob & 1)
+        sys.stdout.write('{}\n'.format(['NO', 'YES'][alice > bob]))
+
+
+
+if __name__ == '__main__':
+    solution()
