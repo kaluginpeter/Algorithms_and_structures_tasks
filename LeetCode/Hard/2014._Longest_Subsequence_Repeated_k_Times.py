@@ -34,3 +34,81 @@
 # 2 <= n, k <= 2000
 # 2 <= n < k * 8
 # s consists of lowercase English letters.
+# Solution
+# Python O(N * (N / K)!) O((N / K)!) String Greedy Counting
+class Solution:
+    def has_match(self, s: str, next_: list[str], k: int) -> bool:
+        idx: int = 0
+        count: int = 0
+        n: int = len(s)
+        length: int = len(next_)
+        for letter in s:
+            if letter == next_[idx]:
+                idx += 1
+                if idx == length:
+                    idx = 0
+                    count += 1
+                    if count == k: return True
+        return False
+
+    def longestSubsequenceRepeatedK(self, s: str, k: int) -> str:
+        freq: list[int] = [0] * 26
+        for letter in s:
+            freq[ord(letter) - 97] += 1
+        candidate: list[str] = []
+        for i in range(25, -1, -1):
+            if freq[i] >= k: candidate.append(chr(i + 97))
+        line: list[list[str]] = deque()
+        for letter in candidate:
+            line.append([letter])
+        output: list[str] = []
+        while line:
+            curr: list[str] = line.popleft()
+            if len(curr) > len(output): output = curr[::]
+            for letter in candidate:
+                next_: list[str] = curr[::]
+                next_.append(letter)
+                if self.has_match(s, next_, k): line.append(next_)
+        return ''.join(output)
+
+# C++ O(N * (N / K)!) O((N / K)!) Greedy String Counting
+class Solution {
+public:
+    string longestSubsequenceRepeatedK(string s, int k) {
+        std::vector<int> freq(26);
+        for (char &ch : s) ++freq[ch - 'a'];
+        std::vector<char> candidate;
+        for (int i = 25; i >= 0; --i) {
+            if (freq[i] >= k) candidate.push_back(i + 'a');
+        }
+        std::queue<std::string> q;
+        for (char &ch : candidate) q.push(std::string(1, ch));
+        std::string output = "";
+        while (!q.empty()) {
+            std::string curr = q.front();
+            q.pop();
+            if (curr.size() > output.size()) output = curr;
+            for (char &ch : candidate) {
+                std::string next = curr + ch;
+                if (hasMatch(s, next, k)) q.push(next);
+            }
+        }
+        return output;
+    }
+
+    bool hasMatch(const std::string& s, const std::string& next, int k) {
+        int idx = 0, count = 0;
+        int n = s.size(), length = next.size();
+        for (char ch : s) {
+            if (ch == next[idx]) {
+                ++idx;
+                if (idx == length) {
+                    idx = 0;
+                    ++count;
+                    if (count == k) return true;
+                }
+            }
+        }
+        return false;
+    }
+};
