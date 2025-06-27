@@ -30,3 +30,29 @@ In the tests all input strings will be valid chunky strings (with closing bracke
 
 StringsRecursion
 */
+// Solution
+#include <string>
+#include <stack>
+#include <cctype>
+
+std::string restore_brackets(const std::string& s) {
+    std::string result = "";
+    std::stack<int> chunk_counts;
+    for (char c : s) {
+        if (c == '[') {
+            result += '[';
+            chunk_counts.push(0);
+        } else {
+            result += c;
+            if (!chunk_counts.empty()) {
+                ++chunk_counts.top();
+            }
+        }
+        while (!chunk_counts.empty() && chunk_counts.top() == 2) {
+            result += ']';
+            chunk_counts.pop();
+            if (!chunk_counts.empty()) ++chunk_counts.top();
+        }
+    }
+    return result;
+}
