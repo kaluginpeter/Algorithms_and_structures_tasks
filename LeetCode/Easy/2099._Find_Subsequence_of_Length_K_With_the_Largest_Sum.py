@@ -37,3 +37,40 @@ class Solution:
     def maxSubsequence(self, nums: List[int], k: int) -> List[int]:
         ans = sorted(enumerate(nums), key=lambda x: x[1])[-k:]
         return [v for k, v in sorted(ans)]
+
+
+# Python O(N + KlogK + K) O(K) PriorityQueue
+class Solution:
+    def maxSubsequence(self, nums: List[int], k: int) -> List[int]:
+        min_heap: list[tuple[int, int]] = []
+        for i in range(len(nums)):
+            if len(min_heap) < k or min_heap[0][0] < nums[i]:
+                if len(min_heap) == k: heapq.heappop(min_heap)
+                heapq.heappush(min_heap, (nums[i], i))
+        min_heap.sort(key=lambda pair: pair[1])
+        return [pair[0] for pair in min_heap]
+
+# C++ O(N + KlogK + K) O(K) PriorityQueue
+class Solution {
+public:
+    vector<int> maxSubsequence(vector<int>& nums, int k) {
+        std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<std::pair<int, int>>> minHeap;
+        for (int i = 0; i < nums.size(); ++i) {
+            if (minHeap.size() < k || minHeap.top().first < nums[i]) {
+                if (minHeap.size() == k) minHeap.pop();
+                minHeap.push({nums[i], i});
+            }
+        }
+        std::vector<std::pair<int, int>> candidates;
+        for (int i = 0; i < k; ++i) {
+            candidates.push_back(minHeap.top());
+            minHeap.pop();
+        }
+        std::sort(candidates.begin(), candidates.end(), [](const std::pair<int, int> &x, const std::pair<int, int> &y){
+            return x.second < y.second;
+        });
+        std::vector<int> output;
+        for (int i = 0; i < k; ++i) output.push_back(candidates[i].first);
+        return output;
+    }
+};
