@@ -19,3 +19,13 @@
 # An empty string should return an empty array.
 #
 # Puzzles
+# Solution
+def binary_fingers(bin_string):
+    fingers: list[str] = ["Pinkie", "Ring", "Middle", "Index", "Thumb"]
+    output: list[str] = []
+    for i in range(len(bin_string)):
+        is_up: bool = bin_string[len(bin_string) - i - 1] == '1'
+        if not is_up: continue
+        output.append(fingers[-1 + -i])
+    output.reverse()
+    return output
