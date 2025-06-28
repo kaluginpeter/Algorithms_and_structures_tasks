@@ -100,3 +100,43 @@
 #  and s1=[10,10,10,10,10,10,10,10,10,10]
 # . Hence, a=[avg(s1)]=[10]
 # .
+# Solution
+# C++ O(N) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n, x;
+        std::cin >> n >> x;
+        int totalSum = 0;
+        for (int j = 0; j < n; ++j) {
+            int x;
+            std::cin >> x;
+            totalSum += x;
+        }
+        std::cout << (n * x == totalSum ? "YES" : "NO") << std::endl;
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N) O(1) Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, x = map(int, sys.stdin.readline().rstrip().split())
+        total_sum: int = sum(map(int, sys.stdin.readline().rstrip().split()))
+        sys.stdout.write('{}\n'.format(['NO', 'YES'][n * x == total_sum]))
+
+
+if __name__ == '__main__':
+    solution()
