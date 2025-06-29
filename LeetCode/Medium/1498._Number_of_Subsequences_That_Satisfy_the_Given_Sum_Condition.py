@@ -32,3 +32,41 @@
 # 1 <= nums.length <= 105
 # 1 <= nums[i] <= 106
 # 1 <= target <= 106
+# Solution
+# Python O(NlogN + N) O(N) Sorting TwoPointers
+class Solution:
+    def numSubseq(self, nums: List[int], target: int) -> int:
+        n: int = len(nums)
+        nums.sort()
+        output: int = 0
+        MOD: int = 1000000007
+        powers: list[int] = [1] * n
+        for i in range(1, n):
+            powers[i] = (powers[i - 1] * 2) % MOD
+        left: int = 0
+        right: int = n - 1
+        while left <= right:
+            if nums[left] + nums[right] <= target:
+                output = (output + powers[right - left]) % MOD
+                left += 1
+            else: right -= 1
+        return output
+
+# C++ O(NlogN + N) O(N) Sorting TwoPointers
+class Solution {
+public:
+    int numSubseq(vector<int>& nums, int target) {
+        int output = 0, MOD = 1e9 + 7, n = nums.size();
+        std::vector<int> powers(n, 1);
+        for (int i = 1; i < n; ++i) powers[i] = powers[i - 1] * 2 % MOD;
+        std::sort(nums.begin(), nums.end());
+        int left = 0, right = n - 1;
+        while (left <= right) {
+            if (nums[left] + nums[right] <= target) {
+                output = (output + powers[right - left]) % MOD;
+                ++left;
+            } else --right;
+        }
+        return output;
+    }
+};
