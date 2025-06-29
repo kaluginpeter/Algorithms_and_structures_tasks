@@ -48,3 +48,10 @@
 # Play Tetris : Shape anastomosis
 # Play FlappyBird : Advance Bravely
 # PuzzlesGames
+# Solution
+def mystery(n):
+    output: list[int] = []
+    if n <= 0: return output
+    for d in range(1, n + 1, 2):
+        if n % d == 0: output.append(d)
+    return output
