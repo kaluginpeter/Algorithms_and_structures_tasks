@@ -81,3 +81,36 @@
 #
 # In the third example, you can subtract 2
 #  three times.
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        long long n, k;
+        std::cin >> n >> k;
+        if (n & 1) std::cout << 1 + ((n - k) + (k - 1) - 1) / (k - 1) << "\n";
+        else std::cout << (n + (k - 1) - 1) / (k - 1) << "\n";
+    }
+}
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, k = map(int, sys.stdin.readline().rstrip().split())
+        if n & 1: sys.stdout.write('{}\n'.format(1 + ((n - k) + (k - 1) - 1) // (k - 1)))
+        else: sys.stdout.write('{}\n'.format((n + (k - 1) - 1) // (k - 1)))
+
+
+if __name__ == '__main__':
+    solution()
