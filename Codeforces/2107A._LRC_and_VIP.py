@@ -89,3 +89,105 @@
 #  and C=[5]
 # , but gcd(B1,B2,B3)=5=gcd(C1)
 # . Hence it is invalid.
+# Solution
+# C++ O(N^2) O(N) Greedy
+#include <iostream>
+#include <vector>
+#include <numeric>
+
+// Standard GCD function
+int gcd(int a, int b) {
+    while (b) {
+        a %= b;
+        std::swap(a, b);
+    }
+    return a;
+}
+
+int calculate_gcd_of_vector(const std::vector<int>& vec) {
+    if (vec.empty()) return 0;
+    int result = vec[0];
+    for (size_t i = 1; i < vec.size(); ++i) result = gcd(result, vec[i]);
+    return result;
+}
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int rep = 0; rep < t; ++rep) {
+        int n;
+        std::cin >> n;
+        std::vector<int> a(n);
+        bool all_same = true;
+        std::cin >> a[0];
+        for (int i = 1; i < n; ++i) {
+            std::cin >> a[i];
+            if (a[i] != a[0]) all_same = false;
+        }
+
+        if (all_same) {
+            std::cout << "No\n";
+            continue;
+        }
+
+        std::cout << "Yes\n";
+        for (int i = 0; i < n; ++i) {
+            std::vector<int> group_c;
+            for (int j = 0; j < n; ++j) {
+                if (i != j) group_c.push_back(a[j]);
+            }
+            bool isBreak = false;
+
+            int gcd_b = a[i];
+            int gcd_c = calculate_gcd_of_vector(group_c);
+
+            if (gcd_b != gcd_c) {
+                for (int j = 0; j < n; ++j) {
+                    if (i == j) std::cout << "1 ";
+                    else std::cout << "2 ";
+                }
+                std::cout << "\n";
+                isBreak = true;
+                break;
+            }
+            if (isBreak) break;
+        }
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(N^2) O(N) Greedy
+import sys
+import math
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+        if len(set(nums)) == 1:
+            sys.stdout.write('NO\n')
+            continue
+        sys.stdout.write('YES\n')
+        for i in range(n):
+            group_c: list[int] = [nums[j] for j in range(n) if i != j]
+            is_break: bool = False
+            gcd_b: int = nums[i]
+            gcd_c: int = math.gcd(*group_c)
+            if gcd_b != gcd_c:
+                for j in range(n):
+                    if i == j: sys.stdout.write('1 ')
+                    else: sys.stdout.write('2 ')
+                sys.stdout.write('\n')
+                is_break = True
+                break
+            if is_break: break
+
+
+if __name__ == '__main__':
+    solution()
