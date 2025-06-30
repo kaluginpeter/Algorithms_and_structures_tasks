@@ -44,5 +44,6 @@
 # p.s. This kata description goes deeper into explaining how to use Turing Machines than it needs to. I just thought a bit of background could motivate what would seem to be an arbitrary math problem. In addition, it was mentioned in the discourse that HALT is typically considered a separate state. But this kata does not consider it as separate. Just FYI.
 #
 # CombinatoricsMathematics
-
-
+# Solution
+def count_rule_tables(n):
+    return pow(4 * n + 1, 2 * n)
