@@ -40,3 +40,33 @@
 #
 # 1 <= word.length <= 100
 # word consists only of lowercase English letters.
+# Solution
+# Python O(N) O(1) SlidingWindow
+class Solution:
+    def possibleStringCount(self, word: str) -> int:
+        output: int = 1
+        n: int = len(word)
+        left: int = 0
+        for right in range(n):
+            if word[right] != word[left]:
+                output += right - left - 1
+                left = right
+        output += n - left - 1
+        return output
+
+# C++ O(N) O(1) SlidingWindow
+class Solution {
+public:
+    int possibleStringCount(string word) {
+        int output = 1, n = word.size();
+        int left = 0;
+        for (int right = 0; right < n; ++right) {
+            if (word[right] != word[left]) {
+                output += right - left - 1;
+                left = right;
+            }
+        }
+        output += n - left - 1;
+        return output;
+    }
+};
