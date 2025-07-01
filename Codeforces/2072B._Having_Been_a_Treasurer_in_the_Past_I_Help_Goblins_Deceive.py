@@ -89,3 +89,54 @@
 # In the seventh and eighth test cases, the length of the string n<3
 # , which means that subsequences of length 3
 #  do not exist.
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+#include <string>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int rep = 0; rep < t; ++rep) {
+        int n;
+        std::cin >> n;
+        std::string sequence;
+        std::cin >> sequence;
+        int upper = 0, lower = 0;
+        for (char &letter : sequence) {
+            if (letter == '-') ++upper;
+            else ++lower;
+        }
+        if (upper < 2 || lower < 1) {
+            std::cout << "0\n";
+            continue;
+        }
+        std::cout << (static_cast<long long>(upper / 2) * (upper - upper / 2) * lower) << std::endl;
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        sequence: str = sys.stdin.readline().rstrip()
+        lower: int = sequence.count('_')
+        upper: int = sequence.count('-')
+        if upper < 2 or lower < 1:
+            sys.stdout.write('0\n')
+            continue
+        sys.stdout.write('{}\n'.format(upper // 2 * (upper - upper // 2) * lower))
+
+
+if __name__ == '__main__':
+    solution()
