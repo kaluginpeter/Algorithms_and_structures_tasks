@@ -5,3 +5,11 @@
 # Note: Often there will be several different ways to form a replacement number. In these cases the number with lowest first digit should be given priority. E.g. If n = 15, but squad already contains 15, return 69, not 78.
 #
 # Algorithms
+# Solution
+def generate_number(squad, n):
+    if n not in squad: return n
+    for x in range(1, 10):
+        for y in range(10):
+            if x > 1 and not y: continue
+            if x + y == n and x * 10 + y not in squad:
+                return x * 10 + y
