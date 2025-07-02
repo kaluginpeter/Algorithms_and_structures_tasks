@@ -54,3 +54,46 @@
 # , [−2,1]
 # . Therefore, [−1,1]
 #  is a valid output.
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n, m, l, r;
+        std::cin >> n >> m >> l >> r;
+        if (r < 0) {
+            std::swap(l, r);
+            r = -r;
+            l = -l;
+        }
+        int extra = std::max(0, m - r);
+        int left = 0 - extra;
+        std::printf("%d %d\n", left, std::min(m, r));
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n, m, l, r = map(int, sys.stdin.readline().rstrip().split())
+        if r < 0: l, r = -r, -l
+        extra: int = max(0, m - r)
+        left: int = 0 - extra
+        sys.stdout.write('{} {}\n'.format(left, min(m, r)))
+
+
+if __name__ == '__main__':
+    solution()
