@@ -10,3 +10,10 @@
 # for 2, 2, [0,1,2,3,4] return [ [0,1], [2,3] ]
 # for 2, 3, [0,1,2,3,4] return [ [0,1], [3,4] ]
 # ListsArrays
+# Solution
+def window(lngth,offst,lst):
+    output: list[list[int]] = []
+    window: list[int] = []
+    for i in range(0, len(lst) - lngth + 1, offst):
+        output.append([lst[i + j] for j in range(lngth)])
+    return output
