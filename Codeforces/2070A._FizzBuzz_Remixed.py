@@ -55,3 +55,43 @@
 #
 # In the third test case, the solution will print FizzBuzz for the integers 0,1,2,15
 # .
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) {
+        int n;
+        std::cin >> n;
+        long long count = 0;
+        count += (n / 15) + 1;
+        if (n >= 1) count += ((n - 1) / 15) + 1;
+        if (n >= 2) count += ((n - 2) / 15) + 1;
+        std::cout << count << "\n";
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        count: int = n // 15 + 1
+        if n >= 1: count += (n - 1) // 15 + 1
+        if n >= 2: count += (n - 2) // 15 + 1
+        sys.stdout.write('{}\n'.format(count))
+
+
+if __name__ == '__main__':
+    solution()
