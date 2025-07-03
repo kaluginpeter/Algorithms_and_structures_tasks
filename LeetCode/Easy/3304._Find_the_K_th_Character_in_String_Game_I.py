@@ -49,3 +49,29 @@ class Solution:
                 curr_sub.append(eng_al[(ord(char) + 1) % 26 - 19])
             output.extend(curr_sub)
         return output[k - 1]
+
+# Python O(logK) O(1) Math
+class Solution:
+    def kthCharacter(self, k: int) -> str:
+        extra: int = 0
+        while k != 1:
+            bits: int = k.bit_length() - 1
+            if k == (1 << bits): bits -= 1
+            k -= 1 << bits
+            extra += 1
+        return chr(97 + extra)
+
+# C++ O(logK) O(1) Math
+class Solution {
+public:
+    char kthCharacter(int k) {
+        int extra = 0;
+        while (k != 1) {
+            int bits = __lg(k);
+            if (k == (1 << bits)) --bits;
+            k -= 1 << bits;
+            ++extra;
+        }
+        return 'a' + extra;
+    }
+};
