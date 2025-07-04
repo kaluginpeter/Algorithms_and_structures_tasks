@@ -47,3 +47,29 @@
 # 1 <= operations.length <= 100
 # operations[i] is either 0 or 1.
 # The input is generated such that word has at least k characters after all operations.
+# Solution
+# Python O(logK) O(1) BitManipulation
+class Solution:
+    def kthCharacter(self, k: int, operations: List[int]) -> str:
+        shift: int = 0
+        while k > 1:
+            bits: int = k.bit_length() - 1
+            if (1 << bits) == k: bits -= 1
+            if operations[bits]: shift += 1
+            k -= 1 << bits
+        return chr(97 + (shift % 26))
+
+# C++ O(logK) O(1) BitManipulation
+class Solution {
+public:
+    char kthCharacter(long long k, vector<int>& operations) {
+        int extra = 0;
+        while (k > 1) {
+            int bits = __lg(k);
+            if (k == (static_cast<long long>(1) << bits)) --bits;
+            k -= (static_cast<long long>(1) << bits);
+            if (operations[bits]) ++extra;
+        }
+        return 'a' + (extra % 26);
+    }
+};
