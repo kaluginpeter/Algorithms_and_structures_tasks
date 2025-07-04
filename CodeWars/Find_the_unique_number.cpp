@@ -14,3 +14,14 @@ Find the unique string
 Find The Unique
 FundamentalsAlgorithmsArraysPerformance
 */
+// Solution
+float find_uniq(const std::vector<float> &v)
+{
+    if (v[0] != v[1] && v[1] == v[2]) return v[0];
+    else if (v[1] != v[0] && v[0] == v[2]) return v[1];
+    float x = v[0];
+    for (int i = 0; i < v.size(); ++i) {
+        if (v[i] != x) return v[i];
+    }
+    return x;
+}
