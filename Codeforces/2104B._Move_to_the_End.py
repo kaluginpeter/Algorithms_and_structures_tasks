@@ -101,3 +101,65 @@
 # -th element to the end, the array becomes [13,5,10,14,8,13,15]
 # , and the value you print is 13+5+10+14+8+13+15=78
 # .
+# Solution
+# C++ O(N + K) O(N) DynamicProgramming PrefixSum
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    std::vector<int> nums(n, 0);
+    for (int i = 0; i < n; ++i) std::cin >> nums[i];
+    std::vector<int> dp;
+    int prev = 0;
+    for (int i = 0; i < n; ++i) {
+        prev = std::max(prev, nums[i]);
+        dp.push_back(prev);
+    }
+    std::vector<long long> prefixSum(n + 1, 0);
+    for (int i = 1; i <= n; ++i) {
+        prefixSum[i] = prefixSum[i - 1] + nums[i - 1];
+    }
+    for (int k = 1; k <= n; ++k) {
+        long long take = dp[n - k] + (prefixSum[n] - prefixSum[n - k + 1]);
+        long long notTake = prefixSum[n] - prefixSum[n - k];
+        std::cout << std::max(take, notTake) << " ";
+    }
+    std::cout << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N + K) O(N) DynamicProgramming PrefixSum
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    dp: list[int] = []
+    prefix_sum: list[int] = [0]
+    prev: int = 0
+    for i in range(n):
+        prev = max(prev, nums[i])
+        dp.append(prev)
+        prefix_sum.append(prefix_sum[-1] + nums[i])
+    for k in range(1, n + 1):
+        take: int = dp[n - k] + (prefix_sum[n] - prefix_sum[n - k + 1])
+        not_take: int = prefix_sum[n] - prefix_sum[n - k]
+        sys.stdout.write('{} '.format(max(take, not_take)))
+    sys.stdout.write('\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    while t:
+        solution();
+        t -= 1
