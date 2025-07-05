@@ -10,3 +10,19 @@ Input: 123456789 Output: 987654321
 
 Fundamentals
 */
+// Solution
+#include <cinttypes>
+#include <array>
+
+uint64_t descendingOrder(uint64_t a)
+{
+  std::array<short, 10> hashmap = {};
+  while (a) {
+    ++hashmap[a % 10];
+    a /= 10;
+  }
+  for (int digit = 9; digit >= 0; --digit) {
+    for (int freq = 0; freq < hashmap[digit]; ++freq) a = a * 10 + digit;
+  }
+  return a;
+}
