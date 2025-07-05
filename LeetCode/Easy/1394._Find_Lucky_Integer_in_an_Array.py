@@ -25,3 +25,26 @@ class Solution:
     def findLucky(self, arr: List[int]) -> int:
         l = [i for i in arr if arr.count(i) == i]
         return max(l) if l else -1
+
+
+# Python O(N + D) O(D) HashMap Counting
+class Solution:
+    def findLucky(self, arr: List[int]) -> int:
+        hashmap: list[int] = [0] * 501
+        for num in arr: hashmap[num] += 1
+        for i in range(500, 0, -1):
+            if hashmap[i] == i: return i
+        return -1
+
+# C++ O(N + D) O(D) HashMap Counting
+class Solution {
+public:
+    int findLucky(vector<int>& arr) {
+        std::array<int, 501> hashmap = {};
+        for (int &num : arr) ++hashmap[num];
+        for (int i = 500; i > 0; --i) {
+            if (hashmap[i] == i) return i;
+        }
+        return -1;
+    }
+};
