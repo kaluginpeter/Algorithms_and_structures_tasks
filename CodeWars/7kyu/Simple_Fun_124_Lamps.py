@@ -21,3 +21,11 @@
 # minimum number of switches.
 #
 # Puzzles
+# Solution
+def lamps(a):
+    # only two cases
+    # 1st start with "on"
+    first_case: int = sum(a[i] == 1 if i & 1 else a[i] == 0 for i in range(len(a)))
+    # 2nd start with "off"
+    second_case: int = sum(a[i] == 0 if i & 1 else a[i] == 1 for i in range(len(a)))
+    return min(first_case, second_case)
