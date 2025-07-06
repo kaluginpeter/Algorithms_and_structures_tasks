@@ -48,3 +48,58 @@
 # In the first test case, for the first phone number 9999999999, regardless of the rearrangement of digits, the same phone number is obtained.
 #
 # In the second test case, for the phone number 9988776655, it can be proven that 9876556789 is the smallest phone number that can be obtained by rearranging the digits.
+# Solution
+# C++ O(log10(10) + 10*10) O(10) HashMap Greedy
+#include <iostream>
+#include <string>
+#include <array>
+
+
+void solution() {
+    std::string n = "";
+    std::cin >> n;
+    std::array<short, 10> hashmap = {};
+    for (char &digit : n) {
+        ++hashmap[digit - '0'];
+    }
+    std::string output = "";
+    for (int i = 9; i >= 0; --i) {
+        for (int digit = 0; digit < 10; ++digit) {
+            if (digit < i || !hashmap[digit]) continue;
+            --hashmap[digit];
+            output.push_back(digit + '0');
+            break;
+        }
+    }
+    std::cout << output << "\n";
+
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(log10(10) + 10*10) O(10) HashMap Greedy
+import sys
+
+
+def solution() -> None:
+    n: str = sys.stdin.readline().rstrip()
+    hashmap: list[int] = [0] * 10
+    for digit in n: hashmap[int(digit)] += 1
+    output: list[str] = []
+    for bound in range(9, -1, -1):
+        for digit in range(10):
+            if digit < bound or not hashmap[digit]: continue
+            hashmap[digit] -= 1
+            output.append(str(digit))
+            break
+    sys.stdout.write('{}\n'.format(''.join(output)))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
