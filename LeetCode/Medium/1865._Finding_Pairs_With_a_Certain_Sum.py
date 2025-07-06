@@ -38,3 +38,66 @@
 # 1 <= val <= 105
 # 1 <= tot <= 109
 # At most 1000 calls are made to add and count each.
+# Solution
+# Python O(N + M + QN) O(N + M + D) HashMap Greedy
+class FindSumPairs:
+
+    def __init__(self, nums1: List[int], nums2: List[int]):
+        self.first: list[int] = nums1
+        self.second: list[int] = nums2
+        self.hashmap: dict[int, int] = defaultdict(int)
+        for num in nums2:
+            self.hashmap[num] += 1
+
+    def add(self, index: int, val: int) -> None:
+        self.hashmap[self.second[index]] -= 1
+        self.second[index] += val
+        self.hashmap[self.second[index]] += 1
+
+    def count(self, tot: int) -> int:
+        output: int = 0
+        for num in self.first:
+            output += self.hashmap[tot - num]
+        return output
+
+
+# Your FindSumPairs object will be instantiated and called as such:
+# obj = FindSumPairs(nums1, nums2)
+# obj.add(index,val)
+# param_2 = obj.count(tot)
+
+# C++ O(N + M + QN) O(N + M + D) HashMap Greedy
+class FindSumPairs {
+private:
+    std::unordered_map<int, int> hashmap;
+    std::vector<int> first, second;
+public:
+    FindSumPairs(vector<int>& nums1, vector<int>& nums2) {
+        for (int &num : nums2) {
+            ++hashmap[num];
+        }
+        first = nums1;
+        second = nums2;
+    }
+
+    void add(int index, int val) {
+        --hashmap[second[index]];
+        second[index] += val;
+        ++hashmap[second[index]];
+    }
+
+    int count(int tot) {
+        int output = 0;
+        for (int &num : first) {
+            output += hashmap[tot - num];
+        }
+        return output;
+    }
+};
+
+/**
+ * Your FindSumPairs object will be instantiated and called as such:
+ * FindSumPairs* obj = new FindSumPairs(nums1, nums2);
+ * obj->add(index,val);
+ * int param_2 = obj->count(tot);
+ */
