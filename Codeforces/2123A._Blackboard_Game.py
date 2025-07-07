@@ -58,3 +58,37 @@
 # . Then suppose Alice chooses 2
 # , then Bob can choose 1
 # . Then Alice has no numbers remaining, so Bob wins.
+# Solution
+# C++ O(N) O(1) HashMap
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    std::vector<int> hashmap(4, 0);
+    for (int i = 0; i < n; ++i) ++hashmap[i % 4];
+    std::cout << (hashmap[0] == hashmap[3] && hashmap[1] == hashmap[2] ? "BOB" : "ALICE") << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(1) HashMap
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    hashmap: list[int] = [0] * 4
+    for i in range(n): hashmap[i % 4] += 1
+    sys.stdout.write('{}\n'.format(['ALICE', 'BOB'][hashmap[0] == hashmap[3] and hashmap[1] == hashmap[2]]))
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
