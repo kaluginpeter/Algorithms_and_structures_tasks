@@ -37,3 +37,53 @@ Good luck and enjoy!
 Kata Series
 If you enjoyed this, then please try one of my other Katas. Any feedback, translations and grading of beta Katas are greatly appreciated. Thank you.
 */
+//Solution
+#include <string>
+#include <array>
+#include <vector>
+#include <map>
+#include <algorithm>
+#include <cctype>
+
+using namespace std;
+
+string driver(const array<string, 5> &data)
+{
+    static const map<string, int> month_to_int = {
+        {"Jan", 1}, {"January", 1}, {"Feb", 2}, {"February", 2},
+        {"Mar", 3}, {"March", 3},   {"Apr", 4}, {"April", 4},
+        {"May", 5},                 {"Jun", 6}, {"June", 6},
+        {"Jul", 7}, {"July", 7},    {"Aug", 8}, {"August", 8},
+        {"Sep", 9}, {"September", 9},{"Oct", 10},{"October", 10},
+        {"Nov", 11},{"November", 11},{"Dec", 12},{"December", 12}
+    };
+    string license_number = "";
+    string surname = data[2];
+    if (surname.length() >= 5) license_number += surname.substr(0, 5);
+    else {
+        license_number += surname;
+        while (license_number.length() < 5) license_number += '9';
+    }
+    const string& dob_str = data[3];
+    size_t first_dash = dob_str.find('-');
+    size_t second_dash = dob_str.find('-', first_dash + 1);
+    string day_part = dob_str.substr(0, first_dash);
+    string month_part = dob_str.substr(first_dash + 1, second_dash - (first_dash + 1));
+    string year_part = dob_str.substr(second_dash + 1);
+    license_number += year_part[2];
+    int month_val = month_to_int.at(month_part);
+    if (data[4] == "F") month_val += 50;
+    string month_str = to_string(month_val);
+    if (month_str.length() == 1) license_number += "0";
+    license_number += month_str;
+    if (day_part.length() == 1) license_number += "0";
+    license_number += day_part;
+    license_number += year_part[3];
+    license_number += data[0][0];
+    if (!data[1].empty()) license_number += data[1][0];
+    else license_number += '9';
+    license_number += '9';
+    license_number += "AA";
+    transform(license_number.begin(), license_number.end(), license_number.begin(), ::toupper);
+    return license_number;
+}
