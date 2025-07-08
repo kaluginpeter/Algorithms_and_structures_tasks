@@ -78,3 +78,57 @@
 #  is one of the last three players remaining.
 # In the third sample, it can be shown that there is no way for player 1
 #  to be the last player remaining.
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    int n, j, k;
+    std::cin >> n >> j >> k;
+    int lessOrEqual = 0;
+    bool seen = false;
+    std::vector<int> nums(n, 0);
+    for (int i = 0; i < n; ++i) std::cin >> nums[i];
+    for (int i = 0; i < n; ++i) {
+        if (nums[i] <= nums[j - 1]) {
+            if (nums[i] == nums[j - 1]) {
+                if (!seen) seen = true;
+                else ++lessOrEqual;
+            } else ++lessOrEqual;
+        }
+    }
+    int defeated = lessOrEqual + std::max(0, n - lessOrEqual - 2);
+    std::cout << (n - defeated <= k ? "YES" : "NO") << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    n, j, k = map(int, sys.stdin.readline().rstrip().split())
+    nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    less_or_equal: int = 0
+    seen: bool = False
+    for i in range(n):
+        if nums[i] > nums[j - 1]: continue
+        if nums[i] == nums[j - 1]:
+            if not seen: seen = True
+            else: less_or_equal += 1
+        else: less_or_equal += 1
+    defeated: int = less_or_equal + max(0, n - less_or_equal - 2)
+    sys.stdout.write('{}\n'.format(['NO', 'YES'][n - defeated <= k]))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
