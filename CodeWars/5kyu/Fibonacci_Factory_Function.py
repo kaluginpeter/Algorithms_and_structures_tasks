@@ -8,3 +8,12 @@
 # fib() # returns 1
 # fib() # returns 2
 # MathematicsAlgorithms
+# Solution
+def genfib():
+    a, b = 0, 1
+    def fib():
+        nonlocal a, b
+        output: int = a
+        a, b = b, a + b
+        return output
+    return fib
