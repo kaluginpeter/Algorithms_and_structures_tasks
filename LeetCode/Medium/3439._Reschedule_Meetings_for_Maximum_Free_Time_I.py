@@ -56,3 +56,43 @@
 # 1 <= k <= n
 # 0 <= startTime[i] < endTime[i] <= eventTime
 # endTime[i] <= startTime[i + 1] where i lies in the range [0, n - 2].
+# Solution
+# Python O(N + K) O(N) SlidingWindow
+class Solution:
+    def maxFreeTime(self, eventTime: int, k: int, startTime: List[int], endTime: List[int]) -> int:
+        n: int = len(startTime)
+        segments: list[int] = []
+        segments.append(startTime[0])
+        for i in range(n - 1):
+            segments.append(startTime[i + 1] - endTime[i])
+        segments.append(eventTime - endTime[-1])
+        output: int = 0
+        window_sum: int = 0
+        for i in range(k): window_sum += segments[i]
+        for i in range(k, n + 1):
+            if i > k: window_sum -= segments[i - k - 1]
+            window_sum += segments[i]
+            output = max(output, window_sum)
+        return output
+
+# C++ O(N + K) O(N) SlidingWindow
+class Solution {
+public:
+    int maxFreeTime(int eventTime, int k, vector<int>& startTime, vector<int>& endTime) {
+        int n = startTime.size();
+        std::vector<int> segments;
+        segments.push_back(startTime[0] - 0);
+        for (int i = 0; i < n - 1; ++i) {
+            segments.push_back(startTime[i + 1] - endTime[i]);
+        }
+        segments.push_back(eventTime - endTime.back());
+        int output = 0, windowSum = 0;
+        for (int i = 0; i < k; ++i) windowSum += segments[i];
+        for (int i = k; i < segments.size(); ++i) {
+            if (i > k) windowSum -= segments[i - k - 1];
+            windowSum += segments[i];
+            output = std::max(output, windowSum);
+        }
+        return output;
+    }
+};
