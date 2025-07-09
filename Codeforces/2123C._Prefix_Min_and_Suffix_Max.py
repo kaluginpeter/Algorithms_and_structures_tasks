@@ -95,3 +95,63 @@
 # It can be shown that it is impossible to transform a
 #  into [3]
 # .
+# Solution
+# C++ O(N) O(N) Greedy
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    std::vector<int> nums(n, 0);
+    for (int i = 0; i < n; ++i) std::cin >> nums[i];
+    // for each number we should find leftmost Greater and rightmost Less
+    std::vector<int> checker(n, 0);
+    int minValue = 1e6 + 1;
+    for (int i = 0; i < n; ++i) {
+        if (minValue < nums[i]) ++checker[i];
+        minValue = std::min(minValue, nums[i]);
+    }
+    int maxValue = 0;
+    for (int i = n - 1; i >= 0; --i) {
+        if (maxValue > nums[i]) ++checker[i];
+        maxValue = std::max(maxValue, nums[i]);
+    }
+    for (int i = 0; i < n; ++i) {
+        std::cout << (checker[i] == 2 ? "0" : "1");
+    }
+    std::cout << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(N) Greedy
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    checker: list[int] = [0] * n
+    min_value: int = 1000001
+    for i in range(n):
+        if min_value < nums[i]: checker[i] += 1
+        min_value = min(min_value, nums[i])
+    max_value: int = 0
+    for i in range(n - 1, -1, -1):
+        if max_value > nums[i]: checker[i] += 1
+        max_value = max(max_value, nums[i])
+    for i in range(n):
+        sys.stdout.write("{}".format(['1', '0'][checker[i] == 2]))
+    sys.stdout.write('\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
