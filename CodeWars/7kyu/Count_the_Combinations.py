@@ -14,3 +14,10 @@
 #
 # Only 2 combinations match the target -> Answer = 2
 # Fundamentals
+# Solution
+from itertools import combinations
+def num_combo(xs: list, n: int):
+    output: int = 0
+    for comb in combinations(xs, len(xs) - 1):
+        if sum(comb) == n: output += 1
+    return output
