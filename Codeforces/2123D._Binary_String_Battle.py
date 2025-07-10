@@ -89,3 +89,52 @@
 # In the fourth sample, it can be shown that there is no way for Alice to guarantee that she can turn s
 #  into 0000
 #  within a finite number of moves.
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+#include <string>
+
+
+void solution() {
+    int n, k;
+    std::cin >> n >> k;
+    std::string sequence = "";
+    std::cin >> sequence;
+    // 1st case, when ones count <= k
+    int ones = 0;
+    for (char &character : sequence) {
+        if (character == '1') ++ones;
+    }
+    if (ones <= k) {
+        std::cout << "Alice\n";
+        return;
+    }
+    std::cout << (k * 2 > n ? "Alice" : "Bob") << std::endl;
+    return;
+
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    n, k = map(int, sys.stdin.readline().rstrip().split())
+    sequence: str = sys.stdin.readline().rstrip()
+    ones: int = sequence.count('1')
+    if ones <= k:
+        sys.stdout.write('Alice\n')
+        return
+    sys.stdout.write('{}\n'.format(['Bob', 'Alice'][k * 2 > n]))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
