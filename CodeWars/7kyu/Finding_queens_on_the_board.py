@@ -49,3 +49,11 @@
 # Good luck )
 #
 # Algorithms
+# Solution
+def queens(n):
+    if n <= 2: return 0
+    overall: int = n * n
+    needed: int = n + (n - 1)
+    if n & 1: needed += n // 2 * 2
+    else: needed += n // 2 + (n // 2 - 1)
+    return overall - needed
