@@ -47,3 +47,57 @@
 # meetings[i].length == 2
 # 0 <= starti < endi <= 5 * 105
 # All the values of starti are unique.
+# Python O(MlogM + MlogN) O(N) PriorityQueue Sorting Simulation
+class Solution:
+    def mostBooked(self, n: int, meetings: List[List[int]]) -> int:
+        meetings.sort()
+        used: list[int] = [0] * n
+        min_heap: list[int] = list(range(n))
+        blocked: list[tuple[int, int]] = []
+        for start, end in meetings:
+            while blocked and blocked[0][0] <= start:
+                heapq.heappush(min_heap, heapq.heappop(blocked)[1])
+            if not min_heap:
+                time, unlocked = heapq.heappop(blocked)
+                end = time + (end - start)
+                heapq.heappush(min_heap, unlocked)
+            busy: int = heapq.heappop(min_heap)
+            used[busy] += 1
+            heapq.heappush(blocked, (end, busy))
+        output: int = 0
+        for i in range(n):
+            if used[i] > used[output]: output = i
+        return output
+
+# C++ O(MlogM + MlogN) O(N) PriorityQueue Sorting Simulation
+class Solution {
+public:
+    int mostBooked(int n, vector<vector<int>>& meetings) {
+        std::sort(meetings.begin(), meetings.end());
+        std::priority_queue<int, std::vector<int>, std::greater<int>> minHeap;
+        for (int i = 0; i < n; ++i) minHeap.push(i);
+        std::vector<int> used(n, 0);
+        std::priority_queue<std::pair<long long, int>, std::vector<std::pair<long long, int>>, std::greater<std::pair<long long, int>>> blocked;
+        for (std::vector<int> &meeting : meetings) {
+            while (!blocked.empty() && meeting[0] >= blocked.top().first) {
+                minHeap.push(blocked.top().second);
+                blocked.pop();
+            }
+            long long endTime = meeting[1];
+            if (minHeap.empty()) {
+                endTime = blocked.top().first + (meeting[1] - meeting[0]);
+                minHeap.push(blocked.top().second);
+                blocked.pop();
+            }
+            int busy = minHeap.top();
+            minHeap.pop();
+            ++used[busy];
+            blocked.push({endTime, busy});
+        }
+        int output = 0;
+        for (int i = 0; i < n; ++i) {
+            if (used[i] > used[output]) output = i;
+        }
+        return output;
+    }
+};
