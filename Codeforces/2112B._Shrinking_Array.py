@@ -79,3 +79,100 @@
 #  and replace them with the number 3
 # . The resulting array [1,3,2]
 #  is beautiful.
+# Solution
+# C++ O(N^2) O(1) Greedy
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+const int INF = 1e9;
+
+void solution() {
+    int n;
+    std::cin >> n;
+    std::vector<int> a(n);
+    for (int i = 0; i < n; ++i) std::cin >> a[i];
+    for (int i = 0; i < n - 1; ++i) {
+        if (std::abs(a[i] - a[i + 1]) <= 1) {
+            std::cout << "0\n";
+            return;
+        }
+    }
+
+    int min_ops = INF;
+    for (int i = 0; i < n; ++i) {
+        if (i > 0) {
+            int current_min = a[i - 1];
+            int current_max = a[i - 1];
+            for (int j = i - 1; j >= 0; --j) {
+                current_min = std::min(current_min, a[j]);
+                current_max = std::max(current_max, a[j]);
+                if (std::max(current_min, a[i] - 1) <= std::min(current_max, a[i] + 1)) {
+                    min_ops = std::min(min_ops, (i - 1) - j);
+                }
+            }
+        }
+        if (i < n - 1) {
+            int current_min = a[i + 1];
+            int current_max = a[i + 1];
+            for (int j = i + 1; j < n; ++j) {
+                current_min = std::min(current_min, a[j]);
+                current_max = std::max(current_max, a[j]);
+                if (std::max(current_min, a[i] - 1) <= std::min(current_max, a[i] + 1)) {
+                    min_ops = std::min(min_ops, j - (i + 1));
+                }
+            }
+        }
+    }
+
+    if (min_ops == INF) {
+        std::cout << "-1\n";
+    } else {
+        std::cout << min_ops << "\n";
+    }
+}
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+    return 0;
+}
+
+# Python O(N^2) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    a: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    for i in range(n - 1):
+        if abs(a[i] - a[i + 1]) <= 1:
+            sys.stdout.write('0\n')
+            return
+    output: int = float('inf')
+    for i in range(n):
+        if i:
+            current_min: int = a[i - 1]
+            current_max: int = a[i - 1]
+            for j in range(i - 1, -1, -1):
+                current_min = min(current_min, a[j])
+                current_max = max(current_max, a[j])
+                if max(current_min, a[i] - 1) <= min(current_max, a[i] + 1):
+                    output = min(output, (i - 1) - j)
+                    break
+        if i + 1 == n: continue
+        current_min = a[i + 1]
+        current_max = a[i + 1]
+        for j in range(i + 1, n):
+            current_min = min(current_min, a[j])
+            current_max = max(current_max, a[j])
+            if max(current_min, a[i] - 1) <= min(current_max, a[i] + 1):
+                output = min(output, j - (i + 1))
+                break
+    sys.stdout.write('{}\n'.format([output, -1][output == float('inf')]))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
