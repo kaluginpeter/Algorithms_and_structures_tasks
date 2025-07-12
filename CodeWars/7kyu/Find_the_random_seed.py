@@ -9,3 +9,10 @@
 # input: [99, 56, 14, 0, 11, 74, 4, 85, 88, 10]
 # expected: 1234
 # Fundamentals
+# Solution
+import random
+def find_random_seed(lst):
+    for seed_candidate in range(10000):
+        random.seed(seed_candidate)
+        generated_sequence = [random.randint(0, 100) for _ in range(10)]
+        if generated_sequence == lst: return seed_candidate
