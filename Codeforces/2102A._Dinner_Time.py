@@ -61,3 +61,38 @@
 # .
 #
 # In the fourth test case, it can be proven that there is no array satisfying the condition.
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+
+void solution() {
+    long long n, m, p, q;
+    std::cin >> n >> m >> p >> q;
+
+    if (n % p == 0) {
+        if (m == (n / p) * q) std::cout << "YES\n";
+        else std::cout << "NO\n";
+    } else std::cout << "YES\n";
+}
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    n, m, p, q = map(int, sys.stdin.readline().rstrip().split())
+    if n % p == 0:
+        if m == n // p * q: sys.stdout.write('YES\n')
+        else: sys.stdout.write('NO\n')
+    else: sys.stdout.write('YES\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
