@@ -40,3 +40,90 @@
 #
 # 2 <= n <= 28
 # 1 <= firstPlayer < secondPlayer <= n
+# Python O((2^N)NlogN) O(N) BitMask Recursion
+class Solution:
+    early: int = 0
+    later: int = 0
+
+    def backtracking(self, players: list[int], x: int, y: int, steps: int) -> None:
+        for i in range(len(players) // 2):
+            if (players[i] == x and players[len(players) - 1 - i] == y) or (players[i] == y and players[len(players) - 1 - i] == x):
+                self.early = min(self.early, steps)
+                self.later = max(self.later, steps)
+                return
+        m: int = len(players) // 2
+        if not (len(players) & 1): m -= 2
+        else:
+            if players[len(players) // 2] in (x, y): m -= 1
+            else: m -= 2
+        for mask in range(1 << m):
+            mask_pointer: int = mask
+            winners: list[int] = []
+            for i in range(len(players) // 2):
+                if players[i] in (x, y):
+                    winners.append(players[i])
+                    continue
+                elif players[len(players) - 1 - i] in (x, y):
+                    winners.append(players[len(players) - 1 - i])
+                    continue
+                if mask_pointer & 1: winners.append(players[i])
+                else: winners.append(players[len(players) - 1 - i])
+                mask_pointer >>= 1
+            if len(players) & 1: winners.append(players[len(players) // 2])
+            winners.sort()
+            self.backtracking(winners, x, y, steps + 1)
+
+    def earliestAndLatest(self, n: int, firstPlayer: int, secondPlayer: int) -> List[int]:
+        self.early = n
+        self.later = 0
+        self.backtracking(list(range(n)), firstPlayer - 1, secondPlayer - 1, 1)
+        return [self.early, self.later]
+
+# C++ O((2^N)NlogN) O(N) Bitmasking Recursion
+class Solution {
+public:
+    int early = 0, later = 0;
+    void backtrack(std::vector<int> &players, const int &x, const int &y, int steps) {
+        for (int i = 0; i < players.size() / 2; ++i) {
+            if ((players[i] == x && players[players.size() - 1 - i] == y) || (players[i] == y && players[players.size() - 1 - i] == x)) {
+                early = std::min(early, steps);
+                later = std::max(later, steps);
+                return;
+            }
+        }
+        int nextN = players.size() / 2;
+        if (!(players.size() & 1)) nextN -= 2;
+        else {
+            if (players[players.size() / 2] == x || players[players.size() / 2] == y) --nextN;
+            else nextN -= 2;
+        }
+        for (int mask = 0; mask < (1 << nextN); ++mask) {
+            std::vector<int> winners;
+            int pointerMask = mask;
+            for (int i = 0; i < players.size() / 2; ++i) {
+                if (players[i] == x || players[i] == y) {
+                    winners.push_back(players[i]);
+                    continue;
+                } else if (players[players.size() - 1 - i] == x || players[players.size() - 1 - i] == y) {
+                    winners.push_back(players[players.size() - 1 - i]);
+                    continue;
+                }
+                if (pointerMask & 1) winners.push_back(players[i]);
+                else winners.push_back(players[players.size() - 1 - i]);
+                pointerMask >>= 1;
+            }
+            if (players.size() & 1) winners.push_back(players[players.size() / 2]);
+            std::sort(winners.begin(), winners.end());
+            backtrack(winners, x, y, steps + 1);
+        }
+    }
+
+    vector<int> earliestAndLatest(int n, int firstPlayer, int secondPlayer) {
+        early = n;
+        later = 0;
+        std::vector<int> players;
+        for (int i = 1; i <= n; ++i) players.push_back(i);
+        backtrack(players, firstPlayer, secondPlayer, 1);
+        return {early, later};
+    }
+};
