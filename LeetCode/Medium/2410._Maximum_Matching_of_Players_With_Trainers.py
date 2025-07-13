@@ -64,3 +64,41 @@ public:
         return content;
     }
 };
+
+
+# Python O(NlogN + MlogM + min(N, M)) O(1) TwoPointers Sorting Greedy
+class Solution:
+    def matchPlayersAndTrainers(self, players: List[int], trainers: List[int]) -> int:
+        players.sort()
+        trainers.sort()
+        i: int = 0
+        j: int = 0
+        n: int = len(players)
+        m: int = len(trainers)
+        output: int = 0
+        while i < n and j < m:
+            while j < m and trainers[j] < players[i]: j += 1
+            if j < m:
+                output += 1
+                j += 1
+                i += 1
+        return output
+
+# C++ O(NlogN + MlogM + min(N, M)) O(1) TwoPointers Sorting Greedy
+class Solution {
+public:
+    int matchPlayersAndTrainers(vector<int>& players, vector<int>& trainers) {
+        std::sort(players.begin(), players.end());
+        std::sort(trainers.begin(), trainers.end());
+        int i = 0, j = 0, n = players.size(), m = trainers.size(), output = 0;
+        while (i < n && j < m) {
+            while (j < m && trainers[j] < players[i]) ++j;
+            if (j < m) {
+                ++output;
+                ++j;
+                ++i;
+            }
+        }
+        return output;
+    }
+};
