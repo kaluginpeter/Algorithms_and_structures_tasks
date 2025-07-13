@@ -11,3 +11,19 @@
 # encode "white" -> "wehti"
 # decode "wehti" -> "white"
 # CiphersAlgorithms
+# Solution
+def encode(s: str) -> str:
+    output: list[str] = []
+    left: int = 0
+    right: int = len(s) - 1
+    while left < right:
+        output.append(s[left])
+        output.append(s[right])
+        left += 1
+        right -= 1
+    if left == right: output.append(s[left])
+    return ''.join(output)
+
+
+def decode(s: str) -> str:
+    return s[::2] + s[1::2][::-1]
