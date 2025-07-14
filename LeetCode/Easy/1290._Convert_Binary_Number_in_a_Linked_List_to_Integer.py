@@ -49,3 +49,40 @@ class Solution:
             ans.append(str(head.val))
             head = head.next
         return int(''.join(ans), 2)
+
+# Python O(N) O(1) BinaryOperations
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def getDecimalValue(self, head: Optional[ListNode]) -> int:
+        output: int = 0
+        while head:
+            output = (output << 1) | head.val
+            head = head.next
+        return output
+
+# C++ O(N) O(1) BinaryOperations
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    int getDecimalValue(ListNode* head) {
+        int output = 0;
+        while (head) {
+            output = (output << 1) | head->val;
+            head = head->next;
+        }
+        return output;
+    }
+};
