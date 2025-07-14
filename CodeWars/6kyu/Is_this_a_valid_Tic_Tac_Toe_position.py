@@ -31,3 +31,23 @@
 # Good luck!
 #
 # ArraysAlgorithmsGamesLogic
+# Solution
+def is_win(board: tuple[tuple[str]], target: str) -> bool:
+    # horizontal
+    if any(row.count(target) == 3 for row in board): return True
+    # vertical
+    if any([board[j][i] for j in range(3)].count(target) == 3 for i in range(3)): return True
+    # diagonal
+    if [board[i][i] for i in range(3)].count(target) == 3 or [board[i][-i - 1] for i in range(3)].count(target) == 3: return True
+    return False
+
+def get_count(board: tuple[tuple[str]], target: str) -> int:
+    return sum(row.count(target)for row in board)
+
+def is_valid_position(board: tuple[tuple[str]]) -> bool:
+    if is_win(board, 'X') and is_win(board, 'O'): return False
+    elif is_win(board, 'X') and get_count(board, 'X') - get_count(board, 'O') != 1: return False
+    elif is_win(board, 'O') and get_count(board, 'X') != get_count(board, 'O'): return False
+    elif get_count(board, 'O') - get_count(board, 'X') > 0: return False
+    elif get_count(board, 'X') - get_count(board, 'O') > 1: return False
+    return True
