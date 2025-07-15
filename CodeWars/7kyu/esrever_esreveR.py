@@ -12,3 +12,11 @@
 # Quick Note: A string will always be passed in (though it may be empty) so no need for error-checking other types.
 #
 # FundamentalsStrings
+# Solution
+def esrever(st: str) -> str:
+    if not st: return st
+    mock: str = ''
+    if st[-1] in '?!.':
+        mock = st[-1]
+        st = st[:-1]
+    return ' '.join(''.join(reversed(word)) for word in reversed(st.split())) + mock
