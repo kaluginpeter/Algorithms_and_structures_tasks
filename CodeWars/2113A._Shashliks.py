@@ -56,3 +56,68 @@
 # In the fourth test case, it is advantageous to cook 8
 #  portions of the first type of shashlik; after that, it will be possible to cook another 2
 #  portions of the second type of shashlik.
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+#include <cmath>
+
+
+int simulate(int k, int a, int b, int x, int y) {
+    int output = 0;
+    if (k < a) return output;
+    int allocated = k - a;
+    int reps = std::ceil(static_cast<double>(allocated) / x);
+    if (k - reps * x == a) ++reps;
+    output += reps;
+
+    int cK = k - reps * x;
+    if (cK < b) return output;
+    allocated = cK - b;
+    reps = std::ceil(static_cast<double>(allocated) / y);
+    if (cK - reps * y == b) ++reps;
+    return output + reps;
+}
+
+
+void solution() {
+    int k, a, b, x, y;
+    std::cin >> k >> a >> b >> x >> y;
+    std::cout << std::max(simulate(k, a, b, x, y), simulate(k, b, a, y, x)) << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+from math import ceil
+
+
+def simulate(k: int, a: int, b: int, x: int, y: int) -> int:
+    output: int = 0
+    if k < a: return output
+    allocated: int = k - a
+    reps: int = ceil(allocated / x)
+    if k - reps * x == a: reps += 1
+    output += reps
+    k -= x * reps
+    if k < b: return output
+    allocated = k - b
+    reps = ceil(allocated / y)
+    if k - reps * y == b: reps += 1
+    return output + reps
+
+
+
+def solution() -> None:
+    k, a, b, x, y = map(int, sys.stdin.readline().rstrip().split())
+    sys.stdout.write('{}\n'.format(max(simulate(k, a, b, x, y), simulate(k, b, a, y, x))))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
