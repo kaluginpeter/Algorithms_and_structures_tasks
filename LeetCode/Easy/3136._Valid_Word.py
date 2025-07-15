@@ -77,3 +77,36 @@ class Solution:
                 return False
         an = int(u) + int(l) + int(d)
         return len(word) >= 3 and an > 0 and c and v
+
+
+# Python O(N) O(1) Simulation
+class Solution:
+    def isValid(self, word: str) -> bool:
+        if len(word) < 3: return False
+        is_vowel: bool = False
+        is_consonant: bool = False
+        vowels: str = "aeoiu"
+        for letter in word:
+            if letter.isalpha():
+                if letter.lower() in vowels: is_vowel = True
+                else: is_consonant = True
+            elif not letter.isdigit(): return False
+        return is_vowel and is_consonant
+
+# C++ O(N) O(1) Simulation
+class Solution {
+public:
+    bool isValid(string word) {
+        if (word.size() < 3) return false;
+        bool isVowel = false, isConsonant = false;
+        std::string vowels = "aeoiu";
+        for (char &letter : word) {
+            if (std::isalpha(letter)) {
+                if (vowels.find(static_cast<char>(std::tolower(letter))) != std::string::npos) isVowel = true;
+                else isConsonant = true;
+            } else if (!std::isdigit(letter)) return false;
+        }
+        std::cout << isVowel << " " << isConsonant;
+        return isVowel && isConsonant;
+    }
+};
