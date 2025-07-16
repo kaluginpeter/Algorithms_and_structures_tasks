@@ -71,3 +71,82 @@
 # -nd, 3
 # -rd and 4
 # -th element.
+# Solution
+# C++ O((N^2)logN) O(1) BinarySearch TwoPointers
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+int binarySearch(std::vector<int> &nums, int target, int n) {
+    int left = 0, right = n - 1;
+    int output = -1;
+    while (left <= right) {
+        int middle = left + ((right - left) >> 1);
+        if (nums[middle] > target) {
+            output = middle;
+            right = middle - 1;
+        } else left = middle + 1;
+    }
+    return output;
+}
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    std::vector<int> nums(n, 0);
+    for (int i = 0; i < n; ++i) std::cin >> nums[i];
+    std::sort(nums.begin(), nums.end());
+    long long output = 0;
+    for (int j = n - 1; j > 1; --j) {
+        for (int i = j - 1; i > 0; --i) {
+            int bound = std::max(nums[n - 1] - nums[i] - (j + 1 == n ? 0 : nums[j]), nums[j] - nums[i]);
+            int pos = binarySearch(nums, bound, i);
+            if (pos == -1) break;
+            output += i - pos;
+        }
+    }
+    std::cout << output << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O((N^2)logN) O(1) BinarySearch TwoPointers
+import sys
+
+
+def binary_search(nums: list[int], target: int, n: int) -> int:
+    left: int = 0
+    right: int = n - 1
+    output: int = -1
+    while left <= right:
+        middle: int = left + ((right - left) >> 1)
+        if nums[middle] > target:
+            output = middle
+            right = middle - 1
+        else: left = middle + 1
+    return output
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    nums: list[int] = sorted(map(int, sys.stdin.readline().rstrip().split()))
+    output: int = 0
+    for j in range(n - 1, 1, -1):
+        for i in range(j - 1, 0, -1):
+            bound: int = max(nums[j] - nums[i], nums[n - 1] - nums[i] - (nums[j] if j + 1 != n else 0))
+            pos: int = binary_search(nums, bound, i)
+            if pos == -1: break
+            output += i - pos
+    sys.stdout.write('{}\n'.format(output))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
