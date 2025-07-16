@@ -60,3 +60,11 @@
 #
 # [number-of-clones, number-of-kata-solved-by-clones]
 # Algorithms
+# Solution
+def clonewars(kata_per_day):
+    robots: int = 1
+    solved: int = kata_per_day
+    for i in range(kata_per_day - 1):
+        robots *= 2
+        solved += robots * (kata_per_day - i - 1)
+    return [robots, solved]
