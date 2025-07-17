@@ -26,3 +26,30 @@
 # 1 <= coins.length <= 12
 # 1 <= coins[i] <= 231 - 1
 # 0 <= amount <= 104
+# Solution
+# Python O(NK) O(K) DynamicProgramming
+class Solution:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        dp: list[int] = [float('inf')] * (amount + 1)
+        dp[0] = 0
+        for target in range(1, amount + 1):
+            for coin in coins:
+                if coin > target or dp[target - coin] == float('inf'): continue
+                dp[target] = min(dp[target], dp[target - coin] + 1)
+        return dp[amount] if dp[amount] != float('inf') else -1
+
+# C++ O(NK) O(K) DynamicProgramming
+class Solution {
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        std::vector<int> dp(amount + 1, INT32_MAX);
+        dp[0] = 0;
+        for (int target = 1; target <= amount; ++target) {
+            for (int &coin : coins) {
+                if (coin > target || dp[target - coin] == INT32_MAX) continue;
+                dp[target] = std::min(dp[target], dp[target - coin] + 1);
+            }
+        }
+        return (dp[amount] == INT32_MAX ? -1 : dp[amount]);
+    }
+};
