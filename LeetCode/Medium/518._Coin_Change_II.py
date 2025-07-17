@@ -34,3 +34,28 @@
 # 1 <= coins[i] <= 5000
 # All the values of coins are unique.
 # 0 <= amount <= 5000
+# Solution
+# Python O(NK) O(K) DynamicProgramming
+class Solution:
+    def change(self, amount: int, coins: List[int]) -> int:
+        dp: list[int] = [0] * (amount + 1)
+        dp[0] = 1
+        for coin in coins:
+            for target in range(coin, amount + 1):
+                dp[target] += dp[target - coin]
+        return dp[amount]
+
+# C++ O(NK) O(K) DynamicProgramming
+class Solution {
+public:
+    int change(int amount, vector<int>& coins) {
+        std::vector<unsigned long long> dp(amount + 1, 0);
+        dp[0] = 1;
+        for (int &coin : coins) {
+            for (int target = coin; target <= amount; ++target) {
+                dp[target] += dp[target - coin];
+            }
+        }
+        return dp[amount];
+    }
+};
