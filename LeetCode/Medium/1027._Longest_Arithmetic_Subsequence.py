@@ -27,3 +27,35 @@
 #
 # 2 <= nums.length <= 1000
 # 0 <= nums[i] <= 500
+# Solution
+# Python O(N^2 + NK) O(NK) DynamicProgramming
+class Solution:
+    def longestArithSeqLength(self, nums: List[int]) -> int:
+        n: int = len(nums)
+        m: int = 500
+        dp: list[dict[int, int]] = [dict() for _ in range(n + 1)]
+        for i in range(1, n + 1):
+            for j in range(i - 1, 0, -1):
+                step: int = nums[i - 1] - nums[j - 1]
+                dp[i][step] = max(dp[i].get(step, 0), dp[j].get(step, 1) + 1)
+        return max(max(chunk.values()) if chunk else 0 for chunk in dp)
+
+# C++ O(N^2 + NK) O(NK) DynamicProgramming
+class Solution {
+public:
+    int longestArithSeqLength(vector<int>& nums) {
+        int n = nums.size(), m = 500;
+        std::vector<std::unordered_map<int, int>> dp(n + 1);
+        for (int i = 1; i <= n; ++i) {
+            for (int j = i - 1; j > 0; --j) {
+                int step = nums[i - 1] - nums[j - 1];
+                dp[i][step] = std::max(dp[i][step], std::max(dp[j][step], 1) + 1);
+            }
+        }
+        int output = 0;
+        for (std::unordered_map<int, int> &chunk : dp) {
+            for (auto p : chunk) output = std::max(output, p.second);
+        }
+        return output;
+    }
+};
