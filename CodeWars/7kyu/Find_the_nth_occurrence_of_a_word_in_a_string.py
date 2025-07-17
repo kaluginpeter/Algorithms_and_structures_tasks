@@ -19,3 +19,10 @@
 # substring, string, 3 --> 8
 # substring, string, 4 --> -1
 # Fundamentals
+# Solution
+def find_nth_occurrence(substring, string, occurrence=1):
+    start: int = 0
+    for i in range(len(string)):
+        if string[i:].startswith(substring): start += 1
+        if start == occurrence: return i
+    return -1
