@@ -107,3 +107,73 @@
 # In the fourth test case, it can be proven that no sequence of operations can make the median of the array become 5
 #  or −5
 # .
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+#include <vector>
+#include <cmath>
+
+bool simulate(std::vector<int> &nums) {
+    int less = 0, extraLess = 0;
+    for (int i = 1; i < nums.size(); ++i) {
+        if (std::abs(nums[i]) < nums[0]) ++less;
+        else if (-std::abs(nums[i]) < nums[0]) ++extraLess;
+    }
+    int target = nums.size() / 2;
+    if (nums.size() & 1) ++target;
+    --target;
+    return (less + extraLess) >= target && less <= target;
+}
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    std::vector<int> nums(n, 0);
+    for (int i = 0; i < n; ++i) std::cin >> nums[i];
+    if (n <= 2) {
+        std::cout << "YES\n";
+        return;
+    }
+    bool first = simulate(nums);
+    nums[0] *= -1;
+    bool second = simulate(nums);
+    std::cout << (first || second ? "YES" : "NO") << std::endl;
+
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+
+def simulate(nums: list[int]) -> bool:
+    less: int = 0
+    extra: int = 0
+    for i in range(1, len(nums)):
+        if abs(nums[i]) < nums[0]: less += 1
+        elif -abs(nums[i]) < nums[0]: extra += 1
+    target: int = len(nums) // 2
+    if len(nums) & 1: target += 1
+    target -= 1
+    return less <= target and less + extra >= target
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    first: bool = simulate(nums)
+    nums[0] *= -1
+    second: bool = simulate(nums)
+    sys.stdout.write('{}\n'.format('YES' if (first or second) else 'NO'))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
