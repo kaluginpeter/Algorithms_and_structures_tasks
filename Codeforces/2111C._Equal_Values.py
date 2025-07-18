@@ -77,3 +77,69 @@
 # .
 #
 # In the second test case, all elements are already equal, so no operations need to be performed.
+# Solution
+# C++ O(N) O(N) TwoPointers
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+#include <cstdint>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    std::vector<int> nums(n, 0);
+    for (int i = 0; i < n; ++i) std::cin >> nums[i];
+    long long output = INT64_MAX;
+    std::unordered_map<int, std::pair<int, int>> segments;
+    int left = 0;
+    for (int right = 1; right < n; ++right) {
+        if (nums[right] != nums[left]) {
+            if (!segments.count(nums[left])) segments[nums[left]] = {left, right};
+            else {
+                if (right - left > segments[nums[left]].second - segments[nums[left]].first) segments[nums[left]] = {left, right};
+            }
+            left = right;
+        }
+    }
+    if (!segments.count(nums[left])) segments[nums[left]] = {left, n};
+    else {
+        if (n - left > segments[nums[left]].second - segments[nums[left]].first) segments[nums[left]] = {left, n};
+    }
+    for (auto p : segments) {
+        output = std::min(output, static_cast<long long>(p.second.first) * p.first + static_cast<long long>(n - p.second.second) * p.first);
+    }
+
+    std::cout << output << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(N) TwoPointers
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    segments: dict[int, tuple[int, int]] = dict()
+    left: int = 0
+    for right in range(1, n):
+        if nums[left] != nums[right]:
+            if nums[left] not in segments: segments[nums[left]] = (left, right)
+            elif right - left > segments[nums[left]][1] - segments[nums[left]][0]: segments[nums[left]] = (left, right)
+            left = right
+    if nums[left] not in segments: segments[nums[left]] = (left, n)
+    elif n - left > segments[nums[left]][1] - segments[nums[left]][0]: segments[nums[left]] = (left, n)
+    output: int = min(left * v + (n - right) * v for v, (left, right) in segments.items())
+    sys.stdout.write('{}\n'.format(output))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
