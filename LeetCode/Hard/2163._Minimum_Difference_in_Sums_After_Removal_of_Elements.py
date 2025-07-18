@@ -37,3 +37,72 @@
 # nums.length == 3 * n
 # 1 <= n <= 105
 # 1 <= nums[i] <= 105
+# Solution
+# Python O(NlogN + N) O(N) PriorityQueue Prefix and Suffix Array
+class Solution:
+    def minimumDifference(self, nums: List[int]) -> int:
+        n: int = len(nums) // 3
+        prefix: list[int] = [float('inf')] * (n * 3)
+        suffix: list[int] = [0] * (n * 3)
+        cur_sum: int = 0
+        min_heap: list[int] = []
+        for i in range(n * 2):
+            if len(min_heap) < n or -min_heap[0] > nums[i]:
+                if len(min_heap) == n: cur_sum -= -heapq.heappop(min_heap)
+                cur_sum += nums[i]
+                heapq.heappush(min_heap, -nums[i])
+            prefix[i] = cur_sum
+        min_heap = []
+        cur_sum = 0
+        for i in range(n * 3 - 1, n - 1, -1):
+            if len(min_heap) < n or min_heap[0] < nums[i]:
+                if len(min_heap) == n: cur_sum -= heapq.heappop(min_heap)
+                cur_sum += nums[i]
+                heapq.heappush(min_heap, nums[i])
+            suffix[i] = cur_sum
+        output: int = float('inf')
+        for i in range(n - 1, 2 * n + 1):
+            if i - 1 > n - 1: output = min(output, prefix[i - 1] - suffix[i])
+            if i + 1 < 2 * n: output = min(output, prefix[i] - suffix[i + 1])
+        return output
+
+# C++ O(NlogN + N) O(N) PriorityQueue Prefix and Suffix Array
+class Solution {
+public:
+    long long minimumDifference(vector<int>& nums) {
+        int n = nums.size() / 3;
+        std::vector<long long> prefix(n * 3, INT64_MAX), suffix(n * 3, 0);
+        std::priority_queue<int, std::vector<int>, std::greater<int>> minHeap;
+        long long curSum = 0;
+        for (int i = 0; i < 2 * n; ++i) {
+            if (minHeap.size() < n || -minHeap.top() > nums[i]) {
+                if (minHeap.size() == n) {
+                    curSum -= -minHeap.top();
+                    minHeap.pop();
+                }
+                curSum += nums[i];
+                minHeap.push(-nums[i]);
+            }
+            prefix[i] = curSum;
+        }
+        while (!minHeap.empty()) minHeap.pop();
+        curSum = 0;
+        for (int i = 3 * n - 1; i >= n; --i) {
+            if (minHeap.size() < n || minHeap.top() < nums[i]) {
+                if (minHeap.size() == n) {
+                    curSum -= minHeap.top();
+                    minHeap.pop();
+                }
+                curSum += nums[i];
+                minHeap.push(nums[i]);
+            }
+            suffix[i] = curSum;
+        }
+        long long output = INT64_MAX;
+        for (int i = n - 1; i <= n * 2; ++i) {
+            if (i - 1 > n - 1) output = std::min(output, prefix[i - 1] - suffix[i]);
+            if (i + 1 < n * 2) output = std::min(output, prefix[i] - suffix[i + 1]);
+        }
+        return output;
+    }
+};
