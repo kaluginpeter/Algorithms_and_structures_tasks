@@ -12,3 +12,16 @@
 # 6 -> 5    (1 + 1 + 1) * (1 + 1)
 # 8 -> 6    (1 + 1) * (1 + 1) * (1 + 1)
 # MathematicsNumber TheoryPerformance
+# Solution
+dp: list[int] = [0, 1]
+dp[1] = 1
+def integer_complexity(n):
+    if n < len(dp): return dp[n]
+    for k in range(len(dp), n + 1):
+        dp.append(dp[k - 1] + 1)
+        for i in range(2, int(k**0.5) + 1):
+            if k % i == 0:
+                j = k // i
+                complexity_via_factors = dp[i] + dp[j]
+                dp[k] = min(dp[k], complexity_via_factors)
+    return dp[n]
