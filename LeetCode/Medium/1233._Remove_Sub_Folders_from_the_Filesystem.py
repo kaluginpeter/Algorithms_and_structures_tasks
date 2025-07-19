@@ -151,3 +151,36 @@ class Solution:
         path: list[str] = []
         T.unique_folders(T.root, path, output)
         return output
+
+
+# Python O(N * LlogN + NL) O(NL) Sorting
+class Solution:
+    def removeSubfolders(self, folder: List[str]) -> List[str]:
+        folder.sort()
+        pattern: str = folder[0]
+        output: list[str] = [pattern]
+        pattern += '/'
+        for right in range(1, len(folder)):
+            if not folder[right].startswith(pattern):
+                output.append(folder[right])
+                pattern = folder[right] + '/'
+        return output
+
+# C++ O(N * LlogN + NL) O(NL) Sorting
+class Solution {
+public:
+    vector<string> removeSubfolders(vector<string>& folder) {
+        std::sort(folder.begin(), folder.end());
+        std::vector<std::string> output;
+        output.push_back(folder[0]);
+        std::string pattern = folder[0] + "/";
+        for (int right = 1; right < folder.size(); ++right) {
+            if (!folder[right].starts_with(pattern)) {
+                output.push_back(folder[right]);
+                pattern = folder[right];
+                pattern.push_back('/');
+            }
+        }
+        return output;
+    }
+};
