@@ -53,3 +53,94 @@
 # path[i][j] consists of lowercase English letters.
 # No two paths lead to the same folder.
 # For any folder not at the root level, its parent folder will also be in the input.
+# Solution
+# Python O(NL) O(NL) Trie String
+class Trie:
+    folder_name: str = ''
+    children: dict[str, 'Trie']
+    def __init__(self) -> None:
+        self.children = dict()
+
+class Solution:
+    def build(self, node: Trie, hashmap: dict[str, int]) -> None:
+        if not node.children: return
+        v: list[str] = []
+        for folder, child in node.children.items():
+            self.build(child, hashmap)
+            v.append(folder + '(' + child.folder_name + ')')
+        v.sort()
+        for s in v: node.folder_name += s
+        hashmap[node.folder_name] = hashmap.get(node.folder_name, 0) + 1
+
+    def traverse(self, node: Trie, hashmap: dict[str, int], output: list[list[str]], path: list[str]) -> None:
+        if hashmap.get(node.folder_name, 0) > 1: return
+        if path: output.append(path[:])
+        for folder, child in node.children.items():
+            path.append(folder)
+            self.traverse(child, hashmap, output, path)
+            path.pop()
+
+    def deleteDuplicateFolder(self, paths: List[List[str]]) -> List[List[str]]:
+        root: Trie = Trie()
+        for path in paths:
+            cur: Trie = root
+            for dir_ in path:
+                if dir_ not in cur.children:
+                    cur.children[dir_] = Trie()
+                cur = cur.children[dir_]
+        hashmap: dict[str, int] = dict()
+        self.build(root, hashmap)
+        output: list[list[str]] = []
+        path: list[str] = []
+        self.traverse(root, hashmap, output, path)
+        return output
+
+# C++ O(NL) O(NL) Trie String
+struct Trie {
+    std::string folderName;
+    std::unordered_map<std::string, Trie*> children;
+};
+
+class Solution {
+public:
+    void build(Trie *node, std::unordered_map<std::string, int> &hashmap) {
+        if (node->children.empty()) return;
+        std::vector<std::string> v;
+        for (const auto& [folder, child] : node->children) {
+            build(child, hashmap);
+            v.push_back(folder + "(" + child->folderName + ")");
+        }
+        sort(v.begin(), v.end());
+        for (std::string &s : v) node->folderName += move(s);
+        ++hashmap[node->folderName];
+    };
+
+    void traverse(Trie *node, std::unordered_map<std::string, int> &hashmap, std::vector<std::vector<std::string>> &output, std::vector<std::string> &path) {
+        if (hashmap[node->folderName] > 1) return;
+        if (!path.empty()) output.push_back(path);
+        for (const auto& [folder, child] : node->children) {
+            path.push_back(folder);
+            traverse(child, hashmap, output, path);
+            path.pop_back();
+        }
+    };
+
+    vector<vector<string>> deleteDuplicateFolder(vector<vector<string>>& paths) {
+        Trie* root = new Trie();
+        for (const std::vector<std::string> &path : paths) {
+            Trie* cur = root;
+            for (const std::string &dir : path) {
+                if (!cur->children.count(dir)) {
+                    cur->children[dir] = new Trie();
+                }
+                cur = cur->children[dir];
+            }
+        }
+        std::unordered_map<std::string, int> hashmap;
+        build(root, hashmap);
+        std::vector<std::vector<std::string>> output;
+        std::vector<std::string> path;
+        traverse(root, hashmap, output, path);
+        return output;
+    }
+};
