@@ -104,3 +104,70 @@
 #  for all i
 # )
 # Jean cannot make any hikes. Answer: 0
+# Solution
+# C++ O(N) O(1) TwoPointers
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    int n, k;
+    std::cin >> n >> k;
+    std::vector<int> nums(n, 0);
+    for (int i = 0; i < n; ++i) std::cin >> nums[i];
+    int output = 0, left = 0;
+    bool isBreak = false;
+    for (int right = 0; right < n; ++right) {
+        if (isBreak) {
+            isBreak = false;
+            left = right + 1;
+            continue;
+        }
+        if (!nums[right]) {
+            if (right - left + 1 == k) {
+                ++output;
+                isBreak = true;
+                left = right + 1;
+            }
+        }
+        else left = right + 1;
+    }
+    std::cout << output << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(1) TwoPointers
+import sys
+
+
+def solution() -> None:
+    n, k = map(int, sys.stdin.readline().rstrip().split())
+    nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    output: int = 0
+    left: int = 0
+    is_break: bool = False
+    for right in range(n):
+        if is_break:
+            left = right + 1
+            is_break = False
+            continue
+        elif not nums[right]:
+            if right - left + 1 == k:
+                is_break = True
+                left = right + 1
+                output += 1
+                continue
+        else: left = right + 1
+        is_break = False
+    sys.stdout.write('{}\n'.format(output))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
