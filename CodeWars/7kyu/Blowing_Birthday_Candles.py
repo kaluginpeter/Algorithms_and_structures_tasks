@@ -47,3 +47,17 @@
 # This kata is also created on my birthday 🥳
 #
 # Algorithms
+def blow_candles(st):
+    st = list(map(int, st))
+    output: int = 0
+    i: int = 0
+    while i < len(st):
+        while i < len(st) and st[i] <= 0: i += 1
+        if i == len(st): break
+        extra: int = st[i]
+        output += extra
+        st[i] = 0
+        if i + 1 < len(st): st[i + 1] -= extra
+        if i + 2 < len(st): st[i + 2] -= extra
+        while i < len(st) and st[i] <= 0: i += 1
+    return output
