@@ -93,3 +93,62 @@
 #
 # In the third test case, one of the possible paths is: 4→1
 # .
+# Solution
+# C++ O(NlogN) O(1) Sorting Greedy
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+void solution() {
+    int n, k;
+    std::cin >> n >> k;
+    std::vector<int> nums(n, 0);
+    for (int i = 0; i < n; ++i) std::cin >> nums[i];
+    int start = nums[k - 1];
+    std::sort(nums.begin(), nums.end());
+    int water = 0;
+    int cur = 0;
+    for (int i = 0; i < n; ++i) {
+        if (nums[i] == start) cur = i;
+    }
+    for (int i = cur + 1; i < n; ++i) {
+        int wasted = nums[i] - nums[i - 1];
+        water += wasted;
+        if (water > nums[i - 1]) break;
+        cur = i;
+    }
+    std::cout << (nums[cur] == nums[n - 1] ? "YES" : "NO") << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(NlogN) O(1) Sorting Greedy
+import sys
+
+
+def solution() -> None:
+    n, k = map(int, sys.stdin.readline().rstrip().split())
+    nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    start: int = nums[k - 1]
+    nums.sort()
+    cur: int = 0
+    for i in range(n):
+        if nums[i] == start: cur = i
+    water: int = 0
+    for i in range(cur + 1, n):
+        wasted: int = nums[i] - nums[i - 1]
+        water += wasted
+        if water > nums[i - 1]: break
+        cur = i
+    sys.stdout.write('{}\n'.format('YES' if nums[cur] == nums[-1] else 'NO'))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
