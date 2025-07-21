@@ -63,3 +63,37 @@ public:
         return output;
     }
 };
+
+
+# Python O(N) O(N) String TwoPointers
+class Solution:
+    def makeFancyString(self, s: str) -> str:
+        output: list[str] = []
+        left: int = 0
+        for right in range(len(s)):
+            if s[left] == s[right]:
+                if right - left + 1 == 3:
+                    left += 1
+                    continue
+            else: left = right
+            output.append(s[right])
+        return ''.join(output)
+
+# C++ O(N) O(N) TwoPointers String
+class Solution {
+public:
+    string makeFancyString(string s) {
+        std::string output = "";
+        int left = 0;
+        for (int right = 0; right < s.size(); ++right) {
+            if (s[left] == s[right]) {
+                if (right - left + 1 == 3) {
+                    ++left;
+                    continue;
+                }
+            } else left = right;
+            output.push_back(s[right]);
+        }
+        return output;
+    }
+};
