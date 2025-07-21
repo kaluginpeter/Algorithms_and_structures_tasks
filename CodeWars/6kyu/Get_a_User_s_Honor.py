@@ -22,3 +22,9 @@
 # Feel free to voice your comments and concerns in the discourse area.
 # There is no example tests. Sorry, the honor may vary from time to time. I apologize for the inconvenience.
 # StringsRegular ExpressionsFundamentals
+# Solution
+from requests import Response, get
+def get_honor(username):
+    url: str = 'https://www.codewars.com/api/v1/users/{user}'
+    response: Response = get(url.format(user=username))
+    return response.json().get('honor', 1)
