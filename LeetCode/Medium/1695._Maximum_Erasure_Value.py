@@ -22,3 +22,44 @@
 #
 # 1 <= nums.length <= 105
 # 1 <= nums[i] <= 104
+# Solution
+# Python O(N) O(D) HashMap TwoPointers
+class Solution:
+    def maximumUniqueSubarray(self, nums: List[int]) -> int:
+        output: int = 0
+        hashmap: list[int] = [-1] * (10**5 + 1)
+        left: int = 0
+        window_sum: int = 0
+        for right in range(len(nums)):
+            if hashmap[nums[right]] != -1:
+                while left <= hashmap[nums[right]]:
+                    window_sum -= nums[left]
+                    hashmap[nums[left]] = -1
+                    left += 1
+            window_sum += nums[right]
+            hashmap[nums[right]] = right
+            output = max(output, window_sum)
+        return output
+
+# C++ O(N) O(D) HashMap TwoPointers
+class Solution {
+public:
+    int maximumUniqueSubarray(vector<int>& nums) {
+        int output = 0;
+        int left = 0, windowSum = 0;
+        std::vector<int> hashmap(1e5 + 1, -1);
+        for (int right = 0; right < nums.size(); ++right) {
+            if (hashmap[nums[right]] != -1) {
+                while (left <= hashmap[nums[right]]) {
+                    hashmap[nums[left]] = -1;
+                    windowSum -= nums[left];
+                    ++left;
+                }
+            }
+            windowSum += nums[right];
+            hashmap[nums[right]] = right;
+            output = std::max(output, windowSum);
+        }
+        return output;
+    }
+};
