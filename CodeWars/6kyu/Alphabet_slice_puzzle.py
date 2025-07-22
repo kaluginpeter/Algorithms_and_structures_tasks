@@ -19,4 +19,7 @@
 #
 # Happy coding!
 #
-# PuzzlesStringsFunctional ProgrammingRestricted
+# PuzzlesStringsFunctional
+# Solution
+def slice(a, b):
+    return type(a)().join(map(chr, range(ord(a), ord(b) + 1)))
