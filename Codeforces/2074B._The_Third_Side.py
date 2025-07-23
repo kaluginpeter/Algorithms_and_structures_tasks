@@ -97,3 +97,57 @@
 # It can be shown that the only last element cannot be greater than 1593
 # . Therefore, the answer is 1593
 # .
+# Solution
+# C++ O(NlogN) O(N) PriorityQueue Greedy
+#include <iostream>
+#include <vector>
+#include <queue>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    std::priority_queue<int, std::vector<int>, std::greater<int>> minHeap;
+    for (int i = 0; i < n; ++i) {
+        int x;
+        std::cin >> x;
+        minHeap.push(x);
+    }
+    while (minHeap.size() > 1) {
+        int a = minHeap.top();
+        minHeap.pop();
+        int b = minHeap.top();
+        minHeap.pop();
+        int c = a + b - 1;
+        minHeap.push(c);
+    }
+    std::cout << minHeap.top() << std::endl;
+}
+
+# Python O(NlogN) O(N) PriorityQueue Greedy
+import heapq
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    min_heap: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    heapq.heapify(min_heap)
+    while len(min_heap) > 1:
+        a: int = heapq.heappop(min_heap)
+        b: int = heapq.heappop(min_heap)
+        c: int = a + b - 1
+        heapq.heappush(min_heap, c)
+    sys.stdout.write('{}\n'.format(min_heap[0]))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
