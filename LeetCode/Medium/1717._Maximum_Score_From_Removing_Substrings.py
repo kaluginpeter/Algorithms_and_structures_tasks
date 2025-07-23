@@ -64,3 +64,60 @@ class Solution:
                 second_stack.pop()
 
         return total_points
+
+
+# Python O(N) O(N) Greedy
+class Solution:
+    def simulate(self, s: str, major: str, minor: str, major_p: int, minor_p: int) -> int:
+        stack: list[str] = []
+        output: int = 0
+        for i in range(len(s)):
+            if stack and stack[-1] == major[0] and s[i] == major[1]:
+                stack.pop()
+                output += major_p
+            else: stack.append(s[i])
+        remaining: str = ''.join(stack)
+        stack.clear()
+        for i in range(len(remaining)):
+            if stack and stack[-1] == minor[0] and remaining[i] == minor[1]:
+                stack.pop()
+                output += minor_p
+            else: stack.append(remaining[i])
+        return output
+
+    def maximumGain(self, s: str, x: int, y: int) -> int:
+        if x >= y: return self.simulate(s, 'ab', 'ba', x, y)
+        return self.simulate(s, 'ba', 'ab', y, x)
+
+# C++ O(N) O(N) Greedy
+class Solution {
+public:
+    int simulate(std::string &s, std::string &major, std::string &minor, int majorP, int minorP) {
+        std::stack<char> st;
+        int output = 0;
+        for (int i = 0; i < s.size(); ++i) {
+            if (!st.empty() && st.top() == major[0] && s[i] == major[1]) {
+                st.pop();
+                output += majorP;
+            } else st.push(s[i]);
+        }
+        std::string remaining = "";
+        while (!st.empty()) {
+            remaining.push_back(st.top());
+            st.pop();
+        }
+        std::reverse(remaining.begin(), remaining.end());
+        for (int i = 0; i < remaining.size(); ++i) {
+            if (!st.empty() && st.top() == minor[0] && remaining[i] == minor[1]) {
+                output += minorP;
+                st.pop();
+            } else st.push(remaining[i]);
+        }
+        return output;
+    }
+    int maximumGain(string s, int x, int y) {
+        std::string first = "ab", second = "ba";
+        if (x >= y) return simulate(s, first, second, x, y);
+        return simulate(s, second, first, y, x);
+    }
+};
