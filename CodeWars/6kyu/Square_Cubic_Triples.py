@@ -42,3 +42,24 @@
 # Happy coding!!
 #
 # FundamentalsAlgorithmsData StructuresMathematicsMemoization
+# Solution
+from math import sqrt, pow
+ht: dict[int, int] = dict()
+
+def making(c: int, c_max: int) -> None:
+    count: int = 0
+    for a in range(1, int(pow(c, 2))):
+        if pow(c, 3) - pow(a, 2) < 0: continue
+        b: int = int(sqrt(pow(c, 3) - pow(a, 2)))
+        if b < a: break
+        if b <= 0 or b * b != (pow(c, 3) - pow(a, 2)): continue
+        if b >= a: count += 1
+    ht[c] = count
+
+
+def find_abc_sumsqcube(c_max, num_sol):
+    ans: list[int] = list()
+    for c in range(2, c_max + 1):
+        if c not in ht: making(c, c_max)
+        if ht[c] == num_sol: ans.append(c)
+    return ans
