@@ -45,3 +45,130 @@
 # 0 <= ai, bi < n
 # ai != bi
 # edges represents a valid tree.
+# Solution
+# Python O(N^2) O(N) Depth-First-Search
+class Solution:
+    subtree_xor: list[int] = []
+    adj: list[list[int]] = []
+    tin: list[int] = []
+    tout: list[int] = []
+    timer: int = 0
+
+    def dfs(self, u: int, p: int, nums: list[int]) -> None:
+        self.timer += 1
+        self.tin[u] = self.timer
+        self.subtree_xor[u] = nums[u]
+        for v in self.adj[u]:
+            if v == p: continue
+            self.dfs(v, u, nums)
+            self.subtree_xor[u] ^= self.subtree_xor[v]
+        self.timer += 1
+        self.tout[u] = self.timer
+
+    def is_ancestor(self, u: int, v: int) -> bool:
+        return self.tin[u] <= self.tin[v] and self.tout[u] >= self.tout[v]
+
+    def minimumScore(self, nums: List[int], edges: List[List[int]]) -> int:
+        n: int = len(nums)
+        self.subtree_xor = [0] * n
+        self.tin = [0] * n
+        self.tout = [0] * n
+        self.timer = 0
+        self.adj = [[] for _ in range(n)]
+        for u, v in edges:
+            self.adj[u].append(v)
+            self.adj[v].append(u)
+        self.dfs(0, -1, nums)
+        total_xor: int = self.subtree_xor[0]
+        output: int = float('inf')
+        for i in range(len(edges)):
+            for j in range(i + 1, len(edges)):
+                u1, v1 = edges[i]
+                u2, v2 = edges[j]
+                if self.tin[u1] > self.tin[v1]: u1, v1 = v1, u1
+                if self.tin[u2] > self.tin[v2]: u2, v2 = v2, u2
+                child1: int = v1
+                child2: int = v2
+                score1: int = 0
+                score2: int = 0
+                score3: int = 0
+                if self.is_ancestor(child1, child2):
+                    score1 = self.subtree_xor[child2]
+                    score2 = self.subtree_xor[child1] ^ self.subtree_xor[child2]
+                    score3 = total_xor ^ self.subtree_xor[child1]
+                elif self.is_ancestor(child2, child1):
+                    score1 = self.subtree_xor[child1]
+                    score2 = self.subtree_xor[child2] ^ self.subtree_xor[child1]
+                    score3 = total_xor ^ self.subtree_xor[child2]
+                else:
+                    score1 = self.subtree_xor[child1]
+                    score2 = self.subtree_xor[child2]
+                    score3 = total_xor ^ score1 ^ score2
+                output = min(output, max(score1, score2, score3) - min(score1, score2, score3))
+        return output
+
+# C++ O(N^2) O(N) Depth-First-Search
+class Solution {
+public:
+    std::vector<int> subtree_xor;
+    std::vector<std::vector<int>> adj;
+    std::vector<int> tin, tout;
+    int timer;
+    void dfs(int u, int p, const std::vector<int>& nums) {
+        tin[u] = ++timer;
+        subtree_xor[u] = nums[u];
+        for (int v : adj[u]) {
+            if (v != p) {
+                dfs(v, u, nums);
+                subtree_xor[u] ^= subtree_xor[v];
+            }
+        }
+        tout[u] = ++timer;
+    }
+    bool is_ancestor(int u, int v) {
+        return tin[u] <= tin[v] && tout[u] >= tout[v];
+    }
+    int minimumScore(std::vector<int>& nums, std::vector<std::vector<int>>& edges) {
+        int n = nums.size();
+        adj.assign(n, {});
+        subtree_xor.assign(n, 0);
+        tin.assign(n, 0);
+        tout.assign(n, 0);
+        timer = 0;
+        for (const auto& edge : edges) {
+            adj[edge[0]].push_back(edge[1]);
+            adj[edge[1]].push_back(edge[0]);
+        }
+        dfs(0, -1, nums);
+        int total_xor = subtree_xor[0];
+        int min_score_diff = INT_MAX;
+        for (int i = 0; i < edges.size(); ++i) {
+            for (int j = i + 1; j < edges.size(); ++j) {
+                int u1 = edges[i][0], v1 = edges[i][1];
+                int u2 = edges[j][0], v2 = edges[j][1];
+                if (tin[u1] > tin[v1]) std::swap(u1, v1);
+                if (tin[u2] > tin[v2]) std::swap(u2, v2);
+                int child1 = v1;
+                int child2 = v2;
+                int score1, score2, score3;
+                if (is_ancestor(child1, child2)) {
+                    score1 = subtree_xor[child2];
+                    score2 = subtree_xor[child1] ^ subtree_xor[child2];
+                    score3 = total_xor ^ subtree_xor[child1];
+                } else if (is_ancestor(child2, child1)) {
+                    score1 = subtree_xor[child1];
+                    score2 = subtree_xor[child2] ^ subtree_xor[child1];
+                    score3 = total_xor ^ subtree_xor[child2];
+                } else {
+                    score1 = subtree_xor[child1];
+                    score2 = subtree_xor[child2];
+                    score3 = total_xor ^ score1 ^ score2;
+                }
+                int max_val = std::max({score1, score2, score3});
+                int min_val = std::min({score1, score2, score3});
+                min_score_diff = std::min(min_score_diff, max_val - min_val);
+            }
+        }
+        return min_score_diff;
+    }
+};
