@@ -13,3 +13,6 @@
 # Have fun (en)coding!
 #
 # Fundamentals
+# Solution
+def encode(s):
+    return ''.join(['0', '1'][(ord(i.lower()) - 97) & 1] if 97 <= ord(i.lower()) <= 122 else i for i in s)
