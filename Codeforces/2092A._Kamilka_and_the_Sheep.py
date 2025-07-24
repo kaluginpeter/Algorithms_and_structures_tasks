@@ -64,3 +64,38 @@
 # . In this case, the pleasure is gcd(1+3, 5+3)=gcd(4, 8)=4
 # . Thus, for this test case, the answer is 4
 # .
+# Solution
+# C++ O(NlogN) O(1) Sorting
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    std::vector<int> nums(n, 0);
+    for (int i = 0; i < n; ++i) std::cin >> nums[i];
+    std::sort(nums.begin(), nums.end());
+    std::cout << static_cast<long long>(nums[n - 1]) - nums[0] << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    for (int i = 0; i < t; ++i) solution();
+}
+
+# Python O(NlogN) O(1) Sorting
+import sys
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline())
+    a: list[int] = sorted(map(int, sys.stdin.readline().split()))
+    sys.stdout.write('{}\n'.format(a[-1] - a[0]))
+
+if __name__ == "__main__":
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
+
