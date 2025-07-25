@@ -61,3 +61,67 @@
 # NO
 # YES
 # NO
+# Solution
+# C++ O(sqrtN) O(1) Math
+#include <iostream>
+#include <cmath>
+
+bool is_prime(int n) {
+    if (n <= 1) return false;
+    for (long long i = 2; i * i <= n; ++i) {
+        if (n % i == 0) return false;
+    }
+    return true;
+}
+
+void solution() {
+    int x, k;
+    std::cin >> x >> k;
+    if (k == 1) {
+        if (is_prime(x)) std::cout << "YES\n";
+        else std::cout << "NO\n";
+    } else {
+        if (x > 1) std::cout << "NO\n";
+        else {
+            if (k == 2) std::cout << "YES\n";
+            else std::cout << "NO\n";
+        }
+    }
+}
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(sqrtN) O(1) Math
+import sys
+
+
+def is_prime(n: int) -> bool:
+    if n <= 1: return False
+    i: int = 2
+    while i * i <= n:
+        if n % i == 0: return False
+        i += 1
+    return True
+
+
+def solution() -> None:
+    x, k = map(int, sys.stdin.readline().rstrip().split())
+    if k == 1:
+        sys.stdout.write('{}\n'.format(['NO', 'YES'][is_prime(x)]))
+    else:
+        if x > 1:
+            sys.stdout.write('NO\n')
+        else:
+            if k == 2:
+                sys.stdout.write('YES\n')
+            else:
+                sys.stdout.write('NO\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
