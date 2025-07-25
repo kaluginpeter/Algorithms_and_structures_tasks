@@ -74,3 +74,42 @@ public:
         return output;
     }
 };
+
+
+# Python O(N) O(N) HashMap
+from array import array
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        hashmap: array[int] = array('i', [0] * 101)
+        window_sum: int = 0
+        was_positive: bool = False
+        min_negative: int = float('-inf')
+        for num in nums:
+            if num >= 0:
+                was_positive = True
+                if hashmap[num]: continue
+                hashmap[num] = 1
+                window_sum += num
+            else: min_negative = max(min_negative, num)
+        if not was_positive: return min_negative
+        return window_sum
+
+# C++ O(N) O(N) HashMap
+class Solution {
+public:
+    int maxSum(vector<int>& nums) {
+        std::array<int, 101> hashmap{};
+        bool wasPositive = false;
+        int minNegative = INT32_MIN, windowSum = 0;
+        for (int &num : nums) {
+            if (num >= 0) {
+                wasPositive = true;
+                if (hashmap[num]) continue;
+                hashmap[num] = 1;
+                windowSum += num;
+            } else minNegative = std::max(minNegative, num);
+        }
+        if (!wasPositive) return minNegative;
+        return windowSum;
+    }
+};
