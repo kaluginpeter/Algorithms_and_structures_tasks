@@ -40,3 +40,51 @@
 # NTFTFT
 # TFFFFFFNTNTNTNT
 # AFTFBTTFFNFTTZ
+# Solution
+# C++ O(N) O(1) TwoPointers
+#include <iostream>
+#include <string>
+
+
+void solution() {
+    std::string contest;
+    std::cin >> contest;
+    int left = 0, i = 0;
+    while (i < contest.size()) {
+        if (contest[i - 2] == 'F' && contest[i - 1] == 'F' && contest[i] == 'T') {
+            std::swap(contest[left], contest[i]);
+            ++left;
+        } else if (contest[i - 2] == 'N' && contest[i - 1] == 'T' && contest[i] == 'T') {
+            std::swap(contest[left], contest[i]);
+            ++left;
+        } else ++i;
+    }
+    std::cout << contest << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(1) TwoPointers
+import sys
+
+
+def solution() -> None:
+    contest: list[str] = list(sys.stdin.readline().rstrip())
+    left: int = 0
+    i: int = 2
+    while i < len(contest):
+        if contest[i - 2] + contest[i - 1] + contest[i] in {"FFT", "NTT"}:
+            contest[left], contest[i] = contest[i], contest[left]
+            left += 1
+        else: i += 1
+    sys.stdout.write('{}\n'.format(''.join(contest)))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
