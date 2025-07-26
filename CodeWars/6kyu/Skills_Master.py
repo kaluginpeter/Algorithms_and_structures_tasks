@@ -76,3 +76,16 @@
 # build_tree/buildTree - convert a tree array into a dict/Map describing which skills each skill unlocks.
 # visualize_tree/visualiseTree/visualizeTree - get a visual representation of the given tree array.
 # AlgorithmsData StructuresGraph TheoryTrees
+# Solution
+def count_skills(tree, required):
+    if not required:
+        return 0
+    skills_to_learn = set()
+    for skill in required:
+        current = skill
+        while current != 0 and current not in skills_to_learn:
+            skills_to_learn.add(current)
+            current = tree[current]
+        if current == 0 and 0 not in skills_to_learn:
+            skills_to_learn.add(0)
+    return len(skills_to_learn)
