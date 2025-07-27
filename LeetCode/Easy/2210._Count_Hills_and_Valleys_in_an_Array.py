@@ -36,3 +36,32 @@
 #
 # 3 <= nums.length <= 100
 # 1 <= nums[i] <= 100
+# Solution
+# Python O(N) O(1) Greedy
+class Solution:
+    def countHillValley(self, nums: List[int]) -> int:
+        n: int = len(nums)
+        left: int = nums[0]
+        output: int = 0
+        for i in range(1, n - 1):
+            if nums[i] == nums[i + 1]: continue
+            elif nums[i] < min(left, nums[i + 1]) or nums[i] > max(left, nums[i + 1]):
+                output += 1
+            left = nums[i]
+        return output
+
+# C++ O(N) O(1) Greedy
+class Solution {
+public:
+    int countHillValley(vector<int>& nums) {
+        int n = nums.size(), output = 0, left = nums[0];
+        for (int i = 1; i < n - 1; ++i) {
+            if (nums[i] == nums[i + 1]) continue;
+            else if (nums[i] < std::min(left, nums[i + 1]) || nums[i] > std::max(left, nums[i + 1])) {
+                ++output;
+            }
+            left = nums[i];
+        }
+        return output;
+    }
+};
