@@ -83,3 +83,41 @@
 # In the fourth test case, the operations: (4,2)
 #  and (5,5)
 #  can be applied.
+# Solution
+# C++ O(logN) O(1) Math
+#include <iostream>
+using namespace std;
+
+long long gcd(long long a, long long b) {
+    if (b == 0)
+        return a;
+    return gcd(b, a % b);
+}
+
+void solution() {
+    long long a, b, k;
+    cin >> a >> b >> k;
+    long long g = gcd(a, b);
+    if (a / g <= k && b / g <= k) cout << 1 << '\n';
+    else cout << 2 << '\n';
+}
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) solution();
+}
+
+# Python O(logN) O(1) Math
+import sys
+import math
+
+def solution() -> None:
+    a, b, k = map(int, sys.stdin.readline().rstrip().split())
+    g: int = math.gcd(a, b)
+    sys.stdout.write('{}\n'.format([2, 1][a // g <= k and b // g <= k]))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
