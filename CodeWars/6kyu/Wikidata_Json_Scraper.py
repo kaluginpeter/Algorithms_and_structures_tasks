@@ -44,3 +44,25 @@
 # Since performance might be an issue, there will be 5-10 random tests (depending on language) instead of the usual 100. I don't want performance to be the focus of this kata, but if you think I should raise the number, raise a suggestion.
 # This is supposed to train research skills, so not all of the information should be here. If you think there's a link I should provide, or a piece of information is missing that makes it unsolvable, head on over to the discourse.
 # AlgorithmsWeb ScrapingSearchingJSONFiltering
+# Solution
+import requests
+from pprint import pprint
+
+# It is recommended to use this header along with your request.
+headers = {'Accept-Encoding': 'gzip,deflate'}
+
+
+def wikidata_scraper(url):
+    response: requests.Response = requests.get(url=url, headers=headers)
+    # pprint(response.json())
+    output: dict[str, str] = {
+        "ID": None,
+        "LABEL": 'No label',
+        "DESCRIPTION": 'No description',
+    }
+    output['ID'] = next(iter(response.json()['entities']))
+    output['LABEL'] = response.json()['entities'][output['ID']]['labels'].get('en', {}).get('value', 'No Label')
+    output['DESCRIPTION'] = response.json()['entities'][output['ID']]['descriptions'].get('en', {}).get('value',
+                                                                                                        'No Description')
+
+    return output
