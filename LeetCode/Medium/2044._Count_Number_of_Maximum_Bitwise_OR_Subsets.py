@@ -77,3 +77,36 @@ public:
         return answer[0];
     }
 };
+
+
+# Python O((2^N)N) O(1) BitMask
+class Solution:
+    def countMaxOrSubsets(self, nums: List[int]) -> int:
+        max_or: int = 0
+        for num in nums: max_or |= num
+        output: int = 0
+        n: int = len(nums)
+        for mask in range(0, 1 << n):
+            or_: int = 0
+            for j in range(n):
+                if mask & (1 << j): or_ |= nums[j]
+            if or_ == max_or: output += 1
+        return output
+
+# C++ O((2^N)N) O(1) BitMask
+class Solution {
+public:
+    int countMaxOrSubsets(vector<int>& nums) {
+        int maxOr = 0;
+        for (int &num : nums) maxOr |= num;
+        int n = nums.size(), output = 0;
+        for (int mask = 0; mask < (1 << n); ++mask) {
+            int or_ = 0;
+            for (int i = 0; i < n; ++i) {
+                if (mask & (1 << i)) or_ |= nums[i];
+            }
+            if (or_ == maxOr) ++output;
+        }
+        return output;
+    }
+};
