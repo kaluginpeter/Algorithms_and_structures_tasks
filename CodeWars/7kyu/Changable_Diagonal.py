@@ -42,3 +42,9 @@
 # Note for Java: The square brackets do not mean ArrayList<ArrayList<Integer>>. You will be dealing with regular int[][].
 #
 # MatrixAlgorithms
+# Solution
+def matrix_diagonal(arr, value):
+    if not arr: return 0
+    i: int = max(0, value)
+    j: int = -value if value < 0 else 0
+    return sum(arr[i + k][j + k] for k in range(min(len(arr) - i, len(arr[0]) - j)))
