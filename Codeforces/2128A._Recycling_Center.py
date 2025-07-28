@@ -100,3 +100,71 @@
 #  is destroyed for 1
 #  coin because 4000000000>42
 # .
+# Solution
+# C++ O(NlogN) O(1) Sorting BinarySearch Greedy
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <cmath>
+
+
+void solution() {
+    int n, c;
+    std::cin >> n >> c;
+    std::vector<int> nums(n, 0);
+    for (int i = 0; i < n; ++i) std::cin >> nums[i];
+    std::sort(nums.begin(), nums.end());
+    int left = 0, right = n - 1;
+    int start = -1;
+    while (left <= right) {
+        int middle = left + ((right - left) >> 1);
+        if (nums[middle] <= c) {
+            start = middle;
+            left = middle + 1;
+        } else right = middle - 1;
+    }
+    int p = 0, extra = 0;
+    for (int i = start; i >= 0; --i) {
+        if (static_cast<long long>(nums[i]) * std::pow(2.0, p) <= c) {
+            ++extra;
+            ++p;
+        }
+    }
+    std::cout << (n - extra) << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(NlogN) O(1) Sorting Greedy BinarySearch
+import sys
+
+
+def solution() -> None:
+    n, c = map(int, sys.stdin.readline().rstrip().split())
+    nums: list[int] = sorted(map(int, sys.stdin.readline().rstrip().split()))
+    left: int = 0
+    right: int = n - 1
+    start: int = -1
+    while left <= right:
+        middle: int = left + ((right - left) >> 1)
+        if nums[middle] <= c:
+            start = middle
+            left = middle + 1
+        else: right = middle - 1
+    extra: int = 0
+    p: int = 0
+    for i in range(start, -1, -1):
+        if nums[i] * pow(2, p) <= c:
+            p += 1
+            extra += 1
+    sys.stdout.write('{}\n'.format(n - extra))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
