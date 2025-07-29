@@ -36,3 +36,98 @@
 # n == nums.length
 # 1 <= n <= 105
 # 0 <= nums[i] <= 109
+# Solution
+# Python O(N) O(32) BitManipulation
+class Solution:
+    def smallestSubarrays(self, nums: List[int]) -> List[int]:
+        n: int = len(nums)
+        output: list[int] = [0] * n
+        bits: list[int] = [-1] * 32
+        for left in range(n - 1, -1, -1):
+            right: int = left
+            for bit in range(32):
+                if not (nums[left] & (1 << bit)):
+                    if bits[bit] != -1: right = max(right, bits[bit])
+                else: bits[bit] = left
+            output[left] = right - left + 1
+        return output
+
+# C++ O(N) O(32) BitManipulation
+class Solution {
+public:
+    vector<int> smallestSubarrays(vector<int>& nums) {
+        int n = nums.size();
+        std::vector<int> output(n, 0);
+        std::array<int, 32> bits{};
+        for (int i = 0; i < 32; ++i) bits[i] = -1;
+        for (int left = n - 1; left >= 0; --left) {
+            int right = left;
+            for (int bit = 0; bit < 32; ++bit) {
+                if (!(nums[left] & (1 << bit))) {
+                    if (bits[bit] != -1) right = std::max(right, bits[bit]);
+                } else bits[bit] = left;
+                output[left] = right - left + 1;
+            }
+        }
+        return output;
+    }
+};
+
+# C++ O(Nd + (NlogN)d) O(Nd) BinarySearch PrefixSum BitManipulation
+class Solution {
+public:
+    void addOr(std::array<int, 32> &chunk, int num) {
+        std::stack<int> bits;
+        while (num) {
+            bits.push(num % 2);
+            num /= 2;
+        }
+        int place = 32 - bits.size();
+        while (!bits.empty()) {
+            if (bits.top()) ++chunk[place];
+            ++place;
+            bits.pop();
+        }
+    }
+
+    std::array<int, 32> subtractOr(std::array<int, 32> &x, std::array<int, 32> &y) {
+        std::array<int, 32> output{};
+        for (int place = 31; place >= 0; --place) {
+            output[place] = x[place] - y[place];
+        }
+        return output;
+    }
+
+    bool isEqual(std::array<int, 32> &x, std::array<int, 32> y) {
+        int place = 0;
+        while (place < 32) {
+            if (x[place] && !y[place]) return false;
+            ++place;
+        }
+        return true;
+    }
+
+    vector<int> smallestSubarrays(vector<int>& nums) {
+        int n = nums.size();
+        std::vector<std::array<int, 32>> prefix(n + 1, std::array<int, 32>{});
+        for (int i = 1; i <= n; ++i) {
+            std::array<int, 32> chunk = prefix[i - 1];
+            addOr(chunk, nums[i - 1]);
+            prefix[i] = chunk;
+        }
+        std::vector<int> output;
+        for (int i = 1; i <= n; ++i) {
+            int left = i, right = n, end = i;
+            std::array<int, 32> target = subtractOr(prefix[n], prefix[i - 1]);
+            while (left <= right) {
+                int middle = left + ((right - left) >> 1);
+                if (isEqual(target, subtractOr(prefix[middle], prefix[i - 1]))) {
+                    end = middle;
+                    right = middle - 1;
+                } else left = middle + 1;
+            }
+            output.push_back(end - i + 1);
+        }
+        return output;
+    }
+};
