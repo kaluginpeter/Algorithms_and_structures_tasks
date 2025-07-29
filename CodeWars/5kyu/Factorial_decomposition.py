@@ -16,3 +16,35 @@
 # factorial can be a very big number (4000! has 12674 digits, n can go from 300 to 4000).
 # In Fortran - as in any other language - the returned string is not permitted to contain any redundant trailing whitespace: you can use dynamically allocated character strings.
 # Fundamentals
+# Solution
+def get_primes(n):
+    if n < 2:
+        return []
+    sieve = [False] * (n + 1)
+    sieve[0] = True
+    sieve[1] = True
+    bound = int(n ** 0.5) + 1
+    for d in range(2, bound):
+        if sieve[d]:
+            continue
+        for x in range(d * d, n + 1, d):
+            sieve[x] = True
+    return [i for i in range(2, n + 1) if not sieve[i]]
+
+def decomp(n):
+    primes = get_primes(n)
+    res = []
+    for p in primes:
+        if 2 * p > n:
+            res.append(str(p))
+        else:
+            exponent = 0
+            temp = p
+            while temp <= n:
+                exponent += n // temp
+                temp *= p
+            if exponent == 1:
+                res.append(str(p))
+            else:
+                res.append(f"{p}^{exponent}")
+    return " * ".join(res)
