@@ -44,3 +44,33 @@
 # .
 #
 # In the second test case, it can be proven that no grid satisfies the conditions.
+# Solution
+# C++ O(1 O(1) Greedy
+#include <iostream>
+
+
+void solution() {
+    int n, m;
+    std::cin >> n >> m;
+    std::cout << ((n > 1 && m > 2) || (n > 2 && m > 1) ? "YES" : "NO") << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(1) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    n, m = map(int, sys.stdin.readline().rstrip().split())
+    sys.stdout.write('{}\n'.format(['NO', 'YES'][(n > 1 and m > 2) or (n > 2 and m > 1)]))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
