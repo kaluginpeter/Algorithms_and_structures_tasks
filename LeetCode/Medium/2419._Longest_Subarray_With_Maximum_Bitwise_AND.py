@@ -65,3 +65,29 @@ public:
         return answer;
     }
 };
+
+
+# Python O(N) O(1) SlidingWindow
+class Solution:
+    def longestSubarray(self, nums: List[int]) -> int:
+        output: int = 0
+        target: int = max(nums)
+        left: int = 0
+        for right in range(len(nums)):
+            if nums[right] != target: left = right + 1
+            output = max(output, right - left + 1)
+        return output
+
+# C++ O(N) O(1) SlidingWindow
+class Solution {
+public:
+    int longestSubarray(vector<int>& nums) {
+        int output = 0, target = *std::max_element(nums.begin(), nums.end());
+        int left = 0;
+        for (int right = 0; right < nums.size(); ++right) {
+            if (nums[right] != target) left = right + 1;
+            output = std::max(output, right - left + 1);
+        }
+        return output;
+    }
+};
