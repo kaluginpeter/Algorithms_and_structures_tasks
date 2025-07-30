@@ -36,3 +36,13 @@
 # The maximum number of points that you can score.
 #
 # AlgorithmsArrays
+# Solution
+def target_game(nums):
+    n: int = len(nums)
+    dp: list[int] = [0] * (n + 1)
+    for i in range(1, n + 1):
+        dp[i] = dp[i - 1]
+        if i - 2 >= 0:
+            dp[i] = max(dp[i], dp[i - 2] + nums[i - 1])
+        else: dp[i] = max(dp[i], nums[i - 1])
+    return dp[n]
