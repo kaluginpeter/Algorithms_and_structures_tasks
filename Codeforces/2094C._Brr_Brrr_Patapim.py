@@ -66,3 +66,75 @@
 # 5 1 6 2 4 3
 # 2 1
 # 1 2 3 4
+# Solution
+# C++ O(N) O(N) Greedy
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    std::vector<std::vector<int>> grid(n, std::vector<int>(n, 0));
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) std::cin >> grid[i][j];
+    }
+    std::vector<int> nums(2 * n + 1, -1);
+    std::vector<bool> seen(2 * n + 1, false);
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            nums[i + j + 2] = grid[i][j];
+            seen[grid[i][j]] = true;
+        }
+    }
+    int missed = 0;
+    for (int i = 1; i <= 2 * n; ++i) {
+        if (!seen[i]) {
+            missed = i;
+            break;
+        }
+    }
+    for (int i = 1; i <= 2 * n; ++i) {
+        if (nums[i] != -1) std::cout << nums[i];
+        else std::cout << missed;
+        std::cout << " ";
+    }
+    std::cout << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(N) Greedy
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    seen: list[int] = [False] * (2 * n + 1)
+    nums: list[int] = [-1] * (2 * n + 1)
+    for i in range(n):
+        row: iter[int] = map(int, sys.stdin.readline().rstrip().split())
+        for j in range(n):
+            x: int = next(row)
+            nums[i + j + 2] = x
+            seen[x] = True
+    missed: int = 0
+    for i in range(1, 2 * n + 1):
+        if not seen[i]:
+            missed = i
+            break
+    for i in range(1, 2 * n + 1):
+        if nums[i] != -1: sys.stdout.write('{} '.format(str(nums[i])))
+        else: sys.stdout.write('{} '.format(str(missed)))
+    sys.stdout.write('\n')
+
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
