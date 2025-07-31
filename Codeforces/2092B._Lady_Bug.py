@@ -93,3 +93,61 @@
 # 000001
 #
 # 111101
+# Solution
+# C++ O(N) O(1) Greedy Constructive
+#include <iostream>
+#include <string>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    std::string a, b;
+    std::cin >> a >> b;
+    int odd = 0, even = 0;
+    for (int i = 0; i < n; ++i) {
+        if (a[i] == '1') {
+            if (i & 1) ++even;
+            else ++odd;
+        }
+    }
+    for (int i = 0; i < n; ++i) {
+        if (b[i] == '0') {
+            if (i & 1) --odd;
+            else --even;
+        }
+    }
+    std::cout << (odd <= 0 && even <= 0 ? "YES" : "NO") << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(1) Greedy Constructive
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    a: str = sys.stdin.readline().rstrip()
+    b: str = sys.stdin.readline().rstrip()
+    odd: int = 0
+    even: int = 0
+    for i in range(n):
+        if a[i] == '1':
+            if i & 1: even += 1
+            else: odd += 1
+    for i in range(n):
+        if b[i] == '0':
+            if i & 1: odd -= 1
+            else: even -= 1
+    sys.stdout.write('{}\n'.format(['NO', 'YES'][odd <= 0 and even <= 0]))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
