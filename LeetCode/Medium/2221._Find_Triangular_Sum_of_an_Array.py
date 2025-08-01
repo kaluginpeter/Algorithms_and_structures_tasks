@@ -29,3 +29,30 @@
 #
 # 1 <= nums.length <= 1000
 # 0 <= nums[i] <= 9
+# Solution
+# Python O(N^2) O(N) Simulation
+class Solution:
+    def triangularSum(self, nums: List[int]) -> int:
+        tmp: list[int] = []
+        while len(nums) > 1:
+            tmp.clear()
+            for i in range(len(nums) - 1):
+                tmp.append((nums[i] + nums[i + 1]) % 10)
+            nums = tmp.copy()
+        return nums[0]
+
+# C++ O(N^2) O(N) Simulation
+class Solution {
+public:
+    int triangularSum(vector<int>& nums) {
+        std::vector<int> tmp;
+        while (nums.size() > 1) {
+            tmp.clear();
+            for (int i = 0; i < nums.size() - 1; ++i) {
+                tmp.push_back((nums[i] + nums[i + 1]) % 10);
+            }
+            nums = tmp;
+        }
+        return nums.back();
+    }
+};
