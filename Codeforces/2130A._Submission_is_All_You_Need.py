@@ -81,3 +81,44 @@
 # .
 # After that, you cannot do any further operations. It can be proven that 3
 #  is the maximum possible score that can be obtained.
+# Solution
+# C++ O(N) O(D) HashMap
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    std::vector<int> hashmap(51, 0);
+    int output = 0;
+    for (int i = 0; i < n; ++i) {
+        int x;
+        std::cin >> x;
+        output += x;
+        ++hashmap[x];
+    }
+    output += hashmap[0];
+    std::cout << output << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(1) Greedy Math
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    sys.stdout.write('{}\n'.format(sum(nums) + nums.count(0)))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
