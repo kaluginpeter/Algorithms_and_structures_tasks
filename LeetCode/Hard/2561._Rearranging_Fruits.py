@@ -25,3 +25,49 @@
 # basket1.length == basket2.length
 # 1 <= basket1.length <= 105
 # 1 <= basket1[i],basket2[i] <= 109
+# Solution
+# Python O(NlogN) O(D) HashMap Sorting Greedy
+class Solution:
+    def minCost(self, basket1: List[int], basket2: List[int]) -> int:
+        hashmap: dict[int, int] = dict()
+        min_el: int = float('inf')
+        for num in basket1:
+            min_el = min(min_el, num)
+            hashmap[num] = hashmap.get(num, 0) + 1
+        for num in basket2:
+            min_el = min(min_el, num)
+            hashmap[num] = hashmap.get(num, 0) - 1
+        fruits: list[int] = []
+        for fruit, freq in hashmap.items():
+            if abs(freq) & 1: return -1
+            fruits.extend([fruit] * (abs(freq) // 2))
+        fruits.sort()
+        return sum(min(min_el * 2, fruits[i]) for i in range(len(fruits) // 2))
+
+# C++ O(NlogN) O(D) HashMap Sorting Greedy
+class Solution {
+public:
+    long long minCost(vector<int>& basket1, vector<int>& basket2) {
+        std::unordered_map<int, int> hashmap;
+        int minEl = INT32_MAX;
+        for (int &num : basket1) {
+            minEl = std::min(minEl, num);
+            ++hashmap[num];
+        }
+        for (int &num : basket2) {
+            minEl = std::min(minEl, num);
+            --hashmap[num];
+        }
+        std::vector<int> fruits;
+        for (const auto &p : hashmap) {
+            if (std::abs(p.second) & 1) return -1;
+            for (int i = 0; i < std::abs(p.second) / 2; ++i) fruits.push_back(p.first);
+        }
+        std::sort(fruits.begin(), fruits.end());
+        long long output = 0;
+        for (int i = 0; i < fruits.size() / 2; ++i) {
+            output += std::min(minEl * 2, fruits[i]);
+        }
+        return output;
+    }
+};
