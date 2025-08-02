@@ -12,3 +12,15 @@ Note: For 4 or more names, the number in "and 2 others" simply increases.
 
 StringsFundamentals
 */
+// Solution
+#include <string>
+#include <vector>
+
+std::string likes(const std::vector<std::string> &names)
+{
+    if (names.empty()) return std::string("no one likes this");
+    else if (names.size() == 1) return names[0] + std::string(" likes this");
+    else if (names.size() == 2) return names[0] + std::string(" and ") + names[1] + std::string(" like this");
+    else if (names.size() == 3) return names[0] + std::string(", ") + names[1] + std::string(" and ") + names[2] + std::string(" like this");
+    return names[0] + std::string(", ") + names[1] + std::string(" and ") + std::to_string(names.size() - 2) + std::string(" others like this");
+}
