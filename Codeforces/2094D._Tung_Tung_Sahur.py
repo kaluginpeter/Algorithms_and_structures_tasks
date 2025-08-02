@@ -58,3 +58,62 @@
 # NO
 # NO
 # YES
+# Solution
+# C++ O(min(N,M)) O(1) TwoPointers
+#include <iostream>
+#include <string>
+
+
+void solution() {
+    std::string p, s;
+    std::cin >> p >> s;
+    int leftP = 0, leftS = 0;
+    while (leftP < p.size() && leftS < s.size()) {
+        int rightP = leftP;
+        while (rightP < p.size() && p[leftP] == p[rightP]) ++rightP;
+        int extra = 2 * (rightP - leftP);
+        int rightS = leftS;
+        while (rightS < s.size() && s[leftS] == s[rightS]) ++rightS;
+        if ((p[leftP] != s[leftS]) || (rightS - leftS < rightP - leftP) || (rightS - leftS > 2 * (rightP - leftP))) {
+            std::cout << "NO\n";
+            return;
+        }
+        leftP = rightP;
+        leftS = rightS;
+    }
+    std::cout << (leftS == s.size() && leftP == p.size()? "YES" : "NO") << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(min(N, M)) O(1) TwoPointers
+import sys
+
+
+def solution() -> None:
+    p: str = sys.stdin.readline().rstrip()
+    s: str = sys.stdin.readline().rstrip()
+    left_p: int = 0
+    left_s: int = 0
+    while left_p < len(p) and left_s < len(s):
+        right_p: int = left_p
+        while right_p < len(p) and p[left_p] == p[right_p]: right_p += 1
+        extra: int = 2 * (right_p - left_p)
+        right_s: int = left_s
+        while right_s < len(s) and s[left_s] == s[right_s]: right_s += 1
+        if (p[left_p] != s[left_s]) or (right_s - left_s < right_p - left_p) or (right_s - left_s > extra):
+            sys.stdout.write('NO\n')
+            return
+        left_p = right_p
+        left_s = right_s
+    sys.stdout.write('{}\n'.format(['NO', 'YES'][left_s == len(s) and left_p == len(p)]))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
