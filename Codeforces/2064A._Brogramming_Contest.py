@@ -90,3 +90,73 @@
 #  in one move.
 #
 # In the fourth test case, you don't have to do any moves.
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+#include <string>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    std::string s;
+    std::cin >> s;
+    int output = 0, ones = 0;
+    for (const char &ch : s) {
+        if (ch == '1') ++ones;
+    }
+    int i = n - 1;
+    while (i >= 0 && ones) {
+        if (s[i] == '0') {
+            while (i >= 0 && s[i] == '0') -- i;
+            while (i >= 0 && s[i] == '1') {
+                --i;
+                --ones;
+            }
+            output += 2;
+        } else {
+            while (i >= 0 && s[i] == '1') {
+                --i;
+                --ones;
+            }
+            ++output;
+        }
+    }
+    std::cout << output << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    s: str = sys.stdin.readline().rstrip()
+    ones: int = s.count('1')
+    output: int = 0
+    i: int = n - 1
+    while i >= 0 and ones:
+        if s[i] == '0':
+            while i >= 0 and s[i] == '0': i -= 1
+            while i >= 0 and s[i] == '1':
+                ones -= 1
+                i -= 1
+            output += 2
+        else:
+            while i >= 0 and s[i] == '1':
+                ones -= 1
+                i -= 1
+            output += 1
+    sys.stdout.write('{}\n'.format(output))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
