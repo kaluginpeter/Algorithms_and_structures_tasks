@@ -46,3 +46,95 @@
 # positioni-1 < positioni for any i > 0 (0-indexed)
 # 1 <= amounti <= 104
 # 0 <= k <= 2 * 105
+# Solution
+# Python O(N + NlogN) O(N) PrefixSum BinarySearch
+class Solution:
+    def find_right(self, bound: int, fruits: list[list[int]]) -> int:
+        output: int = 0
+        left: int = 0
+        right: int = len(fruits) - 1
+        while left <= right:
+            middle: int = left + ((right - left) >> 1)
+            if fruits[middle][0] <= bound:
+                output = middle
+                left = middle + 1
+            else:
+                right = middle - 1
+        return output
+
+    def find_left(self, bound: int, fruits: list[list[int]]) -> int:
+        output: int = 0
+        left: int = 0
+        right: int = len(fruits) - 1
+        while left <= right:
+            middle: int = left + ((right - left) >> 1)
+            if fruits[middle][0] >= bound:
+                output = middle
+                right = middle - 1
+            else:
+                left = middle + 1
+        return output
+
+    def maxTotalFruits(self, fruits: List[List[int]], startPos: int, k: int) -> int:
+        n: int = len(fruits)
+        prefix: list[int] = [0] * (n + 1)
+        for i in range(1, n + 1):
+            prefix[i] = prefix[i - 1] + fruits[i - 1][1]
+        output: int = 0
+        for left in range(n):
+            needed: int = abs(fruits[left][0] - startPos)
+            if needed > k: continue
+            if fruits[left][0] > startPos:
+                right: int = self.find_left(startPos - max(0, k - 2 * needed), fruits)
+                output = max(output, prefix[left + 1] - prefix[right])
+            else:
+                right: int = self.find_right(startPos + max(0, k - 2 * needed), fruits)
+                output = max(output, prefix[right + 1] - prefix[left])
+        return output
+
+# C++ O(N + NlogN) O(N) PrefixSum BinarySearch
+class Solution {
+public:
+    int findRight(int distance, const std::vector<std::vector<int>> &fruits) {
+        int output = 0, left = 0, right = fruits.size() - 1;
+        while (left <= right) {
+            int middle = left + ((right - left) >> 1);
+            if (fruits[middle][0] <= distance) {
+                output = middle;
+                left = middle + 1;
+            } else right = middle - 1;
+        }
+        return output;
+    }
+    int findLeft(int distance, const std::vector<std::vector<int>> &fruits) {
+        int output = 0, left = 0, right = fruits.size() - 1;
+        while (left <= right) {
+            int middle = left + ((right - left) >> 1);
+            if (fruits[middle][0] >= distance) {
+                output = middle;
+                right = middle - 1;
+            } else left = middle + 1;
+        }
+        return output;
+    }
+    int maxTotalFruits(vector<vector<int>>& fruits, int startPos, int k) {
+        int n = fruits.size();
+        std::vector<long long> prefix(n + 1, 0);
+        for (int i = 1; i <= n; ++i) {
+            prefix[i] = prefix[i - 1] + fruits[i - 1][1];
+        }
+        long long output = 0;
+        for (int left = 0; left < fruits.size(); ++left) {
+            int needed = std::abs(fruits[left][0] - startPos);
+            if (needed > k) continue;
+            if (fruits[left][0] > startPos) {
+                int right = findLeft(startPos - std::max(0, k - 2 * needed), fruits);
+                output = std::max(output, prefix[left + 1] - prefix[right]);
+            } else {
+                int right = findRight(startPos + std::max(0, k - 2 * needed), fruits);
+                output = std::max(output, prefix[right + 1] - prefix[left]);
+            }
+        }
+        return static_cast<int>(output);
+    }
+};
