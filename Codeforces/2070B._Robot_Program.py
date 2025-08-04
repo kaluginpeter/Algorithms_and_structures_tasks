@@ -89,3 +89,85 @@
 # . So it stops after 5
 #  seconds, without reaching the point 0
 # .
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+#include <string>
+
+
+void solution() {
+    int n, x;
+    long long k;
+    std::cin >> n >> x >> k;
+    std::string path;
+    std::cin >> path;
+    int loopSize = -1, start = 0, seconds = -1;
+    for (int i = 0; i < n; ++i) {
+        if (path[i] == 'L') --x;
+        else ++x;
+        if (!x) {
+            seconds = i + 1;
+            break;
+        }
+    }
+    if (seconds == -1 || seconds > k) {
+        std::cout << 0 << std::endl;
+        return;
+    }
+    for (int i = 0; i < n; ++i) {
+        if (path[i] == 'L') --start;
+        else ++start;
+        if (!start) {
+            loopSize = i + 1;
+            break;
+        }
+    }
+    if (loopSize == -1) {
+        std::cout << 1 << std::endl;
+        return;
+    }
+    k -= seconds;
+    std::cout << 1 + k / loopSize << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    n, x, k = map(int, sys.stdin.readline().rstrip().split())
+    path: str = sys.stdin.readline().rstrip()
+    seconds: int = 0
+    for i in range(n):
+        if path[i] == 'L': x -= 1
+        else: x += 1
+        if not x:
+            seconds = i + 1
+            break
+    if not seconds or seconds > k:
+        sys.stdout.write('0\n')
+        return
+    loop_size: int = 0
+    start: int = 0
+    for i in range(n):
+        if path[i] == 'L': start -= 1
+        else: start += 1
+        if not start:
+            loop_size = i + 1
+            break
+    if not loop_size:
+        sys.stdout.write('1\n')
+        return
+    k -= seconds
+    sys.stdout.write('{}\n'.format(1 + k // loop_size))
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
