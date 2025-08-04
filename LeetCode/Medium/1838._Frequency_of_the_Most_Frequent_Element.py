@@ -31,3 +31,37 @@
 # 1 <= nums.length <= 105
 # 1 <= nums[i] <= 105
 # 1 <= k <= 105
+# Solution
+# Python O(NlogN) O(1) SlidingWindow
+class Solution:
+    def maxFrequency(self, nums: List[int], k: int) -> int:
+        nums.sort()
+        output: int = 1
+        left: int = 0
+        wasted: int = 0
+        for right in range(1, len(nums)):
+            wasted += (right - left) * (nums[right] - nums[right - 1])
+            while wasted > k:
+                wasted -= nums[right] - nums[left]
+                left += 1
+            output = max(output, right - left + 1)
+        return output
+
+# C++ O(NlogN) O(1) SlidingWindow
+class Solution {
+public:
+    int maxFrequency(vector<int>& nums, int k) {
+        int output = 1, left = 0;
+        long long wasted = 0;
+        std::sort(nums.begin(), nums.end());
+        for (int right = 1; right < nums.size(); ++right) {
+            wasted += static_cast<long long>(nums[right] - nums[right - 1]) * (right - left);
+            while (wasted > k) {
+                wasted -= nums[right] - nums[left];
+                ++left;
+            }
+            output = std::max(output, right - left + 1);
+        }
+        return output;
+    }
+};
