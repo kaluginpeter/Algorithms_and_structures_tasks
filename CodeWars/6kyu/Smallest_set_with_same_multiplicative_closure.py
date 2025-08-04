@@ -32,3 +32,16 @@
 # After completing this kata consider trying this one.
 #
 # Number Theory
+# Solution
+def can(num: int, output: set[int]) -> bool:
+    if num in output: return True
+    for d in output:
+        if num % d != 0: continue
+        if can(num // d, output): return True
+    return False
+def smallest_set_with_same_closure(s):
+    output: set[int] = set()
+    for num in sorted(s):
+        if num == 1: continue
+        if not can(num, output): output.add(num)
+    return output
