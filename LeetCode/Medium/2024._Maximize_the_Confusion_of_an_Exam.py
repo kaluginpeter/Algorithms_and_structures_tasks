@@ -35,3 +35,57 @@
 # 1 <= n <= 5 * 104
 # answerKey[i] is either 'T' or 'F'
 # 1 <= k <= n
+# Solution
+# Python O(N) O(1) Sliding Window
+class Solution:
+    def maxConsecutiveAnswers(self, answerKey: str, k: int) -> int:
+        output: int = 0
+        # solve for T
+        left: int = 0
+        skipped: int = 0
+        for right in range(len(answerKey)):
+            if answerKey[right] != 'T': skipped += 1
+            while skipped > k:
+                if answerKey[left] != 'T': skipped -= 1
+                left += 1
+            output = max(output, right - left + 1)
+        # sove for F
+        left = 0
+        skipped = 0
+        for right in range(len(answerKey)):
+            if answerKey[right] != 'F': skipped += 1
+            while skipped > k:
+                if answerKey[left] != 'F': skipped -= 1
+                left += 1
+            output = max(output, right - left + 1)
+        return output
+
+# C++ O(N) O(1) SlidingWindow
+class Solution {
+public:
+    int maxConsecutiveAnswers(string answerKey, int k) {
+        int output = 0;
+        // solve for T
+        int left = 0, misMatched = 0;
+        for (int right = 0; right < answerKey.size(); ++right) {
+            if (answerKey[right] != 'T') ++misMatched;
+            while (misMatched > k) {
+                if (answerKey[left] != 'T') --misMatched;
+                ++left;
+            }
+            output = std::max(output, right - left + 1);
+        }
+        // solve for F
+        left = 0;
+        misMatched = 0;
+        for (int right = 0; right < answerKey.size(); ++right) {
+            if (answerKey[right] != 'F') ++misMatched;
+            while (misMatched > k) {
+                if (answerKey[left] != 'F') --misMatched;
+                ++left;
+            }
+            output = std::max(output, right - left + 1);
+        }
+        return output;
+    }
+};
