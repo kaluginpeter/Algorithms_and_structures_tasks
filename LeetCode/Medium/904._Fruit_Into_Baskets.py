@@ -32,3 +32,38 @@
 #
 # 1 <= fruits.length <= 105
 # 0 <= fruits[i] < fruits.length
+# Solution
+# Python O(N) O(1) SlidingWindow HashTable
+class Solution:
+    def totalFruit(self, fruits: List[int]) -> int:
+        output: int = 0
+        hashmap: dict[int, int] = dict()
+        left: int = 0
+        for right in range(len(fruits)):
+            hashmap[fruits[right]] = hashmap.get(fruits[right], 0) + 1
+            while len(hashmap) > 2:
+                hashmap[fruits[left]] -= 1
+                if not hashmap[fruits[left]]: del hashmap[fruits[left]]
+                left += 1
+            output = max(output, right - left + 1)
+        return output
+
+# C++ O(N) O(1) SlidingWindow HashTable
+class Solution {
+public:
+    int totalFruit(vector<int>& fruits) {
+        int output = 0;
+        std::unordered_map<int, int> hashmap;
+        int left = 0;
+        for (int right = 0; right < fruits.size(); ++right) {
+            ++hashmap[fruits[right]];
+            while (hashmap.size() > 2) {
+                --hashmap[fruits[left]];
+                if (!hashmap[fruits[left]]) hashmap.erase(fruits[left]);
+                ++left;
+            }
+            output = std::max(output, right - left + 1);
+        }
+        return output;
+    }
+};
