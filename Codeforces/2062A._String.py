@@ -85,3 +85,37 @@
 #  to 0
 #  in less than three operations, so the answer is 3
 # .
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+#include <string>
+
+void solution() {
+    std::string sequence;
+    std::cin >> sequence;
+    int ones = 0;
+    for (int i = 0; i < sequence.size(); ++i) {
+        if (sequence[i] == '1') ++ones;
+    }
+    std::cout << ones << std::endl;
+
+}
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    sequence: str = sys.stdin.readline().rstrip()
+    sys.stdout.write('{}\n'.format(sequence.count('1')))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
