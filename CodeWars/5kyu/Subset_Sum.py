@@ -8,3 +8,15 @@
 # The target will never be much bigger than the sum of the input list, and often quite a bit smaller.
 #
 # Performance
+# Solution
+def subset_sum(numbers,target):
+    if target == 0: return []
+    dp = {0: []}
+    for num in numbers:
+        for s in list(dp.keys()):
+            new_sum = s + num
+            if new_sum <= target and new_sum not in dp:
+                dp[new_sum] = dp[s] + [num]
+                if new_sum == target:
+                    return dp[new_sum]
+    return None if target not in dp else dp[target]
