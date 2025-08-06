@@ -78,3 +78,50 @@
 # , 5
 # , and 11
 #  successively. Kevin earns a point in the first operation.
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    int odd = 0, even = 0;
+    for (int i = 0; i < n; ++i) {
+        int x;
+        std::cin >> x;
+        if (x & 1) ++odd;
+        else ++even;
+    }
+    int output = 0;
+    if (even) std::cout << 1 + odd << std::endl;
+    else std::cout << odd - 1 << std::endl;
+}
+// odd + odd = even
+// odd + even = odd
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    nums: iter[int] = map(int, sys.stdin.readline().rstrip().split())
+    odd: int = 0
+    even: int = 0
+    for num in nums:
+        if num & 1: odd += 1
+        else: even += 1
+    if even: sys.stdout.write('{}\n'.format(1 + odd))
+    else: sys.stdout.write('{}\n'.format(odd - 1))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
