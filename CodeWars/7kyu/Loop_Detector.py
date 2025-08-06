@@ -50,3 +50,15 @@
 # Larger cycle (e.g., [1, 2, 0])
 #
 # An index is considered out of bounds if it is greater than or equal to len(arr).
+# Solution
+def has_loop(arr: list[int]) -> bool:
+    slow: int = 0
+    fast: int = 0
+    is_start: bool = True
+    while slow != fast or is_start:
+        if is_start: is_start = False
+        if slow >= len(arr) or arr[slow] >= len(arr): return False
+        elif arr[fast] >= len(arr) or arr[arr[fast]] >= len(arr): return False
+        slow = arr[slow]
+        fast = arr[arr[fast]]
+    return slow == fast and not is_start
