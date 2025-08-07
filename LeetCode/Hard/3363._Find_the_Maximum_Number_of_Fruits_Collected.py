@@ -51,3 +51,82 @@
 #
 # 2 <= n == fruits.length == fruits[i].length <= 1000
 # 0 <= fruits[i][j] <= 1000
+# Solution
+# Python O(N^2) O(1) DynamicProgramming Matrix
+class Solution:
+    def maxCollectedFruits(self, fruits: List[List[int]]) -> int:
+        output: int = 0
+        n: int = len(fruits)
+        # for upper left children
+        for i in range(n):
+            output += fruits[i][i]
+            fruits[i][i] = 0
+        bound: int = n // 2
+        # for upper right children
+        prev_bound: int = 0
+        for i in range(n):
+            lower_bound: int = max(i + 1, -(i - n) - 1, bound)
+            for j in range(n - 1, lower_bound - 1, -1):
+                fruits[i][j] += max(
+                    (fruits[i - 1][j - 1] if (i - 1 >= 0 and j - 1 >= prev_bound) else 0),
+                    (fruits[i - 1][j] if (i - 1 >= 0 and j >= prev_bound) else 0),
+                    (fruits[i - 1][j + 1] if (i - 1 >= 0 and j + 1 < n) else 0)
+                )
+            prev_bound = lower_bound
+        output += fruits[n - 2][n - 1]
+        # for lower left children
+        prev_bound = 0
+        for j in range(n):
+            lower_bound: int = max(j + 1, -(j - n) - 1, bound)
+            for i in range(n - 1, lower_bound - 1, -1):
+                fruits[i][j] += max(
+                    (fruits[i - 1][j - 1] if (j - 1 >= 0 and i - 1 >= prev_bound) else 0),
+                    (fruits[i][j - 1] if (j - 1 >= 0 and i >= prev_bound) else 0),
+                    (fruits[i + 1][j - 1] if (j - 1 >= 0 and i + 1 < n) else 0)
+                )
+            prev_bound = lower_bound
+        output += fruits[n - 1][n - 2]
+        return output
+
+# C++ O(N^2) O(1) DynamicProgramming Matrix
+class Solution {
+public:
+    int maxCollectedFruits(vector<vector<int>>& fruits) {
+        // for upper left children
+        int output = 0, n = fruits.size();
+        for (int i = 0; i < n; ++i) {
+            output += fruits[i][i];
+            fruits[i][i] = 0;
+        }
+        int bound = n / 2, prevBound = 0;
+        // for upper right children
+        for (int i = 0; i < n; ++i) {
+            int lowerBound = std::max({i + 1, -(i - n) - 1, bound});
+            for (int j = n - 1; j >= lowerBound; --j) {
+                fruits[i][j] += max({
+                    (i - 1 >= 0 && j - 1 >= prevBound ? fruits[i - 1][j - 1] : 0),
+                    (i - 1 >= 0 && j >= prevBound ? fruits[i - 1][j] : 0),
+                    (i - 1 >= 0 && j + 1 < n ? fruits[i - 1][j + 1] : 0)
+                });
+            }
+            prevBound = lowerBound;
+        }
+        output += fruits[n - 2][n - 1];
+        fruits[n - 2][n - 1] = 0;
+        // for lower left children
+        prevBound = 0;
+        for (int j = 0; j < n; ++j) {
+            int lowerBound = std::max({j + 1, -(j - n) - 1,  bound});
+            for (int i = n - 1; i >= lowerBound; --i) {
+                fruits[i][j] += std::max({
+                    (j - 1 >= 0 && i - 1 >= prevBound ? fruits[i - 1][j - 1] : 0),
+                    (j - 1 >= 0 && i >= prevBound ? fruits[i][j - 1] : 0),
+                    (j - 1 >= 0 && i + 1 < n ? fruits[i + 1][j - 1] : 0)
+                });
+            }
+            prevBound = lowerBound;
+        }
+        output += fruits[n - 1][n - 2];
+        return output;
+    }
+};
