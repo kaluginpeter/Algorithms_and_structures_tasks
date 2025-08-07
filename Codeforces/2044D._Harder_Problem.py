@@ -87,3 +87,68 @@
 #  are both modes of [1,1,2,2]
 # . Since ai=2
 # , this array is valid.
+# Solution
+# C++ O(N + K(N - K + 1)) O(K) HashSet
+#include <iostream>
+#include <vector>
+#include <unordered_set>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    std::vector<int> nums(n, 0);
+    std::unordered_set<int> uniq, cycle;
+    for (int i = 0; i < n; ++i) {
+        std::cin >> nums[i];
+        uniq.insert(nums[i]);
+    }
+    cycle = uniq;
+    for (int i = 0; i < n; ++i) {
+        if (cycle.count(nums[i])) {
+            std::cout << nums[i] << " ";
+            cycle.erase(nums[i]);
+        } else {
+            for (auto &p : cycle) {
+                std::cout << p << " ";
+                cycle.erase(p);
+                break;
+            }
+        }
+        if (cycle.empty()) cycle = uniq;
+    }
+    std::cout << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N + K(N - K + 1)) O(K) HashSet
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    uniq: set[int] = set(nums)
+    cycle: set[int] = uniq.copy()
+    for i in range(n):
+        if nums[i] in cycle:
+            sys.stdout.write('{} '.format(nums[i]))
+            cycle.remove(nums[i])
+        else:
+            for num in cycle:
+                sys.stdout.write('{} '.format(num))
+                cycle.remove(num)
+                break
+        if not cycle: cycle = uniq.copy()
+    sys.stdout.write('\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
