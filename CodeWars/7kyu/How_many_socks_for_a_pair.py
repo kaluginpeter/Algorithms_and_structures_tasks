@@ -14,3 +14,6 @@
 # Note: colours and pairs are both positive integers.
 #
 # FundamentalsMathematics
+# Solution
+def socks(colours, pairs):
+    return colours + 2 * pairs - 1
