@@ -111,3 +111,81 @@
 #  and 1
 #  distinct element, so it has a score of 2−1=1
 # . This can be proven to be a shortest array which maximises the score.
+# Solution
+# C++ O(N) O(N) SlidingWindow
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    std::vector<int> nums(n, 0);
+    std::unordered_map<int, int> hashmap;
+    for (int i = 0; i < n; ++i) {
+        std::cin >> nums[i];
+        ++hashmap[nums[i]];
+    }
+
+    int left = 0;
+    int output = 0, outputL = -1, outputR = 0;
+    for (int right = 0; right < n; ++right) {
+        if (hashmap[nums[right]] > 1) {
+            if (right - left > output) {
+                output = right - left;
+                outputL = left + 1;
+                outputR = right;
+            }
+            left = right + 1;
+        }
+    }
+    if (n - left > output) {
+        outputL = left + 1;
+        outputR = n;
+    }
+    if (outputL == -1) std::cout << "0\n";
+    else std::printf("%d %d\n", outputL, outputR);
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(N) HashMap
+import sys
+
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    hashmap: dict[int, int] = dict()
+    for num in nums:
+        hashmap[num] = hashmap.get(num, 0) + 1
+    left: int = 0
+    output: int = 0
+    output_left: int = -1
+    output_right: int = 0
+    for right in range(n):
+        if hashmap[nums[right]] > 1:
+            if right - left > output:
+                output = right - left
+                output_left = left + 1
+                output_right = right
+            left = right + 1
+    if n - left > output:
+        output_left = left + 1
+        output_right = n
+    if output_left == -1:
+        sys.stdout.write('0\n')
+    else:
+        sys.stdout.write('{} {}\n'.format(output_left, output_right))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
