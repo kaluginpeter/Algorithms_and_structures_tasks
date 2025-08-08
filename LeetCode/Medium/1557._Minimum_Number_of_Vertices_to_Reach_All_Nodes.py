@@ -29,3 +29,24 @@
 # edges[i].length == 2
 # 0 <= fromi, toi < n
 # All pairs (fromi, toi) are distinct.
+# Solution
+# Python O(|E| + |V|) O(|V|) Graph
+class Solution:
+    def findSmallestSetOfVertices(self, n: int, edges: List[List[int]]) -> List[int]:
+        in_degree: list[int] = [0] * n
+        for u, v in edges: in_degree[v] += 1
+        return [v for v in range(n) if not in_degree[v]]
+
+# C++ O(|E| + |V|) O(|V|) Graph
+class Solution {
+public:
+    vector<int> findSmallestSetOfVertices(int n, vector<vector<int>>& edges) {
+        std::vector<int>inDegree(n, 0);
+        for (const std::vector<int> &edge : edges) ++inDegree[edge[1]];
+        std::vector<int> output;
+        for (int vertex = 0; vertex < n; ++vertex) {
+            if (!inDegree[vertex]) output.push_back(vertex);
+        }
+        return output;
+    }
+};
