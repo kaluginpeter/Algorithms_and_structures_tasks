@@ -30,3 +30,6 @@
 # "EVEN" or "ODD" depending if the number of k-element subsets of S = {1, 2, ..., n} is ODD or EVEN.
 #
 # Puzzles
+# Solution
+def subsets_parity(n,k):
+    return ['EVEN', 'ODD'][n & k == k]
