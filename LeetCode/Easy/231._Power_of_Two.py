@@ -32,3 +32,19 @@ class Solution:
 class Solution:
     def isPowerOfTwo(self, n: int) -> bool:
         return n & (n - 1) == 0 if n != 0 else False
+
+
+# Python O(logN) O(1) Bit
+class Solution:
+    def isPowerOfTwo(self, n: int) -> bool:
+        if n < 0: return False
+        return n.bit_count() == 1
+
+# C++ O(logN) O(1) Bit
+class Solution {
+public:
+    bool isPowerOfTwo(int n) {
+        if (n < 0) return false;
+        return __builtin_popcount(n) == 1;
+    }
+};
