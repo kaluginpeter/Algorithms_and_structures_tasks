@@ -108,3 +108,59 @@
 #  coins.
 # After all the operations, you have 40
 #  coins.
+# Solution
+# C++ O(N) O(N) Prefix Suffix Greedy
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+	std::vector<long long>a(n + 1);
+	for(int i = 1; i <= n; i++) std::cin >> a[i];
+	std::vector<long long>b(n + 1), c(n + 2);
+	b[0] = 0;
+	c[n + 1] = 0;
+	for(int i = 1; i <= n; i++) {
+		b[i] = b[i - 1];
+		if(a[i] > 0) b[i] = b[i - 1] + a[i];
+	}
+	for(int i = n; i >= 1; i--) {
+		c[i] = c[i + 1];
+		if(a[i] < 0) c[i] = c[i + 1] + std::abs(a[i]);
+	}
+	long long output = 0;
+	for(int i = 1; i <= n; i++) output = std::max(output, b[i] + c[i]);
+	std::cout << output << std::endl;
+}
+
+
+int main() {
+	int t;
+	std::cin >> t;
+	while(t--) solution();
+}
+
+# Python O(N) O(N) Prefix Suffix Greedy
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    prefix: list[int] = [0] * (n + 1)
+    suffix: list[int] = [0] * (n + 1)
+    for i in range(n):
+        prefix[i + 1] = prefix[i] + (nums[i] if nums[i] > 0 else 0)
+    for i in range(n - 1, -1, -1):
+        suffix[i] = suffix[i + 1] - (nums[i] if nums[i] < 0 else 0)
+    output: int = 0
+    for i in range(n + 1):
+        output = max(output, prefix[i] + suffix[i])
+    sys.stdout.write('{}\n'.format(output))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
