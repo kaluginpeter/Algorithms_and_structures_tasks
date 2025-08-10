@@ -20,3 +20,33 @@
 #
 # 1 <= cards.length <= 105
 # 0 <= cards[i] <= 106
+# Solution
+# Python O(N) O(D) HashMap SlidingWindow
+class Solution:
+    def minimumCardPickup(self, cards: List[int]) -> int:
+        hashmap: list[int] = [-1] * (10**6 + 1)
+        output: int = -1
+        for right in range(len(cards)):
+            if hashmap[cards[right]] != -1:
+                if output == -1 or (right - hashmap[cards[right]] + 1 < output):
+                    output = right - hashmap[cards[right]] + 1
+            hashmap[cards[right]] = right
+        return output
+
+# C++ O(N) O(D) HashMap SlidingWindow
+class Solution {
+public:
+    int minimumCardPickup(vector<int>& cards) {
+        std::vector<int> hashmap(1e6 + 1, -1);
+        int output = -1;
+        for (int right = 0; right < cards.size(); ++right) {
+            if (hashmap[cards[right]] != -1) {
+                if (output == -1 || (right - hashmap[cards[right]] + 1 < output)) {
+                    output = right - hashmap[cards[right]] + 1;
+                }
+            }
+            hashmap[cards[right]] = right;
+        }
+        return output;
+    }
+};
