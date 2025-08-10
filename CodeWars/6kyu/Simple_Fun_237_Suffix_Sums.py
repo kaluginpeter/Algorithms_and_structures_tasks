@@ -30,3 +30,9 @@
 # b[2]=         3 - 6 = -3
 # b[3]=           - 6 = -6
 # Algorithms
+# Solution
+def suffix_sums(arr):
+    output: list[int] = [0] * len(arr)
+    for i in range(len(arr) - 1, -1, -1):
+        output[i] = (output[i + 1] if i + 1 != len(arr) else 0) + arr[i]
+    return output
