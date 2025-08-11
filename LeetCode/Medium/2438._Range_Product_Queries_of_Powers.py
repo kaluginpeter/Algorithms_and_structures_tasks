@@ -30,3 +30,48 @@
 # 1 <= n <= 109
 # 1 <= queries.length <= 105
 # 0 <= starti <= endi < powers.length
+# Solution
+# Python O(log2(N) + Mlog2(N)) O(log2(N)) BitManipulation
+class Solution:
+    def productQueries(self, n: int, queries: List[List[int]]) -> List[int]:
+        powers: list[int] = []
+        cur_pow: int = 1
+        while n >= cur_pow:
+            if n & cur_pow:
+                powers.append(cur_pow)
+                n ^= cur_pow
+            cur_pow <<= 1
+        mod: int = int(1e9 + 7)
+        output: list[int] = []
+        for left, right in queries:
+            acc: int = 1
+            for i in range(left, right + 1):
+                acc = acc * powers[i] % mod
+            output.append(acc)
+        return output
+
+# C++ O(log2N + Mlog2(N)) O(log2(N)) BitManipulation
+class Solution {
+public:
+    vector<int> productQueries(int n, vector<vector<int>>& queries) {
+        std::vector<int> powers;
+        int curPower = 1;
+        while (n >= curPower) {
+            if (n & curPower) {
+                powers.push_back(curPower);
+                n ^= curPower;
+            }
+            curPower <<= 1;
+        }
+        std::vector<int> output;
+        long long mod = 1e9 + 7;
+        for (const std::vector<int> &query : queries) {
+            long long answer = 1;
+            for (int i = query[0]; i <= query[1]; ++i) {
+                answer = answer * powers[i] % mod;
+            }
+            output.push_back(static_cast<int>(answer));
+        }
+        return output;
+    }
+};
