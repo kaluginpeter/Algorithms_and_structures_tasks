@@ -58,3 +58,41 @@
 #  seconds to complete the sequence on the second screen by writing ABCD.
 # In the third test case, the fastest way to display the sequences is to type both of them character by character without copying, and this requires 16
 #  seconds.
+# Solution
+# C++ O(min(N, M)) O(1) Greedy
+#include <iostream>
+#include <string>
+
+
+void solution() {
+    std::string a, b;
+    std::cin >> a >> b;
+    if (a.size() < b.size()) std::swap(a, b);
+    int i = 0;
+    while (i < b.size() && a[i] == b[i]) ++i;
+    std::cout << (i? 1 : 0) + (a.size() - i) + b.size() << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(min(N, M)) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    a: str = sys.stdin.readline().rstrip()
+    b: str = sys.stdin.readline().rstrip()
+    i: int = 0
+    if len(a) < len(b): a, b = b, a
+    while i < len(b) and a[i] == b[i]: i += 1
+    sys.stdout.write('{}\n'.format(len(a) - i + len(b) + bool(i)))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
