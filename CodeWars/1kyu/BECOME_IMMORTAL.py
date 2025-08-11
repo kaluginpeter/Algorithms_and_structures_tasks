@@ -35,3 +35,25 @@
 # This is no ordinary magic (the Elder's life is at stake), so you need to care about performance. All test cases (900 tests) can be passed within 1 second, but naive solutions will time out easily. Good luck, and do not displease the Elder.
 #
 # PuzzlesDynamic ProgrammingPerformanceAlgorithms
+# Solution
+def get_pow(n: int) -> int:
+    power: int = 1
+    while power < n: power <<= 1
+    return power
+
+def range_sum(l: int, r: int) -> int:
+    return (l + r) * (r - l + 1) // 2
+
+def elder_age(m: int, n: int, l: int, t: int) -> int:
+    if min(m, n) == 0: return 0
+    if m > n: m, n = n, m
+    lm, ln = get_pow(m), get_pow(n)
+    if l > ln: return 0
+
+    if lm == ln: return (range_sum(1, ln - l - 1) * (m + n - ln) + elder_age(ln - n, lm - m, l, t)) % t
+
+    lm: int= ln // 2
+    tmp: int = range_sum(1, ln - l - 1) * m - (ln - n) * range_sum(max(0, lm - l), ln - l - 1)
+    if l <= lm: tmp += (lm - l) * (lm - m) * (ln - n) + elder_age(lm - m, ln - n, 0, t)
+    else: tmp += elder_age(lm - m, ln - n, l - lm, t)
+    return tmp % t
