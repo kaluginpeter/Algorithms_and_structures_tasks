@@ -37,3 +37,69 @@ This is no ordinary magic (the Elder's life is at stake), so you need to care ab
 
 PuzzlesDynamic ProgrammingPerformanceAlgorithms
 */
+// Solution
+#include <cstdint>
+#include <algorithm>
+
+uint64_t getPow(uint64_t n) {
+    if (n == 0) return 1;
+    uint64_t power = 1;
+    while (power < n) power <<= 1;
+    return power;
+}
+
+uint64_t rangeSumMod(uint64_t l, uint64_t r, uint64_t mod) {
+    if (l > r) return 0;
+    if (mod == 0) return 0;
+    uint64_t M = 2 * mod;
+    uint64_t l_mod = l % M;
+    uint64_t r_mod = r % M;
+    uint64_t A = (l_mod + r_mod) % M;
+    uint64_t B = (r - l + 1) % M;
+    uint64_t product = (A * B) % M;
+    return product / 2;
+}
+
+int64_t elder_age(uint64_t m, uint64_t n, uint64_t l, uint64_t t) {
+    if (t == 0) return 0;
+    if (m == 0 || n == 0) return 0;
+    if (m > n) std::swap(m, n);
+
+    uint64_t lm = getPow(m);
+    uint64_t ln = getPow(n);
+    if (l >= ln) return 0;
+
+    if (lm == ln) {
+        uint64_t term1 = rangeSumMod(1, (ln > l ? ln - l - 1 : 0), t);
+        term1 = (term1 * ((m + n - ln) % t)) % t;
+        uint64_t term2 = elder_age(ln - n, lm - m, l, t);
+        return (term1 + term2) % t;
+    }
+
+    lm = ln / 2;
+    uint64_t low = (lm > l) ? (lm - l) : 0;
+    uint64_t high = (ln > l) ? (ln - l - 1) : 0;
+    if (low > high) {
+        low = 0;
+        high = 0;
+    }
+    uint64_t part1 = rangeSumMod(1, high, t);
+    uint64_t part2 = rangeSumMod(low, high, t);
+
+    uint64_t tmp = (part1 * (m % t)) % t;
+    uint64_t subtract = (((ln - n) % t) * part2) % t;
+    tmp = (tmp + t - subtract) % t;
+
+    if (l <= lm) {
+        uint64_t term3 = 1;
+        term3 = (term3 * ((lm - l) % t)) % t;
+        term3 = (term3 * ((lm - m) % t)) % t;
+        term3 = (term3 * ((ln - n) % t)) % t;
+        uint64_t term4 = elder_age(lm - m, ln - n, 0, t);
+        tmp = (tmp + term3 + term4) % t;
+    } else {
+        uint64_t term4 = elder_age(lm - m, ln - n, l - lm, t);
+        tmp = (tmp + term4) % t;
+    }
+    return tmp % t;
+}
