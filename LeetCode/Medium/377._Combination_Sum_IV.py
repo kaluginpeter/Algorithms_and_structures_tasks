@@ -33,3 +33,31 @@
 #
 #
 # Follow up: What if negative numbers are allowed in the given array? How does it change the problem? What limitation we need to add to the question to allow negative numbers?
+# Solution
+# Python O(NT) O(T) DynamicProgramming
+class Solution:
+    def combinationSum4(self, nums: List[int], target: int) -> int:
+        dp: list[int] = [0] * (target + 1)
+        dp[0] = 1
+        mod: int = 1 << 32 - 1
+        for subset in range(1, target + 1):
+            for num in nums:
+                if subset - num < 0 or not dp[subset - num]: continue
+                dp[subset] = (dp[subset] + dp[subset - num]) % mod
+        return dp[target]
+
+# C++ O(NT) O(T) DynamicProgramming
+class Solution {
+public:
+    int combinationSum4(vector<int>& nums, int target) {
+        std::vector<unsigned int> dp(target + 1, 0); // use unsigned to avoid overflow error
+        dp[0] = 1;
+        for (int subset = 0; subset <= target; ++subset) {
+            for (const int &num : nums) {
+                if (subset - num < 0 || !dp[subset - num]) continue;
+                dp[subset] += dp[subset - num];
+            }
+        }
+        return dp[target];
+    }
+};
