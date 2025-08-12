@@ -88,3 +88,39 @@
 # , it satisfies the two constraints. In addition, it can be shown that the corresponding b=[1,2]
 #  is better than any other good array of length 2
 # .
+# Solution
+# C++ O(N) O(1) Math Greedy
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    for (int i = 0; i < n - 1; ++i) {
+        std::cout << (i & 1 ? 3 : -1) << " ";
+    }
+    std::cout << (n & 1 ? -1 : 2) << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(1) Math Greedy
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    for i in range(n - 1):
+        sys.stdout.write('{} '.format(3 if i & 1 else -1))
+    sys.stdout.write('{}\n'.format(-1 if n & 1 else 2))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
