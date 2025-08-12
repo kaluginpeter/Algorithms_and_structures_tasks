@@ -27,3 +27,46 @@
 #
 # 1 <= n <= 300
 # 1 <= x <= 5
+# Solution
+# Python O(N^(1 + 1/x)) O(N) DynamicProgramming
+class Solution:
+    def get_bound(self, n: int, x: int) -> int:
+        output: int = 1
+        while pow(output, x) <= n: output += 1
+        return output
+
+    def numberOfWays(self, n: int, x: int) -> int:
+        bound: int = self.get_bound(n, x)
+        hashmap: list[int] = [0] * (n + 1)
+        mod: int = int(1e9) + 7
+        hashmap[0] = 1
+        for i in range(1, bound):
+            ix: int = pow(i, x)
+            for j in range(n - ix, -1, -1):
+                if not hashmap[j]: continue
+                hashmap[ix + j] = (hashmap[ix + j] + hashmap[j]) % mod
+        return hashmap[n]
+
+# C++ O(N^(1 + 1/x)) O(N) DynamicProgramming
+class Solution {
+public:
+    int getBound(int n, int x) {
+        int bound = 0;
+        while (std::pow(bound, x) <= n) ++bound;
+        return bound;
+    };
+
+    int numberOfWays(int n, int x) {
+        int bound = getBound(n, x), output = 0, mod = 1e9 + 7;
+        std::array<int, 301> hashmap{};
+        hashmap[0] = 1;
+        for (int i = 1; i < bound; ++i) {
+            int ix = std::pow(i, x);
+            for (int j = n - ix; j >= 0; --j) {
+                if (!hashmap[j]) continue;
+                hashmap[ix + j] = (hashmap[ix + j] + hashmap[j]) % mod;
+            }
+        }
+        return hashmap[n];
+    }
+};
