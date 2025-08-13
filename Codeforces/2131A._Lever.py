@@ -92,3 +92,42 @@
 # .
 #
 # In the second sample case, the Lever does nothing in its first iteration, and thus it does only one iteration.
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    std::vector<int> a(n, 0), b(n, 0);
+    for (int i = 0; i < n; ++i) std::cin >> a[i];
+    for (int i = 0; i < n; ++i) std::cin >> b[i];
+    int first = 0;
+    for (int i = 0; i < n; ++i) first += std::max(0, a[i] - b[i]);
+    std::cout << first + 1  << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    a: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    b: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    first: int = sum(max(0, a[i] - b[i]) for i in range(n))
+    sys.stdout.write('{}\n'.format(first + 1))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
