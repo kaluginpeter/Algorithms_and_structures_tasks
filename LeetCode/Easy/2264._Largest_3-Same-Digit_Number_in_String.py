@@ -58,3 +58,21 @@ class Solution(object):
             if num[i-2] == num[i-1] == num[i]:
                 top = max(top, num[i-2:i+1])
         return top
+
+
+# Python O(ND) O(D) Greedy
+class Solution:
+    def largestGoodInteger(self, num: str) -> str:
+        return max((num[i:i+3] for i in range(len(num) - 3 + 1) if num[i] == num[i + 1] == num[i + 2]), default='')
+
+# C++ O(ND) O(D) Greedy
+class Solution {
+public:
+    string largestGoodInteger(string num) {
+        std::string output = "";
+        for (int i = 0; i < num.size() - 3 + 1; ++i) {
+            if (num[i] == num[i + 1] && num[i] == num[i + 2]) output = std::max(output, num.substr(i, 3));
+        }
+        return output;
+    }
+};
