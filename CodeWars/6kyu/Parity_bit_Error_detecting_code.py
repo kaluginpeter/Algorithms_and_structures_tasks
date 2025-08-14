@@ -23,3 +23,10 @@
 #
 # "0101100 error 0110000 0101011 error 0110001"
 # AlgorithmsBinaryStringsFundamentals
+# Solution
+def parity_bit(binary):
+    output: list[str] = []
+    for bit in binary.split():
+        if (bit[:-1].count('1') & 1) != int(bit[-1]): output.append('error')
+        else: output.append(bit[:-1])
+    return ' '.join(output)
