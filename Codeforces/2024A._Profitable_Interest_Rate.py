@@ -54,3 +54,60 @@
 #  coins.
 #
 # In the third test case, Alice will not be able to open the "Profitable" deposit.
+# Solution
+# C++ O(logN) O(1) Math BinarySearch
+#include <iostream>
+
+
+void solution() {
+    int a, b;
+    std::cin >> a >> b;
+    if (a >= b) {
+        std::cout << a << std::endl;
+        return;
+    }
+    int output = 0, left = 0, right = a;
+    while (left <= right) {
+        int middle = left + ((right - left) >> 1);
+        if (b - middle * 2 > a - middle) left = middle + 1;
+        else if (a - middle > output) {
+            output = a - middle;
+            right = middle - 1;
+        } else left = middle + 1;
+    }
+    std::cout << output << std::endl;
+
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(logN) O(1) Math BinarySearch
+import sys
+
+
+def solution() -> None:
+    a, b = map(int, sys.stdin.readline().rstrip().split())
+    if a >= b:
+        sys.stdout.write('{}\n'.format(a))
+        return
+    left: int = 0
+    right: int = a
+    output: int = 0
+    while left <= right:
+        middle: int = left + ((right - left) >> 1)
+        if b - 2 * middle > a - middle: left = middle + 1
+        elif a - middle > output:
+            output = a - middle
+            right = middle - 1
+        else: left = middle + 1
+    sys.stdout.write('{}\n'.format(output))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
