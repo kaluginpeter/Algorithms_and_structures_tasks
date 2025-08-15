@@ -5,3 +5,8 @@
 # Write a function calculating distance between Point a and Point b.
 #
 # GeometryFundamentals
+# Solution
+from preloaded import Point
+
+def distance_between_points(a: Point, b: Point) -> float:
+    return (abs(a.x - b.x)**2 + abs(a.y - b.y)**2 + abs(a.z - b.z)**2)**.5
