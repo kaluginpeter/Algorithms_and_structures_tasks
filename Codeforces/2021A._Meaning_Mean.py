@@ -104,3 +104,46 @@
 # . It can be proven that there is no series of operations that results in x
 #  greater than 6
 #  in the end.
+# Solution
+# C++ O(NlogN + N) O(1) Sorting Greedy
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    std::vector<int> nums(n, 0);
+    for (int i = 0; i < n; ++i) std::cin >> nums[i];
+    std::sort(nums.begin(), nums.end());
+    long long output = (nums[1] + nums[0]) / 2;
+    for (int i = 2; i < n; ++i) {
+        output = (output + nums[i]) / 2;
+    }
+    std::cout << output << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(NlogN + N) O(1) Sorting Greedy
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    nums: list[int] = sorted(map(int, sys.stdin.readline().rstrip().split()))
+    output: int = (nums[0] + nums[1]) // 2
+    for i in range(2, n):
+        output = (output + nums[i]) // 2
+    sys.stdout.write('{}\n'.format(output))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
