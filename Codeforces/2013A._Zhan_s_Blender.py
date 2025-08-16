@@ -67,3 +67,45 @@
 # In the third example, you can first put 3
 #  fruits into the blender, then add another 3
 #  fruits.
+# C++ O(1) O(1) Math
+#include <iostream>
+#include <cmath>
+
+
+void solution() {
+    int n, x, y;
+    std::cin >> n >> x >> y;
+    int count = n / y + (n % y ? 1 : 0);
+    if (x >= y) {
+        std::cout << count << std::endl;
+        return;
+    }
+    int output = count * y - std::abs(n - count * y);
+    std::cout << output / x + (output % x ? 1 : 0) << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    x, y = map(int, sys.stdin.readline().rstrip().split())
+    count: int = n // y + int(bool(n % y))
+    if x >= y:
+        sys.stdout.write('{}\n'.format(count))
+        return
+    output: int = count * y - abs(count * y - n)
+    sys.stdout.write('{}\n'.format(output // x + int(bool(output % x))))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
