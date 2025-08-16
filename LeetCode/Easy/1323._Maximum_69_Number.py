@@ -34,3 +34,46 @@ class Solution:
             if str(num)[k] == '9': l.append(int(str(num)[:k] + '6' + str(num)[k+1:]))
             else : l.append(int(str(num)[:k] + '9' + str(num)[k+1:]))
         return max(l)
+
+# Python O(log(N)) O(1) Math Greedy
+class Solution:
+    def maximum69Number (self, num: int) -> int:
+        rev_num: int = 0
+        place: int = 0
+        target: int = 0
+        while num:
+            rev_num = rev_num * 10 + num % 10
+            if num % 10 == 6: target = place
+            num //= 10
+            place += 1
+        target = place - target
+        output: int = 0
+        while rev_num:
+            target -= 1
+            if not target: output = output * 10 + 9
+            else: output = output * 10 + rev_num % 10
+            rev_num //= 10
+        return output
+
+# C++ O(log(N)) O(1) Math Greedy
+class Solution {
+public:
+    int maximum69Number (int num) {
+        int revNum = 0, place = 0, target = 0;
+        while (num) {
+            revNum = revNum * 10 + num % 10;
+            if (num % 10 == 6) target = place;
+            num /= 10;
+            ++place;
+        }
+        target = place - target;
+        int output = 0;
+        while (revNum) {
+            --target;
+            if (!target) output = output * 10 + 9;
+            else output = output * 10 + revNum % 10;
+            revNum /= 10;
+        }
+        return output;
+    }
+};
