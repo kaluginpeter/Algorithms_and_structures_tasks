@@ -29,3 +29,16 @@
 #
 # all_rationals => [(1, 1), (1, 2), (2, 1), (1, 3), (3, 2), ...]
 # MathematicsListsFundamentals
+# Solution
+def all_rationals():
+    a: int = 1
+    b: int = 1
+    cur_nodes: list[tuple[int, int]] = [(a, b)]
+    next_nodes: list[tuple[int, int]] = []
+    while True:
+        for x, y in cur_nodes:
+            next_nodes.append((x, x + y))
+            next_nodes.append((x + y, y))
+            yield (x, y)
+        cur_nodes = next_nodes.copy()
+        next_nodes.clear()
