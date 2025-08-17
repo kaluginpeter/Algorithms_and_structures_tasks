@@ -31,3 +31,33 @@
 #
 # 0 <= k <= n <= 104
 # 1 <= maxPts <= 104
+# Solution
+# Python O(N) O(N) DynamicProgramming SlidingWindow
+class Solution:
+    def new21Game(self, n: int, k: int, maxPts: int) -> float:
+        dp: list[float] = [0] * (n + 1)
+        dp[0] = 1
+        cur_prob: float = int(bool(k))
+        for i in range(1, n + 1):
+            dp[i] = cur_prob / maxPts
+            if i < k: cur_prob += dp[i]
+            if i - maxPts >= 0 and i - maxPts < k: cur_prob -= dp[i - maxPts]
+        return sum(dp[k:])
+
+# C++ O(N) O(N) DynamicProgramming SlidingWindow
+class Solution {
+public:
+    double new21Game(int n, int k, int maxPts) {
+        std::vector<double> dp(n + 1, 0);
+        dp[0] = 1;
+        double curProb = (k ? 1 : 0);
+        for (int i = 1; i <= n; ++i) {
+            dp[i] = curProb / maxPts;
+            if (i < k) curProb += dp[i];
+            if (i - maxPts < k && i - maxPts >= 0) curProb -= dp[i - maxPts];
+        }
+        double output = 0;
+        for (int i = k; i <= n; ++i) output += dp[i];
+        return output;
+    }
+};
