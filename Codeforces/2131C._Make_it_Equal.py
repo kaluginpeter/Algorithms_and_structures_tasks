@@ -104,3 +104,100 @@
 # In the last test case, we can show that it is impossible to make S
 #  equal to T
 # .
+# Solution
+# C++ O(NlogN + MlogM) O(N + M) Map Math // Need to use map to avoid tle on hash collision tests
+#include <iostream>
+#include <map>
+#include <vector>
+#include <cmath>
+
+
+void solution() {
+    int n, k;
+    std::cin >> n >> k;
+    std::map<int, int> have, needed;
+    for (int i = 0; i < n; ++i) {
+        int x;
+        std::cin >> x;
+        ++have[x];
+    }
+    for (int i = 0; i < n; ++i) {
+        int x;
+        std::cin >> x;
+        if (!have.count(x)) ++needed[x % k];
+        else {
+            --have[x];
+            if (!have[x]) have.erase(x);
+        }
+    }
+    for (const auto &p : have) {
+        int first = p.first % k, second = std::abs(p.first % k - k);
+        int times = p.second;
+        if (needed.count(first)) {
+            int steps = std::min(times, needed[first]);
+            times -= steps;
+            needed[first] -= steps;
+            if (!needed[first]) needed.erase(first);
+        }
+        if (needed.count(second)) {
+            int steps = std::min(times, needed[second]);
+            times -= steps;
+            needed[second] -= steps;
+            if (!needed[second]) needed.erase(second);
+        }
+        if (times) {
+            std::cout << "NO\n";
+            return;
+        }
+    }
+    std::cout << (needed.empty() ? "YES" : "NO") << std::endl;
+}
+
+
+int main() {
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N + M) O(N + M) Map Math // amortized O(1)* get TLE
+import sys
+
+
+def solution() -> None:
+    n, k = map(int, sys.stdin.readline().rstrip().split())
+    nums: iter[int] = map(int, sys.stdin.readline().rstrip().split())
+    have: dict[int, int] = dict()
+    needed: dict[int, int] = dict()
+    for _ in range(n):
+        x: int = next(nums)
+        have[x] = have.get(x, 0) + 1
+    nums = map(int, sys.stdin.readline().rstrip().split())
+    for _ in range(n):
+        x: int = next(nums)
+        if x in have:
+            have[x] -= 1
+            if not have[x]: del have[x]
+        else: needed[x % k] = needed.get(x % k, 0) + 1
+    for num, freq in have.items():
+        if num % k in needed:
+            steps: int = min(freq, needed[num % k])
+            freq -= steps
+            needed[num % k] -= steps
+            if not needed[num % k]: del needed[num % k]
+        if abs(num % k - k) in needed:
+            steps: int = min(freq, needed[abs(num % k - k)])
+            freq -= steps
+            needed[abs(num % k - k)] -= steps
+            if not needed[abs(num % k - k)]: del needed[abs(num % k - k)]
+        if freq:
+            sys.stdout.write('NO\n')
+            return
+    sys.stdout.write('{}\n'.format(['YES', 'NO'][len(needed)]))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
