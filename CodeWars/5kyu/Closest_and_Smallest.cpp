@@ -91,3 +91,38 @@ See Example tests for the format of the results in your language.
 
 FundamentalsSorting
 */
+// Solution
+#include <algorithm>
+#include <cstdint>
+namespace Closest
+{
+    std::vector<std::tuple<int, unsigned int, long long>> closest(const std::string &strng)
+    {
+      if (strng.empty()) return std::vector<std::tuple<int, unsigned int, long long>>({{0, 0, 0}, {0, 0, 0}});
+      std::vector<std::tuple<int, unsigned int, long long>> dataset;
+      long long curNum = 0;
+      int digitSum = 0, idx = 0;
+      for (size_t i = 0; i < strng.size(); ++i) {
+        if (std::isspace(strng[i])) {
+          dataset.push_back({digitSum, idx, curNum});
+          digitSum = 0;
+          curNum = 0;
+          ++idx;
+        } else {
+          digitSum += strng[i] - '0';
+          curNum = curNum * 10 + (strng[i] - '0');
+          if (i == strng.size() - 1) dataset.push_back({digitSum, idx, curNum});
+        }
+      }
+      std::sort(dataset.begin(), dataset.end());
+      unsigned int diff = INT32_MAX, output = 0;
+      for (size_t i = 0; i < dataset.size() - 1; ++i) {
+        unsigned int curDiff = std::get<0>(dataset[i + 1]) - std::get<0>(dataset[i]);
+        if (curDiff < diff) {
+          output = i;
+          diff = curDiff;
+        }
+      }
+      return std::vector<std::tuple<int, unsigned int, long long>>({dataset[output], dataset[output + 1]});
+    }
+}
