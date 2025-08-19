@@ -37,3 +37,46 @@
 # 100
 # 0
 # 10
+# Solution
+# C++ O(N) O(1) Simulation
+#include <iostream>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    int output = 0;
+    for (int i = 0; i < n; ++i) {
+        int x;
+        std::cin >> x;
+        if (i & 1) output -= x;
+        else output += x;
+    }
+    std::cout << output << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(1) Simulation
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    nums: iter[int] = map(int, sys.stdin.readline().rstrip().split())
+    output: int = 0
+    for i in range(n):
+        x: int = next(nums)
+        if i & 1: output -= x
+        else: output += x
+    sys.stdout.write('{}\n'.format(output))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
