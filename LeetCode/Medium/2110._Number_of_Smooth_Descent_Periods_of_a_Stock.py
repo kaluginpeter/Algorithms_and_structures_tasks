@@ -30,3 +30,27 @@
 #
 # 1 <= prices.length <= 105
 # 1 <= prices[i] <= 105
+# Solution
+# Python O(N) O(1) SligingWindow Combinatorics
+class Solution:
+    def getDescentPeriods(self, prices: List[int]) -> int:
+        output: int = 0
+        left: int = 0
+        for right in range(len(prices)):
+            if prices[right] - prices[max(0, right - 1)] != -1: left = right
+            output += right - left + 1
+        return output
+
+# C++ O(N) O(1) SlidingWindow Combinatorics
+class Solution {
+public:
+    long long getDescentPeriods(vector<int>& prices) {
+        long long output = 0;
+        int left = 0;
+        for (int right = 0; right < prices.size(); ++right) {
+            if (prices[right] - prices[std::max(0, right - 1)] != -1) left = right;
+            output += right - left + 1;
+        }
+        return output;
+    }
+};
