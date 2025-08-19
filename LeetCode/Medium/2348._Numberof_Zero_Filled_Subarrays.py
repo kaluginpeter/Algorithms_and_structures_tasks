@@ -32,3 +32,27 @@
 #
 # 1 <= nums.length <= 105
 # -109 <= nums[i] <= 109
+# Solution
+# Python O(N) O(1) TwoPointers
+class Solution:
+    def zeroFilledSubarray(self, nums: List[int]) -> int:
+        output: int = 0
+        left: int = 0
+        for right in range(len(nums)):
+            if nums[right]: left = right + 1
+            output += right - left + 1
+        return output
+
+# C++ O(N) O(1) TwoPointers
+class Solution {
+public:
+    long long zeroFilledSubarray(vector<int>& nums) {
+        long long output = 0;
+        int left = 0;
+        for (int right = 0; right < nums.size(); ++right) {
+            if (nums[right]) left = right + 1;
+            output += right - left + 1;
+        }
+        return output;
+    }
+};
