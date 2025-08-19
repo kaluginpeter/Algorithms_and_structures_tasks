@@ -29,3 +29,45 @@
 # 1 <= value, num <= 109
 # 1 <= k <= 105
 # At most 105 calls will be made to consec.
+# Solution
+# Python O(1) O(1) Design TwoPointers
+class DataStream:
+
+    def __init__(self, value: int, k: int):
+        self.size: int = 0
+        self.window_size: int = k
+        self.target: int = value
+
+    def consec(self, num: int) -> bool:
+        if num != self.target: self.size = 0
+        else: self.size += 1
+        return self.size >= self.window_size
+
+
+# Your DataStream object will be instantiated and called as such:
+# obj = DataStream(value, k)
+# param_1 = obj.consec(num)
+
+# C++ O(1) O(1) Design TwoPointers
+class DataStream {
+private:
+    unsigned int size = 0;
+    int target, windowSize;
+public:
+    DataStream(int value, int k) {
+        this->target = value;
+        this->windowSize = k;
+    }
+
+    bool consec(int num) {
+        if (num != target) this->size = 0;
+        else ++this->size;
+        return this->size >= windowSize;
+    }
+};
+
+/**
+ * Your DataStream object will be instantiated and called as such:
+ * DataStream* obj = new DataStream(value, k);
+ * bool param_1 = obj->consec(num);
+ */
