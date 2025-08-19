@@ -22,3 +22,27 @@
 #
 # 1 <= nums.length <= 5000
 # -1000 <= nums[i] <= 1000
+# Solution
+# Python O(N) O(1) SlidingWindow
+class Solution:
+    def numberOfArithmeticSlices(self, nums: List[int]) -> int:
+        output: int = 0
+        left: int = 0
+        for right in range(2, len(nums)):
+            if nums[right] - nums[right - 1] != nums[right - 1] - nums[right - 2]: left = right - 1
+            if right - left + 1 >= 3: output += (right - 2) - left + 1
+        return output
+
+# C++ O(N) O(1) SlidingWindow
+class Solution {
+public:
+    int numberOfArithmeticSlices(vector<int>& nums) {
+        int output = 0;
+        int left = 0;
+        for (int right = 2; right < nums.size(); ++right) {
+            if (nums[right] - nums[right - 1] != nums[right - 1] - nums[right - 2]) left = right - 1;
+            if (right - left + 1 >= 3) output += (right - 2) - left + 1;
+        }
+        return output;
+    }
+};
