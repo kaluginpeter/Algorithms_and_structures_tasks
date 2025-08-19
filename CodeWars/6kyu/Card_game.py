@@ -21,3 +21,14 @@
 # "2♦", "A♠", "♦"  -->  "The first card won."
 # "joker", "joker", "♦"  -->  "Someone cheats."
 # AlgorithmsGamesStrings
+# Solution
+from preloaded import deck
+
+def card_game(card_1, card_2, trump):
+    if card_1 == card_2: return 'Someone cheats.'
+    elif card_1 == 'joker': return 'The first card won.'
+    elif card_2 == 'joker': return 'The second card won.'
+    score_1: int = deck.index(card_1) + (1000 if card_1[-1] == trump else 0)
+    score_2: int = deck.index(card_2) + (1000 if card_2[-1] == trump else 0)
+    if score_1 < 1000 and score_2 < 1000 and card_1[-1] != card_2[-1]: return 'Let us play again.'
+    return f'The {"first" if score_1 > score_2 else "second"} card won.'
