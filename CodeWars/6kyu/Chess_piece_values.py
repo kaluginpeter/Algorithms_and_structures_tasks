@@ -43,3 +43,19 @@
 # //and 11 in case s is 'black'(queen, pawn, pawn)
 # Happy coding warrior!
 # ArraysFundamentals
+# Solution
+values = {
+    'queen': 9,
+    'rook': 5,
+    'bishop': 3,
+    'knight': 3,
+    'pawn': 1,
+    'king': 0,
+}
+
+def pieces_value(arr, s):
+    output: int = 0
+    for row in arr:
+        for shape in row:
+            if shape[0] == s[0]: output += values[shape[2:]]
+    return output
