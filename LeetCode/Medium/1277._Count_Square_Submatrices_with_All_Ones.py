@@ -136,3 +136,39 @@ public:
         return countSquares;
     }
 };
+
+
+
+# Python O(NM) O(NM) DynamicProgramming Matrix
+class Solution:
+    def countSquares(self, matrix: List[List[int]]) -> int:
+        n: int = len(matrix)
+        m: int = len(matrix[0])
+        dp: list[list[int]] = [[0] * (m + 1) for _ in range(n + 1)]
+        for i in range(1, n + 1):
+            for j in range(1, m + 1):
+                if not matrix[i - 1][j - 1]: continue
+                dp[i][j] = min(dp[i - 1][j], dp[i - 1][j - 1], dp[i][j - 1]) + 1
+        return sum(sum(row) for row in dp)
+
+# C++ O(NM) O(NM) DynamicProgramming Matrix
+class Solution {
+public:
+    int countSquares(vector<vector<int>>& matrix) {
+        int n = matrix.size(), m = matrix[0].size();
+        std::vector<std::vector<int>> dp(n + 1, std::vector<int>(m + 1, 0));
+        for (int i = 1; i <= n; ++i) {
+            for (int j = 1; j <= m; ++j) {
+                if (!matrix[i - 1][j - 1]) continue;
+                dp[i][j] = matrix[i - 1][j - 1] + std::min({
+                    dp[i - 1][j], dp[i - 1][j - 1], dp[i][j - 1]
+                });
+            }
+        }
+        int output = 0;
+        for (int i = 1; i <= n; ++i) {
+            output += std::accumulate(dp[i].begin(), dp[i].end(), 0);
+        }
+        return output;
+    }
+};
