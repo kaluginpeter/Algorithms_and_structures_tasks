@@ -90,3 +90,60 @@
 #  in less than 3
 #  operations. Thus, 3
 #  is the answer.
+# Solution
+# C++ O(logk(N)) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    long long n, k;
+    std::cin >> n >> k;
+    if (k == 1) {
+        std::cout << n << std::endl;
+        return;
+    }
+    int steps = 0;
+    while (n) {
+        int subtrct = 1;
+        while (subtrct * k <= n) subtrct *= k;
+        n -= subtrct;
+        ++steps;
+        if (n && n < k) {
+            steps += n;
+            n = 0;
+        }
+    }
+    std::cout << steps << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(logk(N)) O(1) Math
+import sys
+
+
+def solution() -> None:
+    n, k = map(int, sys.stdin.readline().rstrip().split())
+    if k == 1:
+        sys.stdout.write('{}\n'.format(n))
+        return
+    steps: int = 0
+    while n:
+        power: int = 1
+        while power * k <= n: power *= k
+        n -= power
+        steps += 1
+        if n and n < k:
+            steps += n
+            n = 0
+    sys.stdout.write('{}\n'.format(steps))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
