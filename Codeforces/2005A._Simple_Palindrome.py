@@ -71,3 +71,53 @@
 # , a
 # , ii
 # , and the empty string. It can be shown that there is no better answer.
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+#include <string>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    std::string dataset = "aeoiu";
+    int overall = n / 5, extra = (n > 5 ? n % 5 : 0);
+    for (int i = 0; i < 5; ++i) {
+        for (int j = 0; j < std::max(1, overall); ++j) std::cout << dataset[i];
+        if (extra) {
+            --extra;
+            std::cout << dataset[i];
+        }
+        if (i + 1 == n) break;
+    }
+    std::cout << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    overall: int = max(1, n // 5)
+    extra: int = n % 5 if n > 5 else 0
+    dataset: str = 'aeoiu'
+    for i in range(5):
+        for _ in range(overall): sys.stdout.write('{}'.format(dataset[i]))
+        if extra:
+            extra -= 1
+            sys.stdout.write('{}'.format(dataset[i]))
+        if i + 1 == n: break
+    sys.stdout.write('\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
