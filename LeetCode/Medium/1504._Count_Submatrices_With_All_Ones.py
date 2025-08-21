@@ -34,3 +34,39 @@
 #
 # 1 <= m, n <= 150
 # mat[i][j] is either 0 or 1.
+# Python O(N(M^2)) O(M) DynamicProgramming Matrix
+class Solution:
+    def numSubmat(self, mat: List[List[int]]) -> int:
+        n: int = len(mat)
+        m: int = len(mat[0])
+        height: list[int] = [0] * m
+        output: int = 0
+        for i in range(n):
+            for j in range(m): height[j] = height[j] + 1 if mat[i][j] else 0
+            for j in range(m):
+                mn: int = height[j]
+                for k in range(j, -1, -1):
+                    mn = min(mn, height[k])
+                    output += mn
+                    if not mn: break
+        return output
+
+# C++ O(N(M^2)) O(M) DynamicProgramming Matrix
+class Solution {
+public:
+    int numSubmat(vector<vector<int>>& mat) {
+        int n = mat.size(), m = mat[0].size(), output = 0;
+        std::vector<int> height(m, 0);
+        for(int i = 0; i < n; ++i) {
+            for(int j = 0; j < m; ++j) height[j] = (mat[i][j] ? height[j] + 1 : 0);
+            for(int j = 0; j < m; ++j) {
+                int mn = height[j];
+                for(int k = j; k >= 0 && mn > 0; --k) {
+                    mn = std::min(mn, height[k]);
+                    output += mn;
+                }
+            }
+        }
+        return output;
+    }
+};
