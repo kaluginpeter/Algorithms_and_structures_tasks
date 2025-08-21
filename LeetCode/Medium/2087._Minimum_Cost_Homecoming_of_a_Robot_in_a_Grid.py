@@ -37,3 +37,32 @@
 # homePos.length == 2
 # 0 <= startrow, homerow < m
 # 0 <= startcol, homecol < n
+# Solution
+# Python O(N + M) O(1) Greedy
+class Solution:
+    def minCost(self, startPos: List[int], homePos: List[int], rowCosts: List[int], colCosts: List[int]) -> int:
+        output: int = 0
+        while startPos[0] != homePos[0]:
+            startPos[0] += (homePos[0] - startPos[0]) // abs(homePos[0] - startPos[0])
+            output += rowCosts[startPos[0]]
+        while startPos[1] != homePos[1]:
+            startPos[1] += (homePos[1] - startPos[1]) // abs(homePos[1] - startPos[1])
+            output += colCosts[startPos[1]]
+        return output
+
+# C++ O(N + M) O(1) Greedy
+class Solution {
+public:
+    int minCost(vector<int>& startPos, vector<int>& homePos, vector<int>& rowCosts, vector<int>& colCosts) {
+        int output = 0;
+        while (startPos[0] != homePos[0]) {
+            startPos[0] += (homePos[0] - startPos[0]) / std::abs(homePos[0] - startPos[0]);
+            output += rowCosts[startPos[0]];
+        }
+        while (startPos[1] != homePos[1]) {
+            startPos[1] += (homePos[1] - startPos[1]) / std::abs(homePos[1] - startPos[1]);
+            output += colCosts[startPos[1]];
+        }
+        return output;
+    }
+};
