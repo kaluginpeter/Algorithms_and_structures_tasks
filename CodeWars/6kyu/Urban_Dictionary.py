@@ -18,3 +18,24 @@
 # Note: the data structure will be initialized multiple times during the tests!
 #
 # AlgorithmsObject-oriented Programming
+# Solution
+class WordDictionary:
+    def __init__(self):
+        self.dataset: list[str] = []
+
+    def add_word(self, word):
+        self.dataset.append(word)
+
+    def is_equal(self, word: str, data: str) -> bool:
+        for i in range(len(word)):
+            if word[i] != data[i]:
+                if word[i] != '.': return False
+        return True
+
+    def search(self, word):
+        for data in self.dataset:
+            if len(word) != len(data):
+                continue
+            elif self.is_equal(word, data):
+                return True
+        return False
