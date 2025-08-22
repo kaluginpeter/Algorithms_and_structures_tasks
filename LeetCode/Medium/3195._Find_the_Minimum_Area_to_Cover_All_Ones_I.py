@@ -49,3 +49,40 @@ class Solution:
                     left = min(left, col)
         area: int = (right - left + 1) * (down - up + 1)
         return area
+
+# Python O(NM) O(1) Matrix
+class Solution:
+    def minimumArea(self, grid: List[List[int]]) -> int:
+        n: int = len(grid)
+        m: int = len(grid[0])
+        lr: int = n
+        rr: int = 0
+        lc: int = m
+        rc: int = 0
+        for i in range(n):
+            for j in range(m):
+                if not grid[i][j]: continue
+                lr = min(lr, i)
+                rr = max(rr, i)
+                lc = min(lc, j)
+                rc = max(rc, j)
+        return (rr - lr + 1) * (rc - lc + 1)
+
+# C++ O(NM) O(1) Matrix
+class Solution {
+public:
+    int minimumArea(vector<vector<int>>& grid) {
+        int n = grid.size(), m = grid[0].size();
+        int lr = n, rr = 0, lc = n, rc = 0;
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < m; ++j) {
+                if (!grid[i][j]) continue;
+                lr = std::min(lr, i);
+                rr = std::max(rr, i);
+                lc = std::min(lc, j);
+                rc = std::max(rc, j);
+            }
+        }
+        return (rc - lc + 1) * (rr - lr + 1);
+    }
+};
