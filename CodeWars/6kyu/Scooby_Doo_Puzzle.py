@@ -60,3 +60,12 @@
 # Car Park Escape
 #
 # PuzzlesCryptographyAlgorithms
+# Solution
+from preloaded import String, Disguise, Integer
+
+def scoobydoo(villain: str, villains: list[str]) -> str:
+    villain = (villain[-5:] + villain[:-5])[::-1]
+    villain = ''.join(villain[i] if not (i & 1) else chr((ord(villain[i]) - 97 + 5) % 26 + 97) for i in range(len(villain)))
+    for name in villains:
+        if villain == name.lower().replace(' ', ''): return name
+    return ''
