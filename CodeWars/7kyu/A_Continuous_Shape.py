@@ -67,3 +67,10 @@
 # There will be 200 random tests, each with between 3 and 50 vertices per shape.
 #
 # Graph Theory
+# Solution
+def can_draw(shape: dict[str, list[str]]) -> bool:
+    odd: int = 0
+    for vertex, edges in shape.items():
+        odd += len(edges) & 1
+        if odd > 2: return False
+    return True
