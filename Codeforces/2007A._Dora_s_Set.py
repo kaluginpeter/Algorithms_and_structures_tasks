@@ -84,3 +84,33 @@
 # , 18
 # . It can be proven that it's impossible to perform more than 3
 #  operations.
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int l, r;
+    std::cin >> l >> r;
+    std::cout << ((r / 2 + (r & 1)) - ((l - 1) / 2 + (l - 1 & 1))) / 2 << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    l, r = map(int, sys.stdin.readline().rstrip().split())
+    sys.stdout.write('{}\n'.format(((r // 2 + (r & 1)) - ((l - 1) // 2 + (l - 1 & 1))) // 2))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
