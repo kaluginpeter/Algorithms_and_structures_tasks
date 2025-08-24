@@ -40,3 +40,35 @@ class Solution:
                 left += 1
             mx_length = max(mx_length, right - left)
         return mx_length
+
+
+# Python O(N) O(1) TwoPointers
+class Solution:
+    def longestSubarray(self, nums: List[int]) -> int:
+        output: int = 0
+        left: int = 0
+        skipped: int = 0
+        for right in range(len(nums)):
+            if not nums[right]: skipped += 1
+            while skipped > 1:
+                if not nums[left]: skipped -= 1
+                left += 1
+            if right - left > output: output = right - left
+        return output
+
+# C++ O(N) O(1) TwoPointers
+class Solution {
+public:
+    int longestSubarray(vector<int>& nums) {
+        size_t output = 0, left = 0, deleted = 0;
+        for (size_t right = 0; right < nums.size(); ++right) {
+            if (!nums[right]) ++deleted;
+            while (deleted > 1) {
+                if (!nums[left]) --deleted;
+                ++left;
+            }
+            if (right - left > output) output = right - left;
+        }
+        return output;
+    }
+};
