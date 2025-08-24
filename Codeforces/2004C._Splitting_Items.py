@@ -93,3 +93,54 @@
 # , making costs equal to [9,9]
 # . The score will be equal to 9−9=0
 # .
+# Solution
+# C++ O(NlogN) O(1) Sorting
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+void solution() {
+    int n, k;
+    std::cin >> n >> k;
+    std::vector<int> nums(n, 0);
+    for (int i = 0; i < n; ++i) std::cin >> nums[i];
+    std::sort(nums.begin(), nums.end());
+    long long output = 0;
+    for (int i = n - 1; i > 0; i -= 2) {
+        if (nums[i] == nums[i - 1]) continue;
+        int can = std::min(k, nums[i] - nums[i - 1]);
+        k -= can;
+        output += nums[i] - nums[i - 1] - can;
+    }
+    if (n & 1) output += nums[0];
+    std::cout << output << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(NlogN) O(1) Sorting
+import sys
+
+
+def solution() -> None:
+    n, k = map(int, sys.stdin.readline().rstrip().split())
+    nums: list[int] = sorted(map(int, sys.stdin.readline().rstrip().split()))
+    output: int = 0
+    for i in range(n - 1, 0, -2):
+        if nums[i] == nums[i - 1]: continue
+        can: int = min(k, nums[i] - nums[i - 1])
+        k -= can
+        output += nums[i] - nums[i - 1] - can
+    if n & 1: output += nums[0]
+    sys.stdout.write('{}\n'.format(output))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
