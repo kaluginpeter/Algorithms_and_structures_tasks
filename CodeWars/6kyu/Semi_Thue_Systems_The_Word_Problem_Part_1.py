@@ -45,3 +45,15 @@
 # Two rules can have the same left hand side and a different right hand side.
 # You do not have to worry too much about performance yet. A simple, functional answer will be enough.
 # MathematicsAlgorithms
+# Solution
+from typing import List, Tuple
+
+def word_problem(rules: List[Tuple[str, str]], from_str: str, to_str: str, applications: int) -> bool:
+    if from_str == to_str: return True
+    elif not applications: return False
+    for i in range(len(from_str)):
+        for target, subtitution in rules:
+            if from_str[i:].startswith(target):
+                if word_problem(rules, from_str[:i] + subtitution + from_str[i + len(target):], to_str, applications - 1):
+                    return True
+    return False
