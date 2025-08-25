@@ -48,3 +48,37 @@
 # encodedText is a valid encoding of some originalText that does not have trailing spaces.
 # 1 <= rows <= 1000
 # The testcases are generated such that there is only one possible originalText.
+# Solution
+# Python O(NM) O(NM) Matrix
+class Solution:
+    def decodeCiphertext(self, encodedText: str, rows: int) -> str:
+        n: int = len(encodedText)
+        cols: int = n // rows
+        output: list[str] = []
+        for j in range(cols):
+            for i in range(rows):
+                pos: int = j + cols * i + i
+                if pos >= n: continue
+                output.append(encodedText[pos])
+        while output and output[-1] == ' ': output.pop()
+        return ''.join(output)
+
+# C++ O(NM) O(NM) Matrix
+class Solution {
+public:
+    string decodeCiphertext(string encodedText, int rows) {
+        int n = encodedText.size();
+        int cols = n / rows;
+        std::string output = "";
+        int j = 0;
+        for (int j = 0; j < cols; ++j) {
+            for (int i = 0; i < rows; ++i) {
+                int pos = j + cols * i + i;
+                if (pos >= n) continue;
+                output.push_back(encodedText[pos]);
+            }
+        }
+        while (!output.empty() && output.back() == ' ') output.pop_back();
+        return output;
+    }
+};
