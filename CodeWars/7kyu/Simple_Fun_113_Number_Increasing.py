@@ -46,3 +46,12 @@
 # true if n can be obtained using given operations, false otherwise.
 #
 # Puzzles
+# Solution
+def number_increasing(n: int) -> bool:
+    dp: list[bool] = [False] * (n + 1)
+    dp[1] = True
+    for i in range(1, n + 1):
+        if not dp[i]: continue
+        if i * 3 <= n: dp[i * 3] = True
+        if i + 5 <= n: dp[i + 5] = True
+    return dp[n]
