@@ -73,3 +73,49 @@
 # In the third test case, neither of the possible arrangements [2,3]
 #  and [3,2]
 #  are satisfactory.
+# Solution
+# C++ O(N) O(D) HashMap
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    std::vector<int> hashmap(101, 0);
+    bool isValid = false;
+    for (int i = 0; i < n; ++i) {
+        int gear;
+        std::cin >> gear;
+        ++hashmap[gear];
+        if (hashmap[gear] > 1) isValid = true;
+    }
+    std::cout << (isValid ? "YES" : "NO") << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(D) HashMap
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    nums: iter[int] = map(int, sys.stdin.readline().rstrip().split())
+    hashmap: list[int] = [0] * 101
+    is_valid: bool = False
+    for _ in range(n):
+        gear: int = next(nums)
+        hashmap[gear] += 1
+        if hashmap[gear] > 1: is_valid = True
+    sys.stdout.write('{}\n'.format(['NO', 'YES'][is_valid]))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline())
+    for _ in range(t): solution()
