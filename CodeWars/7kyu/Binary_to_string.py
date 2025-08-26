@@ -5,3 +5,6 @@
 # Input may consist of upper and lower case letters and numbers, in binary form of course, as well as special symbols. The input to your function will always be one string of binary.
 #
 # BinaryStringsFundamentals
+# Solution
+def binary_to_string(binary):
+    return ''.join(chr(int(chunk, 2)) if chunk else '' for chunk in binary.split('0b'))
