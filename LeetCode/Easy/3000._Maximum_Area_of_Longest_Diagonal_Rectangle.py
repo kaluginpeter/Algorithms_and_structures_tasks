@@ -39,3 +39,35 @@ class Solution:
                 mx = (i[0]**2 + i[1]**2)**.5
                 area = max(i[0] * i[1], area)
         return area
+
+
+# Python O(N) O(1) Geometry
+class Solution:
+    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:
+        output: int = 0
+        hypotenuse: float = 0.0
+        for l, w in dimensions:
+            hypo: float = sqrt(l**2 + w**2)
+            if hypo >= hypotenuse:
+                if hypo != hypotenuse: output = l * w
+                else: output = max(output, l * w)
+                hypotenuse = hypo
+        return output
+
+# C++ O(N) O(1) Geometry
+class Solution {
+public:
+    int areaOfMaxDiagonal(vector<vector<int>>& dimensions) {
+        int output = 0;
+        double hypotenuse = 0.0;
+        for (const std::vector<int> &rect : dimensions) {
+            double h = std::sqrt(std::pow(rect[0], 2) + std::pow(rect[1], 2));
+            if (h >= hypotenuse) {
+                if (h == hypotenuse) output = std::max(output, rect[0] * rect[1]);
+                else output = rect[0] * rect[1];
+                hypotenuse = h;
+            }
+        }
+        return output;
+    }
+};
