@@ -19,3 +19,11 @@
 # It will be tested for up to 1 000 000 values.
 #
 # Algorithms
+# Solution
+def paper_fold():
+    n: int = 0
+    while True:
+        m: int = n + 1
+        while not (m & 1): m >>= 1
+        yield 1 if m % 4 == 1 else 0
+        n += 1
