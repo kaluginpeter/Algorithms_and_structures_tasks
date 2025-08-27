@@ -43,3 +43,71 @@
 # aada
 # abcb
 # pastsword
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+#include <string>
+
+
+void solution() {
+    std::string password;
+    std::cin >> password;
+    bool isDouble = false;
+    size_t pos = 0;
+    for (size_t i = 0; i < password.size() - 1; ++i) {
+        if (password[i] == password[i + 1]) {
+            isDouble = true;
+            pos = i;
+            break;
+        }
+    }
+    if (isDouble) {
+        for (size_t i = 0; i <= pos; ++i) std::cout << password[i];
+        for (int i = 0; i < 26; ++i) {
+            if (i != password[pos] - 'a' && i != password[pos + 1] - 'a') {
+                std::cout << static_cast<char>(i + 97);
+                break;
+            }
+        }
+        for (size_t i = pos + 1; i < password.size(); ++i) std::cout << password[i];
+        std::cout << std::endl;
+        return;
+    }
+    std::cout << static_cast<char>((password[0] - 'a' + 1) % 26 + 97) << password << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(1) String
+import sys
+
+
+def solution() -> None:
+    password: str = sys.stdin.readline().rstrip()
+    is_double: bool = False
+    pos: int = 0
+    for i in range(len(password) - 1):
+        if password[i] == password[i + 1]:
+            is_double = True
+            pos = i
+            break
+    if is_double:
+        sys.stdout.write(''.join(password[:pos + 1]))
+        for i in range(26):
+            if i != ord(password[pos]) - 97 and i != ord(password[pos + 1]) - 97:
+                sys.stdout.write(chr(i + 97))
+                break
+        sys.stdout.write('{}\n'.format(''.join(password[pos + 1:])))
+        return
+    sys.stdout.write(chr((ord(password[0]) - 97 + 1) % 26 + 97))
+    sys.stdout.write('{}\n'.format(password))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
