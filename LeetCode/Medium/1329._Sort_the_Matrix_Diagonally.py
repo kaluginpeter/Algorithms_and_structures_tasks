@@ -21,3 +21,50 @@
 # n == mat[i].length
 # 1 <= m, n <= 100
 # 1 <= mat[i][j] <= 100
+# Solution
+# Python O((N + M)log(min(N, M))) O(min(N, M)) Matrix
+class Solution:
+    def diagonalSort(self, mat: List[List[int]]) -> List[List[int]]:
+        n: int = len(mat)
+        m: int = len(mat[0])
+        i: int = n - 1
+        j: int = 0
+        while j < m:
+            nums: list[int] = []
+            pos: int = 0
+            while i + pos < n and j + pos < m:
+                nums.append(mat[i + pos][j + pos])
+                pos += 1
+            nums.sort()
+            pos = 0
+            while i + pos < n and j + pos < m:
+                mat[i + pos][j + pos] = nums[pos]
+                pos += 1
+            if i: i -= 1
+            else: j += 1
+        return mat
+
+# C++ O((N + M)log(min(N, M))) O(min(N, M)) Matrix
+class Solution {
+public:
+    vector<vector<int>> diagonalSort(vector<vector<int>>& mat) {
+        size_t n = mat.size(), m = mat[0].size(), i = n - 1, j = 0;
+        while (j < m) {
+            std::vector<int> nums;
+            size_t pos = 0;
+            while (i + pos < n && j + pos < m) {
+                nums.emplace_back(mat[i + pos][j + pos]);
+                ++pos;
+            }
+            std::sort(nums.begin(), nums.end());
+            pos = 0;
+            while (i + pos < n && j + pos < m) {
+                mat[i + pos][j + pos] = nums[pos];
+                ++pos;
+            }
+            if (i) --i;
+            else ++j;
+        }
+        return mat;
+    }
+};
