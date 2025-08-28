@@ -52,3 +52,50 @@
 # 1 <= n <= 10
 # -105 <= grid[i][j] <= 105
 #
+# Solution
+# Python O(N^2 * logN) O(N) Matrix
+class Solution:
+    def sortMatrix(self, grid: List[List[int]]) -> List[List[int]]:
+        n: int = len(grid)
+        i: int = n - 1
+        j: int = 0
+        while j < n:
+            nums: list[int] = []
+            pos: int = 0
+            while i + pos < n and j + pos < n:
+                nums.append(grid[i + pos][j + pos])
+                pos += 1
+            nums.sort(reverse=not j)
+            pos = 0
+            while i + pos < n and j + pos < n:
+                grid[i + pos][j + pos] = nums[pos]
+                pos += 1
+            if i: i -= 1
+            else: j += 1
+        return grid
+
+# C++ O(N^2 * logN) O(N) Matrix
+class Solution {
+public:
+    vector<vector<int>> sortMatrix(vector<vector<int>>& grid) {
+        size_t n = grid.size(), i = n - 1, j = 0;
+        while (j < n) {
+            std::vector<int> nums;
+            size_t pos = 0;
+            while (i + pos < n && j + pos < n) {
+                nums.emplace_back(grid[i + pos][j + pos]);
+                ++pos;
+            }
+            if (j) std::sort(nums.begin(), nums.end());
+            else std::sort(nums.begin(), nums.end(), std::greater<int>());
+            pos = 0;
+            while (i + pos < n && j + pos < n) {
+                grid[i + pos][j + pos] = nums[pos];
+                ++pos;
+            }
+            if (i) -- i;
+            else ++j;
+        }
+        return grid;
+    }
+};
