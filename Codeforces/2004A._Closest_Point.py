@@ -77,3 +77,52 @@
 # In the second example, it is impossible to add an integer point so that it becomes the closest to both 5
 #  and 6
 # , and is different from both of them.
+# Solution
+# C++ O(NlogN) O(1) Math Greedy
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::vector<int> nums(n, 0);
+    for (int i = 0; i < n; ++i) std::cin >> nums[i];
+    std::sort(nums.begin(), nums.end());
+    int middle = nums[n / 2 - (n & 1 ? 0 : 1)] + 1;
+    bool isValid = true;
+    for (size_t i = 0; i < n - 1; ++i) {
+        if (nums[i + 1] - nums[i] <= std::abs(middle - nums[i])) {
+            isValid = false;
+            break;
+        }
+    }
+    std::cout << (isValid ? "YES" : "NO") << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+# Python O(NlogN) O(1) Math Greedy
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    nums: list[int] = sorted(map(int, sys.stdin.readline().rstrip().split()))
+    middle: int = nums[n // 2 - (0 if n & 1 else 1)] + 1
+    is_valid: bool = True
+    for i in range(n - 1):
+        if nums[i + 1] - nums[i] <= abs(middle - nums[i]):
+            is_valid = False
+            break
+    sys.stdout.write('{}\n'.format(['NO', 'YES'][is_valid]))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
