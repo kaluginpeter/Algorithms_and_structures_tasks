@@ -21,3 +21,19 @@
 # Adapted from 2018 Euclid Mathematics Contest. https://www.cemc.uwaterloo.ca/contests/past_contests/2018/2018EuclidContest.pdf
 #
 # MathematicsAlgorithms
+# Solution
+def find_a(arr, n):
+    A0, A1, A2, A3 = arr
+    A4 = 6 * A3 - 10 * A2 + 6 * A1 - A0
+    arr.append(A4)
+    start_index = 0
+    if n >= 0:
+        while start_index + len(arr) - 1 < n:
+            next_val = 6 * arr[-1] - 10 * arr[-2] + 6 * arr[-3] - arr[-4]
+            arr.append(next_val)
+        return arr[n - start_index]
+    while start_index > n:
+        prev_val = 6 * arr[0] - 10 * arr[1] + 6 * arr[2] - arr[3]
+        arr.insert(0, prev_val)
+        start_index -= 1
+    return arr[n - start_index]
