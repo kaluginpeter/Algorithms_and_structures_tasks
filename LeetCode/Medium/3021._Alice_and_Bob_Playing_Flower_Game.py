@@ -33,3 +33,25 @@
 class Solution:
     def flowerGame(self, n: int, m: int) -> int:
         return n * m // 2
+
+# Python O(1) O(1) Math
+class Solution:
+    def flowerGame(self, n: int, m: int) -> int:
+        output: int = 0
+        bob_even: int = m // 2
+        alice_even: int = n // 2
+        output += (n + 1) // 2 * bob_even
+        output += (m + 1) // 2 * alice_even
+        return output
+
+# C++ O(1) O(1) Math
+class Solution {
+public:
+    long long flowerGame(int n, int m) {
+        long long output = 0;
+        int bobEven = m / 2, aliceEven = n / 2;
+        output += static_cast<long long>(n + 1) / 2 * bobEven;
+        output += static_cast<long long>(m + 1) / 2 * aliceEven;
+        return output;
+    }
+};
