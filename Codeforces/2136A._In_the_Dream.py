@@ -92,3 +92,33 @@
 # In the fourth test case, at the end of the first half, the KDOI team has scored 100
 #  goals, while the RiOI team did not score any goals. Thus, in Aquawave's dream, the KDOI team scored 100
 #  consecutive goals in the first half, which is impossible.
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int x1, y1, x2, y2;
+    std::cin >> x1 >> y1 >> x2 >> y2;
+    std::cout << ((std::min(x1, y1) * 2 + 2 >= std::max(x1, y1)) && (std::min(x2 - x1, y2 - y1) * 2 + 2 >= std::max(x2 - x1, y2 - y1)) ? "YES" : "NO") << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    a, b, c, d = map(int, sys.stdin.readline().rstrip().split())
+    sys.stdout.write('{}\n'.format(['NO', 'YES'][(min(a, b) * 2 + 2 >= max(a, b)) and (min(c - a, d - b) * 2 + 2 >= max(c - a, d - b))]))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
