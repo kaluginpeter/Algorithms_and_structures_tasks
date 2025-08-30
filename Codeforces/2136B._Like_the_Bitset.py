@@ -132,3 +132,73 @@
 #  should be p2=4
 # , which is not equal to p3=3
 # .
+# Solution
+# C++ O(N) O(N) Greedy
+#include <iostream>
+#include <string>
+#include <vector>
+
+
+void solution() {
+    int n, k;
+    std::cin >> n >> k;
+    std::string sequence;
+    std::cin >> sequence;
+    int left = 0;
+    for (int right = 0; right < n; ++right) {
+        if (sequence[right] != '1') left = right + 1;
+        else if (right - left + 1 >= k) {
+            std::cout << "NO\n";
+            return;
+        }
+    }
+    std::vector<int> nums(n, -1);
+    int num = n;
+    for (size_t i = 0; i < n; ++i) {
+        if (sequence[i] == '0') nums[i] = num--;
+    }
+    for (size_t i = 0; i < n; ++i) {
+        if (nums[i] == -1) nums[i] = num--;
+    }
+    std::cout << "YES\n";
+    for (const int &num : nums) std::cout << num << " ";
+    std::cout << std::endl;
+
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(N) Greedy
+import sys
+
+
+def solution() -> None:
+    n, k = map(int, sys.stdin.readline().rstrip().split())
+    sequence: str = sys.stdin.readline().rstrip()
+    left: int = 0
+    for right in range(n):
+        if sequence[right] != '1': left = right + 1
+        elif right - left + 1 >= k:
+            sys.stdout.write('NO\n')
+            return
+    nums: list[int] = [-1] * n
+    num: int = n
+    for i in range(n):
+        if sequence[i] == '0':
+            nums[i] = num
+            num -= 1
+    for i in range(n):
+        if nums[i] == -1:
+            nums[i] = num
+            num -= 1
+    sys.stdout.write('YES\n{}\n'.format(' '.join(str(i) for i in nums)))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
