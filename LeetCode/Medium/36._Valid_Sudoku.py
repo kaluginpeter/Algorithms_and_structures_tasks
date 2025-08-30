@@ -101,3 +101,56 @@ public:
         return true;
     }
 };
+
+
+
+# Python O(N^2) O(N^2) HashMap Matrix
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        n: int = 9
+        m: int = 9
+        row_hash: list[set[str]] = [set() for _ in range(n)]
+        col_hash: list[set[str]] = [set() for _ in range(m)]
+        square_hash: dict[tuple[int, int], set[str]] = dict()
+        for i in range(n):
+            for j in range(m):
+                if board[i][j] == '.': continue
+                elif board[i][j] in row_hash[i] or board[i][j] in col_hash[j]: return False
+                square: tuple[int, int] = (i // 3, j // 3)
+                if square in square_hash and board[i][j] in square_hash[square]: return False
+                row_hash[i].add(board[i][j])
+                col_hash[j].add(board[i][j])
+                if square not in square_hash: square_hash[square] = set()
+                square_hash[square].add(board[i][j])
+        return True
+
+# C++ O(N^2) O(N^2) HashMap Matrix
+struct TupleHash {
+    size_t operator()(const std::tuple<int, int>& t) const noexcept {
+        auto [a, b] = t;
+        size_t h1 = std::hash<int>()(a);
+        size_t h2 = std::hash<int>()(b);
+        return h1 ^ (h2 + 0x9e3779b9 + (h1 << 6) + (h1 >> 2));
+    }
+};
+
+class Solution {
+public:
+    bool isValidSudoku(vector<vector<char>>& board) {
+        size_t n = 9, m = 9;
+        std::vector<std::unordered_set<char>> rowHash(n), colHash(m);
+        std::unordered_map<std::tuple<int, int>, std::unordered_set<char>, TupleHash> squaresHash;
+        for (size_t i = 0; i < n; ++i) {
+            for (size_t j = 0; j < m; ++j) {
+                if (board[i][j] == '.') continue;
+                if (rowHash[i].count(board[i][j]) || colHash[j].count(board[i][j])) return false;
+                std::tuple<int, int> square = std::make_tuple(i / 3, j / 3);
+                if (squaresHash[square].count(board[i][j])) return false;
+                rowHash[i].insert(board[i][j]);
+                colHash[j].insert(board[i][j]);
+                squaresHash[square].insert(board[i][j]);
+            }
+        }
+        return true;
+    }
+};
