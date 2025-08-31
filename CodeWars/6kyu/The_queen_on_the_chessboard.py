@@ -35,3 +35,60 @@
 # Q = queen
 # x = available move
 # ArraysFundamentals
+def available_moves(position) -> list[str]:
+    output: list[str] = []
+    if not isinstance(position, str) or len(position) != 2 or not position[1].isdigit() or not position[0].isupper():
+        return output
+    i: int = ord(position[0]) - 64
+    j: int = int(position[1])
+    if not (1 <= j <= 8) or not (1 <= i <= 8): return output
+    # upper left direciton
+    i_: int = i - 1
+    j_: int = j - 1
+    while i_ and j_:
+        output.append(chr(i_ + 64) + str(j_))
+        i_ -= 1
+        j_ -= 1
+    # upper right direction
+    i_ = i - 1
+    j_ = j + 1
+    while i_ and j_ < 9:
+        output.append(chr(i_ + 64) + str(j_))
+        i_ -= 1
+        j_ += 1
+    # lower left direction
+    i_ = i + 1
+    j_ = j - 1
+    while i_ < 9 and j_:
+        output.append(chr(i_ + 64) + str(j_))
+        i_ += 1
+        j_ -= 1
+    # lower right direction
+    i_ = i + 1
+    j_ = j + 1
+    while i_ < 9 and j_ < 9:
+        output.append(chr(i_ + 64) + str(j_))
+        i_ += 1
+        j_ += 1
+    # left direction
+    j_ = j - 1
+    while j_:
+        output.append(chr(i + 64) + str(j_))
+        j_ -= 1
+    # right direction
+    j_ = j + 1
+    while j_ < 9:
+        output.append(chr(i + 64) + str(j_))
+        j_ += 1
+    # up direction
+    i_ = i - 1
+    while i_:
+        output.append(chr(i_ + 64) + str(j))
+        i_ -= 1
+    # down direction
+    i_ = i + 1
+    while i_ < 9:
+        output.append(chr(i_ + 64) + str(j))
+        i_ += 1
+    output.sort()
+    return output
