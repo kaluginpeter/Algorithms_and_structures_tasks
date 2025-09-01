@@ -31,3 +31,50 @@
 # 1 <= arr.length <= 5 * 104
 # 0 <= arr[i] < arr.length
 # 0 <= start < arr.length
+# Solution
+# Python O(N) O(N) Breadth-First-Search Depth-First-Search DynamicProgramming
+class Solution:
+    def canReach(self, arr: List[int], start: int) -> bool:
+        n: int = len(arr)
+        seen: list[bool] = [False] * n
+        seen[start] = True
+        cur_nodes: list[int] = [start]
+        while cur_nodes:
+            cur_pos: int = cur_nodes.pop()
+            if not arr[cur_pos]: return True
+            # left move
+            if cur_pos >= arr[cur_pos] and not seen[cur_pos - arr[cur_pos]]:
+                cur_nodes.append(cur_pos - arr[cur_pos])
+                seen[cur_pos - arr[cur_pos]] = True
+            # right move
+            if cur_pos + arr[cur_pos] < n and not seen[cur_pos + arr[cur_pos]]:
+                cur_nodes.append(cur_pos + arr[cur_pos])
+                seen[cur_pos + arr[cur_pos]] = True
+        return False
+
+# C++ O(N) O(N) Breadth-First-Search Depth-First-Search DynamicProgramming
+class Solution {
+public:
+    bool canReach(vector<int>& arr, int start) {
+        size_t n = arr.size();
+        std::vector<bool> seen(n, false);
+        seen[start] = true;
+        std::vector<size_t> curNodes = {static_cast<size_t>(start)};
+        while (!curNodes.empty()) {
+            size_t curPos = curNodes.back();
+            curNodes.pop_back();
+            if (!arr[curPos]) return true;
+            // left move
+            if (curPos >= arr[curPos] && !seen[curPos - arr[curPos]]) {
+                curNodes.push_back(curPos - arr[curPos]);
+                seen[curPos - arr[curPos]] = true;
+            }
+            // right move
+            if (curPos + arr[curPos] < n && !seen[curPos + arr[curPos]]) {
+                curNodes.push_back(curPos + arr[curPos]);
+                seen[curPos + arr[curPos]] = true;
+            }
+        }
+        return false;
+    }
+};
