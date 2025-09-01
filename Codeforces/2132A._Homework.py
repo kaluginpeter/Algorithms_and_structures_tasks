@@ -83,3 +83,50 @@
 # In the third test case: aca→acab→bacab→bacaba→abacaba
 #
 # In the fourth test case: biz→abiz→babiz→babizo→babizon
+# Solution
+# C++ O(N + M) O(M) String
+#include <iostream>
+#include <string>
+#include <algorithm>
+
+
+void solution() {
+    size_t n, m;
+    std::string N, M, path;
+    std::cin >> n >> N >> m >> M >> path;
+    std::string prefix = "";
+    for (size_t i = 0; i < path.size(); ++i) {
+        if (path[i] == 'V') prefix.push_back(M[i]);
+        else N.push_back(M[i]);
+    }
+    std::reverse(prefix.begin(), prefix.end());
+    std::cout << prefix << N << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N + M) O(M) String
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    N: list[str] = list(sys.stdin.readline().rstrip())
+    m: int = int(sys.stdin.readline().rstrip())
+    M: str = sys.stdin.readline().rstrip()
+    path: str = sys.stdin.readline().rstrip()
+    prefix: list[str] = []
+    for i in range(m):
+        if path[i] == 'V': prefix.append(M[i])
+        else: N.append(M[i])
+    sys.stdout.write('{}{}\n'.format(''.join(reversed(prefix)), ''.join(N)))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
