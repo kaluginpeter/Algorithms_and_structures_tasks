@@ -80,3 +80,62 @@ public:
         return averageRatio / static_cast<double>(classes.size());
     }
 };
+
+
+# Python O(NlogN + KlogN) O(N) PriorityQueue
+class Solution:
+    def maxAverageRatio(self, classes: List[List[int]], extraStudents: int) -> float:
+        output: float = 0.0
+        min_heap: list[tuple[float, int, int]] = []
+        for pass_, total in classes:
+            if pass_ == total:
+                output += 1
+                continue
+            first: float = pass_ / total
+            second: float = (pass_ + 1) / (total + 1) - first
+            heapq.heappush(min_heap, (-second, pass_, total))
+        while extraStudents and min_heap:
+            _, pass_, total = heapq.heappop(min_heap)
+            pass_ += 1
+            total += 1
+            first: float = pass_ / total
+            second: float = (pass_ + 1) / (total + 1) - first
+            heapq.heappush(min_heap, (-second, pass_, total))
+            extraStudents -= 1
+        while min_heap:
+            _, pass_, total = heapq.heappop(min_heap)
+            output += pass_ / total
+        return output / len(classes)
+
+# C++ O(NlogN + KlogN) O(N) PriorityQueue
+class Solution {
+public:
+    double maxAverageRatio(vector<vector<int>>& classes, int extraStudents) {
+        std::priority_queue<std::tuple<double, int, int>, std::vector<std::tuple<double, int, int>>, std::greater<std::tuple<double, int, int>>> minHeap;
+        double output = 0.0;
+        for (const std::vector<int> &class_ : classes) {
+            if (class_[0] == class_[1]) {
+                output += 1;
+                continue;
+            }
+            double first = static_cast<double>(class_[0]) / class_[1];
+            double second = static_cast<double>(class_[0] + 1) / (class_[1] + 1) - first;
+            minHeap.push(std::make_tuple(-second, class_[0], class_[1]));
+        }
+        while (extraStudents  && !minHeap.empty()) {
+            std::tuple<double, int, int> cls = minHeap.top();
+            minHeap.pop();
+            int pass = std::get<1>(cls) + 1, total = std::get<2>(cls) + 1;
+            double first = static_cast<double>(pass) / total;
+            double second = static_cast<double>(pass + 1) / (total + 1) - first;
+            minHeap.push(std::make_tuple(-second, pass, total));
+            --extraStudents;
+        }
+
+        while (!minHeap.empty()) {
+            output += static_cast<double>(std::get<1>(minHeap.top())) / std::get<2>(minHeap.top());
+            minHeap.pop();
+        }
+        return output / classes.size();
+    }
+};
