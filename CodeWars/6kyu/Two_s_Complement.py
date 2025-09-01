@@ -7,3 +7,14 @@
 # You should account for some edge cases.
 #
 # BinaryPuzzles
+# Solution
+def to_twos_complement(binary: str, bits: int) -> int:
+    binary = binary.replace(" ", "")
+    val = int(binary, 2)
+    if binary[0] == "1": val -= 1 << bits
+    return val
+
+
+def from_twos_complement(n: int, bits: int) -> str:
+    if n < 0: n = (1 << bits) + n
+    return bin(n)[2:].zfill(bits)
