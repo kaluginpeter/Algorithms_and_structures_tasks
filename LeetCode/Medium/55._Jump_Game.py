@@ -20,3 +20,26 @@
 #
 # 1 <= nums.length <= 104
 # 0 <= nums[i] <= 105
+# Solution
+# Python O(N) O(1) Greedy DynamicProgramming
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        n: int = len(nums)
+        cur_end: int = 0
+        for i in range(n):
+            if i > cur_end: return False
+            cur_end = max(cur_end, i + nums[i])
+        return cur_end >= n - 1
+
+# C++ O(N) O(1) Greedy DynamicProgramming
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+        size_t n = nums.size(), curEnd = 0;
+        for (size_t i = 0; i < n; ++i) {
+            if (i > curEnd) return false;
+            curEnd = std::max(curEnd, i + nums[i]);
+        }
+        return curEnd >= n - 1;
+    }
+};
