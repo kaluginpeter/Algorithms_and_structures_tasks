@@ -37,3 +37,27 @@
 # Constraints:
 #
 # 0 <= n <= 100
+# Solution
+# Python O(N) O(N) Simulation
+class Solution:
+    def getMaximumGenerated(self, n: int) -> int:
+        data: list[int] = [0] * 101
+        if n: data[1] = 1
+        for i in range(1, n + 1):
+            if 2 * i <= n: data[2 * i] = data[i]
+            if 2 * i + 1 <= n: data[2 * i + 1] = data[i] + (data[i + 1] if i + 1 < n else 0)
+        return max(data)
+
+# C++ O(N) O(N) Simulation
+class Solution {
+public:
+    int getMaximumGenerated(int n) {
+        std::array<int, 101> data = {};
+        if (n) data[1] = 1;
+        for (int i = 1; i <= n; ++i) {
+            if (i * 2 <= n) data[i * 2] = data[i];
+            if (i * 2 + 1 <= n) data[i * 2 + 1] = data[i] + (i + 1 < n ? data[i + 1] : 0);
+        }
+        return *std::max_element(data.begin(), data.end());
+    }
+};
