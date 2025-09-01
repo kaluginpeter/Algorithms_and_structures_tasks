@@ -31,3 +31,27 @@
 # 1 <= nums.length <= 105
 # 1 <= nums[i] <= 106
 #
+# Solution
+# Python O(N) O(N) Greedy
+class Solution:
+    def maxArrayValue(self, nums: List[int]) -> int:
+        n: int = len(nums)
+        output: int = 0
+        for i in range(n - 1, -1, -1):
+            if nums[i] > output: output = nums[i]
+            else: output += nums[i]
+        return output
+
+# C++ O(N) O(N) Greedy
+class Solution {
+public:
+    long long maxArrayValue(vector<int>& nums) {
+        size_t n = nums.size(), i = n - 1;
+        long long output = nums[n - 1];
+        while (i--) {
+            if (nums[i] > output) output = nums[i];
+            else output += nums[i];
+        }
+        return output;
+    }
+};
