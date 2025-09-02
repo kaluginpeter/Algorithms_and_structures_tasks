@@ -67,3 +67,39 @@
 #
 # In the fourth test case, the sequence of strings abca,bcab,cabc
 #  satisfies all of the conditions.
+# Solution
+# C++ O(1) O(1) String
+#include <iostream>
+#include <string>
+#include <vector>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::string pattern;
+    std::cin >> pattern;
+    std::cout << (pattern[0] == pattern[n - 1] ? "NO" : "YES") << std::endl;
+
+}
+
+# Python O(1) O(1) String
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    pattern: str = sys.stdin.readline().rstrip()
+    sys.stdout.write('{}\n'.format(['NO', 'YES'][pattern[0] != pattern[n - 1]]))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
