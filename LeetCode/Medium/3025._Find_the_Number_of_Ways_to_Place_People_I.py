@@ -55,3 +55,39 @@
 # 0 <= points[i][0], points[i][1] <= 50
 # All points[i] are distinct.
 #
+# Solution
+# Python O(NlogN + N^2) O(1) Sorting Geometry
+class Solution:
+    def numberOfPairs(self, points: List[List[int]]) -> int:
+        points.sort(key=lambda point: (point[0], -point[1]))
+        output: int = 0
+        for i in range(len(points)):
+            upper_y: int = -1
+            for j in range(i + 1, len(points)):
+                if points[i][1] < points[j][1] or points[j][1] <= upper_y: continue
+                upper_y = max(upper_y, points[j][1])
+                output += 1
+        return output
+
+# C++ O(NlogN + N^2) O(1) Sorting Geometry
+class Solution {
+public:
+    int numberOfPairs(vector<vector<int>>& points) {
+        int output = 0;
+        std::sort(points.begin(), points.end(), [](const std::vector<int> &x, const std::vector<int> &y) {
+            if (x[0] != y[0]) return x[0] < y[0];
+            return x[1] >= y[1];
+        });
+        size_t n = points.size();
+        for (size_t i = 0; i < n; ++i) {
+            int lowerY = -1;
+            for (size_t j = i + 1; j < n; ++j) {
+                if (points[i][1] < points[j][1]) continue;
+                else if (points[j][1] <= lowerY) continue;
+                lowerY = std::max(lowerY, points[j][1]);
+                ++output;
+            }
+        }
+        return output;
+    }
+};
