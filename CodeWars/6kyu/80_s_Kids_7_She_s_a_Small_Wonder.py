@@ -34,3 +34,18 @@
 # 80's Kids #10: Captain Planet
 #
 # FundamentalsObject-oriented Programming
+# Solution
+class Robot:
+    def __init__(self) -> None:
+        self.dataset: set[str] = set()
+        for word in 'thank you for teaching me'.split(): self.dataset.add(word)
+        for word in 'i already know the word'.split(): self.dataset.add(word)
+        for word in 'i do not understand the input'.split(): self.dataset.add(word)
+
+    def learn_word(self, word: str) -> str:
+        if not word or any(not char.isalpha() for char in word):
+            return 'I do not understand the input'
+        elif word.lower() in self.dataset:
+            return f'I already know the word {word}'
+        self.dataset.add(word.lower())
+        return f'Thank you for teaching me {word}'
