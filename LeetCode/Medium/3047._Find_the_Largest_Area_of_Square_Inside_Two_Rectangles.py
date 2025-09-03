@@ -59,3 +59,40 @@
 # 1 <= topRight[i][0], topRight[i][1] <= 107
 # bottomLeft[i][0] < topRight[i][0]
 # bottomLeft[i][1] < topRight[i][1]
+# Solution
+# Python O(N^2) O(1) Math
+class Solution:
+    def largestSquareArea(self, bottomLeft: List[List[int]], topRight: List[List[int]]) -> int:
+        output: int = 0
+        for i in range(len(bottomLeft)):
+            fl, fr = bottomLeft[i], topRight[i]
+            for j in range(i + 1, len(bottomLeft)):
+                sl, sr = bottomLeft[j], topRight[j]
+                if sl[0] >= fr[0] or sr[0] <= fl[0]: continue
+                elif sr[1] <= fl[1] or sl[1] >= fr[1]: continue
+                width: int = min(fr[0], sr[0]) - max(fl[0], sl[0])
+                height: int = min(fr[1], sr[1]) - max(fl[1], sl[1])
+                output = max(output, min(width, height))
+        return output * output
+
+# C++ O(N^2) O(1) Math
+class Solution {
+public:
+    long long largestSquareArea(vector<vector<int>>& bottomLeft, vector<vector<int>>& topRight) {
+        int output = 0;
+        for (size_t i = 0; i < bottomLeft.size(); ++i) {
+            std::vector<int> &fl = bottomLeft[i];
+            std::vector<int> &fr = topRight[i];
+            for (size_t j = i + 1; j < bottomLeft.size(); ++j) {
+                std::vector<int> &sl = bottomLeft[j];
+                std::vector<int> &sr = topRight[j];
+                if (sl[0] >= fr[0] || sr[0] <= fl[0]) continue;
+                else if (sr[1] <= fl[1] || sl[1] >= fr[1]) continue;
+                int width = std::min(fr[0], sr[0]) - std::max(fl[0], sl[0]);
+                int height = std::min(fr[1], sr[1]) - std::max(fl[1], sl[1]);
+                output = std::max(output, std::min(width, height));
+            }
+        }
+        return static_cast<long long>(output) * output;
+    }
+};
