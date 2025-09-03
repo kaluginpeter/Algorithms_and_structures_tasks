@@ -67,3 +67,55 @@
 #
 # In the fourth test case, he refuses to answer any question at all, which makes him get 0
 #  points.
+# Solution
+# C++ O(N) O(1) String
+#include <iostream>
+#include <string>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    std::string pattern;
+    std::cin >> pattern;
+    int a = 0, b = 0, c = 0, d = 0;
+    for (const char &ch : pattern) {
+        if (ch == '?') continue;
+        else if (ch == 'A') ++a;
+        else if (ch == 'B') ++b;
+        else if (ch == 'C') ++c;
+        else ++d;
+    }
+    std::cout << (std::min(a, n) + std::min(b, n) + std::min(c, n) + std::min(d, n)) << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(1) String
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    pattern: str = sys.stdin.readline().rstrip()
+    a: int = 0
+    b: int = 0
+    c_: int = 0
+    d: int = 0
+    for c in pattern:
+        if c == '?': continue
+        elif c == 'A': a += 1
+        elif c == 'B': b += 1
+        elif c == 'C': c_ += 1
+        else: d += 1
+    sys.stdout.write('{}\n'.format(min(a, n) + min(b, n) + min(c_, n) + min(d, n)))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
