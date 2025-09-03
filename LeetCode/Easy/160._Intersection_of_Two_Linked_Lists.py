@@ -57,3 +57,83 @@
 #
 #
 # Follow up: Could you write a solution that runs in O(m + n) time and use only O(1) memory?
+# Solution
+# Python O(N + M) O(1) LinkedList TwoPointers
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
+        n: int = 0
+        m: int = 0
+        tmp: ListNode = headA
+        while tmp:
+            n += 1
+            tmp = tmp.next
+        tmp = headB
+        while tmp:
+            m += 1
+            tmp = tmp.next
+        tmp = headA
+        tmp2: ListNode = headB
+        while tmp != tmp2 and n and m:
+            if n > m:
+                n -= 1
+                tmp = tmp.next
+            elif m > n:
+                m -= 1
+                tmp2 = tmp2.next
+            else:
+                n -= 1
+                m -= 1
+                tmp = tmp.next
+                tmp2 = tmp2.next
+        if n and m: return tmp
+        return None
+
+# C++ O(N + M) O(1) LinkedList TwoPointers
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        size_t n = 0, m = 0;
+        ListNode *tmp = headA;
+        ListNode *tmp2 = headB;
+        while (tmp) {
+            ++n;
+            tmp = tmp->next;
+        }
+        tmp = headB;
+        while (tmp) {
+            ++m;
+            tmp = tmp->next;
+        }
+        tmp = headA;
+        while (tmp != tmp2 && n && m) {
+            if (n > m) {
+                tmp = tmp->next;
+                --n;
+            } else if (m > n) {
+                tmp2 = tmp2->next;
+                --m;
+            } else {
+                tmp = tmp->next;
+                tmp2 = tmp2->next;
+                --n;
+                --m;
+            }
+        }
+        if (n && m) return tmp;
+        return nullptr;
+    }
+};
