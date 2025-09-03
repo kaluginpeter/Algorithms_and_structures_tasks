@@ -21,3 +21,14 @@
 # Double Even Magic Square
 # Odd Magic Square
 # Fundamentals
+# Solution
+def is_magical(sq):
+    sq = [sq[i:i + 3] for i in range(0, len(sq), 3)]
+    if not all(sum(row) == 15 for row in sq): return False
+    elif not all(sum(sq[i][j] for j in range(len(sq[1]))) for i in range(len(sq))): return False
+    x: int = 0
+    y: int = 0
+    for i in range(len(sq)):
+        x += sq[i][i]
+        y += sq[i][3 - i - 1]
+    return x == y == 15
