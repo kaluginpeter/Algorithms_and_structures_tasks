@@ -28,3 +28,63 @@
 # The number of nodes in the tree is in the range [0, 5000].
 # -1000 <= Node.val <= 1000
 # -1000 <= targetSum <= 1000
+# Solution
+# Python O(N) O(H) Tree Depth-First-Search
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def dfs(self, root: TreeNode, targetSum: int, path: list[int], output: list[list[int]]) -> None:
+        targetSum -= root.val
+        path.append(root.val)
+        if not targetSum and not root.left and not root.right:
+            output.append(path.copy())
+            path.pop()
+            return
+        if root.left: self.dfs(root.left, targetSum, path, output)
+        if root.right: self.dfs(root.right, targetSum, path, output)
+        path.pop()
+
+    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> List[List[int]]:
+        output: list[list[int]] = []
+        path: list[int] = []
+        if root: self.dfs(root, targetSum, path, output)
+        return output
+
+# C++ O(N) O(H) Tree Depth-First-Search
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    void dfs(TreeNode *root, int targetSum, std::vector<int> &path, std::vector<std::vector<int>> &output) {
+        targetSum -= root->val;
+        path.push_back(root->val);
+        if (!targetSum && !root->left && !root->right) {
+            output.push_back(std::vector<int>(path.begin(), path.end()));
+            path.pop_back();
+            return;
+        }
+        if (root->left) dfs(root->left, targetSum, path, output);
+        if (root->right) dfs(root->right, targetSum, path, output);
+        path.pop_back();
+    }
+
+    vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
+        std::vector<std::vector<int>> output;
+        std::vector<int> path;
+        if (root) dfs(root, targetSum, path, output);
+        return output;
+    }
+};
