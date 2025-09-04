@@ -13,3 +13,7 @@
 # Thanks to @ZED.CWT, @Unnamed and @proxya for their feedback.
 #
 # Date TimeAlgorithms
+# Solution
+import datetime
+def get_calendar_week(date_string):
+    return datetime.datetime.strptime(date_string, '%Y-%m-%d').isocalendar()[1]
