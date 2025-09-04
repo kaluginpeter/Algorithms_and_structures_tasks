@@ -61,3 +61,33 @@
 #  GBs in the third second, and 1
 #  GB in the fourth second, which in total adds up to exactly 2
 #  GBs of uploaded RAM.
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int n, k;
+    std::cin >> n >> k;
+    std::cout << (n - 1) * k + 1 << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    n, k = map(int, sys.stdin.readline().rstrip().split())
+    sys.stdout.write('{}\n'.format((n - 1) * k + 1))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
