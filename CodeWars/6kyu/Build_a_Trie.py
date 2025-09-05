@@ -20,3 +20,16 @@
 # Happy coding! :)
 #
 # Data StructuresFundamentals
+# Solution
+def build_trie(*words: list[str]) -> dict:
+    trie: dict[str, dict[str, str | None]] = dict()
+    for word in words:
+        cur: dict[str, str | None] = trie
+        acc: str = ''
+        for char in word:
+            acc += char
+            if acc == word:
+                if acc not in cur: cur[acc] = None
+            elif acc not in cur or not cur[acc]: cur[acc] = dict()
+            cur = cur[acc]
+    return trie
