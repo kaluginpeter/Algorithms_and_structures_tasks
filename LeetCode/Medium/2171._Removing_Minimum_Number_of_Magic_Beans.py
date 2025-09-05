@@ -38,3 +38,28 @@
 #
 # 1 <= beans.length <= 105
 # 1 <= beans[i] <= 105
+# Solution
+# Python O(NlogN + N) O(1) Greedy Sorting
+class Solution:
+    def minimumRemoval(self, beans: List[int]) -> int:
+        beans.sort()
+        total_sum: int = sum(beans)
+        n: int = len(beans)
+        output: int = total_sum
+        for i in range(n):
+            output = min(output, total_sum - (n - i) * beans[i])
+        return output
+
+# C++ O(NlogN + N) O(1) Greedy Sorting
+class Solution {
+public:
+    long long minimumRemoval(vector<int>& beans) {
+        std::sort(beans.begin(), beans.end());
+        size_t n = beans.size();
+        long long totalSum = std::accumulate(beans.begin(), beans.end(), 0LL), output = totalSum;
+        for (size_t i = 0; i < n; ++i) {
+            output = std::min(output, static_cast<long long>(totalSum - (n - i) * beans[i]));
+        }
+        return output;
+    }
+};
