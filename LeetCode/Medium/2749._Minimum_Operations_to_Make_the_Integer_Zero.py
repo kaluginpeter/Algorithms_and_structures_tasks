@@ -28,3 +28,29 @@
 #
 # 1 <= num1 <= 109
 # -109 <= num2 <= 109
+# Solution
+# Python O(logN) O(1) Bit BrainTeaser
+class Solution:
+    def makeTheIntegerZero(self, num1: int, num2: int) -> int:
+        bits: int = 1
+        while True:
+            rem: int =  num1 - num2 * bits
+            if rem < bits: return -1
+            elif bits >= rem.bit_count(): return bits
+            bits += 1
+        return -1
+
+# C++ O(logN) O(1) Bit BrainTeaser
+class Solution {
+public:
+    int makeTheIntegerZero(int num1, int num2) {
+        int bits = 1;
+        while (true) {
+            long long rem = num1 - static_cast<long long>(num2) * bits;
+            if (rem < bits) return -1;
+            if (bits >= __builtin_popcountll(rem)) return bits;
+            ++bits;
+        }
+        return -1;
+    }
+};
