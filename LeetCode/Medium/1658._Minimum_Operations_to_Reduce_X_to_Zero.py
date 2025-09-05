@@ -26,3 +26,39 @@
 # 1 <= nums[i] <= 104
 # 1 <= x <= 109
 #
+# Solution
+# Python O(N) O(1) SlidingWindow
+class Solution:
+    def minOperations(self, nums: List[int], x: int) -> int:
+        output: int = -1
+        left: int = 0
+        cur_sum: int = 0
+        target: int = sum(nums) - x
+        if target < 0: return output
+        for right in range(len(nums)):
+            cur_sum += nums[right]
+            while cur_sum > target:
+                cur_sum -= nums[left]
+                left += 1
+            if cur_sum == target: output = max(output, right - left + 1)
+        return len(nums) - output if output != -1 else output
+
+# C++ O(N) O(1) SlidingWindow
+class Solution {
+public:
+    int minOperations(vector<int>& nums, int x) {
+        size_t left = 0, n = nums.size();
+        int output = -1;
+        int curSum = 0, target = std::accumulate(nums.begin(), nums.end(), 0) - x;
+        if (target < 0) return output;
+        for (size_t right = 0; right < n; ++right) {
+            curSum += nums[right];
+            while (curSum > target) {
+                curSum -= nums[left];
+                ++left;
+            }
+            if (curSum == target) output = std::max(output, static_cast<int>(right - left + 1));
+        }
+        return (output != -1 ? n - output : -1);
+    }
+};
