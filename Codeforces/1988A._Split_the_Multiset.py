@@ -131,3 +131,35 @@
 # .
 # Using 5
 #  operations in total, we achieve the goal.
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int n, k;
+    std::cin >> n >> k;
+    if (n == 1) std::cout << 0 << std::endl;
+    else std::cout << (n - 1 + (k - 2)) / (k - 1) << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    n, k = map(int, sys.stdin.readline().rstrip().split())
+    if n == 1: sys.stdout.write('0\n')
+    else: sys.stdout.write('{}\n'.format((n - 1 + (k - 2)) // (k - 1)))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
