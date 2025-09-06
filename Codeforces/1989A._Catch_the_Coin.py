@@ -73,3 +73,35 @@
 #  down and ends up at (−2,−2)
 # . Finally, Monocarp moves to (−2,−2)
 #  and collects the coin.
+# Solution
+# Python O(1) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    while (n--) {
+        int x, y;
+        std::cin >> x >> y;
+        std::cout << (y >= -1 ? "YES" : "NO") << std::endl;
+    }
+}
+
+
+int main() {
+    solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    for _ in range(n):
+        x, y = map(int, sys.stdin.readline().rstrip().split())
+        sys.stdout.write('{}\n'.format(['NO', 'YES'][y >= -1]))
+
+if __name__ == '__main__':
+    solution()
