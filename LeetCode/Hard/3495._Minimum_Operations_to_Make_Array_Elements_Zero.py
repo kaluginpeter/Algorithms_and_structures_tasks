@@ -55,3 +55,41 @@
 # queries[i].length == 2
 # queries[i] == [l, r]
 # 1 <= l < r <= 109
+# Solution
+# Python O(NlogM) O(1) Math
+class Solution:
+    def ops(self, x: int) -> int:
+        i: int = 1
+        base: int = i
+        output: int = 0
+        while base <= x:
+            output += (i + 1) // 2 * (min(base * 2 - 1, x) - base + 1)
+            base <<= 1
+            i += 1
+        return output
+
+    def minOperations(self, queries: List[List[int]]) -> int:
+        output: int = 0
+        for x, y in queries:
+            output += (self.ops(y) - self.ops(x - 1) + 1) // 2
+        return output
+
+# C++ O(NlogM) O(1) Math
+class Solution {
+public:
+    long long ops(int x) {
+        int i = 1, base = 1;
+        long long output = 0;
+        while (base <= x) {
+            output += 1LL * (i + 1) / 2 * (min(base * 2 - 1, x) - base + 1);
+            base <<= 1;
+            ++i;
+        }
+        return output;
+    }
+    long long minOperations(vector<vector<int>>& queries) {
+        long long output = 0;
+        for (const auto &q : queries) output += (ops(q[1]) - ops(q[0] - 1) + 1) / 2;
+        return output;
+    }
+};
