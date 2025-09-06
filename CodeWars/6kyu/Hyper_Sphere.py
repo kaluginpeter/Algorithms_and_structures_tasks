@@ -48,3 +48,6 @@
 # Note: a point with no coordinates should return true, as in zero dimensions all points are the same point
 #
 # MathematicsArraysFundamentals
+# Solution
+def in_sphere(coords, radius):
+    return sum(pow(point, 2) for point in coords) <= pow(radius, 2)
