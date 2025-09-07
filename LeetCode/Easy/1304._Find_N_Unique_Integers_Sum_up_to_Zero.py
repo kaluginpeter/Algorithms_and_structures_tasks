@@ -21,3 +21,31 @@
 #
 # 1 <= n <= 1000
 #
+# Solution
+# Python O(N) O(N) Math
+class Solution:
+    def sumZero(self, n: int) -> List[int]:
+        output: list[int] = []
+        if n & 1: output.append(0)
+        i: int = 1
+        while len(output) < n:
+            output.append(-i)
+            output.append(i)
+            i += 1
+        return output
+
+# C++ O(N) O(N) Math
+class Solution {
+public:
+    vector<int> sumZero(int n) {
+        std::vector<int> output;
+        if (n & 1) output.push_back(0);
+        int i = 1;
+        while (output.size() < n) {
+            output.push_back(-i);
+            output.push_back(i);
+            ++i;
+        }
+        return output;
+    }
+};
