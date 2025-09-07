@@ -28,3 +28,22 @@
 # The earliest regular month after the given one in the same format as currMonth.
 #
 # Puzzles
+# Solution
+from datetime import datetime
+
+
+def regular_months(curr_month: str) -> str:
+    month, year = map(int, curr_month.split("-"))
+    first: int = datetime(year, month, 1).weekday()
+    month += 1
+    if month > 12:
+        month = 1
+        year += 1
+
+    while True:
+        if datetime(year, month, 1).weekday() == 0:
+            return f"{month:02d}-{year}"
+        month += 1
+        if month > 12:
+            month = 1
+            year += 1
