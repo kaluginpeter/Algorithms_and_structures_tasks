@@ -101,3 +101,52 @@
 #
 # In the third test case, it can be shown there is no way to color a=[3,3,3]
 #  to satisfy the constraints.
+# Solution
+# C++ O(N) O(1) String
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::vector<int> nums(n, 0);
+    for (size_t i = 0; i < n; ++i) std::cin >> nums[i];
+    if (nums[0] == nums[n - 1]) {
+        std::cout << "NO\n";
+        return;
+    }
+    std::cout << "YES\n";
+    if (nums[2] == nums[1]) std::cout << "BRB";
+    else std::cout << "RBB";
+    for (size_t i = 3; i < n; ++i) std::cout << "B";
+    std::cout << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(1) String
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    if nums[0] == nums[-1]:
+        sys.stdout.write('NO\n')
+        return
+    sys.stdout.write('YES\n')
+    if nums[2] == nums[1]: sys.stdout.write('BRB')
+    else: sys.stdout.write('RBB')
+    sys.stdout.write('B' * (n - 3))
+    sys.stdout.write('\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
