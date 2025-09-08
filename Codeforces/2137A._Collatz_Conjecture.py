@@ -59,3 +59,46 @@
 #  is a valid output.
 #
 # The third test case is explained in the statement.
+# Solution
+# C++ O(K) O(1) Greedy
+#include <iostream>
+
+
+void solution() {
+    int n, k;
+    std::cin >> k >> n;
+    for (size_t i = 0; i < k; ++i) {
+        if ((n - 1) % 3 == 0) {
+            int cand = (n - 1) / 3;
+            if (cand & 1) {
+                n = cand;
+                continue;
+            }
+        }
+        n <<= 1;
+    }
+    std::cout << n << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(K) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    k, n = map(int, sys.stdin.readline().rstrip().split())
+    for _ in range(k):
+        if (n - 1) % 3 == 0 and (n - 1) // 3 & 1: n = (n - 1) // 3
+        else: n <<= 1
+    sys.stdout.write('{}\n'.format(n))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
