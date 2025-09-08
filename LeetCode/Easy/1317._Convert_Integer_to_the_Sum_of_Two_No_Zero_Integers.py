@@ -26,3 +26,41 @@
 # Constraints:
 #
 # 2 <= n <= 104
+# Solution
+# Python O(NlogN) O(1) TwoPointers
+class Solution:
+    def check(self, n: int) -> bool:
+        while n:
+            if not (n % 10): return False
+            n //= 10
+        return True
+
+    def getNoZeroIntegers(self, n: int) -> List[int]:
+        left: int = 1
+        right: int = n - 1
+        while left <= right:
+            if left + right == n and self.check(left) and self.check(right): break
+            left += 1
+            right -= 1
+        return [left, right]
+
+# C++ O(NlogN) O(1) TwoPointers
+class Solution {
+public:
+    bool check(int n) {
+        while (n) {
+            if (!(n % 10)) return false;
+            n /= 10;
+        }
+        return true;
+    }
+    vector<int> getNoZeroIntegers(int n) {
+        int left = 1, right = n - 1;
+        while (left <= right) {
+            if ((left + right == n) && check(left) && check(right)) break;
+            ++left;
+            --right;
+        }
+        return std::vector<int>({left, right});
+    }
+};
