@@ -22,3 +22,37 @@
 # n == grid[i].length
 # 1 <= m, n <= 200
 # 0 <= grid[i][j] <= 200
+# Solution
+# Python O(NM) O(M) DynamicProgramming Matrix
+class Solution:
+    def minPathSum(self, grid: List[List[int]]) -> int:
+        n: int = len(grid)
+        m: int = len(grid[0])
+        dp: list[int] = [0] * m
+        for i in range(n):
+            next_dp: list[int] = [float('inf')] * m
+            if not i: next_dp[0] = grid[0][0]
+            for j in range(m):
+                if i: next_dp[j] = min(next_dp[j], grid[i][j] + dp[j])
+                if j: next_dp[j] = min(next_dp[j], next_dp[j - 1] + grid[i][j])
+            dp = next_dp.copy()
+        return dp[m - 1]
+
+# C++ O(NM) O(M) DynamicProgramming Matrix
+class Solution {
+public:
+    int minPathSum(vector<vector<int>>& grid) {
+        size_t n = grid.size(), m = grid[0].size();
+        std::vector<int> dp(m, 0);
+        for (size_t i = 0; i < n; ++i) {
+            std::vector<int> nextDp(m, 200 * 200 * 200 + 1);
+            if (!i) nextDp[0] = grid[0][0];
+            for (size_t j = 0; j < m; ++j) {
+                if (j) nextDp[j] = std::min(nextDp[j], grid[i][j] + nextDp[j - 1]);
+                if (i) nextDp[j] = std::min(nextDp[j], grid[i][j] + dp[j]);
+            }
+            dp = nextDp;
+        }
+        return dp[m - 1];
+    }
+};
