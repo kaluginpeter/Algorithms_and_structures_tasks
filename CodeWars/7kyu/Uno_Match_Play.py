@@ -22,3 +22,11 @@
 # ["yellow 3", "blue 5", "red 8", "red 9"], "green 4"  ➞ False
 # ["yellow 3", "red 8"], "green 2"                     ➞ False
 # Games
+# Solution
+def can_play(hand, face_up):
+    if not hand: return False
+    f_s, f_n = face_up.split()
+    for card in hand:
+        p_s, p_n = card.split()
+        if p_s == f_s or p_n == f_n: return True
+    return False
