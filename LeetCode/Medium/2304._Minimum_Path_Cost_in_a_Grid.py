@@ -35,3 +35,39 @@
 # moveCost.length == m * n
 # moveCost[i].length == n
 # 1 <= moveCost[i][j] <= 100
+# Solution
+# Python O(N(M^2)) O(M) DynamicProgramming Matrix
+class Solution:
+    def minPathCost(self, grid: List[List[int]], moveCost: List[List[int]]) -> int:
+        n: int = len(grid)
+        m: int = len(grid[0])
+        dp: list[int] = grid[0]
+        for i in range(1, n):
+            next_dp: list[int] = [float('inf')] * m
+            for j in range(m):
+                for prev_j in range(m):
+                    next_dp[j] = min(next_dp[j], grid[i][j] + dp[prev_j] + moveCost[grid[i - 1][prev_j]][j])
+            dp = next_dp.copy()
+        return min(dp)
+
+# C++ O(N(M^2)) O(M) DynamicProgramming Matrix
+class Solution {
+public:
+    int minPathCost(vector<vector<int>>& grid, vector<vector<int>>& moveCost) {
+        size_t n = grid.size(), m = grid[0].size();
+        std::vector<int> dp = grid[0];
+        for (size_t i = 1; i < n; ++i) {
+            std::vector<int> nextDp(m, 50 * 50 * 100 + 1);
+            for (size_t j = 0; j < m; ++j) {
+                for (size_t prevJ = 0; prevJ < m; ++prevJ) {
+                    nextDp[j] = std::min(
+                        nextDp[j],
+                        dp[prevJ] + grid[i][j] + moveCost[grid[i - 1][prevJ]][j]
+                    );
+                }
+            }
+            dp = nextDp;
+        }
+        return *std::min_element(dp.begin(), dp.end());
+    }
+};
