@@ -68,3 +68,45 @@
 # In the third test case, the only segment that Bob can choose is [1,1]
 # . So the answer is 0
 # .
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+#include <vector>
+#include <cstdint>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::vector<int> nums(n, 0);
+    for (size_t i = 0; i < n; ++i) std::cin >> nums[i];
+    int output = INT32_MAX;
+    for (size_t i = 0; i < n - 1; ++i) {
+        output = std::min(output, std::max(nums[i], nums[i + 1]));
+    }
+    std::cout << output - 1 << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    output: int = float('inf')
+    for i in range(n - 1):
+        output = min(output, max(nums[i], nums[i + 1]))
+    sys.stdout.write('{}\n'.format(output - 1))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
