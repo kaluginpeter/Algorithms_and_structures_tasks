@@ -14,3 +14,11 @@
 # what_list_am_i_on(actions)
 # #-> 'naughty'
 # MathematicsFundamentals
+# Solution
+def what_list_am_i_on(actions):
+    x: int = 0
+    y: int = 0
+    for string in actions:
+        if string[0] in 'bfk': x += 1
+        elif string[0] in 'gsn': y += 1
+    return 'nice' if y > x else 'naughty'
