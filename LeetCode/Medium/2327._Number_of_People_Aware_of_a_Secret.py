@@ -32,3 +32,39 @@
 #
 # 2 <= n <= 1000
 # 1 <= delay < forget <= n
+# Solution
+# Python O(N) O(N) DynamicProgramming
+class Solution:
+    def peopleAwareOfSecret(self, n: int, delay: int, forget: int) -> int:
+        dp: list[int] = [0] * (n + 1)
+        dp[1] = 1
+        cur: int = 0
+        mod: int = 10**9 + 7
+        for i in range(delay + 1, n + 1):
+            cur = (cur + dp[i - delay] + mod) % mod
+            if i > forget: cur = (cur - dp[i - forget] + mod) % mod
+            dp[i] = cur
+        output: int = 0
+        for i in range(n - forget + 1, n + 1):
+            output = (output + dp[i]) % mod
+        return output
+
+# C++ O(N) O(N) DynamicProgramming
+class Solution {
+public:
+    int peopleAwareOfSecret(int n, int delay, int forget) {
+        std::vector<long long> dp(n + 1, 0);
+        dp[1] = 1;
+        long long cur = 0, mod = 1e9 + 7;
+        for (size_t i = delay + 1; i <= n; ++i) {
+            cur = (cur + dp[i - delay] + mod) % mod;
+            if (i > forget) cur = (cur - dp[i - forget] + mod) % mod;
+            dp[i] = cur;
+        }
+        int output = 0;
+        for (size_t i = n - forget + 1; i <= n; ++i) {
+            output = (output + dp[i]) % mod;
+        }
+        return output;
+    }
+};
