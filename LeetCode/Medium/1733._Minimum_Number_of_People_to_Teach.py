@@ -33,3 +33,51 @@
 # 1 <= friendships.length <= 500
 # All tuples (u​​​​​i, v​​​​​​i) are unique
 # languages[i] contains only unique values
+# Solution
+# Python O(NM) O(N + M) HashMap
+class Solution:
+    def minimumTeachings(self, n: int, languages: List[List[int]], friendships: List[List[int]]) -> int:
+        needed: set[int] = set()
+        for u, v in friendships:
+            common: set[int] = set()
+            for l in languages[u - 1]: common.add(l)
+            can_connect: bool = False
+            for l in languages[v - 1]:
+                if l in common:
+                    can_connect = True
+                    break
+            if not can_connect:
+                needed.add(u)
+                needed.add(v)
+        components: list[int] = [0] * (n + 1)
+        for need in needed:
+            for l in languages[need - 1]: components[l] += 1
+        return len(needed) - max(components, default=0)
+
+# C++ O(NM) O(N + M) HashMap
+class Solution {
+public:
+    int minimumTeachings(int n, vector<vector<int>>& languages, vector<vector<int>>& friendships) {
+        std::unordered_set<int> needed;
+        for (std::vector<int> &f : friendships) {
+            std::unordered_set<int> common;
+            for (int &lang : languages[f[0] - 1]) common.insert(lang);
+            bool canConnect = false;
+            for (int &lang : languages[f[1] - 1]) {
+                if (common.count(lang)) {
+                    canConnect = true;
+                    break;
+                }
+            }
+            if (!canConnect) {
+                needed.insert(f[0]);
+                needed.insert(f[1]);
+            }
+        }
+        std::vector<int> components(n + 1, 0);
+        for (const auto &need : needed) {
+            for (const int &l : languages[need - 1]) ++components[l];
+        }
+        return needed.size() - *std::max_element(components.begin(), components.end());
+    }
+};
