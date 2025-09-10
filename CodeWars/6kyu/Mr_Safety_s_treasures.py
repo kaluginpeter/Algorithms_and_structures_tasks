@@ -13,3 +13,16 @@
 # Example
 # ``` unlock("Nokia") // => 66542 unlock("Valut") // => 82588 unlock("toilet") // => 864538 ```
 # Puzzles
+# Solution
+#include <string>
+using namespace std;
+
+string unlock (string str)
+{
+  std::string output = "";
+  for (char &s : str) {
+    int pos = std::tolower(s) - 'a';
+    output.push_back(std::min(9, 2 + pos / 3 - (pos == 18 || pos == 21? 1 : 0)) + '0');
+  }
+  return output;
+}
