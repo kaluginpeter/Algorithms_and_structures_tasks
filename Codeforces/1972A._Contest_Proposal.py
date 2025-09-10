@@ -85,3 +85,50 @@
 #  becomes [1,2,3,4,5,6]
 # .
 # It can be proved that it's impossible to reach the goal by proposing fewer new problems.
+# Solution
+# C++ O(N) O(1) TwoPointers
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::vector<int> a(n, 0), b(n, 0);
+    for (size_t i = 0; i < n; ++i) std::cin >> a[i];
+    for (size_t i = 0; i < n; ++i) std::cin >> b[i];
+    int output = 0;
+    size_t i = 0;
+    for (size_t j = 0; j < n; ++j) {
+        if (a[i] <= b[j]) ++i;
+        else ++output;
+    }
+    std::cout << output << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(1) TwoPointers
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    a: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    b: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    i: int = 0
+    output: int = 0
+    for j in range(n):
+        if a[i] <= b[j]: i += 1
+        else: output += 1
+    sys.stdout.write('{}\n'.format(output))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
