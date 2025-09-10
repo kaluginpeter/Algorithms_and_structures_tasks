@@ -35,3 +35,115 @@
 # 1 <= weighti <= 105
 # There is at most one edge between any two nodes.
 # There is at least one path between any two nodes.
+# Solution
+# Python O((V + E)logV + V) O(V) Dijkstra Graph DynamicProgramming
+class Solution:
+    def dijkstra(self, source: int, edges: list[list[int]], costs: list[int]) -> None:
+        adj_list: dict[int, list[tuple[int, int]]] = defaultdict(list)
+        for u, v, c in edges:
+            adj_list[u].append((v, c))
+            adj_list[v].append((u, c))
+        min_heap: list[tuple[int, int]] = [(0, source)]
+        while min_heap:
+            cost, vertex = heapq.heappop(min_heap)
+            for neighbor, price in adj_list[vertex]:
+                next_cost: int = cost + price
+                if next_cost >= costs[neighbor]: continue
+                costs[neighbor] = next_cost
+                heapq.heappush(min_heap, (next_cost, neighbor))
+
+    def countRestrictedPaths(self, n: int, edges: List[List[int]]) -> int:
+        costs: list[int] = [float('inf')] * (n + 1)
+        costs[n] = 0
+        self.dijkstra(n, edges, costs)
+        in_degree: list[int] = [0] * (n + 1)
+        adj_list: dict[int, list[int]] = defaultdict(list)
+        for u, v, c in edges:
+            if costs[u] > costs[v]:
+                in_degree[v] += 1
+                adj_list[u].append(v)
+            elif costs[v] > costs[u]:
+                in_degree[u] += 1
+                adj_list[v].append(u)
+        nodes: list[int] = deque()
+        for vertex in range(1, n + 1):
+            if in_degree[vertex]: continue
+            nodes.append(vertex)
+        topological_order: list[int] = []
+        while nodes:
+            node: int = nodes.popleft()
+            topological_order.append(node)
+            for neighbor in adj_list[node]:
+                in_degree[neighbor] -= 1
+                if not in_degree[neighbor]: nodes.append(neighbor)
+        dp: list[int] = [0] * (n + 1)
+        dp[1] = 1
+        mod: int = 10**9 + 7
+        for vertex in topological_order:
+            for neighbor in adj_list[vertex]:
+                dp[neighbor] = (dp[neighbor] + dp[vertex]) % mod
+        return dp[n]
+
+# C++ O((V + E)logV + V) O(V) Graph DynamicProgramming Dijkstra
+class Solution {
+public:
+    void dijkstra(int source, const std::vector<std::vector<int>> &edges, std::vector<int> &costs) {
+        std::unordered_map<int, std::vector<std::pair<int, int>>> adjList;
+        for (const std::vector<int> &edge : edges) {
+            adjList[edge[0]].push_back({edge[1], edge[2]});
+            adjList[edge[1]].push_back({edge[0], edge[2]});
+        }
+        std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<std::pair<int, int>>> minHeap;
+        minHeap.push({0, source});
+        while (!minHeap.empty()) {
+            int cost = minHeap.top().first, vertex = minHeap.top().second;
+            minHeap.pop();
+            for (const std::pair<int, int> &edge : adjList[vertex]) {
+                int nextCost = cost + edge.second;
+                if (nextCost >= costs[edge.first]) continue;
+                costs[edge.first] = nextCost;
+                minHeap.push({nextCost, edge.first});
+            }
+        }
+    }
+    int countRestrictedPaths(int n, vector<vector<int>>& edges) {
+        std::vector<int> costs(n + 1, INT32_MAX);
+        costs[n] = 0;
+        dijkstra(n, edges, costs);
+        std::unordered_map<int, std::vector<int>> adjList;
+        std::vector<int> inDegree(n + 1, 0);
+        for (const std::vector<int> &edge : edges) {
+            if (costs[edge[0]] > costs[edge[1]]) {
+                adjList[edge[0]].push_back(edge[1]);
+                ++inDegree[edge[1]];
+            } else if (costs[edge[1]] > costs[edge[0]]) {
+                adjList[edge[1]].push_back(edge[0]);
+                ++inDegree[edge[0]];
+            }
+        }
+        std::queue<int> nodes;
+        for (int vertex = 1; vertex <= n; ++vertex) {
+            if (inDegree[vertex]) continue;
+            nodes.push(vertex);
+        }
+        std::vector<int> topologicalOrder;
+        while (!nodes.empty()) {
+            int node = nodes.front();
+            nodes.pop();
+            topologicalOrder.push_back(node);
+            for (const int &neighbor : adjList[node]) {
+                --inDegree[neighbor];
+                if (!inDegree[neighbor]) nodes.push(neighbor);
+            }
+        }
+        std::vector<int> dp(n + 1, 0);
+        dp[1] = 1;
+        int mod = 1e9 + 7;
+        for (const int &vertex : topologicalOrder) {
+            for (const int &neighbor : adjList[vertex]) {
+                dp[neighbor] = (dp[neighbor] + dp[vertex]) % mod;
+            }
+        }
+        return dp[n];
+    }
+};
