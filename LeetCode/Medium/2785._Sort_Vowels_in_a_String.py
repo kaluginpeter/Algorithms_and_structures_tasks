@@ -40,3 +40,45 @@ class Solution(object):
                 word += l[top]
                 top += 1
         return word
+
+
+# Python O(N + MlogM) O(M) String
+class Solution:
+    def sortVowels(self, s: str) -> str:
+        vowels: list[str] = []
+        for ch in s:
+            l_ch: str = ch.lower()
+            if l_ch in 'aeoiu': vowels.append(ch)
+        vowels.sort()
+        s = list(s)
+        j: int = 0
+        for i in range(len(s)):
+            l_ch: str = s[i].lower()
+            if l_ch in 'aeoiu':
+                s[i] = vowels[j]
+                j += 1
+        return ''.join(s)
+
+# C++ O(N + MlogM) O(M) String
+class Solution {
+public:
+    string sortVowels(string s) {
+        std::string vowels = "";
+        for (const char &ch : s) {
+            char lCh = std::tolower(ch);
+            if (lCh == 'a' || lCh == 'e' || lCh == 'o' || lCh == 'u' || lCh == 'i') {
+                vowels.push_back(ch);
+            }
+        }
+        std::sort(vowels.begin(), vowels.end());
+        size_t j = 0;
+        for (size_t i = 0; i < s.size(); ++i) {
+            char lCh = std::tolower(s[i]);
+            if (lCh == 'a' || lCh == 'e' || lCh == 'o' || lCh == 'u' || lCh == 'i') {
+                s[i] = vowels[j];
+                ++j;
+            }
+        }
+        return s;
+    }
+};
