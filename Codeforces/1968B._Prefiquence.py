@@ -98,3 +98,47 @@
 #  does not contain '1
 # ' so the answer is 0
 # .
+# Solution
+# C++ O(min(N, M)) O(1) TwoPointers
+#include <iostream>
+#include <string>
+
+
+void solution() {
+    size_t n, m;
+    std::cin >> n >> m;
+    std::string a, b;
+    std::cin >> a >> b;
+    size_t i = 0;
+    for (size_t j = 0; j < m; ++j) {
+        if (i == n) break;
+        if (a[i] == b[j]) ++i;
+    }
+    std::cout << i << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(min(N, M)) O(1) TwoPointers
+import sys
+
+
+def solution() -> None:
+    n, m = map(int, sys.stdin.readline().rstrip().split())
+    a: str = sys.stdin.readline().rstrip()
+    b: str = sys.stdin.readline().rstrip()
+    i: int = 0
+    for j in range(m):
+        if i == n: break
+        elif a[i] == b[j]: i += 1
+    sys.stdout.write('{}\n'.format(i))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
