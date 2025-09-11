@@ -35,3 +35,56 @@
 # The number of nodes in the tree is in the range [1, 1000].
 # 0 <= Node.val <= 9
 # The depth of the tree will not exceed 10.
+# Solution
+# Python O(N) O(H) Depth-First-Search
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    output: int = 0
+    def dfs(self, root: TreeNode, cur_sum: int) -> None:
+        cur_sum = cur_sum * 10 + root.val
+        if not root.left and not root.right:
+            self.output += cur_sum
+            return
+        if root.left: self.dfs(root.left, cur_sum)
+        if root.right: self.dfs(root.right, cur_sum)
+
+    def sumNumbers(self, root: Optional[TreeNode]) -> int:
+        self.output = 0
+        self.dfs(root, 0)
+        return self.output
+
+# C++ O(N) O(H) Depth-First-Search
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    void dfs(TreeNode* root, int curSum, int &output) {
+        curSum = curSum * 10 + root->val;
+        if (!root->left && !root->right) {
+            output += curSum;
+            return;
+        }
+        if (root->left) dfs(root->left, curSum, output);
+        if (root->right) dfs(root->right, curSum, output);
+    }
+
+    int sumNumbers(TreeNode* root) {
+        int output = 0;
+        dfs(root, 0, output);
+        return output;
+    }
+};
