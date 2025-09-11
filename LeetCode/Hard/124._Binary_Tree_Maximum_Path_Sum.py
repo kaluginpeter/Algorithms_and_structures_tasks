@@ -25,3 +25,51 @@
 # The number of nodes in the tree is in the range [1, 3 * 104].
 # -1000 <= Node.val <= 1000
 #
+# Solution
+# Python O(N) O(H) Kadane Depth-First-Search
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def dfs(self, root: TreeNode) -> int:
+        if not root: return 0
+        left: int = self.dfs(root.left)
+        right: int = self.dfs(root.right)
+        self.output = max(self.output, left + right + root.val)
+        return max(0, max(left, right, 0) + root.val)
+
+    def maxPathSum(self, root: Optional[TreeNode]) -> int:
+        self.output = float('-inf')
+        self.dfs(root)
+        return self.output
+
+# C++ O(N) O(H) Kadane Depth-First-Search
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int dfs(TreeNode* root, int &output) {
+        if (!root) return 0;
+        int left = dfs(root->left, output);
+        int right = dfs(root->right, output);
+        output = std::max(output, left + right + root->val);
+        return std::max(0, std::max({left, right, 0}) + root->val);
+    }
+    int maxPathSum(TreeNode* root) {
+        int output = INT32_MIN;
+        dfs(root, output);
+        return output;
+    }
+};
