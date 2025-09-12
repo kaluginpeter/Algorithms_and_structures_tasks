@@ -60,3 +60,22 @@ class Solution:
             if char in {'a', 'e', 'o', 'u', 'i'}:
                 vowels += 1
         return vowels > 0
+
+
+# Solution
+# Python O(N) O(1) String
+class Solution:
+    def doesAliceWin(self, s: str) -> bool:
+        return any(ch in 'aeoiu' for ch in s)
+
+# C++ O(N) O(1) String
+class Solution {
+public:
+    bool doesAliceWin(string s) {
+        std::string vowels = "aeoiu";
+        for (const char &ch : s) {
+            if (vowels.find(ch) != std::string::npos) return true;
+        }
+        return false;
+    }
+};
