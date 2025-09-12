@@ -25,3 +25,32 @@
 # 1 <= nums.length <= 1000
 # -231 <= nums[i] <= 231 - 1
 # nums[i] != nums[i + 1] for all valid i.
+# Solution
+# Python O(logN) O(1) BinarySearch
+class Solution:
+    def findPeakElement(self, nums: List[int]) -> int:
+        left: int = 0
+        right: int = len(nums) - 1
+        while left <= right:
+            middle: int = left + ((right - left) >> 1)
+            l: int = nums[middle - 1] if middle else nums[middle] - 1
+            r: int = nums[middle + 1] if middle + 1 < len(nums) else nums[middle] - 1
+            if nums[middle] > l: left = middle + 1
+            else: right = middle - 1
+        return right
+
+# C++ O(logN) O(1) BinarySearch
+class Solution {
+public:
+    int findPeakElement(vector<int>& nums) {
+        int left = 0, right = nums.size() - 1;
+        while (left <= right) {
+            int middle = left + ((right - left) >> 1);
+            long long l = (middle ? nums[middle - 1] : nums[middle] - 1LL);
+            long long r = (middle + 1 < nums.size() ? nums[middle + 1] : nums[middle] - 1LL);
+            if (nums[middle] > l) left = middle + 1;
+            else right = middle - 1;
+        }
+        return right;
+    }
+};
