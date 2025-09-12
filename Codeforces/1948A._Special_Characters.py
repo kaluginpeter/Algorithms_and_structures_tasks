@@ -46,3 +46,53 @@
 # NO
 # YES
 # MM
+# Solution
+# C++ O(N) O(1) String
+#include <iostream>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    if (n & 1) {
+        std::cout << "NO\n";
+        return;
+    }
+    std::cout << "YES\n";
+    char prev = 'A';
+    while (n > 1) {
+        std::cout << prev << prev;
+        prev = ((prev - 'A') + 1) % 26 + 'A';
+        n -= 2;
+    }
+    std::cout << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(1) String
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    if n & 1:
+        sys.stdout.write('NO\n')
+        return
+    sys.stdout.write('YES\n')
+    prev: str = 'A'
+    while n > 1:
+        n -= 2
+        sys.stdout.write('{}'.format(prev * 2))
+        prev = chr((ord(prev) - 65 + 1) % 26 + 65)
+    sys.stdout.write('\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
