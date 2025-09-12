@@ -31,3 +31,38 @@
 # Follow up: This problem is similar to Find Minimum in Rotated Sorted Array, but nums may contain duplicates. Would this affect the runtime complexity? How and why?
 #
 #
+# Solution
+# Python O(logN) O(1) BinarySearch
+class Solution:
+    def findMin(self, nums: List[int]) -> int:
+        output: int = nums[0]
+        left: int = 0
+        right: int = len(nums) - 1
+        while left <= right:
+            middle: int = left + ((right - left) >> 1)
+            output = min(output, nums[middle])
+            if nums[middle] > nums[right]: left = middle + 1
+            elif nums[middle] > nums[left]: right = middle - 1
+            else:
+                left += 1
+                right -= 1
+        return output
+
+# C++ O(logN) O(1) BinarySearch
+class Solution {
+public:
+    int findMin(vector<int>& nums) {
+        int output = nums[0], left = 0, right = nums.size() - 1;
+        while (left <= right) {
+            int middle = left + ((right - left) >> 1);
+            output = std::min(output, nums[middle]);
+            if (nums[middle] > nums[right]) left = middle + 1;
+            else if (nums[middle] > nums[left]) right = middle - 1;
+            else {
+                ++left;
+                --right;
+            }
+        }
+        return output;
+    }
+};
