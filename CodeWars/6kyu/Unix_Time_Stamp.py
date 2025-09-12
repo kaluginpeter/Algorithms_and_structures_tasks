@@ -25,3 +25,23 @@
 # Functions that directly complete kata should be disable in all languages
 #
 # Date Time
+# Solution
+def time_stamp(times):
+    year, month, day, hour, minute, second = times
+    def is_leap(y):
+        return (y % 4 == 0 and y % 100 != 0) or (y % 400 == 0)
+    month_days = [31, 28, 31, 30, 31, 30,
+                  31, 31, 30, 31, 30, 31]
+    days = 0
+    for y in range(1970, year):
+        days += 366 if is_leap(y) else 365
+    for m in range(1, month):
+        if m == 2 and is_leap(year): days += 29
+        else: days += month_days[m-1]
+    days += day - 1
+    total_seconds = days * 86400
+    total_seconds += hour * 3600
+    total_seconds += minute * 60
+    total_seconds += second
+
+    return total_seconds
