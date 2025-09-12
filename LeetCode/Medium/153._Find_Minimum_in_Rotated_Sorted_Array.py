@@ -34,3 +34,32 @@
 # -5000 <= nums[i] <= 5000
 # All the integers of nums are unique.
 # nums is sorted and rotated between 1 and n times.
+# Solution
+# Python O(logN) O(1) BinarySearch
+class Solution:
+    def findMin(self, nums: List[int]) -> int:
+        left: int = 0
+        right: int = len(nums) - 1
+        output: int = nums[0]
+        while left <= right:
+            middle: int = left + ((right - left) >> 1)
+            output = min(output, nums[middle])
+            if nums[middle] > nums[right]: left = middle + 1
+            else: right = middle - 1
+        return output
+
+# C++ O(logN) O(1) BinarySearch
+class Solution {
+public:
+    int findMin(vector<int>& nums) {
+        int left = 0, right = nums.size() - 1;
+        int output = nums[0];
+        while (left <= right) {
+            int middle = left + ((right - left) >> 1);
+            output = std::min(output, nums[middle]);
+            if (nums[middle] > nums[right]) left = middle + 1;
+            else right = middle - 1;
+        }
+        return output;
+    }
+};
