@@ -33,3 +33,12 @@
 # * Python version 3 and above uses Banker Rounding so the expected values for those tests would be 3888 and 38 respectively
 #
 # Algorithms
+# Solution
+from itertools import permutations
+def permutation_average(n):
+    output: int = 0
+    count: int = 0
+    for p in permutations(str(n)):
+        count += 1
+        output += int(''.join(p))
+    return round(output / count)
