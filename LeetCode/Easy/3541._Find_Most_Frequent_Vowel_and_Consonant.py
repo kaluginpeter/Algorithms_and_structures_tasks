@@ -68,3 +68,32 @@ public:
         return maxVowel + maxConsonant;
     }
 };
+
+# Python O(N + D) O(D) Counting HashMap
+class Solution:
+    def maxFreqSum(self, s: str) -> int:
+        vowels: list[int] = [0] * 26
+        consonants: list[int] = [0] * 26
+        for letter in s:
+            if letter in 'aeoiu': vowels[ord(letter) - 97] += 1
+            else: consonants[ord(letter) - 97] += 1
+        x: int = max(vowels, default=0)
+        y: int = max(consonants, default=0)
+        return x + y
+
+# C++ O(N + D) O(D) HashTable
+class Solution {
+public:
+    int maxFreqSum(string s) {
+        std::array<int, 26> vowels{}, consonants{};
+        std::string vows = "aeoiu";
+        for (char &letter : s) {
+            if (vows.find(letter) != std::string::npos) ++vowels[letter - 'a'];
+            else ++consonants[letter - 'a'];
+        }
+        int maxVowel = 0, maxConsonant = 0;
+        maxVowel = *std::max_element(vowels.begin(), vowels.end());
+        maxConsonant = *std::max_element(consonants.begin(), consonants.end());
+        return maxVowel + maxConsonant;
+    }
+};
