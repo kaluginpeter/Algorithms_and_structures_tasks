@@ -39,3 +39,33 @@
 # 2
 # 0
 # 4
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int k, n;
+    std::cin >> k >> n;
+    std::cout << (n & 1 ? k : 0) << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    k, n = map(int, sys.stdin.readline().rstrip().split())
+    sys.stdout.write('{}\n'.format([0, k][n & 1]))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
