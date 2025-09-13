@@ -34,3 +34,70 @@
 #
 # You may only use constant extra space.
 # The recursive approach is fine. You may assume implicit stack space does not count as extra space for this problem.
+# Solution
+# Python O(N) O(D) Depth-First-Search
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val: int = 0, left: 'Node' = None, right: 'Node' = None, next: 'Node' = None):
+        self.val = val
+        self.left = left
+        self.right = right
+        self.next = next
+"""
+
+class Solution:
+    def dfs(self, root: 'Node') -> 'Node':
+        if not root: return root
+        l: Node = root.left
+        r: Node = root.right
+        n: Node = root.next
+        if l:
+            l.next = r
+            if n: r.next = n.left
+            self.dfs(l)
+            self.dfs(r)
+        return root
+    def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
+        self.dfs(root)
+        return root
+
+# C++ O(N) O(H) Depth-First-Search
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    Node* left;
+    Node* right;
+    Node* next;
+
+    Node() : val(0), left(NULL), right(NULL), next(NULL) {}
+
+    Node(int _val) : val(_val), left(NULL), right(NULL), next(NULL) {}
+
+    Node(int _val, Node* _left, Node* _right, Node* _next)
+        : val(_val), left(_left), right(_right), next(_next) {}
+};
+*/
+
+class Solution {
+public:
+    Node* dfs(Node* root) {
+        if (!root) return root;
+        Node* l = root->left;
+        Node* r = root->right;
+        Node* n = root->next;
+        if (l) {
+            l->next = r;
+            if (n) r->next = n->left;
+            dfs(l);
+            dfs(r);
+        }
+        return root;
+    }
+    Node* connect(Node* root) {
+        dfs(root);
+        return root;
+    }
+};
