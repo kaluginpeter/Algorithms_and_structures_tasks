@@ -30,3 +30,73 @@
 # 0 <= ai, bi < numCourses
 # ai != bi
 # All the pairs [ai, bi] are distinct.
+# Solution
+# Python O(V + E) O(V + E) Depth-First-Search Graph TopologicalSorting
+class Solution:
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        output: list[int] = []
+        in_degree: list[int] = [0] * numCourses
+        adj_list: list[list[int]] = [[] for _ in range(numCourses)]
+        for u, v in prerequisites:
+            in_degree[u] += 1
+            adj_list[v].append(u)
+        graph: list[int] = []
+        for vertex in range(numCourses):
+            if in_degree[vertex]: continue
+            graph.append(vertex)
+        colors: list[int] = [0] * numCourses
+        while graph:
+            vertex: int = graph.pop()
+            if not colors[vertex]:
+                colors[vertex] = 1
+                graph.append(vertex)
+                for neighbor in adj_list[vertex]:
+                    if colors[neighbor] == 1: return []
+                    elif colors[neighbor]: continue
+                    graph.append(neighbor)
+            else:
+                if colors[vertex] == 2: continue
+                output.append(vertex)
+                colors[vertex] = 2
+        if len(output) != numCourses: return []
+        output.reverse()
+        return output
+
+# C++ O(V + E) O(V + E) Graph TopologicalSorting Depth-First-Search
+class Solution {
+public:
+    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+        std::vector<int> output;
+        std::vector<int> inDegree(numCourses, 0);
+        std::vector<std::vector<int>> adjList(numCourses, std::vector<int>());
+        for (const std::vector<int> &p : prerequisites) {
+            ++inDegree[p[0]];
+            adjList[p[1]].push_back(p[0]);
+        }
+        std::vector<int> graph, colors(numCourses, 0);
+        for (int vertex = 0; vertex < numCourses; ++vertex) {
+            if (inDegree[vertex]) continue;
+            graph.push_back(vertex);
+        }
+        while (!graph.empty()) {
+            int vertex = graph.back();
+            graph.pop_back();
+            if (!colors[vertex]) {
+                graph.push_back(vertex);
+                colors[vertex] = 1;
+                for (int &neighbor : adjList[vertex]) {
+                    if (colors[neighbor] == 1) return std::vector<int>();
+                    else if (colors[neighbor]) continue;
+                    graph.push_back(neighbor);
+                }
+            } else {
+                if (colors[vertex] == 2) continue;
+                colors[vertex] = 2;
+                output.push_back(vertex);
+            }
+        }
+        if (output.size() != numCourses) return std::vector<int>();
+        std::reverse(output.begin(), output.end());
+        return output;
+    }
+};
