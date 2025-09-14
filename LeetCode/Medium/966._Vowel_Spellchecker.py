@@ -35,3 +35,72 @@
 # 1 <= wordlist.length, queries.length <= 5000
 # 1 <= wordlist[i].length, queries[i].length <= 7
 # wordlist[i] and queries[i] consist only of only English letters.
+# Solution
+# Python O(N + M) O(N) HashMap String
+class Solution:
+    def spellchecker(self, wordlist: List[str], queries: List[str]) -> List[str]:
+        common: set[str] = set()
+        lower: dict[str, str] = dict()
+        without: dict[str, str] = dict()
+        for word in wordlist:
+            common.add(word)
+            x = word.lower()
+            if x not in lower: lower[x] = word
+            x = ''.join('*' if ch in 'aeoiu' else ch for ch in x)
+            if x not in without: without[x] = word
+        output: list[str] = []
+        for q in queries:
+            if q in common:
+                output.append(q)
+                continue
+            q = q.lower()
+            if q in lower:
+                output.append(lower[q])
+                continue
+            q = ''.join('*' if ch in 'aeoiu' else ch for ch in q)
+            if q in without: output.append(without[q])
+            else: output.append('')
+        return output
+
+# C++ O(N + M) O(N) HashMap String
+class Solution {
+public:
+    vector<string> spellchecker(vector<string>& wordlist, vector<string>& queries) {
+        std::unordered_set<std::string> common;
+        std::unordered_map<std::string, std::string> usual, without;
+        std::string vowels = "aeoiuAEOIU";
+        for (std::string &w : wordlist) {
+            common.insert(w);
+            std::string x = w;
+            std::transform(w.begin(), w.end(), x.begin(), ::tolower);
+            if (!usual.count(x)) usual[x] = w;
+            x = "";
+            for (char &ch : w) {
+                if (vowels.find(ch) != std::string::npos) x.push_back('*');
+                else x.push_back(std::tolower(ch));
+            }
+            if (!without.count(x)) without[x] = w;
+        }
+        std::vector<std::string> output;
+        for (std::string &q : queries) {
+            if (common.count(q)) {
+                output.push_back(q);
+                continue;
+            }
+            std::transform(q.begin(), q.end(), q.begin(), ::tolower);
+            if (usual.count(q)) {
+                output.push_back(usual[q]);
+                continue;
+            }
+            for (size_t i = 0; i < q.size(); ++i) {
+                if (vowels.find(q[i]) == std::string::npos) continue;
+                q[i] = '*';
+            }
+            if (without.count(q)) {
+                output.push_back(without[q]);
+                continue;
+            } else output.push_back("");
+        }
+        return output;
+    }
+};
