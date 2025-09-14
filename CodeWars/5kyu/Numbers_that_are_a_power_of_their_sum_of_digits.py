@@ -13,3 +13,24 @@
 # Happy coding!
 #
 # AlgorithmsMathematicsSortingData StructuresFundamentals
+# Solution
+dp: list[int] = []
+
+def digit_sum(x: int) -> int:
+    return sum(map(int, str(x)))
+
+def pow_sum_dig_term(n: int) -> int:
+    global dp
+    if len(dp) >= n:
+        return dp[n - 1]
+
+    candidates = set(dp)
+    for s in range(2, 200):
+        val = s * s
+        for k in range(2, 15):
+            if digit_sum(val) == s:
+                candidates.add(val)
+            val *= s
+
+    dp = sorted(candidates)
+    return dp[n - 1]
