@@ -25,3 +25,38 @@
 #
 # 1 <= nums.length <= 100
 # 0 <= nums[i] <= 1000
+# Solution
+# Python O(N) O(N) DynamicProgramming
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        n: int = len(nums)
+        dp: list[int] = [0] * n
+        output: int = max(nums)
+        for i in range(n - 1):
+            dp[i] = max((dp[i - 1] if i else 0), (dp[i - 2] if i >= 2 else 0) + nums[i])
+            output = max(output, dp[i])
+        dp = [0] * n
+        for i in range(1, n):
+            dp[i] = max((dp[i - 1] if i else 0), (dp[i - 2] if i >= 2 else 0) + nums[i])
+            output = max(output, dp[i])
+        return output
+
+# C++ O(N) O(N) DynamicProgramming
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        size_t n = nums.size();
+        std::vector<int> dp(n, 0);
+        int output = *std::max_element(nums.begin(), nums.end());
+        for (size_t i = 0; i < n - 1; ++i) {
+            dp[i] = std::max((i ? dp[i - 1] : 0), (i >= 2 ? dp[i - 2] : 0) + nums[i]);
+            output = std::max(output, dp[i]);
+        }
+        std::fill(dp.begin(), dp.end(), 0);
+        for (size_t i = 1; i < n; ++i) {
+            dp[i] = std::max((i ? dp[i - 1] : 0), (i >= 2 ? dp[i - 2] : 0) + nums[i]);
+            output = std::max(output, dp[i]);
+        }
+        return output;
+    }
+};
