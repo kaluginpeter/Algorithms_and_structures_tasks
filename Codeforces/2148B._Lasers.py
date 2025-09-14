@@ -77,3 +77,55 @@
 # OutputCopy
 # 2
 # 3
+# Solution
+# C++ O(N + M) O(1) Greedy
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    int n, m, x ,y;
+    std::cin >> n >> m >> x >> y;
+    std::vector<int> vertical(m, 0), horizontal(n, 0);
+    for (size_t i = 0; i < n; ++i) std::cin >> horizontal[i];
+    for (size_t i = 0; i < m; ++i) std::cin >> vertical[i];
+    int output = 0;
+    for (const int &laser : horizontal) {
+        if (laser <= y) ++output;
+        else break;
+    }
+    for (const int&laser : vertical) {
+        if (laser <= x) ++output;
+        else break;
+    }
+    std::cout << output << std::endl;
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# C++ O(N + M) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    n, m, x, y = map(int, sys.stdin.readline().rstrip().split())
+    horizontal: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    vertical: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    output: int = 0
+    for laser in horizontal:
+        if laser <= y: output += 1
+        else: break
+    for laser in vertical:
+        if laser <= x: output += 1
+        else: break
+    sys.stdout.write('{}\n'.format(output))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
