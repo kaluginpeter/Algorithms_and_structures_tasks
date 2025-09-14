@@ -34,3 +34,50 @@
 #
 # 2 <= k <= 9
 # 1 <= n <= 60
+# Solution
+# Python O(2^N * k) O(k) Backtracking
+class Solution:
+    def backtrack(self, number: int, subset: list[int], subset_sum: int, bound: int, target: int, output: list[list[int]]) -> None:
+        if len(subset) == bound:
+            if subset_sum == target: output.append(subset.copy())
+            return
+        if number > 9: return # can't take interger '> 9'
+        # take
+        subset_sum += number
+        subset.append(number)
+        if subset_sum <= target: self.backtrack(number + 1, subset, subset_sum, bound, target, output)
+        subset_sum -= number
+        subset.pop()
+        # not take
+        self.backtrack(number + 1, subset, subset_sum, bound, target, output)
+
+    def combinationSum3(self, k: int, n: int) -> List[List[int]]:
+        output: list[list[int]] = []
+        subset: list[int] = []
+        subset_sum: int = 0
+        self.backtrack(1, subset, subset_sum, k, n, output)
+        return output
+
+# C++ O(2^N * k) O(k) Backtracking
+class Solution {
+public:
+    void backtrack(int number, std::vector<int> &subset, int subsetSum, int k, int n, std::vector<std::vector<int>> &output) {
+        if (subset.size() == k) {
+            if (subsetSum == n) output.push_back(subset);
+            return;
+        }
+        if (number > 9) return;
+        subset.push_back(number);
+        subsetSum += number;
+        if (subsetSum <= n) backtrack(number + 1, subset, subsetSum, k, n, output);
+        subset.pop_back();
+        subsetSum -= number;
+        backtrack(number + 1, subset, subsetSum, k, n, output);
+    }
+    vector<vector<int>> combinationSum3(int k, int n) {
+        std::vector<std::vector<int>> output;
+        std::vector<int> subset;
+        backtrack(1, subset, 0, k, n, output);
+        return output;
+    }
+};
