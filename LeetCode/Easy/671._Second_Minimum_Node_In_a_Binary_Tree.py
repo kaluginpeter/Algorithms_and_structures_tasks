@@ -28,3 +28,51 @@
 # 1 <= Node.val <= 231 - 1
 # root.val == min(root.left.val, root.right.val) for each internal node of the tree.
 #
+# Solution
+# Python O(N) O(H) Depth-First-Search
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    output: int = -1
+    def dfs(self, root: TreeNode, target: int) -> None:
+        if not root: return
+        self.dfs(root.left, target)
+        self.dfs(root.right, target)
+        if root.val != target: self.output = (root.val if self.output == -1 else min(self.output, root.val))
+
+    def findSecondMinimumValue(self, root: Optional[TreeNode]) -> int:
+        self.output = -1
+        self.dfs(root, root.val)
+        return self.output
+
+# C++ O(N) O(H) Depth-First-Search
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    void dfs(TreeNode* root, const int &target, int& output) {
+        if (!root) return;
+        dfs(root->left, target, output);
+        dfs(root->right, target, output);
+        if (root->val != target) output = (output != -1 ? std::min(output, root->val) : root->val);
+        return;
+    }
+    int findSecondMinimumValue(TreeNode* root) {
+        int output = -1;
+        dfs(root, root->val, output);
+        return output;
+    }
+};
