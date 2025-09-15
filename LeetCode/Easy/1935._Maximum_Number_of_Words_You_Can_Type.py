@@ -41,3 +41,34 @@ class Solution:
             if top > 0:
                 count += 1
         return len(text.split()) - count
+
+
+# Python O(N) O(1) String
+class Solution:
+    def canBeTypedWords(self, text: str, brokenLetters: str) -> int:
+        output: int = 0
+        is_valid: bool = True
+        for i in range(len(text)):
+            if text[i] == ' ':
+                if is_valid: output += 1
+                is_valid = True
+            elif is_valid and text[i] in brokenLetters: is_valid = False
+        if is_valid: output += 1
+        return output
+
+# C++ O(N) O(1) String
+class Solution {
+public:
+    int canBeTypedWords(string text, string brokenLetters) {
+        int output = 0;
+        bool isValid = true;
+        for (size_t i = 0; i < text.size(); ++i) {
+            if (std::isspace(text[i])) {
+                if (isValid) ++output;
+                isValid = true;
+            } else if (isValid && brokenLetters.find(text[i]) != std::string::npos) isValid = false;
+        }
+        if (isValid) ++output;
+        return output;
+    }
+};
