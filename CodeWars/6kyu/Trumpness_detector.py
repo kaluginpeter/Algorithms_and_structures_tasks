@@ -22,3 +22,17 @@
 # Special thanks for Izabela for support and proof-reading.
 #
 # Regular ExpressionsStringsAlgorithms
+# Solution
+def trump_detector(trump_speech):
+    trump_speech = trump_speech.lower()
+    overall: int = 0
+    in_row: int = 0
+    seen: bool = False
+    for i in range(len(trump_speech)):
+        if trump_speech[i] in 'aeoiu':
+            if i and trump_speech[i] == trump_speech[i - 1]: in_row += 1
+            if not seen or (i and trump_speech[i] != trump_speech[i - 1]):
+                seen = True
+                overall += 1
+        else: seen = False
+    return round(in_row / overall, 2)
