@@ -91,3 +91,68 @@
 #  has reached, the Pacer Test ends. His total score is 2
 # .
 # Relevant illustration of the statement:
+# Solution
+# C++ O(min(N, M)) O(1) Greedy
+#include <iostream>
+
+
+void solution() {
+    int n, m;
+    std::cin >> n >> m;
+    int output = 0, prevAi = 0, prevBi = 0;
+    bool is_valid = true;
+    for (size_t i = 0; i < n; ++i) {
+        int ai, bi;
+        std::cin >> ai >> bi;
+        if (ai > m && !is_valid) {
+            is_valid = false;
+            output += ai - prevAi;
+            prevAi = m;
+        }
+        if (!is_valid) continue;
+        int diff = ai - prevAi;
+        if (diff & 1) output += diff - (prevBi != bi ? 0 : 1);
+        else output += diff - (prevBi != bi ? 1 : 0);
+        prevAi = ai;
+        prevBi = bi;
+    }
+    output += m - prevAi;
+    std::cout << output << std::endl;
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(min(N, M)) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    n, m = map(int, sys.stdin.readline().rstrip().split())
+    prev_ai: int = 0
+    prev_bi: int = 0
+    output: int = 0
+    is_valid: bool = True
+    for _ in range(n):
+        ai, bi = map(int, sys.stdin.readline().rstrip().split())
+        if ai > m and is_valid:
+            is_valid = False
+            output += ai - prev_ai
+            prev_ai = m
+        if not is_valid: continue
+        diff: int = ai - prev_ai
+        if diff & 1: output += diff - int(prev_bi == bi)
+        else: output += diff - int(prev_bi != bi)
+        prev_ai = ai
+        prev_bi = bi
+    output += m - prev_ai
+    sys.stdout.write('{}\n'.format(output))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
