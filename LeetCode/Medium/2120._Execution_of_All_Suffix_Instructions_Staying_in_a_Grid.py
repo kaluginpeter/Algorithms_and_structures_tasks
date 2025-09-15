@@ -47,3 +47,87 @@
 # startPos.length == 2
 # 0 <= startrow, startcol < n
 # s consists of 'L', 'R', 'U', and 'D'.
+# Solution
+# Python O(min(N, S)^2) O(S) Matrix
+class Solution:
+    def simulate(self, start_pos: list[int], n: int, s: str, start: int) -> int:
+        moves: int = 0
+        row: int = start_pos[0]
+        col: int = start_pos[1]
+        pointer: int = start
+        while pointer < len(s):
+            is_valid: bool = True
+            match s[pointer]:
+                case 'U':
+                    if not row:
+                        is_valid = False
+                    else:
+                        row -= 1
+                case 'D':
+                    if row == n - 1:
+                        is_valid = False
+                    else:
+                        row += 1
+                case 'R':
+                    if col == n - 1:
+                        is_valid = False
+                    else:
+                        col += 1
+                case 'L':
+                    if not col:
+                        is_valid = False
+                    else:
+                        col -= 1
+            if not is_valid: break
+            moves += 1
+            pointer += 1
+        return moves
+
+    def executeInstructions(self, n: int, startPos: List[int], s: str) -> List[int]:
+        m: int = len(s)
+        output: list[int] = [0] * m
+        for i in range(m):
+            output[i] = self.simulate(startPos, n, s, i)
+        return output
+
+# C++ O(min(N, S)^2) O(S) Matrix
+class Solution {
+public:
+    int simulate(const std::vector<int>& startPos, const int& n, const std::string& s, const size_t& start) {
+        int moves = 0;
+        size_t row = startPos[0], col = startPos[1], pointer = start;
+        while (pointer < s.size()) {
+            bool isValid = true;
+            switch (s[pointer] - 'A') {
+                case 20: // Up
+                    if (!row) isValid = false;
+                    else --row;
+                    break;
+                case 3: // Down
+                    if (row == n - 1) isValid = false;
+                    else ++row;
+                    break;
+                case 17: // Right
+                    if (col == n - 1) isValid = false;
+                    else ++col;
+                    break;
+                case 11: // Left
+                    if (!col) isValid = false;
+                    else --col;
+                    break;
+            }
+            if (!isValid) break;
+            ++moves;
+            ++pointer;
+        }
+        return moves;
+    }
+    vector<int> executeInstructions(int n, vector<int>& startPos, string s) {
+        size_t m = s.size();
+        std::vector<int> output(m, 0);
+        for (size_t i = 0; i < m; ++i) {
+            output[i] = simulate(startPos, n, s, i);
+        }
+        return output;
+    }
+};
