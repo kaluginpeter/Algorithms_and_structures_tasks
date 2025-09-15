@@ -33,3 +33,29 @@
 # 'A' <= s[0] <= s[3] <= 'Z'
 # '1' <= s[1] <= s[4] <= '9'
 # s consists of uppercase English letters, digits and ':'.
+# Solution
+# Python O(NM) O(NM) Matrix
+class Solution:
+    def cellsInRange(self, s: str) -> List[str]:
+        output: list[str] = []
+        for col in range(ord(s[0]) - 65, ord(s[3]) - 65 + 1):
+            for row in range(int(s[1]), int(s[4]) + 1):
+                output.append(chr(col + 65) + str(row))
+        return output
+
+# C++ O(NM) O(NM) Matrix
+class Solution {
+public:
+    vector<string> cellsInRange(string s) {
+        std::vector<std::string> output;
+        for (int col = s[0] - 'A'; col <= s[3] - 'A'; ++col) {
+            for (int row = s[1] - '0'; row <= s[4] - '0'; ++row) {
+                std::string cell = "";
+                cell.push_back(static_cast<char>(col + 'A'));
+                cell.push_back(static_cast<char>(row + '0'));
+                output.push_back(cell);
+            }
+        }
+        return output;
+    }
+};
