@@ -42,3 +42,39 @@
 # 1 <= nums.length <= 105
 # 1 <= nums[i] <= 105
 # The test cases are generated such that the values in the final array are less than or equal to 108.
+# Solution
+# Python O(NlogN) O(N) Math Stack
+class Solution:
+    def gcd(self, x: int, y: int) -> int:
+        if not x: return y
+        return self.gcd(y % x, x)
+
+    def replaceNonCoprimes(self, nums: List[int]) -> List[int]:
+        output: list[int] = []
+        for num in nums:
+            output.append(num)
+            while len(output) > 1 and (gcd_ := self.gcd(output[-2], output[-1])) > 1:
+                output.append(output.pop() * output.pop() // gcd_)
+        return output
+
+# C++ O(NlogN) O(N) Math Stack
+class Solution {
+public:
+    int gcd(int x, int y) {
+        if (!x) return y;
+        return gcd(y % x, x);
+    }
+    vector<int> replaceNonCoprimes(vector<int>& nums) {
+        std::vector<int> output;
+        for (const int& num : nums) {
+            output.push_back(num);
+            while (output.size() > 1 && gcd(output.back(), output[output.size() - 2]) > 1) {
+                int lcm = static_cast<long long>(output.back()) * output[output.size() - 2] / gcd(output.back(), output[output.size() - 2]);
+                output.pop_back();
+                output.pop_back();
+                output.push_back(lcm);
+            }
+        }
+        return output;
+    }
+};
