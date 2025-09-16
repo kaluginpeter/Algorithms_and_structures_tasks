@@ -50,3 +50,67 @@
 # Node.val is unique for each node.
 # There are no repeated edges and no self-loops in the graph.
 # The Graph is connected and all nodes can be visited starting from the given node.
+# Solution
+# Python O(N) O(N) Depth-First-Search Graph HashMap
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val = 0, neighbors = None):
+        self.val = val
+        self.neighbors = neighbors if neighbors is not None else []
+"""
+
+from typing import Optional
+class Solution:
+    def dfs(self, node: 'Node', seen: dict[int, 'Node']) -> 'Node':
+        root: 'Node' = Node(node.val)
+        seen[node.val] = root
+        for neighbor in node.neighbors:
+            if neighbor.val not in seen: root.neighbors.append(self.dfs(neighbor, seen))
+            else: root.neighbors.append(seen[neighbor.val])
+        return root
+
+    def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
+        if not node: return None
+        seen: dict[int, 'Node'] = dict()
+        return self.dfs(node, seen)
+
+# C++ O(N) O(N) Depth-First-Search Graph HashMap
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    vector<Node*> neighbors;
+    Node() {
+        val = 0;
+        neighbors = vector<Node*>();
+    }
+    Node(int _val) {
+        val = _val;
+        neighbors = vector<Node*>();
+    }
+    Node(int _val, vector<Node*> _neighbors) {
+        val = _val;
+        neighbors = _neighbors;
+    }
+};
+*/
+
+class Solution {
+public:
+    Node* dfs(Node* node, std::unordered_map<int, Node*>& seen) {
+        Node* root = new Node(node->val);
+        seen[node->val] = root;
+        for (Node* neighbor : node->neighbors) {
+            if (!seen.count(neighbor->val)) root->neighbors.push_back(dfs(neighbor, seen));
+            else root->neighbors.push_back(seen[neighbor->val]);
+        }
+        return root;
+    }
+    Node* cloneGraph(Node* node) {
+        if (!node) return nullptr;
+        std::unordered_map<int, Node*> seen;
+        return dfs(node, seen);
+    }
+};
