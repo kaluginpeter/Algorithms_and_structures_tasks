@@ -21,3 +21,14 @@
 # Good luck!
 #
 # FundamentalsStrings
+# Solution
+def set_the_alarms_up(time, n):
+    output: list[str] = []
+    hours, minutes = map(int, time.split(':'))
+    while len(output) < n:
+        output.append(f'{hours:02d}:{minutes:02d}')
+        minutes += 5
+        if minutes >= 60:
+            minutes %= 60
+            hours = (hours + 1) % 24
+    return output
