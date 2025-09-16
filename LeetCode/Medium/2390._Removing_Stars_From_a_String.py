@@ -33,3 +33,25 @@
 # 1 <= s.length <= 105
 # s consists of lowercase English letters and stars *.
 # The operation above can be performed on s.
+# Solution
+# Python O(N) O(N) String Stack
+class Solution:
+    def removeStars(self, s: str) -> str:
+        output: list[str] = []
+        for ch in s:
+            if ch == '*': output.pop()
+            else: output.append(ch)
+        return ''.join(output)
+
+# C++ O(N) O(N) String Stack
+class Solution {
+public:
+    string removeStars(string s) {
+        std::string output = "";
+        for (const char& ch : s) {
+            if (ch == '*') output.pop_back();
+            else output.push_back(ch);
+        }
+        return output;
+    }
+};
