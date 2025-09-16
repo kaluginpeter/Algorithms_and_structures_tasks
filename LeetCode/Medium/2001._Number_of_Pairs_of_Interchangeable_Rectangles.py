@@ -30,3 +30,26 @@
 # 1 <= n <= 105
 # rectangles[i].length == 2
 # 1 <= widthi, heighti <= 105
+# Solution
+# Python O(N + D) O(D) HashMap Math
+class Solution:
+    def interchangeableRectangles(self, rectangles: List[List[int]]) -> int:
+        hashmap: dict[float, int] = defaultdict(int)
+        for w, h in rectangles:
+            hashmap[w / h] += 1
+        output: int = 0
+        for ratio, freq in hashmap.items():
+            output += freq * (freq - 1) // 2
+        return output
+
+# C++ O(N + D) O(D) HashMap Math
+class Solution {
+public:
+    long long interchangeableRectangles(vector<vector<int>>& rectangles) {
+        std::unordered_map<double, int> hashmap;
+        for (const std::vector<int>& rect : rectangles) ++hashmap[static_cast<double>(rect[0]) / rect[1]];
+        long long output = 0;
+        for (const auto& p : hashmap) output += static_cast<long long>(p.second) * (p.second - 1) / 2;
+        return output;
+    }
+};
