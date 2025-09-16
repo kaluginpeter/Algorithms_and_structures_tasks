@@ -22,3 +22,25 @@
 #
 # 1 <= s.length <= 105
 # s consists of lowercase English letters.
+# Solution
+# Python O(N) O(N) Stack String
+class Solution:
+    def removeDuplicates(self, s: str) -> str:
+        output: list[str] = []
+        for ch in s:
+            if output and output[-1] == ch: output.pop()
+            else: output.append(ch)
+        return ''.join(output)
+
+# C++ O(N) O(N) String Stack
+class Solution {
+public:
+    string removeDuplicates(string s) {
+        std::string output = "";
+        for (const char& ch : s) {
+            if (!output.empty() && output.back() == ch) output.pop_back();
+            else output.push_back(ch);
+        }
+        return output;
+    }
+};
