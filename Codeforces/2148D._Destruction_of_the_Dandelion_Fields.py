@@ -57,3 +57,69 @@
 # , field 3
 # , then field 4
 # .
+# Solution
+# C++ O(N + MlogM) O(1) Sorting Greedy
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    long long even = 0;
+    std::vector<int> odds;
+    for (size_t i = 0; i < n; ++i) {
+        int x;
+        std::cin >> x;
+        if (x & 1) odds.push_back(x);
+        else even += x;
+    }
+    bool wasMove = false;
+    size_t left = 0, right = odds.size() - 1;
+    std::sort(odds.begin(), odds.end());
+    while (odds.size() && left <= right) {
+        wasMove = true;
+        even += odds[right];
+        if (!right) break;
+        --right;
+        ++left;
+    }
+    std::cout << even * wasMove << std::endl;
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N + MlogM) O(1) Sorting Greedy
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    nums: iter[int] = map(int, sys.stdin.readline().rstrip().split())
+    even: int = 0
+    odds: list[int] = []
+    for _ in range(n):
+        x: int = next(nums)
+        if x & 1: odds.append(x)
+        else: even += x
+    odds.sort()
+    was_move: bool = False
+    left: int = 0
+    right: int = len(odds) - 1
+    while left <= right:
+        was_move = True
+        even += odds[right]
+        left += 1
+        right -= 1
+    sys.stdout.write('{}\n'.format(even * was_move))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
