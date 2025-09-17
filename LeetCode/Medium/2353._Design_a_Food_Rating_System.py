@@ -68,3 +68,63 @@ class FoodRatings(object):
 
     def highestRated(self, cuisine):
         return self.csn_dct[cuisine][0][1]
+
+
+# Python O(NlogN) O(N) HashMap BST
+class FoodRatings:
+
+    def __init__(self, foods: List[str], cuisines: List[str], ratings: List[int]):
+        self.hashmap: dict[str, str] = dict()
+        self.rating: dict[str, int] = dict()
+        self.bst: dict[str, list[tuple[int, str]]] = dict()
+        for i in range(len(foods)):
+            self.rating[foods[i]] = -ratings[i]
+            self.hashmap[foods[i]] = cuisines[i]
+            if cuisines[i] not in self.bst: self.bst[cuisines[i]] = SortedList()
+            self.bst[cuisines[i]].add((-ratings[i], foods[i]))
+
+    def changeRating(self, food: str, newRating: int) -> None:
+        self.bst[self.hashmap[food]].remove((self.rating[food], food))
+        self.bst[self.hashmap[food]].add((-newRating, food))
+        self.rating[food] = -newRating
+
+    def highestRated(self, cuisine: str) -> str:
+        return self.bst[cuisine][0][1]
+
+
+# Your FoodRatings object will be instantiated and called as such:
+# obj = FoodRatings(foods, cuisines, ratings)
+# obj.changeRating(food,newRating)
+# param_2 = obj.highestRated(cuisine)
+
+# C++ O(NlogN) O(N) HashMap Red-Black-Tree
+class FoodRatings {
+private:
+    std::unordered_map<std::string, std::string> hashmap;
+    std::unordered_map<std::string, int> rating;
+    std::unordered_map<std::string, std::set<std::tuple<int, std::string>>> rbt;
+public:
+    FoodRatings(vector<string>& foods, vector<string>& cuisines, vector<int>& ratings) {
+        for (size_t i = 0; i < foods.size(); ++i) {
+            hashmap[foods[i]] = cuisines[i];
+            rating[foods[i]] = -ratings[i];
+            rbt[cuisines[i]].insert(std::make_tuple(-ratings[i], foods[i]));
+        }
+    }
+    void changeRating(string food, int newRating) {
+        rbt[hashmap[food]].erase(std::make_tuple(rating[food], food));
+        rbt[hashmap[food]].insert(std::make_tuple(-newRating, food));
+        rating[food] = -newRating;
+    }
+
+    string highestRated(string cuisine) {
+        return std::get<1>(*rbt[cuisine].begin());
+    }
+};
+
+/**
+ * Your FoodRatings object will be instantiated and called as such:
+ * FoodRatings* obj = new FoodRatings(foods, cuisines, ratings);
+ * obj->changeRating(food,newRating);
+ * string param_2 = obj->highestRated(cuisine);
+ */
