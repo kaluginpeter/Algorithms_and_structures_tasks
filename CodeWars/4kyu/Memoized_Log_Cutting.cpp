@@ -31,3 +31,13 @@ Using the power of Stack Overflow and Google, he wants you to create a solution 
 
 Dynamic ProgrammingMemoizationRefactoring
 */
+// Solution
+int cut_log(const std::vector<int>& p, int n){
+  std::vector<int> dp(n + 1, 0);
+  for(int j = 1 ; j <= n ; j++){
+    for(int i = 1 ; i <= j ; i++){
+      dp[j] = std::max(dp[j], p[i] + dp[j - i]);
+    }
+  }
+  return dp[n];
+}
