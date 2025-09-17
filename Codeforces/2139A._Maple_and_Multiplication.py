@@ -59,3 +59,78 @@
 # In the third test case, a
 #  and b
 #  are already equal, so no operations are required.
+# Solution
+# C++ O(sqrt(max(N, M))) O(D) Math
+#include <iostream>
+#include <unordered_map>
+#include <cmath>
+
+void factorize(int x, std::unordered_map<int, int>& common, int direction) {
+    while (!(x & 1)) {
+        common[2] += direction;
+        x >>= 1;
+    }
+    int bound = std::sqrt(x) + 1;
+    for (int d = 3; d < bound; d += 2) {
+        while (x % d == 0) {
+            common[d] += direction;
+            x /= d;
+        }
+    }
+    if (x > 1) common[x] += direction;
+}
+
+void solution() {
+    int n, m;
+    std::cin >> n >> m;
+    std::unordered_map<int, int> common;
+    factorize(n, common, 1);
+    factorize(m, common, -1);
+    int first = 0, second = 0;
+    for (const auto& p : common) {
+        if (p.second) (p.second > 0 ? ++first : ++second);
+    }
+    std::cout << std::min(1, first) + std::min(1, second) << std::endl;
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(sqrt(max(N, M))) O(D) Math
+import sys
+from collections import defaultdict
+
+
+def factorize(x: int, common: dict[int, int], direction: int) -> None:
+    while not (x & 1):
+        common[2] += direction
+        x >>= 1
+    bound: int = int(x**.5) + 1
+    for d in range(3, bound, 2):
+        while x % d == 0:
+            common[d] += direction
+            x //= d
+    if x > 1: common[x] += direction
+
+
+def solution() -> None:
+    n, m = map(int, sys.stdin.readline().rstrip().split())
+    common: dict[int, int] = defaultdict(int)
+    factorize(n, common, 1)
+    factorize(m, common, -1)
+    first: int = 0
+    second: int = 0
+    for prime, freq in common.items():
+        if freq:
+            if freq < 0: first += 1
+            else: second  += 1
+    sys.stdout.write('{}\n'.format(min(1, first) + min(1, second)))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
