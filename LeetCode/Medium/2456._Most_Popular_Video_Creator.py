@@ -45,3 +45,44 @@
 # 1 <= creators[i].length, ids[i].length <= 5
 # creators[i] and ids[i] consist only of lowercase English letters.
 # 0 <= views[i] <= 105
+# Solution
+# Python O(N) O(N) HashMap
+class Solution:
+    def mostPopularCreator(self, creators: List[str], ids: List[str], views: List[int]) -> List[List[str]]:
+        videos: dict[str, int] = dict()
+        authors: dict[str, int] = dict()
+        bound: int = 0
+        for i in range(len(creators)):
+            authors[creators[i]] = authors.get(creators[i], 0) + views[i]
+            bound = max(bound, authors[creators[i]])
+            if creators[i] not in videos: videos[creators[i]] = i
+            elif views[videos[creators[i]]] < views[i]: videos[creators[i]] = i
+            elif views[videos[creators[i]]] == views[i] and ids[videos[creators[i]]] > ids[i]: videos[creators[i]] = i
+        output: list[list[str]] = []
+        for author, views in authors.items():
+            if views != bound: continue
+            output.append([author, ids[videos[author]]])
+        return output
+
+# C++ O(N) O(N) HashMap
+class Solution {
+public:
+    vector<vector<string>> mostPopularCreator(vector<string>& creators, vector<string>& ids, vector<int>& views) {
+        std::unordered_map<std::string, int> videos;
+        std::unordered_map<std::string, long long> authors;
+        long long bound = 0;
+        for (size_t i = 0; i < creators.size(); ++i) {
+            authors[creators[i]] += views[i];
+            bound = std::max(bound, authors[creators[i]]);
+            if (!videos.count(creators[i])) videos[creators[i]] = i;
+            else if (views[videos[creators[i]]] < views[i]) videos[creators[i]] = i;
+            else if (views[videos[creators[i]]] == views[i] && ids[videos[creators[i]]] > ids[i]) videos[creators[i]] = i;
+        }
+        std::vector<std::vector<std::string>> output;
+        for (const auto& p : authors) {
+            if (p.second != bound) continue;
+            output.push_back(std::vector<std::string>({p.first, ids[videos[p.first]]}));
+        }
+        return output;
+    }
+};
