@@ -11,3 +11,16 @@
 # n is always less than Number.MAX_SAFE_INTEGER or equivalent.
 #
 # Performance
+# Solution
+import math
+
+def get_min_base(n: int) -> int:
+    if n <= 2: return 2
+    max_k = int(math.log2(n + 1)) + 1
+    for k in range(max_k, 1, -1):
+        b = int(round(n ** (1 / (k - 1))))
+        if b > 1:
+            for cand in (b-1, b, b+1):
+                if cand > 1:
+                    if (cand**k - 1) // (cand - 1) == n: return cand
+    return n - 1
