@@ -118,3 +118,42 @@
 #  in the non-decreasing sorted array [1,1,2,2,3,4]
 # . Thus, the median increased (3>2
 # ) in two operations. It can be shown that this is the minimum possible number of operations.
+# Solution
+# C++ O(NlogN) O(1) Sorting
+#include <bits/stdc++.h>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    std::vector<int> a(n);
+    for (int i = 0; i < n; i++) std::cin >> a[i];
+    std::sort(a.begin(), a.end());
+    int p = (n + 1) / 2 - 1;
+    int res = std::count(a.begin() + p, a.end(), a[p]);
+    std::cout << res << "\n";
+}
+
+signed main() {
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(NlogN) O(1) Sorting
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    a: list[int] = sorted(map(int, sys.stdin.readline().rstrip().split()))
+    p: int = (n + 1) // 2 - 1
+    res: int = a[p:].count(a[p])
+    sys.stdout.write('{}\n'.format(res))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
