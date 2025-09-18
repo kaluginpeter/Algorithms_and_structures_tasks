@@ -186,3 +186,100 @@ public:
  * obj->rmv(taskId);
  * int param_4 = obj->execTop();
  */
+
+
+# Python O(NlogN) O(N) OrderedSet Design
+class TaskManager:
+
+    def __init__(self, tasks: List[List[int]]):
+        self.overall: list[tuple[int, int]] = SortedList()
+        self.task_to_user: dict[int, int] = defaultdict(int)
+        self.task_to_priority: dict[int, int] = defaultdict(int)
+        for t in tasks:
+            self.overall.add((-t[2], -t[1]))
+            self.task_to_user[t[1]] = t[0]
+            self.task_to_priority[t[1]] = t[2]
+
+    def add(self, userId: int, taskId: int, priority: int) -> None:
+        self.task_to_user[taskId] = userId
+        self.task_to_priority[taskId] = priority
+        self.overall.add((-priority, -taskId))
+
+    def edit(self, taskId: int, newPriority: int) -> None:
+        self.overall.remove((-self.task_to_priority[taskId], -taskId))
+        self.overall.add((-newPriority, -taskId))
+        self.task_to_priority[taskId] = newPriority
+
+    def rmv(self, taskId: int) -> None:
+        self.overall.remove((-self.task_to_priority[taskId], -taskId))
+        del self.task_to_priority[taskId]
+        del self.task_to_user[taskId]
+
+    def execTop(self) -> int:
+        if not self.overall: return -1
+        top: tuple[int, int] = self.overall[0]
+        self.overall.remove(top)
+        del self.task_to_priority[-top[1]]
+        user: int = self.task_to_user[-top[1]]
+        del self.task_to_user[-top[1]]
+        return user
+
+
+# Your TaskManager object will be instantiated and called as such:
+# obj = TaskManager(tasks)
+# obj.add(userId,taskId,priority)
+# obj.edit(taskId,newPriority)
+# obj.rmv(taskId)
+# param_4 = obj.execTop()
+
+# C++ O(NlogN) O(N) Design OrderedSet
+class TaskManager {
+private:
+    std::unordered_map<int, int> taskToPriority, taskToUser;
+    std::set<std::pair<int, int>> overall;
+public:
+    TaskManager(vector<vector<int>>& tasks) {
+        for (vector<int>& t : tasks) {
+            taskToUser[t[1]] = t[0];
+            taskToPriority[t[1]] = t[2];
+            overall.insert({-t[2], -t[1]});
+        }
+    }
+
+    void add(int userId, int taskId, int priority) {
+        taskToUser[taskId] = userId;
+        taskToPriority[taskId] = priority;
+        overall.insert({-priority, -taskId});
+    }
+
+    void edit(int taskId, int newPriority) {
+        overall.erase({-taskToPriority[taskId], -taskId});
+        overall.insert({-newPriority, -taskId});
+        taskToPriority[taskId] = newPriority;
+    }
+
+    void rmv(int taskId) {
+        overall.erase({-taskToPriority[taskId], -taskId});
+        taskToUser.erase(taskId);
+        taskToPriority.erase(taskId);
+    }
+
+    int execTop() {
+        if (overall.empty()) return -1;
+        std::pair<int, int> top = *overall.begin();
+        overall.erase(top);
+        taskToPriority.erase(-top.second);
+        int userId = taskToUser[-top.second];
+        taskToUser.erase(-top.second);
+        return userId;
+    }
+};
+
+/**
+ * Your TaskManager object will be instantiated and called as such:
+ * TaskManager* obj = new TaskManager(tasks);
+ * obj->add(userId,taskId,priority);
+ * obj->edit(taskId,newPriority);
+ * obj->rmv(taskId);
+ * int param_4 = obj->execTop();
+ */
