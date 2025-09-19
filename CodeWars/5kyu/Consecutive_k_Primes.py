@@ -16,3 +16,25 @@
 # It could be interesting to begin with: https://www.codewars.com/kata/k-primes
 #
 # Fundamentals
+# Solution
+def factorize(x: int) -> int:
+    primes: int = 0
+    while not (x & 1):
+        primes += 1
+        x >>= 1
+    bound: int = int(x**.5) + 1
+    for d in range(3, bound, 2):
+        while x % d == 0:
+            primes += 1
+            x //= d
+    if x > 1: primes += 1
+    return primes
+
+def consec_kprimes(k, arr):
+    output: int = 0
+    prev: int = 0
+    for num in arr:
+        primes: int = factorize(num)
+        if primes == k and primes == prev: output += 1
+        prev = primes
+    return output
