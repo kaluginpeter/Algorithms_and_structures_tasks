@@ -100,3 +100,73 @@
 # . Thus a valid subarray can contain at most one 1
 #  and at most one 2
 # .
+# Solution
+# C++ O(N) O(D) TwoPointers HashMap
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+
+
+void solution() {
+    size_t n, k;
+    std::cin >> n >> k;
+    std::vector<int> nums(n, 0);
+    std::unordered_map<int, int> hashmap;
+    for (size_t i = 0; i < n; ++i) {
+        std::cin >> nums[i];
+        ++hashmap[nums[i]];
+    }
+    for (const auto& p : hashmap) {
+        if (p.second % k != 0) {
+            std::cout << 0 << std::endl;
+            return;
+        }
+        hashmap[p.first] /= k;
+    }
+    long long output = 0;
+    size_t left = 0;
+    for (size_t right = 0; right < n; ++right) {
+        --hashmap[nums[right]];
+        while (hashmap[nums[right]] < 0) {
+            ++hashmap[nums[left]];
+            ++left;
+        }
+        output += (right - left) + 1;
+    }
+    std::cout << output << std::endl;
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(D) TwoPointers HashMap
+import sys
+from collections import Counter
+
+def solution() -> None:
+    n, k = map(int, sys.stdin.readline().rstrip().split())
+    nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    hashmap: dict[int, int] = Counter(nums)
+    for num, freq in hashmap.items():
+        if freq % k != 0:
+            sys.stdout.write('0\n')
+            return
+        hashmap[num] //= k
+    output: int = 0
+    left: int = 0
+    for right in range(n):
+        hashmap[nums[right]] -= 1
+        while hashmap[nums[right]] < 0:
+            hashmap[nums[left]] += 1
+            left += 1
+        output += right - left + 1
+    sys.stdout.write('{}\n'.format(output))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
