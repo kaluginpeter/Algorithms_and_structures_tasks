@@ -172,3 +172,26 @@
 # Have fun coding and please don't forget to vote and rank this kata! :-)
 #
 # MathematicsNumber Theory
+# Solution
+from math import gcd
+
+def merge(a1, m1, a2, m2):
+    g = gcd(m1, m2)
+    if (a2 - a1) % g != 0: return None, None
+    from math import lcm
+    l = m1 // g * m2
+    def egcd(a, b):
+        if b == 0: return (1, 0, a)
+        x1, y1, g = egcd(b, a % b)
+        return (y1, x1 - (a // b) * y1, g)
+    x1, y1, g2 = egcd(m1, m2)
+    k = ((a2 - a1) // g * x1) % (m2 // g)
+    a = (a1 + m1 * k) % l
+    return a, l
+
+def number_of_grains(info):
+    a, m = info[0]
+    for ai, mi in info[1:]:
+        a, m = merge(a, m, ai, mi)
+        if a is None: return None
+    return a
