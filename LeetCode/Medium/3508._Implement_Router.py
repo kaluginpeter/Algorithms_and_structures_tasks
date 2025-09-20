@@ -223,3 +223,159 @@ class Router:
 # param_1 = obj.addPacket(source,destination,timestamp)
 # param_2 = obj.forwardPacket()
 # param_3 = obj.getCount(destination,startTime,endTime)
+
+
+# Python O(1) + O(logD) O(N) Queue BinarySearch HashMap
+class Router:
+
+    def __init__(self, memoryLimit: int):
+        self.bound: int = memoryLimit
+        self.q: list[int] = deque()
+        self.d_to_time: dict[int, list[tuple[int, int]]] = defaultdict(deque)
+        self.seen: set[tuple[int, int, int]] = set()
+
+    def remove_packet(self) -> None:
+        dist: int = self.q.popleft()
+        time, source = self.d_to_time[dist].popleft()
+        self.seen.remove((source, dist, time))
+
+    def addPacket(self, source: int, destination: int, timestamp: int) -> bool:
+        ceil: tuple[int, int, int] = (source, destination, timestamp)
+        if ceil in self.seen: return False
+        if len(self.q) == self.bound: self.remove_packet()
+        self.seen.add(ceil)
+        self.q.append(destination)
+        self.d_to_time[destination].append((timestamp, source))
+        return True
+
+    def forwardPacket(self) -> List[int]:
+        output: list[int] = []
+        if not self.q: return output
+        output.extend(reversed(self.d_to_time[self.q[0]][0]))
+        output.append(self.q[0])
+        output[-2], output[-1] = output[-1], output[-2]
+        self.remove_packet()
+        return output
+
+    def getCount(self, destination: int, startTime: int, endTime: int) -> int:
+        left: int = 0
+        right: int = 0
+        l: int = 0
+        r: int = len(self.d_to_time[destination]) - 1
+        while l <= r:
+            middle: int = l + ((r - l) >> 1)
+            if self.d_to_time[destination][middle][0] < startTime:
+                l = middle + 1
+            else:
+                r = middle - 1
+        left = l
+        l = 0
+        r = len(self.d_to_time[destination]) - 1
+        while l <= r:
+            middle: int = l + ((r - l) >> 1)
+            if self.d_to_time[destination][middle][0] > endTime:
+                r = middle - 1
+            else:
+                l = middle + 1
+        right = r
+        return right - left + 1
+
+# Your Router object will be instantiated and called as such:
+# obj = Router(memoryLimit)
+# param_1 = obj.addPacket(source,destination,timestamp)
+# param_2 = obj.forwardPacket()
+# param_3 = obj.getCount(destination,startTime,endTime)
+
+# C++ O(1) + O(logD) O(N) Queue HashMap BinarySearch
+static inline std::uint64_t splitmix64(std::uint64_t x) {
+    x += 0x9e3779b97f4a7c15ULL;
+    x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9ULL;
+    x = (x ^ (x >> 27)) * 0x94d049bb133111ebULL;
+    return x ^ (x >> 31);
+}
+
+struct TupleHashStrong {
+    std::size_t operator()(const std::tuple<int,int,int>& t) const noexcept {
+        std::uint64_t h1 = std::hash<int>{}(std::get<0>(t));
+        std::uint64_t h2 = std::hash<int>{}(std::get<1>(t));
+        std::uint64_t h3 = std::hash<int>{}(std::get<2>(t));
+        std::uint64_t res = h1;
+        res = splitmix64(res + 0x9e3779b97f4a7c15ULL + (h2<<6) + (h2>>2));
+        res ^= splitmix64(h3 + 0x9e3779b97f4a7c15ULL + (res<<6) + (res>>2));
+        return static_cast<std::size_t>(res);
+    }
+};
+
+struct TupleEq {
+    bool operator()(const std::tuple<int,int,int>& a,
+                    const std::tuple<int,int,int>& b) const noexcept {
+        return a == b;
+    }
+};
+
+class Router {
+private:
+    std::deque<int> q;
+    int bound;
+    std::unordered_map<int, std::deque<std::pair<int, int>>> dToTime;
+    std::unordered_set<std::tuple<int, int, int>, TupleHashStrong, TupleEq> seen;
+public:
+    Router(int memoryLimit) {
+        bound = memoryLimit;
+    }
+
+    void removePacket() {
+        std::tuple<int, int, int> ceil = std::make_tuple(dToTime[q.front()].front().second, q.front(), dToTime[q.front()].front().first);
+        dToTime[q.front()].pop_front();
+        q.pop_front();
+        seen.erase(ceil);
+    }
+
+    bool addPacket(int source, int destination, int timestamp) {
+        std::tuple<int, int, int> ceil = std::make_tuple(source, destination, timestamp);
+        if (seen.count(ceil)) return false;
+        if (q.size() == bound) removePacket();
+        seen.insert(ceil);
+        dToTime[destination].push_back(std::make_pair(timestamp, source));
+        q.push_back(destination);
+        return true;
+    }
+
+    vector<int> forwardPacket() {
+        std::vector<int> output;
+        if (q.empty()) return output;
+        output.push_back(dToTime[q.front()].front().second);
+        output.push_back(q.front());
+        output.push_back(dToTime[q.front()].front().first);
+        removePacket();
+        return output;
+    }
+
+    int getCount(int destination, int startTime, int endTime) {
+        if (dToTime[destination].empty()) return 0;
+        int left = 0, right = 0, l = 0, r = dToTime[destination].size() - 1;
+        while (l <= r) {
+            int middle = l + ((r - l) >> 1);
+            if (dToTime[destination][middle].first < startTime) l = middle + 1;
+            else r = middle - 1;
+        }
+        left = l;
+        l = 0;
+        r = dToTime[destination].size() - 1;
+        while (l <= r) {
+            int middle = l + ((r - l) >> 1);
+            if (dToTime[destination][middle].first > endTime) r = middle - 1;
+            else l = middle + 1;
+        }
+        right = r;
+        return right - left + 1;
+    }
+};
+
+/**
+ * Your Router object will be instantiated and called as such:
+ * Router* obj = new Router(memoryLimit);
+ * bool param_1 = obj->addPacket(source,destination,timestamp);
+ * vector<int> param_2 = obj->forwardPacket();
+ * int param_3 = obj->getCount(destination,startTime,endTime);
+ */
