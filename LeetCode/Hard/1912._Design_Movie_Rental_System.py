@@ -45,3 +45,105 @@
 # 1 <= moviei, pricei <= 104
 # Each shop carries at most one copy of a movie moviei.
 # At most 105 calls in total will be made to search, rent, drop and report.
+# Solution
+# Python O(NlogN) + O(logN) O(N) OrderedSet Tree Design
+class MovieRentingSystem:
+
+    def __init__(self, n: int, entries: List[List[int]]):
+        self.unrented_movie_to_shop: dict[int, list[tuple[int, int]]] = defaultdict(SortedList)
+        self.rented_movies: list[tuple[int, int, int]] = SortedList()
+        self.movie_shop_to_price: dict[tuple[int, int], int] = dict()
+        for s, m, p in entries:
+            self.movie_shop_to_price[(m, s)] = p
+            self.unrented_movie_to_shop[m].add((p, s))
+
+    def search(self, movie: int) -> List[int]:
+        return [s for m, s in self.unrented_movie_to_shop[movie][:5]]
+
+    def rent(self, shop: int, movie: int) -> None:
+        p: int = self.movie_shop_to_price[(movie, shop)]
+        self.unrented_movie_to_shop[movie].remove((p, shop))
+        self.rented_movies.add((p, shop, movie))
+
+    def drop(self, shop: int, movie: int) -> None:
+        p: int = self.movie_shop_to_price[(movie, shop)]
+        self.rented_movies.remove((p, shop, movie))
+        self.unrented_movie_to_shop[movie].add((p, shop))
+
+    def report(self) -> List[List[int]]:
+        return [[s, m] for p, s, m in self.rented_movies[:5]]
+
+
+# Your MovieRentingSystem object will be instantiated and called as such:
+# obj = MovieRentingSystem(n, entries)
+# param_1 = obj.search(movie)
+# obj.rent(shop,movie)
+# obj.drop(shop,movie)
+# param_4 = obj.report()
+
+# C++ O(NlogN) + O(logN) O(N) Design OrderedSet Tree
+struct PairHash {
+    size_t operator()(const pair<int,int>& p) const noexcept {
+        return (static_cast<size_t>(p.first) << 32) ^ static_cast<size_t>(p.second);
+    }
+};
+
+class MovieRentingSystem {
+private:
+    std::unordered_map<int, std::set<std::pair<int, int>>> unrentedMovieToShop;
+    std::set<std::tuple<int, int, int>> overallRentedMovies;
+    std::unordered_map<std::pair<int, int>, int, PairHash> movieShopToPrice;
+public:
+    MovieRentingSystem(int n, vector<vector<int>>& entries) {
+        for (std::vector<int>& e : entries) {
+            unrentedMovieToShop[e[1]].insert(std::make_pair(e[2], e[0]));
+            movieShopToPrice[std::make_pair(e[1], e[0])] = e[2];
+        }
+    }
+
+    vector<int> search(int movie) {
+        std::vector<int> output;
+        std::set<std::pair<int, int>>::iterator it = unrentedMovieToShop[movie].begin();
+        std::set<std::pair<int, int>>::iterator end = unrentedMovieToShop[movie].end();
+        while (it != end && output.size() < 5) {
+            output.push_back((*it).second);
+            ++it;
+        }
+        return output;
+    }
+
+    void rent(int shop, int movie) {
+        int price = movieShopToPrice[std::make_pair(movie, shop)];
+        unrentedMovieToShop[movie].erase(std::make_tuple(price, shop));
+        overallRentedMovies.insert(std::make_tuple(price, shop, movie));
+    }
+
+    void drop(int shop, int movie) {
+        int price = movieShopToPrice[std::make_pair(movie, shop)];
+        overallRentedMovies.erase(std::make_tuple(price, shop, movie));
+        unrentedMovieToShop[movie].insert(std::make_tuple(price, shop));
+    }
+
+    vector<vector<int>> report() {
+        std::vector<std::vector<int>> output;
+        std::set<std::tuple<int, int, int>>::iterator it = overallRentedMovies.begin();
+        std::set<std::tuple<int, int, int>>::iterator end = overallRentedMovies.end();
+        while (it != end && output.size() < 5) {
+            std::vector<int> slot = {};
+            slot.push_back(std::get<1>(*it));
+            slot.push_back(std::get<2>(*it));
+            output.push_back(slot);
+            ++it;
+        }
+        return output;
+    }
+};
+
+/**
+ * Your MovieRentingSystem object will be instantiated and called as such:
+ * MovieRentingSystem* obj = new MovieRentingSystem(n, entries);
+ * vector<int> param_1 = obj->search(movie);
+ * obj->rent(shop,movie);
+ * obj->drop(shop,movie);
+ * vector<vector<int>> param_4 = obj->report();
+ */
