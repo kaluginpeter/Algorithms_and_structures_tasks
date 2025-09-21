@@ -85,3 +85,67 @@
 #
 # In the third test case, only one discount is available. You can use it on both products, getting the cheaper one for free and paying 1
 #  coin for the other.
+# Solution
+# C++ O(NlogN + MlogM + N + M) O(1) TwoPointers Sorting
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+void solution() {
+    size_t n, k;
+    std::cin >> n >> k;
+    std::vector<int> nums(n, 0), vauchers(k, 0);
+    for (size_t i = 0; i < n; ++i) std::cin >> nums[i];
+    for (size_t i = 0; i < k; ++i) std::cin >> vauchers[i];
+    std::sort(nums.begin(), nums.end(), std::greater<int>());
+    std::sort(vauchers.begin(), vauchers.end());
+    size_t i = 0, j = 0;
+    long long output = 0;
+    while (i < n || j < k) {
+        if (i == n) break;
+        if (j == k) {
+            output += nums[i];
+            ++i;
+            continue;
+        }
+        for (size_t d = i; d < std::min(n, i + vauchers[j] - 1); ++d) output += nums[d];
+        i += vauchers[j];
+        ++j;
+    }
+    std::cout << output << std::endl;
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(NlogN + MlogM + N + M) O(1) Sorting TwoPointers
+import sys
+
+
+def solution() -> None:
+    n, k = map(int, sys.stdin.readline().rstrip().split())
+    nums: list[int] = sorted(map(int, sys.stdin.readline().rstrip().split()), reverse=True)
+    vauchers: list[int] = sorted(map(int, sys.stdin.readline().rstrip().split()))
+    i: int = 0
+    j: int = 0
+    output: int = 0
+    while i < n or j < k:
+        if i == n: break
+        elif j == k:
+            output += nums[i]
+            i += 1
+            continue
+        for d in range(i, min(n, i + vauchers[j] - 1)): output += nums[d]
+        i += vauchers[j]
+        j += 1
+    sys.stdout.write('{}\n'.format(output))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
