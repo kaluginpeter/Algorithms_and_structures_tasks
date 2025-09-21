@@ -110,3 +110,72 @@
 # The bolded values indicate the subarrays from which we subtract at each step.
 #
 # For the fourth test case, it can also be proven that it is impossible to make all values zero.
+# Solution
+# C++ O(N) O(1) TwoPointers
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::vector<int> nums(n, 0);
+    for (size_t i = 0; i < n; ++i) std::cin >> nums[i];
+    size_t left = 0, right = 0, start = 0;
+    for (size_t i = 0; i < n; ++i) {
+        if (nums[i] == n) {
+            start = i;
+            left = i;
+            right = i;
+            break;
+        }
+    }
+    int cur = n;
+    while (cur) {
+        if (nums[left] == cur) (left ? --left : 0);
+        else if (nums[right] == cur) (right < n ? ++right : 0);
+        else break;
+
+        if (cur == n) {
+            if (left == start && left) --left;
+            else if (right < n - 1) ++right;
+        }
+        --cur;
+    }
+    std::cout << (!cur ? "YES" : "NO") << std::endl;
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(1) TwoPointers
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    start: int = nums.index(max(nums))
+    left: int = start
+    right: int = start
+    cur: int = n
+    while cur:
+        if nums[left] == cur:
+            if left: left -= 1
+        elif nums[right] == cur:
+            if right < n - 1: right += 1
+        else: break
+        if cur == n:
+            if left == start and left: left -= 1
+            elif right < n - 1: right += 1
+        cur -= 1
+    sys.stdout.write('{}\n'.format(['NO', 'YES'][not cur]))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
