@@ -97,3 +97,73 @@
 # , s2=2
 # , s3=1
 # .
+# Solution
+# C++ O(N^3) O(1) Constructive
+#include <iostream>
+#include <vector>
+#include <numeric>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::vector<int> nums(n, 0);
+    for (size_t i = 0; i < n; ++i) std::cin >> nums[i];
+    bool isValid = false;
+    int left = 0, right = 0;
+    for (size_t l = 1; l <= n - 2; ++l) {
+        for (size_t r = l + 1; r <= n - 1; ++r) {
+            int first = std::accumulate(nums.begin(), nums.begin() + l + 1, 0) % 3;
+            int middle = std::accumulate(nums.begin() + l + 1, nums.begin() + r + 1, 0) % 3;
+            int end = std::accumulate(nums.begin() + r + 1, nums.end(), 0) % 3;
+            if (first == middle && middle == end) {
+                left = l;
+                right = r;
+                isValid = true;
+                break;
+            } else if (first != middle && middle != end && first != end) {
+                left = l;
+                right = r;
+                isValid = true;
+                break;
+            }
+        }
+        if (isValid) break;
+    }
+    std::cout << left << " " << right << std::endl;
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N^3) O(1) Constructive
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    left: int = 0
+    right: int = 0
+    is_valid: bool = False
+    for l in range(1, n - 1):
+        for r in range(l + 1, n):
+            first: int = sum(nums[:l + 1]) % 3
+            middle: int = sum(nums[l + 1:r + 1]) % 3
+            end: int = sum(nums[r + 1:]) % 3
+            if (first == middle == end) or len(set([first, middle, end])) == 3:
+                left = l
+                right = r
+                is_valid = True
+                break
+        if is_valid: break
+    sys.stdout.write('{} {}\n'.format(left, right))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
