@@ -35,3 +35,33 @@ class Solution:
             if d[i] == m:
                 count += d[i]
         return count
+
+
+# Python O(N) O(D) HashMap
+class Solution:
+    def maxFrequencyElements(self, nums: List[int]) -> int:
+        output: int = 0
+        threshold: int = 0
+        hashmap: list[int] = [0] * 101
+        for num in nums:
+            hashmap[num] += 1
+            if hashmap[num] > threshold: threshold = output = hashmap[num]
+            elif hashmap[num] == threshold: output += hashmap[num]
+        return output
+
+# C++ O(N) O(D) HashMap
+class Solution {
+public:
+    int maxFrequencyElements(vector<int>& nums) {
+        int output = 0, threshold = 0;
+        std::array<int, 101> hashmap{};
+        for (int& num : nums) {
+            ++hashmap[num];
+            if (hashmap[num] > threshold) {
+                output = hashmap[num];
+                threshold = hashmap[num];
+            } else if (hashmap[num] == threshold) output += hashmap[num];
+        }
+        return output;
+    }
+};
