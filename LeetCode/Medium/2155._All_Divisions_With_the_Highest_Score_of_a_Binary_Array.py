@@ -47,3 +47,45 @@
 # n == nums.length
 # 1 <= n <= 105
 # nums[i] is either 0 or 1.
+# Solution
+# Python O(N) O(N) PrefixSum
+class Solution:
+    def maxScoreIndices(self, nums: List[int]) -> List[int]:
+        n: int = len(nums)
+        ones: list[int] = [0] * (n + 1)
+        zeros: list[int] = [0] * (n + 1)
+        for i in range(1, n + 1):
+            ones[i] = ones[i - 1] + nums[i - 1]
+            zeros[i] = zeros[i - 1] + (nums[i - 1] == 0)
+        output: list[int] = []
+        bound: int = 0
+        for i in range(n + 1):
+            score: int = zeros[i] + (ones[n] - ones[i])
+            if score < bound: continue
+            elif score > bound: output.clear()
+            bound = score
+            output.append(i)
+        return output
+
+# C++ O(N) O(N) PrefixSum
+class Solution {
+public:
+    vector<int> maxScoreIndices(vector<int>& nums) {
+        size_t n = nums.size();
+        std::vector<int> ones(n + 1, 0), zeros(n + 1, 0);
+        for (size_t i = 1; i <= n; ++i) {
+            ones[i] = ones[i - 1] + (nums[i - 1] == 1);
+            zeros[i] = zeros[i - 1] + (nums[i - 1] == 0);
+        }
+        std::vector<int> output;
+        int bound = 0;
+        for (int i = 0; i <= n; ++i) {
+            int score = zeros[i] + (ones[n] - ones[i]);
+            if (score < bound) continue;
+            else if (score > bound) output.clear();
+            bound = score;
+            output.push_back(i);
+        }
+        return output;
+    }
+};
