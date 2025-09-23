@@ -7,3 +7,12 @@
 # Ready?
 #
 # Fundamentals
+# Solution
+def tiy_fizz_buzz(string):
+    output: list[str] = []
+    for ch in string:
+        if ch.lower() in 'aeoiu':
+            output.append(['Yard', 'Iron Yard'][ch.isupper()])
+        else:
+            output.append([ch, 'Iron'][ch.isupper()])
+    return ''.join(output)
