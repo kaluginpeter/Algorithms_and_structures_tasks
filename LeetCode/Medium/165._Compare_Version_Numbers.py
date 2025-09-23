@@ -50,3 +50,46 @@ class Solution:
         elif v1 > v2:
             return [1, 0][all(version1[i] == 0 for i in range(v2, v1))]
         return [-1, 0][all(version2[i] == 0 for i in range(v1, v2))]
+
+# Python O(max(N, M)) O(1) TwoPointers
+class Solution:
+    def get_number(self, ptr: int, version: str) -> tuple[int, int]:
+        output: int = 0
+        while ptr < len(version) and version[ptr] != '.':
+            output = output * 10 + int(version[ptr])
+            ptr += 1
+        if ptr < len(version): ptr += 1
+        return (ptr, output)
+    def compareVersion(self, version1: str, version2: str) -> int:
+        i: int = 0
+        j: int = 0
+        while i < len(version1) or j < len(version2):
+            i, x = self.get_number(i, version1)
+            j, y = self.get_number(j, version2)
+            if x == y: continue
+            return [1, -1][x < y]
+        return 0
+
+# C++ O(max(N, M)) O(1) TwoPointers
+class Solution {
+public:
+    int getNumber(size_t& ptr, std::string& version) {
+        int output = 0;
+        while (ptr < version.size() && version[ptr] != '.') {
+            output = output * 10 + (version[ptr] - '0');
+            ++ptr;
+        }
+        if (ptr < version.size()) ++ptr;
+        return output;
+    }
+    int compareVersion(string version1, string version2) {
+        size_t i = 0, j = 0;
+        while (i < version1.size() || j < version2.size()) {
+            int x = getNumber(i, version1);
+            int y = getNumber(j, version2);
+            if (x == y) continue;
+            return (x > y ? 1 : -1);
+        }
+        return 0;
+    }
+};
