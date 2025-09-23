@@ -110,3 +110,63 @@
 #  cakes remaining.
 # In total, Maple collects 2+6=8
 #  cakes.
+# Solution
+# C++ O(NlogN + N) O(1) Greedy Math
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+void solution() {
+    size_t n, m;
+    std::cin >> n >> m;
+    std::vector<int> nums(n, 0);
+    for (size_t i = 0; i < n; ++i) std::cin >> nums[i];
+    std::sort(nums.begin(), nums.end());
+    long long output = 0;
+    int seconds = 0;
+    if (m > n) {
+        output += static_cast<long long>(nums[0]) * (m - n);
+        seconds += m - n;
+        m = n;
+    }
+    bool isFirst = true;
+    for (size_t i = n - m; i < n; ++i) {
+        ++seconds;
+        output += static_cast<long long>(nums[i]) * (isFirst ? 1 : seconds);
+        isFirst = false;
+    }
+    std::cout << output << std::endl;
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(NlogN + N) O(1) Greedy Math
+import sys
+
+
+def solution() -> None:
+    n, m = map(int, sys.stdin.readline().rstrip().split())
+    nums: list[int] = sorted(map(int, sys.stdin.readline().rstrip().split()))
+    output: int = 0
+    seconds: int = 0
+    if m > n:
+        output += nums[0] * (m - n)
+        seconds += m - n
+        m = n
+    is_first: bool = True
+    for i in range(n - m, n):
+        seconds += 1
+        output += nums[i] * [seconds, 1][is_first]
+        is_first = False
+    sys.stdout.write('{}\n'.format(output))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
