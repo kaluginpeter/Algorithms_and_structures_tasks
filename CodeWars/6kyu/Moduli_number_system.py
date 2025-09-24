@@ -20,3 +20,30 @@
 # fromNb2Str(6, [2, 3, 4]) -> "Not applicable", since 2 and 4 are not coprime
 # fromNb2Str(7, [2, 3]) -> "Not applicable" since 2 * 3 < 7
 # FundamentalsMathematics
+# Solution
+def get_primes(x: int) -> set[int]:
+    output: set[int] = set()
+    while not (x & 1):
+        output.add(2)
+        x >>= 1
+    bound: int = int(x**.5) + 1
+    for d in range(3, bound, 2):
+        while x % d == 0:
+            output.add(x)
+            x //= d
+    if x > 1: output.add(x)
+    return output
+
+def from_nb_2_str(n, modsys):
+    acc: int = 1
+    for m in modsys:
+        acc *= m
+        if acc > n: break
+    if acc <= n: return 'Not applicable'
+    dataset: set[int] = set()
+    for m in modsys:
+        primes: set[int] = get_primes(m)
+        for prime in primes:
+            if prime in dataset: return 'Not applicable'
+            dataset.add(prime)
+    return '-{}-'.format('--'.join(str(n % m) for m in modsys))
