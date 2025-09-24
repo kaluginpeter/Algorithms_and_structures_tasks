@@ -138,3 +138,49 @@
 #
 # [1,1,2,1,2,3,1,2,3,4,1,2,3,4,5,1,2,3,4,5,6]
 # .
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    size_t n, m;
+    std::cin >> n >> m;
+    std::vector<int> nums(m, 0);
+    for (size_t i = 0; i < m; ++i) std::cin >> nums[i];
+    bool isValid = true;
+    for (size_t i = 1; i < m; ++i) {
+        if ((nums[i] - 1) != nums[i - 1]) {
+            isValid = false;
+            break;
+        }
+    }
+    std::cout << (isValid ? n - nums[m - 1] + 1 : 1) << std::endl;
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    n, m = map(int, sys.stdin.readline().rstrip().split())
+    nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    is_valid: bool = True
+    for i in range(1, m):
+        if nums[i] - 1 != nums[i - 1]:
+            is_valid = False
+            break
+    sys.stdout.write('{}\n'.format([1, n - nums[m - 1] + 1][is_valid]))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
