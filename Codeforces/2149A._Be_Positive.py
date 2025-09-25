@@ -66,3 +66,47 @@
 #  into 1
 #  (another 2 operations), for a total of 4
 # .
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    int negative = 0, zeros = 0;
+    for (size_t i = 0; i < n; ++i) {
+        int x;
+        std::cin >> x;
+        if (x < 0) ++negative;
+        else if (!x) ++zeros;
+    }
+    std::cout << zeros + (negative & 1 ? 2 : 0) << std::endl;
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    nums: iter[int] = map(int, sys.stdin.readline().rstrip().split())
+    negative: int = 0
+    zeros: int = 0
+    for _ in range(n):
+        x: int = next(nums)
+        if x < 0: negative += 1
+        elif not x: zeros += 1
+    sys.stdout.write('{}\n'.format(zeros + (2 if negative & 1 else 0)))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
