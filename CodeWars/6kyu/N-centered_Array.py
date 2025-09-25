@@ -10,3 +10,16 @@
 # true if its array argument is not empty and centered-N or empty and centered-0
 # otherwise returns false.
 # Fundamentals
+# Solution
+def is_centered(xs: list[int], n: int) -> bool:
+    if not xs: return False
+    left: int = 0
+    right: int = len(xs) - 1
+    acc: int = sum(xs)
+    while left <= right:
+        if acc == n: return True
+        acc -= xs[left]
+        acc -= xs[right]
+        left += 1
+        right -= 1
+    return acc == n and not (len(xs) & 1)
