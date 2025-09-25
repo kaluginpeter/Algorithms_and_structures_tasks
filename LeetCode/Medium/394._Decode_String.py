@@ -28,3 +28,56 @@
 # s consists of lowercase English letters, digits, and square brackets '[]'.
 # s is guaranteed to be a valid input.
 # All the integers in s are in the range [1, 300].
+# Solution
+# Python O(L) O(M) String Recursion
+class Solution:
+    ptr: int = 0
+    def parse(self, s) -> list[str]:
+        output: list[str] = []
+        exponenta: int = 0
+        while self.ptr < len(s):
+            if s[self.ptr] == '[':
+                self.ptr += 1
+                output.extend(self.parse(s) * exponenta)
+                exponenta = 0
+            elif s[self.ptr] == ']':
+                self.ptr += 1
+                return output
+            elif s[self.ptr].isdigit():
+                exponenta = exponenta * 10 + int(s[self.ptr])
+                self.ptr += 1
+            else:
+                output.append(s[self.ptr])
+                self.ptr += 1
+        return output
+
+    def decodeString(self, s: str) -> str:
+        self.ptr = 0
+        return ''.join(self.parse(s))
+
+# C++ O(L) O(M) Recursion String
+class Solution {
+public:
+    std::string parse(int& ptr, std::string& s) {
+        std::string output = "";
+        int exponenta = 0;
+        while (ptr < s.size()) {
+            if (s[ptr] == '[') {
+                ++ptr;
+                std::string result = parse(ptr, s);
+                for (int i = 0; i < exponenta; ++i) output += result;
+                exponenta = 0;
+            } else if (s[ptr] == ']') {
+                ++ptr;
+                return output;
+            }
+            else if (std::isdigit(s[ptr])) exponenta = exponenta * 10 + (s[ptr++] - '0');
+            else output.push_back(s[ptr++]);
+        }
+        return output;
+    }
+    string decodeString(string s) {
+        int start = 0;
+        return parse(start, s);
+    }
+};
