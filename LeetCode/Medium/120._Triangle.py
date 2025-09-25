@@ -29,3 +29,28 @@
 #
 #
 # Follow up: Could you do this using only O(n) extra space, where n is the total number of rows in the triangle?
+# Solution
+# Python O(NM) O(N) DynamicProgramming
+class Solution:
+    def minimumTotal(self, triangle: List[List[int]]) -> int:
+        n: int = len(triangle)
+        dp: list[int] = triangle[n - 1]
+        for i in range(n - 2, -1, -1):
+            for j in range(len(triangle[i])):
+                dp[j] = triangle[i][j] + min(dp[j], dp[j + 1])
+        return dp[0]
+
+# C++ O(NM) O(N) DynamicProgramming
+class Solution {
+public:
+    int minimumTotal(vector<vector<int>>& triangle) {
+        size_t n = triangle.size();
+        std::vector<int> dp = triangle[n - 1];
+        for (int i = n - 2; i >= 0; --i) {
+            for (size_t j = 0; j < triangle[i].size(); ++j) {
+                dp[j] = triangle[i][j] + std::min(dp[j], dp[j + 1]);
+            }
+        }
+        return dp[0];
+    }
+};
