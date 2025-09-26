@@ -81,3 +81,45 @@
 # . The differences are: 1,0,1
 #  — the largest is 1
 # .
+# Solution
+# C++ O(NlogN + N) O(1) Sorting
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <cstdint>
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::vector<int> nums(n, 0);
+    for (size_t i = 0; i < n; ++i) std::cin >> nums[i];
+    std::sort(nums.begin(), nums.end());
+    long long output = 0;
+    for (size_t i = 0; i < n - 1; i += 2) {
+        output = std::max(output, std::abs(static_cast<long long>(nums[i]) - nums[i + 1]));
+    }
+    std::cout << output << std::endl;
+}
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(NlogN + N) O(1) Sorting
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    nums: list[int] = sorted(map(int, sys.stdin.readline().rstrip().split()))
+    output: int = 0
+    for i in range(0, n - 1, 2):
+        output = max(output, abs(nums[i] - nums[i + 1]))
+    sys.stdout.write('{}\n'.format(output))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
