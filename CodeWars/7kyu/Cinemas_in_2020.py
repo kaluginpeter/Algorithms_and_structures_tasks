@@ -17,3 +17,23 @@
 # Notice how there may be several possibilities for assigning seats to people, but these cases won't affect the results.
 # All seats will be valid.
 # ArraysLogic
+# Solution
+def check(lst: list[int] , i: int) -> bool:
+    left: bool = True
+    for j in range(i, max(-1, i - 3), -1):
+        if lst[j]: left = False
+    right: bool = True
+    for j in range(i, min(len(lst), i + 3)):
+        if lst[j]: right = False
+    return left and right
+
+def maximum_seating(lst):
+    output: int = 0
+    n: int = len(lst)
+    left: int = 0
+    while left < n:
+        if check(lst, left):
+            output += 1
+            left += 3
+        else: left += 1
+    return output
