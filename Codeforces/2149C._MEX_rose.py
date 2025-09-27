@@ -85,3 +85,65 @@
 # Since this matches the required k
 # , no changes are needed and the minimum number of operations is 0
 # .
+# Solution
+# C++ O(N) O(D) HashSet
+#include <iostream>
+#include <unordered_map>
+
+
+void solution() {
+    size_t n;
+    int k;
+    std::cin >> n >> k;
+    std::unordered_map<int, int> hashmap;
+    int additional = 0;
+    for (size_t i = 0; i < n; ++i) {
+        int x;
+        std::cin >> x;
+        if (x == k) ++additional;
+        hashmap[x]++;
+    }
+    int output = 0, i = 0;
+    while (i < k) {
+        if (!hashmap.count(i)) {
+            if (additional) --additional;
+            ++output;
+        }
+        ++i;
+    }
+    std::cout << output + additional << std::endl;
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(D) HashSet
+import sys
+
+
+def solution() -> None:
+    n, k = map(int, sys.stdin.readline().rstrip().split())
+    nums: iter[int] = map(int, sys.stdin.readline().rstrip().split())
+    extra: int = 0
+    dataset: set[int] = set()
+    for _ in range(n):
+        x: int = next(nums)
+        if x == k: extra += 1
+        else: dataset.add(x)
+    i: int = 0
+    output: int = 0
+    while i < k:
+        if i not in dataset:
+            if extra: extra -= 1
+            output += 1
+        i += 1
+    sys.stdout.write('{}\n'.format(output + extra))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
