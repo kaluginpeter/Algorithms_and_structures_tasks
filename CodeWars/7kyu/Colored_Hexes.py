@@ -24,3 +24,32 @@
 # codes = "000 000 000" -> "black"
 # codes = "001 001 001" -> "white"
 # Fundamentals
+# Solution
+def hex_color(codes: str) -> str:
+    if not codes:
+        return "black"
+    parts = codes.split()
+    if len(parts) != 3:
+        return "black"
+
+    r, g, b = map(int, parts)
+    if r == g == b == 0:
+        return "black"
+    m = max(r, g, b)
+    channels = []
+    if r == m:
+        channels.append("red")
+    if g == m:
+        channels.append("green")
+    if b == m:
+        channels.append("blue")
+    if len(channels) == 1:
+        return channels[0]
+    if len(channels) == 2:
+        if "red" in channels and "blue" in channels:
+            return "magenta"
+        if "red" in channels and "green" in channels:
+            return "yellow"
+        if "blue" in channels and "green" in channels:
+            return "cyan"
+    return "white"
