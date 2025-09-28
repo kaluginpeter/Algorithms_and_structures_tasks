@@ -30,3 +30,28 @@ class Solution:
             if nums[i] + nums[i-1] > nums[i-2]:
                 return nums[i-2] + nums[i-1] + nums[i]
         return 0
+
+
+# Python O(NlogN) O(1) Sorting
+class Solution:
+    def largestPerimeter(self, nums: List[int]) -> int:
+        nums.sort()
+        output: int = 0
+        for i in range(len(nums) - 2):
+            if nums[i] + nums[i + 1] > nums[i + 2]:
+                output = max(output, nums[i] + nums[i + 1] + nums[i + 2])
+        return output
+
+# C++ O(NlogN) O(1) Sorting
+class Solution {
+public:
+    int largestPerimeter(vector<int>& nums) {
+        std::sort(nums.begin(), nums.end());
+        int output = 0;
+        for (size_t i = 0; i < nums.size() - 2; ++i) {
+            if (nums[i] + nums[i + 1] <= nums[i + 2]) continue;
+            output = std::max(output, nums[i] + nums[i + 1] + nums[i + 2]);
+        }
+        return output;
+    }
+};
