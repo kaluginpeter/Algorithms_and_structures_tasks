@@ -79,3 +79,67 @@
 # .
 # In the fifth input test case, the string consists of a single character 'b'. The single character already forms a continuous block, no swaps are needed, so the minimum number of operations is 0
 # .
+# Solution
+# C++ O(MlogM + N) O(M) Sorting Math
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cmath>
+#include <algorithm>
+
+
+long long min_swaps(std::string s, char target) {
+    std::vector<int> pos;
+    for (int i = 0; i < (int)s.size(); ++i) {
+        if (s[i] == target) pos.push_back(i);
+    }
+    int m = pos.size();
+    if (m <= 1) return 0;
+    std::vector<long long> diffs(m);
+    for (int i = 0; i < m; ++i) {
+        diffs[i] = pos[i] - i;
+    }
+    std::nth_element(diffs.begin(), diffs.begin() + m/2, diffs.end());
+    long long median = diffs[m/2];
+    long long ans = 0;
+    for (long long d : diffs) ans += std::llabs(d - median);
+    return ans;
+}
+
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::string s;
+    std::cin >> s;
+    std::cout << std::min(min_swaps(s, 'a'), min_swaps(s, 'b')) << std::endl;
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(MlogM + N) O(M) Greedy Math
+import sys
+
+
+def solution(s: str, target: str) -> int:
+    pos: list[int] = [i for i, ch in enumerate(s) if ch == target]
+    m: int = len(pos)
+    if m <= 1: return 0
+    shifted: list[int] = [pos[i] - i for i in range(m)]
+    shifted.sort()
+    median: int = shifted[m // 2]
+    return sum(abs(x - median) for x in shifted)
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t):
+        n: int = int(sys.stdin.readline().rstrip())
+        a: str = sys.stdin.readline().rstrip()
+        sys.stdout.write('{}\n'.format(min(solution(a, 'a'), solution(a, 'b'))))
