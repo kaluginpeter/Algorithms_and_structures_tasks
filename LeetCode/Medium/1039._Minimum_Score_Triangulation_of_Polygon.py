@@ -47,3 +47,44 @@
 # 3 <= n <= 50
 # 1 <= values[i] <= 100
 #
+# Solution
+# Python O(N^3) O(N^2) Recursion DynamicProgramming
+class Solution:
+    def backtrack(self, i: int, j: int, values: list[int], dp: dict[int, int]) -> int:
+        if i + 2 > j: return 0
+        elif i + 2 == j: return values[i] * values[i + 1] * values[j]
+        key: int = i * len(values) + j
+        if key not in dp:
+            cost: int = float('inf')
+            for k in range(i + 1, j):
+                cost = min(
+                    cost,
+                    values[i] * values[k] * values[j] + self.backtrack(i, k, values, dp) + self.backtrack(k, j, values, dp)
+                )
+            dp[key] = cost
+        return dp[key]
+    def minScoreTriangulation(self, values: List[int]) -> int:
+        dp: dict[int, int] = defaultdict(int)
+        return self.backtrack(0, len(values) - 1, values, dp)
+
+# C++ O(N^3) O(N^2) DynamicProgramming Recursion
+class Solution {
+public:
+    int backtrack(int i, int j, std::vector<int>& values, std::unordered_map<int, int>& dp) {
+        if (i + 2 > j) return 0;
+        else if (i + 2 == j) return values[i] * values[i + 1] * values[j];
+        int key = i * values.size() + j;
+        if (!dp.count(key)) {
+            int cost = INT32_MAX;
+            for (int k = i + 1; k < j; ++k) {
+                cost = std::min(cost, values[i] * values[k] * values[j] + backtrack(i, k, values, dp) + backtrack(k, j, values, dp));
+            }
+            dp[key] = cost;
+        }
+        return dp[key];
+    }
+    int minScoreTriangulation(vector<int>& values) {
+        std::unordered_map<int, int> dp;
+        return backtrack(0, values.size() - 1, values, dp);
+    }
+};
