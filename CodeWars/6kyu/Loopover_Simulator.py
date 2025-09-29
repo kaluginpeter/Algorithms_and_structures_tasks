@@ -61,3 +61,38 @@
 # #  [22, 18, 19, 20, 14],
 # #  [21,  2, 23, 24, 16]]
 # GamesAlgorithms
+# Solution
+from copy import deepcopy
+
+
+class Loopover:
+    def __init__(self, grid_size: int) -> None:
+        self.grid_size = grid_size
+        self.grid: list[list[int]] = []
+        ptr: int = 1
+        for i in range(grid_size):
+            row: list[int] = list(range(ptr, ptr + grid_size))
+            self.grid.append(row)
+            ptr += grid_size
+
+    def output(self) -> list[list[int]]:
+        return deepcopy(self.grid)
+
+    def move(self, s: str) -> None:
+        ptr: int = int(s[1:]) - 1
+        match ord(s[0]) - 65:
+            case 20:  # U
+                dataset: list[int] = [self.grid[i][ptr] for i in range(self.grid_size)]
+                dataset = dataset[1:] + dataset[:1]
+                for i in range(self.grid_size): self.grid[i][ptr] = dataset[i]
+                return
+            case 3:  # D
+                dataset: list[int] = [self.grid[i][ptr] for i in range(self.grid_size)]
+                dataset = dataset[-1:] + dataset[:-1]
+                for i in range(self.grid_size): self.grid[i][ptr] = dataset[i]
+                return
+            case 11:  # L
+                self.grid[ptr] = self.grid[ptr][1:] + self.grid[ptr][:1]
+                return
+            case _:  # R
+                self.grid[ptr] = self.grid[ptr][-1:] + self.grid[ptr][:-1]
