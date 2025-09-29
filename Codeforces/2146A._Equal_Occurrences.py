@@ -84,3 +84,66 @@
 #  is already balanced, so the length of the longest balanced subsequence of a
 #  is 5
 # .
+# Solution
+# C++ O(N + MlogM + M) O(M) Greedy Math Sorting
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::vector<int> nums(n, 0);
+    for (size_t i = 0; i < n; ++i) std::cin >> nums[i];
+    std::vector<int> segments;
+    size_t left = 0;
+    for (size_t right = 0; right < n; ++right) {
+        if (nums[left] != nums[right]) {
+            segments.push_back(right - left);
+            left = right;
+        }
+    }
+    segments.push_back(n - left);
+    std::sort(segments.begin(), segments.end(), std::greater<int>());
+    int output = 0, freq = 1;
+    for (size_t i = 0; i < segments.size(); ++i) {
+        output = std::max(output, freq * segments[i]);
+        ++freq;
+    }
+    std::cout << output << std::endl;
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N + MlogM + M) O(M) Sorting Math Greedy
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    segments: list[int] = []
+    left: int = 0
+    for right in range(n):
+        if nums[left] != nums[right]:
+            segments.append(right - left)
+            left = right
+    segments.append(n - left)
+    segments.sort(reverse=True)
+    output: int = 0
+    freq: int = 1
+    for i in range(len(segments)):
+        output = max(output, freq * segments[i])
+        freq += 1
+    sys.stdout.write('{}\n'.format(output))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
