@@ -56,3 +56,24 @@ public:
         return nums.back();
     }
 };
+
+# Python O(N^2) O(1) Simulation
+class Solution:
+    def triangularSum(self, nums: List[int]) -> int:
+        for i in range(len(nums)):
+            for j in range(len(nums) - i - 1):
+                nums[j] = (nums[j] + nums[j + 1]) % 10
+        return nums[0]
+
+# C++ O(N^2) O(1) Greedy
+class Solution {
+public:
+    int triangularSum(vector<int>& nums) {
+        for (size_t i = 0; i < nums.size(); ++i) {
+            for (size_t j = 0; j < nums.size() - i - 1; ++j) {
+                nums[j] = (nums[j] + nums[j + 1]) % 10;
+            }
+        }
+        return nums[0];
+    }
+};
