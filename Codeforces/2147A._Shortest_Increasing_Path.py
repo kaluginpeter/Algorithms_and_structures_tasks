@@ -86,3 +86,51 @@
 #  axis, you are forced to move at least 2
 #  along the y
 #  axis.
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int x, y;
+    std::cin >> x >> y;
+    if (x < y) {
+        std::cout << "2\n";
+        return;
+    }
+    // =>
+    if (x == y || y == 1) {
+        std::cout << "-1\n";
+        return;
+    }
+    // >
+    int target = x - y - 1;
+    std::cout << (target > 0 ? 3 : -1) << std::endl;
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    x, y = map(int, sys.stdin.readline().rstrip().split())
+    if y > x:
+        sys.stdout.write('2\n')
+        return
+    elif x == y or y == 1:
+        sys.stdout.write('-1\n')
+        return
+    target: int = x - y - 1
+    sys.stdout.write('{}\n'.format([-1, 3][target > 0]))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
