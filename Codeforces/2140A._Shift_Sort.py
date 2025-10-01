@@ -64,3 +64,46 @@
 # , j=2
 # , k=4
 #  and perform a right shift cyclically. The string becomes equal to 0011, which is sorted.
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+#include <vector>
+#include <string>
+
+void solution() {
+    int n;
+    std::string a;
+    std::cin >> n >> a;
+    int zeros = 0, ones = 0, idx = n + 1;
+    for (size_t i = 0; i < n; ++i) {
+        if (a[i] == '1') ++ones;
+        if (a[i] == '0') ++zeros;
+    }
+    int output = 0;
+    for (size_t i = 0; i < n - ones; ++i) if (a[i] == '1') ++output;
+    std::cout << output << std::endl;
+}
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    a: str = sys.stdin.readline().rstrip()
+    ones: int = a.count('1')
+    output: int = 0
+    for i in range(0, n - ones):
+        if a[i] == '1': output += 1
+    sys.stdout.write('{}\n'.format(output))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
