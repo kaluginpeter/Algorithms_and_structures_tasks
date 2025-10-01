@@ -36,3 +36,31 @@ class Solution:
             bottles += can_get
             empty_bottles = empty_bottles % numExchange + can_get
         return bottles
+
+
+# Python O(logN) O(1) Simulation Math
+class Solution:
+    def numWaterBottles(self, numBottles: int, numExchange: int) -> int:
+        output: int = 0
+        empty: int = 0
+        while numBottles > 0 or empty >= numExchange:
+            output += numBottles
+            new_empty: int = numBottles + empty % numExchange
+            numBottles = empty // numExchange
+            empty = new_empty
+        return output
+
+# C++ O(logN) O(1) Simulation Math
+class Solution {
+public:
+    int numWaterBottles(int numBottles, int numExchange) {
+        int output = 0, empty = 0;
+        while (numBottles > 0 || empty >= numExchange) {
+            output += numBottles;
+            int newEmpty = numBottles + empty % numExchange;
+            numBottles = empty / numExchange;
+            empty = newEmpty;
+        }
+        return output;
+    }
+};
