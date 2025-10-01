@@ -32,3 +32,42 @@
 # Inspired by Stanford Professor Nick Parlante's excellent Linked List teachings.
 #
 # Data StructuresLinked ListsFundamentals
+# Solution
+class Node(object):
+    def __init__(self, data=None):
+        self.data = data
+        self.next = None
+
+
+class Context(object):
+    def __init__(self, first, second):
+        self.first = first
+        self.second = second
+
+
+def create(x: list[int]) -> Node:
+    root: Node = Node()
+    tmp: Node = root
+    for val in x:
+        tmp.next = Node(data=val)
+        tmp = tmp.next
+    return root.next
+
+
+def alternating_split(head):
+    if not head: raise ValueError()
+    first: list[int] = []
+    second: list[int] = []
+    i: int = 1
+    tmp: Node = head
+    while tmp:
+        if i & 1:
+            first.append(tmp.data)
+        else:
+            second.append(tmp.data)
+        tmp = tmp.next
+        i += 1
+    if i == 2: raise ValueError()
+    f: Node = create(first)
+    s: Node = create(second)
+    return Context(f, s)
