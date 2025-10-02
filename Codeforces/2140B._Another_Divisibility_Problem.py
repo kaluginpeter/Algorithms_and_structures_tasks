@@ -65,3 +65,33 @@
 # , and we have x#y=4212
 # , which is divisible by x+y=54
 # .
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    long long x;
+    std::cin >> x;
+    std::cout << x * 2 << std::endl;
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    x: int = int(sys.stdin.readline().rstrip())
+    sys.stdout.write('{}\n'.format(x * 2))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
