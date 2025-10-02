@@ -44,3 +44,38 @@ class Solution:
                 numExchange += 1
             if numBottles == 0:
                 return ans
+
+
+# Python O(sqrtN) O(1) Simulation
+class Solution:
+    def maxBottlesDrunk(self, numBottles: int, numExchange: int) -> int:
+        output: int = 0
+        empty: int = 0
+        while numBottles > 0 or empty >= numExchange:
+            output += numBottles
+            empty += numBottles
+            numBottles = 0
+            while empty >= numExchange:
+                numBottles += 1
+                empty -= numExchange
+                numExchange += 1
+        return output
+
+# C++ O(sqrtN) O(1) Simulation
+class Solution {
+public:
+    int maxBottlesDrunk(int numBottles, int numExchange) {
+        int output = 0, empty = 0;
+        while (numBottles > 0 || empty >= numExchange) {
+            output += numBottles;
+            empty += numBottles;
+            numBottles = 0;
+            while (empty >= numExchange) {
+                ++numBottles;
+                empty -= numExchange;
+                ++numExchange;
+            }
+        }
+        return output;
+    }
+};
