@@ -32,3 +32,17 @@
 # Enjoy it and happy coding!!
 #
 # AlgorithmsData StructuresSortingFundamentals
+# Solution
+from collections import defaultdict
+def count_sel(lst):
+    hashmap: dict[int, int] = defaultdict(int)
+    for num in lst: hashmap[num] += 1
+    return [
+        len(lst),
+        len(hashmap),
+        sum(hashmap[num] == 1 for num in hashmap.keys()),
+        [
+            sorted(num for num in hashmap.keys() if hashmap[num] == max(hashmap.values())),
+            max(hashmap.values())
+        ]
+    ]
