@@ -6,3 +6,16 @@
 # math.degrees(math.pi)  -->  "180deg"
 # math.radians(180)      -->  "3.14rad"
 # MathematicsFundamentals
+# Solution
+def degrees(rad):
+    x: float = round(180 / math.pi * rad, 2)
+    if int(x) == x: return f'{int(x)}deg'
+    return f'{x}deg'
+
+def radians(deg):
+    y: float = round(math.pi / 180 * deg, 2)
+    if int(y) == y: return f'{int(y)}rad'
+    return f'{y}rad'
+
+math.degrees = degrees
+math.radians = radians
