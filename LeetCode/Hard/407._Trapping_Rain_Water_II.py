@@ -107,3 +107,70 @@ public:
         return totalVolume;
     }
 };
+
+
+# C++ O(NMlog(NM) + NM) O(NM) PriorityQueue
+using tiii = std::tuple<int, int, int>;
+class Solution {
+public:
+    int trapRainWater(vector<vector<int>>& heightMap) {
+        size_t n = heightMap.size(), m = heightMap[0].size();
+        std::priority_queue<tiii, std::vector<tiii>> minHeap;
+        std::vector<std::vector<bool>> seen(n, std::vector<bool>(m, false));
+        for (size_t i = 0; i < n; ++i) {
+            for (size_t j = 0; j < m; ++j) {
+                if ((!i || i == n - 1) || (!j || j == m - 1)) {
+                    minHeap.push(std::make_tuple(-heightMap[i][j], static_cast<int>(i), static_cast<int>(j)));
+                    seen[i][j] = true;
+                }
+            }
+        }
+        std::vector<std::pair<int, int>> moves = {
+            {-1, 0}, {1, 0}, {0, 1}, {0, -1}
+        };
+        int output = 0, maxHeight = 0;
+        while (!minHeap.empty()) {
+            tiii cell = minHeap.top();
+            minHeap.pop();
+            maxHeight = std::max(maxHeight, -std::get<0>(cell));
+            output += maxHeight - -std::get<0>(cell);
+            for (std::pair<int, int>& p : moves) {
+                int ni = std::get<1>(cell) + p.first;
+                int nj = std::get<2>(cell) + p.second;
+                if (!(ni >= 0 && ni < n) || !(nj >= 0 && nj < m) || seen[ni][nj]) continue;
+                seen[ni][nj] = true;
+                minHeap.push(std::make_tuple(-heightMap[ni][nj], ni, nj));
+            }
+        }
+        return output;
+    }
+};
+
+# Python O(NMlog(NM) + NM) O(NM) PriorityQueue
+class Solution:
+    def trapRainWater(self, heightMap: List[List[int]]) -> int:
+        n: int = len(heightMap)
+        m: int = len(heightMap[0])
+        seen: list[list[bool]] = [[False] * m for _ in range(n)]
+        min_heap: list[tuple[int, int, int]] = []
+        for i in range(n):
+            for j in range(m):
+                if (not i or i == n - 1) or (not j or j == m - 1):
+                    seen[i][j] = True
+                    heapq.heappush(min_heap, (heightMap[i][j], i, j))
+        moves: tuple[tuple[int, int]] = (
+            (-1, 0), (1, 0), (0, -1), (0, 1)
+        )
+        output: int = 0
+        max_height: int = 0
+        while min_heap:
+            height, i, j = heapq.heappop(min_heap)
+            max_height = max(max_height, height)
+            output += max_height - height
+            for x, y in moves:
+                ni: int = i + x
+                nj: int = j + y
+                if not (0 <= ni < n) or not (0 <= nj < m) or seen[ni][nj]: continue
+                seen[ni][nj] = True
+                heapq.heappush(min_heap, (heightMap[ni][nj], ni, nj))
+        return output
