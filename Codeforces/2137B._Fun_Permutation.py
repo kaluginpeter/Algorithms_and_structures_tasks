@@ -78,3 +78,40 @@
 # In the first test case, GCD(1+2,3+3)=3≥3
 #  and GCD(3+3,2+1)=3≥3
 # , so the output is correct.
+# Solution
+# C++ O(N) O(1) Math
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::vector<int> nums(n, 0);
+    for (size_t i = 0; i < n; ++i) std::cin >> nums[i];
+    int target = *std::min_element(nums.begin(), nums.end()) + *std::max_element(nums.begin(), nums.end());
+    for (size_t i = 0; i < n; ++i) std::cout << target - nums[i] << " ";
+    std::cout << std::endl;
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(1) Math
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    target: int = min(nums) + max(nums)
+    sys.stdout.write('{}\n'.format(' '.join(str(target - num) for num in nums)))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
