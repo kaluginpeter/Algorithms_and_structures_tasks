@@ -70,3 +70,34 @@ public:
         return max_volume;
     }
 };
+
+
+# C++ O(N) O(1) TwoPointers
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int output = 0;
+        size_t left = 0, right = height.size() - 1;
+        while (left <= right) {
+            int area = (right - left) * std::min(height[left], height[right]);
+            output = std::max(output, area);
+            if (!right) break;
+            if (height[left] < height[right]) ++left;
+            else --right;
+        }
+        return output;
+    }
+};
+
+# Python O(N) O(1) TwoPointers
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        output: int = 0
+        left: int = 0
+        right: int = len(height) - 1
+        while left <= right:
+            area: int = (right - left) * min(height[left], height[right])
+            output = max(output, area)
+            if height[left] <= height[right]: left += 1
+            else: right -= 1
+        return output
