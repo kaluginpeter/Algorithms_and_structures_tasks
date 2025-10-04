@@ -85,3 +85,44 @@
 # The target array is [100]
 # . A single Increase operation with x=100
 #  gives the target array.
+# Solution
+# C++ O(NlogN + N) (1) Sorting
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::vector<int> nums(n, 0);
+    for (size_t i = 0; i < n; ++i) std::cin >> nums[i];
+    std::sort(nums.begin(), nums.end());
+    int output = 1;
+    for (size_t i = 1; i < n; ++i) {
+        if (nums[i] != nums[i - 1]) output += 2;
+    }
+    std::cout << output << std::endl;
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(NlogN + N) O(1) Sorting
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    nums: list[int] = sorted(map(int, sys.stdin.readline().rstrip().split()))
+    output: int = 1 + 2 * sum(nums[i] != nums[i - 1] for i in range(1, n))
+    sys.stdout.write('{}\n'.format(output))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
