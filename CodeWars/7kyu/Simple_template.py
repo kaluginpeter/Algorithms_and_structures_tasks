@@ -5,3 +5,17 @@
 # When key doesn't exist in the map, put there empty string.
 #
 # StringsRegular ExpressionsFundamentals
+# Solution
+def create_template(template):
+    def wrapper(*args, **kwargs):
+        output: list[str] = []
+        for word in template.split():
+            for sub in kwargs.keys():
+                if sub in word:
+                    output.append(kwargs[sub])
+                    break
+            else:
+                if word.startswith('{{'): output.append('')
+                else: output.append(word)
+        return ' '.join(output)
+    return wrapper
