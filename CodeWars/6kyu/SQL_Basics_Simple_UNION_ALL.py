@@ -19,3 +19,29 @@
 # NOTE: Your solution should use pure SQL. Ruby is used within the test cases to do the actual testing.
 #
 # SQLFundamentals
+# Solution
+SELECT
+  'US' AS location,
+  id,
+  name,
+  price,
+  card_name,
+  card_number,
+  transaction_date
+FROM ussales
+WHERE price > 50.00
+
+UNION ALL
+
+SELECT
+  'EU' AS location,
+  id,
+  name,
+  price,
+  card_name,
+  card_number,
+  transaction_date
+FROM eusales
+WHERE price > 50.00
+ORDER BY
+  location DESC, id;
