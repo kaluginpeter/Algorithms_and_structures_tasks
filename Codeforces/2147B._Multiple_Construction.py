@@ -93,3 +93,71 @@
 # , so the distance between them is 1
 # , which is a multiple of 1
 # .
+# Solution
+# C++ O(N) O(N) Greedy
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::vector<int> nums(2 * n + 1, 0);
+    size_t ptr = 0;
+    int target = (n & 1 ? n - 1 : n);
+    while (target > 1) {
+        nums[ptr] = target;
+        nums[ptr + target] = target;
+        ++ptr;
+        target -= 2;
+    }
+    target = (n & 1 ? n : n - 1);
+    while (target >= 1) {
+        while (ptr < 2 * n && nums[ptr]) ++ptr;
+        nums[ptr] = target;
+        if (target == 1) {
+            while (ptr < 2 * n && nums[ptr]) ++ptr;
+            nums[ptr] = target;
+        } else nums[ptr + target] = target;
+        target -= 2;
+    }
+    for (size_t i = 0; i < 2 * n; ++i) std::cout << nums[i] << " ";
+    std::cout << std::endl;
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(N) Greedy
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    output: list[int] = [0] * (2 * n)
+    target: int = n - (n & 1)
+    ptr: int = 0
+    while target:
+        output[ptr] = target
+        output[ptr + target] = target
+        ptr += 1
+        target -= 2
+    target = n - int(n % 2 == 0)
+    while target >= 1:
+        while ptr < 2 * n and output[ptr]: ptr += 1
+        output[ptr] = target
+        if target == 1:
+            while ptr < 2 * n and output[ptr]: ptr += 1
+            output[ptr] = target
+        else: output[ptr + target] = target
+        target -= 2
+    sys.stdout.write('{}\n'.format(' '.join(map(str, output))))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
