@@ -42,3 +42,87 @@
 # n == heights[r].length
 # 1 <= m, n <= 200
 # 0 <= heights[r][c] <= 105
+# Solution
+# Python O(NM) O(NM) Breadth-First-Search Matrix
+class Solution:
+    moves: list[tuple[int, int]] = [
+        (-1, 0), (0, 1), (1, 0), (0, -1)
+    ]
+    def bfs(self, dataset: list[tuple[int, int]], visited: list[list[bool]], heights: list[list[int]]) -> None:
+        while dataset:
+            i, j = dataset.pop()
+            for x, y in self.moves:
+                ni, nj = i + x, j + y
+                if not (0 <= ni < len(heights)) or not (0 <= nj < len(heights[0])) or visited[ni][nj]:
+                    continue
+                elif heights[i][j] > heights[ni][nj]: continue
+                visited[ni][nj] = True
+                dataset.append((ni, nj))
+
+    def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
+        n: int = len(heights)
+        m: int = len(heights[0])
+        q1: list[tuple[int, int]] = []
+        q2: list[tuple[int, int]] = []
+        atlantic: list[list[bool]] = [[False] * m for _ in range(n)]
+        pacific: list[list[bool]] = [[False] * m for _ in range(n)]
+        for i in range(n):
+            q1.append((i, 0))
+            q2.append((i, m - 1))
+            pacific[i][0] = atlantic[i][m - 1] = True
+        for j in range(m):
+            q1.append((0, j))
+            q2.append((n - 1, j))
+            pacific[0][j] = atlantic[n - 1][j] = True
+        self.bfs(q1, pacific, heights)
+        self.bfs(q2, atlantic, heights)
+        output: list[list[int]] = []
+        for i in range(n):
+            for j in range(m):
+                if pacific[i][j] and atlantic[i][j]: output.append([i, j])
+        return output
+
+# C++ O(NM) O(NM) Matrix Breadth-First-Search
+class Solution {
+private:
+    std::vector<std::pair<int,int>> moves = {{1,0},{-1,0},{0,1},{0,-1}};
+    void bfs(std::queue<std::pair<int,int>>& q, std::vector<std::vector<int>>& visited, std::vector<std::vector<int>>& heights) {
+        int n = heights.size(), m = heights[0].size();
+        while (!q.empty()) {
+            auto [i, j] = q.front();
+            q.pop();
+            for (auto [dx, dy] : moves) {
+                int x = i + dx, y = j + dy;
+                if (x < 0 || y < 0 || x >= n || y >= m || visited[x][y]) continue;
+                if (heights[x][y] < heights[i][j]) continue;
+                visited[x][y] = 1;
+                q.push({x, y});
+            }
+        }
+    }
+public:
+    vector<vector<int>> pacificAtlantic(vector<vector<int>>& heights) {
+        int n = heights.size(), m = heights[0].size();
+        std::vector<std::vector<int>> pacific(n, vector<int>(m, 0)), atlantic(n, vector<int>(m, 0));
+        std::queue<std::pair<int,int>> q1, q2;
+        for (int i = 0; i < n; ++i) {
+            q1.push({i, 0});
+            q2.push({i, m - 1});
+            pacific[i][0] = atlantic[i][m - 1] = 1;
+        }
+        for (int j = 0; j < m; ++j) {
+            q1.push({0, j});
+            q2.push({n - 1, j});
+            pacific[0][j] = atlantic[n - 1][j] = 1;
+        }
+        bfs(q1, pacific, heights);
+        bfs(q2, atlantic, heights);
+        std::vector<std::vector<int>> output;
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < m; ++j) {
+                if (pacific[i][j] && atlantic[i][j]) output.push_back({i, j});
+            }
+        }
+        return output;
+    }
+};
