@@ -48,3 +48,52 @@
 #
 # In the second test case, the image below shows one possible tournament. Notice that 4
 #  matches were played in total.
+# Solution
+# C++ O(logN) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    int output = 1, tmp = n;
+    while (tmp > 1) {
+        output += tmp / 2;
+        tmp = tmp / 2 + (tmp & 1);
+    }
+    tmp = n - 1;
+    while (tmp > 1) {
+        output += tmp / 2;
+        tmp = tmp / 2 + (tmp & 1);
+    }
+    std::cout << output << std::endl;
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(logN) O(1) Math
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    output: int = 1
+    tmp: int = n
+    while tmp > 1:
+        output += tmp // 2
+        tmp = tmp // 2 + (tmp & 1)
+    tmp = n - 1
+    while tmp > 1:
+        output += tmp // 2
+        tmp = tmp // 2 + (tmp & 1)
+    sys.stdout.write('{}\n'.format(output))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
