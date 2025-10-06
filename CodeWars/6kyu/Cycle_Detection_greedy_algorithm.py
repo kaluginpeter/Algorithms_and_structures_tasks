@@ -138,3 +138,12 @@
 # This kata is followed by Cycle Detection: Floyd's The Tortoise and the The Hare
 #
 # MathematicsAlgorithms
+# Solution
+def cycle(sequence):
+    n: int = len(sequence)
+    seen: dict[int, int] = dict()
+    for i in range(n):
+        if sequence[i] in seen:
+            return [seen[sequence[i]], i - seen[sequence[i]]]
+        seen[sequence[i]] = i
+    return []
