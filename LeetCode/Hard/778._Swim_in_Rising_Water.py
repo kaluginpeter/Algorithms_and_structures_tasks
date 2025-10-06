@@ -96,3 +96,57 @@ public:
         return distances[grid[n - 1][m - 1]];
     }
 };
+
+
+# Python O((NM)log(NM)) O(NM) PriorityQueue Matrix
+class Solution:
+    def swimInWater(self, grid: List[List[int]]) -> int:
+        n: int = len(grid)
+        moves: list[tuple[int, int]] = [
+            (-1, 0), (1, 0), (0, -1), (0, 1)
+        ]
+        cost: list[list[int]] = [[float('inf')] * n for _ in range(n)]
+        min_heap: list[tuple[int, int, int]] = [(grid[0][0], 0, 0)]
+        cost[0][0] = grid[0][0]
+        while min_heap:
+            score, i, j = heapq.heappop(min_heap)
+            if i == n - 1 and j == n - 1: return score
+            for x, y in moves:
+                ni: int = i + x
+                nj: int = j + y
+                if not (0 <= ni < n) or not (0 <= nj < n): continue
+                next_score: int = max(score, grid[ni][nj])
+                if next_score >= cost[ni][nj]: continue
+                cost[ni][nj] = next_score
+                heapq.heappush(min_heap, (next_score, ni, nj))
+        return cost[-1][-1]
+
+# C++ O((NM)log(NM)) O(NM) PriorityQueue Matrix
+using tiii = std::tuple<int, int, int>;
+class Solution {
+public:
+    int swimInWater(vector<vector<int>>& grid) {
+        size_t n = grid.size();
+        std::vector<std::pair<int, int>> moves = {
+            {-1, 0}, {1, 0}, {0, -1}, {0, 1}
+        };
+        std::vector<std::vector<int>> cost(n, std::vector<int>(n, INT32_MAX));
+        std::priority_queue<tiii, std::vector<tiii>, std::greater<tiii>> minHeap;
+        minHeap.push(std::make_tuple(grid[0][0], 0, 0));
+        cost[0][0] = grid[0][0];
+        while (!minHeap.empty()) {
+            auto [score, i, j] = minHeap.top();
+            minHeap.pop();
+            if (i == n - 1 && j == n - 1) return score;
+            for (auto [x, y] : moves) {
+                int ni = i + x, nj = j + y;
+                if (!(ni >= 0 && ni < n) || !(nj >= 0 && nj < n)) continue;
+                int nextScore = std::max(score, grid[ni][nj]);
+                if (nextScore >= cost[ni][nj]) continue;
+                cost[ni][nj] = nextScore;
+                minHeap.push(std::make_tuple(nextScore, ni, nj));
+            }
+        }
+        return cost[n - 1][n - 1];
+    }
+};
