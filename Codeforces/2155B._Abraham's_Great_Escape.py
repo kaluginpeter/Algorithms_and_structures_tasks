@@ -63,3 +63,72 @@
 #
 # In the third test case, it can be proved that there's no arrangement of arrows so that Abraham can escape from exactly 3
 #  cells.
+# Solution
+# C++ O(NM) O(1) Greedy
+#include <iostream>
+
+
+void solution() {
+    size_t n, k;
+    std::cin >> n >> k;
+    int needed = n * n - k;
+    if (needed == 1) {
+        std::cout << "NO\n";
+        return;
+    }
+    std::cout << "YES\n";
+    for (size_t i = 0; i < n; ++i) {
+        for (size_t j = 0; j < n; ++j) {
+            if (!i && !j) {
+                if (needed) {
+                    std::cout << "R";
+                    --needed;
+                } else std::cout << "D";
+            } else if (!i) {
+                if (needed) {
+                    std::cout << "L";
+                    --needed;
+                } else std::cout << "D";
+            } else {
+                if (needed) {
+                    std::cout << "U";
+                    --needed;
+                } else std::cout << "D";
+            }
+        }
+        std::cout << "\n";
+    }
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(NM) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    n, k = map(int, sys.stdin.readline().rstrip().split())
+    needed: int = n * n - k
+    if needed == 1:
+        sys.stdout.write('NO\n')
+        return
+    sys.stdout.write('YES\n')
+    for i in range(n):
+        for j in range(n):
+            sys.stdout.write('{}'.format(
+                ['D', 'R'][bool(needed)] if (not i and not j)
+                else ['D', 'L'][bool(needed)] if (not i) else
+                ['D', 'U'][bool(needed)]
+            ))
+            if needed: needed -= 1
+        sys.stdout.write('\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution();
