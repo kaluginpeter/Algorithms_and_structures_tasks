@@ -47,3 +47,57 @@
 #
 # 1 <= rains.length <= 105
 # 0 <= rains[i] <= 109
+# Solution
+# C++ O(NlogM + N) O(M) Greedy HashMap Red-Black-Tree
+class Solution {
+public:
+    vector<int> avoidFlood(vector<int>& rains) {
+        size_t n = rains.size();
+        std::unordered_map<int, int> seen;
+        std::unordered_set<int> toDry;
+        std::set<int> canPlace;
+        for (size_t i = 0; i < n; ++i) {
+            if (!rains[i]) canPlace.insert(i);
+            else if (!seen.count(rains[i])) seen[rains[i]] = i;
+            else {
+                if (canPlace.empty()) return std::vector<int>();
+                std::set<int>::iterator target = canPlace.upper_bound(seen[rains[i]]);
+                if (target == canPlace.end()) return std::vector<int>();
+                rains[*target] = rains[i];
+                seen[rains[i]] = i;
+                toDry.insert(*target);
+                canPlace.erase(*target);
+            }
+        }
+        for (size_t i = 0; i < n; ++i) {
+            if (toDry.count(i)) continue;
+            else if (canPlace.count(i)) rains[i] = 1;
+            else rains[i] = -1;
+        }
+        return rains;
+    }
+};
+
+# Python O(NlogM + N) O(M) Greedy HashMap AVL-Tree
+class Solution:
+    def avoidFlood(self, rains: List[int]) -> List[int]:
+        n: int = len(rains)
+        seen: dict[int, int] = dict()
+        to_dry: set[int] = set()
+        can_place: list[int] = SortedList()
+        for i in range(n):
+            if not rains[i]: can_place.add(i)
+            elif rains[i] not in seen: seen[rains[i]] = i
+            else:
+                if not can_place: return []
+                target: int = bisect_right(can_place, seen[rains[i]])
+                if target == len(can_place): return []
+                rains[can_place[target]] = rains[i]
+                seen[rains[i]] = i
+                to_dry.add(can_place[target])
+                can_place.discard(can_place[target])
+        for i in range(n):
+            if i in to_dry: continue
+            elif can_place and can_place[bisect_right(can_place, i) - 1] == i: rains[i] = 1
+            else: rains[i] = -1
+        return rains
