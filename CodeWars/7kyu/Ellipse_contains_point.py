@@ -7,3 +7,10 @@
 # You will never be given the case where the string is too short to reach between the points.
 #
 # GeometryMathematicsAlgorithms
+# Solution
+import math
+
+def ellipse_contains_point(f0, f1, l, p):
+    d0: float = math.dist((f0['x'], f0['y']), (p['x'], p['y']))
+    d1: float = math.dist((f1['x'], f1['y']), (p['x'], p['y']))
+    return d0 + d1 <= l
