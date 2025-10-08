@@ -34,3 +34,37 @@
 # 1 <= spells[i], potions[i] <= 105
 # 1 <= success <= 1010
 #
+# Solution
+# Python O(MlogM + NlogM) O(1) BinarySearch Sorting
+class Solution:
+    def successfulPairs(self, spells: List[int], potions: List[int], success: int) -> List[int]:
+        potions.sort()
+        output: list[int] = []
+        for i in range(len(spells)):
+            left: int = 0
+            right: int = len(potions) - 1
+            while left <= right:
+                middle: int = left + ((right - left) >> 1)
+                if potions[middle] * spells[i] >= success: right = middle - 1
+                else: left = middle + 1
+            output.append(len(potions) - left)
+        return output
+
+# C++ O(MlogM + NlogM) O(1) Sorting BinarySearch
+class Solution {
+public:
+    vector<int> successfulPairs(vector<int>& spells, vector<int>& potions, long long success) {
+        std::sort(potions.begin(), potions.end());
+        std::vector<int> output;
+        for (size_t i = 0; i < spells.size(); ++i) {
+            int left = 0, right = potions.size() - 1;
+            while (left <= right) {
+                int middle = left + ((right - left) >> 1);
+                if (static_cast<long long>(potions[middle]) * spells[i] >= success) right = middle - 1;
+                else left = middle + 1;
+            }
+            output.push_back(potions.size() - left);
+        }
+        return output;
+    }
+};
