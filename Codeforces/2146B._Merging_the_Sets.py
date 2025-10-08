@@ -148,3 +148,82 @@
 #
 # In the fourth test case, choosing any non-empty collection of the sets is valid, so the number of ways is 25−1=31≥3
 # .
+# Solution
+# C++ O(NL) O(N + M) HashMap
+#include <iostream>
+#include <vector>
+#include <unordered_set>
+
+
+void solution() {
+    size_t n, m;
+    std::cin >> n >> m;
+    std::vector<int> hashmap(m + 1, 0);
+    std::vector<std::vector<int>> inTake(n, std::vector<int>());
+    for (size_t i = 0; i < n; ++i) {
+        int k;
+        std::cin >> k;
+        inTake[i].resize(k);
+        for (size_t j = 0; j < k; ++j) {
+            std::cin >> inTake[i][j];
+            ++hashmap[inTake[i][j]];
+        }
+    }
+    for (size_t i = 1; i <= m; ++i) {
+        if (!hashmap[i]) {
+            std::cout << "NO\n";
+            return;
+        }
+    }
+    int uniq = 0;
+    for (size_t i = 0; i < n; ++i) {
+        bool isValid = true;
+        for (int& num : inTake[i]) {
+            if (hashmap[num] == 1) {
+                isValid = false;
+                break;
+            }
+        }
+        if (isValid) {
+            ++uniq;
+            if (uniq == 2) break;
+        }
+    }
+    std::cout << (uniq > 1 ? "YES" : "NO") << std::endl;
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(NL) O(N + M) HashMap
+import sys
+
+
+def solution() -> None:
+    n, m = map(int, sys.stdin.readline().rstrip().split())
+    hashmap: list[int] = [0] * (m + 1)
+    in_take: list[list[int]] = [[] for _ in range(n)]
+    for i in range(n):
+        nums: iter[int] = map(int, sys.stdin.readline().rstrip().split())
+        k: int = next(nums)
+        for _ in range(k):
+            x: int = next(nums)
+            in_take[i].append(x)
+            hashmap[x] += 1
+    if not min(hashmap[1:]):
+        sys.stdout.write('NO\n')
+        return
+    uniq: int = 0
+    for i in range(n):
+        if all(hashmap[num] > 1 for num in in_take[i]): uniq += 1
+        if uniq == 2: break
+    sys.stdout.write('{}\n'.format(['NO', 'YES'][uniq == 2]))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
