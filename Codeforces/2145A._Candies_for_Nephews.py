@@ -38,3 +38,32 @@
 # In the second example, Monocarp does not need to buy any candies, as he initially has 24
 #  candies, and he can give each of the three nephews 8
 #  candies.
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    std::cout << (n % 3 ? 3 - n % 3 : 0) << std::endl;
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    sys.stdout.write('{}\n'.format([3 - n % 3, 0][n % 3 == 0]))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
