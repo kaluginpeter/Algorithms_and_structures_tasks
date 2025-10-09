@@ -16,3 +16,13 @@
 # L(5)   =  11
 # L(10)  = 123
 # Algorithms
+# Solution
+memo: dict[int, int] = dict()
+memo[0] = 2
+memo[1] = 1
+for i in range(2, 10_001):
+    memo[i] = memo[i - 1] + memo[i - 2]
+for i in range(-1, -10_001, -1):
+    memo[i] = memo[i + 2] - memo[i + 1]
+def lucasnum(n):
+    return memo[n]
