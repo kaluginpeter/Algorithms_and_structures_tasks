@@ -49,3 +49,38 @@
 # 1 <= n, m <= 5000
 # 1 <= mana[i], skill[i] <= 5000
 #
+# Solution
+# C++ O(NM) O(N) DynamicProgramming
+class Solution {
+public:
+    long long minTime(vector<int>& skill, vector<int>& mana) {
+        size_t n = skill.size(), m = mana.size();
+        std::vector<long long> dp(n);
+        for (int j = 0; j < m; j++) {
+            long long bound = 0;
+            for (int i = 0; i < n; i++) {
+                bound = max(bound, dp[i]) + skill[i] * mana[j];
+            }
+            dp[n - 1] = bound;
+            for (int i = n - 2; i >= 0; i--) {
+                dp[i] = dp[i + 1] - skill[i + 1] * mana[j];
+            }
+        }
+        return dp[n - 1];
+    }
+};
+
+# Python O(NM) O(N) DynamicProgramming
+class Solution:
+    def minTime(self, skill: List[int], mana: List[int]) -> int:
+        n: int = len(skill)
+        m: int = len(mana)
+        dp: list[int] = [0] * n
+        for j in range(m):
+            bound: int = 0
+            for i in range(n):
+                bound = max(bound, dp[i]) + skill[i] * mana[j]
+            dp[n - 1] = bound
+            for i in range(n - 2, -1, -1):
+                dp[i] = dp[i + 1] - skill[i + 1] * mana[j]
+        return dp[n - 1]
