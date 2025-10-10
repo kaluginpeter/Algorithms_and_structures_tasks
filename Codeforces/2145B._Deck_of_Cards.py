@@ -57,3 +57,63 @@
 # ???
 # -
 # --?+?--
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+#include <string>
+
+
+void solution() {
+    size_t n, k;
+    std::cin >> n >> k;
+    std::string moves = "";
+    std::cin >> moves;
+    int left = 1, right = n, extra = 0;
+    for (char& ch : moves) {
+        if (ch == '0') ++left;
+        else if (ch == '1') --right;
+        else ++extra;
+    }
+    for (size_t i = 1; i <= n; ++i) {
+        if (i < left) std::cout << '-';
+        else if (i > right) std::cout << '-';
+        else if (left + extra > right) std::cout << '-';
+        else if (left + extra > i || right - extra < i) std::cout << '?';
+        else std::cout << '+';
+    }
+    std::cout << std::endl;
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    n, k = map(int, sys.stdin.readline().rstrip().split())
+    moves: str = sys.stdin.readline().rstrip()
+    left: int = 1
+    right: int = n
+    extra: int = 0
+    for m in moves:
+        if m == '0': left += 1
+        elif m == '1': right -= 1
+        else: extra += 1
+    for i in range(1, n + 1):
+        if i < left or right < i or left + extra > right:
+            sys.stdout.write('-')
+        elif left + extra > i or right - extra < i:
+            sys.stdout.write('?')
+        else: sys.stdout.write('+')
+    sys.stdout.write('\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
