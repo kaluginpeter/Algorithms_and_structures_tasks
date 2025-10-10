@@ -33,3 +33,25 @@
 # 1 <= energy.length <= 105
 # -1000 <= energy[i] <= 1000
 # 1 <= k <= energy.length - 1
+# Solution
+# Python O(N) O(N) PrefixSum Kadane
+class Solution:
+    def maximumEnergy(self, energy: List[int], k: int) -> int:
+        n: int = len(energy)
+        prefix_sum: list[int] = [0] * n
+        for i in range(n):
+            prefix_sum[i] = energy[i] + max(0, prefix_sum[i - k] if i >= k else 0)
+        return max(prefix_sum[n - k:])
+
+# C++ O(N) O(N) PrefixSum Kadane
+class Solution {
+public:
+    int maximumEnergy(vector<int>& energy, int k) {
+        size_t n = energy.size();
+        std::vector<int> prefixSum(n, 0);
+        for (size_t i = 0; i < n; ++i) {
+            prefixSum[i] = energy[i] + std::max(0, (i >= k ? prefixSum[i - k] : 0));
+        }
+        return *std::max_element(prefixSum.begin() + (n - k), prefixSum.end());
+    }
+};
