@@ -9,3 +9,14 @@
 # If the number is not a power of two, the function should return the error value NaN (not a number).
 #
 # The function must only return an exponent if the floating point number exactly represents a power of two.
+# Solution
+import math
+def power_of_two(v):
+    v = abs(v)
+    if not v or v == math.inf: return math.nan
+    exponent: int = 0
+    while pow(2, exponent) > v: exponent -= 1
+    if pow(2, exponent) == v: return exponent
+    while pow(2, exponent) < v: exponent += 1
+    if pow(2, exponent) == v: return exponent
+    return math.nan
