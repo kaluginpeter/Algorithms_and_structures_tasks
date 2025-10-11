@@ -59,3 +59,58 @@ class Solution:
             else:
                 dp[spell_index] = max(dp[spell_index], current_damage)
         return max(dp)
+
+
+# Python O(N) O(N) DynamicProgramming
+class Solution:
+    def maximumTotalDamage(self, power: List[int]) -> int:
+        hashmap: dict[int, int] = dict()
+        nums: list[int] = []
+        for num in power:
+            if num not in hashmap:
+                hashmap[num] = 0
+                nums.append(num)
+            hashmap[num] += 1
+        nums.sort()
+        dp: list[int] = [0] * len(nums)
+        dp[0] = hashmap[nums[0]] * nums[0]
+        for i in range(1, len(nums)):
+            dp[i] = max(
+                dp[i - 1],
+                hashmap[nums[i]] * nums[i] + max(
+                    dp[i - 1] if nums[i - 1] + 2 < nums[i] else 0,
+                    dp[i - 2] if i >= 2 and nums[i - 2] + 2 < nums[i] else 0,
+                    dp[i - 3] if i >= 3 and nums[i - 3] + 2 < nums[i] else 0,
+                )
+            )
+        return dp[len(dp) - 1]
+
+# C++ O(N) O(N) DynamicProgramming
+class Solution {
+public:
+    long long maximumTotalDamage(vector<int>& power) {
+        std::unordered_map<int, int> hashmap;
+        std::vector<int> nums;
+        for (int& num : power) {
+            if (!hashmap.count(num)) nums.push_back(num);
+            ++hashmap[num];
+        }
+        std::sort(nums.begin(), nums.end());
+        std::vector<long long> dp(nums.size(), 0);
+        dp[0] = static_cast<long long>(hashmap[nums[0]]) * nums[0];
+        for (size_t i = 1; i < nums.size(); ++i) {
+            dp[i] = std::max(
+                dp[i - 1],
+                static_cast<long long>(hashmap[nums[i]]) * nums[i] + (
+                    std::max({
+                        (i && nums[i - 1] + 2 < nums[i] ? dp[i - 1] : 0LL),
+                        (i >= 2 && nums[i - 2] + 2 < nums[i] ? dp[i - 2] : 0LL),
+                        (i >= 3 ? dp[i - 3] : 0LL),
+                        (i >= 4 ? dp[i - 4] : 0LL)
+                    })
+                )
+            );
+        }
+        return dp[nums.size() - 1];
+    }
+};
