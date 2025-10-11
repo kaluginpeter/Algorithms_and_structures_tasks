@@ -82,3 +82,37 @@
 # In the third and fourth test cases, it can be proved that no choice of x
 #  and y
 #  results in a symmetric grid, so the answer is "NO".
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int n, a, b;
+    std::cin >> n >> a >> b;
+    if (a > b) {
+        std::cout << (n % 2 == a % 2 && n % 2 == b % 2 ? "YES" : "NO") << std::endl;
+    } else std::cout << (n % 2 == b % 2 ? "YES" : "NO") << std::endl;
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    n, a, b = map(int, sys.stdin.readline().rstrip().split())
+    if a > b:
+        sys.stdout.write(['NO\n', 'YES\n'][n % 2 == a % 2 and n % 2 == b % 2])
+        return
+    sys.stdout.write(['NO\n', 'YES\n'][n % 2 == b % 2])
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
