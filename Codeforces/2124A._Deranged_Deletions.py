@@ -86,3 +86,57 @@
 #  from the array so that it becomes [4,5,2,4]
 # . It can be shown this array is a derangement. This is not the only solution – it can be shown that the original array [4,5,5,2,4]
 #  is another valid solution.
+# Solution
+# C++ O(NlogN + N) O(N) Sorting
+#include <iostream>
+#include<vector>
+#include <algorithm>
+
+void solution() {
+    int n;
+    std::cin >> n;
+    std::vector<int> arr(n), rear(n);
+    for (int i = 0; i < n; ++i) {
+        std::cin >> arr[i];
+        rear[i] = arr[i];
+    }
+    std::sort(rear.begin(),rear.end());
+    std::vector<int> ans;
+    for (int i = 0; i < n; ++i) {
+        if(rear[i] != arr[i]) ans.push_back(arr[i]);
+    }
+    if(ans.size()) {
+        std::cout << "YES\n";
+        std::cout << ans.size() << std::endl;
+        std::cout << ans[0];
+        for (int i = 1; i < ans.size(); ++i) std::cout << " " << ans[i];
+        std::cout<<std::endl;
+    } else std::cout << "NO\n";
+}
+
+int main() {
+    int t;
+    std::cin >> t;
+    while(t--) solution();
+}
+
+# Python O(NlogN + N) O(N) Sorting
+import sys
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    arr: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    rear: list[int] = sorted(arr)
+    ans: list[int] = []
+    for i in range(n):
+        if rear[i] != arr[i]: ans.append(arr[i])
+    if ans:
+        sys.stdout.write('YES\n')
+        sys.stdout.write('{}\n'.format(len(ans)))
+        sys.stdout.write('{}\n'.format(' '.join(str(num) for num in ans)))
+    else: sys.stdout.write('NO\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
