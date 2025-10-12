@@ -36,3 +36,7 @@
 # Results are automatically rounded to the nearest integer by the test cases.
 #
 # Algorithms
+# Solution
+import math
+def db_scale(intensity):
+    return round(10 * math.log10(intensity / 1e-12))
