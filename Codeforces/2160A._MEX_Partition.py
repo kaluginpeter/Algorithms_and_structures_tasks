@@ -70,3 +70,45 @@
 # In the second test case, we can use {1,2}
 #  as the only multiset in the partition, which has mex0
 # .
+# Solution
+# C++ O(N) O(N) HashSet
+#include <iostream>
+#include <unordered_map>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    std::unordered_map<int, int> hashmap;
+    for (int i = 0; i < n; ++i) {
+        int x;
+        std::cin >> x;
+        ++hashmap[x];
+    }
+    int mex = 0;
+    while (hashmap.count(mex)) ++mex;
+    std::cout << mex << std::endl;
+}
+
+
+int main() {
+    int t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(N) HashSet
+import sys
+
+
+def solution() -> None:
+    n: int = int(int(sys.stdin.readline().rstrip()))
+    nums: set[int] = set(map(int, sys.stdin.readline().rstrip().split()))
+    mex: int = 0
+    while mex in nums: mex += 1
+    sys.stdout.write('{}\n'.format(mex))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
