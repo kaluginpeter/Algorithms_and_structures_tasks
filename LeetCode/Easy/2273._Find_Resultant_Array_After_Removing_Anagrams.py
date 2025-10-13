@@ -34,3 +34,20 @@
 # 1 <= words.length <= 100
 # 1 <= words[i].length <= 10
 # words[i] consists of lowercase English letters.
+# Solution
+# C++ O(NLlogL) O(N) Sorting
+class Solution {
+public:
+    vector<string> removeAnagrams(vector<string>& words) {
+        std::vector<std::string> output;
+        output.push_back(words[0]);
+        std::sort(words[0].begin(), words[0].end());
+        for (size_t i = 1; i < words.size(); ++i) {
+            std::string tmp = words[i];
+            std::sort(tmp.begin(), tmp.end());
+            if (tmp != words[i - 1]) output.push_back(words[i]);
+            words[i] = tmp;
+        }
+        return output;
+    }
+};
