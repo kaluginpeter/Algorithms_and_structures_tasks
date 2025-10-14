@@ -80,3 +80,25 @@
 # the output should be {}.
 #
 # AlgorithmsDynamic Programming
+# Solution
+def count(dp: list[list[int]]) -> dict[int, int]:
+    n: int = len(dp)
+    output: dict[int, int] = dict()
+    dataset: list[int] = []
+    for i in range(n):
+        for j in range(n):
+            if not dp[i][j]: continue
+            dp[i][j] = min(
+                (dp[i - 1][j] if i else 0),
+                (dp[i][j - 1] if j else 0),
+                (dp[i - 1][j - 1] if i and j else 0)
+            ) + 1
+            if dp[i][j] >= 2: dataset.append(dp[i][j])
+    dataset.sort(reverse=True)
+    square: int = 2
+    while dataset:
+        while dataset and dataset[-1] < square: dataset.pop()
+        if not dataset: break
+        output[square] = len(dataset)
+        square += 1
+    return output
