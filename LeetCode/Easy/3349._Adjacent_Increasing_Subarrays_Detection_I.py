@@ -30,3 +30,34 @@
 # 2 <= nums.length <= 100
 # 1 < 2 * k <= nums.length
 # -1000 <= nums[i] <= 1000
+# Solution
+# Python O(N) O(1) TwoPointers
+class Solution:
+    def hasIncreasingSubarrays(self, nums: List[int], k: int) -> bool:
+        left: int = 0
+        prev: int = 0
+        for right in range(1, len(nums)):
+            if nums[right] <= nums[right - 1]:
+                if prev >= k and (right - left) >= k: return True
+                prev = right - left
+                left = right
+            if (prev >= k and right - left + 1 >= k) or (right - left + 1 == 2 * k):
+                return True
+        return False
+
+# C++ O(N) O(1) TwoPointers
+class Solution {
+public:
+    bool hasIncreasingSubarrays(vector<int>& nums, int k) {
+        size_t left = 0, prev = 0;
+        for (size_t right = 1; right < nums.size(); ++right) {
+            if (nums[right] <= nums[right - 1]) {
+                if (prev >= k && (right - left) >= k) return true;
+                prev = right - left;
+                left = right;
+            }
+            if ((right - left + 1 >= k && prev >= k) || (right - left + 1 == 2 * k)) return true;
+        }
+        return false;
+    }
+};
