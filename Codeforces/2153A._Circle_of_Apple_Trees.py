@@ -93,3 +93,43 @@
 # ).
 # It can be proven that it is not possible to eat all five apples; hence, the maximum number of apples that you can eat is 4
 # .
+# Solution
+# C++ O(NlogN) O(1) Greedy
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::vector<int> nums(n, 0);
+    for (size_t i = 0; i < n; ++i) std::cin >> nums[i];
+    std::sort(nums.begin(), nums.end());
+    int output = 1;
+    for (size_t i = 1; i < n; ++i) {
+        if (nums[i] > nums[i - 1]) ++output;
+    }
+    std::cout << output << std::endl;
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(NlogN) O(1) Sorting
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    nums: list[int] = sorted(map(int, sys.stdin.readline().rstrip().split()))
+    output: int = 1 + sum(nums[i] > nums[i - 1] for i in range(1, n))
+    sys.stdout.write('{}\n'.format(output))
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
