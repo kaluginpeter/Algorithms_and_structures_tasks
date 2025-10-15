@@ -36,3 +36,33 @@
 #
 # 2 <= nums.length <= 2 * 105
 # -109 <= nums[i] <= 109
+# C++ O(N) O(1) TwoPointers
+class Solution {
+public:
+    int maxIncreasingSubarrays(vector<int>& nums) {
+        int left = 0, prev = 0, k = 0;
+        for (int right = 1; right < nums.size(); ++right) {
+            if (nums[right] <= nums[right - 1]) {
+                k = std::max(k, std::min(right - left, prev));
+                prev = right - left;
+                left = right;
+            }
+            k = std::max(k, std::max((right - left + 1) / 2, std::min(right - left + 1, prev)));
+        }
+        return k;
+    }
+};
+
+# Python O(N) O(1) TwoPointers
+class Solution:
+    def maxIncreasingSubarrays(self, nums: List[int]) -> int:
+        left: int = 0
+        prev: int = 0
+        k: int = 0
+        for right in range(1, len(nums)):
+            if nums[right] <= nums[right - 1]:
+                k = max(k, min(prev, right - left))
+                prev = right - left
+                left = right
+            k = max(k, max((right - left + 1) >> 1, min(prev, right - left + 1)))
+        return k
