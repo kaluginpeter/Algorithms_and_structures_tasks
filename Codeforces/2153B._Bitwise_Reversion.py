@@ -76,3 +76,31 @@
 # , b&c=8
 # , and a&c=12
 # .
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int x, y, z;
+    std::cin >> x >> y >> z;
+    std::cout << ((( x & y & ~z) || (x & z & ~y) || (~x & z & y))? "NO" : "YES") << std::endl;
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+def solution() -> None:
+    x, y, z = map(int, sys.stdin.readline().rstrip().split())
+    sys.stdout.write('{}\n'.format(['YES', 'NO'][bool((x & y & ~z) or (x & z & ~y) or (~x & z & y))]))
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
