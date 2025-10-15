@@ -15,3 +15,8 @@
 # "001000101", 9 -> "001000000"
 # "000000101", 9 -> "000000100"
 # StringsFundamentalsBits
+# Solution
+def arbitrate(inp, n):
+    if '1' not in inp: return inp
+    target: int = inp.index('1')
+    return inp[:target + 1] + '0' * (n - target - 1)
