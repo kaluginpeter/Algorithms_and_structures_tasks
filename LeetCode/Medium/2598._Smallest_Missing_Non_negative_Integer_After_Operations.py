@@ -32,3 +32,35 @@
 #
 # 1 <= nums.length, value <= 105
 # -109 <= nums[i] <= 109
+# Solution
+# Python O(N + M) O(M) HashMap
+class Solution:
+    def findSmallestInteger(self, nums: List[int], value: int) -> int:
+        hashmap: dict[int, int] = dict()
+        for num in nums:
+            hashmap[num % value] = hashmap.get(num % value, 0) + 1
+        mex: int = 0
+        while mex % value in hashmap:
+            hashmap[mex % value] -= 1
+            if not hashmap[mex % value]: del hashmap[mex % value]
+            mex += 1
+        return mex
+
+# C++ O(N + M) O(M) HashMap
+class Solution {
+public:
+    int findSmallestInteger(vector<int>& nums, int value) {
+        std::unordered_map<int, int> hashmap;
+        for (int& num : nums) {
+            if (num < 0) ++hashmap[(num % value + value) % value];
+            else ++hashmap[num % value];
+        }
+        int mex = 0;
+        while (hashmap.count(mex % value)) {
+            --hashmap[mex % value];
+            if (!hashmap[mex % value]) hashmap.erase(mex % value);
+            ++mex;
+        }
+        return mex;
+    }
+};
