@@ -92,3 +92,50 @@
 # The array a=[10,6,15,32,125,54]
 #  satisfies all of the above conditions. Hence, a
 #  is a valid array.
+# Solution
+# C++ O(N^2) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    for (int i = 1; i <= n; ++i) {
+        int base = 1;
+        for (int j = 1; j <= i; ++j) {
+            if (i % j == 0) {
+                if (base >= j && base % j == 0) continue;
+                else base *= j;
+            }
+        }
+        std::cout << base << " ";
+    }
+    std::cout << std::endl;
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N^2) O(1) Math
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    for i in range(1, n + 1):
+        base: int = 1
+        for j in range(1, i + 1):
+            if i % j != 0: continue
+            elif base >= j and base % j == 0: continue
+            else: base *= j
+        sys.stdout.write('{} '.format(base))
+    sys.stdout.write('\n')
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
