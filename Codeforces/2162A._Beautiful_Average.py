@@ -58,3 +58,40 @@
 # 3
 # 9
 # 4
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    int output = 0;
+    for (size_t i = 0; i < n; ++i) {
+        int x;
+        std::cin >> x;
+        output = std::max(output, x);
+    }
+    std::cout << output << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    nums: iter[int] = map(int, sys.stdin.readline().rstrip().split())
+    sys.stdout.write('{}\n'.format(max(nums)))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
