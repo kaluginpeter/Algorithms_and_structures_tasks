@@ -69,3 +69,19 @@ public:
         return count;
     }
 };
+
+
+# C++ O(NlogN + N) O(1) Sorting
+class Solution {
+public:
+    int maxDistinctElements(vector<int>& nums, int k) {
+        std::sort(nums.begin(), nums.end());
+        int output = 1, prev = nums[0] - k;
+        for (size_t i = 1; i < nums.size(); ++i) {
+            if (nums[i] + k <= prev) continue;
+            prev = std::max(prev + 1, nums[i] - k);
+            ++output;
+        }
+        return output;
+    }
+};
