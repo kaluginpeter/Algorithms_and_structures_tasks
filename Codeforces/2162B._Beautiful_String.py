@@ -121,3 +121,46 @@
 # , 6
 # ), resulting in x=1001
 # , which is a palindrome.
+# Solution
+# C++ O(N) O(1) String
+#include <iostream>
+#include <string>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::string sequence = "";
+    std::cin >> sequence;
+    int zeros = 0;
+    for (char& ch : sequence) {
+        if (ch == '0') ++zeros;
+    }
+    std::cout << zeros << "\n";
+    for (size_t i = 1; i <= n; ++i) {
+        if (sequence[i - 1] == '0') std::cout << i << " ";
+    }
+    std::cout << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(1) String
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    sequence: str = sys.stdin.readline().rstrip()
+    sys.stdout.write('{}\n'.format(sequence.count('0')))
+    sys.stdout.write('{}\n'.format(' '.join(str(i + 1) for i in range(n) if sequence[i] == '0')))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
