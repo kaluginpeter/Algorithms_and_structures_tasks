@@ -85,3 +85,86 @@
 # For the fourth test case, choosing x=5
 #  makes a=b
 # .
+# Solution
+# C++ O(logN) O(1) Bit
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    int a, b;
+    std::cin >> a >> b;
+    if (a == b) {
+        std::cout << "0\n";
+        return;
+    }
+    int a_ = a, b_ = b;
+    while (a_ && b_) {
+        a_ >>= 1;
+        b_ >>= 1;
+    }
+    if (b_) {
+        std::cout << "-1\n";
+        return;
+    }
+    std::vector<int> moves;
+
+    int places = 0;
+    while (a && b) {
+        if ((a & 1) != (b & 1)) moves.push_back(1 << places);
+        a >>= 1;
+        b >>= 1;
+        ++places;
+    }
+    while (a) {
+        if (a & 1) moves.push_back(1 << places);
+        ++places;
+        a >>= 1;
+    }
+
+    std::cout << moves.size() << "\n";
+    for (int& move : moves) std::cout << move << " ";
+    std::cout << std::endl;
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(logN) O(1) Bit
+import sys
+
+
+def solution() -> None:
+    a, b = map(int, sys.stdin.readline().rstrip().split())
+    if a == b:
+        sys.stdout.write('0\n')
+        return
+    a_: int = a
+    b_: int = b
+    while a_ and b_:
+        a_ >>= 1
+        b_ >>= 1
+    if b_:
+        sys.stdout.write('-1\n')
+        return
+    moves: list[int] = []
+    places: int = 0
+    while a and b:
+        if (a & 1) != (b & 1): moves.append(1 << places)
+        places += 1
+        a >>= 1
+        b >>= 1
+    while a:
+        if a & 1: moves.append(1 << places)
+        places += 1
+        a >>= 1
+    sys.stdout.write('{}\n{}\n'.format(len(moves), ' '.join(map(str, moves))))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
