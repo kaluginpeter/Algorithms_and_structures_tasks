@@ -49,3 +49,43 @@
 # s consists of digits from 0 to 9 only.
 # 1 <= a <= 9
 # 1 <= b <= s.length - 1
+# Solution
+# C++ O(100N) O(100N) String HashSet
+class Solution {
+public:
+    string findLexSmallestString(string s, int a, int b) {
+        std::string output = s;
+        std::unordered_set<std::string> seen;
+        std::queue<std::string> q;
+        q.push(s);
+        while (!q.empty()) {
+            std::string cur = q.front();
+            q.pop();
+            seen.insert(cur);
+            for (int k = 0; k < 10; ++k) {
+                for (int j = 1; j < s.size(); j += 2) {
+                    cur[j] = ((cur[j] - '0') + a) % 10 + '0';
+                }
+                if (!seen.count(cur)) {
+                    seen.insert(cur);
+                    q.push(cur);
+                    output = std::min(output, cur);
+                }
+            }
+            output = std::min(output, cur);
+            for (int k = 0; k < 10; ++k) {
+                std::string s_ = s;
+                for (int j = 0; j < s.size(); ++j) {
+                    s_[j] = cur[(j + s.size() - b) % s.size()];
+                }
+                cur = s_;
+                output = std::min(output, cur);
+                if (!seen.count(cur)) {
+                    q.push(cur);
+                    seen.insert(cur);
+                }
+            }
+        }
+        return output;
+    }
+};
