@@ -109,3 +109,53 @@
 # , then Teto can change it to 0
 #  (1010101
 # )
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+#include <string>
+
+
+void solution() {
+    int n, k;
+    std::cin >> n >> k;
+    std::string s = "";
+    std::cin >> s;
+    int output = 0, prev = 0;
+    while (prev < n && s[prev] == '0') ++prev;
+    if (prev < n) ++output;
+    for (int i = prev + 1; i < n; ++i) {
+        if (s[i] == '0') continue;
+        if ((i - k + 1) && (prev + k - 1 < i)) ++output;
+        prev = i;
+    }
+    std::cout << output << std::endl;
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    n, k = map(int, sys.stdin.readline().rstrip().split())
+    s: str = sys.stdin.readline().rstrip()
+    output: int = 0
+    prev: int = 0
+    while prev < n and s[prev] == '0': prev += 1
+    if prev < n: output += 1
+    for i in range(prev + 1, n):
+        if s[i] == '0': continue
+        if prev + k - 1 < i: output += 1
+        prev = i
+    sys.stdout.write('{}\n'.format(output))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
