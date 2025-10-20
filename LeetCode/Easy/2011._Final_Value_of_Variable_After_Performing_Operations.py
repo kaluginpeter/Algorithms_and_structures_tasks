@@ -43,3 +43,17 @@ class Solution:
         c, d = 0, {'--X': -1, 'X--': -1, '++X': 1, 'X++': 1}
         for i in operations: c += d[i]
         return c
+
+
+# C++ O(N) O(1) Simulation
+class Solution {
+public:
+    int finalValueAfterOperations(vector<string>& operations) {
+        int x = 0;
+        for (std::string& m : operations) {
+            if (m[0] == '-' || m.back() == '-') --x;
+            else ++x;
+        }
+        return x;
+    }
+};
