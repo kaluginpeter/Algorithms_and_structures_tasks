@@ -32,3 +32,17 @@
 # Process: go from left to right, move only consecutive strings when needed.
 # For the first fixed tests the needed number of moves to get property (P) is given as a comment so that you can know if your process follows the rule.
 # FundamentalsStrings
+# Solution
+def arrange(strng):
+    l: list[str] = strng.split()
+    for i in range(len(l)):
+        if i & 1:
+            if i + 1 < len(l) and len(l[i]) < len(l[i + 1]):
+                l[i], l[i + 1] = l[i + 1], l[i]
+            l[i] = l[i].upper()
+        else:
+            if i + 1 < len(l) and len(l[i + 1]) < len(l[i]):
+                l[i], l[i + 1] = l[i + 1], l[i]
+            l[i] = l[i].lower()
+
+    return ' '.join(l)
