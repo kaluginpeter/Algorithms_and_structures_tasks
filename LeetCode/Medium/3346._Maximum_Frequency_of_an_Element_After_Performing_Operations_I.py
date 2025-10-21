@@ -40,3 +40,44 @@
 # 0 <= k <= 105
 # 0 <= numOperations <= nums.length
 #
+# Solution
+# C++ O(N + M) O(M) SweepLine
+class Solution {
+public:
+    int maxFrequency(vector<int>& nums, int k, int numOperations) {
+        std::sort(nums.begin(), nums.end());
+        size_t n = nums.size();
+        std::vector<int> sweepLine(nums.back() + 1, 0);
+        std::unordered_map<int, int> hashmap;
+        for (int& num : nums) {
+            ++hashmap[num];
+            ++sweepLine[std::max(0, num - k)];
+            if (num + k + 1 < nums.back() + 1) --sweepLine[num + k + 1];
+        }
+        int cnt = 0, output = 0;
+        for (int i = 0; i < sweepLine.size(); ++i) {
+            cnt += sweepLine[i];
+            output = std::max(output, std::min(numOperations, cnt - hashmap[i]) + hashmap[i]);
+        }
+        return output;
+    }
+};
+
+# Python O(N + M) O(M) SweepLine
+class Solution:
+    def maxFrequency(self, nums: List[int], k: int, numOperations: int) -> int:
+        nums.sort()
+        n: int = len(nums)
+        sweep_line: list[int] = [0] * (nums[-1] + 1)
+        hashmap: dict[int, int] = dict()
+        for num in nums:
+            hashmap[num] = hashmap.get(num, 0) + 1
+            sweep_line[max(0, num - k)] += 1
+            if num + k + 1 <= nums[-1]: sweep_line[num + k + 1] -= 1
+        cnt: int = 0
+        output: int = 0
+        for i in range(len(sweep_line))
+            cnt += sweep_line[i]
+            x: int = hashmap.get(i, 0)
+            output = max(output, min(numOperations, cnt - x) + x)
+        return output
