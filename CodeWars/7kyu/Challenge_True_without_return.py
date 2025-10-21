@@ -9,3 +9,5 @@
 # Good luck!
 #
 # PuzzlesRestrictedFundamentals
+# Solution
+solve = lambda : True
