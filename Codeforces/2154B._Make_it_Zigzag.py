@@ -105,3 +105,70 @@
 #  is awesome as 2<3>2<3
 # . It can be proven that this is the minimum number of times operation 2
 #  needs to be performed.
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::vector<int> nums(n, 0);
+    int mx = 0;
+    for (size_t i = 0; i < n; ++i) {
+        std::cin >> nums[i];
+        mx = std::max(mx, nums[i]);
+        if (i & 1) nums[i] = mx;
+    }
+    int output = 0;
+    for (int i = 1; i < n; i += 2) {
+        bool left = !(nums[i - 1] < nums[i]);
+        bool right = (i + 1 < n ? nums[i] <= nums[i + 1] : false);
+        if (left) {
+            int cost = nums[i - 1] - nums[i] + 1;
+            output += cost;
+        }
+        if (right) {
+            int cost = nums[i + 1] - nums[i] + 1;
+            output += cost;
+            nums[i + 1] -= cost;
+        }
+    }
+    std::cout << output << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    mx: int = 0
+    for i in range(n):
+        mx = max(mx, nums[i])
+        if i & 1: nums[i] = mx
+    output: int = 0
+    for i in range(1, n, 2):
+        if not (nums[i] > nums[i - 1]):
+            cost: int = nums[i - 1] - nums[i] + 1
+            output += cost
+        if i + 1 < n and not (nums[i] > nums[i + 1]):
+            cost: int = nums[i + 1] - nums[i] + 1
+            output += cost
+            nums[i + 1] -= cost
+    sys.stdout.write('{}\n'.format(output))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
