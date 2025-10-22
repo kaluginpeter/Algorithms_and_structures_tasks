@@ -39,3 +39,59 @@
 # 1 <= nums[i] <= 109
 # 0 <= k <= 109
 # 0 <= numOperations <= nums.length
+# Solution
+# C++ O(NlogN) O(N) Sorting BinarySearch
+class Solution {
+public:
+    int maxFrequency(vector<int>& nums, int k, int numOperations) {
+        std::sort(nums.begin(), nums.end());
+        std::unordered_map<int, int> numCount;
+        std::set<int> modes;
+        auto addMode = [&](int value) {
+            modes.insert(value);
+            if (value - k >= nums.front()) modes.insert(value - k);
+            if (value + k <= nums.back()) modes.insert(value + k);
+        };
+
+        int output = 0, lastNumIndex = 0;
+        for (int i = 0; i < nums.size(); ++i) {
+            if (nums[i] != nums[lastNumIndex]) {
+                numCount[nums[lastNumIndex]] = i - lastNumIndex;
+                output = std::max(output, i - lastNumIndex);
+                addMode(nums[lastNumIndex]);
+                lastNumIndex = i;
+            }
+        }
+        numCount[nums[lastNumIndex]] = nums.size() - lastNumIndex;
+        output = std::max(output, static_cast<int>(nums.size()) - lastNumIndex);
+        addMode(nums[lastNumIndex]);
+        auto leftBound = [&](int value) {
+            int left = 0, right = nums.size() - 1;
+            while (left < right) {
+                int mid = (left + right) / 2;
+                if (nums[mid] < value) left = mid + 1;
+                else right = mid;
+            }
+            return left;
+        };
+        auto rightBound = [&](int value) {
+            int left = 0, right = nums.size() - 1;
+            while (left < right) {
+                int mid = (left + right + 1) / 2;
+                if (nums[mid] > value) right = mid - 1;
+                else left = mid;
+            }
+            return left;
+        };
+
+        for (int mode : modes) {
+            int l = leftBound(mode - k);
+            int r = rightBound(mode + k);
+            int tmp = 0;
+            if (numCount.count(mode)) tmp = std::min(r - l + 1, numCount[mode] + numOperations);
+            else tmp = std::min(r - l + 1, numOperations);
+            output = std::max(output, tmp);
+        }
+        return output;
+    }
+};
