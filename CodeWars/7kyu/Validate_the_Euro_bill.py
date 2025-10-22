@@ -28,3 +28,9 @@
 # Good luck!
 #
 # Regular ExpressionsAlgorithms
+# Solution
+def validate_euro(serial_number):
+    output = str(ord(serial_number[0]) + ord(serial_number[1]) - 128) + str(sum(map(int, serial_number[2:])))
+    while len(output) > 1:
+        output = str(sum(map(int, output)))
+    return int(output) == 7
