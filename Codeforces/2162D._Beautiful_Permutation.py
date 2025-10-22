@@ -194,3 +194,73 @@
 # .
 #
 # Note that the queries shown in the sample test are only for demonstration purposes, and they may not correspond to any optimal solution.
+# Solution
+# C++ O(logN) O(1) BinarySearch
+#include <iostream>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    int pTot = 0, aTot = 0;
+    std::printf("1 1 %d\n", n);
+    std::cin >> pTot;
+    std::printf("2 1 %d\n", n);
+    std::cin >> aTot;
+    int diff = aTot - pTot;
+    int left = 1, right = n;
+    while (left <= right) {
+        int p = 0, a = 0;
+        int middle = left + ((right - left) >> 1);
+        std::printf("1 %d %d\n", middle, n);
+        std::cout.flush();
+        std::cin >> p;
+        std::printf("2 %d %d\n", middle, n);
+        std::cout.flush();
+        std::cin >> a;
+        if (a == p) right = middle - 1;
+        else left = middle + 1;
+    }
+    std::printf("! %d %d\n", left - diff, left - 1);
+
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(logN) O(1) BinarySearch
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    sys.stdout.write(f"1 1 {n}\n")
+    sys.stdout.flush()
+    p_tot: int = int(sys.stdin.readline().rstrip())
+    sys.stdout.write(f"2 1 {n}\n")
+    sys.stdout.flush()
+    a_tot: int = int(sys.stdin.readline().rstrip())
+    diff: int = a_tot - p_tot
+    left: int = 1
+    right: int = n
+    while left <= right:
+        middle: int = left + ((right - left) >> 1)
+        sys.stdout.write(f"1 {middle} {n}\n")
+        sys.stdout.flush()
+        p: int = int(sys.stdin.readline().rstrip())
+        sys.stdout.write(f"2 {middle} {n}\n")
+        sys.stdout.flush()
+        a: int = int(sys.stdin.readline().rstrip())
+        if a == p: right = middle - 1
+        else: left = middle + 1
+    sys.stdout.write(f"! {left - diff} {left - 1}\n")
+    sys.stdout.flush()
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
