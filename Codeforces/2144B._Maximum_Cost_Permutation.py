@@ -73,3 +73,45 @@
 # , with the cost 2
 # , because you have to sort segment [2,3]
 # .
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::vector<int> nums(n + 1, 1), data(n, 0);
+    int used = 0;
+    for (size_t i = 0; i < n; ++i) {
+        std::cin >> data[i];
+        if (!data[i]) ++used;
+        nums[data[i]] = 0;
+    }
+    if (used == 1) {
+        size_t left = n;
+        while (left >= 0 && !nums[left]) --left;
+        for (int i = 0; i < n; ++i) {
+            if (data[i]) continue;
+            data[i] = left;
+            break;
+        }
+    }
+
+    int start = 0, end = 0;
+    for (int i = 1; i <= n; ++i) {
+        if (!data[i - 1] || (data[i - 1] != i)) {
+            if (!start) start = i;
+            end = i;
+        }
+    }
+    std::cout << (start ? end - start + 1 : 0) << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
