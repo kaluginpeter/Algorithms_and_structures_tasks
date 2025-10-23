@@ -18,3 +18,8 @@
 # PS.If anyone has any suggestions of how to improve this kata please let me know.
 #
 # FundamentalsPuzzles
+# Solution
+from math import factorial as f
+def routes(n):
+    if n <= 0: return 0
+    return int(f(2*n)//f(n)**2)
