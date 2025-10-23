@@ -44,3 +44,25 @@
 #
 # 3 <= s.length <= 100
 # s consists of only digits.
+# Solution
+# C++ O(NlogN) O(logN) String
+class Solution {
+public:
+    bool hasSameDigits(string s) {
+        while (s.size() > 2) {
+            std::string tmp = "";
+            for(int i = 0; i < s.size() - 1; ++i) {
+                tmp.push_back((s[i] - '0' + (s[i + 1] - '0')) % 10 + '0');
+            }
+            s = tmp;
+        }
+        return s[0] == s[1];
+    }
+};
+
+# Python O(NlogN) O(logN) String
+class Solution:
+    def hasSameDigits(self, s: str) -> bool:
+        while len(s) > 2:
+            s = ''.join(str((int(x) + int(y)) % 10) for x, y in zip(s, s[1:]))
+        return len(set(s)) == 1
