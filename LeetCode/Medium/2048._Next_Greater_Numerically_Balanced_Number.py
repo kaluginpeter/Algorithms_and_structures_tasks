@@ -37,3 +37,42 @@
 #
 # 0 <= n <= 106
 #
+# Solution
+# O(10^6logN) O(logN) Greedy
+class Solution:
+    def is_valid(self, x: int) -> bool:
+        hashmap: list[int] = [0] * 10
+        while x:
+            hashmap[x % 10] += 1
+            x //= 10
+        for d in range(10):
+            if hashmap[d] and hashmap[d] != d: return False
+        return True
+
+    def nextBeautifulNumber(self, n: int) -> int:
+        for i in range(n + 1, 1224444 + 1):
+            if self.is_valid(i): return i
+        return -1
+
+# C++ O(10^6logN) O(logN) Greedy
+class Solution {
+public:
+    bool isBalance(int x) {
+        std::vector<int> count(10, 0);
+        while (x > 0) {
+            ++count[x % 10];
+            x /= 10;
+        }
+        for (int d = 0; d < 10; ++d) {
+            if (count[d] && count[d] != d) return false;
+        }
+        return true;
+    }
+
+    int nextBeautifulNumber(int n) {
+        for (int i = n + 1; i <= 1224444; ++i) {
+            if (isBalance(i)) return i;
+        }
+        return -1;
+    }
+};
