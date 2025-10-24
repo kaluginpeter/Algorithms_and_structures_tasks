@@ -79,3 +79,38 @@
 # In the fourth test case, there are no positions where the knight can attack both the king and the queen.
 #
 # (Credits to EnDeRBeaT for the nice images)
+# Solution
+# C++ O(1) O(1) Set Greedy
+#include <iostream>
+#include <cstdint>
+#include <set>
+
+
+void solution() {
+    int dx[4] = {-1, 1, -1, 1}, dy[4] = {-1, -1, 1, 1};
+    long long a , b;
+    std::cin >> a >> b;
+    long long x_king , y_king;
+    std::cin >> x_king >> y_king;
+    long long x_queen , y_queen;
+    std::cin >> x_queen >> y_queen;
+    std::set<std::pair<int , int>> king_hits , queen_hits;
+    for(int j = 0; j < 4; j++){
+        king_hits.insert({x_king + dx[j] * a, y_king + dy[j] * b});
+		king_hits.insert({x_king + dx[j] * b, y_king + dy[j] * a});
+        queen_hits.insert({x_queen + dx[j] * a, y_queen + dy[j] * b});
+		queen_hits.insert({x_queen + dx[j] * b, y_queen + dy[j] * a});
+    }
+    int ans = 0;
+    for(auto position : king_hits) {
+        if (queen_hits.find(position) != queen_hits.end()) ans++;
+    }
+    std::cout << ans << std::endl;
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
