@@ -67,3 +67,76 @@
 # es
 #
 # helaoard
+# Solution
+# C++ O(N) O(N) String
+#include <iostream>
+#include <vector>
+#include <string>
+#include <unordered_set>
+
+
+void solution() {
+    std::string moves;
+    std::cin >> moves;
+    std::unordered_set<int> hashset;
+    std::vector<std::pair<char, int>> lower, upper;
+    for (int i = 0; i < moves.size(); ++i) {
+        if (moves[i] == 'b') {
+            hashset.insert(i);
+            if (!lower.empty()) {
+                hashset.insert(lower.back().second);
+                lower.pop_back();
+            }
+        } else if (moves[i] == 'B') {
+            hashset.insert(i);
+            if (!upper.empty()) {
+                hashset.insert(upper.back().second);
+                upper.pop_back();
+            }
+        } else {
+            if (std::isupper(moves[i])) upper.push_back({moves[i], i});
+            else lower.push_back({moves[i], i});
+        }
+    }
+    std::string output = "";
+    for (int i = 0; i < moves.size(); ++i) {
+        if (!hashset.count(i)) output.push_back(moves[i]);
+    }
+    std::cout << output << std::endl;
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(N) String
+import sys
+
+
+def solution() -> None:
+    moves: str = sys.stdin.readline().rstrip()
+    upper: list[i] = []
+    lower: list[int] = []
+    hashset: set[int] = set()
+    for i in range(len(moves)):
+        if moves[i] in 'bB':
+            hashset.add(i)
+            if moves[i].isupper():
+                if upper: hashset.add(upper.pop())
+            if moves[i].islower():
+                if lower: hashset.add(lower.pop())
+        elif moves[i].isupper(): upper.append(i)
+        else: lower.append(i)
+    output: list[str] = []
+    for i in range(len(moves)):
+        if i not in hashset:
+            output.append(moves[i])
+    sys.stdout.write('{}\n'.format(''.join(output)))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
