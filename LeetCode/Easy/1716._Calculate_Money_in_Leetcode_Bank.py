@@ -47,3 +47,16 @@ class Solution(object):
             return sum((1 + 7 + i * 2) * 7 / 2 for i in range(n // 7))
         x = sum((1 + 7 + i * 2) * 7 / 2 for i in range(n // 7))
         return x + sum(i + n // 7 for i in range(1, n % 7 + 1))
+
+
+class Solution {
+public:
+    int totalMoney(int n) {
+       int output = 0, week = 1;
+       for (int day = 0; day < n; ++day) {
+        if (day && day % 7 == 0) ++week;
+        output += week + day % 7;
+       }
+       return output;
+    }
+};
