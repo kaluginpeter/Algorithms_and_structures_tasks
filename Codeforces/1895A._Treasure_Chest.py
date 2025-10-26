@@ -77,3 +77,42 @@
 # , puts it down, moves 1
 #  to the right to pick up the key and returns 1
 #  left to open the chest.
+# Solution
+# C++ O(1) O(1) Greedy Math
+#include <iostream>
+
+
+void solution() {
+    int x, y, k;
+    std::cin >> x >> y >> k;
+    if (x < y) {
+        if (x + k >= y) std::cout << y << "\n";
+        else std::cout << y + (y - x - k) << "\n";
+    } else std::cout << x << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(1) O(1) Math Greedy
+import sys
+
+
+def solution() -> None:
+    x, y, k = map(int, sys.stdin.readline().rstrip().split())
+    if x > y:
+        sys.stdout.write('{}\n'.format(x))
+        return
+    if x + k >= y:
+        sys.stdout.write('{}\n'.format(y))
+        return
+    sys.stdout.write('{}\n'.format(y + (y - x -k)))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
