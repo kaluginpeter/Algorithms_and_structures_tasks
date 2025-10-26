@@ -19,3 +19,6 @@
 # Even if this kata can be solved by using Regex, please try to find a solution by using only the built-in methods.
 #
 # StringsFundamentalsRegular Expressions
+# Solution
+def get_users_ids(st):
+    return [word.strip()[3:].strip() for word in st.lower().replace('#', '').split(',')]
