@@ -31,3 +31,26 @@
 # Approx. 600 cases from the test suite also evaluate performance: up ranges from 2 to 40 and goal goes up to 10^10!
 # The reference solution executes with O(log n) taking less than 1s.
 # Game SolversGamesMathematicsNumPyPerformancePuzzlesSimulation
+# Solution
+from math import ceil
+
+
+def clicker_solver(up: int, goal: int) -> int:
+    if not up:
+        return 0 if not goal else -1
+    cpc: int = up
+    prev: int = ceil(goal / up)
+    money: int = 0
+    cur: int = 0
+    while True:
+        next_upgrade: int = cpc ** 3
+        additional_steps: int = max(0, ceil((next_upgrade - money) / cpc))
+        cur += additional_steps + 1
+        money = money + additional_steps * cpc - next_upgrade
+        cpc += up
+        if cur + ceil(max(0, goal - money) / cpc) <= prev:
+            prev = cur + ceil(max(0, goal - money) / cpc)
+        else:
+            break
+
+    return prev
