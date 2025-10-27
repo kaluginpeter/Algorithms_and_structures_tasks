@@ -84,3 +84,42 @@
 #  slices are carried over to the next day.
 # Only 2
 #  slices remain, so Alex eats them all.
+# Solution
+# C++ O(logN) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    int hao = 0;
+    while (n >= 3) {
+        hao += n / 3;
+        n = n / 3 + (n % 3);
+    }
+    std::cout << hao << std::endl;
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(logN) O(1) Math
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    hao: int = 0
+    while n >= 3:
+        hao += n // 3
+        n = n // 3 + n % 3
+    sys.stdout.write('{}\n'.format(hao))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
