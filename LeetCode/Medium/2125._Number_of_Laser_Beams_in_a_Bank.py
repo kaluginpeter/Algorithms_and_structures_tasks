@@ -67,3 +67,23 @@ class Solution:
                 count += prev_top * top
                 prev_top = top
         return count
+
+
+# C++ O(NM) O(1) Greedy Matrix
+class Solution {
+public:
+    int numberOfBeams(vector<string>& bank) {
+        int output = 0, lasers = 0;
+        for (std::string& r : bank) {
+            int cur = 0;
+            for (char& ch : r) {
+                if (ch == '1') {
+                    ++cur;
+                    output += lasers;
+                }
+            }
+            if (cur) lasers = cur;
+        }
+        return output;
+    }
+};
