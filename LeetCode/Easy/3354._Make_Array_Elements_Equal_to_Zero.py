@@ -96,3 +96,60 @@ public:
         return positions;
     }
 };
+
+
+# Python O(N^2M) O(N) Simulation
+class Solution:
+    def check(self, i: int, nums: list[int], to_right: bool) -> bool:
+        left: int = i - 1
+        right: int = i + 1
+        n: int = len(nums)
+        while left >= 0 or right < n:
+            if to_right:
+                while right < n and not nums[right]: right += 1
+                if right == n: break
+                nums[right] -= 1
+            else:
+                while left >= 0 and not nums[left]: left -= 1
+                if left < 0: break
+                nums[left] -= 1
+            to_right = not to_right
+        return max(nums) == 0
+
+    def countValidSelections(self, nums: List[int]) -> int:
+        output: int = 0
+        for i in range(len(nums)):
+            if nums[i]: continue
+            if self.check(i, nums[::], True): output += 1
+            if self.check(i, nums[::], False): output += 1
+        return output
+
+# C++ O(N^2M) O(N) Simulation
+class Solution {
+public:
+    bool check(int start, std::vector<int> nums, bool toRight) {
+        int left = start - 1, right = start + 1, n = nums.size();
+        while (left >= 0 || right < n) {
+            if (toRight) {
+                while (right < n && !nums[right]) ++right;
+                if (right == n) break;
+                --nums[right];
+            } else {
+                while (left >= 0 && !nums[left]) --left;
+                if (left < 0) break;
+                --nums[left];
+            }
+            toRight = !toRight;
+        }
+        return *std::max_element(nums.begin(), nums.end()) == 0;
+    }
+    int countValidSelections(vector<int>& nums) {
+        int output = 0;
+        for (int i = 0; i < nums.size(); ++i) {
+            if (nums[i]) continue;
+            if (check(i, nums, true)) ++output;
+            if (check(i, nums, false)) ++output;
+        }
+        return output;
+    }
+};
