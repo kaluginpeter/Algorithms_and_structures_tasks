@@ -34,3 +34,18 @@
 # Enjoy, and don't hesitate to comment on any mistakes or problems with this kata.
 #
 # MathematicsAlgorithmsGeometry
+# Solution
+import math
+
+def map_vector(vector, circle1, circle2):
+    vx, vy = vector
+    x1, y1, r1 = circle1
+    x2, y2, r2 = circle2
+    dx = vx - x1
+    dy = vy - y1
+    dist1 = math.hypot(dx, dy)
+    angle = math.atan2(dy, dx)
+    dist2 = dist1 * (r2 / r1)
+    nx = x2 + math.cos(angle) * dist2
+    ny = y2 + math.sin(angle) * dist2
+    return round(nx, 2), round(ny, 2)
