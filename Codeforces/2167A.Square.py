@@ -54,3 +54,17 @@
 # In the first test case, we can prove that we can't make a square.
 #
 # In the second, third, and sixth test cases, we can make a square like this:
+# Solution
+# C++ O(1) O(1) Geometry
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	int t;
+	std::cin >> t;
+	while (t--) {
+	    int a, b, c, d;
+	    std::cin >> a >> b >> c >> d;
+	    std::cout << (std::min({a, b, c, d}) == std::max({a, b, c ,d}) ? "YES" : "NO") << "\n";
+	}
+}
