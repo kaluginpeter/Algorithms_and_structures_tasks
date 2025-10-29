@@ -65,3 +65,40 @@
 # Mobile Display Keystrokes by zruF
 # Thinking & Testing : Mobile phone simulator by myjinxin2015
 # FundamentalsStringsAlgorithms
+# Solution
+def send_message(message: str) -> str:
+    keys = {
+        '1': '.,?!',
+        '2': 'abc',
+        '3': 'def',
+        '4': 'ghi',
+        '5': 'jkl',
+        '6': 'mno',
+        '7': 'pqrs',
+        '8': 'tuv',
+        '9': 'wxyz',
+        '*': "'-+=",
+        '0': ' ',
+    }
+    mapping = {}
+    for k, chars in keys.items():
+        for i, ch in enumerate(chars, 1): mapping[ch] = k * i
+    for k in '0123456789*#': mapping[k] = f"{k}-"
+    result = []
+    lower = True
+    prev_key = None
+    for ch in message:
+        if ch.isalpha():
+            is_lower = ch.islower()
+            if is_lower != lower:
+                result.append('#')
+                lower = is_lower
+            seq = mapping[ch.lower()]
+        else: seq = mapping[ch]
+        if result:
+            last = result[-1]
+            if not last.endswith('-') and last[-1] == seq[0] and last != '#':
+                result.append(' ')
+        result.append(seq)
+        prev_key = seq[0]
+    return ''.join(result)
