@@ -40,3 +40,13 @@
 #
 # 1 <= n <= 1000
 #
+# Solution
+# C++ O(logN) O(1) Math
+class Solution {
+public:
+    int smallestNumber(int n) {
+        int x = 1;
+        while (std::pow(2, x) <= n) ++x;
+        return std::pow(2, x) - 1;
+    }
+};
