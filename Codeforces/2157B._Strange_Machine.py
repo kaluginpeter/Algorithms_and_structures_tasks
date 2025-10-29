@@ -172,3 +172,63 @@
 #  seconds for a
 #  to reach 0
 # .
+# Solution
+# C++ O(logN) O(20) Math
+#include <iostream>
+#include <string>
+#include <vector>
+
+
+void solution() {
+    int n, q;
+    std::cin >> n >> q;
+    std::string moves;
+    std::cin >> moves;
+    int left = 0, right = 0;
+    int cur = 0;
+    std::vector<std::pair<char, int>> sequence;
+    while (right < n) {
+        while (right < n && (moves[right] == moves[left]) && moves[right] == 'A') {
+            ++cur;
+            ++right;
+        }
+        if (!cur) {
+            sequence.push_back({'B', 2});
+            ++right;
+        } else {
+            sequence.push_back({moves[left], cur});
+            cur = 0;
+        }
+        left = right;
+    }
+    for (int i = 0; i < q; ++i) {
+        int x;
+        std::cin >> x;
+        int steps = 0, idx = 0;
+        while (x) {
+            if (sequence.size() == 1 && sequence[0].first == 'A') {
+                steps += x / sequence[0].second * sequence[0].second;
+                steps += x % sequence[0].second;
+                x = 0;
+                break;
+            }
+            if (sequence[idx].first == 'A') {
+                int canTake = std::min(x, sequence[idx].second);
+                steps += canTake;
+                x -= canTake;
+            } else {
+                x >>= 1;
+                ++steps;
+            }
+            idx = (idx + 1) % sequence.size();
+        }
+        std::cout << steps << "\n";
+    }
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
