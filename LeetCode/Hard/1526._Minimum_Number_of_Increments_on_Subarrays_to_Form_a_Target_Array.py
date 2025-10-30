@@ -41,3 +41,17 @@ class Solution:
         for idx in range(len(target)):
             operations += abs(target[idx] - target[idx - 1])
         return operations // 2
+
+
+# C++ O(N) O(1) Greedy
+class Solution {
+public:
+    int minNumberOperations(vector<int>& target) {
+        int output = 0, bound = 0;
+        for (int& num : target) {
+            output += std::max(0, num - bound);
+            bound = num;
+        }
+        return output;
+    }
+};
