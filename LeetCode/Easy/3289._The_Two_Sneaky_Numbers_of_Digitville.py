@@ -67,3 +67,37 @@ public:
         return duplicate;
     }
 };
+
+
+# Python O(N) O(1) HashTable
+class Solution:
+    def getSneakyNumbers(self, nums: List[int]) -> List[int]:
+        output: list[int] = []
+        for num in nums:
+            if num != 103 and (nums[abs(num)] < 0 or nums[abs(num)] == 103):
+                output.append(abs(num))
+                continue
+            if num == 103 and (nums[0] == 103 or nums[0] < 0):
+                output.append(0)
+                continue
+            num = abs(num if num != 103 else 0)
+            if not nums[num]: nums[num] = 103
+            else: nums[num] *= -1
+        return output
+
+# C++ O(N) O(1) HashTable
+class Solution {
+public:
+    vector<int> getSneakyNumbers(vector<int>& nums) {
+        std::vector<int> output;
+        for (int& num : nums) {
+            if (num != 103 && (nums[std::abs(num)] < 0 || nums[std::abs(num)] == 103)) output.push_back(std::abs(num));
+            if (num == 103) {
+                if (nums[0] < 0 || nums[0] == 103) output.push_back(0);
+            }
+            if (num == 103) nums[0] = (nums[0] == 103 || !nums[0] ? 103 : -nums[0]);
+            else nums[std::abs(num)] = (nums[std::abs(num)] == 103 || !nums[std::abs(num)] ? 103 : -nums[std::abs(num)]);
+        }
+        return output;
+    }
+};
