@@ -7,3 +7,13 @@
 # More info on rare pepes here.
 #
 # Algorithms
+# Solution
+def find_rarest_pepe(pepes):
+    hashmap: dict[str, int] = dict()
+    for pepe in pepes:
+        hashmap[pepe] = hashmap.get(pepe, 0) + 1
+    if (bound := min(hashmap.values())) >= 5:
+        return 'No rare pepes!'
+    output: list[str] = sorted([pepe for pepe in hashmap if hashmap[pepe] == bound])
+    if len(output) == 1: return output[0]
+    return output
