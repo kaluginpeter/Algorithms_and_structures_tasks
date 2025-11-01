@@ -120,3 +120,45 @@ public:
         return head;
     }
 };
+
+
+# Python O(N) O(D) HashSet LinkedList
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def modifiedList(self, nums: List[int], head: Optional[ListNode]) -> Optional[ListNode]:
+        hashset: set[int] = set(nums)
+        dummy: ListNode = ListNode(next=head)
+        tmp: ListNode = dummy
+        while tmp.next:
+            if tmp.next.val in hashset: tmp.next = tmp.next.next
+            else: tmp = tmp.next
+        return dummy.next
+
+# C++ O(N) O(D) HashSet LinkedList
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* modifiedList(vector<int>& nums, ListNode* head) {
+        std::unordered_set<int> hashset(nums.begin(), nums.end());
+        ListNode* dummy = new ListNode(0, head);
+        ListNode* tmp = dummy;
+        while (tmp->next) {
+            if (hashset.count(tmp->next->val)) tmp->next = tmp->next->next;
+            else tmp = tmp->next;
+        }
+        return dummy->next;
+    }
+};
