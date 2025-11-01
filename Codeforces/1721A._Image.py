@@ -56,3 +56,25 @@
 # In the fourth test case, you may leave any of the pixels unchanged, and paint all three other pixels into the color of that pixel in three moves.
 #
 # In the fifth test case, you can paint both top pixels into the color x.
+# Solution
+# C++ O(N) O(D) HashMap String
+#include <iostream>
+#include <string>
+#include <unordered_map>
+
+
+void solution() {
+    std::string first, second;
+    std::cin >> first >> second;
+    std::unordered_map<char, int> hashmap;
+    for (char& ch : first) ++hashmap[ch];
+    for (char& ch : second) ++hashmap[ch];
+    std::cout << hashmap.size() - 1 << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
