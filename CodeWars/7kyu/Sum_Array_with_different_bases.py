@@ -14,3 +14,6 @@
 # Bases can be between 2 and 36 (2<=base<=36)
 #
 # BinaryArraysListsFundamentals
+# Solution
+def sum_it_up(numbers_with_bases):
+    return sum(int(x, base) for x, base in numbers_with_bases)s
