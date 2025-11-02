@@ -85,3 +85,46 @@
 # In the third example, first of all, a candy of the type 2
 #  will be eaten, after which this kind will remain the only kind that is the most frequent, and you will have to eat a candy of the type 2
 #  again.
+# Solution
+# C++ O(NlogN + N) O(1) Sorting
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::vector<int> nums(n, 0);
+    for (size_t i = 0; i < n; ++i) std::cin >> nums[i];
+    std::sort(nums.begin(), nums.end());
+    if (n == 1) {
+        std::cout << (nums.back() == 1 ? "YES" : "NO") << "\n";
+        return;
+    }
+    std::cout << (nums[n - 1] - nums[n - 2] <= 1 ? "YES" : "NO") << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(NlogN + N) O(1) Sorting
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    nums: list[int] = sorted(map(int, sys.stdin.readline().rstrip().split()))
+    if n == 1:
+        sys.stdout.write('{}\n'.format(['NO', 'YES'][nums[0] == 1]))
+        return
+    sys.stdout.write('{}\n'.format(['NO', 'YES'][nums[-1] - nums[-2] <= 1]))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
