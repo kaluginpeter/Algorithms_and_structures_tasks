@@ -124,3 +124,78 @@ public:
         return freedom;
     }
 };
+
+
+# Python O(NM) O(1) Matrix Optimization
+class Solution:
+    def countUnguarded(self, m: int, n: int, guards: List[List[int]], walls: List[List[int]]) -> int:
+        grid: list[list[int]] = [[0] * n for _ in range(m)]
+        for x, y in walls: grid[x][y] = 1
+        for x, y in guards: grid[x][y] = 2
+        for x, y in guards:
+            i: int
+            j: int
+            # left
+            i, j = x, y - 1
+            while j >= 0 and grid[i][j] not in (1, 2):
+                grid[i][j] = 3
+                j -= 1
+            # right
+            i, j = x, y + 1
+            while j < n and grid[i][j] not in (1, 2):
+                grid[i][j] = 3
+                j += 1
+            # down
+            i, j = x + 1, y
+            while i < m and grid[i][j] not in (1, 2):
+                grid[i][j] = 3
+                i += 1
+            # up
+            i, j = x - 1, y
+            while i >= 0 and grid[i][j] not in (1, 2):
+                grid[i][j] = 3
+                i -= 1
+        return sum(row.count(0) for row in grid)
+
+# C++ O(NM) O(1) Matrix Optimization
+class Solution {
+public:
+    int countUnguarded(int m, int n, vector<vector<int>>& guards, vector<vector<int>>& walls) {
+        std::vector<std::vector<int>> grid(m, std::vector<int>(n, 0));
+        for (std::vector<int>& w : walls) grid[w[0]][w[1]] = 1;
+        for (std::vector<int>& g : guards) grid[g[0]][g[1]] = 2;
+        for (std::vector<int>& g : guards) {
+            int i = g[0] + 1, j = g[1];
+            // down
+            while (i < m && grid[i][j] != 1 && grid[i][j] != 2) {
+                grid[i][j] = 3;
+                ++i;
+            }
+            i = g[0], j = g[1] - 1;
+            // left
+            while (j >= 0 && grid[i][j] != 1 && grid[i][j] != 2) {
+                grid[i][j] = 3;
+                --j;
+            }
+            i = g[0], j = g[1] + 1;
+            // right
+            while (j < n && grid[i][j] != 1 && grid[i][j] != 2) {
+                grid[i][j] = 3;
+                ++j;
+            }
+            i = g[0] - 1, j = g[1];
+            // up
+            while (i >= 0 && grid[i][j] != 1 && grid[i][j] != 2) {
+                grid[i][j] = 3;
+                --i;
+            }
+        }
+        int output = 0;
+        for (int i = 0; i < m; ++i) {
+            for (int j = 0; j < n; ++j) {
+                if (!grid[i][j]) ++output;
+            }
+        }
+        return output;
+    }
+};
