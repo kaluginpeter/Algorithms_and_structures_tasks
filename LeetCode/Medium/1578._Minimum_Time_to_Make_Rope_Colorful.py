@@ -62,3 +62,34 @@ class Solution:
             sm += min(mx, neededTime[i])
             mx = max(mx, neededTime[i])
         return sm
+
+
+# Python O(N) O(1) Greedy
+class Solution:
+    def minCost(self, colors: str, neededTime: List[int]) -> int:
+        output: int = 0
+        prev: int = 0
+        for i in range(1, len(colors)):
+            if colors[i] != colors[prev]: prev = i
+            elif neededTime[i] <= neededTime[prev]: output += neededTime[i]
+            else:
+                output += neededTime[prev]
+                prev = i
+        return output
+
+# C++ O(N) O(1) Greedy
+class Solution {
+public:
+    int minCost(string colors, vector<int>& neededTime) {
+        int output = 0, prev = 0;
+        for (size_t i = 1; i < colors.size(); ++i) {
+            if (colors[i] != colors[prev]) prev = i;
+            else if (neededTime[prev] <= neededTime[i]) {
+                output += neededTime[prev];
+                prev = i;
+            }
+            else output += neededTime[i];
+        }
+        return output;
+    }
+};
