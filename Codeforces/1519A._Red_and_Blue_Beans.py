@@ -64,3 +64,42 @@
 # In the fourth test case, since d=0
 #  so each packet should contain the same number of red and blue beans, but r≠b
 # .
+# Solution
+# C++ O(1) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int r, b, d;
+    std::cin >> r >> b >> d;
+    int diff = std::abs(r - b);
+    if (!d) {
+        std::cout << (!diff ? "YES" : "NO") << "\n";
+        return;
+    }
+    std::cout << (std::min(r, b) >= (diff / d + (diff % d == 0 ? 0 : 1)) ? "YES" : "NO") << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(1) O(1) Math
+import sys
+
+
+def solution() -> None:
+    r, b, d = map(int, sys.stdin.readline().rstrip().split())
+    diff: int = abs(r - b)
+    if not d:
+        sys.stdout.write('{}\n'.format(['NO', 'YES'][not diff]))
+        return
+    sys.stdout.write('{}\n'.format(['NO', 'YES'][min(r, b) >= diff // d + (1 if diff % d != 0 else 0)]))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
