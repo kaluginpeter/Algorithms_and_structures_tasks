@@ -52,3 +52,21 @@
 #         [ 4, 6 ],
 #         [ 5, 5 ] ]
 # FundamentalsMathematicsRecursionAlgorithms
+# Solution
+dp: list[list[int]] = [[[]], [[1]]]
+
+def combos(n):
+    if n < len(dp): return dp[n]
+    while len(dp) <= n:
+        dp.append([])
+        seen: set[tuple[int]] = set()
+        for i in range(1, 30):
+            rem: int = len(dp) - i - 1
+            if rem < 0: break
+            for lst in dp[rem]:
+                k: list[int] = sorted(lst + [i])
+                tmp: tuple[int] = tuple(k)
+                if tmp in seen: continue
+                seen.add(tmp)
+                dp[-1].append(k)
+    return dp[n]
