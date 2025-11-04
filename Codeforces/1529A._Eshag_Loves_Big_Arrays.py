@@ -89,3 +89,46 @@
 # .
 #
 # In the second test case, Eshag can't delete any element.
+# Solution
+# C++ O(N) O(1) Greedy
+#include <iostream>
+#include <vector>
+#include <cstdint>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::vector<int> nums(n, 0);
+    for (size_t i = 0; i < n; ++i) std::cin >> nums[i];
+    size_t minCount = 0;
+    int mn = INT32_MAX;
+    for (int& num : nums) {
+        if (num < mn) {
+            mn = num;
+            minCount = 1;
+        } else if (num == mn) ++minCount;
+    }
+    std::cout << n - minCount << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N) O(1) Greedy
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    nums: list[int] = list(map(int, sys.stdin.readline().rstrip().split()))
+    sys.stdout.write('{}\n'.format(n - nums.count(min(nums))))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
