@@ -12,3 +12,8 @@
 # Hope you will enjoy the kata and find some interesting facts!
 #
 # Date Time
+# Solution
+from datetime import datetime, timedelta
+def life_predictor(date):
+    false_born = datetime.fromisoformat(date)
+    return (false_born - timedelta(days=280)).strftime("%Y-%m-%d")
