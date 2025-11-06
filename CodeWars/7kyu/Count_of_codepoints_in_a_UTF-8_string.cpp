@@ -23,3 +23,15 @@ Same task but in UTF-16, also a variable-length Unicode encoding.
 
 StringsUnicode
 */
+// Solution
+#include <string>
+#include <cstddef>
+
+std::size_t CountCodepoints(const std::string &utf8)
+{
+    size_t output = 0;
+    for (const char& ch : utf8) {
+        if ((ch & 0b11000000) != 0b10000000) ++output;
+    }
+    return output;
+}
