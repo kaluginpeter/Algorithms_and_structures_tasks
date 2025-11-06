@@ -69,3 +69,60 @@
 # , 5+32≠6
 # , 6+12≠3
 # .
+# Solution
+# C++ O(N + NlogN) O(N) Sorting Greedy
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::vector<int> nums(2 * n, 0);
+    for (size_t i = 0; i < 2 * n; ++i) std::cin >> nums[i];
+    std::sort(nums.begin(), nums.end());
+    std::vector<int> output;
+    output.push_back(nums[0]);
+    size_t left = 1, right = 2 * n - 2;
+    while (left < right) {
+        output.push_back(nums[right]);
+        output.push_back(nums[left]);
+        ++left;
+        if (!right) break;
+        --right;
+    }
+    output.push_back(nums[2 * n - 1]);
+    for (int& num : output) std::cout << num << " ";
+    std::cout << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(N + NlogN) O(N) Sorting Greedy
+import sys
+
+
+def solution() -> None:
+    n: int = int(sys.stdin.readline().rstrip())
+    nums: list[int] = sorted(list(map(int, sys.stdin.readline().rstrip().split())))
+    output: list[int] = [nums[0]]
+    left: int = 1
+    right: int = 2 * n - 2
+    while left < right:
+        output.append(nums[right])
+        output.append(nums[left])
+        left += 1
+        right -= 1
+    output.append(nums[-1])
+    sys.stdout.write('{}\n'.format(' '.join(map(str, output))))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
