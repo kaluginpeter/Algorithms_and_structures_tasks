@@ -42,3 +42,89 @@
 # 0 <= stations[i] <= 105
 # 0 <= r <= n - 1
 # 0 <= k <= 109
+# Solution
+# Python O(N + NlogM) O(N) BinarySearch Greedy
+class Solution:
+    def check(self, bound: int, windows: list[int], r: int, k: int) -> bool:
+        used: int = 0
+        addition: int = 0
+        seen: list[tuple[int, int]] = deque()
+        for i in range(len(windows)):
+            while seen and seen[0][0] < i:
+                addition -= seen.popleft()[1]
+            needed: int = bound - (windows[i] + addition)
+            if needed <= 0: continue
+            if used + needed > k: return False
+            addition += needed
+            used += needed
+            seen.append((i + r + r, needed))
+        return True
+
+    def maxPower(self, stations: List[int], r: int, k: int) -> int:
+        windows: list[int] = []
+        window: int = 0
+        left: int = 0
+        right: int = 0
+        bound: int = float('inf')
+        for i in range(len(stations)):
+            while left + r < i:
+                window -= stations[left]
+                left += 1
+            while i + r >= right and right < len(stations):
+                window += stations[right]
+                right += 1
+            windows.append(window)
+            bound = min(bound, window)
+        left = 0
+        right = bound + k
+        while left <= right:
+            middle: int = left + ((right - left) >> 1)
+            if self.check(middle, windows, r, k): left = middle + 1
+            else: right = middle - 1
+        return right
+
+# C++ O(N + NlogM) O(N) BinarySearch Greedy
+class Solution {
+public:
+    bool check(long long& bound, std::vector<long long>& windows, int& r, int& k) {
+        long long used = 0;
+        std::deque<std::pair<int, int>> extra;
+        long long addition = 0;
+        for (size_t i = 0; i < windows.size(); ++i) {
+            while (!extra.empty() && extra.front().first < i) {
+                addition -= extra.front().second;
+                extra.pop_front();
+            }
+            long long needed = bound - (windows[i] + addition);
+            if (needed <= 0) continue;
+            if (used + needed > k) return false;
+            used += needed;
+            extra.push_back({i + r + r, needed});
+            addition += needed;
+        }
+        return true;
+    }
+    long long maxPower(vector<int>& stations, int r, int k) {
+        std::vector<long long> windows;
+        long long window = 0;
+        size_t L = 0, R = 0;
+        for (size_t i = 0; i < stations.size(); ++i) {
+            while (L + r < i) {
+                window -= stations[L];
+                ++L;
+            }
+            while (i + r >= R && R < stations.size()) {
+                window += stations[R];
+                ++R;
+            }
+            windows.push_back(window);
+        }
+        long long left = 0LL, right = 1e11;
+        while (left <= right) {
+            long long middle = left + ((right - left) >> 1);
+            if (check(middle, windows, r, k)) left = middle + 1;
+            else right = middle - 1;
+        }
+        return right;
+    }
+};
