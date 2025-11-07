@@ -49,3 +49,53 @@
 # In the third test case, you can pour 1
 #  liter of magic essence and 3
 #  liters of water.
+# Solution
+# C++ O(K) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int k;
+    std::cin >> k;
+    int x = k, y = 100;
+    bool isValid = true;
+    while (isValid) {
+        isValid = false;
+        for (int d = 2; d <= x; ++d) {
+            if (x % d == 0 && y % d == 0) {
+                isValid = true;
+                x /= d;
+                y /= d;
+                break;
+            }
+        }
+    }
+    std::cout << y << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
+
+# Python O(log(min(K, 100))) O(1) Math
+import sys
+from math import gcd
+
+
+def solution() -> None:
+    k: int = int(sys.stdin.readline().rstrip())
+    x: int = k
+    y: int = 100
+    while gcd(x, y) != 1:
+        z: int = gcd(x, y)
+        x //= z
+        y //= z
+    sys.stdout.write('{}\n'.format(y))
+
+
+if __name__ == '__main__':
+    t: int = int(sys.stdin.readline().rstrip())
+    for _ in range(t): solution()
