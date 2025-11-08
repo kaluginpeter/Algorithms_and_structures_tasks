@@ -28,3 +28,29 @@
 #
 # 0 <= n <= 109
 #
+# Solution
+# Python O(logN) O(1) BitMask
+class Solution:
+    def minimumOneBitOperations(self, n: int) -> int:
+        x: int = 0
+        k: int = 0
+        mask: int = 1
+        while mask <= n:
+            if n & mask: x = (1 << (k + 1)) - 1 - x
+            mask <<= 1
+            k += 1
+        return x
+
+# C++ O(logN) O(1) BitMask
+class Solution {
+public:
+    int minimumOneBitOperations(int n) {
+        int x = 0, k = 0, mask = 1;
+        while (mask <= n) {
+            if ((n & mask) != 0) x = (1 << (k + 1)) - 1 - x;
+            mask <<= 1;
+            ++k;
+        }
+        return x;
+    }
+};
