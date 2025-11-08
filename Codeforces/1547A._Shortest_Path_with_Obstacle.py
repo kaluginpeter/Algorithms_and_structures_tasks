@@ -83,3 +83,25 @@
 # Note
 # An example of a possible shortest path for the first test case.
 # An example of a possible shortest path for the second test case.
+# Solution
+# C++ O(1) O(1) Math Greedy
+#include <iostream>
+
+
+void solution() {
+    int x, y, x1, y1, x2, y2;
+    std::cin >> x >> y >> x1 >> y1 >> x2 >> y2;
+    if (x == x1 && x == x2) {
+        std::cout << std::abs(y - y1) + (std::min(y, y1) < y2 && std::max(y, y1) > y2 ? 2 : 0) << "\n";
+    } else if (y == y1 && y == y2) {
+        std::cout << std::abs(x - x1) + (std::min(x, x1) < x2 && std::max(x, x1) > x2 ? 2 : 0) << "\n";
+    } else std::cout << std::abs(x - x1) + std::abs(y - y1) << "\n";
+}
+
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
