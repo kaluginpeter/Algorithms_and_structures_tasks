@@ -59,3 +59,49 @@
 #  is 2
 # . The sum is 2+4=6
 # .
+# Solution
+# C++ O(1) O(1) NumberTheory
+#include <iostream>
+
+
+void solution() {
+    unsigned long long a, b;
+    std::cin >> a >> b;
+    bool isFirst = !(a & 1), isSecond = !(b & 1);
+    if (isFirst && isSecond) {
+        unsigned long long output = a + b;
+        if (!((b / 2 * a + 2) & 1)) {
+            output = std::max(output, b / 2 * a + 2);
+        }
+        if (!(a * 2 + b / 2 & 1)) output = std::max(output, a * 2 + b / 2);
+        std::cout << output << "\n";
+    } else if (isFirst) {
+        std::cout << "-1\n";
+        return;
+    } else if (isSecond) {
+        // a is odd and b is even
+        // odd * even = even
+        bool was = false;
+        unsigned long long output = 0;
+        if (!((b / 2) & 1)) {
+            was = true;
+            output = a * (b / 2) + 2;
+        }
+        if (!((a * 2 + b / 2) & 1)) {
+            was = true;
+            output = std::max(output, a * 2 + b / 2);
+        }
+        if (was) std::cout << output << "\n";
+        else std::cout << "-1\n";
+    } else {
+        unsigned long long output = a * b + 1;
+        std::cout << output << "\n";
+    }
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
