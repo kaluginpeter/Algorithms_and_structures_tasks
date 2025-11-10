@@ -48,3 +48,31 @@
 # 1 <= n == nums.length <= 105
 # 0 <= nums[i] <= 105
 #
+# Python O(N) O(N) MonotonicStack Greedy
+class Solution:
+    def minOperations(self, nums: List[int]) -> int:
+        output: int = 0
+        stack: list[int] = []
+        for num in nums:
+            while stack and stack[-1] > num:
+                output += 1
+                stack.pop()
+            if num and (not stack or stack[-1] != num): stack.append(num)
+        return output + len(stack)
+
+# C++ O(N) O(N) Greedy MonotonicStack
+class Solution {
+public:
+    int minOperations(vector<int>& nums) {
+        std::stack<int> seen;
+        int output = 0;
+        for (int& num : nums) {
+            while (!seen.empty() && seen.top() > num) {
+                ++output;
+                seen.pop();
+            }
+            if (num && (seen.empty() || seen.top() != num)) seen.push(num);
+        }
+        return output + seen.size();
+    }
+};
