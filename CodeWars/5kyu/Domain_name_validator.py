@@ -27,3 +27,13 @@
 # validate('example@codewars.com') == False
 # validate('127.0.0.1') == False
 # Regular ExpressionsStringsFundamentals
+# Solution
+def validate(domain):
+    dataset: str = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.-0123456789'
+    if len(domain) > 253: return False
+    if not all(letter in dataset for letter in domain): return False
+    levels: list[str] = domain.split('.')
+    if any(not len(level) or len(level) > 63 or (level[0] == '-' or level[-1] == '-') for level in levels): return False
+    if len(levels) == 1 or len(levels) > 127: return False
+    if levels[-1].isdigit(): return False
+    return True
