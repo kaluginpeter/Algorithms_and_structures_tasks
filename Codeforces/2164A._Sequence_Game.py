@@ -88,3 +88,28 @@
 #
 # In the second test case, it can be shown that the final number can never be 8
 # .
+# C++ O(N) O(1) Greedy TwoPointers
+#include <iostream>
+#include <cstdint>
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    int left = INT32_MAX, right = INT32_MIN;
+    for (size_t i = 0; i < n; ++i) {
+        int num;
+        std::cin >> num;
+        left = std::min(left, num);
+        right = std::max(right, num);
+    }
+    int x;
+    std::cin >> x;
+    std::cout << (left <= x && x <= right ? "YES" : "NO") << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
