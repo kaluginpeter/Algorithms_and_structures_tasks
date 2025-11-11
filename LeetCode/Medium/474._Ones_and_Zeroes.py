@@ -76,3 +76,32 @@ public:
         return dp[n][m];
     }
 };
+
+
+# C++ O(NML) O(NM) String DynamicProgramming
+class Solution {
+public:
+    std::pair<int, int> getFreq(std::string& cell) {
+        int zeros = 0, ones = 0;
+        for (char& ch : cell) {
+            zeros += ch == '0';
+            ones += ch == '1';
+        }
+        return std::pair<int, int>(zeros, ones);
+    }
+    int findMaxForm(vector<string>& strs, int m, int n) {
+        std::vector<std::vector<int>> dp(n + 1, std::vector<int>(m + 1, 0));
+        for (std::string& cell : strs) {
+            std::pair<int, int> freq = getFreq(cell); // <zeros, ones>
+            for (int i = n; i >= freq.second; --i) {
+                for (int j = m; j >= freq.first; --j) {
+                    dp[i][j] = std::max({
+                        dp[i][j],
+                        dp[i - freq.second][j - freq.first] + 1,
+                    });
+                }
+            }
+        }
+        return dp[n][m];
+    }
+};
