@@ -8,3 +8,7 @@
 # Example: hello = ellohay
 #
 # FundamentalsStrings
+# Solution
+def pig_latin(word):
+    if len(word) <= 3: return word
+    return word[1:] + word[0] + 'ay'
