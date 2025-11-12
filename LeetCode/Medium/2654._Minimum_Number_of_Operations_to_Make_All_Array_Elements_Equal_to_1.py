@@ -28,3 +28,46 @@
 # 2 <= nums.length <= 50
 # 1 <= nums[i] <= 106
 #
+# Solution
+# Python O(N^2logM) O(1) Math Greedy
+class Solution:
+    def minOperations(self, nums: List[int]) -> int:
+        if max(nums) == 1: return 0
+        n: int = len(nums)
+        output: int = n + n
+        ones: int = 0
+        is_valid: bool = False
+        for i in range(n):
+            cur: int = nums[i]
+            if cur == 1: ones += 1
+            for j in range(i, n):
+                cur = gcd(cur, nums[j])
+                if cur == 1:
+                    output = min(output, max(0, j - i - 1))
+                    is_valid = True
+                    break
+        return (n + output - ones) if is_valid else -1
+
+# C++ O(N^2logM) O(1) Greedy Math
+class Solution {
+public:
+    int minOperations(vector<int>& nums) {
+        size_t n = nums.size();
+        bool isValid = false;
+        int output = INT32_MAX, ones = 0;;
+        for (size_t i = 0; i < n; ++i) {
+            int cur = nums[i];
+            if (cur == 1) ++ones;
+            for (size_t j = i; j < n; ++j) {
+                cur = std::gcd(cur, nums[j]);
+                if (cur == 1) {
+                    isValid = true;
+                    output = std::min(output, std::max(0, static_cast<int>(j - i - 1)));
+                    break;
+                }
+            }
+        }
+        if (*std::max_element(nums.begin(), nums.end()) == 1) return 0;
+        return (isValid ? n + output - ones : -1);
+    }
+};
