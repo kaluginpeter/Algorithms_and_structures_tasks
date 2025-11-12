@@ -68,3 +68,31 @@ In the first test case, choosing x=3
 
 In the third test case, it is clear that no valid pair exists.
 */
+// Solution
+// C++ O(N^2) O(1) Math
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::vector<int> nums(n, 0);
+    for (size_t i = 0; i < n; ++i) std::cin >> nums[i];
+    for (size_t i = 0; i < n; ++i) {
+        for (size_t j = 0; j < i; ++j) {
+            if (!(nums[i] % nums[j] & 1)) {
+                std::printf("%d %d\n", nums[j], nums[i]);
+                return;
+            }
+        }
+    }
+    std::cout << "-1\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
