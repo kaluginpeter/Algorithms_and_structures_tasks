@@ -13,3 +13,10 @@
 # "codewars" => 26 (4 + 4 + 2 + 3 + 2 + 2 + 4 + 5)
 # Fundamentals
 # Solution
+def mobile_keyboard(s):
+    words: list[str] = [' abc', ' def', ' ghi', ' jkl', ' mno', ' pqrs', ' tuv', ' wxyz', '*', '#', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
+    output: int = 0
+    for char in s:
+        for keystroke in words:
+            if char in keystroke: output += keystroke.index(char) + 1
+    return output
