@@ -21,3 +21,17 @@
 # X#X1#X9XX
 # ^ ^  ^ ^^ <--- All thieves will be caught!
 # Fundamentals
+# Solution
+def catch_thief(queue):
+    line_sweep: list[int] = [0] * len(queue)
+    for i in range(len(queue)):
+        if not queue[i].isdigit(): continue
+        line_sweep[max(0, i - int(queue[i]))] += 1
+        if i + int(queue[i]) + 1 < len(queue):
+            line_sweep[i + int(queue[i]) + 1] -= 1
+    output: int = 0
+    cnt: int = 0
+    for i in range(len(queue)):
+        cnt += line_sweep[i]
+        if queue[i] == 'X' and cnt: output += 1
+    return output
