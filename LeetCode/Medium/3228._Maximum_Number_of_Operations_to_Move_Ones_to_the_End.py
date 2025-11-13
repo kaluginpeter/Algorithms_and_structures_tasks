@@ -65,3 +65,40 @@ class Solution:
             if move:
                 score += ones
         return score
+
+
+# Python O(N) O(1) TwoPointers
+class Solution:
+    def maxOperations(self, s: str) -> int:
+        output: int = 0
+        ones: int = 0
+        left: int = 0
+        right: int = 0
+        n: itn = len(s)
+        while right < n:
+            while right < n and s[right] == '0': right += 1
+            while left < right:
+                if s[left] == '1': ones += 1
+                left += 1
+            output += ones
+            while right < n and s[right] == '1': right += 1
+        return output
+
+# C++ O(N) O(1) TwoPointers
+class Solution {
+public:
+    int maxOperations(string s) {
+        int output = 0, ones = 0;
+        size_t left = 0, right = 0, n = s.size();
+        while (right < n) {
+            while (right < n && s[right] == '0') ++right;
+            while (left < right) {
+                if (s[left] == '1') ++ones;
+                ++left;
+            }
+            output += ones;
+            while (right < n && s[right] == '1') ++right;
+        }
+        return output;
+    }
+};
