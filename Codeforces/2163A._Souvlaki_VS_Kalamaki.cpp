@@ -94,3 +94,32 @@ After every round, a=[1,2,2,4]
 On the second example, since every element is equal, Souvlaki will always win because a
  is always sorted in non-decreasing order.
 */
+// Solution
+// C++ O(NlogN) O(1) Sorting Math
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::vector<int> nums(n, 0);
+    for (size_t i = 0; i < n; ++i) std::cin >> nums[i];
+    std::sort(nums.begin(), nums.end());
+    bool isValid = true;
+    for (size_t i = 1; i < n - 1; i += 2) {
+        if (nums[i] != nums[i + 1]) {
+            isValid = false;
+            break;
+        }
+    }
+    std::cout << (isValid ? "YES" : "NO") << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
