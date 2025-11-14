@@ -67,3 +67,38 @@ In the first test case, if Bob chooses 35
 In the third test case, no matter which integer Bob chooses, he gets 0
  points.
 */
+// Solution
+// C++ O(NlogN) O(1) Sorting Greedy
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+void solution() {
+    size_t n;
+    int a;
+    std::cin >> n >> a;
+    std::vector<int>nums(n, 0);
+    int equal = 0;
+    for (size_t i = 0; i < n; ++i) {
+        std::cin >> nums[i];
+        if (nums[i] == a) ++equal;
+    }
+    std::sort(nums.begin(), nums.end());
+    for (int i = 0; i < n; ++i) {
+        if (nums[i] > a) {
+            if ((i - equal) >= (n - i)) std::cout << a - 1;
+            else std::cout << a + 1;
+            std::cout << "\n";
+            return;
+        }
+    }
+    std::cout << a - 1 << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
