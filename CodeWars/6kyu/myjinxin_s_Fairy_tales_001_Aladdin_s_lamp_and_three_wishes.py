@@ -26,3 +26,25 @@
 # Note the different of singular and plural. In order to simple, we always add s to the end of the plural, the singular is not.
 #
 # Puzzles
+# Solution
+def make_wish(wish: str, parcel: list[str]) -> bool:
+    words: list[str] = wish.split()
+    if words[3] in ['wishes', 'wish']: return False
+    amount: int = int(words[2])
+    for i in range(amount):
+        is_exist: bool = False
+        target: str = ' '.join(words[3:])
+        if amount > 1: target = target[:-1]
+        for j in range(len(parcel)):
+            if parcel[j] == target:
+                is_exist = True
+                parcel.insert(j, target)
+                break
+        if not is_exist: parcel.append(target)
+    return True
+
+def three_wishes(parcel, wish1, wish2, wish3):
+    if not make_wish(wish1, parcel): return []
+    elif not make_wish(wish2, parcel): return []
+    elif not make_wish(wish3, parcel): return []
+    return parcel
