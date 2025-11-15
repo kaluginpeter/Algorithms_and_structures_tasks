@@ -52,3 +52,54 @@
 # 3
 # -1
 # 1
+# Solution
+# C++ O(N) O(1) Greedy TwoPointers
+#include <iostream>
+#include <string>
+#include <unordered_set>
+
+void solution() {
+    std::string river;
+    std::cin >> river;
+    // check for cycle
+    // from left to right
+    int asterics = 0, greater = 0;
+    for (char& move : river) {
+        if (move == '>') {
+            ++greater;
+        } else if (move == '<') {
+            if (asterics || greater) {
+                std::cout << "-1\n";
+                return;
+            }
+        } else {
+            if (asterics || greater) {
+                std::cout << "-1\n";
+                return;
+            }
+            ++asterics;
+        }
+    }
+    int output = 0;
+    // check for greater
+    asterics = 0;
+    greater = 0;
+    for (char& move : river) {
+        if (move == '*') ++asterics;
+        else if (move == '>') ++greater;
+        output = std::max(output, asterics + greater);
+    }
+    int less = 0;
+    for (char& move : river) {
+        if (move == '<') ++less;
+        output = std::max(output, less + asterics);
+    }
+    std::cout << output << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
