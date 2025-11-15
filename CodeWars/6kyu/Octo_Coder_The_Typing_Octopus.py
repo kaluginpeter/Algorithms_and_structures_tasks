@@ -27,3 +27,23 @@
 #
 # "             " -> "" (counts as empty file)
 # Games
+# Solution
+def octopus(idea: str | None) -> str:
+    if not idea or idea.count(' ') == len(idea): return ''
+    output: list[str] = []
+    for i in range(0, len(idea), 8):
+        seen: dict[str, int] = dict()
+        part: list[str] = []
+        for j in range(i, min(i + 8, len(idea))):
+            if idea[j].isdigit():
+                if seen.get(idea[j], 0) == 2: part.append('*')
+                else:
+                    seen[idea[j]] = seen.get(idea[j], 0) + 1
+                    part.append(idea[j])
+            else:
+                if idea[j].lower() in seen: part.append('*')
+                else:
+                    part.append(idea[j])
+                    seen[idea[j].lower()] = 1
+        output.append(''.join(part))
+    return ''.join(output)
