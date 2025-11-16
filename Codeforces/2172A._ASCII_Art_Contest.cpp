@@ -36,3 +36,23 @@ InputCopy
 OutputCopy
 check again
 */
+// Solution
+// C++ O(1) O(1) Greedy
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+void solution() {
+    int a, b, c;
+    std::cin >> a >> b >> c;
+    std::vector<int> votes = {a, b, c};
+    std::sort(votes.begin(), votes.end());
+    if (votes[2] - votes[0] >= 10) std::cout << "check again\n";
+    else std::printf("final %d\n", votes[1]);
+}
+
+
+int main() {
+    solution();
+}
