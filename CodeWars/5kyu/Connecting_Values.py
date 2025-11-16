@@ -15,3 +15,30 @@
 # With value 0 and coord (0, 0), the output should be empty.
 #
 # ArraysAlgorithms
+# Solution
+Coord = tuple[int,int]
+moves: list[Coord] = [
+    (0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (-1, 1), (1, -1), (-1, -1)
+]
+
+def connected_values(arr: list[list[int]], val: int, coord: Coord) -> set[Coord]:
+    output: set[Coord] = set()
+    if arr[coord[0]][coord[1]] != val: return output
+    n: int = len(arr)
+    m: int = len(arr[0])
+    cur_nodes: list[Coord] = [coord]
+    next_nodes: list[Coord] = []
+    seen: set[Coord] = set()
+    while cur_nodes:
+        for i, j in cur_nodes:
+            output.add((i, j))
+            for x, y in moves:
+                r: int = i + x
+                c: int = j + y
+                if not (0 <= r < n) or not (0 <= c < m) or arr[r][c] != val or (r, c) in seen:
+                    continue
+                seen.add((r, c))
+                next_nodes.append((r, c))
+        cur_nodes = next_nodes
+        next_nodes = []
+    return output
