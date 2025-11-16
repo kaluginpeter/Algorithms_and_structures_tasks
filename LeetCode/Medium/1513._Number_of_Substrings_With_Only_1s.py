@@ -26,3 +26,35 @@
 #
 # 1 <= s.length <= 105
 # s[i] is either '0' or '1'.
+# Solution
+# Python O(N) O(1) Combinatorics TwoPointers
+class Solution:
+    def numSub(self, s: str) -> int:
+        mod: int = 1_000_000_007
+        output: int = 0
+        left: int = 0
+        right: int = 0
+        n: int = len(s)
+        while right < n:
+            while right < n and s[right] == '1': right += 1
+            length: int = right - left
+            output = (output + length * (length + 1) // 2) % mod
+            right += 1
+            left = right
+        return output
+
+# C++ O(N) O(1) Combinatorics TwoPointers
+class Solution:
+    def numSub(self, s: str) -> int:
+        mod: int = 1_000_000_007
+        output: int = 0
+        left: int = 0
+        right: int = 0
+        n: int = len(s)
+        while right < n:
+            while right < n and s[right] == '1': right += 1
+            length: int = right - left
+            output = (output + length * (length + 1) // 2) % mod
+            right += 1
+            left = right
+        return output
