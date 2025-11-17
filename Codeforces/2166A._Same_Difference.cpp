@@ -68,3 +68,27 @@ In the third test case, you can change s3
  operations in total. It can be proved that the answer is not less than 2
 .
 */
+// Solution
+// C++ O(N) O(1) Greedy
+#include <iostream>
+#include <string>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::string sequence;
+    std::cin >> sequence;
+    int count = 0;
+    for (char& ch : sequence) {
+        if (sequence.back() != ch) ++count;
+    }
+    std::cout << count << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
