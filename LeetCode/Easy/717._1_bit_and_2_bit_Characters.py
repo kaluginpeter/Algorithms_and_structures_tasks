@@ -24,3 +24,28 @@
 #
 # 1 <= bits.length <= 1000
 # bits[i] is either 0 or 1.
+# Solution
+# Python O(N) O(1) Greedy
+class Solution:
+    def isOneBitCharacter(self, bits: List[int]) -> bool:
+        if bits[-1]: return False
+        i: int = 0
+        n: int = len(bits)
+        while i < n - 1:
+            if bits[i]: i += 2
+            else: i += 1
+        return i == n - 1
+
+# C++ O(N) O(1) Greedy
+class Solution {
+public:
+    bool isOneBitCharacter(vector<int>& bits) {
+        if (bits.back()) return false;
+        size_t i = 0, n = bits.size();
+        while (i < n - 1) {
+            if (!bits[i]) ++i;
+            else i += 2;
+        }
+        return i == (n - 1);
+    }
+};
