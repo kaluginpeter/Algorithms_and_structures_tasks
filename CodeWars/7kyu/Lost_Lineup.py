@@ -15,3 +15,10 @@
 # Source: This kata is a modification of this problem from the practice competition of the International Collegiate Programming Competition, North America North Central region, 2025.
 #
 # Lists
+# Solution
+def find_lineup(distances):
+    persons: list[int] = sorted([i for i in range(1, len(distances) + 1)], key=lambda person: distances[person - 1])
+    distances.sort()
+    for i in range(len(distances)):
+        if i != distances[i]: return []
+    return persons
