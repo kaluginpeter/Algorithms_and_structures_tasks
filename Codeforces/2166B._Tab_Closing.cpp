@@ -70,3 +70,20 @@ In the second test case, a possible course of action is to move your cursor to 4
  and press again. It can be proved that the tabs cannot be closed with less than 2
  moves.
 */
+// Solution
+// C++ O(1) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    long long a, b, n;
+    std::cin >> a >> b >> n;
+    std::cout << ((b * n <= a) || (b == a) ? 1 : 2) << std::endl;
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
