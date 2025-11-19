@@ -15,3 +15,14 @@
 # Both the first and last index cannot be considered as a "midpoint" (So None for [X] and [X, X]) ```if:python
 # For python, return -1 if there exists no such index ```
 # ListsFundamentals
+# Solution
+def midpoint_sum(ints):
+    n: int = len(ints)
+    left: int = 0
+    right: int = sum(ints)
+    for i in range(n):
+        right -= ints[i]
+        if right == left and (i and i != n - 1):
+            return i
+        left += ints[i]
+    return -1
