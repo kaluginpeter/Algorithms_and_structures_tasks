@@ -37,3 +37,23 @@ class Solution:
         while original in nums:
             original *= 2
         return original
+
+
+# Python O(NlogN) O(1) Sorting
+class Solution:
+    def findFinalValue(self, nums: List[int], original: int) -> int:
+        nums.sort()
+        for num in nums:
+            if num == original: original <<= 1
+        return original
+# C++ O(NlogN) O(1) Sorting
+class Solution {
+public:
+    int findFinalValue(vector<int>& nums, int original) {
+        std::sort(nums.begin(), nums.end());
+        for (int& num : nums) {
+            if (num == original) original <<= 1;
+        }
+        return original;
+    }
+};
