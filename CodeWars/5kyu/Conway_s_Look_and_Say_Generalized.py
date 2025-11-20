@@ -22,3 +22,16 @@
 # 22322 --> 221322
 # 222222222222 --> 122
 # Algorithms
+# Solution
+def look_say(n):
+    output: int = 0
+    left: int = 0
+    right: int = 0
+    n_: list[int] = list(map(int, str(n)))
+    bound: int = len(n_)
+    while right < bound:
+        while right < bound and n_[left] == n_[right]: right += 1
+        output = output * 10 + (right - left)
+        output = output * 10 + n_[left]
+        left = right
+    return output
