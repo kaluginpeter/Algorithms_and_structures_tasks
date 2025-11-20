@@ -64,3 +64,40 @@ YES
 3 5 6
 NO
 */
+// Solution
+// C++ O(N) O(N) Greedy
+#include <iostream>
+#include <vector>
+#include <cstdint>
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::vector<int> nums(n, 0);
+    for (size_t i = 0; i < n; ++i) std::cin >> nums[i];
+    std::vector<int> left(n, INT32_MAX), right(n, INT32_MAX);
+    left[0] = 0;
+    right[n - 1] = n - 1;
+    for (size_t i = 1; i < n; ++i) {
+        if (nums[left[i - 1]] < nums[i]) left[i] = left[i - 1];
+        else left[i] = i;
+    }
+    for (int i = n - 2; i >= 0; --i) {
+        if (nums[right[i + 1]] < nums[i]) right[i] = right[i + 1];
+        else right[i] = i;
+    }
+    for (size_t i = 1; i < n - 1; ++i) {
+        if (nums[i] > std::max(nums[left[i - 1]], nums[right[i + 1]])) {
+            std::printf("YES\n%d %d %d\n", left[i - 1] + 1, i + 1, right[i + 1] + 1);
+            return;
+        }
+    }
+    std::cout << "NO\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
