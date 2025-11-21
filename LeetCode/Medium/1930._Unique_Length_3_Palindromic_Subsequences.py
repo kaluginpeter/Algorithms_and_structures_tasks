@@ -111,3 +111,54 @@ public:
         return output;
     }
 };
+
+
+# Python O(N26) O(26*26) BitManipulation HashMap
+import array
+class Solution:
+    def countPalindromicSubsequence(self, s: str) -> int:
+        first: array.array[int] = array.array('i', (-1 for _ in range(26)))
+        last: array.array[int] = array.array('i', (-1 for _ in range(26)))
+        n: int = len(s)
+        for i in range(n):
+            j: int = ord(s[i]) - 97
+            if first[j] == -1: first[j] = i
+            last[j] = i
+        output: int = 0
+        seen: list[array.array[int]] = [array.array('i', (0 for _ in range(26))) for _ in range(26)]
+        for i in range(1, n - 1):
+            k: int = ord(s[i]) - 97
+            for j in range(26):
+                if (first[j] < i < last[j]) and not seen[j][k]:
+                    seen[j][k] = 1
+                    output += 1
+        return output
+
+# C++ O(N26) O(26*26) HashMap
+class Solution {
+public:
+    int countPalindromicSubsequence(string s) {
+        std::array<int, 26> first{}, last{};
+        for (int i = 0; i < 26; ++i) {
+            first[i] = -1;
+            last[i] = -1;
+        }
+        for (int i = 0; i < s.size(); ++i) {
+            int j = s[i] - 'a';
+            if (first[j] == -1) first[j] = i;
+            last[j] = i;
+        }
+        std::array<std::bitset<26>, 26> seen{};
+        int output = 0;
+        for (size_t i = 1; i < s.size() - 1; ++i) {
+            int k = s[i] - 'a';
+            for (int j = 0; j < 26; ++j) {
+                if ((first[j] < i) && (i < last[j]) && !seen[j][k]) {
+                    seen[j][k] = 1;
+                    ++output;
+                }
+            }
+        }
+        return output;
+    }
+};
