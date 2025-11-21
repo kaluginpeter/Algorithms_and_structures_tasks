@@ -12,3 +12,12 @@
 # Note: You may assume that width and height will always be greater than zero.
 #
 # StringsASCII ArtAlgorithms
+# Solution
+def get_rectangle_string(width, height):
+    output: list[str] = []
+    for i in range(height):
+        if not i or i + 1 == height:
+            output.append('*' * width + '\r\n')
+        else:
+            output.append('*' + ' ' * (width - 2) + '*\r\n')
+    return ''.join(output)
