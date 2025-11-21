@@ -51,3 +51,24 @@ It can be shown that these are the only possible configurations of Farmer John's
 For n=3
 , it can be shown that there are no possible configurations of Farmer John's farm.
 */
+// Solution
+// C++ O(1) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    if (n & 1) {
+        std::cout << "0\n";
+        return;
+    }
+    std::cout << n / 4 + 1 << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
