@@ -17,3 +17,18 @@
 # Start with "11". Then, for the first look, it’s "11" + there are two 1s, so "21". Concatenating gives "1121". For the second look, there are three 1s and one 2, so concatenate "1121" + "31" + "12" → "11213112". For the last look, in "11213112" there are five 1s, two 2s, and one 3, so concatenate "11213112" + "51" + "22" + "13" → "11213112512213". The length is 14.
 #
 # LogicMathematicsPerformance
+# Solution
+dp: list[list[int]] = [[0, 2, 0, 0, 0, 0, 0, 0, 0, 0]]
+def look_and_write(n: int):
+    while n >= len(dp):
+        tmp: list[int] = dp[-1]
+        new_tmp: list[int] = [0] * 10
+        for i in range(10):
+            if not tmp[i]: continue
+            count: int = tmp[i]
+            while count:
+                new_tmp[count % 10] += 1
+                count //= 10
+            new_tmp[i] += 1 + tmp[i]
+        dp.append(new_tmp)
+    return sum(dp[n])
