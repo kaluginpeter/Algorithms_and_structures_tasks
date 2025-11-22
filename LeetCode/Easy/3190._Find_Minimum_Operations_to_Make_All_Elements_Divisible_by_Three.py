@@ -33,3 +33,19 @@
 class Solution:
     def minimumOperations(self, nums: List[int]) -> int:
         return sum(i % 3 != 0 for i in nums)
+
+
+# Python O(N) O(1) Greedy
+class Solution:
+    def minimumOperations(self, nums: List[int]) -> int:
+        return sum(max(0, min(3 - num % 3, num % 3)) for num in nums)
+
+# C++ O(N) O(1) Greedy
+class Solution {
+public:
+    int minimumOperations(vector<int>& nums) {
+        int output = 0;
+        for (int& num : nums) output += std::max(0, std::min(3 - num % 3, num % 3));
+        return output;
+    }
+};
