@@ -100,3 +100,42 @@ The absolute value of the sum of the elements in b
 . It can be proven that this is the minimum possible. Furthermore, it can be proven that this is the lexicographically smallest array a
  that achieves this minimum.
 */
+// Solution
+// C++ O(N) O(N) Greedy
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::vector <int> a;
+    for (size_t i = 0; i < n; ++i) {
+        int value;
+        std::cin >> value;
+        a.push_back(value);
+    }
+    for (size_t i = 0; i < n; ++i) {
+        if (a[i] == -1) {
+            if (i == 0) {
+                if (a[n - 1] != -1) a[i] = a[n - 1];
+                if (a[n - 1] == -1) a[i] = 0;
+            }
+            if (i == n - 1) a[n - 1] = a[0];
+            if (i != n - 1 && i != 0) a[i] = 0;
+        }
+    }
+    std::vector <int> b;
+    for (size_t i = 0; i < n - 1; ++i) b.push_back(a[i+1] - a[i]);
+    std::cout << abs(a[n-1] - a[0]) << std::endl;
+    for (int i = 0; i < n; ++i) std::cout << a[i] << " ";
+    std::cout << std::endl;
+}
+
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
