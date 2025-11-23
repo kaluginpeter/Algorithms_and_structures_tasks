@@ -35,3 +35,15 @@
 # Translations are welcomed!
 #
 # MathematicsFundamentalsAlgorithms
+# Solution
+def yoga(classroom, poses):
+    if not poses: return 0
+    if not classroom: return 0
+    output: int = 0
+    for pose in poses:
+        for row in classroom:
+            sm_row: int = sum(row)
+            for person in row:
+                if sm_row + person >= pose: output += 1
+            if not row: return 0
+    return output
