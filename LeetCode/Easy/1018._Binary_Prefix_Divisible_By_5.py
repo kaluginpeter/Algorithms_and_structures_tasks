@@ -31,3 +31,29 @@ class Solution(object):
             top = top * 2 + nums[i]
             l[i] = top % 5 == 0
         return l
+
+
+# Python O(N) O(1) BitManipulation
+class Solution:
+    def prefixesDivBy5(self, nums: List[int]) -> List[bool]:
+        output: list[bool] = []
+        mod: int = 5
+        cur: int = 0
+        for i in range(len(nums)):
+            cur = ((cur << 1) + nums[i]) % mod
+            output.append(cur % 5 == 0)
+        return output
+
+# C++ O(N) O(1) BitManipulation
+class Solution {
+public:
+    vector<bool> prefixesDivBy5(vector<int>& nums) {
+        int mod = 5, cur = 0;
+        std::vector<bool> output(nums.size(), false);
+        for (int i = 0; i < nums.size(); ++i) {
+            cur = ((cur << 1) + nums[i]) % mod;
+            output[i] = (cur ? cur % 5 == 0 : true);
+        }
+        return output;
+    }
+};
