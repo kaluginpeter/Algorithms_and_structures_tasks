@@ -66,3 +66,34 @@
 # A constant CHARS has been declared with this sequence for you.
 #
 # Number TheoryAlgorithms
+# Solution
+CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+
+def is_polydivisible(s: int | str, b: int) -> bool:
+    if isinstance(s, int):
+        s = to_base(s, b)
+    val: int = 0
+    for i, ch in enumerate(s, 1):
+        d: int = CHARS.index(ch)
+        val = val * b + d
+        if val % i != 0: return False
+    return True
+
+def to_base(num: int, b: int) -> str:
+    if num == 0:
+        return '0'
+    s: str = ''
+    while num > 0:
+        s = CHARS[num % b] + s
+        num //= b
+    return s
+
+def get_polydivisible(n, b) -> int:
+    count: int = 0
+    x: int = 0
+    while True:
+        if is_polydivisible(x, b):
+            count += 1
+            if count == n: return to_base(x, b)
+        x += 1
+    return -1
