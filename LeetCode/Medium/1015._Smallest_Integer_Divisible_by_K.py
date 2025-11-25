@@ -26,3 +26,29 @@
 # Constraints:
 #
 # 1 <= k <= 105
+# Solution
+# Python O(K) O(1) Math
+class Solution:
+    def smallestRepunitDivByK(self, k: int) -> int:
+        tmp: int = 1
+        output: int = 1
+        while tmp % k != 0:
+            output += 1
+            tmp = (tmp * 10 + 1) % k
+            if output >= k: break
+        return output if tmp % k == 0 else -1
+
+# C++ O(K) O(1) Math
+class Solution {
+public:
+    int smallestRepunitDivByK(int k) {
+        long long tmp = 1;
+        int output = 1;
+        while (tmp % k != 0) {
+            ++output;
+            tmp = (tmp * 10 + 1) % k;
+            if (output >= k) break;
+        }
+        return (tmp % k == 0 ? output : -1);
+    }
+};
