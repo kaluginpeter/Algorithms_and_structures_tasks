@@ -62,3 +62,32 @@ In the second test case, we can delete one occurrence of 1
  to get the array [1,2,2]
  which is balanced.
 */
+// Solution
+// C++ O(N) O(D) HashMap
+#include <iostream>
+#include <unordered_map>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::unordered_map<int, int> hashmap;
+    for (size_t i = 0; i < n; ++i) {
+        int x;
+        std::cin >> x;
+        ++hashmap[x];
+    }
+    int output = 0;
+    for (auto& p : hashmap) {
+        if (p.first > p.second) output += p.second;
+        else output += p.second - p.first;
+    }
+    std::cout << output << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
