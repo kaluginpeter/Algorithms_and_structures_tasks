@@ -19,3 +19,15 @@
 # Matrix saddle points are used in game theory to identify optimal strategies in two-person zero-sum games - see here. There is a related saddle point concept for functions, which has even wider applications - see here.
 #
 # MatrixPerformance
+# Solution
+def find_saddle_points(matrix):
+    n: int = len(matrix)
+    m: int = len(matrix[0])
+    rows: list[int] = [min(row) for row in matrix]
+    cols: list[int] = [max(matrix[r][c] for r in range(n)) for c in range(m)]
+    output: list[tuple[int, int]] = []
+    for i in range(n):
+        for j in range(m):
+            if rows[i] == cols[j]:
+                output.append((i, j))
+    return output
