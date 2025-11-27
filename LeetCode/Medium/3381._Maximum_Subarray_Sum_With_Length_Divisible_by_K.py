@@ -83,3 +83,34 @@ public:
         return maxScore;
     }
 };
+
+
+# Python O(N) O(K) PrefixSum HashMap
+class Solution:
+    def maxSubarraySum(self, nums: List[int], k: int) -> int:
+        output: int = float('-inf')
+        seen: dict[int, int] = dict()
+        cur_sum: int = 0
+        seen[k - 1] = 0
+        for i in range(len(nums)):
+            cur_sum += nums[i]
+            output = max(output, cur_sum - seen.get(i % k, float('inf')))
+            seen[i % k] = min(seen.get(i % k, float('inf')), cur_sum)
+        return output
+
+# C++ O(N) O(K) HashMap PrefixSum
+class Solution {
+public:
+    long long maxSubarraySum(vector<int>& nums, int k) {
+        std::unordered_map<int, long long> seen;
+        long long curSum = 0, output = INT64_MIN;
+        seen[k - 1] = 0;
+        for (size_t i = 0; i < nums.size(); ++i) {
+            if (!seen.count(i % k)) seen[i % k] = INT64_MAX >> 1;
+            curSum += nums[i];
+            output = std::max(output, curSum - seen[i % k]);
+            seen[i % k] = std::min(seen[i % k], curSum);
+        }
+        return output;
+    }
+};
