@@ -17,3 +17,7 @@
 # Documentation on os module
 # Documentation on os.path module
 # Fundamentals
+# Solution
+import os
+def mkdirp(*directories):
+    os.makedirs('/'.join(dir_ for dir_ in directories), exist_ok=True)
