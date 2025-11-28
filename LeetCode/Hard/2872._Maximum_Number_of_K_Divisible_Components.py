@@ -127,3 +127,44 @@ public:
         return components;
     }
 };
+
+# C++ O(V + E) O(E) Depth-First-Search
+class Solution {
+public:
+    int components = 0;
+    long long totalSum = 0;
+    std::unordered_map<int, std::vector<int>> buildAdjList(std::vector<std::vector<int>>& edges) {
+        std::unordered_map<int, std::vector<int>> adjList;
+        for (std::vector<int>& edge : edges) {
+            int x = std::min(edge[0], edge[1]);
+            int y = std::max(edge[0], edge[1]);
+            adjList[x].push_back(y);
+            adjList[y].push_back(x);
+        }
+        return adjList;
+    }
+    long long dfs(int source, std::unordered_map<int, std::vector<int>>& adjList, int& k, std::vector<int>& values, std::unordered_set<int>& seen) {
+        long long curSubTreeSum = values[source];
+        for (int edge : adjList[source]) {
+            if (seen.count(edge)) continue;
+            else seen.insert(edge);
+            long long childSum = dfs(edge, adjList, k, values, seen);
+            if (childSum % k == 0 && (totalSum - childSum) % k == 0) {
+                ++components;
+                totalSum -= childSum;
+            } else curSubTreeSum += childSum;
+        }
+        return curSubTreeSum;
+
+    }
+    int maxKDivisibleComponents(int n, vector<vector<int>>& edges, vector<int>& values, int k) {
+        components = 1;
+        totalSum = 0;
+        for (int val : values) totalSum += val;
+        std::unordered_set<int> seen;
+        std::unordered_map<int, std::vector<int>> adjList = buildAdjList(edges);
+        seen.insert(0);
+        dfs(0, adjList, k, values, seen);
+        return components;
+    }
+};
