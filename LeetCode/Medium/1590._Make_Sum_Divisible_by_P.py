@@ -44,3 +44,41 @@ class Solution:
                 length = min(length, idx - hashmap[remainder])
             hashmap[cur_sum] = idx
         return length if length != len(nums) else -1
+
+
+# Python O(N) O(min(N, K)) HashMap PrefixSum
+class Solution:
+    def minSubarray(self, nums: List[int], p: int) -> int:
+        total_sum: int = sum(num % p for num in nums) % p
+        if not total_sum: return 0
+        cur_sum: int = 0
+        seen: dict[int, int] = dict()
+        seen[0] = -1
+        n: int = len(nums)
+        output: int = n
+        for i in range(n):
+            cur_sum = (cur_sum + nums[i]) % p
+            diff: int = (cur_sum - total_sum + p) % p
+            if diff in seen: output = min(output, i - seen[diff])
+            seen[cur_sum] = i
+        return -1 if output == n else output
+
+# C++ O(N) O(min(N, K)) PrefixSum HashMap
+class Solution {
+public:
+    int minSubarray(vector<int>& nums, int p) {
+        int totalSum = 0, curSum = 0;
+        for (int& num : nums) totalSum = (totalSum + num) % p;
+        if (!totalSum) return 0;
+        std::unordered_map<int, int> seen;
+        seen[0] = -1;
+        int output = -1;
+        for (int i = 0; i < nums.size(); ++i) {
+            curSum = (curSum + nums[i]) % p;
+            int diff = (curSum - totalSum + p) % p;
+            if (seen.count(diff)) output = (output == -1 ? i - seen[diff] : std::min(output, i - seen[diff]));
+            seen[curSum] = i;
+        }
+        return (output == nums.size() ? -1 : output);
+    }
+};
