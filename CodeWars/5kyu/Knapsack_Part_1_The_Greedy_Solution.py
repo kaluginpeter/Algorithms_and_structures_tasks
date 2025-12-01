@@ -34,3 +34,15 @@
 # knapsack will return an array of integers that specifies the quantity of each item to take according to the greedy solution (the order of the quantities must match the order of items)
 #
 # AlgorithmsMathematicsSorting
+# Solution
+def knapsack(capacity, items):
+    output: list[int] = [0] * len(items)
+    item_to_idx: dict[tuple[int, int], int] = dict()
+    for i in range(len(items)):
+        item_to_idx[items[i]] = i
+    items = sorted(items, key=lambda x: x[1] / x[0], reverse=True)
+    for i in range(len(items)):
+        can_get: int = capacity // items[i][0]
+        capacity -= items[i][0] * can_get
+        output[item_to_idx[items[i]]] = can_get
+    return output
