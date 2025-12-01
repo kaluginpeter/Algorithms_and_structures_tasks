@@ -69,3 +69,32 @@ In the fifth example, the cell with value 19
  has the maximum cost: 19+14+18+20+24=95
 .
 */
+// Solution
+// C++ O(1) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    if (n == 1) {
+        std::cout << "1\n";
+        return;
+    } else if (n == 2) {
+        std::cout << "9\n";
+        return;
+    } else if (n < 5) {
+        int m = n * n;
+        std::cout << (m * 3 - 3 + (m - 1 - n)) << "\n";
+        return;
+    }
+    int m = n * n - 1 - n;
+    std::cout << (m * 5) << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
