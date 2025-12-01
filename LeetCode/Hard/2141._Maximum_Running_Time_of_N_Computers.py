@@ -36,3 +36,32 @@
 #
 # 1 <= n <= batteries.length <= 105
 # 1 <= batteries[i] <= 109
+# Solution
+# Python O(NlogM) O(1) BinarySearch
+class Solution:
+    def maxRunTime(self, n: int, batteries: List[int]) -> int:
+        left: int = 1
+        right: int = sum(batteries) // n
+        while left < right:
+            target: int = right - ((right - left) >> 1)
+            can: int = 0
+            for battery in batteries: can += min(battery, target)
+            if can // n >= target: left = target
+            else: right = target - 1
+        return left
+
+# C++ O(NlogM) O(1) BinarySearch
+class Solution {
+public:
+    long long maxRunTime(int n, vector<int>& batteries) {
+        long long left = 1, right = std::accumulate(batteries.begin(), batteries.end(), 0LL) / n;
+        while (left < right) {
+            long long target = right - ((right - left) >> 1);
+            long long can = 0;
+            for (int& battery : batteries) can += std::min(1LL * battery, target);
+            if (can / n >= target) left = target;
+            else right = target - 1;
+        }
+        return left;
+    }
+};
