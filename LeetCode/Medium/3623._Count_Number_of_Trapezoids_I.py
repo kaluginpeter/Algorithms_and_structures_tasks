@@ -42,3 +42,34 @@
 # 4 <= points.length <= 105
 # –108 <= xi, yi <= 108
 # All points are pairwise distinct.
+# Solution
+# Python O(N) O(D) Math
+class Solution:
+    def countTrapezoids(self, points: List[List[int]]) -> int:
+        mod: int = 10**9 + 7
+        seen: dict[int, int] = dict()
+        for x, y in points: seen[y] = seen.get(y, 0) + 1
+        output: int = 0
+        total: int = 0
+        for y, freq in seen.items():
+            edge: int = freq * (freq - 1) // 2
+            output = (output + edge * total) % mod
+            total = (total + edge) % mod
+        return output
+
+# C++ O(N) O(D) Math
+constexpr int mod = 1000000007;
+class Solution {
+public:
+    int countTrapezoids(vector<vector<int>>& points) {
+        std::unordered_map<int, int> pointNum;
+        long long output = 0, total = 0;
+        for (auto& point : points) ++pointNum[point[1]];
+        for (auto& [_, nodes] : pointNum) {
+            long long edge = 1LL * nodes * (nodes - 1) / 2;
+            output += edge * total;
+            total += edge;
+        }
+        return output % mod;
+    }
+};
