@@ -10,3 +10,35 @@
 # Tests use re.match() to do the matches.
 #
 # Regular Expressions
+# Solution
+def regex_below(n):
+    s = str(n)
+    L = len(s)
+
+    parts = []
+    for l in range(1, L):
+        if l == 1:
+            parts.append(r"[1-9]")
+        else:
+            parts.append(r"[1-9][0-9]{%d}" % (l - 1))
+
+    prefix_parts = []
+    for i, ch in enumerate(s):
+        d = int(ch)
+        if d > 1:
+            if i == 0:
+                prefix_parts.append(f"[1-{d-1}][0-9]{{{L-i-1}}}")
+            else:
+                prefix_parts.append(s[:i] + f"[0-{d-1}]" + f"[0-9]{{{L-i-1}}}")
+        elif d == 1:
+            if i == 0:
+                continue
+            else:
+                prefix_parts.append(s[:i] + f"[0-0]" + f"[0-9]{{{L-i-1}}}")
+
+    parts.extend(prefix_parts)
+
+    if not parts:
+        return r"^(?!.*)^$"
+
+    return r"^(?:%s)$" % "|".join(parts)
