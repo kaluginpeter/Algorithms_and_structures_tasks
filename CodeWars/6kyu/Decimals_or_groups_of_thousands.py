@@ -7,3 +7,33 @@
 # This Kata is inspired by one of the bugs that almost happened due to the differences in number formatting ( •̀ω•́ )σ
 #
 # Regular ExpressionsFundamentals
+# Solution
+from decimal import Decimal, getcontext
+
+getcontext().prec = 30
+
+def sum_up_numbers(numbers):
+    total = Decimal("0")
+
+    for num in numbers:
+        if "." in num and "," in num:
+            if num.rfind(",") > num.rfind("."):
+                num = num.replace(".", "").replace(",", ".")
+            else:
+                num = num.replace(",", "")
+
+        elif "," in num:
+            parts = num.split(",")
+            if len(parts[-1]) == 3:
+                num = num.replace(",", "")
+            else:
+                num = num.replace(",", ".")
+
+        elif "." in num:
+            parts = num.split(".")
+            if len(parts[-1]) == 3:
+                num = num.replace(".", "")
+
+        total += Decimal(num)
+
+    return f"{total:,.2f}"
