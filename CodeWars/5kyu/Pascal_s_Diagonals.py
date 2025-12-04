@@ -6,3 +6,11 @@
 # Both n and l will be non-negative integers in all test cases.
 #
 # Algorithms
+# Solution
+def generate_diagonal(n, l):
+    if l == 0: return []
+
+    output: list[int] = [1]
+    for k in range(1, l):
+        output.append(output[-1] * (n + k) // k)
+    return output
