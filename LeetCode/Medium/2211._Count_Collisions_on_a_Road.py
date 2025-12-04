@@ -35,3 +35,72 @@
 #
 # 1 <= directions.length <= 105
 # directions[i] is either 'L', 'R', or 'S'.
+# Solution
+# Python O(N) O(1) Simulation
+class Solution:
+    def countCollisions(self, directions: str) -> int:
+        output: int = 0
+        left: int = 0
+        right: int = 0
+        in_place: int = 0
+        for move in directions:
+            if move == 'R':
+                right += 1
+                left = 0
+                in_place = 0
+            elif move == 'L':
+                left += 1
+                if right:
+                    output += right + 1
+                    in_place = 1
+                    right = 0
+                    left = 0
+                elif in_place:
+                    output += left
+                    in_place = 1
+                    right = 0
+                    left = 0
+            else:
+                left = 0
+                in_place = 1
+                if right:
+                    output += right
+                    right = 0
+        return output
+
+# C++ O(N) O(1) Simulation
+class Solution {
+public:
+    int countCollisions(string directions) {
+        int output = 0, toLeft = 0, toRight = 0, inPlace = 0;
+        for (char& move : directions) {
+            if (move == 'R') {
+                ++toRight;
+                toLeft = 0;
+                inPlace = 0;
+            }
+            else if (move == 'L') {
+                ++toLeft;
+                if (toRight) {
+                    output += toRight + 1;
+                    inPlace = 1;
+                    toRight = 0;
+                    toLeft = 0;
+                } else if (inPlace) {
+                    output += toLeft;
+                    inPlace = 1;
+                    toRight = 0;
+                    toLeft = 0;
+                }
+            } else {
+                toLeft = 0;
+                inPlace = 1;
+                if (toRight) {
+                    output += toRight;
+                    toRight = 0;
+                }
+            }
+        }
+        return output;
+    }
+};
