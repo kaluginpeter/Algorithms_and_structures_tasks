@@ -48,3 +48,32 @@
 #
 # 2 <= n == nums.length <= 100
 # 1 <= nums[i] <= 100
+# Solution
+# Python O(N) O(1) Math
+class Solution:
+    def countPartitions(self, nums: List[int]) -> int:
+        output: int = 0
+        left: int = 0
+        right: int = sum(nums)
+        for num in nums:
+            left += num
+            right -= num
+            if not right: break
+            if not (abs(right - left) & 1): output += 1
+        return output
+
+# C++ O(N) O(1) Math
+class Solution {
+public:
+    int countPartitions(vector<int>& nums) {
+        int output = 0, left = 0, right = std::accumulate(nums.begin(), nums.end(), 0);
+        for (int& num : nums) {
+            right -= num;
+            if (!right) break;
+            left += num;
+            if (std::abs(right - left) & 1) continue;
+            ++output;
+        }
+        return output;
+    }
+};
