@@ -50,3 +50,47 @@
 # bruce_lee.experience    # => 9105
 # bruce_lee.achievements  # => ["Defeated Chuck Norris"]
 # AlgorithmsObject-oriented Programming
+# Solution
+class Warrior:
+    ranks: tuple[str] = (
+        "Pushover", "Novice", "Fighter", "Warrior",
+        "Veteran", "Sage", "Elite", "Conqueror",
+        "Champion", "Master", "Greatest"
+    )
+
+    def __init__(self) -> None:
+        self.level: int = 1
+        self.experience: int = 100
+        self.rank_idx: int = 0
+        self.achievements: list[str] = []
+
+    @property
+    def rank(self) -> int:
+        return self.ranks[self.rank_idx]
+
+    def _add_experience(self, points: int) -> None:
+        self.experience = min(10_000, self.experience + points)
+        self.level = self.experience // 100
+        self.rank_idx = self.level // 10
+
+    def training(self, items: list[str | int]) -> str:
+        description, points, bound = items
+        if self.level < bound: return "Not strong enough"
+        self._add_experience(points)
+        self.achievements.append(description)
+        return description
+
+    def battle(self, level: int) -> str:
+        if not (1 <= level <= 100): return "Invalid level"
+        enemy_rank: int = level // 10
+        if self.rank_idx + 1 <= enemy_rank and level - self.level >= 5:
+            return "You've been defeated"
+        if self.level - level in {0, 1}:
+            self._add_experience(10 if self.level == level else 5)
+            return "A good fight"
+        elif self.level - level >= 2:
+            return "Easy fight"
+        else:
+            diff: int = level - self.level
+            self._add_experience(20 * diff * diff)
+            return "An intense fight"
