@@ -22,3 +22,17 @@ class Solution:
             return int((high -low)/2)
         if (low%2==0 and high%2!=0 ) or (low%2!=0 and high%2==0):
             return int((high - low)/2)+1
+
+
+# Python O(1) O(1) Math
+class Solution:
+    def countOdds(self, low: int, high: int) -> int:
+        return (high - low) // 2 + (1 if (low % 2 or high % 2) else 0)
+
+# C++ O(1) O(1) Math
+class Solution {
+public:
+    int countOdds(int low, int high) {
+        return (high - low) / 2 + (low % 2 || high % 2 ? 1 : 0);
+    }
+};
