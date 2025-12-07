@@ -26,3 +26,23 @@
 # So the solution is [31, 15]
 #
 # Fundamentals
+# Solution
+def count_digits(num, rounds):
+    output: list[int] = [num]
+    for _ in range(rounds):
+        hashmap: list[int] = [0] * 10
+        for num in output:
+            if not num:
+                hashmap[0] += 1
+                continue
+            while num:
+                hashmap[num % 10] += 1
+                num //= 10
+        next_: list[int] = []
+        for num in output:
+            for x in str(num):
+                if hashmap[int(x)]:
+                    next_.append(int(str(hashmap[int(x)]) + x))
+                    hashmap[int(x)] = 0
+        output = next_
+    return output
