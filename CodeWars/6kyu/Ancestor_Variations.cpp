@@ -31,3 +31,23 @@ Constraint
 
 AlgorithmsMathematics
 */
+// Solution
+#include <bits/stdc++.h>
+using namespace std;
+
+static const long long MOD = 1000000007;
+
+long long modpow(long long base, long long exp) {
+    long long result = 1;
+    base %= MOD;
+    while (exp > 0) {
+        if (exp & 1) result = (result * base) % MOD;
+        base = (base * base) % MOD;
+        exp >>= 1;
+    }
+    return result;
+}
+
+int ancestor_variations(long long n) {
+    return modpow(2, n);
+}
