@@ -19,3 +19,30 @@
 # Constraints:
 #
 # 1 <= n <= 250
+# Solution
+# Python O(N^2sqrt(M)) O(1) Math
+class Solution:
+    def countTriples(self, n: int) -> int:
+        output: int = 0
+        for a in range(1, n + 1):
+            for b in range(1, n + 1):
+                target: int = a**2 + b**2
+                root: int = int(target**.5)
+                if root**2 == target and root <= n: output += 1
+        return output
+
+# C++ O(N^2sqrt(M)) O(1) Math
+class Solution {
+public:
+    int countTriples(int n) {
+        int output = 0;
+        for (int a = 1; a <= n; ++a) {
+            for (int b = 1; b <= n; ++b) {
+                int target = std::pow(a, 2) + std::pow(b, 2);
+                int root = std::sqrt(target);
+                if (root * root == target && root <= n) ++output;
+            }
+        }
+        return output;
+    }
+};
