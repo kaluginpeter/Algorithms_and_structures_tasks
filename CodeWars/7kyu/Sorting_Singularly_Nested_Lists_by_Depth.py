@@ -28,3 +28,10 @@
 # The final sorted order places the shallowest subarrays first and the deepest last.
 #
 # ListsArraysSorting
+# Solution
+def depth(arr) -> int:
+    if len(arr) == 0: return 1
+    return 1 + depth(arr[0])
+
+def sort_by_depth(arr):
+    return sorted(arr, key=depth)
