@@ -62,3 +62,39 @@
 # 3 <= n == nums.length <= 105
 # 0 <= nums[i] <= 105
 #
+# Solution
+# Python O(N) O(N) Math
+mod: int = 10**9 + 7
+class Solution:
+    def specialTriplets(self, nums: List[int]) -> int:
+        overall: dict[int, int] = dict()
+        prefix: dict[int, int] = dict()
+        for num in nums: overall[num] = overall.get(num, 0) + 1
+        output: int = 0
+        for num in nums:
+            target: int = num * 2
+            left: int = prefix.get(target, 0)
+            prefix[num] = prefix.get(num, 0) + 1
+            right: int = overall.get(target, 0) - prefix.get(target, 0)
+            output = (output + left * right % mod) % mod
+        return output
+
+# C++ O(N) O(N) Math
+constexpr int mod = 1000000007;
+class Solution {
+public:
+    int specialTriplets(vector<int>& nums) {
+        std::unordered_map<int, int> overall, prefix;
+        for (int v : nums) ++overall[v];
+        int output = 0;
+        for (int v : nums) {
+            int target = v * 2;
+            int left = prefix[target];
+            ++prefix[v];
+            int right = overall[target] - prefix[target];
+            output = (output + (1LL * left * right % mod)) % mod;
+        }
+
+        return output;
+    }
+};
