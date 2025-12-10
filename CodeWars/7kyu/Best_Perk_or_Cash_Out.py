@@ -43,3 +43,15 @@
 # Good luck, have fun!
 #
 # FundamentalsSimulation
+# Solution
+def pick(preferred, blacklisted, options):
+    items: dict[str, int] = dict()
+    for name, val in options:
+        items[name] = max(items.get(name, 0), val)
+    # look for preffered
+    if len(x := sorted([item for item in items.items() if item[0] in preferred and item[0] not in blacklisted], key=lambda item: item[1], reverse=True)) > 0:
+        return ["A", "B", "C"][options.index(x[0])]
+    # look for neutral
+    if len(x := sorted([item for item in items.items() if item[0] not in blacklisted], key=lambda item: item[1], reverse=True)) > 0:
+        return ["A", "B", "C"][options.index(x[0])]
+    return "D"
