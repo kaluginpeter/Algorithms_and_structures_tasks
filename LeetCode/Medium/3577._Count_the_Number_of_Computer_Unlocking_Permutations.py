@@ -48,3 +48,35 @@
 #
 # 2 <= complexity.length <= 105
 # 1 <= complexity[i] <= 109
+# Solution
+# Python O(N) O(1) Math
+mod: int = 10**9 + 7
+class Solution:
+    def countPermutations(self, complexity: List[int]) -> int:
+        root: int = min(complexity)
+        if root < complexity[0]: return 0
+        bound: int = complexity.count(root)
+        if bound > 1: return 0
+        output: int = 1
+        n: int = len(complexity)
+        for i in range(1, n):
+            output = (output * (n - i)) % mod
+        return output
+
+# C++ O(N) O(1) Math
+constexpr int mod = 1000000007;
+class Solution {
+public:
+    int countPermutations(vector<int>& complexity) {
+        int n = complexity.size();
+        int root = *std::min_element(complexity.begin(), complexity.end());
+        if (root < complexity[0]) return 0;
+        int bound = std::count(complexity.cbegin(), complexity.cend(), root);
+        int output = bound;
+        if (output > 1) return 0;
+        for (size_t i = 1; i < n; ++i) {
+            output = (output * (n - i)) % mod;
+        }
+        return output;
+    }
+};
