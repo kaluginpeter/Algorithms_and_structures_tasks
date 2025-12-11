@@ -10,3 +10,15 @@ Note: your solution should have linear time complexity.
 
 AlgorithmsPerformance
 */
+// Solution
+uint64_t vowelRecognition(const std::string &str){
+    uint64_t output = 0, cur = 0;
+    size_t move = 0;
+    std::string vowels = "aeoiuAEOIU";
+    for (const char& ch : str) {
+        ++move;
+        if (vowels.find(ch) != std::string::npos) cur += move;
+        output += cur;
+    }
+    return output;
+}
