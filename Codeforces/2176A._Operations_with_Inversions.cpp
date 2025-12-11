@@ -64,3 +64,28 @@ In the second, third, and fifth examples, no operations can be performed since t
 
 In the fourth example, we can remove the second and fifth elements. It can be shown that this is the optimal answer and there is no solution that removes more elements.
 */
+// Solution
+// C++ O(N) O(D) Greedy
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::vector<int> nums;
+    for (size_t i = 0; i < n; ++i) {
+        int x;
+        std::cin >> x;
+        if (nums.empty() || nums.back() <= x) nums.push_back(x);
+    }
+    std::cout << n - nums.size() << "\n";
+
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
