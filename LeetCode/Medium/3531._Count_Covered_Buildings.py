@@ -129,3 +129,44 @@ public:
         return output;
     }
 };
+
+
+# Python O(N) O(M) Math
+class Solution:
+    def countCoveredBuildings(self, n: int, buildings: List[List[int]]) -> int:
+        y_axis: dict[int, tuple[int, int]] = dict()
+        x_axis: dict[int, tuple[int, int]] = dict()
+        for x, y in buildings:
+            if x not in x_axis: x_axis[x] = (y, y)
+            elif y < x_axis[x][0]: x_axis[x] = (y, x_axis[x][1])
+            elif y > x_axis[x][1]: x_axis[x] = (x_axis[x][0], y)
+            if y not in y_axis: y_axis[y] = (x, x)
+            elif x < y_axis[y][0]: y_axis[y] = (x, y_axis[y][1])
+            elif x > y_axis[y][1]: y_axis[y] = (y_axis[y][0], x)
+        output: int = 0
+        for x, y in buildings:
+            if (y_axis[y][0] < x < y_axis[y][1]) and (x_axis[x][0] < y < x_axis[x][1]): output += 1
+        return output
+
+# C++ O(N) O(M) Math
+class Solution {
+public:
+    int countCoveredBuildings(int n, vector<vector<int>>& buildings) {
+        std::unordered_map<int, std::pair<int, int>> yAxis, xAxis;
+        for (std::vector<int>& build : buildings) {
+            if (!xAxis.count(build[0])) xAxis[build[0]] = {build[1], build[1]};
+            else if (build[1] <= xAxis[build[0]].first) xAxis[build[0]].first = build[1];
+            else if (build[1] > xAxis[build[0]].second) xAxis[build[0]].second = build[1];
+            if (!yAxis.count(build[1])) yAxis[build[1]] = {build[0], build[0]};
+            else if (build[0] <= yAxis[build[1]].first) yAxis[build[1]].first = build[0];
+            else if (build[0] > yAxis[build[1]].second) yAxis[build[1]].second = build[0];
+        }
+        int output = 0;
+        for (std::vector<int>& build : buildings) {
+            bool horizontal = (build[1] > xAxis[build[0]].first) && (build[1] < xAxis[build[0]].second);
+            bool vertical = (build[0] > yAxis[build[1]].first) && (build[0] < yAxis[build[1]].second);
+            if (horizontal && vertical) ++output;
+        }
+        return output;
+    }
+};
