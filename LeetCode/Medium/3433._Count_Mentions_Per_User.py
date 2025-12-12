@@ -76,3 +76,66 @@
 # The number of id<number> mentions in any "MESSAGE" event is between 1 and 100.
 # 0 <= <number> <= numberOfUsers - 1
 # It is guaranteed that the user id referenced in the OFFLINE event is online at the time the event occurs.
+# Solution
+# Python O(NlogN + MN) O(N) Counting
+class Solution:
+    def countMentions(self, numberOfUsers: int, events: List[List[str]]) -> List[int]:
+        events.sort(key=lambda event: (int(event[1]), event[0] != "OFFLINE"))
+        users: list[int] = [0] * numberOfUsers
+        online: list[int] = [0] * numberOfUsers
+        for type_, tmstmp, seq in events:
+            tmstmp = int(tmstmp)
+            if type_ == "OFFLINE": online[int(seq)] = tmstmp + 60
+            else:
+                tmstmp = tmstmp if seq == "HERE" else float("inf")
+                seq = range(numberOfUsers) if seq in {"HERE", "ALL"} else [int(i[2:]) for i in seq.split()]
+                for i in seq:
+                    if online[i] > tmstmp: continue
+                    users[i] += 1
+        return users
+
+# C++ O(NlogN + MN) O(N) Counting
+class Solution {
+public:
+    std::vector<int> getIds(std::string& seq) {
+        std::vector<int> ids;
+        std::stringstream strm(seq);
+        std::string temp;
+        while(getline(strm, temp, ' ')) {
+            ids.push_back(std::stoi(temp.substr(2)));
+        }
+        return ids;
+    }
+    vector<int> countMentions(int numberOfUsers, vector<vector<string>>& events) {
+        std::sort(events.begin(), events.end(), [](const std::vector<std::string>& x, const std::vector<std::string>& y) {
+            if (x[1] != y[1]) return std::stoi(x[1]) < std::stoi(y[1]);
+            return x[0] == "OFFLINE";
+        });
+        std::vector<int> users(numberOfUsers, 0);
+        std::vector<int> onlineSince(numberOfUsers, 0);
+        for (std::vector<std::string>& event : events) {
+            if (event[0] == "MESSAGE") {
+                int tstmp = std::stoi(event[1]);
+                if (event[2] == "HERE" || event[2] == "ALL") {
+                    tstmp = (event[2] == "HERE" ? tstmp : INT32_MAX);
+                    for (int i = 0; i < numberOfUsers; ++i) {
+                        if (onlineSince[i] > tstmp) continue;
+                        ++users[i];
+                    }
+                    continue;
+                }
+                tstmp = INT32_MAX;
+                std::vector<int> ids = getIds(event[2]);
+                for (int& user : ids) {
+                    if (onlineSince[user] > tstmp) continue;
+                    ++users[user];
+                }
+            } else {
+                int tstmp = std::stoi(event[1]);
+                int user = std::stoi(event[2]);
+                onlineSince[user] = tstmp + 60;
+            }
+        }
+        return users;
+    }
+};
