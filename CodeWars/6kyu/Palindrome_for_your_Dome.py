@@ -15,3 +15,7 @@
 # The empty string "" can be read forward or backward the same, it's a palindrome in our case.
 #
 # LogicStringsAlgorithms
+# Solution
+def palindrome(text):
+    text = ''.join(letter.lower() for letter in text if letter.isalnum())
+    return text == text[::-1]
