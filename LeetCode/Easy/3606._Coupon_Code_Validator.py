@@ -45,3 +45,46 @@
 # code[i] and businessLine[i] consist of printable ASCII characters.
 # isActive[i] is either true or false.
 #
+# Solution
+# Python O(N + MlogM) O(M) Sorting
+class Solution:
+    def validateCoupons(self, code: List[str], businessLine: List[str], isActive: List[bool]) -> List[str]:
+        valid: list[int] = []
+        n: int = len(code)
+        order: list[str] = ["electronics", "grocery", "pharmacy", "restaurant"]
+        for i in range(n):
+            is_valid: bool = all(ch.isalnum() or ch == '_' for ch in code[i]) and bool(code[i])
+            is_valid &= businessLine[i] in order and isActive[i]
+            if is_valid: valid.append(i)
+        valid.sort(key=lambda i: (order.index(businessLine[i]), code[i]))
+        return [code[i] for i in valid]
+
+# C++ O(N + MlogM) O(M) Sorting
+class Solution {
+public:
+    vector<string> validateCoupons(vector<string>& code, vector<string>& businessLine, vector<bool>& isActive) {
+        std::vector<int> valid;
+        int n = code.size();
+        std::vector<std::string> order = {"electronics", "grocery", "pharmacy", "restaurant"};
+        for (int i = 0; i < n; ++i) {
+            bool isValid = !code[i].empty();
+            for (char& ch : code[i]) {
+                if (!std::isalnum(ch) && ch != '_') {
+                    isValid = false;
+                    break;
+                }
+            }
+            if (isValid && std::count(order.begin(), order.end(), businessLine[i]) && isActive[i]) valid.push_back(i);
+        }
+
+        std::sort(valid.begin(), valid.end(), [&](const int& i, const int& j) {
+            int I = std::distance(order.begin(), std::find(order.begin(), order.end(), businessLine[i]));
+            int J = std::distance(order.begin(), std::find(order.begin(), order.end(), businessLine[j]));
+            if (J != I) return I < J;
+            return code[i] < code[j];
+        });
+        std::vector<std::string> output;
+        for (int& i : valid) output.push_back(code[i]);
+        return output;
+    }
+};
