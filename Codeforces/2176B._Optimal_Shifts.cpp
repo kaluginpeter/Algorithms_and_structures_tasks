@@ -79,3 +79,35 @@ Consider the third example, where s=
  consisting of all ones. Note that the cost of this operation is d=2
 .
 */
+// Solution
+// C++ O(N) O(1) TwoPointers Greedy
+#include <iostream>
+#include <string>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::string seq;
+    std::cin >> seq;
+    int right = 0;
+    while (right < n && seq[right] == '0') ++right;
+    int tmp = n - 1;
+    while (tmp > 0 && seq[tmp] == '0') --tmp;
+    int output = n - tmp - 1 + right;
+    int left = right;
+    while (right < n) {
+        while (right < n && seq[right] == '0') ++right;
+        output = std::max(output, right - left);
+        ++right;
+        left = right;
+    }
+    std::printf("%d\n", output);
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
