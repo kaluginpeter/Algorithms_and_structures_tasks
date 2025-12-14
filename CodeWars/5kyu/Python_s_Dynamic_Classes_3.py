@@ -20,3 +20,10 @@
 # Check also previous: Python's Dynamic Classes #1 Kata and Python's Dynamic Classes #2 Kata.
 #
 # FundamentalsObject-oriented Programming
+# Solution
+from typing import Type
+
+def create_class(class_name: str, secrets: dict = None) -> Type:
+    if not class_name or not isinstance(class_name, str): return None
+    if secrets is None: secrets = dict()
+    return type(class_name, (), secrets)
