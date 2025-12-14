@@ -36,3 +36,55 @@
 # n == corridor.length
 # 1 <= n <= 105
 # corridor[i] is either 'S' or 'P'.
+# Solution
+# Python O(N) O(1) Combinatorics
+mod: int = 10**9 + 7
+class Solution:
+    def numberOfWays(self, corridor: str) -> int:
+        output: int = 0
+        n: int = len(corridor)
+        left: int = 0
+        right: int = 0
+        p_left: int = -1
+        p_right: int = -1
+        while right < n:
+            cur: int = 0
+            while cur < 2 and right < n:
+                if corridor[right] == 'S':
+                    cur += 1
+                    if cur == 1: left = right
+                right += 1
+            if cur and cur < 2: return 0
+            if p_left == -1: output += int(bool(cur))
+            else: output = output * (left - p_right) % mod
+            p_left = left
+            p_right = right - 1
+            left = right
+        return output
+
+# C++ O(N) O(1) Combinatorics
+constexpr int mod = 1000000007;
+class Solution {
+public:
+    int numberOfWays(string corridor) {
+        int output = 0;
+        int n = corridor.size(), left = 0, right = 0, pLeft = -1, pRight = -1;
+        while (right < n) {
+            int cur = 0;
+            while (cur < 2 && right < n) {
+                if (corridor[right] == 'S') {
+                    ++cur;
+                    if (cur == 1) left = right;
+                }
+                ++right;
+            }
+            if (cur && cur < 2) return 0;
+            if (pLeft == -1) (cur ? ++output : output);
+            else output = (1LL * output * (left - pRight)) % mod;
+            pLeft = left;
+            pRight = right - 1;
+            left = right;
+        }
+        return output;
+    }
+};
