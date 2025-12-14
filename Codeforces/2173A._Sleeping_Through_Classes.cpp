@@ -78,3 +78,30 @@ In the fourth test case, you can only sleep through classes 1
  and 5
 .
 */
+// Solution
+// C++ O(N) O(1) Greedy
+#include <iostream>
+#include <string>
+
+
+void solution() {
+    size_t n;
+    int k;
+    std::cin >> n >> k;
+    std::string seq;
+    std::cin >> seq;
+    int output = 0, i = 0, bound = -1;
+    while (i < n) {
+        if (seq[i] == '1') bound = i + k;
+        else if (bound < i) ++output;
+        ++i;
+    }
+    std::cout << output << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
