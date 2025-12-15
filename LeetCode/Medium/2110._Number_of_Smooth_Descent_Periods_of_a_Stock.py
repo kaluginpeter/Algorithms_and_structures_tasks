@@ -54,3 +54,31 @@ public:
         return output;
     }
 };
+
+
+# Python O(N) O(1) Combinatorics DynamicProgramming
+class Solution:
+    def getDescentPeriods(self, prices: List[int]) -> int:
+        n: int = len(prices)
+        output: int = 0
+        cur: int = 0
+        for i in range(n):
+            if i and prices[i - 1] - 1 != prices[i]: cur = 0
+            cur += 1
+            output += cur
+        return output
+
+# C++ O(N) O(1) DynamicProgramming Combinatorics
+class Solution {
+public:
+    long long getDescentPeriods(vector<int>& prices) {
+        size_t n = prices.size();
+        long long output = 0, cur = 0;
+        for (size_t i = 0; i < n; ++i) {
+            if (i && prices[i - 1] - 1 != prices[i]) cur = 0;
+            ++cur;
+            output += cur;
+        }
+        return output;
+    }
+};
