@@ -51,3 +51,21 @@
 # Notes
 # MORSE_CODE preloaded dictionary (Morse code characters -> uppercase English letters) is given to you, for a more convenient debugging and implementation.
 # Algorithms
+# Solution
+from preloaded import MORSE_CODE
+
+def possible_words(morse_str: str) -> set[str]:
+    cur_nodes: list[tuple[str, str]] = [(morse_str, "")]
+    next_nodes: list[tuple[str, str]] = []
+    output: set[str] = set()
+    while cur_nodes:
+        for node, path in cur_nodes:
+            if not node:
+                output.add(path)
+                continue
+            for p in MORSE_CODE:
+                if node.startswith(p):
+                    next_nodes.append((node[len(p):], path + MORSE_CODE[p]))
+        cur_nodes = next_nodes
+        next_nodes = []
+    return output
