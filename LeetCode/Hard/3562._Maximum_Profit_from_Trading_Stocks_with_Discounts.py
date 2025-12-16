@@ -84,3 +84,51 @@
 # There are no duplicate edges.
 # Employee 1 is the direct or indirect boss of every employee.
 # The input graph hierarchy is guaranteed to have no cycles.
+# Solution
+# C++ O(NM^2) O(NM) DynamicProgramming Depth-First-Search Tree
+class Solution {
+private:
+    int budget;
+    std::vector<int> present, future;
+    std::vector<vector<int>> g;
+public:
+    std::tuple<std::vector<int>, std::vector<int>, int> dfs(int u) {
+        int cost = present[u];
+        int dCost = present[u] / 2;
+        std::vector<int> dp0(budget + 1, 0);
+        std::vector<int> dp1(budget + 1, 0);
+        std::vector<int> subProfit0(budget + 1, 0);
+        std::vector<int> subProfit1(budget + 1, 0);
+        int uSize = cost;
+        for (int v : g[u]) {
+            auto [subDp0, subDp1, vSize] = dfs(v);
+            uSize += vSize;
+            for (int i = budget; i >= 0; --i) {
+                for (int sub = 0; sub <= min(vSize, i); ++sub) {
+                    subProfit0[i] = std::max(subProfit0[i], subProfit0[i - sub] + subDp0[sub]);
+                    subProfit1[i] = std::max(subProfit1[i], subProfit1[i - sub] + subDp1[sub]);
+                }
+            }
+        }
+        for (int i = 0; i <= budget; ++i) {
+            dp0[i] = dp1[i] = subProfit0[i];
+            if (i >= dCost) {
+                dp1[i] = std::max(subProfit0[i], subProfit1[i - dCost] + future[u] - dCost);
+            }
+            if (i >= cost) {
+                dp0[i] = std::max(subProfit0[i], subProfit1[i - cost] + future[u] - cost);
+            }
+        }
+        return {dp0, dp1, uSize};
+    }
+
+    int maxProfit(int n, std::vector<int>& present, std::vector<int>& future, std::vector<std::vector<int>>& hierarchy, int budget) {
+        this->present = present;
+        this->future = future;
+        this->budget = budget;
+        g.assign(n, {});
+        for (auto& e : hierarchy) g[e[0] - 1].push_back(e[1] - 1);
+        auto [dp0, dp1, _] = dfs(0);
+        return dp0[budget];
+    }
+};
