@@ -12,3 +12,20 @@
 # http://en.wikipedia.org/wiki/Triangular_matrix
 #
 # MatrixLinear AlgebraAlgorithms
+# Solution
+def upper_triangular(mat):
+    n: int = len(mat)
+    return all(
+        mat[i][j] == 0
+        for i in range(n)
+        for j in range(i)
+    )
+
+
+def lower_triangular(mat):
+    n: int = len(mat)
+    return all(
+        mat[i][j] == 0
+        for i in range(n)
+        for j in range(i + 1, n)
+    )
