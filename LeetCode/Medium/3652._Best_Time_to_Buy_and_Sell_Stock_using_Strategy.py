@@ -56,3 +56,41 @@
 # 2 <= k <= prices.length
 # k is even
 #
+# Solution
+# Python O(N) O(N) PrefixSum
+class Solution:
+    def maxProfit(self, prices: List[int], strategy: List[int], k: int) -> int:
+        n: int = len(prices)
+        cur: int = 0
+        output: int = 0
+        pref: list[int] = [0]
+        for i in range(n): pref.append(pref[-1] + prices[i] * strategy[i])
+        output = pref[-1]
+        bound: int = k // 2
+        for i in range(bound, n):
+            cur += prices[i]
+            if i + 1 >= k:
+                cur -= prices[i - bound] if (i - bound >= bound) else 0
+                output = max(output, pref[i - k + 1] + cur + (pref[-1] - pref[i + 1]))
+        return output
+
+# C++ O(N) O(N) PrefixSum
+class Solution {
+public:
+    long long maxProfit(vector<int>& prices, vector<int>& strategy, int k) {
+        size_t n = prices.size();
+        long long cur = 0, output = 0;
+        std::vector<long long> pref = {0LL};
+        for (size_t i = 0; i < n; ++i) pref.push_back(pref.back() + prices[i] * strategy[i]);
+        output = pref.back();
+        int bound = k / 2;
+        for (int i = bound; i < n; ++i) {
+            cur += prices[i];
+            if (i + 1 >= k) {
+                cur -= (i - bound >= bound ? prices[i - bound] : 0);
+                output = std::max(output, pref[i - k + 1] + cur + (pref.back() - pref[i + 1]));
+            }
+        }
+        return output;
+    }
+};
