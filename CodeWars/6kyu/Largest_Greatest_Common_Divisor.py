@@ -68,3 +68,9 @@
 # 18
 #
 # Algebra
+# Solution
+long long get_k(long long a, long long b) {
+    long long d = b - a;
+    long long k = (d - a % d) % d;
+    return k == 0 ? d : k;
+}
