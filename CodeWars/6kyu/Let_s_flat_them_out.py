@@ -37,3 +37,16 @@
 # flatten({"key": {"deeper": {"more": {"enough": "value"}}}}) == {"key/deeper/more/enough": "value"}
 # flatten({"empty": {}}) == {"empty": ""}
 # Algorithms
+# Solution
+def dfs(dir: dict[str, dict | str], output: dict[str, str], path: list[str]) -> None:
+    for key, value in dir.items():
+        path.append(key)
+        value = value or ""
+        if isinstance(value, dict): dfs(value, output, path)
+        else: output['/'.join(path)] = value
+        path.pop()
+
+def flatten(dictionary):
+    output: dict[str, str] = dict()
+    dfs(dictionary, output, [])
+    return output
