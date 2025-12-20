@@ -56,3 +56,43 @@ class Solution(object):
                     top += 1
                     break
         return top
+
+
+# Python O(NM) O(1) Matrix
+class Solution:
+    def minDeletionSize(self, strs: List[str]) -> int:
+        output: int = 0
+        n: int = len(strs)
+        m: int = len(strs[0])
+        for j in range(m):
+            prev: str = 'a'
+            is_valid: bool = True
+            for i in range(n):
+                if strs[i][j] < prev:
+                    is_valid = False
+                    break
+                prev = strs[i][j]
+            if not is_valid: output += 1
+        return output
+
+# C++ O(NM) O(1) Matrix
+class Solution {
+public:
+    int minDeletionSize(vector<string>& strs) {
+        int output = 0;
+        size_t n = strs.size(), m = strs[0].size();
+        for (size_t j = 0; j < m; ++j) {
+            bool isValid = true;
+            char prev = 'a';
+            for (size_t i = 0; i < n; ++i) {
+                if (strs[i][j] < prev) {
+                    isValid = false;
+                    break;
+                }
+                prev = strs[i][j];
+            }
+            if (!isValid) ++output;
+        }
+        return output;
+    }
+};
