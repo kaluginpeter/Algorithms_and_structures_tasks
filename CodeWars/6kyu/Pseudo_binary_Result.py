@@ -84,3 +84,11 @@
 # Good luck!
 #
 # Number Theory
+def pseudo_binary(n: int) -> int:
+    q: list[int] = [1]
+    while q:
+        i: int = q.pop()
+        if i % n == 0: return i // n
+        if i > 10**20: continue
+        q.append(i * 10)
+        q.append(i * 10 + 1)
