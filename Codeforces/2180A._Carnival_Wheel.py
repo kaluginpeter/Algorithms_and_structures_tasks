@@ -65,3 +65,19 @@
 # , the pointer will iterate over all sections, including the last one.
 #
 # Link to the visualizer
+# Solution
+# C++ O(logN) O(1) Math
+#include <iostream>
+#include <numeric>
+
+void solution() {
+    int l, a, b;
+    std::cin >> l >> a >> b;
+    std::cout << (!b ? a : l - std::gcd(l, b) + (a % std::gcd(l, b))) << "\n";
+}
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
