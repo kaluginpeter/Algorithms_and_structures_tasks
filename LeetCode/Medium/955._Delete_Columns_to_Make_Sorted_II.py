@@ -37,3 +37,42 @@
 # 1 <= n <= 100
 # 1 <= strs[i].length <= 100
 # strs[i] consists of lowercase English letters.
+# Solution
+# Python O(NM) O(N) Greedy String
+class Solution:
+    def minDeletionSize(self, strs: List[str]) -> int:
+        n: int = len(strs)
+        m: int = len(strs[0])
+        seen: list[bool] = [False] * n
+        output: int = 0
+        for j in range(m):
+            is_valid: bool = True
+            for i in range(n - 1):
+                if not seen[i] and strs[i][j] > strs[i + 1][j]: is_valid = False
+            if is_valid:
+                for i in range(n - 1):
+                    if strs[i][j] < strs[i + 1][j]: seen[i] = True
+            else: output += 1
+        return output
+
+# C++ O(NM) O(N) String Greedy
+class Solution {
+public:
+    int minDeletionSize(vector<string>& strs) {
+        int n = strs.size(), m = strs[0].size();
+        std::vector<bool> seen(n);
+        int output = 0;
+        for (int j = 0; j < m; ++j) {
+            bool isValid = true;
+            for (int i = 0; i < n - 1; ++i) {
+                if (!seen[i] && !(strs[i][j] <= strs[i + 1][j])) isValid = false;
+            }
+            if (isValid) {
+                for (int i = 0; i < n - 1; ++i) {
+                    if (strs[i][j] < strs[i + 1][j]) seen[i] = true;
+                }
+            } else ++output;
+        }
+        return output;
+    }
+};
