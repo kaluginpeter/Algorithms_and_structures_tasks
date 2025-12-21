@@ -15,3 +15,20 @@ Don't miss dmitry's article in the discussion after you pass the Kata !!
 
 AlgorithmsLinked ListsPerformance
 */
+// Solution
+int getLoopSize(Node* startNode)
+{
+    Node* slow = startNode;
+    Node* fast = startNode->getNext();
+    while (slow != fast) {
+        slow = slow->getNext();
+        fast = fast->getNext()->getNext();
+    }
+    int output = 1;
+    fast = fast->getNext();
+    while (slow != fast) {
+        ++output;
+        fast = fast->getNext();
+    }
+    return output;
+}
