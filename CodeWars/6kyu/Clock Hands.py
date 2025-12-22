@@ -5,3 +5,19 @@
 # The first result in your array should be either midnight or the first time after midnight, such as 12:32:43 for the 180 degree case. There should be only 11 results in the output.
 #
 # Date TimeMathematicsGeometryFundamentals
+# Solution
+import math
+
+def clock_hands(angle):
+    times = []
+    for k in range(-12, 12):
+        t = (angle + 360 * k) / 5.5
+        if t < 0: continue
+        total_seconds = math.floor(t * 60)
+        hours = (total_seconds // 3600) % 12
+        minutes = (total_seconds % 3600) // 60
+        seconds = total_seconds % 60
+        if hours == 0: hours = 12
+        times.append((total_seconds, f"{hours:02d}:{minutes:02d}:{seconds:02d}"))
+    times.sort(key=lambda x: x[0])
+    return [t[1] for t in times[:11]]
