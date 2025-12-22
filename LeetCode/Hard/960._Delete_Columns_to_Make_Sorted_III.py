@@ -34,3 +34,37 @@
 # 1 <= strs[i].length <= 100
 # strs[i] consists of lowercase English letters.
 #
+# Solution
+# Python O(N^2M) O(M) DynamicProgramming
+class Solution:
+    def minDeletionSize(self, strs: List[str]) -> int:
+        n: int = len(strs)
+        m: int = len(strs[0])
+        dp: list[int] = [1] * m
+        for i in range(m - 2, -1, -1):
+            for j in range(i + 1, m):
+                if all(row[i] <= row[j] for row in strs):
+                    dp[i] = max(dp[i], dp[j] + 1)
+        return m - max(dp)
+
+# C++ O(N^2M) O(M) DynamicProgramming
+class Solution {
+public:
+    int minDeletionSize(vector<string>& strs) {
+        int m = strs[0].size(), n = strs.size();
+        std::vector<int> dp(m, 1);
+        for (int i = m - 2; i >= 0; --i) {
+            for (int j = i + 1; j < m; ++j) {
+                bool isValid = true;
+                for (int k = 0; k < n; ++k) {
+                    if (strs[k][i] > strs[k][j]) {
+                        isValid = false;
+                        break;
+                    }
+                }
+                if (isValid) dp[i] = std::max(dp[i], dp[j] + 1);
+            }
+        }
+        return m - *std::max_element(dp.begin(), dp.end());
+    }
+};
