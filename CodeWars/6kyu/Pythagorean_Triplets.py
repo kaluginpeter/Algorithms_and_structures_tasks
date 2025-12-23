@@ -14,3 +14,9 @@
 # 780	[5, 12, 13]
 # 2040	[8, 15, 17]
 # AlgorithmsMathematics
+# Solution
+def pythagorean_triplet(n):
+    for i in range(1, 1000):
+        for j in range(i, 1000):
+            k: int = int(i**2 + j**2)
+            if int(k**.5) == k**.5 and i * j * (k**.5) == n: return [i, j, int(k**.5)]
