@@ -125,3 +125,47 @@ public:
         return maxScore;
     }
 };
+
+
+# Python O(NlogN) O(N) DynamicProgramming BinarySearch
+class Solution:
+    def maxTwoEvents(self, events: List[List[int]]) -> int:
+        n: int = len(events)
+        dp: list[int] = [0] * (n + 1)
+        output: int = 0
+        events.sort(key=lambda event: (event[1], event[0]))
+        for i in range(n):
+            left: int = 0
+            right: int = i
+            while left <= right:
+                middle: int = left + ((right - left) >> 1)
+                if events[middle][1] < events[i][0]: left = middle + 1
+                else: right = middle - 1
+            output = max(output, events[i][2] + dp[right + 1])
+            dp[i + 1] = max(dp[i], events[i][2])
+        return output
+
+# C++ O(NlogN) O(N) BinarySearch DynamicProgramming
+class Solution {
+public:
+    int maxTwoEvents(vector<vector<int>>& events) {
+        int n = events.size();
+        std::vector<int> dp(n + 1, 0);
+        int output = 0;
+        std::sort(events.begin(), events.end(), [](const std::vector<int>& x, const std::vector<int>& y) {
+            if (x[1] != y[1]) return x[1] < y[1];
+            return x[0] < y[0];
+        });
+        for (int i = 0; i < n; ++i) {
+            int left = 0, right = i;
+            while (left <= right) {
+                int middle = left + ((right - left) >> 1);
+                if (events[middle][1] < events[i][0]) left = middle + 1;
+                else right = middle - 1;
+            }
+            output = std::max(output, events[i][2] + dp[right + 1]);
+            dp[i + 1] = std::max(dp[i], events[i][2]);
+        }
+        return output;
+    }
+};
