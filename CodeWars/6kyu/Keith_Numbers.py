@@ -29,3 +29,20 @@
 # 196 is not a Keith number, so return false
 #
 # AlgorithmsMathematics
+# Solution
+def is_keith_number(n):
+    if n < 10: return False
+    i: int = 0
+    digits: list[int] = []
+    tmp: int = n
+    while n:
+        digits.append(n % 10)
+        n //= 10
+    digits.reverse()
+    while True:
+        i += 1
+        if i == 200: break
+        x: int = sum(digits)
+        digits = digits[1:] + [x]
+        if digits[-1] == tmp: return i
+    return False
