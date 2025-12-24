@@ -83,3 +83,20 @@ For the third test case, there are no valid strings of length n=6
  for n=5
 .
 */
+// Solution
+// C++ O(1) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int k, x;
+    std::cin >> k >> x;
+    std::cout << k * x + 1 << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
