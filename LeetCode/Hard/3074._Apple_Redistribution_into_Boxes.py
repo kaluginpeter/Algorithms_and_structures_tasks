@@ -28,3 +28,42 @@
 # 1 <= apple[i], capacity[i] <= 50
 # The input is generated such that it's possible to redistribute packs of apples into boxes.
 #
+# Solution
+# Python O(NlogN + MlogM + N) O(1) Sorting
+class Solution:
+    def minimumBoxes(self, apple: List[int], capacity: List[int]) -> int:
+        apple.sort()
+        capacity.sort()
+        i: int = len(apple) - 1
+        j: int = len(capacity) - 1
+        output: int = 1
+        while i >= 0:
+            if not capacity[j]:
+                output += 1
+                j -= 1
+            can: int = min(apple[i], capacity[j])
+            apple[i] -= can
+            capacity[j] -= can
+            if not apple[i]: i -= 1
+        return output
+
+# C++ O(NlogN + MlogM + N) O(1) Sorting
+class Solution {
+public:
+    int minimumBoxes(vector<int>& apple, vector<int>& capacity) {
+        std::sort(apple.begin(), apple.end());
+        std::sort(capacity.begin(), capacity.end());
+        int output = 1, i = apple.size() - 1, j = capacity.size() - 1;
+        while (i >= 0) {
+            if (!capacity[j]) {
+                --j;
+                ++output;
+            }
+            int can = std::min(apple[i], capacity[j]);
+            apple[i] -= can;
+            capacity[j] -= can;
+            if (!apple[i]) --i;
+        }
+        return output;
+    }
+};
