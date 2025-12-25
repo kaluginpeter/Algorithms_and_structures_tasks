@@ -22,3 +22,5 @@
 # Good luck!
 #
 # MathematicsAlgorithmsRestricted
+# Solution
+f=lambda n:n and n*f(n-1)or 1
