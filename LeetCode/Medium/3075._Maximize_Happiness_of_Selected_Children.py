@@ -46,3 +46,28 @@ class Solution:
         for i in range(k):
             count += max(0, happiness[i] - i)
         return count
+
+
+# Python O(NlogN + N) O(1) Sorting Greedy
+class Solution:
+    def maximumHappinessSum(self, happiness: List[int], k: int) -> int:
+        happiness.sort()
+        output: int = 0
+        n: int = len(happiness)
+        for i in range(n - 1, n - k - 1, -1):
+            output += max(0, happiness[i] - (n - i - 1))
+        return output
+
+# C++ O(NlogN + N) O(1) Sorting Greedy
+class Solution {
+public:
+    long long maximumHappinessSum(vector<int>& happiness, int k) {
+        std::sort(happiness.begin(), happiness.end());
+        long long output = 0;
+        int n = happiness.size();
+        for (int i = n - 1; i >= n - k; --i) {
+            output += std::max(0, happiness[i] - (n - i - 1));
+        }
+        return output;
+    }
+};
