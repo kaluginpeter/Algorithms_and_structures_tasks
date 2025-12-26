@@ -26,3 +26,8 @@
 # Solutions are rounded to 6 decimal places during tests to prevent rounding errors from causing problems.
 #
 # Fundamentals
+# Solution
+def quadratic_gen(a: int, b: int, c: int, start: int = 0, step: int = 1):
+    while True:
+        yield [start, a * start**2 + b * start + c]
+        start += step
