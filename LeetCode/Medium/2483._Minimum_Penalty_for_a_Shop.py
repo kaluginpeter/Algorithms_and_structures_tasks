@@ -49,3 +49,41 @@ class Solution(object):
                 score = top
                 time = i
         return time + 1
+
+
+# Python O(N) O(1) Greedy
+class Solution:
+    def bestClosingTime(self, customers: str) -> int:
+        penalty: int = float('inf')
+        hour: int = 0
+        income: int = customers.count('Y')
+        outcome: int = 0
+        for i in range(len(customers)):
+            if income + outcome < penalty:
+                penalty = income + outcome
+                hour = i
+            if customers[i] == 'Y':
+                income -= 1
+            else:
+                outcome += 1
+        if outcome < penalty: hour = len(customers)
+        return hour
+
+# C++ O(N) O(1) Greedy
+class Solution {
+public:
+    int bestClosingTime(string customers) {
+        int penalty = INT32_MAX, hour = 0;
+        int income = std::count(customers.begin(), customers.end(), 'Y'), outcome = 0;
+        for (int i = 0; i < customers.size(); ++i) {
+            if (income + outcome < penalty) {
+                penalty = income + outcome;
+                hour = i;
+            }
+            if (customers[i] == 'Y') --income;
+            else ++outcome;
+        }
+        if (outcome < penalty) hour = customers.size();
+        return hour;
+    }
+};
