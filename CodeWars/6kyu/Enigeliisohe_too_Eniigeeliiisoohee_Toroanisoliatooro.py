@@ -32,3 +32,20 @@
 # Extra challenge: Try reading some Enigeliisohe out loud, once you have finished programming your translator. :)
 #
 # Regular ExpressionsStringsAlgorithms
+# Solution
+import re
+import bisect
+def toexuto(text):
+    output: list[str] = []
+    alph: str = "abcdefghijklmnopqrstuvwxyz"
+    vowels: str = "aeiou"
+    for char in text:
+        if char.lower() not in alph or char.lower() in vowels:
+            output.append(char)
+        else:
+            output.append(char)
+            for i in range(alph.index(char.lower()) - 1, -1, -1):
+                if alph[i] in vowels:
+                    output.append(alph[i])
+                    break
+    return ''.join(output)
