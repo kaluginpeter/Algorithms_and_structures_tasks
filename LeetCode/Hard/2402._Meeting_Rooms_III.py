@@ -101,3 +101,56 @@ public:
         return output;
     }
 };
+
+
+# Python O(NlogN + MlogM + MlogN + N) O(N) PriorityQueue Sorting
+class Solution:
+    def mostBooked(self, n: int, meetings: List[List[int]]) -> int:
+        meetings.sort()
+        used: list[tuple[int, int]] = []
+        unused: list[int] = list(range(n))
+        hashmap: list[int] = [0] * n
+        for start, end in meetings:
+            while used and start >= used[0][0]: heapq.heappush(unused, heapq.heappop(used)[1])
+            if not unused:
+                end = used[0][0] + (end - start)
+                heapq.heappush(unused, heapq.heappop(used)[1])
+            hashmap[unused[0]] += 1
+            heapq.heappush(used, (end, heapq.heappop(unused)))
+
+        output: int = 0
+        for i in range(n):
+            if hashmap[i] > hashmap[output]: output = i
+        return output
+
+# C++ O(NlogN + MlogM + MlogN + N) O(N) Sorting PriorityQueue
+class Solution {
+public:
+    int mostBooked(int n, vector<vector<int>>& meetings) {
+        std::sort(meetings.begin(), meetings.end());
+        std::vector<int> hashmap(n, 0);
+        std::priority_queue<std::pair<long long, int>, std::vector<std::pair<long long, int>>, std::greater<std::pair<long long, int>>> used;
+        std::priority_queue<int, std::vector<int>, std::greater<int>> unused;
+        for (int i = 0; i < n; ++i) unused.push(i);
+        for (std::vector<int>& meeting : meetings) {
+            long long startTime = meeting[0], endTime = meeting[1];
+            while (!used.empty() && startTime >= used.top().first) {
+                unused.push(used.top().second);
+                used.pop();
+            }
+            if (unused.empty()) {
+                endTime = used.top().first + (endTime - startTime);
+                unused.push(used.top().second);
+                used.pop();
+            }
+            ++hashmap[unused.top()];
+            used.push({endTime, unused.top()});
+            unused.pop();
+        }
+        int output = 0;
+        for (int room = 0; room < n; ++room) {
+            if (hashmap[room] > hashmap[output]) output = room;
+        }
+        return output;
+    }
+};
