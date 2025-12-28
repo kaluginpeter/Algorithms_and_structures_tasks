@@ -26,3 +26,29 @@ class Solution:
                 if j < 0:
                     c += 1
         return c
+
+
+# Python O(N + M) O(1) Greedy Matrix
+class Solution:
+    def countNegatives(self, grid: List[List[int]]) -> int:
+        output: int = 0
+        m: int = len(grid[0])
+        hor: int = m - 1
+        for i in range(len(grid)):
+            while hor >= 0 and grid[i][hor] < 0: hor -= 1
+            output += m - hor - 1
+        return output
+
+# C++ O(N + M) O(1) Matrix Greedy
+class Solution {
+public:
+    int countNegatives(vector<vector<int>>& grid) {
+        int n = grid.size(), m = grid[0].size();
+        int output = 0, hor = m - 1;
+        for (int i = 0; i < n; ++i) {
+            while (hor >= 0 && grid[i][hor] < 0) --hor;
+            output += m - hor - 1;
+        }
+        return output;
+    }
+};
