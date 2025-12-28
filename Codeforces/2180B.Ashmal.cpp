@@ -99,3 +99,28 @@ In the last step, we add a4=nima
 .
 It can be proven that this resulting string is indeed the lexicographically smallest string obtainable after all steps.
 */
+// Solution
+// C++ O(N^2) O(N) Greedy
+#include <iostream>
+#include <string>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    std::string words = "";
+    for (int i = 0; i < n; ++i) {
+        std::string word;
+        std::cin >> word;
+        if (word + words <= words + word) words = word + words;
+        else words += word;
+    }
+    std::cout << words << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
