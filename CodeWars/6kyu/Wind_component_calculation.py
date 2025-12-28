@@ -26,3 +26,25 @@
 # More information about wind component calculation: http://en.wikipedia.org/wiki/Tailwind
 #
 # MathematicsGeometryAlgorithms
+# Solution
+import math
+
+def wind_info(runway, wind_direction, wind_speed):
+    runway_heading = int(runway[:2]) * 10
+    angle_deg = wind_direction - runway_heading
+    angle_rad = math.radians(angle_deg)
+    headwind = math.cos(angle_rad) * wind_speed
+    crosswind = math.sin(angle_rad) * wind_speed
+    if round(headwind) < 0:
+        wind_type = "Tailwind"
+        headwind_value = abs(round(headwind))
+    else:
+        wind_type = "Headwind"
+        headwind_value = round(headwind)
+    if round(crosswind) >= 0:
+        cross_dir = "right"
+        crosswind_value = abs(round(crosswind))
+    else:
+        cross_dir = "left"
+        crosswind_value = abs(round(crosswind))
+    return f"{wind_type} {headwind_value} knots. Crosswind {crosswind_value} knots from your {cross_dir}."
