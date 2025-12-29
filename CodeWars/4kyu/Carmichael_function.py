@@ -38,3 +38,32 @@
 # Input range: 1 ≤ n ≤ 1e10
 #
 # Algorithms
+# Solution
+import math
+
+def lcm(a, b): # pure math
+    return a // math.gcd(a, b) * b
+
+def carmichael(n):
+    if not isinstance(n, int) or n < 1: return 0
+    if n == 1: return 1
+    output = 1
+    temp = n
+    p = 2
+    while p * p <= temp: # sieve
+        if temp % p == 0:
+            w = 0
+            while temp % p == 0:
+                temp //= p
+                w += 1
+            phi = (p - 1) * pow(p, w - 1)
+            if p == 2 and w >= 3: lam = phi // 2
+            else: lam = phi
+
+            output = lcm(output, lam)
+        p += 1 if p == 2 else 2
+    if temp > 1:
+        p = temp
+        phi = p - 1
+        output = lcm(output, phi)
+    return output
