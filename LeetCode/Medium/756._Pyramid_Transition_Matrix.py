@@ -33,3 +33,65 @@
 # allowed[i].length == 3
 # The letters in all input strings are from the set {'A', 'B', 'C', 'D', 'E', 'F'}.
 # All the values of allowed are unique.
+# Solution
+# Python O(M^N) O(M^N * N) Backtracking Memoization
+class Solution:
+    def pyramidTransition(self, bottom: str, allowed: List[str]) -> bool:
+        bricks: dict[str, list[str]] = dict()
+        memo: dict[str, bool] = dict()
+        for brick in allowed:
+            if brick[:2] not in bricks: bricks[brick[:2]] = []
+            bricks[brick[:2]].append(brick[-1])
+        def dfs(bottom: str) -> bool:
+            if len(bottom) == 1: return True
+            elif memo.get(bottom): return memo.get(bottom)
+            next_rows: list[str] = []
+            reconstruct(bottom, 0, [], next_rows)
+            for row in next_rows:
+                if dfs(row):
+                    memo[bottom] = True
+                    return True
+            memo[bottom] = False
+            return False
+        def reconstruct(bottom: str, i: int, cur: list[str], next_rows: list[str]) -> None:
+            if i + 1 == len(bottom):
+                next_rows.append(''.join(cur))
+                return
+            if bottom[i:i + 2] not in bricks: return
+            for brick in bricks[bottom[i:i + 2]]:
+                cur.append(brick)
+                reconstruct(bottom, i + 1, cur, next_rows)
+                cur.pop()
+        return dfs(bottom)
+
+# C++ O(M^N) O(M^N * N) Memoization Backtracking
+class Solution {
+public:
+    unordered_map<string, vector<char>> bricks;
+    unordered_map<string, bool> memo;
+    bool dfs(const string& bottom) {
+        if (bottom.size() == 1) return true;
+        if (memo.count(bottom)) return memo[bottom];
+        vector<string> nextRows;
+        reconstruct(bottom, 0, "", nextRows);
+        for (const string& next : nextRows) {
+            if (dfs(next)) return memo[bottom] = true;
+        }
+        return memo[bottom] = false;
+    }
+
+    void reconstruct(const string& bottom, int idx, string cur, vector<string>& res) {
+        if (idx == bottom.size() - 1) {
+            res.push_back(cur);
+            return;
+        }
+        string key = bottom.substr(idx, 2);
+        if (!bricks.count(key)) return;
+        for (char c : bricks[key]) reconstruct(bottom, idx + 1, cur + c, res);
+    }
+
+    bool pyramidTransition(string bottom, vector<string>& allowed) {
+        for (const string& s : allowed) bricks[s.substr(0, 2)].push_back(s[2]);
+        return dfs(bottom);
+    }
+};
