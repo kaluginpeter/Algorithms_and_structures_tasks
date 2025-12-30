@@ -50,3 +50,96 @@
 # Positions where a pawn makes a capture and thereby reaches the eighth rank will not occur. However, the original position might contain promoted pieces - e.g. two or more queens, multiple kings of either color, etc.
 #
 # GamesListsStringsAlgorithms
+# Solution
+from copy import deepcopy
+files = "abcdefgh"
+def in_bounds(r, c):
+    return 0 <= r < 8 and 0 <= c < 8
+
+def is_white(p):
+    return p.isupper()
+
+def is_black(p):
+    return p.islower()
+
+def square_name(r, c):
+    return files[c] + str(8 - r)
+
+def compute_all_sequences_of_captures(board):
+    results = []
+
+    def gen_captures(board, white_turn):
+        captures = []
+        for r in range(8):
+            for c in range(8):
+                p = board[r][c]
+                if p == ".":
+                    continue
+                if white_turn and not is_white(p):
+                    continue
+                if not white_turn and not is_black(p):
+                    continue
+
+                enemy = is_black if white_turn else is_white
+
+                def add_line(dr, dc):
+                    rr, cc = r + dr, c + dc
+                    while in_bounds(rr, cc):
+                        if board[rr][cc] != ".":
+                            if enemy(board[rr][cc]):
+                                captures.append((r, c, rr, cc))
+                            break
+                        rr += dr
+                        cc += dc
+
+                if p.lower() == "p":
+                    d = -1 if white_turn else 1
+                    for dc in (-1, 1):
+                        rr, cc = r + d, c + dc
+                        if in_bounds(rr, cc) and enemy(board[rr][cc]):
+                            captures.append((r, c, rr, cc))
+
+                elif p.lower() == "n":
+                    for dr, dc in [(2,1),(2,-1),(-2,1),(-2,-1),
+                                   (1,2),(1,-2),(-1,2),(-1,-2)]:
+                        rr, cc = r + dr, c + dc
+                        if in_bounds(rr, cc) and enemy(board[rr][cc]):
+                            captures.append((r, c, rr, cc))
+
+                elif p.lower() == "b":
+                    for dr, dc in [(1,1),(1,-1),(-1,1),(-1,-1)]:
+                        add_line(dr, dc)
+
+                elif p.lower() == "r":
+                    for dr, dc in [(1,0),(-1,0),(0,1),(0,-1)]:
+                        add_line(dr, dc)
+
+                elif p.lower() == "q":
+                    for dr, dc in [(1,1),(1,-1),(-1,1),(-1,-1),
+                                   (1,0),(-1,0),(0,1),(0,-1)]:
+                        add_line(dr, dc)
+
+                elif p.lower() == "k":
+                    for dr in (-1,0,1):
+                        for dc in (-1,0,1):
+                            if dr or dc:
+                                rr, cc = r + dr, c + dc
+                                if in_bounds(rr, cc) and enemy(board[rr][cc]):
+                                    captures.append((r, c, rr, cc))
+        return captures
+
+    def dfs(board, white_turn, seq):
+        caps = gen_captures(board, white_turn)
+        if not caps:
+            if seq: results.append(seq)
+            return
+
+        for r1, c1, r2, c2 in caps:
+            b2 = deepcopy(board)
+            piece = b2[r1][c1]
+            b2[r1][c1] = "."
+            b2[r2][c2] = piece
+            move = square_name(r1, c1) + "x" + square_name(r2, c2)
+            dfs(b2, not white_turn, seq + [move])
+    dfs(board, True, [])
+    return results
