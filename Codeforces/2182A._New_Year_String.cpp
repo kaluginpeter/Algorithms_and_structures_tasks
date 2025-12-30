@@ -69,3 +69,21 @@ In the fifth example from the statement, you can replace the 4
 In the sixth example from the statement, you can replace the 8
 -th character with 6. Then the string will become 202520266.
 */
+// Solution
+// C++ O(N) O(1) Greedy String
+#include <iostream>
+#include <string>
+
+void solution() {
+    int n;
+    std::cin >> n;
+    std::string sequence, pat = "2025";
+    std::cin >> sequence;
+    std::cout << (sequence.find(pat) != std::string::npos ? sequence.find("2026") != std::string::npos ? 0 : 1 : 0) << "\n";
+}
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
