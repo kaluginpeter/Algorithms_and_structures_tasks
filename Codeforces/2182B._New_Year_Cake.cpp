@@ -67,3 +67,39 @@ In the fourth example, Monocarp can bake a cake with two layers: the top layer o
  are both dark chocolate, and the bottom layer of size 4
  is white chocolate, is not valid, as the types of layers must alternate.
 */
+// Solution
+// C++ O(log(min(a, b))) O(1) Math Greedy
+#include <iostream>
+
+
+int check(int a, int b) {
+    int output = 1, target = 2, step = 1;
+    --a;
+    while (a || b) {
+        if (step & 1) {
+            if (target > b) break;
+            b -= target;
+        } else {
+            if (target > a) break;
+            a -= target;
+        }
+        target <<= 1;
+        step = std::abs(1 - step);
+        ++output;
+    }
+    return output;
+}
+
+
+void solution() {
+    int a, b;
+    std::cin >> a >> b;
+    std::cout << std::max(check(a, b), check(b, a)) << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
