@@ -40,3 +40,48 @@ Input range: 1 ≤ n ≤ 1e10
 
 Algorithms
 */
+// Solution
+#include <numeric>   // std::gcd
+#include <cmath>
+
+long long lcm(long long a, long long b) // pure math
+{
+    return a / std::gcd(a, b) * b;
+}
+
+long long Carmichael(long long n)
+{
+    if (n < 1) return 0;
+    if (n == 1) return 1;
+
+    long long output = 1;
+    long long temp = n;
+
+    for (long long p = 2; p * p <= temp; p += (p == 2 ? 1 : 2)) // sieve
+    {
+        if (temp % p == 0)
+        {
+            long long w = 0;
+            while (temp % p == 0)
+            {
+                temp /= p;
+                ++w;
+            }
+            long long phi = (p - 1);
+            for (int i = 1; i < w; ++i) phi *= p;
+
+            long long lambda;
+            if (p == 2 && w >= 3) lambda = phi / 2;
+            else lambda = phi;
+
+            output = lcm(output, lambda);
+        }
+    }
+    if (temp > 1)
+    {
+        long long p = temp;
+        long long phi = p - 1;
+        output = lcm(output, phi);
+    }
+    return output;
+}
