@@ -123,3 +123,15 @@
 # Good luck!
 #
 # MathematicsAlgebraParsing
+# Solution
+import re
+def minimum_value(equality):
+    left, right = equality.split("=")
+    n = int(right)
+    terms = re.findall(r'([+-]?\d*)([a-z])', left)
+    lambdas = []
+    for coef, _ in terms:
+        if coef in ("", "+"): lambdas.append(1)
+        elif coef == "-": lambdas.append(-1)
+        else: lambdas.append(int(coef))
+    return n * n / sum(c * c for c in lambdas)
