@@ -38,3 +38,30 @@ class Solution:
         res = list(str(digits))
         res = [int(i) for i in res]
         return res
+
+
+# Python O(N) O(1) Greedy Math
+class Solution:
+    def plusOne(self, digits: List[int]) -> List[int]:
+        carry: int = 1
+        for i in range(len(digits) - 1, -1, -1):
+            digits[i] = (digits[i] + carry) % 10
+            carry = not digits[i]
+            if not carry: break
+        if carry: digits.insert(0, 1)
+        return digits
+
+# C++ O(N) O(1) Math Greedy
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        int carry = 1;
+        for (int i = digits.size() - 1; i >= 0; --i) {
+            digits[i] = (digits[i] + carry) % 10;
+            carry = !digits[i];
+            if (!carry) break;
+        }
+        if (carry) digits.insert(digits.begin(), 1);
+        return digits;
+    }
+};
