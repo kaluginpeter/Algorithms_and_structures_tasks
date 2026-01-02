@@ -46,3 +46,39 @@ class Solution:
             if nums[i] == nums[i - 1] or nums[i] == nums[i - 2]:
                 return nums[i]
         return nums[0]
+
+
+# Python O(N) O(1) Greedy
+class Solution:
+    def repeatedNTimes(self, nums: List[int]) -> int:
+        if nums[0] == nums[1]: return nums[0]
+        elif nums[1] == nums[2]: return nums[1]
+        elif nums[0] == nums[2]: return nums[2]
+        el: int = 0
+        cnt: int = 0
+        for i in range(3, len(nums)):
+            if not cnt:
+                cnt += 1
+                el = nums[i]
+            elif el == nums[i]: cnt += 1
+            else: cnt -= 1
+        return el
+
+# C++ O(N) O(1) Greedy
+class Solution {
+public:
+    int repeatedNTimes(vector<int>& nums) {
+        if (nums[0] == nums[1]) return nums[0];
+        else if (nums[1] == nums[2]) return nums[1];
+        else if (nums[0] == nums[2]) return nums[0];
+        int cnt = 0, el = 0;
+        for (int i = 3; i < nums.size(); ++i) {
+            if (!cnt) {
+                ++cnt;
+                el = nums[i];
+            } else if (nums[i] == el) ++cnt;
+            else --cnt;
+        }
+        return el;
+    }
+};
