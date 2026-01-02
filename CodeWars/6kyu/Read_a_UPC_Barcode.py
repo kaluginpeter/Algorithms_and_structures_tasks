@@ -31,3 +31,20 @@
 # Further reading/details wiki, thanks to CODE by Charles Petzold.
 #
 # Algorithms
+# Solution
+def read_barcode(barcode):
+    bits = ''.join('1' if c == '▍' else '0' for c in barcode)[3:-3]
+    left_bits = bits[:42]
+    right_bits = bits[47:]
+    left_digits = [
+        LEFT_HAND[left_bits[i:i+7]]
+        for i in range(0, 42, 7)
+    ]
+    right_digits = [
+        RIGHT_HAND[right_bits[i:i+7]]
+        for i in range(0, 42, 7)
+    ]
+    return f"{left_digits[0]} " \
+           f"{''.join(map(str, left_digits[1:]))} " \
+           f"{''.join(map(str, right_digits[:-1]))} " \
+           f"{right_digits[-1]}"
