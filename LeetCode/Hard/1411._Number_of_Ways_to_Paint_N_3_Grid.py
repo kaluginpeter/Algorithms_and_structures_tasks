@@ -21,3 +21,31 @@
 # n == grid.length
 # 1 <= n <= 5000
 #
+# Solution
+# Python O(N) O(1) Greedy
+mod: int = 10**9 + 7
+class Solution:
+    def numOfWays(self, n: int) -> int:
+        x: int = 6
+        y: int = 6
+        for i in range(2, n + 1):
+            nx: int = (3 * x + 2 * y) % mod
+            ny: int = (2 * x + 2 * y) % mod
+            x, y = nx, ny
+        return (x + y) % mod
+
+# C++ O(N) O(1) Greedy
+const int mod = 1000000007;
+class Solution {
+public:
+    int numOfWays(int n) {
+        long long x = 6, y = 6;
+        for (int i = 2; i <= n; ++i) {
+            long long nx = (3 * x + 2 * y) % mod;
+            long long ny = (2 * x + 2 * y) % mod;
+            x = nx;
+            y = ny;
+        }
+        return (x + y) % mod;
+    }
+};
