@@ -61,3 +61,44 @@ OutputCopy
 2
 6
 */
+// Solution
+// C++ O(NlogN) O(1) BinarySearch NumberTheory
+#include <iostream>
+#include <vector>
+#include <cstdint>
+#include <algorithm>
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::vector<int> nums(n, 0);
+    int mn = INT32_MAX, mx = 0;
+    for (size_t i = 0; i < n; ++i) {
+        std::cin >> nums[i];
+        mn = std::min(mn, nums[i]);
+        mx = std::max(mx, nums[i]);
+    }
+    int left = mn, right = mx;
+    while (left <= right) {
+        int middle = left + ((right - left) >> 1);
+        if (
+            std::count_if(
+                nums.begin(),
+                nums.end(),
+                [&](const int& x) {
+                    if (x == mn) return false;
+                    return mn + middle > x;
+                }
+            )
+        ) right = middle - 1;
+        else left = middle + 1;
+    }
+    std::cout << std::max(mn, right) << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
