@@ -19,3 +19,5 @@
 # This is code-golf so shortest code is winner. The limit of solution is set to 40 chars (exclusive).
 #
 # StringsMathematicsRestricted
+# Solution
+X=lambda x:x.count('1')&1
