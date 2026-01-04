@@ -89,3 +89,22 @@ In the fourth test case, there are two possibilities for the first operation: YY
 In the fifth test case, the following is a valid sequence of operations: NNN–––NN→NN–––NN→NNN–––→NN–––→N
 . Thus, the answer is YES.
 */
+// Solution
+// C++ O(N) O(1) Greedy
+#include <iostream>
+#include <string>
+#include <algorithm>
+
+
+void solution() {
+    std::string seq;
+    std::cin >> seq;
+    std::cout << (std::count(seq.begin(), seq.end(), 'Y') <= 1 ? "YES" : "NO") << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
