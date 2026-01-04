@@ -35,3 +35,20 @@
 # Nonograms come in different sizes, such that 5 <= size <= 100
 # There are 200 random tests
 # GamesAlgorithms
+# Solution
+def dfs(line):
+    res = []
+    count = 0
+    for v in line:
+        if v == 1: count += 1
+        else:
+            if count > 0:
+                res.append(count)
+                count = 0
+    if count > 0: res.append(count)
+    return tuple(res)
+
+def encode(nonogram):
+    row_clues = tuple(dfs(row) for row in nonogram)
+    column_clues = tuple(dfs(col) for col in zip(*nonogram))
+    return (column_clues, row_clues)
