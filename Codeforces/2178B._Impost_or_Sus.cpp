@@ -102,3 +102,32 @@ In the sixth test case, the initial string usssssss
  are one and two characters away, respectively: u––sssssss
 .
 */
+// Solution
+// C++ O(N) O(1) Greedy
+#include <iostream>
+#include <string>
+
+
+void solution() {
+    std::string seq;
+    std::cin >> seq;
+    int output = 0, n = seq.size();
+    for (int i = 0; i < n; ++i) {
+        if (seq[i] == 's') continue;
+        if (!i || i + 1 == n) {
+            seq[i] = 's';
+            ++output;
+        } else if (seq[i - 1] == 's' && i + 1 < n && seq[i + 1] != 's') {
+            seq[i + 1] = 's';
+            ++output;
+        }
+    }
+    std::cout << output << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
