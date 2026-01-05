@@ -54,3 +54,21 @@
 # 2nd kata (6 kyu) - Recognize The Word
 # 3rd kata (6 kyu) - this one.
 # StringsAlgorithms
+# Solution
+from preloaded import MORSE_CODE
+
+def morse_code_combinations(dashes: int, dots: int) -> set[str]:
+    output: set[str] = set()
+    cur_nodes: list[tuple(int, int, list[str])] = [(0, 0, [])]
+    while cur_nodes:
+        i, j, path = cur_nodes.pop()
+        if i == dots and j == dashes:
+            output.add(''.join(path))
+            continue
+        for code, char in MORSE_CODE.items():
+            x, y = code.count('.'), code.count('-')
+            if i + x > dots or j + y > dashes: continue
+            path.append(char)
+            cur_nodes.append((i + x, j + y, path.copy()))
+            path.pop()
+    return output
