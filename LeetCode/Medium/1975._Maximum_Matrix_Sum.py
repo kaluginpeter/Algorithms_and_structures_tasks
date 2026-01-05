@@ -65,3 +65,39 @@ public:
         return (negative % 2? totalSum - minValue * 2 : totalSum);
     }
 };
+
+# Python O(NM) O(1) Matrix Greedy
+class Solution:
+    def maxMatrixSum(self, matrix: List[List[int]]) -> int:
+        negative: int = 0
+        mn: int = float('inf')
+        output: int = 0
+        for row in matrix:
+            for num in row:
+                output += abs(num)
+                mn = min(mn, abs(num))
+                if num < 0: negative += 1
+        return output - 2 * (mn if negative & 1 else 0)
+
+# C++ O(NM) O(1) Matrix Greedy
+class Solution {
+public:
+    long long maxMatrixSum(vector<vector<int>>& matrix) {
+        int negative = 0, mn = INT32_MAX;
+        long long output = 0;
+        for (std::vector<int>& row : matrix) {
+            for (int& num : row) {
+                if (num < 0) {
+                    ++negative;
+                    mn = std::min(mn, -num);
+                    output += -num;
+                }
+                else {
+                    output += num;
+                    mn = std::min(mn, num);
+                }
+            }
+        }
+        return (negative & 1 ? output - mn * 2 : output);
+    }
+};
