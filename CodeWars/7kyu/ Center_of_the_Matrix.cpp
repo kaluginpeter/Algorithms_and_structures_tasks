@@ -7,3 +7,17 @@ You can assume all inputs will be rectangular matricies in array form. ex: [[1, 
 
 FundamentalsMatrix
 */
+// Solution
+#include <vector>
+#include <optional>
+
+using opt_int_t = std::optional<int>;
+using matrix_t = std::vector<std::vector<int>>;
+
+opt_int_t center(const matrix_t& mat) {
+    int n = mat.size();
+    if (!(n & 1)) return std::nullopt;
+    int m = mat[0].size();
+    if (!(m & 1)) return std::nullopt;
+    return mat[n / 2][m / 2];
+}
