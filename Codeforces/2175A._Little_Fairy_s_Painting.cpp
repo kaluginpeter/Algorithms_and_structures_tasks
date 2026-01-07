@@ -67,3 +67,35 @@ In the second example, the fairy will color the next 1000
  sequentially, after that all next cells will be colored with color 1000
 .
 */
+// Solution
+// C++ O(1000) O(1000) Greedy
+#include <iostream>
+#include <unordered_set>
+#include <vector>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::unordered_set<int> nums;
+    for (size_t i = 0; i < n; ++i)  {
+        int color;
+        std::cin >> color;
+        nums.insert(color);
+    }
+    int prev = nums.size();
+    while (true) {
+        int tmp = prev;
+        nums.insert(prev);
+        prev = nums.size();
+        if (tmp == prev) break;
+    }
+    std::cout << prev << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
