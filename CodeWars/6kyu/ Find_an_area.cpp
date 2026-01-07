@@ -45,3 +45,15 @@ struct Point {
 };
 AlgorithmsGraphs
 */
+// Solution
+#include <vector>
+
+double findArea(const std::vector<Point>& points) {
+    double area = 0.0;
+    for (size_t i = 0; i + 1 < points.size(); ++i) {
+        double dx = points[i + 1].x - points[i].x;
+        double avgHeight = (points[i].y + points[i + 1].y) / 2.0;
+        area += avgHeight * dx;
+    }
+    return area;
+}
