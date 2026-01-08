@@ -30,3 +30,49 @@
 #
 # 1 <= nums1.length, nums2.length <= 500
 # -1000 <= nums1[i], nums2[i] <= 1000
+# Solution
+# Python O(NM) O(max(N, M) + N + M) DynamicProgramming Memoization
+bound: int = float('-inf')
+class Solution:
+    x: list[int]
+    y: list[int]
+    @cache
+    def dp(self, i: int, j: int, n: int, m: int) -> int:
+        if i == n or j == m: return bound
+        take: int = self.x[i] * self.y[j]
+        output: int = max(
+            take + self.dp(i + 1, j + 1, n, m),
+            take,
+            self.dp(i + 1, j, n, m),
+            self.dp(i, j + 1, n, m)
+        )
+        return output
+
+    def maxDotProduct(self, nums1: List[int], nums2: List[int]) -> int:
+        self.x = nums1
+        self.y = nums2
+        return self.dp(0, 0, (n := len(nums1)), (m := len(nums2)))
+
+
+# C++ O(NM) O(max(N, M) + N + M) Memoization DynamicProgramming
+constexpr int bound = INT32_MIN / 2;
+class Solution {
+public:
+    int dp(int i, int j, const int& n, const int& m, const std::vector<int>& x, const std::vector<int>& y, std::vector<std::vector<int>>& memo) {
+        if (i == n || j == m) return bound;
+        if (memo[i][j] != bound) return memo[i][j];
+        int take = x[i] * y[j];
+        int output = max({
+            take + dp(i + 1, j + 1, n, m, x, y, memo),
+            take,
+            dp(i + 1, j, n, m, x, y, memo),
+            dp(i, j + 1, n, m, x, y, memo)
+        });
+        return memo[i][j] = output;
+    }
+    int maxDotProduct(std::vector<int>& nums1, std::vector<int>& nums2) {
+        int n = nums1.size(), m = nums2.size();
+        std::vector<std::vector<int>> memo(n, std::vector<int>(m, bound));
+        return dp(0, 0, n, m, nums1, nums2, memo);
+    }
+};
