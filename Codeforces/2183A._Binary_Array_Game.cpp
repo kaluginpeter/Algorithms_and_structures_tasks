@@ -87,3 +87,36 @@ In the second test case, Alice can win by choosing l=1
  in her first move. The array becomes [0]
 , and the game ends as a win for Alice immediately.
 */
+// Solution
+// C++ O(N) O(1) Greedy
+#include <iostream>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    int ones = 0, zeros = 0;
+    bool isFirst, isLast;
+    for (size_t i = 0; i < n; ++i) {
+        int x;
+        std::cin >> x;
+        if (!i) isFirst = x;
+        if (i + 1 == n) isLast = x;
+
+        if (!x) ++zeros;
+        else ++ones;
+    }
+    if (ones == n || zeros == n) {
+        std::cout << (ones >= zeros ? "Alice" : "Bob") << "\n";
+        return;
+    }
+    std::cout << (isFirst || isLast ? "Alice" : "Bob") << "\n";
+
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
