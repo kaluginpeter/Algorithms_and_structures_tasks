@@ -22,3 +22,25 @@
 # Good luck!
 #
 # Fundamentals
+# Solution
+from math import cbrt
+
+moves: list[tuple[int, int]] = [
+    (1, 0), (-1, 0), (0, 1), (0, -1)
+]
+def lucky_sevens(arr: list[list[int]]) -> int:
+    output: int = 0
+    n: int = len(arr)
+    m: int = len(arr[0])
+    for i in range(n):
+        for j in range(m):
+            if arr[i][j] != 7: continue
+            cube: int = 0
+            for x, y in moves:
+                ni: int = i + x
+                nj: int = j + y
+                if not (0 <= ni < n) or not (0 <= nj < m): continue
+                cube += arr[ni][nj]
+            if cube != int(cbrt(cube))**3: continue
+            output += 1
+    return output
