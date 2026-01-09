@@ -20,3 +20,18 @@
 # PS. You do not need to validate the IP addresses.
 #
 # ParsingStrings
+# Solution
+from collections import defaultdict
+
+SUCCESS: str = 'LOGIN_SUCCESS'
+
+def detect_brute_force(logs):
+    suspicious: set[str] = set()
+    n: int = len(logs)
+    hashmap: dict[str, int] = defaultdict(int)
+    for i in range(n):
+        ip, status, _ = logs[i].split()
+        if status == SUCCESS: hashmap[ip] = 0
+        else: hashmap[ip] += 1
+        if hashmap[ip] == 3: suspicious.add(ip)
+    return sorted(suspicious)
