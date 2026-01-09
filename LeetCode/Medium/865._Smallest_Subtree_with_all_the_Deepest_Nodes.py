@@ -114,3 +114,79 @@ public:
         return curNodes[0];
     }
 };
+
+
+# Python O(N) O(N) Breadth-First-Search
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def subtreeWithAllDeepest(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        cur_nodes: list[TreeNode] = [root]
+        next_nodes: list[TreeNode] = []
+        parent: list[TreeNode] = [None] * 501
+        while cur_nodes:
+            for node in cur_nodes:
+                if node.left:
+                    next_nodes.append(node.left)
+                    parent[node.left.val] = node
+                if node.right:
+                    next_nodes.append(node.right)
+                    parent[node.right.val] = node
+            if not next_nodes: break
+            cur_nodes = next_nodes.copy()
+            next_nodes.clear()
+        while len(cur_nodes) > 1:
+            next_nodes.clear()
+            for node in cur_nodes:
+                if not next_nodes or next_nodes[-1] != parent[node.val]:
+                    next_nodes.append(parent[node.val])
+            cur_nodes = next_nodes.copy()
+        return cur_nodes[-1]
+
+# C++ O(N) O(N) Breadth-First-Search
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* subtreeWithAllDeepest(TreeNode* root) {
+        std::vector<TreeNode*> curNodes = {root}, nextNodes, parent(501, nullptr);
+        while (!curNodes.empty()) {
+            for (TreeNode* node : curNodes) {
+                if (node->left) {
+                    nextNodes.push_back(node->left);
+                    parent[node->left->val] = node;
+                }
+                if (node->right) {
+                    nextNodes.push_back(node->right);
+                    parent[node->right->val] = node;
+                }
+            }
+            if (nextNodes.empty()) break;
+            curNodes = nextNodes;
+            nextNodes.clear();
+        }
+        while (curNodes.size() > 1) {
+            nextNodes.clear();
+            for (TreeNode* node : curNodes) {
+                if (nextNodes.empty() || nextNodes.back() != parent[node->val]) {
+                    nextNodes.push_back(parent[node->val]);
+                }
+            }
+            curNodes = nextNodes;
+        }
+        return curNodes.back();
+    }
+};
