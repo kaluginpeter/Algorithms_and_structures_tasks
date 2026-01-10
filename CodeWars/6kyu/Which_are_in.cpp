@@ -21,3 +21,23 @@ In Shell bash a1 and a2 are strings. The return is a string where words are sepa
 Beware: In some languages r must be without duplicates.
 ArraysListsStringsRefactoring
 */
+// Solution
+#include <unordered_set>
+#include <vector>
+#include <algorithm>
+#include <string>
+class WhichAreIn
+{
+  public:
+  static std::vector<std::string> inArray(std::vector<std::string> &array1, std::vector<std::string> &array2) {
+    std::unordered_set<std::string> hashset;
+    for (std::string& x : array1) {
+      for (std::string& y : array2) {
+        if (y.find(x) != std::string::npos) hashset.insert(x);
+      }
+    }
+    std::vector<std::string> output(hashset.begin(), hashset.end());
+    std::sort(output.begin(), output.end());
+    return output;
+  }
+};
