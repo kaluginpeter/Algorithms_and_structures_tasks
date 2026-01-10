@@ -24,3 +24,45 @@
 #
 # 1 <= s1.length, s2.length <= 1000
 # s1 and s2 consist of lowercase English letters.
+# Solution
+# Python O(NM) O(M) DynamicProgramming
+class Solution:
+    def minimumDeleteSum(self, s1: str, s2: str) -> int:
+        n: int = len(s1)
+        m: int = len(s2)
+        dp: list[int] = [0] * (m + 1)
+        next_dp: list[int] = [0] * (m + 1)
+        for j in range(1, m + 1):
+            dp[j] = dp[j - 1] + ord(s2[j - 1])
+        for i in range(1, n + 1):
+            next_dp[0] = dp[0] + ord(s1[i - 1])
+            for j in range(1, m + 1):
+                next_dp[j] = min(
+                    (dp[j - 1] if s1[i - 1] == s2[j - 1] else float('inf')),
+                    dp[j] + ord(s1[i - 1]),
+                    next_dp[j - 1] + ord(s2[j - 1])
+                )
+            dp = next_dp.copy()
+        return dp[m]
+
+# C++ O(NM) O(M) DynamicProgramming
+class Solution {
+public:
+    int minimumDeleteSum(string s1, string s2) {
+        size_t n = s1.size(), m = s2.size();
+        std::vector<int> dp(m + 1, 0), nextDp(m + 1, 0);
+        for (size_t j = 1; j <= m; ++j) dp[j] = dp[j - 1] + s2[j - 1];
+        for (size_t i = 1; i <= n; ++i) {
+            nextDp[0] = dp[0] + s1[i - 1];
+            for (size_t j = 1; j <= m; ++j) {
+                nextDp[j] = std::min({
+                    (s1[i - 1] == s2[j - 1] ? dp[j - 1] : INT32_MAX / 2),
+                    dp[j] + s1[i - 1],
+                    nextDp[j - 1] + s2[j - 1]
+                });
+            }
+            dp = nextDp;
+        }
+        return dp[m];
+    }
+};
