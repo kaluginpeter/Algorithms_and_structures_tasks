@@ -46,3 +46,88 @@ class Solution:
                 stack[cols] = 0 if rows[cols] == '0' else stack[cols] + int(rows[cols])
             ans = max(ans, self.maximalRectangleInHistogram(stack))
         return ans
+
+
+# Python O(NM) O(M) DynamicProgramming Matrix
+class Solution:
+    def get_area(self, cols: list[int], m: int) -> int:
+        output: int = 0
+        prev: list[int] = []
+        for i in range(m + 1):
+            while prev and cols[prev[-1]] >= cols[i]:
+                height: int = cols[prev[-1]]
+                width: int = i - (0 if len(prev) == 1 else prev[-2] + 1)
+                output = max(output, height * width)
+                prev.pop()
+            prev.append(i)
+        return output
+
+    def maximalRectangle(self, matrix: List[List[str]]) -> int:
+        n: int = len(matrix)
+        m: int = len(matrix[0])
+        output: int = 0
+        cols: list[int] = [0] * (m + 1)
+        for i in range(n):
+            for j in range(m):
+                cols[j] = cols[j] * int(matrix[i][j]) + int(matrix[i][j])
+            output = max(output, self.get_area(cols, m))
+        return output
+
+# C++ O(NM) O(M) Matrix DynamicProgramming
+class Solution {
+public:
+    int getArea(const std::vector<int>& cols, const int& m) {
+        int output = 0;
+        std::vector<size_t> prev;
+        for (size_t i = 0; i < cols.size(); ++i) {
+            while (!prev.empty() && cols[prev.back()] >= cols[i]) {
+                int height = cols[prev.back()];
+                int width = (prev.size() == 1 ? i : i - prev[prev.size() - 2] - 1);
+                output = std::max(output, height * width);
+                prev.pop_back();
+            }
+            prev.push_back(i);
+        }
+        return output;
+    }
+    int maximalRectangle(vector<vector<char>>& matrix) {
+        int output = 0;
+        size_t n = matrix.size(), m = matrix[0].size();
+        std::vector<int> cols(m + 1, 0);
+        for (size_t i = 0; i < n; ++i) {
+            for (size_t j = 0; j < m; ++j) {
+                cols[j] = cols[j] * (matrix[i][j] - '0') + (matrix[i][j] - '0');
+            }
+            output = std::max(output, getArea(cols, m));
+        }
+        return output;
+    }
+};
+
+# C++ O(N^2M) O(NM) DynamicProgramming
+class Solution {
+public:
+    int maximalRectangle(vector<vector<char>>& matrix) {
+        int n = matrix.size(), m = matrix[0].size();
+        std::vector<std::vector<int>>dp(n + 1, std::vector<int>(m + 1, 0));
+        for (int i = 0; i < n; ++i) {
+            for (int j = m - 1; j >= 0; --j) {
+                if (matrix[i][j] == '0') dp[i][j] = 0;
+                else dp[i][j] = 1 + dp[i][j + 1];
+            }
+        }
+        int output = 0;
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < m; ++j) {
+                int width = m, length = 0;
+                for (int k = 0; k < (n - i); ++k) {
+                    if (!matrix[i + k][j]) break;
+                    ++length;
+                    width = std::min(width, dp[i + k][j]);
+                    output = std::max(output, length * width);
+                }
+            }
+        }
+        return output;
+    }
+};
