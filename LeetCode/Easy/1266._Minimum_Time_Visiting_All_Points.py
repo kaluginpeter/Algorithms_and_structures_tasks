@@ -38,3 +38,26 @@ class Solution(object):
         for i in range(len(points) - 1):
             count += max(abs(points[i][0] - points[i + 1][0]), abs(points[i][1] - points[i + 1][1]))
         return count
+
+
+# Python O(N) O(1) Math
+class Solution:
+    def minTimeToVisitAllPoints(self, points: List[List[int]]) -> int:
+        return sum(
+            (x := abs(points[i][0] - points[i - 1][0])) + (y := abs(points[i][1] - points[i - 1][1])) - (common := min(x, y)) for i in range(1, len(points))
+        )
+
+# C++ O(N) O(1) Math
+class Solution {
+public:
+    int minTimeToVisitAllPoints(vector<vector<int>>& points) {
+        int output = 0;
+        for (size_t i = 1; i < points.size(); ++i) {
+            int x = std::abs(points[i][0] - points[i - 1][0]);
+            int y = std::abs(points[i][1] - points[i - 1][1]);
+            int common = std::min(x, y);
+            output += common + (x - common) + (y - common);
+        }
+        return output;
+    }
+};
