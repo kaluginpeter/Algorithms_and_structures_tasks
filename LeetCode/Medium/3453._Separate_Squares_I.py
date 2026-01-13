@@ -46,3 +46,47 @@
 # 0 <= xi, yi <= 109
 # 1 <= li <= 109
 # The total area of all the squares will not exceed 1012.
+# Solution
+# Python O(log(10^9)) O(1) BinarySearch
+ellips: float = 10**(-5)
+class Solution:
+    def separateSquares(self, squares: List[List[int]]) -> float:
+        left: float = 0
+        right: float = 10**9
+        while left <= right:
+            middle: float = left + ((right - left) / 2)
+            up: float = 0
+            down: float = 0
+            for x, y, z in squares:
+                if y >= middle: up += z**2
+                elif y + z <= middle: down += z**2
+                else:
+                    down += (middle - y) * z
+                    up += (y + z - middle) * z
+            if up > down: left = middle + ellips
+            else: right = middle - ellips
+        return right
+
+# C++ O(log(10^9)) O(1) BinarySearch
+static constexpr double ellips = 0.00001;
+class Solution {
+public:
+    double separateSquares(vector<vector<int>>& squares) {
+        double left = 0, right = 1000000000;
+        while (left <= right) {
+            double middle = left + ((right - left) / 2.0);
+            double up = 0, down = 0;
+            for (const std::vector<int>& sq : squares) {
+                if (1.0 * sq[1] >= middle) up += 1.0 * sq[2] * sq[2];
+                else if (1.0 * sq[1] + sq[2] <= middle) down += 1.0 * sq[2] * sq[2];
+                else {
+                    down += (middle - sq[1]) * sq[2];
+                    up += (1.0 * sq[1] + sq[2] - middle) * sq[2];
+                }
+            }
+            if (up > down) left = middle + ellips;
+            else right = middle - ellips;
+        }
+        return right;
+    }
+};
