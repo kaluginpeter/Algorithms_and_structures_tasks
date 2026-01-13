@@ -16,3 +16,11 @@ The Office V - Find a Chair
 
 FundamentalsArrays
 */
+// Solution
+#include <string>
+#include <map>
+std::string outed(const std::map<std::string, int> &meet, const std::string &boss){
+  int total = 0;
+  for (auto& p : meet) total += p.second;
+  return ((total + (*meet.find(boss)).second) * 1.0 / meet.size() <= 5.0 ? "Get Out Now!" : "Nice Work Champ!");
+}
