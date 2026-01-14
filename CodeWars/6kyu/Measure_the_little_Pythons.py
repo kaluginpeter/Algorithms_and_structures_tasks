@@ -30,3 +30,19 @@
 # This task is meant to explore and experiment with language features rather than strictly follow coding conventions. If you get stuck, this resource might help.
 #
 # Puzzles
+# Solution
+class Snake:
+    def __init__(self):
+        self.segments = 0
+
+    def __sub__(self, other):
+        if other == 0:
+            self.segments += 1
+            return self
+
+    def __len__(self):
+        return 5 + self.segments * 2
+
+class SnakeEye:
+    def __gt__(self, other):
+        return Snake()
