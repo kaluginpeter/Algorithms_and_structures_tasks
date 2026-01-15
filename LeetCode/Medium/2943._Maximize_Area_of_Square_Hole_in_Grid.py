@@ -56,3 +56,44 @@
 # 2 <= vBars[i] <= m + 1
 # All values in hBars are distinct.
 # All values in vBars are distinct.
+# Solution
+# Python O(NlogN + MlogM + N + M) O(1) Sorting Greedy
+class Solution:
+    def maximizeSquareHoleArea(self, n: int, m: int, hBars: List[int], vBars: List[int]) -> int:
+        hBars.sort()
+        vBars.sort()
+        x: int = 1
+        y: int = 1
+        cur: int = 1
+        for i in range(1, len(hBars)):
+            if hBars[i - 1] + 1 != hBars[i]: cur = 1
+            else: cur += 1
+            if cur > x: x = cur
+        cur = 1
+        for i in range(1, len(vBars)):
+            if vBars[i - 1] + 1 != vBars[i]: cur = 1
+            else: cur += 1
+            if cur > y: y = cur
+        return (min(x, y) + 1)**2
+
+# C++ O(NlogN + MlogM + N + M) O(1) Greedy Sorting
+class Solution {
+public:
+    int maximizeSquareHoleArea(int n, int m, vector<int>& hBars, vector<int>& vBars) {
+        std::sort(hBars.begin(), hBars.end());
+        std::sort(vBars.begin(), vBars.end());
+        int x = 1, y = 1, cur = 1;
+        for (int i = 1; i < hBars.size(); ++i) {
+            if (hBars[i - 1] + 1 != hBars[i]) cur = 1;
+            else ++cur;
+            if (cur > x) x = cur;
+        }
+        cur = 1;
+        for (int i = 1; i < vBars.size(); ++i) {
+            if (vBars[i - 1] + 1 != vBars[i]) cur = 1;
+            else ++cur;
+            if (cur > y) y = cur;
+        }
+        return std::pow(std::min(x, y) + 1, 2);
+    }
+};
