@@ -34,3 +34,43 @@
 # 1 < vFences[i] < n
 # hFences and vFences are unique.
 #
+# Solution
+# Python O(NlogN + N^2 + MlogM + M^2) O(1) Sorting Greedy HashSet
+class Solution:
+    def maximizeSquareArea(self, m: int, n: int, hFences: List[int], vFences: List[int]) -> int:
+        hFences.extend([1, m])
+        vFences.extend([1, n])
+        hFences.sort()
+        vFences.sort()
+        seen: set[int] = set(hFences[j] - hFences[i] for i in range(len(hFences)) for j in range(i + 1, len(hFences)))
+        bound: int = 0
+        for i in range(len(vFences)):
+            for j in range(i + 1, len(vFences)):
+                width: int = vFences[j] - vFences[i]
+                if width in seen: bound = max(bound, width)
+        return -1 if not bound else bound**2 % 1000000007
+
+# C++ O(N^2 + NlogN + M^2 + MlogM) O(1) HashSet Sorting Greedy
+class Solution {
+public:
+    int maximizeSquareArea(int m, int n, vector<int>& hFences, vector<int>& vFences) {
+        hFences.push_back(1);
+        hFences.push_back(m);
+        vFences.push_back(1);
+        vFences.push_back(n);
+        std::sort(hFences.begin(), hFences.end());
+        std::sort(vFences.begin(), vFences.end());
+        std::unordered_set<int> seen;
+        for (int i = 0; i < hFences.size(); ++i) {
+            for (int j = i + 1; j < hFences.size(); ++j) seen.insert(hFences[j] - hFences[i]);
+        }
+        int output = 0;
+        for (int i = 0; i < vFences.size(); ++i) {
+            for (int j = i + 1; j < vFences.size(); ++j) {
+                int width = vFences[j] - vFences[i];
+                if (seen.count(width)) output = std::max(output, width);
+            }
+        }
+        return (output ? 1LL * output * output % 1000000007 : -1);
+    }
+};
