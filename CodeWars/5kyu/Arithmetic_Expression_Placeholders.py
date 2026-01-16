@@ -14,3 +14,49 @@
 # Note: eval and exec are disabled
 #
 # Algorithms
+# Solution
+class Placeholder:
+    def __init__(self, fn=None):
+        self.fn = fn or (lambda args: (args[0], args[1:]))
+
+    def __call__(self, *args):
+        value, remaining = self.fn(list(args))
+        return value
+
+    def _binop(self, other, op):
+        if not isinstance(other, Placeholder):
+            other = Placeholder(lambda args, v=other: (v, args))
+
+        def fn(args):
+            v1, rest = self.fn(args)
+            v2, rest = other.fn(rest)
+            return op(v1, v2), rest
+
+        return Placeholder(fn)
+
+    def __add__(self, other):
+        return self._binop(other, lambda a, b: a + b)
+
+    def __sub__(self, other):
+        return self._binop(other, lambda a, b: a - b)
+
+    def __mul__(self, other):
+        return self._binop(other, lambda a, b: a * b)
+
+    def __floordiv__(self, other):
+        return self._binop(other, lambda a, b: a // b)
+
+    def __radd__(self, other):
+        return Placeholder(lambda args, v=other: (v, args)).__add__(self)
+
+    def __rsub__(self, other):
+        return Placeholder(lambda args, v=other: (v, args)).__sub__(self)
+
+    def __rmul__(self, other):
+        return Placeholder(lambda args, v=other: (v, args)).__mul__(self)
+
+    def __rfloordiv__(self, other):
+        return Placeholder(lambda args, v=other: (v, args)).__floordiv__(self)
+
+
+x = Placeholder()
