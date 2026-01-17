@@ -49,3 +49,56 @@ Ref: http://en.wikipedia.org/wiki/Egyptian_fraction
 
 AlgorithmsMathematics
 */
+// Solution
+#include <string>
+#include <vector>
+#include <numeric>
+#include <sstream>
+
+class Decomp
+{
+public:
+    static std::string decompose(const std::string &nrStr, const std::string &drStr)
+    {
+        long long n = std::stoll(nrStr);
+        long long d = std::stoll(drStr);
+
+        if (n == 0) return "[]";
+
+        std::vector<std::string> result;
+        if (n >= d)
+        {
+            long long integerPart = n / d;
+            result.push_back(std::to_string(integerPart));
+            n %= d;
+            if (n == 0) return format(result);
+        }
+        while (n != 0)
+        {
+            long long k = (d + n - 1) / n;
+            result.push_back("1/" + std::to_string(k));
+
+            n = n * k - d;
+            d = d * k;
+            long long g = std::gcd(n, d);
+            n /= g;
+            d /= g;
+        }
+
+        return format(result);
+    }
+
+private:
+    static std::string format(const std::vector<std::string> &parts)
+    {
+        std::ostringstream out;
+        out << "[";
+        for (size_t i = 0; i < parts.size(); ++i)
+        {
+            out << parts[i];
+            if (i + 1 < parts.size()) out << ", ";
+        }
+        out << "]";
+        return out.str();
+    }
+};
