@@ -96,3 +96,26 @@ public:
         return static_cast<long long>(output) * output;
     }
 };
+
+
+# C++ O(N^2) O(1) Math
+class Solution {
+public:
+    long long largestSquareArea(vector<vector<int>>& bottomLeft, vector<vector<int>>& topRight) {
+        int output = 0;
+        for (size_t i = 0; i < bottomLeft.size(); ++i) {
+            std::vector<int> &fl = bottomLeft[i];
+            std::vector<int> &fr = topRight[i];
+            for (size_t j = i + 1; j < bottomLeft.size(); ++j) {
+                std::vector<int> &sl = bottomLeft[j];
+                std::vector<int> &sr = topRight[j];
+                if (sl[0] >= fr[0] || sr[0] <= fl[0]) continue;
+                else if (sr[1] <= fl[1] || sl[1] >= fr[1]) continue;
+                int width = std::min(fr[0], sr[0]) - std::max(fl[0], sl[0]);
+                int height = std::min(fr[1], sr[1]) - std::max(fl[1], sl[1]);
+                output = std::max(output, std::min(width, height));
+            }
+        }
+        return static_cast<long long>(output) * output;
+    }
+};
