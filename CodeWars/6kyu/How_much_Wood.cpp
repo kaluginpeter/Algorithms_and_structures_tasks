@@ -21,3 +21,68 @@ Like the input, your output should show any feet followed by the ' symbol then a
 
 FundamentalsRegular ExpressionsStrings
 */
+// Solution
+#include <bits/stdc++.h>
+using ll = long long;
+struct Fraction {
+    ll num, den;
+    Fraction(ll n = 0, ll d = 1) : num(n), den(d) {
+        ll g = std::gcd(num, den);
+        num /= g; den /= g;
+    }
+    Fraction operator+(const Fraction& o) const {
+        return Fraction(num * o.den + o.num * den, den * o.den);
+    }
+    Fraction operator*(ll k) const {
+        return Fraction(num * k, den);
+    }
+};
+Fraction parse(const std::string& s) {
+    ll feet = 0, inches = 0, fn = 0, fd = 1;
+    std::istringstream iss(s);
+    std::string token;
+    while (iss >> token) {
+        if (token.back() == '\'') feet = std::stoll(token);
+        else if (token.back() == '"') {
+            token.pop_back();
+            auto pos = token.find('/');
+            if (pos != std::string::npos) {
+                fn = std::stoll(token.substr(0, pos));
+                fd = std::stoll(token.substr(pos + 1));
+            } else inches = std::stoll(token);
+        }
+        else if (token.find('/') != std::string::npos) {
+            auto pos = token.find('/');
+            fn = std::stoll(token.substr(0, pos));
+            fd = std::stoll(token.substr(pos + 1));
+        }
+        else inches = std::stoll(token);
+    }
+
+    Fraction total(feet * 12 + inches, 1);
+    return total + Fraction(fn, fd);
+}
+std::string format(Fraction f) {
+    ll feet = f.num / (f.den * 12);
+    f.num %= (f.den * 12);
+    ll inches = f.num / f.den;
+    f.num %= f.den;
+    std::ostringstream out;
+    if (feet) out << feet << "'";
+    if (inches || f.num) {
+        if (feet) out << " ";
+        if (inches) {
+            out << inches;
+            if (f.num) out << " " << f.num << "/" << f.den;
+        } else if (f.num) out << f.num << "/" << f.den;
+        out << "\"";
+    }
+    return out.str();
+}
+std::string wood_length(const std::array<std::string, 3>& dimensions) {
+    Fraction H = parse(dimensions[0]);
+    Fraction L = parse(dimensions[1]);
+    Fraction W = parse(dimensions[2]);
+    Fraction total = H * 2 + L * 2 + W * 8;
+    return format(total);
+}
