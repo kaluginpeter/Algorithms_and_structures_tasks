@@ -219,3 +219,34 @@
 # Interlocking Binary Pairs
 # Setting Places for the Dead
 # AlgorithmsGamesGame SolversListsStringsParsingFundamentals
+# Solution
+def anagrams(subjects, memories, players):
+    order = [
+        (0, 2), (2, 1), (1, 3), (3, 0),
+        (0, 3), (2, 0), (1, 2), (3, 1)
+    ]
+    start = order.index(tuple(players))
+    score = [0, 0]
+    mem_sets = []
+    for mem in memories:
+        d = {}
+        for w in mem: d.setdefault(''.join(sorted(w)), set()).add(w)
+        mem_sets.append(d)
+    for i, subject in enumerate(subjects):
+        p1, p2 = order[(start + i) % 8]
+        team1 = 0 if p1 < 2 else 1
+        team2 = 0 if p2 < 2 else 1
+        sig = ''.join(sorted(subject))
+        m1 = mem_sets[p1].get(sig, set())
+        m2 = mem_sets[p2].get(sig, set())
+        s1 = 1 if subject in m1 else 0
+        s2 = 1 if subject in m2 else 0
+        a1 = m1 - {subject}
+        a2 = m2 - {subject}
+        s1 += 2 * len(a1)
+        s2 += 3 * len(a2 - a1)
+        if s1 > s2: score[team1] += 1
+        elif s2 > s1: score[team2] += 1
+    if score[0] > score[1]: return 0
+    if score[1] > score[0]: return 1
+    return -1
