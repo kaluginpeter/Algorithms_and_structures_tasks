@@ -60,3 +60,12 @@
 # The method should return:
 # true/True if the DNI is valid.
 # false/False if the DNI is invalid.
+# Solution
+import re
+
+def is_valid_dni(s: str) -> bool:
+    if not re.fullmatch(r"\d{8}[A-Z]", s): return False
+    letters: str = "TRWAGMYFPDXBNJZSQVHLCKE"
+    number: int = int(s[:8])
+    expected_letter: str = letters[number % 23]
+    return s[8] == expected_letter
