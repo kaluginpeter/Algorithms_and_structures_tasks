@@ -55,3 +55,34 @@ class Solution:
             else:
                 ans.append(-1)
         return ans
+
+
+# Python O(N1000) O(N) Greedy
+class Solution:
+    def minBitwiseArray(self, nums: List[int]) -> List[int]:
+        n: int = len(nums)
+        output: list[int] = [-1] * n
+        for i in range(n):
+            for j in range(1, 1001):
+                if (j | j + 1) == nums[i]:
+                    output[i] = j
+                    break
+        return output
+
+# C++ O(N1000) O(N) Greedy
+class Solution {
+public:
+    vector<int> minBitwiseArray(vector<int>& nums) {
+        size_t n = nums.size();
+        std::vector<int> output(n, -1);
+        for (size_t i = 0; i < n; ++i) {
+            for (int j = 1; j < 1001; ++j) {
+                if ((j | (j + 1)) == nums[i]) {
+                    output[i] = j;
+                    break;
+                }
+            }
+        }
+        return output;
+    }
+};
