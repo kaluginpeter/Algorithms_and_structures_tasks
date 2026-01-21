@@ -55,3 +55,20 @@ Shuffle an Integer
 Minimum Percentage of Visitors that Ate All Foods
 ArraysData StructuresAlgorithms
 */
+// Solution
+#include <vector>
+
+bool is_sator_square(std::vector<std::vector<char>> tablet) {
+    size_t n = tablet.size();
+
+    for (size_t i = 0; i < n; ++i) {
+        for (size_t j = 0; j < n; ++j) {
+            if (tablet[i][j] != tablet[j][i] ||
+                tablet[i][j] != tablet[n - 1 - i][n - 1 - j]) {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
