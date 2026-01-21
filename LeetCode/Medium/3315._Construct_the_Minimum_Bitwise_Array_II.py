@@ -67,3 +67,29 @@ class Solution:
             else:
                 ans.append(valid)
         return ans
+
+
+# Python O(Nlog(max(N))) O(log(max(N))) BitManipulation
+from typing import List
+
+class Solution:
+    def minBitwiseArray(self, nums: List[int]) -> List[int]:
+        ans: list[int] = []
+        for prime in nums:
+            target: list[str] = list(bin(prime)[2:][::-1])
+            if target.count('1') == len(target):
+                ans.append(int('1' * (len(target) - 1), 2))
+                continue
+            valid: int = float('inf')
+            for idx in range(len(target) - 1):
+                if target[idx] == '1':
+                    target[idx] = '0'
+                    possible_variant = int(''.join(target[::-1]), 2)
+                    if possible_variant | (possible_variant + 1) == prime:
+                        valid = possible_variant
+                    target[idx] = '1'
+            if valid == float('inf'):
+                ans.append(-1)
+            else:
+                ans.append(valid)
+        return ans
