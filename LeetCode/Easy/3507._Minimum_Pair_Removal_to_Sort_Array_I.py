@@ -77,3 +77,45 @@ public:
         return operations;
     }
 };
+
+
+# Python O(N^2) O(1) Greedy
+class Solution:
+    def minimumPairRemoval(self, nums: List[int]) -> int:
+        output: int = 0
+        while len(nums) > 1:
+            is_valid: bool = True
+            j: int = 0
+            for i in range(len(nums) - 1):
+                if nums[i] > nums[i + 1]: is_valid = False
+                if nums[i] + nums[i + 1] < nums[j] + nums[j + 1]: j = i
+            if is_valid: break
+            output += 1
+            sm: int = nums[j] + nums[j + 1]
+            nums.pop(j)
+            nums.insert(j, sm)
+            nums.pop(j + 1)
+        return output
+
+# C++ O(N^2) O(1) Greedy
+class Solution {
+public:
+    int minimumPairRemoval(vector<int>& nums) {
+        int output = 0;
+        while (nums.size() > 1) {
+            bool isValid = true;
+            int j = 0;
+            for (int i = 0; i < nums.size() - 1; ++i) {
+                if (nums[i] > nums[i + 1]) isValid = false;
+                if (nums[i] + nums[i + 1] < nums[j] + nums[j + 1]) j = i;
+            }
+            if (isValid) break;
+            ++output;
+            int sm = nums[j] + nums[j + 1];
+            nums.erase(nums.begin() + j);
+            nums.insert(nums.begin() + j, sm);
+            nums.erase(nums.begin() + j + 1);
+        }
+        return output;
+    }
+};
