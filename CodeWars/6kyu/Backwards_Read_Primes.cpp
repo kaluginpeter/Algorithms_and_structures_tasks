@@ -20,3 +20,44 @@ Forth: Return only the first backwards-read prime between start and end or 0 if 
 Ruby: Don't use the Prime class, it's disabled.
 MathematicsAlgorithms
 */
+// Solution
+#include <bits/stdc++.h>
+
+class BackWardsPrime {
+private:
+    static bool isPrime(long long n) {
+        if (n < 2) return false;
+        if (n == 2) return true;
+        if (n % 2 == 0) return false;
+        for (long long i = 3; i * i <= n; i += 2) {
+            if (n % i == 0) return false;
+        }
+        return true;
+    }
+
+    static long long reverseNum(long long n) {
+        long long r = 0;
+        while (n > 0) {
+            r = r * 10 + (n % 10);
+            n /= 10;
+        }
+        return r;
+    }
+
+public:
+    static std::string backwardsPrime(long long start, long long end) {
+        std::ostringstream out;
+        bool first = true;
+        for (long long i = start; i <= end; ++i) {
+            if (!isPrime(i)) continue;
+            long long rev = reverseNum(i);
+            if (i == rev) continue;
+            if (!isPrime(rev)) continue;
+            if (!first) out << " ";
+            out << i;
+            first = false;
+        }
+
+        return out.str();
+    }
+};
