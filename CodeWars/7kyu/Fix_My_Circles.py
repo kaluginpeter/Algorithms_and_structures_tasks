@@ -150,3 +150,35 @@
 #          #####################
 #                  #####
 # AlgorithmsASCII ArtStrings
+# Solution
+from collections import deque
+
+def circle_mender(content: str) -> str:
+    rows = content.splitlines()
+    h, w = 20, 40
+    grid = [list(row) for row in rows]
+    visited = [[False] * w for _ in range(h)]
+    q = deque()
+    for r in range(h):
+        for c in (0, w - 1):
+            if grid[r][c] == ' ' and not visited[r][c]:
+                q.append((r, c))
+                visited[r][c] = True
+    for c in range(w):
+        for r in (0, h - 1):
+            if grid[r][c] == ' ' and not visited[r][c]:
+                q.append((r, c))
+                visited[r][c] = True
+    while q:
+        r, c = q.popleft()
+        for dr, dc in ((1,0), (-1,0), (0,1), (0,-1)):
+            nr, nc = r + dr, c + dc
+            if 0 <= nr < h and 0 <= nc < w:
+                if grid[nr][nc] == ' ' and not visited[nr][nc]:
+                    visited[nr][nc] = True
+                    q.append((nr, nc))
+    for r in range(h):
+        for c in range(w):
+            if grid[r][c] == ' ' and not visited[r][c]:
+                grid[r][c] = '#'
+    return "\n".join("".join(row) for row in grid) + "\n"
