@@ -37,3 +37,13 @@
 # (except for Ruby, which is coming shortly)
 #
 # StringsRestricted
+# Solution
+def monkeys():
+    n=["Five","Four","Three","Two","One"]
+    s=" little monkey"
+    t=" jumping on the bed,\n"
+    c="Mother called the doctor and the doctor said:\n"
+    r=[]
+    for i,w in enumerate(n):
+        r+= [f"{w}{s+(w!='One')*'s'}{t}", f"{('One','He')[w=='One']} fell off and bumped his head.\n", c, ("No more monkeys jumping on the bed!\n\n","Put those monkeys right to bed!")[w=='One']]
+    return "".join(r).rstrip()
