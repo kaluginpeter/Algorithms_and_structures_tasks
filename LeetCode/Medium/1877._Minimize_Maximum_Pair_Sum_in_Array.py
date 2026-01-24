@@ -49,3 +49,25 @@ class Solution(object):
             top = max(top, nums[x] + nums[-x - 1])
             x += 1
         return top
+
+
+# Python O(NlogN) O(1) Greedy
+class Solution:
+    def minPairSum(self, nums: List[int]) -> int:
+        nums.sort()
+        n: int = len(nums)
+        return max((nums[i] + nums[n - i - 1] for i in range(n >> 1)), default=0)
+
+# C++ O(NlogN) O(1) Greedy
+class Solution {
+public:
+    int minPairSum(vector<int>& nums) {
+        std::sort(nums.begin(), nums.end());
+        size_t n = nums.size();
+        int output = 0;
+        for (size_t i = 0; i < n / 2; ++i) {
+            output = std::max(output, nums[i] + nums[n - i - 1]);
+        }
+        return output;
+    }
+};
