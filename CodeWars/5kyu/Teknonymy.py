@@ -96,3 +96,29 @@
 # Happy coding, great-great-grandwarrior of the Code !
 #
 # TreesRecursion
+# Solution
+def teknonymize(family_tree) -> None:
+    def dfs(person):
+        best = None
+        for child in person.get("children", []):
+            child_result = dfs(child)
+            candidate = (1, child)
+            if child_result:
+                depth, descendant = child_result
+                candidate = (depth + 1, descendant)
+            if best is None: best = candidate
+            else:
+                if candidate[0] > best[0]: best = candidate
+                elif candidate[0] == best[0]:
+                    if candidate[1]["date_of_birth"] < best[1]["date_of_birth"]:  best = candidate
+        if best:
+            depth, descendant = best
+            if person["sex"] == "m": base = "father"
+            else: base = "mother"
+            if depth == 1: title = base
+            elif depth == 2: title = "grand" + base
+            else: title = "great-" * (depth - 2) + "grand" + base
+            person["teknonym"] = f"{title} of {descendant['name']}"
+        else: person["teknonym"] = ""
+        return best
+    dfs(family_tree)
