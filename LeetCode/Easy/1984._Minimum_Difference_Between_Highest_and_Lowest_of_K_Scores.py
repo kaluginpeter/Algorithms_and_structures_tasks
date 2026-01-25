@@ -32,3 +32,23 @@
 # 1 <= k <= nums.length <= 1000
 # 0 <= nums[i] <= 105
 #
+# Solution
+# Python O(NlogN + (N - K + 1)) O(1) SlidingWindow Sorting
+class Solution:
+    def minimumDifference(self, nums: List[int], k: int) -> int:
+        n: int = len(nums)
+        nums.sort()
+        return min((nums[i] - nums[i - k + 1] for i in range(k - 1, n)), default=0)
+
+# C++ O(NlogN + (N - K + 1)) O(1) SlidingWindow Sorting
+class Solution {
+public:
+    int minimumDifference(vector<int>& nums, int k) {
+        std::sort(nums.begin(), nums.end());
+        int n = nums.size(), output = INT32_MAX;
+        for (int i = k - 1; i < n; ++i) {
+            output = std::min(output, nums[i] - nums[i - k + 1]);
+        }
+        return (output == INT32_MAX ? 0 : output);
+    }
+};
