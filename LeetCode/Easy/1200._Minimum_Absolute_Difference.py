@@ -27,3 +27,37 @@
 # 2 <= arr.length <= 105
 # -106 <= arr[i] <= 106
 #
+# Solution
+# Python O(NlogN + N) O(N) Sorting Greedy
+class Solution:
+    def minimumAbsDifference(self, arr: List[int]) -> List[List[int]]:
+        output: list[list[int]] = []
+        arr.sort()
+        bound: int = float('inf')
+        for i in range(len(arr) - 1):
+            diff: int = abs(arr[i] - arr[i + 1])
+            if diff <= bound:
+                if diff < bound: output.clear()
+                bound = diff
+                output.append([arr[i], arr[i + 1]])
+        return output
+
+# C++ O(NlogN + N) O(N) Greedy Sorting
+class Solution {
+public:
+    vector<vector<int>> minimumAbsDifference(vector<int>& arr) {
+        std::vector<std::vector<int>> output;
+        std::sort(arr.begin(), arr.end());
+        size_t n = arr.size();
+        int bound = INT32_MAX;
+        for (size_t i = 0; i < n - 1; ++i) {
+            int diff = std::abs(arr[i + 1] - arr[i]);
+            if (diff <= bound) {
+                if (diff < bound) output.clear();
+                bound = diff;
+                output.push_back({arr[i], arr[i + 1]});
+            }
+        }
+        return output;
+    }
+};
