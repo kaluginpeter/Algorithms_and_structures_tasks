@@ -29,3 +29,71 @@
 #
 # 10 ** 14 -> 2565451980
 # MathematicsNumber TheoryPerformance
+# Solution
+import random
+import math
+
+def is_prime(n):
+    if n < 2: return False
+    small_primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
+    for p in small_primes:
+        if n % p == 0: return n == p
+    d, s = n - 1, 0
+    while d % 2 == 0:
+        d //= 2
+        s += 1
+    for a in [2, 325, 9375, 28178, 450775, 9780504, 1795265022]:
+        if a % n == 0: continue
+        x = pow(a, d, n)
+        if x == 1 or x == n - 1: continue
+        for _ in range(s - 1):
+            x = pow(x, 2, n)
+            if x == n - 1: break
+        else: return False
+    return True
+
+def pollards_rho(n):
+    if n % 2 == 0: return 2
+    if n % 3 == 0: return 3
+    while True:
+        x = random.randrange(2, n - 1)
+        y = x
+        c = random.randrange(1, n - 1)
+        d = 1
+        while d == 1:
+            x = (x * x + c) % n
+            y = (y * y + c) % n
+            y = (y * y + c) % n
+            d = math.gcd(abs(x - y), n)
+            if d == n: break
+        if d > 1 and d < n: return d
+
+def factor(n, res):
+    if n == 1: return
+    if is_prime(n): res.append(n)
+    else:
+        d = pollards_rho(n)
+        factor(d, res)
+        factor(n // d, res)
+
+def prime_factors(n):
+    res = []
+    factor(n, res)
+    out = {}
+    for x in res:
+        out[x] = out.get(x, 0) + 1
+    return out
+
+def faro(n: int) -> int:
+    if n == 2: return 1
+    m = n - 1
+    pf = prime_factors(m)
+    phi = m
+    for p in pf:
+        phi -= phi // p
+    pf_phi = prime_factors(phi)
+    order = phi
+    for p in pf_phi:
+        while order % p == 0 and pow(2, order // p, m) == 1:
+            order //= p
+    return order
