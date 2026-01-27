@@ -101,3 +101,25 @@
 # Enjoy it!!
 #
 # AlgorithmsMathematicsStatisticsData SciencePerformance
+# Solution
+from math import log10, ceil
+
+def hist_maker(students_results):
+    students_results.sort()
+    n: int = len(students_results)
+    mn: int = students_results[0]
+    mx: int = students_results[-1]
+    rng: int = mx - mn
+    k: int = round(1 + 3.32 * log10(n))
+    A: int = ceil(rng / k)
+    output: list[list[int, list[int, int], int, int]] = []
+    idx: int = 0
+    for i in range(rng // A + (rng % A != 0)):
+        f: int = 0
+        upper: int = min(100, mn + A - (1 if mn + A < mx else 0))
+        while idx < n and students_results[idx] <= upper:
+            f += 1
+            idx += 1
+        output.append([i + 1, [mn, upper], f, f + (0 if not output else output[-1][-1])])
+        mn += A
+    return output
