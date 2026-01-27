@@ -41,3 +41,20 @@ In the second test case, two teams can be formed: one with two people and the ot
 In the third test case, four teams of three people will be formed, with the first two choosing the first civilization and the remaining two choosing the second. The answer is 0
 .
 */
+// Solution
+// C++ O(1) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int n;
+    std::cin >> n;
+    std::cout << (n <= 3 ? n : n & 1) << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
