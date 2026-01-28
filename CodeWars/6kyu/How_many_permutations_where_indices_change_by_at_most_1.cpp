@@ -52,3 +52,13 @@ The above permutation is therefore not allowed, since at least one element has c
 
 FundamentalsAlgorithmsPuzzlesMathematicsDiscrete MathematicsCombinatorics
 */
+// Solution
+long long permuts(unsigned n) {
+   long long a = 0, b = 1;
+   for (int i = 0; i < n + 1; ++i) {
+     long long c = a + b;
+     std::swap(a, b);
+     b = c;
+   }
+   return a;
+}
