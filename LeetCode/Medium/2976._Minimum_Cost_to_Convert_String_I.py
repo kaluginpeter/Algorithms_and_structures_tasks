@@ -77,3 +77,80 @@ class Solution:
                     memo[(source[idx], target[idx])] = cost
                 total_cost += cost
         return total_cost
+
+
+# Python O(E^3 + V) O(E) Floyd-Warshall Graph
+class Solution:
+    def minimumCost(
+        self,
+        source: str,
+        target: str,
+        original: List[str],
+        changed: List[str],
+        cost: List[int]
+    ) -> int:
+        dp: dict[tuple[str, str], int] = dict()
+        for i in range(len(original)):
+            p: tuple[str, str] = (original[i], changed[i])
+            if p not in dp: dp[p] = cost[i]
+            else: dp[p] = min(dp[p], cost[i])
+        for i in range(26):
+            mid: str = chr(ord('a') + i)
+            for j in range(26):
+                u: str = chr(ord('a') + j)
+                first: tuple[str, str] = (u, mid)
+                if first not in dp: continue
+                for k in range(26):
+                    v: str= chr(ord('a') + k)
+                    second = (mid, v)
+                    if second not in dp: continue
+                    old: tuple[str, str] = (u, v)
+                    new_cost: int = dp[first] + dp[second]
+                    if old not in dp: dp[old] = new_cost
+                    else: dp[old] = min(dp[old], new_cost)
+        output: int = 0
+        for i in range(len(source)):
+            if source[i] == target[i]: continue
+            edge: tuple[str, str] = (source[i], target[i])
+            if edge not in dp: return -1
+            output += dp[edge]
+        return output
+
+# C++ O(E^3 + V) O(E) Graph Floyd-Warshall
+struct PairHash {
+    size_t operator()(const std::pair<char, char>& p) const {
+        return (static_cast<size_t>(p.first) << 8) ^ p.second;
+    }
+};
+class Solution {
+public:
+    long long minimumCost(string source, string target, vector<char>& original, vector<char>& changed, vector<int>& cost) {
+        std::unordered_map<std::pair<char, char>, int, PairHash> dp;
+        for (size_t i = 0; i < original.size(); ++i) {
+            std::pair<char, char> p = {original[i], changed[i]};
+            if (!dp.count(p)) dp[p] = cost[i];
+            else dp[p] = std::min(dp[p], cost[i]);
+        }
+        for (int i = 0; i < 26; ++i) {
+            for (int j = 0; j < 26; ++j) {
+                std::pair<char, char> first = {j + 'a', i + 'a'};
+                if (!dp.count(first)) continue;
+                for (int k = 0; k < 26; ++k) {
+                    std::pair<char, char> second = {i + 'a', k + 'a'};
+                    if (!dp.count(second)) continue;
+                    std::pair<char, char> old = {j + 'a', k + 'a'};
+                    if (!dp.count(old)) dp[old] = dp[first] + dp[second];
+                    else dp[old] = std::min(dp[old], dp[first] + dp[second]);
+                }
+            }
+        }
+        long long output = 0;
+        for (size_t i = 0; i < source.size(); ++i) {
+            if (source[i] == target[i]) continue;
+            std::pair<char, char> edge = {source[i], target[i]};
+            if (!dp.count(edge)) return -1;
+            output += dp[edge];
+        }
+        return output;
+    }
+};
