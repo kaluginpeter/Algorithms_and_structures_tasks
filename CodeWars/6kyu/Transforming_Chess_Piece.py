@@ -30,3 +30,64 @@
 # For other kata related to capturing chess pieces, see Explain the Algebraic Chess Notation as well as The Capturing Rook and Losing Chess.
 #
 # GamesListsArrays
+# Solution
+from typing import List
+
+
+def capture_pieces(board: List[List[str]], piece: str) -> List[str]:
+    rook_dirs = [(1,0), (-1,0), (0,1), (0,-1)]
+    bishop_dirs = [(1,1), (1,-1), (-1,1), (-1,-1)]
+    knight_moves = [
+        (2,1),(2,-1),(-2,1),(-2,-1),
+        (1,2),(1,-2),(-1,2),(-1,-2)
+    ]
+    def inside(r, c):
+        return 0 <= r < 8 and 0 <= c < 8
+
+    for i in range(8):
+        for j in range(8):
+            if board[i][j] == piece:
+                r, c = i, j
+                break
+
+    while True:
+        capture = None
+        def try_capture(nr, nc):
+            nonlocal capture
+            if inside(nr, nc) and board[nr][nc] != '.': capture = (nr, nc)
+        if piece == 'P':
+            for dc in (-1, 1):
+                try_capture(r - 1, c + dc)
+
+        elif piece == 'N':
+            for dr, dc in knight_moves:
+                try_capture(r + dr, c + dc)
+        elif piece == 'K':
+            for dr in (-1,0,1):
+                for dc in (-1,0,1):
+                    if dr or dc: try_capture(r + dr, c + dc)
+        else:
+            dirs = []
+            if piece in ('R', 'Q'): dirs += rook_dirs
+            if piece in ('B', 'Q'): dirs += bishop_dirs
+            for dr, dc in dirs:
+                nr, nc = r + dr, c + dc
+                while inside(nr, nc):
+                    if board[nr][nc] != '.':
+                        capture = (nr, nc)
+                        break
+                    nr += dr
+                    nc += dc
+                if capture: break
+        if not capture: break
+        nr, nc = capture
+        new_piece = board[nr][nc]
+        board[r][c] = '.'
+        board[nr][nc] = new_piece
+        r, c = nr, nc
+        piece = new_piece
+    remaining = []
+    for i in range(8):
+        for j in range(8):
+            if board[i][j] != '.': remaining.append(board[i][j])
+    return sorted(remaining)
