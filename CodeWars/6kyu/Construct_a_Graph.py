@@ -76,3 +76,29 @@
 #   ['*', ' ', '|', '*']
 # ]
 # GraphsASCII Art
+# Solution
+def construct_graph(points):
+    point_coords = [(p["x"], p["y"]) for p in points]
+    xs = [0] + [x for x, _ in point_coords]
+    ys = [0] + [y for _, y in point_coords]
+    min_x, max_x = min(xs), max(xs)
+    min_y, max_y = min(ys), max(ys)
+    width = max_x - min_x + 1
+    height = max_y - min_y + 1
+    grid = [[' ' for _ in range(width)] for _ in range(height)]
+    def to_grid(x, y):
+        col = x - min_x
+        row = max_y - y
+        return row, col
+    if min_y <= 0 <= max_y:
+        r, _ = to_grid(0, 0)
+        for c in range(width): grid[r][c] = '-'
+    if min_x <= 0 <= max_x:
+        _, c = to_grid(0, 0)
+        for r in range(height): grid[r][c] = '|'
+    r0, c0 = to_grid(0, 0)
+    grid[r0][c0] = '+'
+    for x, y in point_coords:
+        r, c = to_grid(x, y)
+        grid[r][c] = '*'
+    return grid
