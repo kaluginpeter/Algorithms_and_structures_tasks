@@ -34,3 +34,24 @@ class Solution:
             if al.index(i) > start:
                 return i
         return letters[0]
+
+
+# Python O(N) O(1) Greedy
+class Solution:
+    def nextGreatestLetter(self, letters: List[str], target: str) -> str:
+        output: str = letters[0]
+        for l in letters:
+            if (output <= target or l < output) and l > target: output = l
+        return output
+
+# C++ O(N) O(1) Greedy
+class Solution {
+public:
+    char nextGreatestLetter(vector<char>& letters, char target) {
+        char output = *letters.begin();
+        for (char& ch : letters) {
+            if ((output <= target || ch < output) && ch > target) output = ch;
+        }
+        return output;
+    }
+};
