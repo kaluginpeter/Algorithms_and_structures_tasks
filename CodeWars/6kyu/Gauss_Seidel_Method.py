@@ -41,3 +41,19 @@
 # Return the answer as a two element tuple, where the first element is a list of the x,y,z values in that order, and the second element is the number of iterations conducted. i.e., in the form `([x,y,z],iterations)
 # Do not round any of the values of the variables whilst returning.
 # AlgorithmsMathematics
+# Solution
+def gauss_seidel(coeff_matrix):
+    a1, b1, c1, d1 = coeff_matrix[0]
+    a2, b2, c2, d2 = coeff_matrix[1]
+    a3, b3, c3, d3 = coeff_matrix[2]
+    x = y = z = 0.0
+    for iteration in range(1, 101):
+        x_old, y_old, z_old = x, y, z
+        x = (d1 - b1*y - c1*z) / a1
+        y = (d2 - a2*x - c2*z) / b2
+        z = (d3 - a3*x - b3*y) / c3
+        if (abs(x - x_old) < 1e-4 and
+            abs(y - y_old) < 1e-4 and
+            abs(z - z_old) < 1e-4):
+            return ([x, y, z], iteration)
+    return ([x, y, z], 100)
