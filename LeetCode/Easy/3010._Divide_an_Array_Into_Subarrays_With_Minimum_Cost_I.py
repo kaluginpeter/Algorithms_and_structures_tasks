@@ -46,3 +46,31 @@ class Solution:
             elif nums[i] <= z:
                 z = nums[i]
         return nums[0] + y + z
+
+
+# Python O(N) O(1) Greedy
+class Solution:
+    def minimumCost(self, nums: List[int]) -> int:
+        x: int = float('inf')
+        y: int = float('inf')
+        for i in range(1, len(nums)):
+            if nums[i] <= x:
+                y = x
+                x = nums[i]
+            elif nums[i] < y: y = nums[i]
+        return nums[0] + x + y
+
+# C++ O(N) O(1) Greedy
+class Solution {
+public:
+    int minimumCost(vector<int>& nums) {
+        int x = INT32_MAX, y = INT32_MAX;
+        for (size_t i = 1; i < nums.size(); ++i) {
+            if (nums[i] <= x) {
+                std::swap(x, y);
+                x = nums[i];
+            } else if (nums[i] < y) y = nums[i];
+        }
+        return *nums.begin() + x + y;
+    }
+};
