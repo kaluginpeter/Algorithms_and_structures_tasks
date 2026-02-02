@@ -38,3 +38,71 @@ Constraints:
 3 <= k <= n
 k - 2 <= dist <= n - 2
 */
+// Solution
+// C++ O(|dist|log|dist| + (N - K)log|dist|) O(|dist|) TreeSet SlidingWindow
+class Solution {
+public:
+    void remove(std::set<std::pair<int, int>>& q, int& val, int i, long long& windowSum, const int& k, std::set<std::pair<int, int>>::iterator& it) {
+        if ((val > (*it).first) || (val == (*it).first && i > (*it).second)) {
+            const std::pair<int, int>& old = *it;
+            q.erase({val, i});
+            it = q.find(old);
+            return;
+        }
+        std::pair<int, int> prev = *it, tmp = {val, i};
+        if (prev == tmp) {
+            if (k == 1) {
+                q.erase(prev);
+                windowSum -= val;
+                it = q.begin();
+                if (!q.empty()) windowSum += (*it).first;
+                return;
+            }
+            prev = *--it;
+            ++it;
+        }
+        q.erase({val, i});
+        windowSum -= val;
+        it = q.find(prev);
+        if (q.size() >= k) {
+            ++it;
+            windowSum += (*it).first;
+        }
+    }
+    void add(std::set<std::pair<int, int>>& q, int& val, int i, long long& windowSum, const int& k, std::set<std::pair<int, int>>::iterator& it) {
+        if (q.size() < k) {
+            q.insert({val, i});
+            windowSum += val;
+            it = --q.end();
+            return;
+        }
+        if (val >= (*it).first) {
+            const std::pair<int, int>& old = *it;
+            q.insert({val, i});
+            it = q.find(old); // refresh an iterator
+            return;
+        }
+        windowSum -= (*it).first;
+        windowSum += val;
+        std::pair<int, int> prev = *it;
+        q.insert({val, i});
+        it = --(q.find(prev));
+        return;
+
+    }
+    long long minimumCost(vector<int>& nums, int k, int dist) {
+        long long windowSum = 0;
+        size_t n = nums.size();
+        k -= 2;
+        std::set<std::pair<int, int>> q;
+        std::set<std::pair<int, int>>::iterator it = q.begin();
+        for (size_t i = 2; i <= dist + 1; ++i) add(q, nums[i], i, windowSum, k, it);
+        long long output = nums[0] + nums[1] + windowSum;
+        for (size_t i = 2; i < n - k; ++i) {
+            remove(q, nums[i], i, windowSum, k, it);
+            if (i + dist < n) add(q, nums[i + dist], i + dist, windowSum, k, it);
+            output = std::min(output, nums[0] + nums[i] + windowSum);
+        }
+        return output;
+    }
+};
