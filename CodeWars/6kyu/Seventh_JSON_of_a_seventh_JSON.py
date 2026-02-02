@@ -14,3 +14,25 @@
 # You may want to use the json module for this one.
 #
 # JSONRecursionFundamentals
+# Solution
+import json
+
+def find_seventh_sons_of_seventh_sons(jstring: str) -> set:
+    tree = json.loads(jstring)
+    result = set()
+    def dfs(node):
+        children = node.get("children", [])
+        sons = []
+        for child in children:
+            if child["gender"] == "male": sons.append(child)
+            else: break
+        if len(sons) >= 7:
+            seventh_son = sons[6]
+            grandsons = []
+            for c in seventh_son.get("children", []):
+                if c["gender"] == "male": grandsons.append(c)
+                else: break
+            if len(grandsons) >= 7: result.add(grandsons[6]["name"])
+        for child in children:dfs(child)
+    dfs(tree)
+    return result
