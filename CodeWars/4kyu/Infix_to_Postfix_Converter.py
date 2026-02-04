@@ -15,3 +15,40 @@
 # You may read more about postfix notation, also called Reverse Polish notation, here: http://en.wikipedia.org/wiki/Reverse_Polish_notation
 #
 # MathematicsAlgorithms
+# Solution
+def to_postfix(infix):
+    output = []
+    ops = []
+
+    def precedence(op):
+        if op == '^': return 3
+        if op in '*/': return 2
+        if op in '+-': return 1
+        return 0
+
+    def is_right_associative(op):
+        return op == '^'
+
+    def is_operator(c):
+        return c in '+-*/^'
+    for c in infix:
+        if c.isdigit(): output.append(c)
+        elif c == '(': ops.append(c)
+        elif c == ')':
+            while ops and ops[-1] != '(': output.append(ops.pop())
+            ops.pop()
+        elif is_operator(c):
+            while (
+                ops and is_operator(ops[-1]) and
+                (
+                    precedence(ops[-1]) > precedence(c) or
+                    (
+                        precedence(ops[-1]) == precedence(c)
+                        and not is_right_associative(c)
+                    )
+                )
+            ):
+                output.append(ops.pop())
+            ops.append(c)
+    while ops: output.append(ops.pop())
+    return ''.join(output)
