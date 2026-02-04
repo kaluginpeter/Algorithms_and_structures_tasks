@@ -17,3 +17,60 @@ You may read more about postfix notation, also called Reverse Polish notation, h
 
 MathematicsAlgorithms
 */
+// Solution
+#include <string>
+#include <stack>
+#include <unordered_map>
+
+int precedence(char op) {
+    switch (op) {
+        case '^': return 3;
+        case '*':
+        case '/': return 2;
+        case '+':
+        case '-': return 1;
+    }
+    return 0;
+}
+
+bool is_right_associative(char op) {
+    return op == '^';
+}
+
+bool is_operator(char c) {
+    return c == '+' || c == '-' || c == '*' || c == '/' || c == '^';
+}
+
+std::string to_postfix(std::string infix) {
+    std::string output;
+    std::stack<char> ops;
+    for (char c : infix) {
+        if (c >= '0' && c <= '9') output += c;
+        else if (c == '(') ops.push(c);
+        else if (c == ')') {
+            while (!ops.empty() && ops.top() != '(') {
+                output += ops.top();
+                ops.pop();
+            }
+            ops.pop();
+        }
+        else if (is_operator(c)) {
+            while (!ops.empty() && is_operator(ops.top())) {
+                char top = ops.top();
+                if (
+                    precedence(top) > precedence(c) ||
+                    (precedence(top) == precedence(c) && !is_right_associative(c))
+                ) {
+                    output += top;
+                    ops.pop();
+                } else break;
+            }
+            ops.push(c);
+        }
+    }
+    while (!ops.empty()) {
+        output += ops.top();
+        ops.pop();
+    }
+    return output;
+}
