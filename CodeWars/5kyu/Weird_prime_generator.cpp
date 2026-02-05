@@ -33,3 +33,50 @@ You can write directly functions 3:, 5: and 7:. There is no need to write functi
 
 FundamentalsMathematics
 */
+// Solution
+#include <bits/stdc++.h>
+using namespace std;
+vector<long long> a{0,7}, g{0,1}, pre{0,1}, p, sum;
+unordered_set<long long> us{1};
+class WeirdPrimeGen
+{
+    static bool ok(long long x) {
+        if(us.count(x)) return false;
+        us.insert(x);
+        for(int i = 2; i * i <= x; i++) {
+            if(x % i) continue;
+            return false;
+        }
+        return true;
+    }
+    static void calc(long long n) {
+        if(a.size() > n) return;
+        calc(n-1);
+        a.push_back(a.back() + __gcd(n, a.back()));
+        g.push_back(a.back() - a[a.size()-2]);
+        pre.push_back(pre.back() + (g.back() == 1));
+        if(ok(g.back())) p.push_back(g.back());
+        if(g.back() != 1) {
+            sum.push_back((sum.size() ? sum.back() : 0) + a.back() / n);
+        }
+    }
+public:
+    static long long countOnes(long long n) {
+        calc(n);
+        return pre[n];
+    }
+    static long long maxPn(long long n) {
+        while(p.size() < n) {
+            calc(a.size());
+        }
+        long long res = 0;
+        for(int i = 0; i < n; i++) res = max(res, p[i]);
+        return res;
+    }
+    static int anOverAverage(long long n) {
+        while(sum.size() < n) {
+            calc(a.size());
+        }
+        return sum[n-1] / n;
+    }
+};
