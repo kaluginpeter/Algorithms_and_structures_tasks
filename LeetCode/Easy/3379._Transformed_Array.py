@@ -72,3 +72,36 @@ public:
         return output;
     }
 };
+
+# Python O(N * max(N) / |N|) O(N) Simulation
+class Solution:
+    def constructTransformedArray(self, nums: List[int]) -> List[int]:
+        n: int = len(nums)
+        seen: list[int] = [0] * 100
+        for i in range(n): seen[i] = nums[i]
+        for i in range(n):
+            target: int = seen[i]
+            while abs(target) > n:
+                if target < 0: target += n
+                else: target -= n
+            nums[i] = seen[(i + n + target) % n]
+        return nums
+
+# C++ O(N * max(N) / |N|) O(N) Simulation
+class Solution {
+public:
+    vector<int> constructTransformedArray(vector<int>& nums) {
+        std::array<int, 100> seen{};
+        size_t n = nums.size();
+        for (size_t i = 0; i < n; ++i) seen[i] = nums[i];
+        for (size_t i = 0; i < n; ++i) {
+            int target = seen[i];
+            while (std::abs(target) > n) {
+                if (target < 0) target += n;
+                else target -= n;
+            }
+            nums[i] = seen[(i + n + target) % n];
+        }
+        return nums;
+    }
+};
