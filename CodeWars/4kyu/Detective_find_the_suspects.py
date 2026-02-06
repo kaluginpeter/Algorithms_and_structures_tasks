@@ -251,3 +251,24 @@
 # Let the data be[(0,1), (0,2), (0,3), (1,2), (1,3), (2,3), (4,2)] and the prince id is 0 and thief id is 4. There is a friendships path between 3(friend of a prince) and 4(thief) but the path contains 2, who is really a potential suspect(friend of the prince). The same happens with 1. Therefore, the only suspect is, actually, the friend with id 2.
 #
 # GraphsAlgorithmsPerformance
+# Solution
+from collections import defaultdict, deque
+
+def find_suspects(data, prince_id, thief_id):
+    graph = defaultdict(list)
+    for a, b in data:
+        graph[a].append(b)
+        graph[b].append(a)
+    prince_friends = set(graph[prince_id])
+    suspects = set()
+    visited = dict()
+    visited[thief_id] = 0
+    queue = deque([thief_id])
+    while queue:
+        u = queue.popleft()
+        for v in graph[u]:
+            if visited.get(v, 0) == 3 or v == prince_id: continue
+            visited[v] = visited.get(v, 0) + 1
+            if v in prince_friends: suspects.add(v)
+            else: queue.append(v)
+    return sorted(suspects)
