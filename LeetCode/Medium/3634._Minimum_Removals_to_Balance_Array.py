@@ -46,3 +46,29 @@
 # 1 <= nums.length <= 105
 # 1 <= nums[i] <= 109
 # 1 <= k <= 105
+# Solution
+# Python O(NlogN + N ) O(1) SlidingWindow Sorting
+class Solution:
+    def minRemoval(self, nums: List[int], k: int) -> int:
+        nums.sort()
+        n: int = len(nums)
+        output: int = n - 1
+        left: int = 0
+        for right in range(n):
+            while nums[left] * k < nums[right]: left += 1
+            output = min(output, n - (right - left + 1))
+        return output
+
+# C++ O(NlogN + N) O(1) Sorting SlidingWindow
+class Solution {
+public:
+    int minRemoval(vector<int>& nums, int k) {
+        std::sort(nums.begin(), nums.end());
+        size_t n = nums.size(), output = n - 1, left = 0;
+        for (size_t right = 0; right < n; ++right) {
+            while (nums[right] / nums[left] + (nums[right] % nums[left] == 0 ? 0 : 1) > k) ++left;
+            output = std::min(output, n - (right - left + 1));
+        }
+        return output;
+    }
+};
