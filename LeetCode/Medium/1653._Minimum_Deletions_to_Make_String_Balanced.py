@@ -34,3 +34,27 @@ class Solution:
                 total_deletions = min(total_deletions + 1, prev_b)
             else: prev_b += 1
         return total_deletions
+
+
+# Python O(N) O(1) Greedy
+class Solution:
+    def minimumDeletions(self, s: str) -> int:
+        output: int = 0
+        b: int = 0
+        for ch in s:
+            if ch == 'a': output = min(output + 1, b)
+            else: b += 1
+        return output
+
+# C++ O(N) O(1) Greedy
+class Solution {
+public:
+    int minimumDeletions(string s) {
+        int output = 0, b = 0;
+        for (char& ch : s) {
+            if (ch == 'a') output = std::min(output + 1, b);
+            else ++b;
+        }
+        return output;
+    }
+};
