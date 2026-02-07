@@ -32,3 +32,35 @@ Very often xk will be n-1.
 
 MathematicsAlgorithms
 */
+// Solution
+#include <vector>
+
+class Decomp
+{
+public:
+
+    static bool dfs(long long remain, long long max_val, std::vector<long long>& result)
+    {
+        if (remain == 0) return true;
+        for (long long i = max_val; i > 0; --i)
+        {
+            long long sq = i * i;
+            if (sq > remain) continue;
+            result.push_back(i);
+            if (dfs(remain - sq, i - 1, result)) return true;
+            result.pop_back();
+        }
+        return false;
+    }
+
+    static std::vector<long long> decompose(long long n)
+    {
+        std::vector<long long> result;
+        if (dfs(n * n, n - 1, result))
+        {
+            std::reverse(result.begin(), result.end());
+            return result;
+        }
+        return {};
+    }
+};
