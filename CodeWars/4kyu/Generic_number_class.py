@@ -19,3 +19,43 @@
 # You'll never encounter invalid calculations (divisions by zero or things like that).
 # Alphabets will contain at least 2 characters.
 # MathematicsMetaprogrammingAlgorithms
+# Solution
+def create_number_class(alphabet):
+    base = len(alphabet)
+    char_to_value = {ch: i for i, ch in enumerate(alphabet)}
+
+    class Number:
+        __slots__ = ("value",)
+        def __init__(self, s):
+            if isinstance(s, int): self.value = s
+            else:
+                val = 0
+                for ch in s: val = val * base + char_to_value[ch]
+                self.value = val
+
+        def __str__(self):
+            if self.value == 0: return alphabet[0]
+            val = self.value
+            digits = []
+            while val > 0:
+                val, rem = divmod(val, base)
+                digits.append(alphabet[rem])
+            return ''.join(reversed(digits))
+
+        def __add__(self, other):
+            return Number(self.value + other.value)
+
+        def __sub__(self, other):
+            return Number(self.value - other.value)
+
+        def __mul__(self, other):
+            return Number(self.value * other.value)
+
+        def __floordiv__(self, other):
+            return Number(self.value // other.value)
+
+        def convert_to(self, other_instance):
+            target_class = other_instance if isinstance(other_instance, type) else type(other_instance)
+            return target_class(self.value)
+
+    return Number
