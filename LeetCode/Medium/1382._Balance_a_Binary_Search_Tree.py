@@ -44,3 +44,68 @@ class Solution:
             return TreeNode(self.array[middle], left, right)
         inorder_traversal(root)
         return constructed_bst(0, len(self.array) - 1)
+
+
+# C++ O(V) O(H + V) DepthFirstSearch
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    void dfs(TreeNode* root, std::vector<int>& nums) {
+        if (!root) return;
+        dfs(root->left, nums);
+        nums.push_back(root->val);
+        dfs(root->right, nums);
+    }
+    TreeNode* build(std::vector<int>& nums, int left, int right) {
+        if (left > right) return nullptr;
+        int middle = left + ((right - left) >> 1);
+        TreeNode* root = new TreeNode(nums[middle]);
+        root->left = build(nums, left, middle - 1);
+        root->right = build(nums, middle + 1, right);
+        return root;
+    }
+    TreeNode* balanceBST(TreeNode* root) {
+        std::vector<int> nums;
+        dfs(root, nums);
+        TreeNode* output = build(nums, 0, nums.size() - 1);
+        return output;
+    }
+};
+
+# Python O(V) O(H + V) DepthFirstSearch
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def dfs(self, root: TreeNode, nums: list[int]) -> None:
+        if not root: return
+        self.dfs(root.left, nums)
+        nums.append(root.val)
+        self.dfs(root.right, nums)
+
+    def build(self, nums: list[int], left: int, right: int) -> TreeNode:
+        if left > right: return None
+        middle: int = left + ((right - left) >> 1)
+        root: TreeNode = TreeNode(nums[middle])
+        root.left = self.build(nums, left, middle - 1)
+        root.right = self.build(nums, middle + 1, right)
+        return root
+
+    def balanceBST(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        nums: list[int] = []
+        self.dfs(root, nums)
+        output: TreeNode = self.build(nums, 0, len(nums) - 1)
+        return output
