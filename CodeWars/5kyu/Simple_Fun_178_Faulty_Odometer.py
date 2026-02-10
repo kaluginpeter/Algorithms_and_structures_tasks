@@ -24,3 +24,14 @@
 # The real distance.
 #
 # Algorithms
+# Solution
+def faulty_odometer(n):
+    result = 0
+    base = 1
+    while n > 0:
+        digit = n % 10
+        n //= 10
+        if digit > 4: digit -= 1
+        result += digit * base
+        base *= 9
+    return result
