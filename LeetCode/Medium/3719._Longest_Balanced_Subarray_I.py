@@ -43,3 +43,34 @@
 # 1 <= nums.length <= 1500
 # 1 <= nums[i] <= 105
 #
+# Solution
+# Python O(N^2) O(N) BruteForce HashSet
+class Solution:
+    def longestBalanced(self, nums: List[int]) -> int:
+        output: int = 0
+        n: int = len(nums)
+        for i in range(n):
+            odd: set[int] = set()
+            even: set[int] = set()
+            for j in range(i, n):
+                if nums[j] & 1: odd.add(nums[j])
+                else: even.add(nums[j])
+                if len(odd) == len(even): output = max(output, j - i + 1)
+        return output
+
+# C++ O(N^2) O(N) BruteForce HashSet
+class Solution {
+public:
+    int longestBalanced(vector<int>& nums) {
+        int output = 0, n = nums.size();
+        for (int i = 0; i < n; ++i) {
+            std::unordered_set<int> odd, even;
+            for (int j = i; j < n; ++j) {
+                if (nums[j] & 1) odd.insert(nums[j]);
+                else even.insert(nums[j]);
+                if (odd.size() == even.size()) output = std::max(output, j - i + 1);
+            }
+        }
+        return output;
+    }
+};
