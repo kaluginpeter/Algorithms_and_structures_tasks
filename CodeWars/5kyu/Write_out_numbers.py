@@ -25,3 +25,46 @@
 # number2words(99999)  ==>  "ninety-nine thousand nine hundred ninety-nine"
 # number2words(888888)  ==>  "eight hundred eighty-eight thousand eight hundred eighty-eight"
 # Fundamentals
+# Solution
+def number2words(n):
+    if n == 0: return "zero"
+
+    ones = [
+        "", "one", "two", "three", "four", "five",
+        "six", "seven", "eight", "nine"
+    ]
+
+    teens = [
+        "ten", "eleven", "twelve", "thirteen", "fourteen",
+        "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"
+    ]
+
+    tens = [
+        "", "", "twenty", "thirty", "forty",
+        "fifty", "sixty", "seventy", "eighty", "ninety"
+    ]
+
+    def below_thousand(num):
+        result = []
+        if num >= 100:
+            result.append(ones[num // 100])
+            result.append("hundred")
+            num %= 100
+        if 10 <= num <= 19:
+            result.append(teens[num - 10])
+        else:
+            if num >= 20:
+                ten_part = tens[num // 10]
+                if num % 10: ten_part += "-" + ones[num % 10]
+                result.append(ten_part)
+            elif num > 0:
+                result.append(ones[num])
+        return " ".join(result)
+
+    parts = []
+    if n >= 1000:
+        parts.append(below_thousand(n // 1000))
+        parts.append("thousand")
+        n %= 1000
+    if n > 0: parts.append(below_thousand(n))
+    return " ".join(parts)
