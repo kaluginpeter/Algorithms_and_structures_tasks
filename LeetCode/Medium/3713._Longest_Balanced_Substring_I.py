@@ -42,3 +42,44 @@
 #
 # 1 <= s.length <= 1000
 # s consists of lowercase English letters.
+# Solution
+# Python O(N^2) O(D) BruteForce
+class Solution:
+    def longestBalanced(self, s: str) -> int:
+        output: int = 1
+        n: int = len(s)
+        for i in range(n):
+            hashmap: list[int] = [0] * 26
+            mx: int = 0
+            for j in range(i, n):
+                hashmap[ord(s[j]) - 97] += 1
+                mn: int = n
+                for freq in hashmap:
+                    if not freq: continue
+                    if freq < mn: mn = freq
+                    if freq > mx: mx = freq
+                if mn == mx: output = max(output, j - i + 1)
+        return output
+
+# C++ O(N^2) O(D) BruteForce
+class Solution {
+public:
+    int longestBalanced(string s) {
+        size_t output = 1, n = s.size();
+        for (size_t i = 0; i < n; ++i) {
+            std::array<int, 26> hashmap{};
+            int mx = INT32_MIN;
+            for (size_t j = i; j < n; ++j) {
+                ++hashmap[s[j] - 'a'];
+                int mn = INT32_MAX;
+                for (auto& freq : hashmap) {
+                    if (!freq) continue;
+                    if (freq < mn) mn = freq;
+                    if (freq > mx) mx = freq;
+                }
+                if (mn == mx) output = std::max(output, j - i + 1);
+            }
+        }
+        return output;
+    }
+};
