@@ -13,3 +13,21 @@
 # If the task seems too difficult, try this game with almost the same rules first.
 #
 # Algorithms
+# Solution
+from itertools import permutations
+
+ALL = list(permutations(range(10), 4))
+candidates = []
+last_guess = None
+def guess(matches):
+    global candidates, last_guess
+    if matches == -1:
+        candidates = ALL.copy()
+        last_guess = candidates[0]
+        return list(last_guess)
+    candidates = [
+        cand for cand in candidates
+        if sum(a == b for a, b in zip(cand, last_guess)) == matches
+    ]
+    last_guess = candidates[0]
+    return list(last_guess)
