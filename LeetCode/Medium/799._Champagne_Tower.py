@@ -30,3 +30,35 @@
 #
 # 0 <= poured <= 109
 # 0 <= query_glass <= query_row < 100
+# Solution
+# Python O(N^2) O(102*102) DynamicProgramming Simulation
+class Solution:
+    def champagneTower(self, poured: int, query_row: int, query_glass: int) -> float:
+        dp: list[list[float]] = [[0] * glass for glass in range(1, 102)]
+        dp[0][0] = poured
+        for i in range(query_row + 1):
+            for j in range(i + 1):
+                rem: float = (dp[i][j] - 1.0) / 2.0
+                if rem > 0:
+                    dp[i + 1][j] += rem
+                    dp[i + 1][j + 1] += rem
+        return min(1.0, dp[query_row][query_glass])
+
+# C++ O(N^2) O(102*102) Simulation DynamicProgramming
+class Solution {
+public:
+    double champagneTower(int poured, int query_row, int query_glass) {
+        std::vector<std::vector<double>> dp(102, std::vector<double>(102, 0.0));
+        dp[0][0] = poured;
+        for (int i = 0; i <= query_row; ++i) {
+            for (int j = 0; j <= i; ++j) {
+                double q = (dp[i][j] - 1.0) / 2.0;
+                if (q > 0) {
+                    dp[i + 1][j] += q;
+                    dp[i + 1][j + 1] += q;
+                }
+            }
+        }
+        return std::min(1.0, dp[query_row][query_glass]);
+    }
+};
