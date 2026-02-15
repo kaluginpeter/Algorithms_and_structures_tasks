@@ -69,3 +69,26 @@ In the second test case, a=[1,2,3]
 . The sum of the array equals s
 .
 */
+// Solution
+// C++ O(N) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    int n, s, x;
+    std::cin >> n >> s >> x;
+    int acc = 0;
+    for (int i = 0; i < n; ++i) {
+        int tmp;
+        std::cin >> tmp;
+        acc += tmp;
+    }
+    std::cout << ((acc <= s) && ((acc - s) % x == 0) ? "YES" : "NO") << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
