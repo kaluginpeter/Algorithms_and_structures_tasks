@@ -104,3 +104,24 @@
 # Enjoy it!
 #
 # PerformanceAlgorithmsMathematicsData StructuresArraysFundamentals
+# Solution
+def prime_maxlength_chain(n):
+    sieve = [True] * n
+    sieve[0] = sieve[1] = False
+    for i in range(2, int(n**0.5) + 1):
+        if sieve[i]:
+            for j in range(i*i, n, i): sieve[j] = False
+    primes = [i for i in range(2, n) if sieve[i]]
+    prefix = [0]
+    for p in primes: prefix.append(prefix[-1] + p)
+    max_len = 0
+    result = []
+    total_primes = len(primes)
+    for length in range(total_primes, 0, -1):
+        found = []
+        for i in range(total_primes - length + 1):
+            s = prefix[i + length] - prefix[i]
+            if s >= n: break
+            if sieve[s]: found.append(s)
+        if found: return sorted(found)
+    return []
