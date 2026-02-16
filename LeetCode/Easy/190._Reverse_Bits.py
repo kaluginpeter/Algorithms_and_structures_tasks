@@ -28,3 +28,28 @@
 class Solution:
     def reverseBits(self, n):
         return int(bin(n)[:1:-1] + '0' * (32 - len(bin(n)[:1:-1])), 2)
+
+
+# Python O(32) O(1) BitManipulation
+class Solution:
+    def reverseBits(self, n: int) -> int:
+        x: int = 0
+        for _ in range(32):
+            x <<= 1
+            if n & 1: x += 1
+            n >>= 1
+        return x
+
+# C++ O(32) O(1) BitManipulation
+class Solution {
+public:
+    int reverseBits(int n) {
+        int x = 0;
+        for (int i = 0; i < 32; ++i) {
+            x <<= 1;
+            if (n & 1) ++x;
+            n >>= 1;
+        }
+        return x;
+    }
+};
