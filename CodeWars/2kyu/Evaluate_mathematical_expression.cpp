@@ -44,3 +44,91 @@ You do not need to worry about validation - you will only receive valid mathemat
 Restricted APIs
 MathematicsParsingAlgorithms
 */
+// Solution
+#include <string>
+#include <cctype>
+
+class Parser {
+public:
+    Parser(const std::string& s) : str(s), pos(0) {}
+    double parse() {
+        return expression();
+    }
+
+private:
+    std::string str;
+    size_t pos;
+    void skipSpaces() {
+        while (pos < str.size() && std::isspace(str[pos])) ++pos;
+    }
+    double expression() {
+        double value = term();
+        while (true) {
+            skipSpaces();
+            if (pos >= str.size()) break;
+            if (str[pos] == '+') {
+                ++pos;
+                value += term();
+            } else if (str[pos] == '-') {
+                ++pos;
+                value -= term();
+            } else break;
+        }
+        return value;
+    }
+    double term() {
+        double value = factor();
+        while (true) {
+            skipSpaces();
+            if (pos >= str.size()) break;
+            if (str[pos] == '*') {
+                ++pos;
+                value *= factor();
+            } else if (str[pos] == '/') {
+                ++pos;
+                value /= factor();
+            } else break;
+        }
+        return value;
+    }
+    double factor() {
+        skipSpaces();
+        if (str[pos] == '+') {
+            ++pos;
+            return factor();
+        }
+        if (str[pos] == '-') {
+            ++pos;
+            return -factor();
+        }
+        if (str[pos] == '(') {
+            ++pos;
+            double value = expression();
+            skipSpaces();
+            ++pos;
+            return value;
+        }
+        return number();
+    }
+    double number() {
+        skipSpaces();
+        double value = 0;
+        bool hasDecimal = false;
+        double decimalPlace = 0.1;
+        while (pos < str.size() && (std::isdigit(str[pos]) || str[pos] == '.')) {
+            if (str[pos] == '.') hasDecimal = true;
+            else if (!hasDecimal) value = value * 10 + (str[pos] - '0');
+            else {
+                value += (str[pos] - '0') * decimalPlace;
+                decimalPlace *= 0.1;
+            }
+            ++pos;
+        }
+        return value;
+    }
+};
+
+double calc(const std::string& expression) {
+    Parser parser(expression);
+    return parser.parse();
+}
