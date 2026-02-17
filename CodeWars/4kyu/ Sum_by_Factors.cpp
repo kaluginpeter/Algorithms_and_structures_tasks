@@ -21,3 +21,33 @@ Example: I = [15, 30, -45] 5 divides 15, 30 and (-45) so 5 appears in the result
 In Fortran - as in any other language - the returned string is not permitted to contain any redundant trailing whitespace: you can use dynamically allocated character strings.
 ArraysAlgorithmsMathematics
 */
+// Solution
+#include <string>
+#include <vector>
+#include <map>
+#include <cmath>
+
+class SumOfDivided
+{
+public:
+    static std::string sumOfDivided(std::vector<int> &lst)
+    {
+        std::map<int, long long> sums;
+        for (int num : lst)
+        {
+            int x = std::abs(num), temp = x;
+            for (int p = 2; p * p <= temp; ++p)
+            {
+                if (x % p == 0)
+                {
+                    sums[p] += num;
+                    while (x % p == 0) x /= p;
+                }
+            }
+            if (x > 1) sums[x] += num;
+        }
+        std::string result;
+        for (auto &kv : sums) result += "(" + std::to_string(kv.first) + " " + std::to_string(kv.second) + ")";
+        return result;
+    }
+};
