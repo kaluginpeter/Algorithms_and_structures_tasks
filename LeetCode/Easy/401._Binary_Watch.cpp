@@ -28,3 +28,22 @@ Constraints:
 
 0 <= turnedOn <= 10
 */
+// Solution
+// C++ O(1) O(1) BitManipulation
+class Solution {
+public:
+    vector<string> readBinaryWatch(int turnedOn) {
+        std::vector<std::string> output;
+        for (int mask = 0; mask < (1 << 10); ++mask) {
+            if (__builtin_popcount(mask) != turnedOn) continue;
+            int hours = mask >> 6;
+            int minutes = mask & 0b111111;
+            if (hours < 12 && minutes < 60) {
+                char buf[6];
+                std::sprintf(buf, "%d:%02d", hours, minutes);
+                output.push_back(buf);
+            }
+        }
+        return output;
+    }
+};
