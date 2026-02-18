@@ -41,3 +41,20 @@
 # The awesomePhrases array will always be provided, and will always be an array, but may be empty. (Not everyone thinks numbers spell funny words...)
 # You should only ever output 0, 1, or 2.
 # Algorithms
+# Solution
+def is_interesting(number, awesome_phrases):
+    def interesting(n):
+        if n < 100: return False
+        s = str(n)
+        if n in awesome_phrases: return True
+        if s[0] != '0' and set(s[1:]) == {'0'}: return True
+        if len(set(s)) == 1: return True
+        inc = "1234567890"
+        if s in inc: return True
+        dec = "9876543210"
+        if s in dec: return True
+        if s == s[::-1]: return True
+        return False
+    if interesting(number): return 2
+    if interesting(number + 1) or interesting(number + 2): return 1
+    return 0
