@@ -22,3 +22,46 @@
 # Constraints:
 #
 # 1 <= n <= 231 - 1
+# Solution
+# Python O(1) O(1) BitManipulation
+class Solution:
+    def hasAlternatingBits(self, n: int) -> bool:
+        return ((n ^ (n >> 1)) + 1).bit_count() == 1
+
+# C++ O(1) O(1) BitManipulation
+class Solution {
+public:
+    bool hasAlternatingBits(int n) {
+        return __builtin_popcount((long)(n ^ (n >> 1)) + 1) == 1;
+    }
+};
+
+# Python O(1) O(1) BruteForce
+class Solution:
+    def hasAlternatingBits(self, n: int) -> bool:
+        target: set[int] = set()
+        tmp: int = 1
+        target.add(tmp)
+        for _ in range(15):
+            tmp <<= 1
+            target.add(tmp)
+            tmp = (tmp << 1) + 1
+            target.add(tmp)
+        return n in target
+
+# C++ O(1) O(1) BruteForce
+
+class Solution {
+public:
+    bool hasAlternatingBits(int n) {
+        std::unordered_set<int> target = {1};
+        int tmp = 1;
+        for (int i = 0; i < 15; ++i) {
+            tmp <<= 1;
+            target.insert(tmp);
+            tmp = (tmp << 1) + 1;
+            target.insert(tmp);
+        }
+        return target.count(n);
+    }
+};
