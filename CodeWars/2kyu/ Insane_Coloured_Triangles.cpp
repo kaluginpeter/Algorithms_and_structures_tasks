@@ -40,3 +40,43 @@ triangle('RBRGBRB') == 'G'
 triangle('RBRGBRBGGRRRBGBBBGG') == 'G'
 PuzzlesPerformanceMathematics
 */
+// Solution
+#include <string>
+using namespace std;
+
+char triangle(const string &row)
+{
+    int n = row.size();
+    auto value = [](char c) {
+        if (c == 'R') return 0;
+        if (c == 'G') return 1;
+        return 2;
+    };
+    int small[3][3] = {
+        {1, 0, 0},
+        {1, 1, 0},
+        {1, 2, 1}
+    };
+    auto lucas = [&](int n, int k) {
+        int res = 1;
+        while (n > 0 || k > 0) {
+            int ni = n % 3;
+            int ki = k % 3;
+            if (ki > ni) return 0;
+            res = (res * small[ni][ki]) % 3;
+            n /= 3;
+            k /= 3;
+        }
+        return res;
+    };
+    int total = 0;
+    int N = n - 1;
+    for (int k = 0; k < n; ++k) {
+        int c = lucas(N, k);
+        total = (total + c * value(row[k])) % 3;
+    }
+    if ((n - 1) % 2 == 1) total = (3 - total) % 3;
+    if (total == 0) return 'R';
+    if (total == 1) return 'G';
+    return 'B';
+}
