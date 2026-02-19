@@ -38,3 +38,31 @@
 # triangle('RBRGBRB') == 'G'
 # triangle('RBRGBRBGGRRRBGBBBGG') == 'G'
 # PuzzlesPerformanceMathematics
+# Solution
+def triangle(row):
+    n = len(row)
+    val = {'R': 0, 'G': 1, 'B': 2}
+    arr = [val[c] for c in row]
+    small = [
+        [1, 0, 0],
+        [1, 1, 0],
+        [1, 2, 1]
+    ]
+    def lucas(n, k):
+        res = 1
+        while n > 0 or k > 0:
+            ni = n % 3
+            ki = k % 3
+            if ki > ni: return 0
+            res = (res * small[ni][ki]) % 3
+            n //= 3
+            k //= 3
+        return res
+    total = 0
+    N = n - 1
+    for k in range(n):
+        c = lucas(N, k)
+        total = (total + c * arr[k]) % 3
+    if (n - 1) % 2 == 1: total = (-total) % 3
+    inv = ['R', 'G', 'B']
+    return inv[total]
