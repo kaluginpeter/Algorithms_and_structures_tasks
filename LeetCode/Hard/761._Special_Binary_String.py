@@ -28,3 +28,42 @@
 # s[i] is either '0' or '1'.
 # s is a special binary string.
 #
+# Solution
+# Python O(N^2) O(N^2) String
+class Solution:
+    def makeLargestSpecial(self, s: str) -> str:
+        n: int = len(s)
+        one: int = 0
+        zero: int = 0
+        i: int = 0
+        build: list[str] = []
+        for j in range(n):
+            if s[j] == '1': one += 1
+            else: zero += 1
+            if one == zero:
+                build.append('1' + self.makeLargestSpecial(s[i + 1: j]) + '0')
+                i = j + 1
+        build.sort(reverse=True)
+        return ''.join(build)
+
+# C++ O(N^2) O(N^2) Sorting
+class Solution {
+public:
+    string makeLargestSpecial(string s) {
+        int i = 0, one = 0, zero = 0;
+        int n = s.size();
+        std::vector<std::string> build;
+        for (int j = 0; j < n; ++j) {
+            if (s[j] == '1') ++one;
+            else ++zero;
+            if (one == zero) {
+                build.push_back('1' + makeLargestSpecial(s.substr(i + 1, j - i - 1)) + '0');
+                i = j + 1;
+            }
+        }
+        std::sort(build.rbegin(), build.rend());
+        std::string output = "";
+        for (auto& str : build) output += str;
+        return output;
+    }
+};
