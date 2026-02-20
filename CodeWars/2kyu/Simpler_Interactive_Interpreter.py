@@ -75,3 +75,120 @@
 # Additive	+, -
 # Assignment	=
 # InterpretersParsingAlgorithms
+# Solution
+import re
+from numbers import Number
+import operator as op
+
+
+def tokenize(expr: str) -> list[str]:
+    if expr == "": return []
+    reg_exp: str = re.compile("\s*(=>|[-+*\/\%=\(\)]|[A-Za-z_][A-Za-z0-9_]*|[0-9]*\.?[0-9]+)\s*")
+    output = reg_exp.findall(expr)
+    return [s for s in output if not s.isspace()]
+
+
+def is_number(d) -> bool:
+    pattern: str = re.compile(r"\A[-]?\d+(?:\.\d+)?\Z")
+    match_: str = pattern.search(d)
+    return bool(match_)
+
+
+def is_operator(o) -> bool:
+    pattern: str = re.compile(r'\A[\+\-\*\/\%]\Z')
+    match_: str = pattern.search(o)
+    return bool(match_)
+
+
+class Interpreter:
+    def __init__(self):
+        self.vars = {}
+        self.functions = {}
+        self.operators = {
+            "+": op.add,
+            "-": op.sub,
+            "*": op.mul,
+            "/": op.truediv,
+            "%": op.mod
+        }
+
+    def input(self, expression):
+        tokens: list[str] = tokenize(expression)
+        if "=" in tokens:
+            assert tokens[1] == "="
+            new_var: str = tokens[0]
+            tokens: list[str] = tokens[2:]
+            value = self.eval_postfix(self.shunting_yard(tokens))
+            self.vars[new_var] = value
+        else:
+            value = self.eval_postfix(self.shunting_yard(tokens))
+        return value
+
+    def precedence(self, op: str) -> int:
+        if op == '+' or op == '-':
+            return 2
+        elif op == '*' or op == '/' or op == '%':
+            return 3
+        raise Exception("%s is not a valid operator." % op)
+
+    def shunting_yard(self, expression):
+        output = []
+        operators = []
+        last = ""
+        for token in expression:
+            if is_number(token):
+                if last == "number":
+                    raise Exception("ERROR: Invalid syntax: %r" % expression)
+                    return
+                last = "number"
+                try:
+                    output.append(int(token))
+                except ValueError:
+                    output.append(float(token))
+            elif token in self.vars:
+                if last == "number":
+                    raise Exception("ERROR: Invalid syntax: %r" % expression)
+                    return
+                last = "number"
+                output.append(self.vars[token])
+            elif token in self.operators:
+                last = "operator"
+                if operators and is_operator(operators[-1]):
+                    o1 = self.precedence(token)
+                    o2 = self.precedence(operators[-1])
+                    while operators and operators[-1] in self.operators and o2 >= o1:
+                        o2 = self.precedence(operators[-1])
+                        output.append(self.operators[operators.pop()])
+                operators.append(token)
+            elif token == "(":
+                last = "left_paren"
+                operators.append(token)
+            elif token == ")":
+                last = "right_paren"
+                while operators and operators[-1] != "(": output.append(self.operators[operators.pop()])
+                try:
+                    par = operators.pop()
+                except IndexError:
+                    raise Exception("ERROR: Mismatched parentheses!")
+                    return
+            else:
+                raise Exception("ERROR: Invalid token: %r" % token)
+                return
+        while operators: output.append(self.operators[operators.pop()])
+        return output
+
+    def eval_postfix(self, expression):
+        if expression is None: return ""
+        output = []
+        for token in expression:
+            if isinstance(token, Number):
+                output.insert(0, token)
+            else:
+                right = output.pop(0)
+                left = output.pop(0)
+                result = token(left, right)
+                output.insert(0, result)
+        try:
+            return output[0]
+        except IndexError:
+            return ""
