@@ -34,3 +34,22 @@
 #
 # 1 <= left <= right <= 106
 # 0 <= right - left <= 104
+# Solution
+# Python O(DlogD) O(1) where D = right - left + 1
+class Solution:
+    def countPrimeSetBits(self, left: int, right: int) -> int:
+        primes: set[int] = {2, 3, 5, 7, 11, 13, 17, 19, 23}
+        return sum(i.bit_count() in primes for i in range(left, right + 1))
+
+# C++ O(DlogD) O(1) where D = right - left + 1
+class Solution {
+public:
+    int countPrimeSetBits(int left, int right) {
+        int output = 0;
+        std::unordered_set<int> primes = {2, 3, 5, 7, 11, 13, 17, 19, 23};
+        for (int i = left; i <= right; ++i) {
+            if (primes.count(__builtin_popcount(i))) ++output;
+        }
+        return output;
+    }
+};
