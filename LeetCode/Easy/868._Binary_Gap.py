@@ -42,3 +42,36 @@ class Solution:
                     ans = ch - ind
                 ind = ch
         return ans
+
+
+# Python O(log2(N)) O(1) BitManipulation
+class Solution:
+    def binaryGap(self, n: int) -> int:
+        output: int = 0
+        pos: int = 0
+        prev: int = -1
+        while n:
+            if n & 1:
+                if prev != -1: output = max(output, pos - prev)
+                prev = pos
+            pos += 1
+            n >>= 1
+        return output
+
+# C++ O(log2(N)) O(1) BitManipulation
+class Solution {
+public:
+    int binaryGap(int n) {
+        int output = 0;
+        int prev = -1, pos = 0;
+        while (n) {
+            if (n & 1) {
+                if (prev != -1) output = std::max(output, pos - prev);
+                prev = pos;
+            }
+            ++pos;
+            n >>= 1;
+        }
+        return output;
+    }
+};
