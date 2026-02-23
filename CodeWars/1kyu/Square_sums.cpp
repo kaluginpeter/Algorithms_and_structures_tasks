@@ -42,3 +42,81 @@ Simple version of this Kata is here.
 
 AlgorithmsMathematics
 */
+// Solution
+#include <vector>
+#include <cmath>
+#include <algorithm>
+
+using namespace std;
+
+vector<int> square_sums_row(int n)
+{
+    if (n <= 0) return {};
+    int max_square = static_cast<int>(sqrt(2 * n)) + 2;
+    vector<int> squares;
+    for (int i = 2; i <= max_square; ++i)
+        squares.push_back(i * i);
+
+    vector<vector<int>> graph(n + 1);
+    for (int i = 1; i <= n; ++i) {
+        for (int sq : squares) {
+            int j = sq - i;
+            if (j <= 0) continue;
+            if (j > n) break;
+            if (j != i)
+                graph[i].push_back(j);
+        }
+    }
+
+    vector<bool> visited(n + 1, false);
+    vector<int> path;
+    path.reserve(n);
+
+    function<bool(int)> dfs = [&](int v) {
+        path.push_back(v);
+        visited[v] = true;
+
+        if ((int)path.size() == n)
+            return true;
+
+        vector<int> neighbors;
+        for (int u : graph[v])
+            if (!visited[u])
+                neighbors.push_back(u);
+
+        sort(neighbors.begin(), neighbors.end(),
+            [&](int a, int b) {
+                int degA = 0, degB = 0;
+                for (int x : graph[a])
+                    if (!visited[x]) degA++;
+                for (int x : graph[b])
+                    if (!visited[x]) degB++;
+                return degA < degB;
+            });
+
+        for (int u : neighbors) {
+            if (dfs(u))
+                return true;
+        }
+
+        visited[v] = false;
+        path.pop_back();
+        return false;
+    };
+
+    vector<int> start_nodes(n);
+    for (int i = 0; i < n; ++i)
+        start_nodes[i] = i + 1;
+
+    sort(start_nodes.begin(), start_nodes.end(),
+         [&](int a, int b) {
+             return graph[a].size() < graph[b].size();
+         });
+
+    for (int start : start_nodes) {
+        if (dfs(start))
+            return path;
+    }
+
+    return {};
+}
