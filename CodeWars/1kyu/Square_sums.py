@@ -40,3 +40,51 @@
 # Simple version of this Kata is here.
 #
 # AlgorithmsMathematics
+# Solution
+import math
+import sys
+sys.setrecursionlimit(10000)
+
+def square_sums(N):
+    max_square = int(math.sqrt(2*N)) + 2
+    squares = [i*i for i in range(2, max_square)]
+
+    graph = [[] for _ in range(N+1)]
+    for i in range(1, N+1):
+        for sq in squares:
+            j = sq - i
+            if j <= 0:
+                continue
+            if j > N:
+                break
+            if j != i:
+                graph[i].append(j)
+
+    visited = [False]*(N+1)
+    path = []
+
+    def dfs(v):
+        path.append(v)
+        visited[v] = True
+
+        if len(path) == N:
+            return True
+
+        neighbors = [u for u in graph[v] if not visited[u]]
+        neighbors.sort(key=lambda x: sum(not visited[w] for w in graph[x]))
+
+        for u in neighbors:
+            if dfs(u):
+                return True
+
+        visited[v] = False
+        path.pop()
+        return False
+
+    start_nodes = sorted(range(1, N+1), key=lambda x: len(graph[x]))
+
+    for start in start_nodes:
+        if dfs(start):
+            return path
+
+    return False
