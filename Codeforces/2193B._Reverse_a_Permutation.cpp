@@ -71,3 +71,37 @@ For the first test case, the best segment is [1,4]
 . After reversing, a=[3,2,1]
 .
 */
+// Solution
+// C++ O(N) O(1) Greedy
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::vector<int> nums(n, 0);
+    for (size_t i = 0; i < n; ++i) std::cin >> nums[i];
+    size_t delta = 0, mx = 0;
+    int target = n;
+    for (size_t i = 0; i < n; ++i) {
+        if (nums[i] == target) {
+            ++delta;
+            --target;
+        } else break;
+    }
+    for (size_t i = delta; i < n; ++i) {
+        if (nums[i] == target) mx = i;
+    }
+    if (mx) std::reverse(nums.begin() + delta, nums.begin() + mx + 1);
+    for (int& i : nums) std::cout << i << " ";
+    std::cout << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
