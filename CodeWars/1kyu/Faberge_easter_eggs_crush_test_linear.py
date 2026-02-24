@@ -12,3 +12,16 @@
 # There are 150 random tests. You will need more than just a naive linear algorithm for this task :D
 #
 # PerformanceAlgorithmsMathematics
+# Solution
+MOD = 998244353
+
+def height(n: int, m: int) -> int:
+    m %= MOD
+    inv: list[int] = [0] * (n + 1)
+    prev: int = 1
+    output: int = 0
+    for i in range(1, n+1):
+        inv[i] = -(MOD // i) * inv[MOD % i] % MOD if i > 1 else 1
+        prev = prev * (m - i + 1) * inv[i] % MOD
+        output = (output + prev) % MOD
+    return output
