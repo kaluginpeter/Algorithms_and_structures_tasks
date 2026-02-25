@@ -88,3 +88,58 @@
 # If you're following the "hard path", this kata might make you crazy...
 # Tests design: about 80 fixed tests (each of them doubled) and the random ones with shapes up to around 80x80 characters (100 for python and ruby, 200 for Rust and 250 for Java). If your solution times out, do not hesitate to do a second try before to do any modification to your code.
 # GamesAlgorithmsPuzzles
+# Solution
+USE_BREAK_DISPLAY = True
+
+fn = lambda col: {(col[0] + 1, col[1]), (col[0] - 1, col[1]), (col[0], col[1] + 1), (col[0], col[1] - 1)}
+fn8 = lambda c: {(c[0] + i, c[1] + j) for i in {1, -1, 0} for j in {1, -1, 0}}
+fvn = lambda c: {(c[0] + 1, c[1]), (c[0] - 1, c[1])}
+fhn = lambda c: {(c[0], c[1] + 1), (c[0], c[1] - 1)}
+
+def traverse(s):
+    shape = s.split('\n')
+    while not shape[0].strip(): shape = shape[1:]
+    while not shape[-1].strip(): shape = shape[:-1]
+    lines = len(shape)
+    max_len_line = max(len(shape[line]) for line in range(lines))
+    for row in range(lines): shape[row] += ' ' * (max_len_line - len(shape[row]))
+    new_shape = [[]] * (2 * lines - 1)
+    for row in range(2 * lines - 1):
+        new_shape[row] = [' '] * (2 * max_len_line - 1)
+        if row % 2:
+            for col in range(max_len_line):
+                if shape[row // 2][col] in '|+' and shape[row // 2 + 1][col] in '|+': new_shape[row][2 * col] = '|'
+        else:
+            for col in range(2 * max_len_line - 1):
+                if col % 2:
+                    if shape[row // 2] [col // 2] in '-+' and shape[row // 2][col // 2 + 1] in '-+': new_shape[row][col] = '-'
+                else: new_shape[row][col] = shape[row // 2][col // 2]
+    return 2 * lines - 1, 2 * max_len_line - 1, new_shape
+
+def break_evil_pieces(shape):
+    if not shape.strip(): return []
+    (rows, cols, shape) = traverse(shape)
+    empty_spaces = {(row, col) for row in range(rows) for col in range(cols) if shape[row][col] == ' '}
+    regions = []
+    while empty_spaces:
+        R = {empty_spaces.pop()}
+        row_empty_neighbors = R
+        while row_empty_neighbors:
+            row_empty_neighbors = {j for i in row_empty_neighbors for j in fn(i) & empty_spaces} - R
+            R.update(row_empty_neighbors)
+        empty_spaces = empty_spaces - R
+        boundary = {j for i in R for j in fn8(i)} - R
+        mnrow: int = min(row for row, col in boundary)
+        mxrow: int = max(row for row, col in boundary) + 1
+        mncol: int = min(col for row, col in boundary)
+        mxcol: int = max(col for row, col in boundary) + 1
+        if mnrow < 0 or mncol < 0 or mxrow > rows or mxcol > cols: continue
+        region = [list(row[mncol:mxcol]) for row in shape[mnrow:mxrow]]
+        for row in range(len(region)):
+            for col in range(len(region[row])):
+                if region[row][col] != ' ' and (row + mnrow, col + mncol) not in boundary: region[row][col] = ' '
+                elif region[row][col] == '+':
+                    c = (row + mnrow, col + mncol)
+                    if not (fhn(c) & boundary and fvn(c) & boundary): region[row][col] = '-' if fhn(c) & boundary else '|'
+        regions.append('\n'.join(''.join(row[::2]).rstrip() for row in region[::2]))
+    return regions
