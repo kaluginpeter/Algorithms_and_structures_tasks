@@ -95,3 +95,35 @@ Consider the first test case. Replace a3
 . The sum a1+a2+a3=9
 .
 */
+// Solution
+// C++ O(N) O(N) PrefixSum Greedy
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    size_t n, q;
+    std::cin >> n >> q;
+    std::vector<int> a(n, 0), b(n, 0);
+    for (size_t i = 0; i < n; ++i) std::cin >> a[i];
+    for (size_t i = 0; i < n; ++i) std::cin >> b[i];
+    for (size_t i = n; i > 0; --i) {
+        if (i < n && a[i] > a[i - 1]) a[i - 1] = a[i];
+        if (b[i - 1] > a[i - 1]) a[i - 1] = b[i - 1];
+    }
+    std::vector<int> prefix = {0};
+    for (size_t i = 0; i < n; ++i) prefix.push_back(prefix.back() + a[i]);
+    for (size_t i = 0; i < q; ++i) {
+        size_t l, r;
+        std::cin >> l >> r;
+        std::printf("%d ", prefix[r] - prefix[l - 1]);
+    }
+    std::cout << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
