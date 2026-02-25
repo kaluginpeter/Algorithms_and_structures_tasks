@@ -70,3 +70,22 @@ class Solution(object):
         for i in range(len(arr)):
             arr[i] = arr[i] % 10001
         return arr
+
+# Python O(NlogN) O(1) Sorting
+class Solution:
+    def sortByBits(self, arr: List[int]) -> List[int]:
+        arr.sort(key=lambda x: (x.bit_count(), x))
+        return arr
+
+# C++ O(NlogN) O(1) Sorting
+class Solution {
+public:
+    vector<int> sortByBits(vector<int>& arr) {
+        std::sort(arr.begin(), arr.end(), [](const int& x, const int& y){
+            size_t xB = __builtin_popcount(x), yB = __builtin_popcount(y);
+            if (xB != yB) return xB < yB;
+            return x < y;
+        });
+        return arr;
+    }
+};
