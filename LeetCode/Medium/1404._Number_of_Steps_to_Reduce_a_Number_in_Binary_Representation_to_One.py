@@ -45,3 +45,38 @@ class Solution:
             x = [x >> 1, x + 1][x & 1]
             step += 1
         return step
+
+
+# Python O(|S|) O(1) Greedy
+class Solution:
+    def numSteps(self, s: str) -> int:
+        carry: bool = False
+        steps: int = 0
+        i: int = len(s) - 1
+        while i:
+            steps += 1
+            if s[i] == '0':
+                if carry: steps += 1
+                i -= 1
+            elif carry: i -= 1
+            else: carry = True
+        if carry: steps += 1
+        return steps
+
+# C++ O(|S|) O(1) Greedy
+class Solution {
+public:
+    int numSteps(string s) {
+        int carry = 0, steps = 0;
+        while (s.size() > 1) {
+            ++steps;
+            if (s.back() == '0') {
+                if (carry) ++steps;
+                s.pop_back();
+            } else if (carry) s.pop_back();
+            else carry = 1;
+        }
+        if (carry) ++steps;
+        return steps;
+    }
+};
