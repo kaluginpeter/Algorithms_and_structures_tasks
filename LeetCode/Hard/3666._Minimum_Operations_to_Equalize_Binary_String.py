@@ -48,3 +48,43 @@
 # s[i] is either '0' or '1'.
 # 1 <= k <= s.length
 #
+# Solution
+# Python O(N) O(1) Math
+class Solution:
+    def minOperations(self, s: str, k: int) -> int:
+        n: int = len(s)
+        ones: int = 0
+        zeros: int = 0
+        for ch in s:
+            if ch == '1': ones += 1
+            else: zeros += 1
+        if ones == n: return 0
+        for i in range(1, n + 1):
+            flips: int = k * i
+            if (flips < zeros) or ((flips - zeros) & 1): continue
+            elif i & 1:
+                if zeros <= flips <= zeros * i + ones * (i - 1): return i
+            elif zeros <= flips <= zeros * (i - 1) + ones * i: return i
+        return -1
+
+# C++ O(N) O(1) Math
+class Solution {
+public:
+    int minOperations(string s, int k) {
+        size_t n = s.size();
+        uint32_t ones = 0, zeros = 0;
+        for (char& ch : s) {
+            if (ch == '1') ++ones;
+            else ++zeros;
+        }
+        if (!zeros) return 0;
+        for (size_t i = 1; i <= n; ++i) {
+            uint32_t flips = k * i;
+            if ((flips < zeros) || ((flips - zeros) & 1)) continue;
+            else if (i & 1) {
+                if (flips >= zeros && flips <= zeros * i + ones * (i - 1)) return i;
+            } else if (flips >= zeros && flips <= zeros * (i - 1) + ones * i) return i;
+        }
+        return -1;
+    }
+};
