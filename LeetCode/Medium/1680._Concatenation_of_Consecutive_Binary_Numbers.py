@@ -26,3 +26,29 @@
 #
 # 1 <= n <= 105
 #
+# Solution
+# Python O(N) O(1) BitManipulation Simulation
+mod: int = 10**9 + 7
+class Solution:
+    def concatenatedBinary(self, n: int) -> int:
+        output: int = 0
+        bits: int = 0
+        for i in range(1, n + 1):
+            if not (i & (i - 1)): bits += 1
+            output = ((output << bits) | i) % mod
+        return output
+
+# C++ O(N) O(1) BitManipulation Simulation
+constexpr int mod = 1000000007;
+class Solution {
+public:
+    int concatenatedBinary(int n) {
+        long long output = 0;
+        int bits = 0;
+        for (int i = 1; i <= n; ++i) {
+            if (!(i & (i - 1))) ++bits;
+            output = ((output << bits) | i) % mod;
+        }
+        return output;
+    }
+};
