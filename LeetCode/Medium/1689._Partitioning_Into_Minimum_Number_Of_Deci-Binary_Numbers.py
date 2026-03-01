@@ -28,3 +28,17 @@
 class Solution:
     def minPartitions(self, n: str) -> int:
         return int(max(n))
+
+
+# Python O(N) O(1) Math Greedy
+class Solution:
+    def minPartitions(self, n: str) -> int:
+        return int(max(n))
+
+# C++ O(N) O(1) Math Greedy
+class Solution {
+public:
+    int minPartitions(string n) {
+        return *std::max_element(n.begin(), n.end()) - '0';
+    }
+};
