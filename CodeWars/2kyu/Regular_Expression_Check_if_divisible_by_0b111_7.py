@@ -6,3 +6,7 @@
 # Your solution should reject strings with any character other than 0 and 1.
 # No leading 0's will be tested unless the string exactly denotes 0.
 # PuzzlesRegular ExpressionsStringsAlgorithms
+# Solution
+import re
+
+solution = r'^(0|(10((0|11)(1|00))*(10|(0|11)01)|11)(01*0(0|101|1(1|00)((0|11)(1|00))*(10|(0|11)01)))*1)+$'
