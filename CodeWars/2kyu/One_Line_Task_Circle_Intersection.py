@@ -14,3 +14,5 @@
 # the output should be 14.
 #
 # PuzzlesRestricted
+# Solution
+from numpy import*;circleIntersection=lambda x,y,r:(lambda z:int(max(0,r*r*(z-sin(z)))))(arccos(hypot(*array(x)-y)/2/r)*2)
