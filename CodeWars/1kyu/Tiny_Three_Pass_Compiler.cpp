@@ -85,3 +85,196 @@ def simulate(asm, argv):
     return r0
 CompilersAlgorithms
 */
+// Solution
+#include <vector>
+#include <string>
+#include <regex>
+#include <unordered_map>
+#include <stack>
+#include <cctype>
+#include <memory>
+
+using namespace std;
+
+struct AST {
+    string op;
+    AST* a = nullptr;
+    AST* b = nullptr;
+    int n = 0;
+
+    AST(string op) : op(op) {}
+    AST(string op, int n) : op(op), n(n) {}
+    AST(string op, AST* a, AST* b) : op(op), a(a), b(b) {}
+};
+
+struct Compiler {
+
+    vector<string> compile(string program) {
+        return pass3(pass2(pass1(program)));
+    }
+
+    vector<string> tokenize(string program) {
+        static regex re("[-+*/()[\\]]|[A-Za-z]+|\\d+");
+        sregex_token_iterator it(program.begin(), program.end(), re);
+        return vector<string>(it, sregex_token_iterator());
+    }
+
+    AST* pass1(string program) {
+        auto tokens = tokenize(program);
+
+        unordered_map<string,int> args;
+        int idx = parseArguments(tokens, args);
+
+        vector<string> exprTokens(tokens.begin() + idx + 1, tokens.end());
+        return tokensToAST(args, exprTokens);
+    }
+
+    int parseArguments(const vector<string>& tokens,
+                       unordered_map<string,int>& args) {
+
+        if (tokens.empty() || tokens[0] != "[")
+            throw runtime_error("Invalid argument list");
+
+        int argIndex = 0;
+        for (int i = 1; i < tokens.size(); i++) {
+            if (tokens[i] == "]")
+                return i;
+            args[tokens[i]] = argIndex++;
+        }
+
+        throw runtime_error("Invalid argument list");
+    }
+
+    bool equalOrder(string op1, string op2) {
+        return op1 == op2 ||
+               ((op1=="*"||op1=="/") && (op2=="*"||op2=="/")) ||
+               ((op1=="+"||op1=="-") && (op2=="+"||op2=="-"));
+    }
+
+    bool greaterOrder(string op1, string op2) {
+        return (op1=="*"||op1=="/") &&
+               (op2=="+"||op2=="-");
+    }
+
+    bool greaterOrEqual(string op1, string op2) {
+        return equalOrder(op1, op2) || greaterOrder(op1, op2);
+    }
+
+    AST* tokensToAST(unordered_map<string,int>& args,
+                     vector<string>& tokens) {
+
+        vector<AST*> outStack;
+        vector<string> opStack;
+
+        auto applyOp = [&]() {
+            string op = opStack.front();
+            opStack.erase(opStack.begin());
+
+            AST* b = outStack.back(); outStack.pop_back();
+            AST* a = outStack.back(); outStack.pop_back();
+
+            outStack.push_back(new AST(op, a, b));
+        };
+
+        for (auto& token : tokens) {
+
+            if (token != "+" && token != "-" &&
+                token != "*" && token != "/" &&
+                token != "(" && token != ")") {
+
+                if (isdigit(token[0])) {
+                    outStack.push_back(new AST("imm", stoi(token)));
+                } else {
+                    outStack.push_back(new AST("arg", args[token]));
+                }
+
+            } else if (token == "+" || token == "-" ||
+                       token == "*" || token == "/") {
+
+                while (!opStack.empty() &&
+                       greaterOrEqual(opStack.front(), token)) {
+                    applyOp();
+                }
+                opStack.insert(opStack.begin(), token);
+
+            } else if (token == "(") {
+                opStack.insert(opStack.begin(), token);
+
+            } else if (token == ")") {
+                while (!opStack.empty() && opStack.front() != "(") {
+                    applyOp();
+                }
+                opStack.erase(opStack.begin());
+            }
+        }
+
+        while (!opStack.empty())
+            applyOp();
+
+        return outStack.back();
+    }
+
+    AST* pass2(AST* ast) {
+
+        if (!ast) return ast;
+
+        if (ast->op == "+" || ast->op == "-" ||
+            ast->op == "*" || ast->op == "/") {
+
+            ast->a = pass2(ast->a);
+            ast->b = pass2(ast->b);
+
+            if (ast->a->op == "imm" && ast->b->op == "imm") {
+                int x = ast->a->n;
+                int y = ast->b->n;
+                int result = 0;
+
+                if (ast->op == "+") result = x + y;
+                if (ast->op == "-") result = x - y;
+                if (ast->op == "*") result = x * y;
+                if (ast->op == "/") result = x / y;
+
+                return new AST("imm", result);
+            }
+        }
+
+        return ast;
+    }
+
+    vector<string> pass3(AST* ast) {
+
+        vector<string> result;
+
+        if (!ast) return result;
+
+        if (ast->op == "+" || ast->op == "-" ||
+            ast->op == "*" || ast->op == "/") {
+
+            auto left = pass3(ast->a);
+            auto right = pass3(ast->b);
+
+            result.insert(result.end(), left.begin(), left.end());
+            result.push_back("PU");
+            result.insert(result.end(), right.begin(), right.end());
+            result.push_back("SW");
+            result.push_back("PO");
+
+            if (ast->op == "+") result.push_back("AD");
+            if (ast->op == "-") result.push_back("SU");
+            if (ast->op == "*") result.push_back("MU");
+            if (ast->op == "/") result.push_back("DI");
+
+            return result;
+        }
+
+        if (ast->op == "imm") {
+            result.push_back("IM " + to_string(ast->n));
+        }
+
+        if (ast->op == "arg") {
+            result.push_back("AR " + to_string(ast->n));
+        }
+
+        return result;
+    }
+};
