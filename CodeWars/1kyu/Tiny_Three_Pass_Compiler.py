@@ -88,3 +88,118 @@
 #   return r0;
 # }
 # CompilersAlgorithms
+# Solution
+import re
+
+
+class Compiler(object):
+
+    def compile(self, program):
+        return self.pass3(self.pass2(self.pass1(program)))
+
+    def tokenize(self, program):
+        token_iter = (
+            m.group(0)
+            for m in re.finditer(r'[-+*/()[\]]|[A-Za-z]+|\d+', program)
+        )
+        return [int(tok) if tok.isdigit() else tok for tok in token_iter]
+
+    def pass1(self, program):
+        tokens = self.tokenize(program)
+        args, idx = self.parse_arguments(tokens)
+        return self.tokens_to_ast(args, tokens[idx + 1:])
+
+    def parse_arguments(self, tokens):
+        if not tokens or tokens[0] != '[': raise ValueError("Invalid argument list")
+
+        args = {}
+        arg_index = 0
+
+        for i in range(1, len(tokens)):
+            if tokens[i] == ']': return args, i
+            args[tokens[i]] = arg_index
+            arg_index += 1
+
+        raise ValueError("Invalid argument list")
+
+    def equal_order(self, op1, op2):
+        return (
+            op1 == op2
+            or (op1 in "*/" and op2 in "*/")
+            or (op1 in "+-" and op2 in "+-")
+        )
+
+    def greater_order(self, op1, op2):
+        return op1 in "*/" and op2 in "+-"
+
+    def greater_or_equal(self, op1, op2):
+        return self.equal_order(op1, op2) or self.greater_order(op1, op2)
+
+    def tokens_to_ast(self, args, tokens):
+        out_stack = []
+        op_stack = []
+        def apply_op():
+            op = op_stack.pop(0)
+            b = out_stack.pop()
+            a = out_stack.pop()
+            out_stack.append({"op": op, "a": a, "b": b})
+        operators = {"+", "-", "*", "/"}
+        for token in tokens:
+            if token not in operators and token not in ("(", ")"):
+                if isinstance(token, int): out_stack.append({"op": "imm", "n": token})
+                else: out_stack.append({"op": "arg", "n": args[token]})
+            elif token in operators:
+                while op_stack and self.greater_or_equal(op_stack[0], token): apply_op()
+                op_stack.insert(0, token)
+            elif token == "(": op_stack.insert(0, token)
+            elif token == ")":
+                while op_stack and op_stack[0] != "(": apply_op()
+                op_stack.pop(0)
+        while op_stack: apply_op()
+        return out_stack.pop()
+    def pass2(self, ast):
+
+        operations = {
+            "+": lambda x, y: x + y,
+            "-": lambda x, y: x - y,
+            "*": lambda x, y: x * y,
+            "/": lambda x, y: x // y,
+        }
+
+        def fold(node):
+            if node["op"] in operations:
+                node["a"] = fold(node["a"])
+                node["b"] = fold(node["b"])
+
+                if node["a"]["op"] == "imm" and node["b"]["op"] == "imm":
+                    return {
+                        "op": "imm",
+                        "n": operations[node["op"]](
+                            node["a"]["n"],
+                            node["b"]["n"]
+                        )
+                    }
+            return node
+        return fold(ast)
+
+    def pass3(self, ast):
+
+        op_instr = {
+            "+": "AD",
+            "-": "SU",
+            "*": "MU",
+            "/": "DI",
+        }
+
+        def generate(node):
+            if node["op"] in op_instr:
+                return (
+                    generate(node["a"])
+                    + ["PU"]
+                    + generate(node["b"])
+                    + ["SW", "PO", op_instr[node["op"]]]
+                )
+            if node["op"] == "imm": return [f"IM {node['n']}"]
+            if node["op"] == "arg": return [f"AR {node['n']}"]
+            return []
+        return generate(ast)
