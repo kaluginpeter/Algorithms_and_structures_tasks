@@ -73,3 +73,25 @@ public:
         }
     }
 };
+
+
+# Python O(N) O(N) Math Recursion
+class Solution:
+    def findKthBit(self, n: int, k: int) -> str:
+        if n == 1: return '0'
+        bound: int = 1 << n
+        if k < (bound >> 1): return self.findKthBit(n - 1, k)
+        elif k == (bound >> 1): return '1'
+        return '1' if self.findKthBit(n - 1, bound - k) == '0' else '0'
+
+# C++ O(N) O(N) Recursion Math
+class Solution {
+public:
+    char findKthBit(int n, int k) {
+        if (n == 1) return '0';
+        uint32_t bound = 1 << n;
+        if (k < (bound >> 1)) return findKthBit(n - 1, k);
+        else if (k == (bound >> 1)) return '1';
+        return (findKthBit(n - 1, bound - k) == '0' ? '1' : '0');
+    }
+};
