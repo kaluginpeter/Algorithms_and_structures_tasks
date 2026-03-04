@@ -60,3 +60,42 @@ class Solution(object):
                     count += 1
             m += 1
         return count
+
+
+# Python O(NM) O(N + M) Matrix
+class Solution:
+    def numSpecial(self, mat: List[List[int]]) -> int:
+        n: int = len(mat)
+        m: int = len(mat[0])
+        rows: list[int] = [0] * n
+        cols: list[int] = [0] * m
+        for i in range(n):
+            for j in range(m):
+                if mat[i][j]:
+                    rows[i] += 1
+                    cols[j] += 1
+        return sum(mat[i][j] and rows[i] == 1 and cols[j] == 1 for i in range(n) for j in range(m))
+
+# C++ O(NM) O(N + M) Matrix
+class Solution {
+public:
+    int numSpecial(vector<vector<int>>& mat) {
+        size_t n = mat.size(), m = mat[0].size();
+        std::array<int, 100> rows{}, cols{};
+        for (size_t i = 0; i < n; ++i) {
+            for (size_t j = 0; j < m; ++j) {
+                if (mat[i][j]) {
+                    ++rows[i];
+                    ++cols[j];
+                }
+            }
+        }
+        uint16_t output = 0;
+        for (size_t i = 0; i < n; ++i) {
+            for (size_t j = 0; j < m; ++j) {
+                if (mat[i][j] && rows[i] == 1 && cols[j] == 1) ++output;
+            }
+        }
+        return output;
+    }
+};
