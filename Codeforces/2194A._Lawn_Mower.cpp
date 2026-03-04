@@ -53,3 +53,19 @@ You can remove 6
 In the second test case, you can remove 10
  boards, a possible arrangement is shown below.
 */
+// Solution
+#include <iostream>
+
+
+void solution() {
+    int n, w;
+    std::cin >> n >> w;
+    std::cout << n / w * (w - 1) + n % w << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
