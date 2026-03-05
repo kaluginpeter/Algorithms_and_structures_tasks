@@ -60,3 +60,37 @@ class Solution:
                 count_one += 1
             cur_one, cur_zero = cur_zero, cur_one
         return min(count_zero, count_one)
+
+
+# Python O(N) O(1) Greedy
+class Solution:
+    def minOperations(self, s: str) -> int:
+        # first - start with one
+        # second - start with zero
+        n: int = len(s)
+        first: int = 0
+        second: int = 0
+        for i in range(1, n + 1):
+            if i & 1 and s[i - 1] == '0': first += 1
+            elif not (i & 1) and s[i - 1] == '1': first += 1
+            if i & 1 and s[i - 1] == '1': second += 1
+            elif not (i & 1) and s[i - 1] == '0': second += 1
+        return min(first, second)
+
+# C++ O(N) O(1) Greedy
+class Solution {
+public:
+    int minOperations(string s) {
+        // first - starts with one
+        // second - starts with zero
+        uint32_t first = 0, second = 0;
+        size_t n = s.size();
+        for (size_t i = 1; i <= n; ++i) {
+            if (i & 1 && s[i - 1] == '0') ++first;
+            else if (!(i & 1) && s[i - 1] == '1') ++first;
+            if (i & 1 && s[i - 1] == '1') ++second;
+            else if (!(i & 1) && s[i - 1] == '0') ++second;
+        }
+        return std::min(first, second);
+    }
+};
