@@ -238,3 +238,151 @@
 # For Python, there are Exception classes preloaded to use for this purpose; DuplicateFromError, DuplicateSelectError, DuplicateGroupByError, and DuplicateOrderByError. You do not need to provide a message to these classes.
 #
 # Functional ProgrammingAlgorithms
+# Solution
+from preloaded import DuplicateFromError, DuplicateSelectError, DuplicateGroupByError, DuplicateOrderByError
+from functools import cmp_to_key
+
+
+def group_by(data, fns):
+    if not fns:
+        return data
+
+    fn = fns[0]
+    groups = {}
+
+    for item in data:
+        key = fn(item)
+        groups.setdefault(key, []).append(item)
+
+    rest = fns[1:]
+
+    result = []
+    for key, values in groups.items():
+        result.append([key, group_by(values, rest)])
+
+    return result
+
+
+class Query:
+
+    def __init__(self):
+        self.data = []
+        self.select_fn = None
+        self.where_groups = []
+        self.group_fns = None
+        self.having_groups = []
+        self.order_fn = None
+        self.called = {}
+
+    def select(self, fn=None):
+        if self.called.get("select"):
+            raise DuplicateSelectError()
+
+        self.called["select"] = True
+        self.select_fn = fn
+        return self
+
+    def from_(self, data=None, join_data=None):
+        if self.called.get("from"):
+            raise DuplicateFromError()
+
+        self.called["from"] = True
+
+        if data is None:
+            self.data = []
+            return self
+
+        if join_data is None:
+            self.data = list(data)
+            return self
+
+        joined = []
+        for a in data:
+            for b in join_data:
+                joined.append([a, b])
+
+        self.data = joined
+        return self
+
+    def where(self, *fns):
+        self.where_groups.append(fns)
+        return self
+
+    def group_by(self, *fns):
+        if self.called.get("group_by"):
+            raise DuplicateGroupByError()
+
+        self.called["group_by"] = True
+        self.group_fns = fns
+        return self
+
+    def having(self, *fns):
+        self.having_groups.append(fns)
+        return self
+
+    def order_by(self, fn):
+        if self.called.get("order_by"):
+            raise DuplicateOrderByError()
+
+        self.called["order_by"] = True
+        self.order_fn = fn
+        return self
+
+    def apply_where(self, data):
+        if not self.where_groups:
+            return data
+
+        result = []
+
+        for row in data:
+            valid = True
+            for group in self.where_groups:
+                if not any(fn(row) for fn in group):
+                    valid = False
+                    break
+            if valid:
+                result.append(row)
+
+        return result
+
+    def apply_having(self, data):
+        if not self.having_groups:
+            return data
+
+        result = []
+
+        for row in data:
+            valid = True
+            for group in self.having_groups:
+                if not any(fn(row) for fn in group):
+                    valid = False
+                    break
+            if valid:
+                result.append(row)
+
+        return result
+
+    def execute(self):
+
+        result = list(self.data)
+
+        if not result and "from" not in self.called:
+            return []
+
+        result = self.apply_where(result)
+
+        if self.group_fns:
+            result = group_by(result, self.group_fns)
+            result = self.apply_having(result)
+
+        if self.select_fn:
+            result = list(map(self.select_fn, result))
+
+        if self.order_fn:
+            result = sorted(result, key=cmp_to_key(self.order_fn))
+
+        return result
+
+
+def query():
+    return Query()
