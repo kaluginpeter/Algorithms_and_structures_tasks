@@ -54,3 +54,25 @@ In the third test case, players 2
  and 4
  can win.
 */
+// Solution
+// C++ O(N) O(1) Greedy
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::vector<int> nums(n, 0);
+    for (size_t i = 0; i < n; ++i) std::cin >> nums[i];
+    std::cout << (std::count(nums.begin(), nums.end(), *std::max_element(nums.begin(), nums.end()))) << "\n";
+}
+
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
