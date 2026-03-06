@@ -23,3 +23,26 @@
 class Solution:
     def checkOnesSegment(self, s):
         return not s.strip('0').strip('1')
+
+
+# Python O(N) O(1) String
+class Solution:
+    def checkOnesSegment(self, s: str) -> bool:
+        was: bool = False
+        for char in s:
+            if char == '1' and was: return False
+            elif char == '0': was = True
+        return True
+
+# C++ O(N) O(1) String
+class Solution {
+public:
+    bool checkOnesSegment(string s) {
+        bool was = false;
+        for (char& ch : s) {
+            if (ch == '1' && was) return false;
+            else if (ch == '0') was = true;
+        }
+        return true;
+    }
+};
