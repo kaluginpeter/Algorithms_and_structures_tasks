@@ -29,3 +29,14 @@ how efficiently your government handles paperwork.
 
 Arrays
 */
+// Solution
+#include <vector>
+
+void stalinSort(std::vector<int>& arr) {
+    std::vector<int> output;
+    for (size_t i = 0; i < arr.size(); ++i) {
+      if (!i) output.push_back(arr[i]);
+      else if (output.back() <= arr[i]) output.push_back(arr[i]);
+    }
+    arr = output;
+}
