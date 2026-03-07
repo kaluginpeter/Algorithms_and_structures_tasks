@@ -31,3 +31,33 @@
 #
 # 1 <= s.length <= 105
 # s[i] is either '0' or '1'.
+# Solution
+# Python O(N) O(1) Greedy
+class Solution:
+    def minFlips(self, s: str) -> int:
+        n: int = len(s)
+        op: list[int] = [0, 0]
+        for i in range(n): op[(int(s[i]) ^ i) & 1] += 1
+        output: int = min(op)
+        for i in range(n - 1):
+            op[(int(s[i]) ^ i) & 1] -= 1
+            op[(int(s[i]) ^ (n + i)) & 1] += 1
+            output = min(output, min(op))
+        return output
+
+# C++ O(N) O(1) Greedy
+class Solution {
+public:
+    int minFlips(auto& s) {
+        size_t n = s.length();
+        std::array<int, 2> op{};
+        for (size_t i = 0; i < n; ++i) ++op[(s[i] ^ i) & 1];
+        int output = std::min(op[0], op[1]);
+        for (size_t i = 0; i < n - 1; ++i) {
+            --op[(s[i] ^ i) & 1];
+            ++op[(s[i] ^ (n + i)) & 1];
+            output = std::min(output, std::min(op[0], op[1]));
+        }
+        return output;
+    }
+};
