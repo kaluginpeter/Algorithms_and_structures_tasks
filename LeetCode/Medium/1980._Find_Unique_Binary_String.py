@@ -54,3 +54,24 @@ class Solution:
         for i in range(len(nums)):
             output.append('1' if nums[i][i] == '0' else '0')
         return ''.join(output)
+
+
+# Python O(N) O(N) for output Math
+class Solution:
+    def findDifferentBinaryString(self, nums: List[str]) -> str:
+        output: list[str] = []
+        for i in range(len(nums)):
+            output.append((int(nums[i][i]) + 1) % 2)
+        return ''.join(str(num) for num in output)
+
+# C++ O(N) O(N) for output Math
+class Solution {
+public:
+    string findDifferentBinaryString(vector<string>& nums) {
+        std::string output = "";
+        for (size_t i = 0; i < nums.size(); ++i) {
+            output.push_back(((nums[i][i] - '0') + 1) % 2 + '0');
+        }
+        return output;
+    }
+};
