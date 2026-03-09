@@ -10,3 +10,9 @@
 #
 # [0, 1, 2, 3], [1, 2, 3, 4]
 # AlgorithmsData Structures
+# Solution
+def series_slices(digits, n):
+    if n > len(digits): raise Exception()
+    output: list[list[int]] = []
+    for i in range(len(digits) - n + 1): output.append(list(map(int, digits[i:i+n])))
+    return output
