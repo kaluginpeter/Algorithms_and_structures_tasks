@@ -24,3 +24,28 @@
 #
 # 26/10/2015: Added a higher precision test case.
 # MathematicsPuzzles
+# Solution
+def is_bouncy(n: int) -> bool:
+    inc: bool = False
+    dec: bool = False
+    prev: int = n % 10
+    n //= 10
+    while n:
+        cur: int = n % 10
+        if cur < prev: inc = True
+        elif cur > prev: dec = True
+        if inc and dec: return True
+        prev = cur
+        n //= 10
+    return False
+
+
+def bouncy_ratio(ratio):
+    if not (0 <= ratio <= 0.99): raise Exception()
+    if ratio == 0: return 1
+    bouncy: int = 0
+    n: int = 1
+    while True:
+        if is_bouncy(n): bouncy += 1
+        if n >= 100 and bouncy / n >= ratio: return n
+        n += 1
