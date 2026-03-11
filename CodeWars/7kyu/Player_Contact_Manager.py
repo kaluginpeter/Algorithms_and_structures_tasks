@@ -14,3 +14,11 @@
 # Have at thee!
 #
 # Arrays
+# Solution
+def player_manager(players):
+    output: list[dict[str, str | int]] = []
+    if not players: return output
+    players = players.split(', ')
+    for i in range(0, len(players), 2):
+        output.append({"player": players[i], "contact": int(players[i + 1])})
+    return output
