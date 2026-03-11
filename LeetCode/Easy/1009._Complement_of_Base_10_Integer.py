@@ -32,3 +32,23 @@
 class Solution:
     def bitwiseComplement(self, n: int) -> int:
         return int(''.join(['1', '0'][char == '1'] for char in bin(n)[2:]), 2)
+
+
+# Python O(log2(N)) O(1) BitTheory
+class Solution:
+    def bitwiseComplement(self, n: int) -> int:
+        if not n: return 1
+        x: int = 1
+        while x <= n: x <<= 1
+        return n ^ (x - 1)
+
+# C++ O(log2(N)) O(1) BitTheory
+class Solution {
+public:
+    int bitwiseComplement(int n) {
+        if (!n) return 1;
+        size_t x = 1;
+        while (x <= n) x <<= 1;
+        return n ^ (x - 1);
+    }
+};
