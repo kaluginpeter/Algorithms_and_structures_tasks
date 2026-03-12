@@ -7,3 +7,31 @@ Given the diameter of the circular grass patch (measured in ogre steps), calcula
 
 GeometryPerformance
 */
+// Solution
+#include <cmath>
+
+double intersection(double R, double L) {
+    double d = R;
+    if (L >= 2*R) return M_PI*R*R;
+    double alpha = acos((d*d + L*L - R*R) / (2*d*L));
+    double beta  = acos((d*d + R*R - L*L) / (2*d*R));
+    double area =
+        L*L*alpha +
+        R*R*beta -
+        0.5*sqrt((-d+L+R)*(d+L-R)*(d-L+R)*(d+L+R));
+    return area;
+}
+
+int getRopeLength(int fieldDiameter, double eatenRatio) {
+    if (!fieldDiameter || !eatenRatio) return 0;
+    if (eatenRatio == 1) return fieldDiameter;
+    double R = fieldDiameter / 2.0, total = M_PI * R * R;
+    double lo = 0, hi = fieldDiameter;
+    for (int i = 0; i < 100; ++i) {
+        double mid = (lo + hi) / 2;
+        double area = intersection(R, mid);
+        if (area / total <= eatenRatio) lo = mid;
+        else hi = mid;
+    }
+    return (int)floor(lo);
+}
