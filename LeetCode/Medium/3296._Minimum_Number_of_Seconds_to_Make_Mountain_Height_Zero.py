@@ -99,3 +99,49 @@ class Solution:
             heapq.heappush(heap, (total + start * module, start, module))
             mountainHeight-= 1
         return count
+
+
+
+# Python O(log2(10^18)N) O(1) BinarySearch
+class Solution:
+    def minNumberOfSeconds(self, mountainHeight: int, workerTimes: List[int]) -> int:
+        left: int = 0
+        right: int = 10**17
+        while left <= right:
+            middle: int = left + ((right - left) >> 1)
+            bound: int = 0
+            for i in range(len(workerTimes)):
+                x: int = middle // workerTimes[i]
+                tmp: int = 1
+                while bound < mountainHeight and tmp <= x:
+                    bound += 1
+                    x -= tmp
+                    tmp += 1
+                if bound == mountainHeight: break
+            if bound >= mountainHeight: right = middle - 1
+            else: left = middle + 1
+        return left
+
+# C++ O(log2(10^18)N) O(1) BinarySearch
+class Solution {
+public:
+    long long minNumberOfSeconds(int mountainHeight, vector<int>& workerTimes) {
+        long long left = 0, right = 1e17;
+        while (left <= right) {
+            long long middle = left + ((right - left) >> 1);
+            int bound = 0;
+            for (size_t i = 0; i < workerTimes.size(); ++i) {
+                long long x = middle / workerTimes[i], tmp = 1;
+                while (bound < mountainHeight && tmp <= x) {
+                    ++bound;
+                    x -= tmp;
+                    ++tmp;
+                }
+                if (bound == mountainHeight) break;
+            }
+            if (bound >= mountainHeight) right = middle - 1;
+            else left = middle + 1;
+        }
+        return left;
+    }
+};
