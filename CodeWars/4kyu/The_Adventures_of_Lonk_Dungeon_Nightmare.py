@@ -30,3 +30,65 @@
 # Expected Output
 # Examples
 # AlgorithmsGraph Theory
+# Solution
+from collections import deque, defaultdict
+
+def analyze_dungeon(dungeon):
+    start = dungeon["start"]
+    goal = dungeon["goal"]
+    rooms = dungeon["rooms"]
+    start_keys = rooms[start]["keys"]
+    start_state = (start, start_keys, frozenset(), frozenset([start]))
+    q = deque([start_state])
+    visited = set([start_state])
+    graph = defaultdict(list)
+    reverse_graph = defaultdict(list)
+    goal_states = set()
+    while q:
+        room, keys, opened, collected = q.popleft()
+        if room == goal: goal_states.add((room, keys, opened, collected))
+
+        for e in rooms[room]["exits"]:
+            to = e["to"]
+            door = e["door"]
+            new_keys = keys
+            new_opened = set(opened)
+
+            if door is not None and door not in opened:
+                if new_keys == 0: continue
+                new_keys -= 1
+                new_opened.add(door)
+
+            new_collected = set(collected)
+
+            if to not in new_collected:
+                new_keys += rooms[to]["keys"]
+                new_collected.add(to)
+
+            new_state = (
+                to,
+                new_keys,
+                frozenset(new_opened),
+                frozenset(new_collected),
+            )
+
+            graph[(room, keys, opened, collected)].append(new_state)
+            reverse_graph[new_state].append((room, keys, opened, collected))
+
+            if new_state not in visited:
+                visited.add(new_state)
+                q.append(new_state)
+
+    solvable = any(s[0] == goal for s in visited)
+    if not solvable: return (False, False)
+
+    reachable_to_goal = set()
+    q = deque(goal_states)
+
+    while q:
+        s = q.popleft()
+        if s in reachable_to_goal: continue
+        reachable_to_goal.add(s)
+        for prev in reverse_graph[s]: q.append(prev)
+    softlock_proof = all(s in reachable_to_goal for s in visited)
+    return (solvable, softlock_proof)
