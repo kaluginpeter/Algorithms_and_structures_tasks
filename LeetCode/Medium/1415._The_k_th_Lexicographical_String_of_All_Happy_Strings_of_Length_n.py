@@ -87,3 +87,71 @@ public:
         return substr;
     }
 };
+
+
+# Python O(2^N) O(N) Backtracking
+class Solution:
+    tmp: int
+    def backtrack(self, path: list[str], n: int, k: int) -> int:
+        if len(path) == n:
+            self.tmp += 1
+            return
+        if not path or path[-1] != 'a':
+            path.append('a')
+            self.backtrack(path, n, k)
+            if self.tmp == k: return
+            path.pop()
+        if not path or path[-1] != 'b':
+            path.append('b')
+            self.backtrack(path, n, k)
+            if self.tmp == k: return
+            path.pop()
+        if not path or path[-1] != 'c':
+            path.append('c')
+            self.backtrack(path, n, k)
+            if self.tmp == k: return
+            path.pop()
+
+    def getHappyString(self, n: int, k: int) -> str:
+        self.tmp = 0
+        path: list[str] = []
+        self.backtrack(path, n, k)
+        if self.tmp < k: return ''
+        return ''.join(path)
+
+# C++ O(2^N) O(N) Backtracking
+class Solution {
+public:
+    void backtrack(std::string& path, uint16_t& tmp, const int& n, const int& k) {
+        if (path.size() == n) {
+            ++tmp;
+            return;
+        }
+        if (!path.size() || path.back() != 'a') {
+            path.push_back('a');
+            backtrack(path, tmp, n, k);
+            if (tmp == k) return;
+            path.pop_back();
+        }
+        if (!path.size() || path.back() != 'b') {
+            path.push_back('b');
+            backtrack(path, tmp, n, k);
+            if (tmp == k) return;
+            path.pop_back();
+        }
+        if (!path.size() || path.back() != 'c') {
+            path.push_back('c');
+            backtrack(path, tmp, n, k);
+            if (tmp == k) return;
+            path.pop_back();
+        }
+    }
+
+    string getHappyString(int n, int k) {
+        uint16_t tmp = 0;
+        std::string path = "";
+        backtrack(path, tmp, n, k);
+        if (tmp < k) return "";
+        return path;
+    }
+};
