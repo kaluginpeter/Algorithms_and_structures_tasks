@@ -37,3 +37,32 @@
 # If enjoy this and want something harder please see http://www.codewars.com/kata/evaluate-mathematical-expression/ for making a much more complicated calculator. This is a good kata leading up to that.
 #
 # Algorithms
+# Solution
+import re
+
+def calculate(expression):
+    if re.search(r'[^0-9.+\-*$]', expression): return "400: Bad request"
+
+    tokens = re.findall(r'\d+(?:\.\d+)?|[+\-* $]', expression)
+    for i, t in enumerate(tokens):
+        if t not in "+-* $": tokens[i] = float(t)
+
+    def process(op):
+        nonlocal tokens
+        i = 0
+        while i < len(tokens):
+            if tokens[i] == op:
+                a = tokens[i-1]
+                b = tokens[i+1]
+                if op == '$': r = a / b
+                elif op == '*': r = a * b
+                elif op == '-': r = a - b
+                else: r = a + b
+                tokens[i-1:i+2] = [r]
+                i -= 1
+            else: i += 1
+
+    for op in ["$", "*", "-", "+"]: process(op)
+    result = tokens[0]
+    if result.is_integer(): return int(result)
+    return result
