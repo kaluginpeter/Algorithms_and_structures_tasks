@@ -37,3 +37,72 @@
 # 1 <= val, inc, m <= 100
 # 0 <= idx <= 105
 # At most 105 calls total will be made to append, addAll, multAll, and getIndex.
+# Solution
+# C++ O(4N) O(log2(N)) for each CRUD operation O(4N) SegmentTree
+constexpr long long MOD = 1e9 + 7;
+constexpr int N = 100000;
+class Fancy {
+public:
+    std::vector<long long> tree, lazyMul, lazyAdd;
+    uint32_t size = 0;
+    Fancy() {
+        tree.resize(4 * N, 0);
+        lazyMul.resize(4 * N, 1);
+        lazyAdd.resize(4 * N, 0);
+    }
+
+    void push(int node, int l, int r) {
+        if (lazyMul[node] != 1 || lazyAdd[node] != 0) {
+            tree[node] = (tree[node] * lazyMul[node] + (r - l + 1) * lazyAdd[node]) % MOD;
+            if (l != r) {
+                for (int child : {node * 2, node * 2 + 1}) {
+                    lazyMul[child] = (lazyMul[child] * lazyMul[node]) % MOD;
+                    lazyAdd[child] = (lazyAdd[child] * lazyMul[node] + lazyAdd[node]) % MOD;
+                }
+            }
+            lazyMul[node] = 1;
+            lazyAdd[node] = 0;
+        }
+    }
+
+    void update(int node, int l, int r, int ql, int qr, long long mul, long long add) {
+        push(node, l, r);
+        if (r < ql || l > qr) return;
+        if (ql <= l && r <= qr) {
+            lazyMul[node] = (lazyMul[node] * mul) % MOD;
+            lazyAdd[node] = (lazyAdd[node] * mul + add) % MOD;
+            push(node, l, r);
+            return;
+        }
+        uint32_t middle = l + ((r - l) >> 1);
+        update(node * 2, l, middle, ql, qr, mul, add);
+        update(node * 2 + 1, middle + 1, r, ql, qr, mul, add);
+        tree[node] = (tree[node * 2] + tree[node * 2 + 1]) % MOD;
+    }
+
+    long long query(int node, int l, int r, int idx) {
+        push(node, l, r);
+        if (l == r) return tree[node];
+        uint32_t middle = l + ((r - l) >> 1);
+        if (idx <= middle) return query(node * 2, l, middle, idx);
+        else return query(node * 2 + 1, middle + 1, r, idx);
+    }
+
+    void append(int val) {
+        update(1, 0, N - 1, size, size, 1, val);
+        ++size;
+    }
+
+    void addAll(int inc) {
+        if (size) update(1, 0, N - 1, 0, size - 1, 1, inc);
+    }
+
+    void multAll(int m) {
+        if (size) update(1, 0, N - 1, 0, size - 1, m, 0);
+    }
+
+    int getIndex(int idx) {
+        if (idx >= size) return -1;
+        return query(1, 0, N-1, idx);
+    }
+};
