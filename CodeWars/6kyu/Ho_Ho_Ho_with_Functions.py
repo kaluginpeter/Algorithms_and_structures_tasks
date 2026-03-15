@@ -11,3 +11,7 @@
 # the "Ho"'s must be separated by a space
 # at the end of the string, there must be an exclamation mark (!), without a space
 # Algorithms
+# Solution
+def ho(*args):
+    if args: return 'Ho ' + args[0]
+    return 'Ho!'
