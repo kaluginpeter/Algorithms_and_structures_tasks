@@ -63,3 +63,8 @@
 # Efficiency does not matter for large inputs.
 #
 # AlgorithmsArrays
+# Solution
+def thanos_sort(arr):
+    if not arr or all(x <= y for x, y in zip(arr, arr[1:])): return len(arr)
+    middle: int = (len(arr) >> 1) + (len(arr) & 1)
+    return max(thanos_sort(arr[:middle]), thanos_sort(arr[middle:]))
