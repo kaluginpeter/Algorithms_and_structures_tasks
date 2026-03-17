@@ -32,3 +32,48 @@
 # 1 <= m * n <= 105
 # matrix[i][j] is either 0 or 1.
 #
+# Solution
+# Python O(NM) O(N) DynamicProgramming Matrix
+class Solution:
+    def largestSubmatrix(self, matrix: List[List[int]]) -> int:
+        n: int = len(matrix)
+        m: int = len(matrix[0])
+        output: int = 0
+        prev_dp: list[tuple[int, int]] = []
+        for i in range(n):
+            dp: list[tuple[int, int]] = []
+            seen: list[bool] = [False] * m
+            for height, col in prev_dp:
+                if matrix[i][col]:
+                    dp.append((height + 1, col))
+                    seen[col] = 1
+            for j in range(m):
+                if not seen[j] and matrix[i][j]: dp.append((1, j))
+            for i in range(len(dp)): output = max(output, dp[i][0] * (i + 1))
+            prev_dp = dp
+        return output
+
+# C++ O(NM) O(N) Matrix DynamicProgramming
+class Solution {
+public:
+    int largestSubmatrix(vector<vector<int>>& matrix) {
+        size_t n = matrix.size(), m = matrix[0].size(), output = 0;
+        std::vector<std::pair<int,int>> prevDp;
+        for (int i = 0; i < n; ++i) {
+            std::vector<std::pair<int,int>> dp;
+            std::vector<bool> seen(m, false);
+            for (auto [height, col] : prevDp) {
+                if (matrix[i][col] == 1) {
+                    dp.push_back({height + 1, col});
+                    seen[col] = 1;
+                }
+            }
+            for (int j = 0; j < m; ++j) {
+                if (!seen[j] && matrix[i][j] == 1) dp.push_back({1, j});
+            }
+            for (size_t i = 0; i < dp.size(); ++i) output = std::max(output, dp[i].first * (i + 1));
+            prevDp = dp;
+        }
+        return output;
+    }
+};
