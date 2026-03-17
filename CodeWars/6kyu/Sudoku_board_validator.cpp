@@ -41,3 +41,39 @@ Rows, columns and blocks (3x3 small squares) must contain each number from range
 User solution must not modify input boards.
 AlgorithmsGames
 */
+// Solution
+#include <array>
+
+bool is_valid_group(const int* nums) {
+    bool seen[10] = {false};
+    for (int i = 0; i < 9; ++i) {
+        int val = nums[i];
+        if (val == 0 || seen[val]) return false;
+        seen[val] = true;
+    }
+    return true;
+}
+
+bool validate(const std::array<std::array<int, 9>, 9>& board) {
+    int temp[9];
+    for (int i = 0; i < 9; ++i) {
+        for (int j = 0; j < 9; ++j) temp[j] = board[i][j];
+        if (!is_valid_group(temp)) return false;
+    }
+    for (int j = 0; j < 9; ++j) {
+        for (int i = 0; i < 9; ++i) temp[i] = board[i][j];
+        if (!is_valid_group(temp)) return false;
+    }
+    for (int block_row = 0; block_row < 3; ++block_row) {
+        for (int block_col = 0; block_col < 3; ++block_col) {
+            int idx = 0;
+            for (int i = 0; i < 3; ++i) {
+                for (int j = 0; j < 3; ++j) {
+                    temp[idx++] = board[block_row * 3 + i][block_col * 3 + j];
+                }
+            }
+            if (!is_valid_group(temp)) return false;
+        }
+    }
+    return true;
+}
