@@ -34,3 +34,32 @@ Can you find two other algorithmically different approaches to solve this puzzle
 
 AlgorithmsMathematicsPuzzles
 */
+// Solution
+#include <string>
+#include <vector>
+#include <algorithm>
+
+std::string to_char(int digit) {
+    if (digit < 10) return std::string(1, '0' + digit);
+    return std::string(1, 'A' + digit - 10);
+}
+
+std::string calculateSpecial(int n, int base) {
+    std::vector<int> digits;
+
+    int digit = n;
+    int carry = 0;
+
+    do {
+        digits.push_back(digit);
+        int value = digit * n + carry;
+        digit = value % base;
+        carry = value / base;
+
+    } while (digit != n || carry != 0);
+    std::reverse(digits.begin(), digits.end());
+
+    std::string result;
+    for (int d : digits) result += to_char(d);
+    return result;
+}
