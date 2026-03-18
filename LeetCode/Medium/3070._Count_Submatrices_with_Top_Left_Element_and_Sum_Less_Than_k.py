@@ -25,3 +25,37 @@
 # 1 <= n, m <= 1000
 # 0 <= grid[i][j] <= 1000
 # 1 <= k <= 109
+# Solution
+# Python O(NM) O(M) Matrix PrefixSum
+class Solution:
+    def countSubmatrices(self, grid: List[List[int]], k: int) -> int:
+        n: int = len(grid)
+        m: int = len(grid[0])
+        prefix: list[int] = [0] * m
+        output: int = 0
+        for i in range(n):
+            matrix: int = 0
+            for j in range(m):
+                prefix[j] += grid[i][j]
+                matrix += prefix[j]
+                if matrix <= k: output += 1
+        return output
+
+# C++ O(NM) O(M) PrefixSum Matrix
+class Solution {
+public:
+    int countSubmatrices(vector<vector<int>>& grid, int k) {
+        size_t n = grid.size(), m = grid[0].size();
+        std::vector<uint32_t> prefix(m, 0);
+        uint32_t output = 0;
+        for (size_t i = 0; i < n; ++i) {
+            uint32_t matrix = 0;
+            for (size_t j = 0; j < m; ++j) {
+                prefix[j] += grid[i][j];
+                matrix += prefix[j];
+                if (matrix <= k) ++output;
+            }
+        }
+        return output;
+    }
+};
