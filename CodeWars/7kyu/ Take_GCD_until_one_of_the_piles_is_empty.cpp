@@ -61,3 +61,8 @@ x≤10
 all of the numbers in the array are postive integers
 Fundamentals
 */
+// Solution
+#include <algorithm>
+long long calc(const std::vector<int> &x) {
+  return *std::min_element(x.begin(), x.end()) * 1LL * x.size();
+}
