@@ -61,3 +61,43 @@ class Solution:
                 count_y = prefix_y[i][j] - prefix_y[0][j] - prefix_y[i][0] + prefix_y[0][0]
                 if count_x == count_y and count_x > 0: valid_submatrices += 1
         return valid_submatrices
+
+
+# Python O(NM) O(M) PrefixSum Matrix
+class Solution:
+    def numberOfSubmatrices(self, grid: List[List[str]]) -> int:
+        n: int = len(grid)
+        m: int = len(grid[0])
+        output: int = 0
+        prefix: list[list[int]] = [[0, 0] for _ in range(m)]
+        for i in range(n):
+            x: int = 0
+            y: int = 0
+            for j in range(m):
+                if grid[i][j] == 'X': prefix[j][0] += 1
+                elif grid[i][j] == 'Y': prefix[j][1] += 1
+                x += prefix[j][0]
+                y += prefix[j][1]
+                if x and x == y: output += 1
+        return output
+
+# C++ O(NM) O(M) Matrix PrefixSum
+class Solution {
+public:
+    int numberOfSubmatrices(vector<vector<char>>& grid) {
+        size_t n = grid.size(), m = grid[0].size();
+        uint32_t output = 0;
+        std::vector<std::pair<uint32_t, uint32_t>> prefix(m, std::pair<uint32_t, uint32_t>());
+        for (size_t i = 0; i < n; ++i) {
+            uint32_t x = 0, y = 0;
+            for (size_t j = 0; j < m; ++j) {
+                if (grid[i][j] == 'X') ++prefix[j].first;
+                else if (grid[i][j] == 'Y') ++prefix[j].second;
+                x += prefix[j].first;
+                y += prefix[j].second;
+                if (x && x == y) ++output;
+            }
+        }
+        return output;
+    }
+};
