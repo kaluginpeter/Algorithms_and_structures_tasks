@@ -55,3 +55,48 @@
 # -105 <= grid[i][j] <= 105
 # 1 <= k <= min(m, n)
 #
+# Solution
+# Python O((N - K)(M - K) + NMK) O((N - K)(M - K)) Matrix BruteForce
+class Solution:
+    def minAbsDiff(self, grid: List[List[int]], k: int) -> List[List[int]]:
+        n: int = len(grid)
+        m: int = len(grid[0])
+        output: list[list[int]] = [[0] * (m - k + 1) for _ in range(n - k + 1)]
+        for i in range(n - k + 1):
+            for j in range(m - k + 1):
+                seen: set[int] = set()
+                for ix in range(i, i + k):
+                    for jx in range(j, j + k): seen.add(grid[ix][jx])
+                if len(seen) == 1: continue
+                prev: int = float('inf')
+                diff: int = float('inf')
+                for x in sorted(seen):
+                    if prev != float('inf'): diff = min(diff, abs(prev - x))
+                    prev = x
+                output[i][j] = diff
+        return output
+
+# C++ O((N - K)(M - K) + NMK) O((N - K)(M - K)) BruteForce Matrix
+class Solution {
+public:
+    vector<vector<int>> minAbsDiff(vector<vector<int>>& grid, int k) {
+        size_t n = grid.size(), m = grid[0].size();
+        std::vector<std::vector<int>> output(n - k + 1, std::vector<int>(m - k + 1, 0));
+        for (size_t i = 0; i < n - k + 1; ++i) {
+            for (size_t j = 0; j < m - k + 1; ++j) {
+                std::set<int> seen;
+                for (size_t ix = i; ix < i + k; ++ix) {
+                    for (size_t jx = j; jx < j + k; ++jx) seen.insert(grid[ix][jx]);
+                }
+                if (seen.size() == 1) continue;
+                int diff = INT32_MAX, prev = 1e5 + 1;
+                for (const int& x : seen) {
+                    if (prev < 1e5 + 1) diff = std::min(diff, std::abs(x - prev));
+                    prev = x;
+                }
+                output[i][j] = diff;
+            }
+        }
+        return output;
+    }
+};
