@@ -28,3 +28,20 @@ alternative text
 
 Fundamentals
 */
+// Solution
+class Epidem {
+public:
+    static int epidemic(int tm, int n, int s0, int i0, double b, double a) {
+        double dt = (double)tm / n, S = s0, I = i0, R = 0.0, maxI = I;
+        for (int k = 0; k < n; k++) {
+            double newS = S - dt * b * S * I;
+            double newI = I + dt * (b * S * I - a * I);
+            double newR = R + dt * a * I;
+            S = newS;
+            I = newI;
+            R = newR;
+            if (I > maxI) maxI = I;
+        }
+        return (int)maxI;
+    }
+};
