@@ -7,3 +7,18 @@
 # If string contains 4 numbers but not consecutive it returns "not consecutive".
 #
 # StringsArraysMathematicsRegular ExpressionsFundamentals
+# Solution
+def check_root(strng):
+    parts = strng.split(',')
+    if len(parts) != 4: return "incorrect input"
+    nums = []
+    for p in parts:
+        try: nums.append(int(p))
+        except: return "incorrect input"
+    nums.sort()
+    for i in range(3):
+        if nums[i] + 1 != nums[i + 1]: return "not consecutive"
+    n = nums[0]
+    root = n*n + 3*n + 1
+    square = root * root
+    return f"{square}, {abs(root)}"
