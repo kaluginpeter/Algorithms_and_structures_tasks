@@ -17,3 +17,12 @@
 # Expect valid input only.
 # 0 <= len(lst) <= 10^5
 # AlgorithmsArrays
+# Solution
+from bisect import bisect_right
+def party_people(lst):
+    lst.sort()
+    n = len(lst)
+    for k in range(n, -1, -1):
+        count = bisect_right(lst, k)
+        if count >= k:
+            return k
