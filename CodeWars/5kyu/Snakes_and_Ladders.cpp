@@ -61,3 +61,42 @@ Rank
 Car Park Escape
 Design PatternsGamesFundamentals
 */
+// Solution
+#include <bits/stdc++.h>
+using namespace std;
+
+class SnakesLadders {
+private:
+    vector<int> pos;
+    int current;
+    bool gameOver;
+    unordered_map<int, int> jumps;
+
+public:
+    SnakesLadders() {
+        pos = {0, 0};
+        current = 0;
+        gameOver = false;
+
+        jumps = {
+            {2,38}, {7,14}, {8,31}, {15,26}, {21,42}, {28,84}, {36,44}, {51,67}, {71,91}, {78,98}, {87,94},
+            {16,6}, {46,25}, {49,11}, {62,19}, {64,60}, {74,53}, {89,68}, {92,88}, {95,75}, {99,80}
+        };
+    }
+
+    string play(int die1, int die2) {
+        if (gameOver) return "Game over!";
+        int move = die1 + die2;
+        int &p = pos[current];
+        p += move;
+        if (p > 100) p = 100 - (p - 100);
+        if (jumps.count(p)) p = jumps[p];
+        if (p == 100) {
+            gameOver = true;
+            return "Player " + to_string(current + 1) + " Wins!";
+        }
+        string result = "Player " + to_string(current + 1) + " is on square " + to_string(p);
+        if (die1 != die2) current ^= 1;
+        return result;
+    }
+};
