@@ -28,3 +28,31 @@
 # If this is the case, ensure that sentences still start with capital letters. '!' or '?' will not be used.
 #
 # Regular ExpressionsParsingStringsAlgorithms
+# Solution
+import re
+
+
+def acronym_buster(message):
+    mapping = {
+        "KPI": "key performance indicators",
+        "EOD": "the end of the day",
+        "TBD": "to be decided",
+        "WAH": "work at home",
+        "IAM": "in a meeting",
+        "OOO": "out of office",
+        "NRN": "no reply necessary",
+        "CTA": "call to action",
+        "SWOT": "strengths, weaknesses, opportunities and threats"
+    }
+
+    acronyms = re.findall(r'\b[A-Z]{3,}\b', message)
+
+    for ac in acronyms:
+        if ac not in mapping: return f"{ac} is an acronym. I do not like acronyms. Please remove them from your email."
+    result = re.sub(r'\b[A-Z]{3,}\b', lambda m: mapping[m.group()], message)
+    parts = result.split('.')
+    parts = [p.strip() for p in parts if p.strip()]
+    for i in range(len(parts)): parts[i] = parts[i][0].upper() + parts[i][1:]
+    result = '. '.join(parts)
+    if message.endswith('.'): result += '.'
+    return result
