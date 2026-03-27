@@ -120,3 +120,26 @@ In the second test case, Simons can obtain permutation [2,4,1,3]
  is ugly.
 In the third test case, note that Simons does not perform the operation.
 */
+// Solution
+// C++ O(N) O(1) Math Greedy
+#include <iostream>
+#include <vector>
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::vector<int> nums(n, 0);
+    for (size_t i = 0; i < n; ++i) {
+        std::cin >> nums[i];
+        if (nums[i] == n) std::swap(nums[0], nums[i]);
+    }
+    for (int& num : nums) std::cout << num << " ";
+    std::cout << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
