@@ -52,3 +52,26 @@
 # 1 <= mat[i].length <= 25
 # 1 <= mat[i][j] <= 25
 # 1 <= k <= 50
+# Solution
+# Python O(NM) O(1) Matrix Greedy
+class Solution:
+    def areSimilar(self, mat: List[List[int]], k: int) -> bool:
+        n: int = len(mat)
+        m: int = len(mat[0])
+        k %= m
+        return all(mat[i][j] == mat[i][(j + k) % m] for j in range(m) for i in range(n))
+
+# C++ O(NM) O(1) Greedy Matrix
+class Solution {
+public:
+    bool areSimilar(vector<vector<int>>& mat, int k) {
+        size_t n = mat.size(), m = mat[0].size();
+        k %= m;
+        for (size_t i = 0; i < n; ++i) {
+            for (size_t j = 0; j < m; ++j) {
+                if (mat[i][j] != mat[i][(j + k) % m]) return 0;
+            }
+        }
+        return 1;
+    }
+};
