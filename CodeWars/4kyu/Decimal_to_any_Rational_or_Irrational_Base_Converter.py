@@ -15,3 +15,36 @@
 # Finally, you may assume that decimals if provided will always be >= 0 and that no test base will be smaller than 2 (because, you know, converting to base 1 is pretty lame) or greater than 36; as usual, for digits greater than 9 you can use uppercase alphabet letter, so your base of numeration is going to be: '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.
 #
 # MathematicsFundamentalsAlgorithms
+# Solution
+from math import pi
+
+DIGITS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+def converter(n, decimals=0, base=pi):
+    sign = '-' if n < 0 else ''
+    n = abs(n)
+    if base == 10:
+        if decimals == 0: return sign + str(int(n))
+        return sign + f"{n:.{decimals}f}"
+    if n == 0: return "0" + (("." + "0"*decimals) if decimals else "")
+    powers = [1.0]
+    while powers[-1] * base <= n + 1e-12: powers.append(powers[-1] * base)
+    powers.reverse()
+    digits = []
+    x = n
+    for p in powers:
+        digit = int((x + 1e-12) // p)
+        digits.append(digit)
+        x -= digit * p
+    int_str = ''.join(DIGITS[d] for d in digits).lstrip('0')
+    if int_str == "": int_str = "0"
+    if decimals > 0:
+        frac_digits = []
+        f = x
+        for _ in range(decimals):
+            f *= base
+            digit = int(f + 1e-12)
+            frac_digits.append(DIGITS[digit])
+            f -= digit
+        return sign + int_str + '.' + ''.join(frac_digits)
+    return sign + int_str
