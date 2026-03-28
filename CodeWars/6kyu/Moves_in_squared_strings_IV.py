@@ -36,3 +36,68 @@
 # It could be easier to take these katas from number (I) to number (IV)
 # Bash Note: The ouput strings should be separated by \r instead of \n. See "Sample Tests".
 # AlgorithmsStrings
+# Solution
+#include <string>
+#include <vector>
+#include <sstream>
+using namespace std;
+
+class Opstrings4 {
+public:
+    static vector<string> split(const string& s) {
+        vector<string> res;
+        stringstream ss(s);
+        string line;
+        while (getline(ss, line)) res.push_back(line);
+        return res;
+    }
+    static string join(const vector<string>& v) {
+        string res;
+        for (int i = 0; i < v.size(); i++) {
+            res += v[i];
+            if (i != v.size() - 1) res += '\n';
+        }
+        return res;
+    }
+    static string diag2Sym(const string& s) {
+        vector<string> a = split(s);
+        int n = a.size();
+        vector<string> res(n, string(n, ' '));
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                res[i][j] = a[n - 1 - j][n - 1 - i];
+            }
+        }
+        return join(res);
+    }
+    static string rot90Counter(const string& s) {
+        vector<string> a = split(s);
+        int n = a.size();
+        vector<string> res(n, string(n, ' '));
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                res[i][j] = a[j][n - 1 - i];
+            }
+        }
+        return join(res);
+    }
+    static string selfieDiag2Counterclock(const string& s) {
+        vector<string> orig = split(s);
+        vector<string> d2 = split(diag2Sym(s));
+        vector<string> r90 = split(rot90Counter(s));
+
+        int n = orig.size();
+        vector<string> res(n);
+
+        for (int i = 0; i < n; i++) {
+            res[i] = orig[i] + "|" + d2[i] + "|" + r90[i];
+        }
+        return join(res);
+    }
+    template<typename Func>
+    static string oper(Func fct, const string& s) {
+        return fct(s);
+    }
+};
