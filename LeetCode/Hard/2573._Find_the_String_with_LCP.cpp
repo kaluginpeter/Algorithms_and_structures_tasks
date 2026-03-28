@@ -30,3 +30,35 @@ Constraints:
 1 <= n == lcp.length == lcp[i].length <= 1000
 0 <= lcp[i][j] <= n
 */
+// Solution
+// C++ O(NM) O(NM) Matrix DynamicProgramming
+class Solution {
+public:
+    string findTheString(vector<vector<int>>& lcp) {
+        int n = lcp.size();
+        std::string word(n, '1');
+        char current = 'a';
+        for (int i = 0; i < n; ++i) {
+            if (word[i] == '1') {
+                if (current > 'z') return "";
+                word[i] = current;
+                for (int j = i + 1; j < n; ++j) {
+                    if (lcp[i][j] > 0) word[j] = word[i];
+                }
+                ++current;
+            }
+        }
+        for (int i = n - 1; i >= 0; --i) {
+            for (int j = n - 1; j >= 0; --j) {
+                if (word[i] != word[j]) {
+                    if (lcp[i][j]) return "";
+                } else {
+                    if (i == n - 1 || j == n - 1) {
+                        if (lcp[i][j] != 1) return "";
+                    } else if (lcp[i][j] != lcp[i + 1][j + 1] + 1) return "";
+                }
+            }
+        }
+        return word;
+    }
+};
