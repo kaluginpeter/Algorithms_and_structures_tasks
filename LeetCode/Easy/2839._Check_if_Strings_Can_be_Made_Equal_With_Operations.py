@@ -47,3 +47,22 @@ class Solution:
             else:
                 cop = cop[0] + cop[3] + cop[2] + cop[1]
         return s1[0] + s1[3] + s1[2] + s1[1] == s2
+
+
+# Python O(1) O(1) Greedy
+class Solution:
+    def canBeEqual(self, s1: str, s2: str) -> bool:
+        return (
+            ((s1[0] == s2[0] and s1[2] == s2[2]) or (s1[0] == s2[2] and s1[2] == s2[0]))
+            and ((s1[1] == s2[1] and s1[3] == s2[3]) or (s1[1] == s2[3] and s1[3] == s2[1]))
+        )
+
+# C++ O(1) O(1) Greedy
+class Solution {
+public:
+    bool canBeEqual(string s1, string s2) {
+        return (
+            (s1[0] == s2[0] && s1[2] == s2[2]) || (s1[0] == s2[2] && s1[2] == s2[0]))
+            && ((s1[1] == s2[1] && s1[3] == s2[3]) || (s1[1] == s2[3] && s1[3] == s2[1]));
+    }
+};
