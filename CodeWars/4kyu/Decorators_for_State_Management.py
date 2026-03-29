@@ -61,3 +61,73 @@
 # Static methods etc. are out of scope for this problem.
 #
 # DecoratorMetaprogramming
+# Solution
+import time
+
+def instrument(fn):
+    class Instrumented:
+        def __init__(self, func):
+            self.func = func
+            self.global_stats = Stats()
+
+        def __call__(self, *args, **kwargs):
+            return self._call(self.global_stats, None, *args, **kwargs)
+
+        def __get__(self, instance, owner):
+            if instance is None: return self
+            if not hasattr(instance, "__instrument_stats__"):
+                instance.__instrument_stats__ = {}
+            if self.func not in instance.__instrument_stats__:
+                instance.__instrument_stats__[self.func] = Stats()
+            stats = instance.__instrument_stats__[self.func]
+            def bound(*args, **kwargs):
+                return self._call(stats, instance, *args, **kwargs)
+            bound.last_invocation_time = stats.last_invocation_time
+            bound.invocation_count = stats.invocation_count
+            bound.avg_delay = stats.avg_delay
+            bound.reset_stats = stats.reset_stats
+            return bound
+
+        def _call(self, stats, instance, *args, **kwargs):
+            now = time.time()
+            stats.record(now)
+            if instance is None: return self.func(*args, **kwargs)
+            else: return self.func(instance, *args, **kwargs)
+        def last_invocation_time(self):
+            return self.global_stats.last_invocation_time()
+        def invocation_count(self):
+            return self.global_stats.invocation_count()
+        def avg_delay(self):
+            return self.global_stats.avg_delay()
+        def reset_stats(self):
+            self.global_stats.reset_stats()
+
+    class Stats:
+        def __init__(self):
+            self.count = 0
+            self.last_time = None
+            self.total_delay = 0
+
+        def record(self, now):
+            if self.last_time is not None:
+                self.total_delay += (now - self.last_time)
+            self.last_time = now
+            self.count += 1
+
+        def last_invocation_time(self):
+            return self.last_time
+
+        def invocation_count(self):
+            return self.count
+
+        def avg_delay(self):
+            if self.count <= 1:
+                return None
+            return self.total_delay / (self.count - 1)
+
+        def reset_stats(self):
+            self.count = 0
+            self.last_time = None
+            self.total_delay = 0
+
+    return Instrumented(fn)
