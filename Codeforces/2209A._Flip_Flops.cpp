@@ -106,3 +106,32 @@ Kill monster 5
 OtterZ runs away with combat power 53
 .
 */
+// Solution
+// C++ O(NlogN) O(1) Sorting Greedy
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+void solution() {
+    size_t n;
+    long long c, k;
+    std::cin >> n >> c >> k;
+    std::vector<int> monsters(n, 0);
+    for (size_t i = 0; i < n; ++i) std::cin >> monsters[i];
+    std::sort(monsters.begin(), monsters.end());
+    for (int& monster : monsters) {
+        if (monster > c) break;
+        long long diff = std::min(k, c - monster);
+        c += monster + diff;
+        k -= diff;
+    }
+    std::cout << c << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
