@@ -403,3 +403,17 @@
 #
 # Thanks to @rge123 for a better description
 # Algorithms
+# Solution
+import math
+
+def ex_euler(n):
+    h = 1.0 / n
+    y = 1.0
+    total_error = 0.0
+    for k in range(n + 1):
+        x = k * h
+        z = 1 + 0.5 * math.exp(-4 * x) - 0.5 * math.exp(-2 * x)
+        total_error += abs(y - z) / z
+        if k < n: y = y + h * (2 - math.exp(-4 * x) - 2 * y)
+    mean_error = total_error / (n + 1)
+    return math.floor(mean_error * 1_000_000) / 1_000_000
