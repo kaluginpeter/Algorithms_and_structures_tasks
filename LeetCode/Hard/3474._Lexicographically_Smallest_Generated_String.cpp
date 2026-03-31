@@ -52,3 +52,42 @@ Constraints:
 str1 consists only of 'T' or 'F'.
 str2 consists only of lowercase English characters.
 */
+// Solution
+// C++ O(NM^2) O(N + M) String Greedy
+class Solution {
+public:
+    string generateString(string str1, string str2) {
+        size_t n = str1.size(), m = str2.size();
+        std::string output(n + m - 1, '*');
+        for (size_t i = 0; i < n; ++i) {
+            if (str1[i] == 'T') {
+                for (size_t j = 0; j < m; ++j) output[i + j] = str2[j];
+            }
+        }
+        for (size_t i = 0; i < n; ++i) {
+            if (str1[i] == 'T') {
+                if (output.substr(i, m) != str2) return "";
+                continue;
+            }
+            if (output.substr(i, m) == str2) return "";
+            for (size_t j = 0; j < m; ++j) {
+                if (output[i + j] != '*') continue;
+                bool was = true;
+                for (size_t k = 0; k < 26; ++k) {
+                    was = true;
+                    output[i + j] = k + 'a';
+                    size_t bound = (m > i ? 0 : i - m);
+                    for (size_t z = bound; z < std::min(n, i + m); ++z) {
+                        if (str1[z] == 'F' && (output.substr(z, m) == str2)) {
+                            was = false;
+                            break;
+                        }
+                    }
+                    if (was) break;
+                }
+                if (!was) return "";
+            }
+        }
+        return output;
+    }
+};
