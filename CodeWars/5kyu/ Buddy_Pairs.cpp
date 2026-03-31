@@ -28,3 +28,44 @@ for C: The returned string will be free'd.
 See more examples in "Sample Tests:" of your language.
 FundamentalsMathematics
 */
+// Solution
+#include <string>
+#include <cmath>
+
+using namespace std;
+
+namespace Bud
+{
+    long long sum_divisors(long long n) {
+        if (n == 1) return 0;
+
+        long long sum = 1;
+
+        for (long long i = 2; i * i <= n; ++i) {
+            if (n % i == 0) {
+                sum += i;
+                if (i != n / i)
+                    sum += n / i;
+            }
+        }
+
+        return sum;
+    }
+
+    string buddy(long long start, long long limit)
+    {
+        for (long long n = start; n <= limit; ++n) {
+            long long s_n = sum_divisors(n);
+
+            long long m = s_n - 1;
+
+            if (m > n) {
+                long long s_m = sum_divisors(m);
+                if (s_m == n + 1) {
+                    return "(" + to_string(n) + " " + to_string(m) + ")";
+                }
+            }
+        }
+        return "Nothing";
+    }
+}
