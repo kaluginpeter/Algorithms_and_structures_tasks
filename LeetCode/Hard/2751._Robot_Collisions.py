@@ -90,3 +90,42 @@ class Solution:
 
         stack.sort(key=lambda x: x[0])
         return [robot[2] for robot in stack]
+
+
+# C++ O(NlogN + N) O(N) Sorting Stack
+class Solution {
+public:
+    vector<int> survivedRobotsHealths(vector<int>& positions, vector<int>& healths, string directions) {
+        size_t n = positions.size();
+        std::vector<std::vector<int>> line;
+        for (int i = 0; i < n; ++i) line.push_back({positions[i], healths[i], i, directions[i] == 'R' ? 1 : 0});
+        std::sort(line.begin(), line.end());
+        std::vector<std::vector<int>> toRight, alive;
+        std::vector<int> output;
+        for (size_t i = 0; i < n; ++i) {
+            if (line[i][3]) toRight.push_back(line[i]);
+            else {
+                while (!toRight.empty() && line[i][1]) {
+                    if (toRight.back()[1] == line[i][1]) {
+                        line[i][1] = 0;
+                        toRight.pop_back();
+                        continue;
+                    } else if (toRight.back()[1] < line[i][1]) {
+                        --line[i][1];
+                        toRight.pop_back();
+                    } else {
+                        --toRight.back()[1];
+                        line[i][1] = 0;
+                    }
+                }
+                if (line[i][1]) alive.push_back(line[i]);
+            }
+        }
+        for (std::vector<int>& r : toRight) alive.push_back(r);
+        std::sort(alive.begin(), alive.end(), [](const std::vector<int>& x, const std::vector<int>& y) {
+            return x[2] < y[2];
+        });
+        for (std::vector<int>& robot : alive) output.push_back(robot[1]);
+        return output;
+    }
+};
