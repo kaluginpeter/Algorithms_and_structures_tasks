@@ -39,3 +39,41 @@ kprimes_step(2, 10, 0, 50) => [[4, 14], [15, 25], [25, 35], [39, 49]]
 kprimes_step(5, 20, 0, 50) => []
 MathematicsNumber Theory
 */
+// Solution
+#include <vector>
+#include <utility>
+using namespace std;
+
+namespace KStep {
+
+    int countPrimeFactors(long long n) {
+        int count = 0;
+        while (n % 2 == 0) {
+            ++count;
+            n /= 2;
+        }
+        for (long long i = 3; i * i <= n; i += 2) {
+            while (n % i == 0) {
+                ++count;
+                n /= i;
+            }
+        }
+        if (n > 1) ++count;
+        return count;
+    }
+
+    vector<pair<long, long>> kprimesStep(int k, int step, long long start, long long nd) {
+        vector<long> kprimes;
+        for (long long i = start; i <= nd; ++i) {
+            if (countPrimeFactors(i) == k) kprimes.push_back(i);
+        }
+        vector<pair<long, long>> result;
+        for (size_t i = 0; i < kprimes.size(); ++i) {
+            for (size_t j = i + 1; j < kprimes.size(); ++j) {
+                if (kprimes[j] - kprimes[i] == step) result.emplace_back(kprimes[i], kprimes[j]);
+                if (kprimes[j] - kprimes[i] > step) break;
+            }
+        }
+        return result;
+    }
+}
