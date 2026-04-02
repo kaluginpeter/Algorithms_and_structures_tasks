@@ -43,3 +43,35 @@
 #
 #   Total: 17
 # StringsParsing
+# Solution
+from collections import defaultdict
+
+
+def calculate(price_dict, transaction):
+    stacks = defaultdict(list)
+    i = 0
+    n = len(transaction)
+    while i < n:
+        if transaction[i].isdigit() or transaction[i] == '-':
+            sign = 1
+            if transaction[i] == '-':
+                sign = -1
+                i += 1
+            num = 0
+            while i < n and transaction[i].isdigit():
+                num = num * 10 + int(transaction[i])
+                i += 1
+            num *= sign
+            item = transaction[i]
+            stacks[item].append(num)
+            i += 1
+        else:
+            item = transaction[i]
+            if stacks[item]: stacks[item].pop()
+            i += 1
+    total = 0
+    for item, quantities in stacks.items():
+        price = price_dict.get(item, 0)
+        total += sum(q * price for q in quantities)
+
+    return total
