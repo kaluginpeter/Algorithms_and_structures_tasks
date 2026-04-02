@@ -51,3 +51,22 @@ n == coins[i].length
 1 <= m, n <= 500
 -1000 <= coins[i][j] <= 1000
 */
+// Solution
+// C++ O(NM) O(N) DynamicProgramming Matrix
+class Solution {
+public:
+    int maximumAmount(vector<vector<int>>& coins) {
+        size_t n = coins[0].size();
+        std::vector<std::vector<int>> dp(n + 1, vector<int>(3, INT_MIN / 2));
+        for (size_t i = 0; i < 3; ++i) dp[1][i] = 0;
+        for (auto& row : coins) {
+            for (size_t j = 1; j <= n; ++j) {
+                int x = row[j - 1];
+                dp[j][2] = std::max({dp[j - 1][2] + x, dp[j][2] + x, dp[j - 1][1], dp[j][1]});
+                dp[j][1] = std::max({dp[j - 1][1] + x, dp[j][1] + x, dp[j - 1][0], dp[j][0]});
+                dp[j][0] = std::max(dp[j - 1][0], dp[j][0]) + x;
+            }
+        }
+        return dp[n][2];
+    }
+};
