@@ -15,3 +15,23 @@
 # Given a list of daily expenditures, return the total number of broke events.
 #
 # ArraysAlgorithmsLogic
+# Solution
+def broke_count(expenditures):
+    n = len(expenditures)
+    i = 0
+    count = 0
+    while i < n:
+        if i + 7 <= n and all(x <= 10 for x in expenditures[i:i+7]):
+            count += 1
+            i += 7
+            continue
+        if i + 3 <= n and all(x <= 7 for x in expenditures[i:i+3]):
+            count += 1
+            i += 3
+            continue
+        if expenditures[i] <= 3:
+            count += 1
+            i += 1
+            continue
+        i += 1
+    return count
