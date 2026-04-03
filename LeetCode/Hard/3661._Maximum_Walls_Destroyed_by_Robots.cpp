@@ -56,3 +56,56 @@ Constraints:
 All values in robots are unique
 All values in walls are unique
 */
+// Solution
+// C++ O(NlogN + MlogM) O(N + logM) TwoPointers DynamicProgramming
+class Solution {
+public:
+    int maxWalls(vector<int>& robots, vector<int>& distance, vector<int>& walls) {
+        size_t n = robots.size(), m = walls.size();
+        std::vector<std::pair<int, int>> robotDist;
+        for (int i = 0; i < n; ++i) robotDist.push_back({robots[i], distance[i]});
+        std::sort(robotDist.begin(), robotDist.end());
+        std::sort(walls.begin(), walls.end());
+        int rightPtr = 0, leftPtr = 0, curPtr = 0, robotPtr = 0;
+        int prevLeft = 0, prevRight = 0, prevNum = 0;
+        int subLeft = 0, subRight = 0;
+
+        for (int i = 0; i < n; ++i) {
+            int robotPos = robotDist[i].first;
+            int robotDistVal = robotDist[i].second;
+            while (rightPtr < m && walls[rightPtr] <= robotPos) ++rightPtr;
+            int pos1 = rightPtr;
+            while (curPtr < m && walls[curPtr] < robotPos) ++curPtr;
+            int pos2 = curPtr;
+            int leftBound = (i >= 1) ? std::max(robotPos - robotDistVal, robotDist[i - 1].first + 1) : robotPos - robotDistVal;
+            while (leftPtr < m && walls[leftPtr] < leftBound) ++leftPtr;
+            int leftPos = leftPtr;
+            int currentLeft = pos1 - leftPos;
+            int rightBound = (i < n - 1) ? std::min(robotPos + robotDistVal, robotDist[i + 1].first - 1) : robotPos + robotDistVal;
+            while (rightPtr < m && walls[rightPtr] <= rightBound) ++rightPtr;
+            int rightPos = rightPtr;
+            int currentRight = rightPos - pos2;
+            int currentNum = 0;
+            if (i > 0) {
+                while (robotPtr < m && walls[robotPtr] < robotDist[i - 1].first) ++robotPtr;
+                int pos3 = robotPtr;
+                currentNum = pos1 - pos3;
+            }
+            if (i == 0) {
+                subLeft = currentLeft;
+                subRight = currentRight;
+            } else {
+                int newsubLeft =
+                    std::max(subLeft + currentLeft, subRight - prevRight +
+                            std::min(currentLeft + prevRight, currentNum));
+                int newsubRight = std::max(subLeft + currentRight, subRight + currentRight);
+                subLeft = newsubLeft;
+                subRight = newsubRight;
+            }
+            prevLeft = currentLeft;
+            prevRight = currentRight;
+            prevNum = currentNum;
+        }
+        return std::max(subLeft, subRight);
+    }
+};
