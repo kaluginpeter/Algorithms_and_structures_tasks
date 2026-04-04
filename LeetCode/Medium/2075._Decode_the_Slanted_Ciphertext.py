@@ -82,3 +82,35 @@ public:
         return output;
     }
 };
+
+
+# Python O(|K|) O(K) where K is the length of output string String Matrix Math
+class Solution:
+    def decodeCiphertext(self, encodedText: str, rows: int) -> str:
+        n: int = rows
+        bound: int = len(encodedText)
+        m: int = bound // n
+        output: list[str] = []
+        for start in range(m):
+            for shift in range(n):
+                ptr: int = start + shift * m + shift
+                if ptr >= bound: break
+                output.append(encodedText[ptr])
+        while output and output[-1] == ' ': output.pop()
+        return ''.join(output)
+
+# C++ O(|K|) O(K) where the K is the length of output string String Math Matrix
+class Solution {
+public:
+    string decodeCiphertext(string encodedText, int rows) {
+        size_t n = rows, m = encodedText.size() / n;
+        std::string output = "";
+        for (size_t start = 0; start < m; ++start) {
+            for (size_t shift = 0; shift < n && start + m * shift + shift < encodedText.size(); ++shift) {
+                output.push_back(encodedText[start + m * shift + shift]);
+            }
+        }
+        while (!output.empty() && std::isspace(output.back())) output.pop_back();
+        return output;
+    }
+};
