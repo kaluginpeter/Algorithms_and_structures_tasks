@@ -27,3 +27,38 @@ Notes
 All functions should return the resulting number (or a boolean for isBitSet).
 Bits
 */
+// Solution
+int toggle_bit(int n, unsigned pos)
+{
+    return n ^ (1 << pos);
+}
+
+int set_bit(int n, unsigned pos)
+{
+    return n | (1 << pos);
+}
+
+int clear_bit(int n, unsigned pos)
+{
+    return n & ~(1 << pos);
+}
+
+bool is_bit_set(int n, unsigned pos)
+{
+    return (n & (1 << pos)) != 0;
+}
+
+int set_multiple_bits(int n, unsigned mask)
+{
+    return n | mask;
+}
+
+int clear_multiple_bits(int n, unsigned mask)
+{
+    return n & ~mask;
+}
+
+int toggle_multiple_bits(int n, unsigned mask)
+{
+    return n ^ mask;
+}
