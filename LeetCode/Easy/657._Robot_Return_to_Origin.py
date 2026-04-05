@@ -38,3 +38,33 @@ class Solution:
             if i == 'R':
                 l -= 1
         return u == 0 and l == 0
+
+
+# Python O(N) O(1) Math
+class Solution:
+    def judgeCircle(self, moves: str) -> bool:
+        u: int = 0
+        d: int = 0
+        r: int = 0
+        l: int = 0
+        for m in moves:
+            if m == 'U': u += 1
+            elif m == 'D': d += 1
+            elif m == 'R': r += 1
+            else: l += 1
+        return (u == d) and (r == l)
+
+# C++ O(N) O(1) Math
+class Solution {
+public:
+    bool judgeCircle(string moves) {
+        size_t u = 0, d = 0, r = 0, l = 0;
+        for (char& m : moves) {
+            if (m == 'U') ++u;
+            else if (m == 'D') ++d;
+            else if (m == 'R') ++r;
+            else ++l;
+        }
+        return (u == d) && (r == l);
+    }
+};
