@@ -57,3 +57,17 @@
 # Result
 # false
 # ArraysAlgorithmsLogicMatrix
+# Solution
+def ship_of_theseus(ship):
+    if len(ship) <= 1: return True
+    row_len = len(ship[0])
+    for row in ship:
+        if len(row) != row_len: return False
+    for i in range(1, len(ship)):
+        diff = 0
+        for a, b in zip(ship[i - 1], ship[i]):
+            if a != b:
+                diff += 1
+                if diff > 1: return False
+        if diff != 1: return False
+    return True
