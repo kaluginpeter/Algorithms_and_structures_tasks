@@ -19,3 +19,15 @@
 # This kata is a piece of2 kyuBinary Genetic Algorithm
 #
 # AlgorithmsGenetic AlgorithmsArrays
+import random
+
+
+def select(population, fitness):
+    total = sum(fitness)
+    r = random.uniform(0, total)
+
+    current = 0
+    for individual, fit in zip(population, fitness):
+        current += fit
+        if current >= r:
+            return individual
