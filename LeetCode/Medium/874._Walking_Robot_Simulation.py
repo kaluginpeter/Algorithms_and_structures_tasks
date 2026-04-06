@@ -97,3 +97,38 @@ class Solution:
                 max_distance = max(max_distance, cur_x**2 + cur_y**2)
 
         return max_distance
+
+
+# C++ O(NK) O(M) HashSet Simulation
+struct TupleHash {
+    std::size_t operator()(const std::tuple<int, int>& t) const {
+        auto [a, b] = t;
+        return std::hash<int>()(a) ^ (std::hash<int>()(b) << 1);
+    }
+};
+class Solution {
+public:
+    int robotSim(vector<int>& commands, vector<vector<int>>& obstacles) {
+        std::unordered_set<std::tuple<int, int>, TupleHash> seen;
+        for (std::vector<int>& ob : obstacles) {
+            seen.insert(std::make_tuple(ob[0], ob[1]));
+        }
+        int output = 0, x = 0, y = 0, i = 0;
+        std::vector<std::pair<int, int>> moves = {
+            {0, 1}, {1, 0}, {0, -1}, {-1, 0}
+        };
+        for (int& c : commands) {
+            if (c == -2) i = (i + 4 - 1) % 4;
+            else if (c == -1) i = (i + 1) % 4;
+            else {
+                for (size_t j = 0; j < c; ++j) {
+                    if (seen.count({x + moves[i].first, y + moves[i].second})) break;
+                    x += moves[i].first;
+                    y += moves[i].second;
+                }
+                output = std::max(output, x * x + y * y);
+            }
+        }
+        return output;
+    }
+};
