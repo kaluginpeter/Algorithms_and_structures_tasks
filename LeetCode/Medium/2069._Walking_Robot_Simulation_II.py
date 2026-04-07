@@ -45,3 +45,117 @@
 # 2 <= width, height <= 100
 # 1 <= num <= 105
 # At most 104 calls in total will be made to step, getPos, and getDir.
+# Solution
+# Python O(NMK) O(1) Matrix Math Simulation
+class Robot:
+
+    def __init__(self, width: int, height: int):
+        self.direction: list[str] = ['East', 'North', 'West', 'South']
+        self.moves: list[tuple[int, int]] = [
+            (1, 0), (0, 1), (-1, 0), (0, -1)
+        ]
+        self.n: int = height
+        self.m: int = width
+        self.ptr: int = 0
+        self.x: int = 0
+        self.y: int = 0
+        self.bound: int = self.n + self.n + self.m + self.m - 4
+
+    def step(self, num: int) -> None:
+        overlaps: int = num // self.bound
+        if num % self.bound == 0: overlaps -= 1
+        num -= overlaps * self.bound
+        for i in range(num):
+            self.x += self.moves[self.ptr][0]
+            self.y += self.moves[self.ptr][1]
+            while (self.x < 0 or self.y < 0) or (self.x == self.m or self.y == self.n):
+                self.x -= self.moves[self.ptr][0]
+                self.y -= self.moves[self.ptr][1]
+                self.ptr = (self.ptr + 1) % 4
+                self.x += self.moves[self.ptr][0]
+                self.y += self.moves[self.ptr][1]
+
+    def getPos(self) -> List[int]:
+        return [self.x, self.y]
+
+    def getDir(self) -> str:
+        return self.direction[self.ptr]
+
+
+# Your Robot object will be instantiated and called as such:
+# obj = Robot(width, height)
+# obj.step(num)
+# param_2 = obj.getPos()
+# param_3 = obj.getDir()
+
+# C++ O(NMK) O(1) Simulation Matrix
+class Robot {
+private:
+    std:
+
+:vector < std::string > direction = {
+    "East", "North", "West", "South"
+};
+std::vector < std::pair < int, int >> moves = {
+    {1, 0}, {0, 1}, {-1, 0}, {0, -1}
+};
+size_t
+n = 0, m = 0, ptr = 0;
+int32_t
+x = 0, y = 0, bound = 0;
+public:
+Robot(int
+width, int
+height) {
+    n = height;
+m = width;
+bound = n + n + m + m - 4;
+}
+
+void
+step(int
+num) {
+    int
+overlaps = num / bound;
+if (num % bound == 0) - -overlaps;
+num -= overlaps * bound;
+for (size_t i = 0; i < num; ++i)
+{
+    x += moves[ptr].first;
+y += moves[ptr].second;
+while ((x < 0 | | y < 0) | | (x == m | | y == n)) {
+x -= moves[ptr].first;
+y -= moves[ptr].second;
+ptr = (ptr + 1) % 4;
+x += moves[ptr].first;
+y += moves[ptr].second;
+}
+}
+}
+
+vector < int > getPos()
+{
+return {x, y};
+}
+
+string
+getDir()
+{
+return direction[ptr];
+}
+};
+
+/ **
+*Your
+Robot
+object
+will
+be
+instantiated and called as such:
+*Robot * obj = new
+Robot(width, height);
+*obj->step(num);
+*vector < int > param_2 = obj->getPos();
+*string
+param_3 = obj->getDir();
+* /
