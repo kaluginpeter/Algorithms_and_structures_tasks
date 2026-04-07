@@ -20,3 +20,27 @@ COBOL: the function cis called sections.
 Visual Representation
 Here is what the surface looks like in 3D:
 */
+// Solution
+#include <cmath>
+namespace sections
+{
+    int c(long long k)
+    {
+        long long t = std::sqrt(k);
+        if (t * t != k) return 0;
+        long long n = t;
+        int result = 1;
+        for (long long i = 2; i * i <= n; ++i) {
+            if (n % i == 0) {
+                int count = 0;
+                while (n % i == 0) {
+                    n /= i;
+                    count++;
+                }
+                result *= (3 * count + 1);
+            }
+        }
+        if (n > 1) result *= 4;
+        return result;
+    }
+}
