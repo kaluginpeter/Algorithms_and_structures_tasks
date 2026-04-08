@@ -43,3 +43,30 @@
 # 0 <= li <= ri < n
 # 1 <= ki <= n
 # 1 <= vi <= 105
+# Solution
+# Python O(NQ) O(1) Simulation
+mod: int = 1000000007
+class Solution:
+    def xorAfterQueries(self, nums: List[int], queries: List[List[int]]) -> int:
+        for l, r, k, v in queries:
+            for idx in range(l, r + 1, k):
+                nums[idx] = (nums[idx] * v) % mod
+        output: int = 0
+        for num in nums: output ^= num
+        return output
+
+# C++ O(NQ) O(1) Simulation
+constexpr uint32_t mod = 1000000007;
+class Solution {
+public:
+    int xorAfterQueries(vector<int>& nums, vector<vector<int>>& queries) {
+        for (std::vector<int>& q : queries) {
+            for (size_t idx = q[0]; idx <= q[1]; idx += q[2]) {
+                nums[idx] = static_cast<int>((1LL * nums[idx] * q[3]) % mod);
+            }
+        }
+        int output = 0;
+        for (int& num : nums) output ^= num;
+        return output;
+    }
+};
