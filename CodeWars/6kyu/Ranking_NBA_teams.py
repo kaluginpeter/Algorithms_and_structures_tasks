@@ -39,3 +39,36 @@
 # r0="New York Knicks 101.12 Atlanta Hawks 112"
 # nba_cup(r0, "Atlanta Hawks") -> "Error(float number):New York Knicks 101.12 Atlanta Hawks 112"
 # FundamentalsStrings
+# Solution
+import re
+
+def nba_cup(result_sheet, to_find):
+    if not to_find: return ""
+    wins = draws = losses = 0
+    scored = conceded = points = 0
+    found = False
+    games = result_sheet.split(",")
+    pattern = re.compile(r"(.+?) (\d+) (.+?) (\d+)$")
+    for game in games:
+        game = game.strip()
+        if re.search(r"\d+\.\d+", game): return f"Error(float number):{game}"
+        match_ = pattern.match(game)
+        if not match_: continue
+        team1, s1, team2, s2 = match_.groups()
+        s1, s2 = int(s1), int(s2)
+        if to_find not in (team1, team2): continue
+        found = True
+        if to_find == team1: s, c = s1, s2
+        else: s, c = s2, s1
+        scored += s
+        conceded += c
+        if s > c:
+            wins += 1
+            points += 3
+        elif s == c:
+            draws += 1
+            points += 1
+        else: losses += 1
+    if not found: return f"{to_find}:This team didn't play!"
+    return (f"{to_find}:W={wins};D={draws};L={losses};"
+            f"Scored={scored};Conceded={conceded};Points={points}")
