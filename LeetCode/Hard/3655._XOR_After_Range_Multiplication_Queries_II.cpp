@@ -46,3 +46,45 @@ queries[i] = [li, ri, ki, vi]
 1 <= ki <= n
 1 <= vi <= 105
 */
+// Solution
+// C++ O((N + Q)sqrt(N) + QlogM) O(sqrt(N) + Q) Math
+constexpr uint32_t mod = 1000000007;
+class Solution {
+    int pow(long long x, long long y) {
+        long long output = 1;
+        for (; y; y >>= 1) {
+            if (y & 1) output = output * x % mod;
+            x = x * x % mod;
+        }
+        return output;
+    }
+
+public:
+    int xorAfterQueries(vector<int>& nums, vector<vector<int>>& queries) {
+        int n = nums.size(), T = sqrt(n);
+        std::vector<std::vector<std::vector<int>>> groups(T);
+        for (auto& q : queries) {
+            int l = q[0], r = q[1], k = q[2], v = q[3];
+            if (k < T) groups[k].push_back({l, r, v});
+            else {
+                for (int i = l; i <= r; i += k) nums[i] = 1ll * nums[i] * v % mod;
+            }
+        }
+        std::vector<long long> dif(n + T);
+        for (int k = 1; k < T; ++k) {
+            if (groups[k].empty()) continue;
+            std::fill(dif.begin(), dif.end(), 1);
+            for (auto& q : groups[k]) {
+                int l = q[0], r = q[1], v = q[2];
+                dif[l] = dif[l] * v % mod;
+                int R = ((r - l) / k + 1) * k + l;
+                dif[R] = dif[R] * pow(v, mod - 2) % mod;
+            }
+            for (int i = k; i < n; ++i) dif[i] = dif[i] * dif[i - k] % mod;
+            for (int i = 0; i < n; ++i) nums[i] = 1ll * nums[i] * dif[i] % mod;
+        }
+        int output = 0;
+        for (int i = 0; i < n; ++i) output = output ^ nums[i];
+        return output;
+    }
+};
