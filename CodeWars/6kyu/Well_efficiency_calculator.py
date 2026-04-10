@@ -27,3 +27,12 @@
 # If you need to calculate the efficiency at the edge of the field, you should just take in account only cells in the field.
 #
 # ArraysFundamentals
+# Solution
+from preloaded import FIELD
+
+def is_efficient(x, y, threshold):
+    total = 0.0
+    for i in range(x - 1, x + 2):
+        for j in range(y - 1, y + 2):
+            if 0 <= i < 20 and 0 <= j < 20: total += FIELD[i][j]
+    return total >= threshold
