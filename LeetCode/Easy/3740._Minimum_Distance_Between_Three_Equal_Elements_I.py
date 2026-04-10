@@ -49,3 +49,35 @@
 # 1 <= n == nums.length <= 100
 # 1 <= nums[i] <= n
 #
+# Solution
+# Python O(N) O(D) Hashing
+class Solution:
+    def minimumDistance(self, nums: List[int]) -> int:
+        seen: list[list[int]] = [[] for _ in range(101)]
+        diff: int = float('inf')
+        for i in range(len(nums)):
+            if len(seen[nums[i]]) > 1:
+                tmpdiff: int = (i - seen[nums[i]][-1]) + (i - seen[nums[i]][-2]) + (seen[nums[i]][-1] - seen[nums[i]][-2])
+                if tmpdiff < diff: diff = tmpdiff
+            seen[nums[i]].append(i)
+        return diff if diff != float('inf') else -1
+
+# C++ O(N) O(D) Hashing
+class Solution {
+public:
+    int minimumDistance(vector<int>& nums) {
+        std::array<std::vector<size_t>, 101> seen{};
+        size_t n = nums.size();
+        int dist = 301;
+        for (size_t i = 0; i < n; ++i) {
+            if (seen[nums[i]].size() > 1) {
+                size_t prev = seen[nums[i]].back();
+                size_t prevPrev = *----(seen[nums[i]].end());
+                int tmpDist = i - prev + (prev - prevPrev) + (i - prevPrev);
+                if (tmpDist < dist) dist = tmpDist;
+            }
+            seen[nums[i]].push_back(i);
+        }
+        return (dist == 301 ? -1 : dist);
+    }
+};
