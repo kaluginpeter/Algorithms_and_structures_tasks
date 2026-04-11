@@ -75,3 +75,19 @@ Shuffle an Integer
 Minimum Percentage of Visitors that Ate All Foods
 FundamentalsAlgorithmsData Structures
 */
+// Solution
+#include <vector>
+#include <cstddef>
+
+unsigned jumbler(const std::vector<std::size_t>& indices) {
+    std::vector<std::size_t> arr = indices;
+    unsigned count = 0;
+    while (arr[0] != 0) {
+        std::size_t idx = arr[0];
+        std::size_t val = arr[idx];
+        arr.erase(arr.begin() + idx);
+        arr.insert(arr.begin(), val);
+        ++count;
+    }
+    return count;
+}
