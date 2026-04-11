@@ -48,3 +48,33 @@
 #
 # 1 <= n == nums.length <= 105
 # 1 <= nums[i] <= n
+# Python O(N) O(D) HashMap
+class Solution:
+    def minimumDistance(self, nums: List[int]) -> int:
+        seen: dict[int, list[int]] = defaultdict(list)
+        diff: int = -1
+        for i in range(len(nums)):
+            if len(seen[nums[i]]) > 1:
+                tmpdiff: int = (i - seen[nums[i]][-1]) + (i - seen[nums[i]][-2]) + (seen[nums[i]][-1] - seen[nums[i]][-2])
+                if diff == -1 or tmpdiff < diff: diff = tmpdiff
+            seen[nums[i]].append(i)
+        return diff
+# C++ O(N) O(D) HashMap
+class Solution {
+public:
+    int minimumDistance(vector<int>& nums) {
+        std::unordered_map<int, std::vector<size_t>> seen;
+        size_t n = nums.size();
+        int dist = -1;
+        for (size_t i = 0; i < n; ++i) {
+            if (seen[nums[i]].size() > 1) {
+                size_t prev = seen[nums[i]].back();
+                size_t prevPrev = *----(seen[nums[i]].end());
+                int tmpDist = i - prev + (prev - prevPrev) + (i - prevPrev);
+                if (dist == -1 || tmpDist < dist) dist = tmpDist;
+            }
+            seen[nums[i]].push_back(i);
+        }
+        return dist;
+    }
+};
