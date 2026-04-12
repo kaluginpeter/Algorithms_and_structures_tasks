@@ -36,3 +36,55 @@
 #
 # 2 <= word.length <= 300
 # word consists of uppercase English letters.
+# Solution
+# Python O(N26*26) O(N26*26) DynamicProgramming
+class Solution:
+    def f(self, p: int, q: int) -> int:
+        x1: int = p // 6
+        y1: int = p % 6
+        x2: int = q // 6
+        y2: int = q % 6
+        return abs(x1 - x2) + abs(y1 - y2)
+
+    def minimumDistance(self, word: str) -> int:
+        n: int = len(word)
+        dp: list[list[int]] = [[float('inf')] * 26 for _ in range(n)]
+        for i in range(26): dp[0][i] = 0
+        for i in range(1, n):
+            cur: int = ord(word[i]) - 65
+            prev: int = ord(word[i - 1]) - 65
+            d: int = self.f(prev, cur)
+            for j in range(26):
+                dp[i][j] = min(dp[i][j], dp[i - 1][j] + d)
+                if prev == j:
+                    for k in range(26):
+                        dp[i][j] = min(dp[i][j], dp[i - 1][k] + self.f(k, cur))
+        return min(dp[n - 1])
+
+# C++ O(N26*26) O(N26*26) DynamicProgramming
+class Solution {
+public:
+    int f(int& p, int& q) {
+        int x1 = p / 6, y1 = p % 6;
+        int x2 = q / 6, y2 = q % 6;
+        return std::abs(x1 - x2) + std::abs(y1 - y2);
+    }
+    int minimumDistance(string word) {
+        size_t n = word.size();
+        std::vector<std::vector<int>> dp(n, std::vector<int>(26, INT_MAX >> 1));
+        std::fill(dp[0].begin(), dp[0].end(), 0);
+        for (int i = 1; i < n; ++i) {
+            int cur = word[i] - 'A', prev = word[i - 1] - 'A';
+            int d = f(prev, cur);
+            for (int j = 0; j < 26; ++j) {
+                dp[i][j] = std::min(dp[i][j], dp[i - 1][j] + d);
+                if (prev == j) {
+                    for (int k = 0; k < 26; ++k) {
+                        dp[i][j] = std::min(dp[i][j], dp[i - 1][k] + f(k, cur));
+                    }
+                }
+            }
+        }
+        return *std::min_element(dp[n - 1].begin(), dp[n - 1].end());
+    }
+};
