@@ -51,3 +51,19 @@
 # Meteor Shower
 # Lost Moons
 # Lists
+# Solution
+from preloaded import planet_moons
+
+def lost_moons(planets, moons):
+    result = []
+    ordered_planets = [p for p in planet_moons if p in planets]
+    for planet in ordered_planets:
+        valid_moons = sorted([m for m in moons if m in planet_moons[planet]])
+        orbit = [planet]
+        right = True
+        for moon in valid_moons:
+            if right: orbit.append(moon)
+            else: orbit.insert(0, moon)
+            right = not right
+        result.append(orbit)
+    return result
