@@ -48,3 +48,28 @@ class Solution:
                 return r - start
             l -= 1
             r += 1
+
+
+# Python O(N) O(1) Greedy
+class Solution:
+    def getMinDistance(self, nums: List[int], target: int, start: int) -> int:
+        n: int = len(nums)
+        diff: int = n
+        for i in range(n):
+            dist: int = abs(i - start)
+            if nums[i] == target and dist < diff: diff = dist
+        return diff
+
+# C++ O(N) O(1) Greedy
+class Solution {
+public:
+    int getMinDistance(vector<int>& nums, int target, int start) {
+        size_t n = nums.size();
+        int dist = n;
+        for (int i = 0; i < n; ++i) {
+            int diff = std::abs(i - start);
+            if (nums[i] == target && diff < dist) dist = diff;
+        }
+        return dist;
+    }
+};
