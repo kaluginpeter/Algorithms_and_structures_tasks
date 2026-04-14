@@ -46,3 +46,28 @@
 # If you like puzzles take a look at Rubik's cube
 #
 # AlgorithmsData StructuresArraysListsMatrix
+# Solution
+def get_3Dneighbourhood(
+    n_type: str,
+    matrix: list[list[list[int]]],
+    coordinates: tuple[int, int, int],
+    distance: int = 1
+) -> list[int]:
+    if not matrix or not matrix[0] or not matrix[0][0]: return []
+    if distance == 0: return []
+    x, y, z = coordinates
+    M, N, K = len(matrix), len(matrix[0]), len(matrix[0][0])
+    if not (0 <= x < M and 0 <= y < N and 0 <= z < K): return []
+    result = []
+    for dx in range(-distance, distance + 1):
+        for dy in range(-distance, distance + 1):
+            for dz in range(-distance, distance + 1):
+                if dx == 0 and dy == 0 and dz == 0: continue
+                if n_type == "moore":
+                    if max(abs(dx), abs(dy), abs(dz)) > distance: continue
+                elif n_type == "von_neumann":
+                    if abs(dx) + abs(dy) + abs(dz) > distance: continue
+                nx, ny, nz = x + dx, y + dy, z + dz
+                if 0 <= nx < M and 0 <= ny < N and 0 <= nz < K:
+                    result.append(matrix[nx][ny][nz])
+    return result
