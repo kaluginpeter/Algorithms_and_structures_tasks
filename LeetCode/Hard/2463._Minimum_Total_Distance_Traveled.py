@@ -99,3 +99,33 @@ public:
         return dp[0][0];
     }
 };
+
+
+# C++ O(NM) O(NM) DynamicProgramming Sorting
+class Solution {
+public:
+    long long minimumTotalDistance(vector<int>& robot, vector<vector<int>>& factory) {
+        std::sort(robot.begin(), robot.end());
+        std::sort(factory.begin(), factory.end());
+        std::vector<int> factoryPositions;
+        for (std::vector<int>& fac : factory) {
+            for (int rep = 0; rep < fac[1]; ++rep) {
+                factoryPositions.push_back(fac[0]);
+            }
+        }
+        int robotCount = robot.size();
+        int factoryCount = factoryPositions.size();
+        std::vector<std::vector<long long>> dp(robotCount + 1, std::vector<long long>(factoryCount + 1));
+        for (int index = 0; index < robotCount; ++index) {
+            dp[index][factoryCount] = 1000000000000;
+        }
+        for (int i = robotCount - 1; i >= 0; --i) {
+            for (int j = factoryCount - 1; j >= 0; --j) {
+                long long choose = std::abs(robot[i] - factoryPositions[j]) + dp[i + 1][j + 1];
+                long long skip = dp[i][j + 1];
+                dp[i][j] = std::min(choose, skip);
+            }
+        }
+        return dp[0][0];
+    }
+};
