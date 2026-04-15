@@ -53,3 +53,27 @@ class Solution:
             if words[(startIndex + right) % len(words)] == target:
                 break
         return min(left, right)
+
+
+# Python O(NK) O(1) Greedy
+class Solution:
+    def closestTarget(self, words: List[str], target: str, startIndex: int) -> int:
+        n: int = len(words)
+        for i in range(n):
+            if words[(startIndex + i) % n] == target or words[(startIndex + n - i) % n] == target:
+                return i
+        return -1
+
+# C++ O(NK) O(1) Greedy
+class Solution {
+public:
+    int closestTarget(vector<string>& words, string target, int startIndex) {
+        size_t n = words.size();
+        for (size_t i = 0; i < n; ++i) {
+            if (words[(startIndex + i) % n] == target || words[(startIndex + n - i) % n] == target) {
+                return i;
+            }
+        }
+        return -1;
+    }
+};
