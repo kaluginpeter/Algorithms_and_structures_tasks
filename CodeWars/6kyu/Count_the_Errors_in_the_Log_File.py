@@ -52,3 +52,14 @@
 # Order will ALWAYS be checked for elements that occur a different amount of times
 # There will be 5 fixed tests and 5 random tests
 # Good Luck!
+# Solution
+from collections import defaultdict
+
+def map_errors():
+    output: dict[str, int] = defaultdict(int)
+    with open("server.log") as f:
+        for line in f:
+            try:
+                output[line.split(": ")[1].lower().strip()] += 1
+            except: continue
+    return dict(sorted(output.items(), reverse=True, key=lambda p: p[1]))
