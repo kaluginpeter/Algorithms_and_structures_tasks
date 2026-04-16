@@ -134,3 +134,69 @@ public:
         return output;
     }
 };
+
+
+# Python O(N + M + MlogN) O(N + M) BinarySearch HashMap
+class Solution:
+    def get_index(self, series: list[int], target: int) -> int:
+        left: int = 0
+        right: int = len(series) - 1
+        while left < right:
+            middle: int = left + ((right - left) >> 1)
+            if series[middle] == target: return middle
+            elif series[middle] < target: left = middle + 1
+            else: right = middle - 1
+        return left
+
+    def solveQueries(self, nums: List[int], queries: List[int]) -> List[int]:
+        n: int = len(nums)
+        m: int = len(queries)
+        seen: dict[int, list[int]] = defaultdict(list)
+        for i in range(n): seen[nums[i]].append(i)
+        output: list[int] = [-1] * m
+        for j in range(m):
+            i: int = queries[j]
+            if i >= n or len(seen[nums[i]]) == 1: continue
+            k: int = self.get_index(seen[nums[i]], i)
+            left_dist: int = (i - seen[nums[i]][k - 1]) if k else (i + (n - seen[nums[i]][-1]))
+            right_dist: int = (seen[nums[i]][k + 1] - i) if k + 1 != len(seen[nums[i]]) else ((n - i) + seen[nums[i]][0])
+            output[j] = min(left_dist, right_dist)
+        return output
+
+# C++ O(N + M + MlogN) O(N + M) HashMap BinarySearch
+class Solution {
+public:
+    size_t getIndex(std::vector<size_t>& series, size_t& target) {
+        size_t left = 0, right = series.size() - 1;
+        while (left < right) {
+            size_t middle = left + ((right - left) >> 1);
+            if (series[middle] == target) return middle;
+            else if (series[middle] < target) left = middle + 1;
+            else right = middle - 1;
+        }
+        return left;
+    }
+    vector<int> solveQueries(vector<int>& nums, vector<int>& queries) {
+        size_t n = nums.size(), m = queries.size();
+        std::unordered_map<int, std::vector<size_t>> seen;
+        for (size_t i = 0; i < n; ++i) seen[nums[i]].push_back(i);
+        std::vector<int> output(m, -1);
+        for (size_t j = 0; j < m; ++j) {
+            size_t i = queries[j];
+            if (j >= n || seen[nums[i]].size() == 1) continue;
+            size_t k = getIndex(seen[nums[i]], i);
+            int leftDist = (
+                k ?
+                i - seen[nums[i]][k - 1]
+                : i + (n - seen[nums[i]].back())
+            );
+            int rightDist = (
+                k + 1 != seen[nums[i]].size() ?
+                seen[nums[i]][k + 1] - i
+                : (n - i) + seen[nums[i]][0]
+            );
+            output[j] = std::min(leftDist, rightDist);
+        }
+        return output;
+    }
+};
