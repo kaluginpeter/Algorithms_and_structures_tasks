@@ -25,3 +25,21 @@ novice
 master
 PuzzlesLogic
 */
+// Solution
+#include <vector>
+
+unsigned int findBall(Scales scales) {
+    int w = scales.getWeight({0,1,2}, {3,4,5});
+    std::vector<int> candidates;
+    if (w == 0) candidates = {6, 7};
+    else if (w == -1) candidates = {0, 1, 2};
+    else candidates = {3, 4, 5};
+    if (candidates.size() == 2) {
+        int w2 = scales.getWeight({candidates[0]}, {candidates[1]});
+        return (w2 == -1) ? candidates[0] : candidates[1];
+    }
+    int w2 = scales.getWeight({candidates[0]}, {candidates[1]});
+    if (w2 == -1) return candidates[0];
+    if (w2 == 1) return candidates[1];
+    return candidates[2];
+}
