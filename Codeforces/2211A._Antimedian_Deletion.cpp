@@ -90,3 +90,27 @@ In the second example, for i=2
  is the minimum length of any reachable array that contains a2=1
 .
 */
+// Solution
+// C++ O(N) O(1) Greedy Math
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::vector<int> nums(n, 0);
+    for (size_t i = 0; i < n; ++i) std::cin >> nums[i];
+    for (size_t i = 0; i < n; ++i) {
+        std::cout << (n < 3 ? n : 2);
+        std::cout << " " ;
+    }
+    std::cout << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
