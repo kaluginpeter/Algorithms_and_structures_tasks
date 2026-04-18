@@ -16,3 +16,28 @@ More examples in the test cases and be warned that you need to do things in a ra
 
 PerformanceAlgorithms
 */
+// Solution
+#include <vector>
+#include <map>
+#include <utility>
+
+std::pair<unsigned int, int> yearMaxPeople(
+    const std::vector<std::pair<int, int>>& records
+) {
+    std::map<int, int> events;
+    for (auto [start, end] : records) {
+        events[start] += 1;
+        events[end + 1] -= 1;
+    }
+    int current = 0;
+    unsigned int max_people = 0;
+    int best_year = 0;
+    for (auto [year, change] : events) {
+        current += change;
+        if (current > (int)max_people) {
+            max_people = current;
+            best_year = year;
+        }
+    }
+    return {max_people, best_year};
+}
