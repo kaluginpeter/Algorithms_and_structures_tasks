@@ -43,3 +43,27 @@
 # Constraints:
 #
 # 1 <= n <= 109
+# Solution
+# Python O(log10(N)) O(1) Math
+class Solution:
+    def mirrorDistance(self, n: int) -> int:
+        tmp: int = 0
+        N: int = n
+        while N:
+            tmp = tmp * 10 + N % 10
+            N //= 10
+        return abs(tmp - n)
+
+# C++ O(log10(N)) O(1) Math
+class Solution {
+public:
+    int mirrorDistance(int n) {
+        long long tmp = 0;
+        int N = n;
+        while (N) {
+            tmp = tmp * 10 + N % 10;
+            N /= 10;
+        }
+        return std::abs(tmp - n);
+    }
+};
