@@ -34,3 +34,29 @@
 # 1 <= nums1[i], nums2[j] <= 105
 # Both nums1 and nums2 are non-increasing.
 #
+# Solution
+# Python O(N + M) O(1) TwoPointers
+class Solution:
+    def maxDistance(self, nums1: List[int], nums2: List[int]) -> int:
+        n: int = len(nums1)
+        m: int = len(nums2)
+        i: int = 0
+        output: int = 0
+        for j in range(m):
+            while i < n and nums1[i] > nums2[j]: i += 1
+            if i < n: output = max(output, j - i)
+        return output
+
+# C++ O(N + M) O(1) TwoPointers
+class Solution {
+public:
+    int maxDistance(vector<int>& nums1, vector<int>& nums2) {
+        int n = nums1.size(), m = nums2.size();
+        int i = 0, output = 0;
+        for (int j = 0; j < m; ++j) {
+            while (i < n && nums1[i] > nums2[j]) ++i;
+            if (i < n) output = std::max(output, j - i);
+        }
+        return output;
+    }
+};
