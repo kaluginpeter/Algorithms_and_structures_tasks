@@ -37,3 +37,31 @@
 # 2 <= n <= 100
 # 0 <= colors[i] <= 100
 # Test data are generated such that at least two houses have different colors.
+# Solution
+# Python O(N) O(1) TwoPointers
+class Solution:
+    def maxDistance(self, colors: List[int]) -> int:
+        n: int = len(colors)
+        i: int = n - 1
+        while i and colors[0] == colors[i]: i -= 1
+        first: int = i
+        i = 0
+        while i < n and colors[i] == colors[n - 1]: i += 1
+        return max(first, n - 1 - i)
+
+# C++ O(N) O(1) TwoPointers
+class Solution {
+public:
+    int maxDistance(vector<int>& colors) {
+        size_t n = colors.size(), i = n - 1;
+        for (; i > 0; --i) {
+            if (colors[0] != colors[i]) break;
+        }
+        size_t first = i;
+        i = 0;
+        for (; i < n; ++i) {
+            if (colors[i] != colors[n - 1]) break;
+        }
+        return std::max(first, n - 1 - i);
+    }
+};
