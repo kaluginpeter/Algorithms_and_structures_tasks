@@ -36,3 +36,36 @@ Shell tests only lengthSupUk
 
 AlgorithmsRecursion
 */
+// Solution
+#include <vector>
+
+class Fibkind {
+public:
+    static std::vector<int> build(int n) {
+        std::vector<int> u(n + 1);
+        u[1] = 1;
+        u[2] = 1;
+        for (int i = 3; i <= n; ++i) {
+            u[i] = u[i - u[i - 1]] + u[i - u[i - 2]];
+        }
+        return u;
+    }
+
+    static int lengthSupUK(int n, int k) {
+        std::vector<int> u = build(n);
+        int count = 0;
+        for (int i = 1; i <= n; ++i) {
+            if (u[i] >= k) count++;
+        }
+        return count;
+    }
+
+    static int comp(int n) {
+        std::vector<int> u = build(n);
+        int count = 0;
+        for (int i = 2; i <= n; ++i) {
+            if (u[i] < u[i - 1]) count++;
+        }
+        return count;
+    }
+};
