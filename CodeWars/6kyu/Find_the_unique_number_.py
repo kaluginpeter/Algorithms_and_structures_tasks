@@ -5,3 +5,8 @@
 # Example
 # [ 1, 8, 4, 4, 6, 1, 8 ]  -->  6
 # ArraysPerformanceFundamentals
+# Solution
+def find_unique(numbers):
+    xor: int = 0
+    for num in numbers: xor ^= num
+    return xor
