@@ -88,3 +88,32 @@ Shaunak decrements a2
 Since there are no ai>0
  remaining, Yash cannot make any further moves and Shaunak wins.
 */
+// Solution
+// C++ O(N) O(1) Math
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    size_t n;
+    int k = 0;
+    std::cin >> n >> k;
+    std::vector<int> nums(n, 0);
+    int total = 0;
+    for (size_t i = 0; i < n; ++i) {
+        std::cin >> nums[i];
+        total += nums[i];
+    }
+    if (total & 1) {
+        std::cout << "YES\n";
+        return;
+    }
+    std::cout << (!(n * k & 1) ? "YES" : "NO") << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
