@@ -30,3 +30,46 @@
 # n == queries[i].length == dictionary[j].length
 # 1 <= n <= 100
 # All queries[i] and dictionary[j] are composed of lowercase English letters.
+# Solution
+# Python O(NMK) O(N) String
+class Solution:
+    def twoEditWords(self, queries: List[str], dictionary: List[str]) -> List[str]:
+        n: int = len(queries)
+        m: int = len(dictionary)
+        bound: int = len(queries[0])
+        output: list[str] = []
+        for i in range(n):
+            for j in range(m):
+                miss: int = 0
+                for k in range(bound):
+                    if queries[i][k] != dictionary[j][k]:
+                        miss += 1
+                        if miss > 2: break
+                if miss <= 2:
+                    output.append(queries[i])
+                    break
+        return output
+
+# C++ O(NMK) O(N) String
+class Solution {
+public:
+    vector<string> twoEditWords(vector<string>& queries, vector<string>& dictionary) {
+        std::vector<std::string> output;
+        size_t n = queries.size(), m = dictionary.size();
+        size_t bound = queries.back().size();
+        for (size_t i = 0; i < n; ++i) {
+            for (size_t j = 0; j < m; ++j) {
+                size_t miss = 0;
+                for (size_t k = 0; k < bound; ++k) {
+                    if (queries[i][k] != dictionary[j][k]) ++miss;
+                    if (miss > 2) break;
+                }
+                if (miss <= 2) {
+                    output.push_back(queries[i]);
+                    break;
+                }
+            }
+        }
+        return output;
+    }
+};
