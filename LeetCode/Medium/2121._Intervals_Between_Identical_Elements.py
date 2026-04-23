@@ -39,3 +39,45 @@
 #
 #
 # Note: This question is the same as 2615: Sum of Distances.
+# Solution
+# Python O(N) O(N) PrefixSum
+class Solution:
+    def getDistances(self, arr: List[int]) -> List[int]:
+        left: dict[int, list[int]] = dict()
+        right: dist[int, list[int]] = dict()
+        n: int = len(arr)
+        for i in range(n - 1, -1, -1):
+            if arr[i] not in right: right[arr[i]] = [0, 0]
+            right[arr[i]][0] += i
+            right[arr[i]][1] += 1
+        output: list[int] = [0] * n
+        for i in range(n):
+            right[arr[i]][0] -= i
+            right[arr[i]][1] -= 1
+            if arr[i] not in left: left[arr[i]] = [0, 0]
+            output[i] = (i * left[arr[i]][1] - left[arr[i]][0]) + (right[arr[i]][0] - i * right[arr[i]][1])
+            left[arr[i]][0] += i
+            left[arr[i]][1] += 1
+        return output
+
+# C++ O(N) O(N) PrefixSum
+class Solution {
+public:
+    vector<long long> getDistances(vector<int>& arr) {
+        std::unordered_map<int, std::pair<long long, int>> left, right;
+        size_t n = arr.size();
+        for (size_t i = n; i > 0; --i) {
+            right[arr[i - 1]].first += i - 1;
+            ++right[arr[i - 1]].second;
+        }
+        std::vector<long long> output(n, 0LL);
+        for (size_t i = 0; i < n; ++i) {
+            right[arr[i]].first -= i;
+            --right[arr[i]].second;
+            output[i] = (i * left[arr[i]].second - left[arr[i]].first) + (right[arr[i]].first - i * right[arr[i]].second);
+            left[arr[i]].first += i;
+            ++left[arr[i]].second;
+        }
+        return output;
+    }
+};
