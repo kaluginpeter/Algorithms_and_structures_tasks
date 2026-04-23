@@ -25,3 +25,11 @@
 #              "Rose":["Paige", "Hugh"], "Hugh":["Liam"], "Victor":["Rose","Liam"]}
 #   Output: ["Mike","Victor"]
 # Fundamentals
+# Solution
+def rumor_starter(record):
+    receivers = set()
+    for people in record.values(): receivers.update(people)
+    return sorted([
+        person for person in record
+        if person not in receivers
+    ])
