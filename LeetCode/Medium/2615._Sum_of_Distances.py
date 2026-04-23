@@ -29,3 +29,45 @@
 #
 #
 # Note: This question is the same as 2121: Intervals Between Identical Elements.
+# Solution
+# Python O(N) O(N) PrefixSum
+class Solution:
+    def distance(self, nums: List[int]) -> List[int]:
+        left: dict[int, list[int]] = dict()
+        right: dist[int, list[int]] = dict()
+        n: int = len(nums)
+        for i in range(n - 1, -1, -1):
+            if nums[i] not in right: right[nums[i]] = [0, 0]
+            right[nums[i]][0] += i
+            right[nums[i]][1] += 1
+        output: list[int] = [0] * n
+        for i in range(n):
+            right[nums[i]][0] -= i
+            right[nums[i]][1] -= 1
+            if nums[i] not in left: left[nums[i]] = [0, 0]
+            output[i] = (i * left[nums[i]][1] - left[nums[i]][0]) + (right[nums[i]][0] - i * right[nums[i]][1])
+            left[nums[i]][0] += i
+            left[nums[i]][1] += 1
+        return output
+
+# C++ O(N) O(N) PrefixSum
+class Solution {
+public:
+    vector<long long> distance(vector<int>& nums) {
+        std::unordered_map<int, std::pair<long long, int>> left, right;
+        size_t n = nums.size();
+        for (size_t i = n; i > 0; --i) {
+            right[nums[i - 1]].first += i - 1;
+            ++right[nums[i - 1]].second;
+        }
+        std::vector<long long> output(n, 0LL);
+        for (size_t i = 0; i < n; ++i) {
+            right[nums[i]].first -= i;
+            --right[nums[i]].second;
+            output[i] = (i * left[nums[i]].second - left[nums[i]].first) + (right[nums[i]].first - i * right[nums[i]].second);
+            left[nums[i]].first += i;
+            ++left[nums[i]].second;
+        }
+        return output;
+    }
+};
