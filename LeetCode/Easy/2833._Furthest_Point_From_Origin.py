@@ -30,3 +30,29 @@
 # 1 <= moves.length == n <= 50
 # moves consists only of characters 'L', 'R' and '_'.
 #
+# Solution
+# Python O(N) O(1) Math
+class Solution:
+    def furthestDistanceFromOrigin(self, moves: str) -> int:
+        L: int = 0
+        R: int = 0
+        scope: int = 0
+        for ch in moves:
+            if ch == 'L': L += 1
+            elif ch == 'R': R += 1
+            else: scope += 1
+        return max(L + scope - R, R + scope - L)
+
+# C++ O(N) O(1) Math
+class Solution {
+public:
+    int furthestDistanceFromOrigin(string moves) {
+        int16_t L = 0, R = 0, scope = 0;
+        for (char& ch : moves) {
+            if (ch == 'L') ++L;
+            else if (ch == 'R') ++R;
+            else ++scope;
+        }
+        return std::max(L + scope - R, R + scope - L);
+    }
+};
