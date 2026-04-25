@@ -68,3 +68,79 @@
 # # should return:
 # ['A0-A2-A4', 'A0-A3-A2-A4']
 # FundamentalsListsMatrixGraph Theory
+# Solution
+AdjacencyList = list[list[str | list[tuple[str, int]]]]
+Dictionary = dict[str, list[tuple[str, int]]]
+Matrix = list[list[int]]
+
+
+class Graph:
+    def __init__(self, order: int):
+        self.order = order
+    def adjmat_2_graph(self, matrix: Matrix) -> Dictionary:
+        graph = {}
+        for i in range(self.order):
+            node = f"A{i}"
+            edges = []
+            for j in range(self.order):
+                if matrix[i][j] != 0:
+                    edges.append((f"A{j}", matrix[i][j]))
+            graph[node] = edges
+        return graph
+    def graph_2_list(self, dictionary: Dictionary) -> AdjacencyList:
+        result = []
+        for i in range(self.order):
+            node = f"A{i}"
+            edges = sorted(dictionary.get(node, []))
+            result.append([node, edges])
+        return result
+    def list_2_mat(self, lst: AdjacencyList) -> Matrix:
+        matrix = [[0] * self.order for _ in range(self.order)]
+        for node, edges in lst:
+            i = int(node[1:])
+            for neighbor, weight in edges:
+                j = int(neighbor[1:])
+                matrix[i][j] = weight
+        return matrix
+    def graph_2_mat(self, dictionary: Dictionary) -> Matrix:
+        matrix = [[0] * self.order for _ in range(self.order)]
+        for node, edges in dictionary.items():
+            i = int(node[1:])
+            for neighbor, weight in edges:
+                j = int(neighbor[1:])
+                matrix[i][j] = weight
+        return matrix
+    def list_2_graph(self, lst: AdjacencyList) -> Dictionary:
+        graph = {}
+        for node, edges in lst:
+            graph[node] = sorted(edges)
+        return graph
+    def mat_2_list(self, matrix: Matrix) -> AdjacencyList:
+        result = []
+        for i in range(self.order):
+            node = f"A{i}"
+            edges = []
+            for j in range(self.order):
+                if matrix[i][j] != 0:
+                    edges.append((f"A{j}", matrix[i][j]))
+            result.append([node, edges])
+        return result
+    def find_all_paths(
+        self,
+        dictionary: Dictionary,
+        start_vertex: str,
+        end_vertex: str
+    ) -> list[str]:
+        paths = []
+        def dfs(node, path, visited):
+            if node == end_vertex:
+                paths.append("-".join(path))
+                return
+            for neighbor, _ in dictionary.get(node, []):
+                if neighbor not in visited:
+                    visited.add(neighbor)
+                    dfs(neighbor, path + [neighbor], visited)
+                    visited.remove(neighbor)
+        dfs(start_vertex, [start_vertex], {start_vertex})
+        paths.sort(key=lambda p: (p.count("-"), p))
+        return paths
