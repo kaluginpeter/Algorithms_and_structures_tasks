@@ -36,3 +36,38 @@
 # See more examples in the example testcases ;-)
 #
 # PuzzlesGames
+# Solution
+def largest_x(arr):
+    n = len(arr)
+    m = len(arr[0])
+    best_size = 0
+    best_pos = []
+    for r in range(n):
+        for c in range(m):
+            ch = arr[r][c]
+            size = 0
+            while True:
+                nr1, nc1 = r - size, c - size
+                nr2, nc2 = r - size, c + size
+                nr3, nc3 = r + size, c - size
+                nr4, nc4 = r + size, c + size
+                if (
+                    nr1 < 0 or nc1 < 0 or
+                    nr2 < 0 or nc2 >= m or
+                    nr3 >= n or nc3 < 0 or
+                    nr4 >= n or nc4 >= m
+                ):
+                    break
+                if not (
+                    arr[nr1][nc1] == ch and
+                    arr[nr2][nc2] == ch and
+                    arr[nr3][nc3] == ch and
+                    arr[nr4][nc4] == ch
+                ):
+                    break
+                size += 1
+            arm = size - 1
+            if arm > best_size:
+                best_size = arm
+                best_pos = [r, c]
+    return best_pos if best_size > 0 else []
