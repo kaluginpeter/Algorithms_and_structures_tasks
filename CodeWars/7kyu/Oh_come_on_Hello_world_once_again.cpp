@@ -9,3 +9,5 @@ Have fun!
 
 PuzzlesRestricted
 */
+// Solution
+std::string f(){return "\110\145\154\154\157\054\040\167\157\162\154\144\041";}
