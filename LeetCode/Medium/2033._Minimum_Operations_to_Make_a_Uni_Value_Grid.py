@@ -79,3 +79,44 @@ public:
         return operations;
     }
 };
+
+
+# Python O(NMlog(NM) + NM) O(NM) Matrix
+class Solution:
+    def minOperations(self, grid: List[List[int]], x: int) -> int:
+        n: int = len(grid)
+        m: int = len(grid[0])
+        seen: list[int] = sorted(cell for row in grid for cell in row)
+        mean: int = seen[(n * m) >> 1]
+        op: int = 0
+        for row in grid:
+            for cell in row:
+                diff: int = abs(mean - cell)
+                if diff % x != 0: return -1
+                op += diff // x
+        return op
+
+# C++ O(NMlog(NM) + NM) O(NM) Matrix
+class Solution {
+public:
+    int f(const std::vector<std::vector<int>>& grid, const int& x, const int& mean) {
+        int op = 0;
+        for (const std::vector<int>& row : grid) {
+            for (const int& cell : row) {
+                int diff = std::abs(cell - mean);
+                if (diff % x != 0) return -1;
+                op += diff / x;
+            }
+        }
+        return op;
+    }
+    int minOperations(vector<vector<int>>& grid, int x) {
+        size_t n = grid.size(), m = grid[0].size();
+        std::vector<int> seen;
+        for (size_t i = 0; i < n; ++i) {
+            for (size_t j = 0; j < m; ++j) seen.push_back(grid[i][j]);
+        }
+        std::sort(seen.begin(), seen.end());
+        return f(grid, x, seen[(n * m) >> 1]);
+    }
+};
