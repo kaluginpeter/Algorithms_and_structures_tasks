@@ -43,3 +43,61 @@ After you master this kata, you may try to Decode the Morse code, for real.
 
 Algorithms
 */
+// Solution
+#include <string>
+#include <vector>
+#include <unordered_map>
+#include <algorithm>
+
+extern std::unordered_map<std::string, std::string> MORSE_CODE;
+
+static std::vector<int> runs(const std::string& s) {
+    std::vector<int> r;
+    int cnt = 1;
+    for (size_t i = 1; i < s.size(); ++i) {
+        if (s[i] == s[i - 1]) ++cnt;
+        else {
+            r.push_back(cnt);
+            cnt = 1;
+        }
+    }
+    r.push_back(cnt);
+    return r;
+}
+
+std::string decodeBits(const std::string& bits) {
+    std::string s = bits;
+    size_t first = s.find('1');
+    if (first == std::string::npos) return "";
+    size_t last = s.find_last_of('1');
+    s = s.substr(first, last - first + 1);
+    auto r = runs(s);
+    int unit = *std::min_element(r.begin(), r.end());
+    std::string morse;
+    size_t i = 0;
+    while (i < s.size()) {
+        char bit = s[i];
+        size_t j = i;
+        while (j < s.size() && s[j] == bit) ++j;
+        int len = (j - i) / unit;
+        if (bit == '1') morse += (len >= 3) ? "-" : ".";
+        else {
+            if (len >= 7) morse += "   ";
+            else if (len >= 3) morse += " ";
+        }
+        i = j;
+    }
+    return morse;
+}
+
+std::string decodeMorse(const std::string& morse) {
+    std::vector<std::string> words = split(morse, "   ");
+    std::vector<std::string> decoded_words;
+    for (const auto& word : words) {
+        std::vector<std::string> letters = split(word, " ");
+        std::string decoded;
+        for (const auto& letter : letters) decoded += MORSE_CODE[letter];
+        decoded_words.push_back(decoded);
+    }
+    return join(decoded_words, " ");
+}
