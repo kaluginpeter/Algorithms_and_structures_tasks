@@ -50,3 +50,63 @@
 # ​​​​​​​grid[0][0] == 0
 # 0 <= grid[i][j] <= 2
 #
+# Solution
+# Python O(NMK) O(NMK) DynamicProgramming
+class Solution:
+    def maxPathScore(self, grid: List[List[int]], k: int) -> int:
+        n: int = len(grid)
+        m: int = len(grid[0])
+        bound: int = min(k + 1, n + m + 2)
+        dp: list[list[list[int]]] = [[[-1] * bound for _ in range(m)] for _ in range(n)]
+        dp[0][0][bound - 1] = 0
+        for i in range(n):
+            for j in range(m):
+                cost: int = grid[i][j] > 0
+                if j:
+                    for z in range(cost, bound):
+                        if dp[i][j - 1][z] == -1: continue
+                        dp[i][j][z - cost] = max(dp[i][j][z - cost], dp[i][j - 1][z] + grid[i][j])
+                if i:
+                    for z in range(cost, bound):
+                        if dp[i - 1][j][z] == -1: continue
+                        dp[i][j][z - cost] = max(dp[i][j][z - cost], dp[i - 1][j][z] + grid[i][j])
+        output: int = -1
+        for i in range(bound): output = max(output, dp[n - 1][m - 1][i])
+        return output
+
+# C++ O(NMK) O(NMK) DynamicProgramming
+class Solution {
+public:
+    int maxPathScore(vector<vector<int>>& grid, int k) {
+        size_t n = grid.size(), m = grid[0].size();
+        size_t bound = std::min((size_t)k + 1, n + m + 2);
+        std::vector<std::vector<std::vector<int>>> dp(n, std::vector<std::vector<int>>(m, std::vector<int>(bound, -1)));
+        dp[0][0][bound - 1] = 0;
+        for (size_t i = 0; i < n; ++i) {
+            for (size_t j = 0; j < m; ++j) {
+                size_t cost = grid[i][j] > 0;
+                if (j) {
+                    for (size_t z = (cost ? 1 : 0); z < bound; ++z) {
+                        if (dp[i][j - 1][z] == -1) continue;
+                        dp[i][j][z - cost] = std::max(
+                            dp[i][j][z - cost],
+                            dp[i][j - 1][z] + grid[i][j]
+                        );
+                    }
+                }
+                if (i) {
+                    for (size_t z = (cost ? 1 : 0); z < bound; ++z) {
+                        if (dp[i - 1][j][z] == -1) continue;
+                        dp[i][j][z - cost] = std::max(
+                            dp[i][j][z - cost],
+                            dp[i - 1][j][z] + grid[i][j]
+                        );
+                    }
+                }
+            }
+        }
+        int output = -1;
+        for (size_t i = 0; i < bound; ++i) output = std::max(output, dp[n - 1][m - 1][i]);
+        return output;
+    }
+};
