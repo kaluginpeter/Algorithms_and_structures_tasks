@@ -34,3 +34,15 @@ An early version of this kata allowed shorting, but shorts got removed because o
 
 ArraysFundamentals
 */
+// Solution
+#include <vector>
+
+double ideal_trader(const std::vector<double>& prices)
+{
+    double output = 1.0, cur = prices[0];
+    for (const double& price : prices) {
+        if (price > cur) output *= price / cur;
+        cur = price;
+    }
+    return output;
+}
