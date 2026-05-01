@@ -33,3 +33,20 @@
 # Please pay attention to optimizing the code to avoid time out.
 # In the performance test(5000x5000 elements x 100 testcases), the time consuming of each test case should be within 5ms. This means, Your algorithm should be faster than O(mn), your code should run as fast as a rocket ;-)
 # AlgorithmsPuzzles
+# Solution
+def count_number(matrix, num):
+    rows = len(matrix)
+    cols = len(matrix[0])
+    r = 0
+    c = cols - 1
+    ans = 0
+    while r < rows and c >= 0:
+        val = matrix[r][c]
+        if val > num: c -= 1
+        elif val < num: r += 1
+        else:
+            ans += 1
+            r += 1
+            c -= 1
+
+    return ans
