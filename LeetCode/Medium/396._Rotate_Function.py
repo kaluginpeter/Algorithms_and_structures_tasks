@@ -30,3 +30,32 @@
 # n == nums.length
 # 1 <= n <= 105
 # -100 <= nums[i] <= 100
+# Solution
+# Python O(N) O(1) DynamicPrograming
+class Solution:
+    def maxRotateFunction(self, nums: List[int]) -> int:
+        cur: int = 0
+        n: int = len(nums)
+        total: int = sum(nums)
+        for i in range(n): cur += nums[i] * i
+        output: int = cur
+        for i in range(n - 1, 0, -1):
+            cur += total - n * nums[i]
+            output = max(output, cur)
+        return output
+
+# C++ O(N) O(1) DynamicProgramming
+class Solution {
+public:
+    int maxRotateFunction(vector<int>& nums) {
+        int f = 0, n = nums.size();
+        int total = std::accumulate(nums.begin(), nums.end(), 0);
+        for (size_t i = 0; i < n; ++i) f += i * nums[i];
+        int output = f;
+        for (size_t i = n - 1; i > 0; --i) {
+            f += total - n * nums[i];
+            output = std::max(output, f);
+        }
+        return output;
+    }
+};
