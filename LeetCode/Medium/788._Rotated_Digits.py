@@ -29,3 +29,44 @@
 # Constraints:
 #
 # 1 <= n <= 104
+# Solution
+# Python O(NlogN) O(1) Math
+class Solution:
+    def rotatedDigits(self, n: int) -> int:
+        output: int = 0
+        repeated: set[int] = {0, 1, 8}
+        accepted: set[int] = repeated | {2, 5, 6, 9}
+        for X in range(1, n + 1):
+            x: int = X
+            is_valid: bool = True
+            different: bool = False
+            while x:
+                if x % 10 not in repeated: different = True
+                if x % 10 not in accepted:
+                    is_valid = False
+                    break
+                x //= 10
+            if is_valid and different: output += 1
+        return output
+
+# C++ O(NlogN) O(1) Math
+class Solution {
+public:
+    int rotatedDigits(int n) {
+        int output = 0;
+        for (int X = 1; X <= n; ++X) {
+            int x = X;
+            bool isValid = true, different = false;
+            while (x) {
+                if (x % 10 != 0 && x % 10 != 1 && x % 10 != 8) different = true;
+                if (x % 10 != 0 && x % 10 != 1 && x % 10 != 8 && x % 10 != 2 && x % 10 != 5 && x % 10 != 6 && x % 10 != 9) {
+                    isValid = false;
+                    break;
+                }
+                x /= 10;
+            }
+            if (isValid && different) ++output;
+        }
+        return output;
+    }
+};
