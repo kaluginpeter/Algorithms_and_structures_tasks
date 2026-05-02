@@ -13,3 +13,19 @@ sum of positives: 10 = 2 + 3 + 4 + 0 (second) + 1
 count of negatives: 5 ( -1, 0 (first), -2, 0 (third), -3 )
 Fundamentals
 */
+// Solution
+#include<vector>
+
+std::string sumLength(std::vector<int> input)
+{
+    uint32_t positive = 0, negative = 0, shouldCount = 1;
+    for (int& num : input) {
+        if (num < 0) ++negative;
+        else if (!num) {
+            negative += shouldCount;
+            shouldCount = (shouldCount + 1) % 2;
+        }
+        else positive += num;
+    }
+    return std::to_string(positive) + " " + std::to_string(negative);
+}
