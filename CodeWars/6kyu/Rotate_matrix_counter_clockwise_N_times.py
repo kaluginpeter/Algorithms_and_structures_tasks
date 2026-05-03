@@ -25,3 +25,9 @@
 # Happy coding!
 #
 # AlgorithmsMatrix
+# Solution
+def rotate_against_clockwise(matrix, times):
+    times %= 4
+    for _ in range(times):
+        matrix = [list(row) for row in zip(*matrix)][::-1]
+    return matrix
