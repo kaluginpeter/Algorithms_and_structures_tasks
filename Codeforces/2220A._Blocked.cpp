@@ -72,3 +72,37 @@ Position 3
  can't be expressed as the sum of a subset of [3,1
 ].
 */
+// Solution
+// C++ O(NlogN) O(1) Greedy Sorting
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::vector<int> nums(n, 0);
+    for (size_t i = 0; i < n; ++i) std::cin >> nums[i];
+    std::sort(nums.begin(), nums.end(), std::greater<int>());
+    bool isValid = true;
+    for (size_t i = 1; i < n; ++i) {
+        if (nums[i] == nums[i - 1]) {
+            isValid = false;
+            break;
+        }
+    }
+    if (!isValid) {
+        std::cout << "-1\n";
+        return;
+    }
+    for (int& num : nums) std::cout << num << " ";
+    std::cout << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
