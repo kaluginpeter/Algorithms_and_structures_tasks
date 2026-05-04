@@ -22,3 +22,31 @@
 # Also check out my other creations — Split Without Loss, Random Integers, Implement String#transpose, Implement Array#transpose!, Arrays and Procs #1, and Arrays and Procs #2
 #
 # Fundamentals
+# Solution
+from math import lcm
+
+
+def add_fracs(*args) -> str:
+    output: str = ''
+    if not args: return output
+    cur_ratio: list[int, int] = None
+    for ratio in args:
+        num, den = map(int, ratio.split('/'))
+        if cur_ratio is None:
+            cur_ratio = [num, den]
+        else:
+            common: int = lcm(cur_ratio[1], den)
+            new_num: int = cur_ratio[0] * (common // cur_ratio[1]) + num * (common // den)
+            cur_ratio = [new_num, common]
+    d: int = 2
+    while d <= cur_ratio[1]:
+        if cur_ratio[0] % d != 0 or cur_ratio[1] % d != 0:
+            d += 1
+            continue
+        cur_ratio[0] //= d
+        cur_ratio[1] //= d
+    if not cur_ratio[0]:
+        return '0'
+    elif cur_ratio[1] == 1:
+        return str(cur_ratio[0])
+    return '/'.join(map(str, cur_ratio))
