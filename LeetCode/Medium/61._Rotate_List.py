@@ -79,3 +79,61 @@ public:
 
     }
 };
+
+
+# Python O(N) O(1) TwoPointer LinkedList
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        n: int = 0
+        tail: ListNode = head
+        while tail:
+            n += 1
+            if not tail.next: break
+            tail = tail.next
+        if n: k %= n
+        if not k or not n: return head
+        predecessor: ListNode = head
+        for i in range(n - k - 1): predecessor = predecessor.next
+        new_head: ListNode = predecessor.next
+        predecessor.next = None
+        tail.next = head
+        return new_head
+
+# C++ O(N) O(1) LinkedList TwoPointers
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* rotateRight(ListNode* head, int k) {
+        size_t n = 0;
+        ListNode* tail = head;
+        while (tail) {
+            ++n;
+            if (!tail->next) break;
+            tail = tail->next;
+        }
+        if (n) k %= n; // avoid redundant overlap
+        if (!k || !n) return head;
+        ListNode* predecessor = head;
+        for (size_t i = 0; i < n - k - 1; ++i) {
+            predecessor = predecessor->next;
+        }
+        ListNode* newHead = predecessor->next;
+        predecessor->next = nullptr;
+        tail->next = head;
+        return newHead;
+    }
+};
