@@ -111,3 +111,30 @@
 #
 #    Output = ["Air","Earth","Grass"], ["Fire","Water"], ["Thunder"]
 # AlgorithmsLogicSorting
+# Solution
+def get_defense_chart(attack, enemy):
+    result = {}
+    for atk_element, (weak, resist, immune) in attack.items():
+        multiplier = 1
+        for e in enemy:
+            if e in immune:
+                multiplier = 0
+                break
+            elif e in weak: multiplier *= 2
+            elif e in resist: multiplier *= 0.5
+        result[atk_element] = multiplier
+    weaknesses = []
+    resistances = []
+    immunities = []
+    for element, mult in result.items():
+        if mult == 0: immunities.append((element, mult))
+        elif mult >= 2: weaknesses.append((element, mult))
+        elif 0 < mult < 1: resistances.append((element, mult))
+    weaknesses.sort(key=lambda x: (x[1], x[0]))
+    resistances.sort(key=lambda x: (x[1], x[0]))
+    immunities.sort(key=lambda x: (x[1], x[0]))
+    return (
+        [e for e, _ in weaknesses],
+        [e for e, _ in resistances],
+        [e for e, _ in immunities],
+    )
