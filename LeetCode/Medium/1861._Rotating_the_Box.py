@@ -120,3 +120,43 @@ public:
         return rotatedMatrix;
     }
 };
+
+# Python O(NM) O(NM) Matrix TwoPointers
+class Solution:
+    def rotateTheBox(self, boxGrid: List[List[str]]) -> List[List[str]]:
+        n: int = len(boxGrid)
+        m: int = len(boxGrid[0])
+        output: list[list[int]] = [['.'] * n for _ in range(m)]
+        for i in range(n):
+            k: int = m - 1
+            for j in range(m - 1, -1, -1):
+                if boxGrid[i][j] == '*':
+                    output[j][n - i - 1] = boxGrid[i][j]
+                    k = j - 1
+                elif boxGrid[i][j] == '#':
+                    output[k][n - i - 1] = boxGrid[i][j]
+                    k -= 1
+        return output
+
+# C++ O(NM) O(NM) TwoPointers Matrix
+class Solution {
+public:
+    vector<vector<char>> rotateTheBox(vector<vector<char>>& boxGrid) {
+        size_t n = boxGrid.size(), m = boxGrid[0].size();
+        std::vector<std::vector<char>> output(m, std::vector<char>(n, '.'));
+        for (size_t i = 0; i < n; ++i) {
+            size_t k = m - 1;
+            for (size_t j = m; j > 0; --j) {
+                if (boxGrid[i][j - 1] == '*') {
+                    output[j - 1][n - i - 1] = boxGrid[i][j - 1];
+                    k = j - 1;
+                    if (k) --k;
+                } else if (boxGrid[i][j - 1] == '#') {
+                    output[k][n - i - 1] = boxGrid[i][j - 1];
+                    if (k) --k;
+                }
+            }
+        }
+        return output;
+    }
+};
