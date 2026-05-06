@@ -59,3 +59,20 @@ In the second test case, an optimal sequence of steps would be:
 In the third test case, an optimal sequence of steps would be:
 (0,0)−→−long(0,2)−→−long(2,2)−→−long(2,4)−→−long(4,4)−→−long(4,6)
 */
+// Solution
+// C++ O(1) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    size_t x, y;
+    std::cin >> x >> y;
+    std::cout << ((x & 1) + (y & 1) <= 1 ? "YES" : "NO") << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
