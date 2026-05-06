@@ -12,3 +12,31 @@
 # input:    [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29]
 # solution: [[1,2,3,4,5,6,7,8],[9,10,11,12],[13,14],[15],[16,17],[18,19,20,21],[22,23,24,25,26,27,28,29]]
 # ArraysAlgorithms
+# Solution
+def mirrored_exponential_chunks(arr):
+    n = len(arr)
+    res = []
+    if n % 2 == 1:
+        mid = n // 2
+        res = [[arr[mid]]]
+        left = mid
+        right = mid + 1
+        step = 1
+    else:
+        left = n // 2
+        right = left
+        res = []
+        step = 1
+    chunks = []
+    while left > 0 or right < n:
+        size = 2 ** step
+        l_start = max(0, left - size)
+        left_chunk = arr[l_start:left]
+        r_end = min(n, right + size)
+        right_chunk = arr[right:r_end]
+        if left_chunk: chunks.insert(0, left_chunk)
+        if right_chunk: chunks.append(right_chunk)
+        left = l_start
+        right = r_end
+        step += 1
+    return chunks[:len(chunks)//2] + res + chunks[len(chunks)//2:]
