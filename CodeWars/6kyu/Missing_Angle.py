@@ -14,3 +14,10 @@
 # Round the result to the nearest integer, except in C and JavaScript.
 #
 # AlgorithmsMathematicsGeometry
+# Solution
+from math import degrees, asin, acos, atan
+
+def missing_angle(h, a, o):
+    if h == 0: return round(degrees(atan(o / a)))
+    if a == 0: return round(degrees(asin(o / h)))
+    return round(degrees(acos(a / h)))
