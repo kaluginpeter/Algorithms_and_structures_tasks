@@ -53,3 +53,61 @@
 #
 # 1 <= n == nums.length <= 105
 # 1 <= nums[i] <= 106
+# Solution
+# C++ O(MXlogMX NlogMX) O(MXloglogMX) DepthFirstSearch
+const int MX = 1000001;
+vector<int> factors[MX];
+bool initialized = []() {
+    for (int i = 2; i < MX; ++i) {
+        if (factors[i].empty()) {
+            for (int j = i; j < MX; j += i) {
+                factors[j].push_back(i);
+            }
+        }
+    }
+    return true;
+}();
+
+class Solution {
+public:
+    int minJumps(vector<int>& nums) {
+        size_t n = nums.size();
+        std::unordered_map<int, std::vector<int>> edges;
+        for (size_t i = 0; i < n; ++i) {
+            int a = nums[i];
+            if (factors[a].size() == 1) edges[a].push_back(i);
+        }
+        size_t output = 0;
+        std::vector<bool> seen(n, false);
+        seen[n - 1] = true;
+        std::vector<int> q;
+        q.push_back(n - 1);
+        while (true) {
+            std::vector<int> q2;
+            for (int i : q) {
+                if (i == 0) return output;
+                if (i > 0 && !seen[i - 1]) {
+                    seen[i - 1] = true;
+                    q2.push_back(i - 1);
+                }
+                if (i < n - 1 && !seen[i + 1]) {
+                    seen[i + 1] = true;
+                    q2.push_back(i + 1);
+                }
+                for (int p : factors[nums[i]]) {
+                    if (edges.count(p)) {
+                        for (int j : edges[p]) {
+                            if (!seen[j]) {
+                                seen[j] = true;
+                                q2.push_back(j);
+                            }
+                        }
+                        edges[p].clear();
+                    }
+                }
+            }
+            q = move(q2);
+            ++output;
+        }
+    }
+};
