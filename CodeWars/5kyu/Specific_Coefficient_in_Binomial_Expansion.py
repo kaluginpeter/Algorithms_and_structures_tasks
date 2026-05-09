@@ -294,3 +294,49 @@
 #  .
 #
 # MathematicsDiscrete Mathematics
+# Solution
+from math import comb
+import re
+
+
+TERM_RE = re.compile(r'''
+([+-]?\d*)
+x?
+(?:\^([+-]?\d+))?
+''', re.X)
+
+
+def parse_term(term):
+    term = term.replace(" ", "")
+    if "x" not in term: return int(term), 0
+    coef_part, exp_part = TERM_RE.fullmatch(term).groups()
+    if coef_part in ("", "+"): coef = 1
+    elif coef_part == "-": coef = -1
+    else: coef = int(coef_part)
+    exp = 1 if exp_part is None else int(exp_part)
+    return coef, exp
+
+
+def get_coefficient(binom: str, x_power: int) -> int | float:
+    expr, k = binom.rsplit("^", 1)
+    k = int(k)
+    expr = expr.strip()[1:-1].replace(" ", "")
+    split_idx = None
+    for i in range(1, len(expr)):
+        if expr[i] in "+-" and expr[i - 1] != "^":
+            split_idx = i
+            break
+    t1 = expr[:split_idx]
+    t2 = expr[split_idx:]
+    a, n = parse_term(t1)
+    b, m = parse_term(t2)
+    ans = 0
+    for i in range(k + 1):
+        power = (k - i) * n + i * m
+        if power == x_power:
+            ans += (
+                comb(k, i)
+                * (a ** (k - i))
+                * (b ** i)
+            )
+    return ans
