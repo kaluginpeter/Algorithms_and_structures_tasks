@@ -43,3 +43,33 @@
 # -109 <= nums[i] <= 109
 # 0 <= target <= 2 * 109
 #
+# Solution
+# Python O(N^2) O(N) DynamicProgramming
+class Solution:
+    def maximumJumps(self, nums: List[int], target: int) -> int:
+        n: int = len(nums)
+        dp: list[int] = [-n] * n
+        dp[0] = 0
+        for j in range(1, n):
+            for i in range(j):
+                if abs(nums[i] - nums[j]) <= target:
+                    dp[j] = max(dp[j], dp[i] + 1)
+        return dp[n - 1] if dp[n - 1] > 0 else -1
+
+# C++ O(N^2) O(N) DynamicProgramming
+class Solution {
+public:
+    int maximumJumps(vector<int>& nums, int target) {
+        size_t n = nums.size();
+        std::vector<int> dp(n, -n);
+        dp[0] = 0;
+        for (size_t j = 1; j < n; ++j) {
+            for (size_t i = 0; i < j; ++i) {
+                if (std::abs(1LL * nums[i] - nums[j]) <= target) {
+                    dp[j] = std::max(dp[j], dp[i] + 1);
+                }
+            }
+        }
+        return (dp[n - 1] > 0 ? dp[n - 1] : -1);
+    }
+};
