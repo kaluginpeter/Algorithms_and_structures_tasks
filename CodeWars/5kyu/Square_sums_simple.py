@@ -32,3 +32,31 @@
 # Harder version of this Kata is here.
 #
 # AlgorithmsMathematics
+# Solution
+def square_sums_row(n):
+    squares = set(i * i for i in range(2, int((2 * n) ** 0.5) + 2))
+    graph = {
+        i: [j for j in range(1, n + 1)
+            if i != j and (i + j) in squares]
+        for i in range(1, n + 1)
+    }
+    for k in graph:
+        graph[k].sort(key=lambda x: len(graph[x]))
+    def dfs(path, used):
+        if len(path) == n: return path
+        current = path[-1]
+        for nxt in graph[current]:
+            if nxt not in used:
+                used.add(nxt)
+                path.append(nxt)
+                res = dfs(path, used)
+                if res: return res
+                path.pop()
+                used.remove(nxt)
+
+        return False
+    starts = sorted(range(1, n + 1), key=lambda x: len(graph[x]))
+    for start in starts:
+        res = dfs([start], {start})
+        if res: return res
+    return False
