@@ -30,3 +30,38 @@ class Solution:
         for i in nums:
             for j in str(i): l.append(int(j))
         return l
+
+
+# Python O(Nlog(max(N)) O(Nlog(max(N))
+class Solution:
+    def separateDigits(self, nums: List[int]) -> List[int]:
+        output: list[int] = []
+        for num in nums:
+            tmp: int = 1
+            while num:
+                tmp = tmp * 10 + num % 10
+                num //= 10
+            while tmp != 1:
+                output.append(tmp % 10)
+                tmp //= 10
+        return output
+
+# C++ O(Nlog(max(N)) O(Nlog(max(N))
+class Solution {
+public:
+    vector<int> separateDigits(vector<int>& nums) {
+        std::vector<int> output;
+        for (int& num : nums) {
+            int tmp = 1;
+            while (num) {
+                tmp = tmp * 10 + num % 10;
+                num /= 10;
+            }
+            while (tmp != 1) {
+                output.push_back(tmp % 10);
+                tmp /= 10;
+            }
+        }
+        return output;
+    }
+};
