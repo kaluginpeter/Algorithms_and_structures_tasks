@@ -61,3 +61,21 @@
 # decode([0x81, 0x00])             == 128
 # decode([0xFF, 0xFF, 0xFF, 0x7F]) == 268435455
 # BinaryBitsAlgorithms
+# Solution
+def encode(n: int) -> list[int]:
+    if n == 0: return [0x00]
+    parts = []
+    while n > 0:
+        parts.append(n & 0x7F)
+        n >>= 7
+    parts.reverse()
+    for i in range(len(parts) - 1): parts[i] |= 0x80
+    return parts
+
+
+def decode(data: list[int]) -> int:
+    result = 0
+    for byte in data:
+        result = (result << 7) | (byte & 0x7F)
+        if byte & 0x80 == 0: break
+    return result
