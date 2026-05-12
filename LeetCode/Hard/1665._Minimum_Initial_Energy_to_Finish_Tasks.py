@@ -49,3 +49,27 @@
 #
 # 1 <= tasks.length <= 105
 # 1 <= actual​i <= minimumi <= 104
+# Solution
+# Python O(NlogN) O(1) Sorting Math
+class Solution:
+    def minimumEffort(self, tasks: List[List[int]]) -> int:
+        tasks.sort(key=lambda x: x[1] - x[0])
+        output: int = 0
+        for t in tasks:
+            output = max(output + t[0], t[1])
+        return output
+
+# C++ O(NlogN) O(1) Math Sorting
+class Solution {
+public:
+    int minimumEffort(vector<vector<int>>& tasks) {
+        std::sort(tasks.begin(), tasks.end(), [&](const vector<int>& a, const vector<int>& b) {
+            return a[1] - a[0] < b[1] - b[0];
+        });
+        int output = 0;
+        for (std::vector<int>& t : tasks) {
+            output = std::max(output + t[0], t[1]);
+        }
+        return output;
+    }
+};
