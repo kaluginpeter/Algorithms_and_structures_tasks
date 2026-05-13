@@ -34,3 +34,47 @@
 # 2 <= n <= 105
 # 1 <= nums[i] <= limit <= 105
 # n is even.
+# Solution
+# Python O(N + L) O(L) ScanLine
+class Solution:
+    def minMoves(self, nums: List[int], limit: int) -> int:
+        n: int = len(nums)
+        diff: list[int] = [0] * 200_002
+        for i in range(n >> 1):
+            x: int = min(nums[i], nums[n - 1 - i])
+            y: int = max(nums[i], nums[n - 1 - i])
+            diff[2] += 2 # lower bound
+            diff[x + 1] -= 1
+            diff[x + y] -= 1
+            diff[x + y + 1] += 1
+            diff[y + limit + 1] += 1
+        output: int = n
+        counter: int = 0
+        for c in range(2, (limit << 1) + 1):
+            counter += diff[c]
+            output = min(output, counter)
+        return output
+
+# C++ O(N + L) O(L) ScanLine
+class Solution {
+public:
+    int minMoves(vector<int>& nums, int limit) {
+        size_t n = nums.size();
+        std::array<int, 200002> diff{};
+        for (size_t i = 0; i < (n >> 1); ++i) {
+            int a = std::min(nums[i], nums[n - 1 - i]);
+            int b = std::max(nums[i], nums[n - 1 - i]);
+            diff[2] += 2;
+            diff[a + 1] -= 1;
+            diff[a + b] -= 1;
+            diff[a + b + 1] += 1;
+            diff[b + limit + 1] += 1;
+        }
+        size_t output = n, counter = 0;
+        for (size_t c = 2; c <= (limit << 1); ++c) {
+            counter += diff[c];
+            output = std::min(output, counter);
+        }
+        return output;
+    }
+};
