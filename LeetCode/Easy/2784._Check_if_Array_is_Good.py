@@ -56,3 +56,29 @@ class Solution:
     def isGood(self, nums: List[int]) -> bool:
         n = max(nums)
         return sum(nums) == (n * (n + 1) // 2) + n and len(set(nums)) == n
+
+
+# Python O(N + L) O(L)
+class Solution:
+    def isGood(self, nums: List[int]) -> bool:
+        n: int = max(nums)
+        if n > 100: return False
+        return (sum(nums) == (n * (n + 1) >> 1) + n) and len(set(nums)) == n
+
+# C++ O(N + L) O(L)
+class Solution {
+public:
+    bool isGood(vector<int>& nums) {
+        size_t n = nums.size() - 1;
+        if (n > 100) return false;
+        std::array<int, 101> hashmap{};
+        for (int& num : nums) {
+            if (num > 100) return false;
+            ++hashmap[num];
+        }
+        for (size_t i = 1; i < n; ++i) {
+            if (hashmap[i] != 1) return false;
+        }
+        return hashmap[n] == 2;
+    }
+};
