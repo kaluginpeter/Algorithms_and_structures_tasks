@@ -36,3 +36,14 @@
 # Return whether the deployment plan is valid.
 #
 # AlgorithmsGraph TheoryArraysLogic
+# Solution
+def solve(waves: list[list[str]], prerequisites: list[tuple[str, str]]) -> bool:
+    package_wave = {}
+    for wave_index, wave in enumerate(waves):
+        for package in wave:
+            if package in package_wave: return False
+            package_wave[package] = wave_index
+    for package, required in prerequisites:
+        if package not in package_wave or required not in package_wave: return False
+        if package_wave[required] >= package_wave[package]: return False
+    return True
