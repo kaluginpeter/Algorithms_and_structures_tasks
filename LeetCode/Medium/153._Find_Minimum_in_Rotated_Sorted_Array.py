@@ -63,3 +63,45 @@ public:
         return output;
     }
 };
+
+# Python O(log2(N)) O(1) BinarySearch
+class Solution:
+    def findMin(self, nums: List[int]) -> int:
+        n: int = len(nums)
+        left: int = 0
+        right: int = n - 1
+        while left <= right:
+            middle: int = left + ((right - left) >> 1)
+            if nums[middle] > nums[right]:
+                if nums[left] >= nums[right]: left = middle + 1
+                else: right = middle - 1
+            else:
+                right = middle
+                if nums[left] <= nums[right]: right -= 1
+        return nums[left]
+
+# C++ O(log2(N)) O(1) BinarySearch
+class Solution {
+public:
+    int findMin(vector<int>& nums) {
+        size_t n = nums.size(), left = 0, right = n - 1;
+        while (left <= right) {
+            size_t middle = left + ((right - left) >> 1);
+            if (nums[middle] > nums[right]) {
+                if (nums[left] >= nums[right]) left = middle + 1;
+                else {
+                    right = middle;
+                    if (right) --right;
+                    else break;
+                }
+            } else {
+                right = middle;
+                if (nums[left] <= nums[right]) {
+                    if (right) --right;
+                    else break;
+                }
+            }
+        }
+        return nums[left];
+    }
+};
