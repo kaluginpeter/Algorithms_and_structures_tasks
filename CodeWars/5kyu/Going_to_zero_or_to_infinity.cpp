@@ -23,3 +23,19 @@ You could try to simplify the expression.
 
 MathematicsAlgorithms
 */
+// Solution
+#include<bits/stdc++.h>
+class Suite
+{
+public:
+    static double going(int n)
+    {
+        double result = 1.0, term = 1.0;
+        for (int k = 1; k < n; ++k)
+        {
+            term /= (n - k + 1);
+            result += term;
+        }
+        return std::floor(result * 1e6) / 1e6;
+    }
+};
