@@ -78,3 +78,42 @@ public:
         return false;
     }
 };
+
+
+# Python O(V) O(V) Graph
+class Solution:
+    def canReach(self, arr: List[int], start: int) -> bool:
+        n: int = len(arr)
+        seen: list[bool] = [False] * n
+        nodes: list[int] = [start]
+        while nodes:
+            node: int = nodes.pop()
+            if seen[node]: continue
+            seen[node] = True
+            if node - arr[node] >= 0 and not seen[node - arr[node]]:
+                nodes.append(node - arr[node])
+            if node + arr[node] < n and not seen[node + arr[node]]:
+                nodes.append(node + arr[node])
+        return any(not arr[vertex] and seen[vertex] for vertex in range(n))
+
+# C++ O(V) O(V) Graph
+class Solution {
+public:
+    bool canReach(vector<int>& arr, int start) {
+        int n = arr.size();
+        std::vector<bool> seen(n, false);
+        std::vector<int> nodes = {start};
+        while (!nodes.empty()) {
+            int node = nodes.back();
+            nodes.pop_back();
+            if (seen[node]) continue;
+            seen[node] = true;
+            if (node - arr[node] >= 0 && !seen[node - arr[node]]) nodes.push_back(node - arr[node]);
+            if (node + arr[node] < n && !seen[node + arr[node]]) nodes.push_back(node + arr[node]);
+        }
+        for (int i = 0; i < n; ++i) {
+            if (!arr[i] && seen[i]) return true;
+        }
+        return false;
+    }
+};
