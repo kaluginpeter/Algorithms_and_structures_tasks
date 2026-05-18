@@ -26,3 +26,46 @@ puzzle(138)  -->  1  because [2 + 8 + 128] is the only solution
 puzzle(143)  -->  2  because [3 + 12 + 128] and [7 + 8 + 128] are the solutions
 Number TheoryMathematicsAlgorithms
 */
+// Solution
+#include <vector>
+#include <cmath>
+
+class KPrimes
+{
+public:
+    static int countFactors(long long x) {
+        int cnt = 0;
+        for (long long d = 2; d * d <= x; ++d) {
+            while (x % d == 0) {
+                ++cnt;
+                x /= d;
+            }
+        }
+        if (x > 1) ++cnt;
+        return cnt;
+    }
+
+    static std::vector<long long> countKprimes(int k, long long start, long long end) {
+        std::vector<long long> res;
+        for (long long x = start; x <= end; ++x) {
+            if (x >= 2 && countFactors(x) == k) res.push_back(x);
+        }
+        return res;
+    }
+
+    static int puzzle(int s) {
+        std::vector<long long> a = countKprimes(1, 2, s);
+        std::vector<long long> b = countKprimes(3, 2, s);
+        std::vector<long long> c = countKprimes(7, 2, s);
+        std::vector<bool> is7(s + 1, false);
+        for (long long x : c) is7[x] = true;
+        int ans = 0;
+        for (long long x : a) {
+            for (long long y : b) {
+                long long z = s - x - y;
+                if (z >= 0 && z <= s && is7[z]) ++ans;
+            }
+        }
+        return ans;
+    }
+};
