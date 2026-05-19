@@ -8,3 +8,11 @@
 # Write a function which returns the number of integer partition with distinct parts of n (1 <= n <= 600).
 #
 # MathematicsAlgorithmsDiscrete Mathematics
+# Solution
+def partitions(n):
+    dp = [0] * (n + 1)
+    dp[0] = 1
+    for x in range(1, n + 1):
+        for s in range(n, x - 1, -1):
+            dp[s] += dp[s - x]
+    return dp[n]
