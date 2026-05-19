@@ -51,3 +51,30 @@ class Solution:
             else:
                 left += 1
         return -1
+
+
+# Python O(min(N, M)) O(1) TwoPointers
+class Solution:
+    def getCommon(self, nums1: List[int], nums2: List[int]) -> int:
+        n: int = len(nums1)
+        m: int = len(nums2)
+        i: int = 0
+        j: int = 0
+        while i < n and j < m and nums1[i] != nums2[j]:
+            if nums1[i] < nums2[j]: i += 1
+            else: j += 1
+        return -1 if i == n or j == m else nums1[i]
+
+# C++ O(min(N, M)) O(1) TwoPointers
+class Solution {
+public:
+    int getCommon(vector<int>& nums1, vector<int>& nums2) {
+        size_t n = nums1.size(), m = nums2.size();
+        size_t i = 0, j = 0;
+        while (i < n && j < m && nums1[i] != nums2[j]) {
+            if (nums1[i] > nums2[j]) ++j;
+            else ++i;
+        }
+        return (i < n && j < m ? nums1[i] : -1);
+    }
+};
