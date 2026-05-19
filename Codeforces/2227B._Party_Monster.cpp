@@ -101,3 +101,29 @@ In the fourth test case, we can choose the substring s[3,4]=)(
 
 Therefore we have made a regular bracket sequence, and the answer is "YES".
 */
+// Solution
+// C++ O(N) O(1) Greedy
+#include <iostream>
+#include <string>
+#include <cstdint>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::string sequence = "";
+    std::cin >> sequence;
+    int32_t x = 0, y = 0;
+    for (char& ch : sequence) {
+        if (ch == '(') ++x;
+        else ++y;
+    }
+    std::cout << ((std::max(x, y) - std::min(x, y))? "NO" : "YES") << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
