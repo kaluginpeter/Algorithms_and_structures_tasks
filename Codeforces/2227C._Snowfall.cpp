@@ -101,3 +101,35 @@ Therefore, f(a)=12
 . It can be proven that no other arrangement yields a smaller value of f(a)
 .
 */
+// Solution
+// C++ O(N) O(N) Math NumberTheory
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::vector<int> twos, threes, odds, divs;
+    for (size_t i = 0; i < n; ++i) {
+        int x;
+        std::cin >> x;
+        if (x % 6 == 0) divs.push_back(x);
+        else if (x % 3 == 0) threes.push_back(x);
+        else if (x & 1) odds.push_back(x);
+        else twos.push_back(x);
+    }
+
+    for (int& x : divs) std::cout << x << " ";
+    for (int& x : twos) std::cout << x << " ";
+    for (int& x : odds) std::cout << x << " ";
+    for (int& x : threes) std::cout << x << " ";
+    std::cout << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
