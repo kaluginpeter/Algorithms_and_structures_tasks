@@ -83,3 +83,40 @@ public:
         return output;
     }
 };
+
+
+# Python O(N) O(N) HashMap
+class Solution:
+    def findThePrefixCommonArray(self, A: List[int], B: List[int]) -> List[int]:
+        hashmap: list[int] = [0] * 51
+        n: int = len(A)
+        output: list[int] = []
+        for i in range(n):
+            hashmap[A[i]] += 1
+            hashmap[B[i]] -= 1
+            diff: int = 0
+            if not hashmap[A[i]]: diff += 1
+            if not hashmap[B[i]]: diff += 1
+            if A[i] == B[i]: diff -= 1
+            output.append(diff + (0 if not output else output[-1]))
+        return output
+
+# C++ O(N) O(N) HashMap
+class Solution {
+public:
+    vector<int> findThePrefixCommonArray(vector<int>& A, vector<int>& B) {
+        std::array<int, 51> hashmap{};
+        size_t n = A.size();
+        std::vector<int> output;
+        for (size_t i = 0; i < n; ++i) {
+            ++hashmap[A[i]];
+            --hashmap[B[i]];
+            int diff = 0;
+            if (!hashmap[A[i]]) ++diff;
+            if (!hashmap[B[i]]) ++diff;
+            if (A[i] == B[i]) --diff;
+            output.push_back(diff + (output.empty() ? 0 : output.back()));
+        }
+        return output;
+    }
+};
