@@ -55,3 +55,12 @@
 # A naive solution that simply walks the line from (0,0) to (x,y) will NOT pass. You have to think of a faster solution.
 #
 # AlgorithmsMathematics
+# Solution
+def snail_length(x, y):
+    if x == 0 and y == 0: return 0
+    k = max(abs(x), abs(y))
+    mx = (2 * k + 1) ** 2 - 1
+    if y == -k: return mx - (k - x)
+    if x == -k: return mx - 2 * k - (y + k)
+    if y == k: return mx - 4 * k - (x + k)
+    return mx - 6 * k - (k - y)
