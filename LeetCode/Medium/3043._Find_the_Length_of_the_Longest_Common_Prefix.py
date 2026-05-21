@@ -67,3 +67,64 @@ class Solution:
         for word in arr2:
             prefix_tree2.insert(str(word))
         return self.longest_prefix(prefix_tree1.root, prefix_tree2.root, 0, [0])
+
+
+# C++ O(NL) O(NL) Trie
+class TrieNode {
+public:
+    std::array<TrieNode*, 10> children{};
+    bool isEnd = false;
+    TrieNode() {
+        children.fill(nullptr);
+    }
+};
+
+class Trie {
+private:
+    TrieNode* root;
+public:
+    Trie() {
+        root = new TrieNode();
+    }
+
+    void insert(int num) {
+        std::string s = to_string(num);
+        TrieNode* node = root;
+        for (char& c : s) {
+            int digit = c - '0';
+            if (!node->children[digit]) {
+                node->children[digit] = new TrieNode();
+            }
+            node = node->children[digit];
+        }
+        node->isEnd = true;
+    }
+
+    uint16_t getLen(int num) {
+        std::string s = to_string(num);
+        TrieNode* node = root;
+        uint16_t length = 0;
+        for (char& c : s) {
+            int digit = c - '0';
+            if (!node->children[digit]) break;
+            node = node->children[digit];
+            ++length;
+        }
+        return length;
+    }
+};
+
+
+class Solution {
+public:
+    int longestCommonPrefix(vector<int>& arr1, vector<int>& arr2) {
+        Trie trie;
+        for (int& num : arr1) trie.insert(num);
+        uint16_t output = 0;
+        for (int& num : arr2) {
+            uint16_t common = trie.getLen(num);
+            if (common > output) output = common;
+        }
+        return output;
+    }
+};
