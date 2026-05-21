@@ -50,3 +50,16 @@
 # delta(input, 1) # [{8, 'B'}, {'A'}]
 # delta(input, 2) # [{'A'}]
 # IteratorsRecursion
+# Solution
+from itertools import tee
+
+
+def delta(values, n):
+    if n == 0:
+        yield from values
+        return
+    a, b = tee(values)
+    next(b, None)
+    diffs = (y - x for x, y in zip(a, b))
+    if n == 1: yield from diffs
+    else: yield from delta(diffs, n - 1)
