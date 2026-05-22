@@ -36,3 +36,15 @@ Hint to get you going:
 The pointer to the v-table is located at the very start of the object
 Language FeaturesObject-oriented Programming
 */
+void Alter_VTables(void)
+{
+    DecimalSerialNumber d;
+    HexadecimalSerialNumber h;
+    void*** d_obj = reinterpret_cast<void***>(&d);
+    void*** h_obj = reinterpret_cast<void***>(&h);
+    void** d_vtable = *d_obj;
+    void** h_vtable = *h_obj;
+    Set_Memory_Writeable(d_vtable);
+    Set_Memory_Writeable(h_vtable);
+    std::swap(d_vtable[0], h_vtable[0]);
+}
