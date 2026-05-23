@@ -63,3 +63,33 @@ public:
         return !hasBreak || nums[0] >= nums[nums.size() - 1];
     }
 };
+
+
+# Python O(N) O(1) Greedy
+class Solution:
+    def check(self, nums: List[int]) -> bool:
+        was: bool = False
+        pos: int = len(nums) - 1
+        for i in range(len(nums) - 1):
+            if nums[i] > nums[i + 1]:
+                if was: return False
+                was = True
+                pos = 0
+        return nums[pos] >= nums[-1]
+
+# C++ O(N) O(1) Greedy
+class Solution {
+public:
+    bool check(vector<int>& nums) {
+        bool was = false;
+        int pos = nums.size() - 1;
+        for (size_t i = 0; i < nums.size() - 1; ++i) {
+            if (nums[i] > nums[i + 1]) {
+                if (was) return false;
+                was = true;
+                pos = 0;
+            }
+        }
+        return nums[pos] >= nums.back();
+    }
+};
