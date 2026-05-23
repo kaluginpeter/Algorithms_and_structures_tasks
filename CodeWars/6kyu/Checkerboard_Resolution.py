@@ -35,3 +35,9 @@
 # Good luck!
 #
 # PerformanceAlgorithmsMatrix
+# Solution
+def count_checkerboard(w,h,r):
+ a,b=divmod(w,r);c,d=divmod(h,r)
+ x=a//2*r+(a&1)*b
+ y=c//2*r+(c&1)*d
+ return x*(h-y)+y*(w-x)
