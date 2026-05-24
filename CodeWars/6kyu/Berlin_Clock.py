@@ -34,3 +34,12 @@
 # "00:00:00"  ==>  "Y\nOOOO\nOOOO\nOOOOOOOOOOO\nOOOO"
 # "22:32:45"  ==>  "O\nRRRR\nRROO\nYYRYYROOOOO\nYYOO"
 # Date TimeStringsFundamentals
+# Solution
+def berlin_clock(t):
+ h,m,s=map(int,t.split(':'))
+ return'\n'.join([
+ 'YO'[s%2],
+ 'R'*(h//5)+'O'*(4-h//5),
+ 'R'*(h%5)+'O'*(4-h%5),
+ ('YYR'*4)[:m//5].ljust(11,'O'),
+ 'Y'*(m%5)+'O'*(4-m%5)])
