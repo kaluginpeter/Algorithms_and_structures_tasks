@@ -68,3 +68,37 @@
 # Car Park Escape
 #
 # ArraysFundamentals
+# Solution
+class Connect4:
+    def __init__(s):
+        s.b = [[0] * 7 for _ in range(6)]
+        s.p = 1
+        s.w = 0
+
+    def play(s, c):
+        if s.w: return 'Game has finished!'
+
+        for r in range(5, -1, -1):
+            if not s.b[r][c]:
+                s.b[r][c] = p = s.p
+                break
+        else:
+            return 'Column full!'
+
+        for dr, dc in [(1, 0), (0, 1), (1, 1), (1, -1)]:
+            n = 1
+            for d in -1, 1:
+                rr, cc = r, c
+                while 1:
+                    rr += dr * d;
+                    cc += dc * d
+                    if 0 <= rr < 6 and 0 <= cc < 7 and s.b[rr][cc] == p:
+                        n += 1
+                    else:
+                        break
+            if n > 3:
+                s.w = 1
+                return f'Player {p} wins!'
+
+        s.p = 3 - p
+        return f'Player {p} has a turn'
