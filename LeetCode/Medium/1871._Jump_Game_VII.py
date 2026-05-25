@@ -58,3 +58,39 @@ public:
         return false;
     }
 };
+
+
+# Python O(N) O(N) ScanLine
+class Solution:
+    def canReach(self, s: str, minJump: int, maxJump: int) -> bool:
+        n: int = len(s)
+        scan_line: list[int] = [0] * n
+        scan_line[minJump] += 1
+        if maxJump + 1 < n: scan_line[maxJump + 1] -= 1
+        counter: int = 0
+        for i in range(n):
+            counter += scan_line[i]
+            if counter and s[i] == '0':
+                if i + minJump < n: scan_line[i + minJump] += 1
+                if i + maxJump + 1 < n: scan_line[i + maxJump + 1] -= 1
+        return bool(counter and s[-1] == '0')
+
+# C++ O(N) O(N) ScanLine
+class Solution {
+public:
+    bool canReach(string s, int minJump, int maxJump) {
+        size_t n = s.size();
+        std::vector<int> scanLine(n, 0);
+        ++scanLine[minJump];
+        if (maxJump + 1 < n) --scanLine[maxJump + 1];
+        int counter = 0;
+        for (size_t i = 0; i < n; ++i) {
+            counter += scanLine[i];
+            if (counter && s[i] == '0') {
+                if (i + minJump < n) ++scanLine[i + minJump];
+                if (i + maxJump + 1 < n) --scanLine[i + maxJump + 1];
+            }
+        }
+        return counter && s.back() == '0';
+    }
+};
