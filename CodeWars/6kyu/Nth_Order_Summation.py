@@ -68,3 +68,13 @@
 # 1 <= n <= 10**100
 #
 # MathematicsPerformance
+# Solution
+from math import factorial
+
+def s(m, n):
+    result = 1
+
+    for i in range(m):
+        result *= n + i
+
+    return result // factorial(m)
