@@ -23,3 +23,15 @@
 # n <= 20000
 # m <= 20000
 # MathematicsDynamic ProgrammingPerformanceAlgorithms
+# Solution
+from math import comb
+
+def height(n, m):
+    if n == 0 or m == 0: return 0
+    n = min(n, m)
+    total = 0
+    c = 1
+    for i in range(1, n + 1):
+        c = c * (m - i + 1) // i
+        total += c
+    return total
