@@ -22,3 +22,23 @@
 # Round the seconds to the nearest integer.
 #
 # Fundamentals
+# Solution
+def convert(degrees):
+    d = int(degrees)
+    minutes_float = (degrees - d) * 60
+    m = int(minutes_float)
+    seconds_float = (minutes_float - m) * 60
+    s = round(seconds_float)
+    if s == 60:
+        s = 0
+        m += 1
+    if m == 60:
+        m = 0
+        d += 1
+
+    result = [d]
+    if m != 0 or s != 0: result.append(m)
+    if s != 0:
+        if len(result) == 1: result.append(0)
+        result.append(s)
+    return result
