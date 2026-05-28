@@ -45,3 +45,72 @@ wordsQuery[i] consists only of lowercase English letters.
 Sum of wordsContainer[i].length is at most 5 * 105.
 Sum of wordsQuery[i].length is at most 5 * 105.
 */
+// Solution
+// C++ O(N + MD) O(D) Trie
+class TrieNode {
+public:
+    std::array<TrieNode*, 26> children{};
+    int pos = INT32_MAX, posSize = INT32_MAX;
+    TrieNode() {
+        children.fill(nullptr);
+    }
+};
+
+class Trie {
+private:
+    TrieNode* root;
+public:
+    Trie() {
+        root = new TrieNode();
+    }
+
+    void insert(std::string& s, size_t& pos, int bound) {
+        TrieNode* node = root;
+        size_t length = s.size();
+        for (size_t i = 0; i < bound; ++i) {
+            int idx = s[i] - 'a';
+            if (!node->children[idx]) {
+                node->children[idx] = new TrieNode();
+            }
+            if (node->posSize > length) {
+                node->posSize = length;
+                node->pos = pos;
+            }
+            node = node->children[idx];
+        }
+        if (node->posSize > length) {
+            node->posSize = length;
+            node->pos = pos;
+        }
+    }
+
+    uint16_t getLongestCommonSuffix(std::string& q) {
+        TrieNode* node = root;
+        for (char& c : q) {
+            int idx = c - 'a';
+            if (!node->children[idx]) break;
+            node = node->children[idx];
+        }
+        return node->pos;
+    }
+};
+
+class Solution {
+public:
+    vector<int> stringIndices(vector<string>& wordsContainer, vector<string>& wordsQuery) {
+        size_t n = wordsContainer.size(), m = wordsQuery.size();
+        Trie trie;
+        size_t bound = 0;
+        for (std::string& q : wordsQuery) bound = std::max(bound, q.size());
+        for (size_t i = 0; i < n; ++i) {
+            std::reverse(wordsContainer[i].begin(), wordsContainer[i].end());
+            trie.insert(wordsContainer[i], i, std::min(bound, wordsContainer[i].size()));
+        }
+        std::vector<int> output;
+        for (std::string& q : wordsQuery) {
+            std::reverse(q.begin(), q.end());
+            output.push_back(trie.getLongestCommonSuffix(q));
+        }
+        return output;
+    }
+};
