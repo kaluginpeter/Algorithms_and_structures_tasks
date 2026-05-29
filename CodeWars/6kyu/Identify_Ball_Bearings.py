@@ -33,3 +33,12 @@
 # Extreme Hat Game
 # Hat Game 2
 # Riddles
+# Solution
+def identify_bb(bearings, weigh):
+    samples = []
+    for i, bearing in enumerate(bearings):
+        samples.extend([bearing] * (i + 1))
+    actual = weigh(*samples)
+    expected = 10 * (len(bearings) * (len(bearings) + 1) // 2)
+    deluxe_index = actual - expected - 1
+    return bearings[deluxe_index]
