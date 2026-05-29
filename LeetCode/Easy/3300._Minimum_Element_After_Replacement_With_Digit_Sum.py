@@ -42,3 +42,25 @@
 #
 # 1 <= nums.length <= 100
 # 1 <= nums[i] <= 104
+# Solution
+# Python O(Nlog2(M)) O(1) Math
+class Solution:
+    def minElement(self, nums: List[int]) -> int:
+        return min(sum(map(int, str(num))) for num in nums)
+
+# C++ O(Nlog2(M)) O(1) Math
+class Solution {
+public:
+    int minElement(vector<int>& nums) {
+        int output = INT32_MAX;
+        for (int& num : nums) {
+            int tmp = 0;
+            while (num) {
+                tmp += num % 10;
+                num /= 10;
+            }
+            output = std::min(output, tmp);
+        }
+        return output;
+    }
+};
