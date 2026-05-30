@@ -20,3 +20,11 @@
 #
 # # prints 1, 2, 4, 8, 16, 31, 57, 99, 163, 256, 386, 562, 794, 1093...
 # GeometryFundamentals
+# Solution
+from math import comb
+
+def moser():
+    n = 1
+    while True:
+        yield 1 + comb(n, 2) + comb(n, 4)
+        n += 1
