@@ -33,3 +33,26 @@
 # 1 <= asteroids.length <= 105
 # 1 <= asteroids[i] <= 105
 #
+# Solution
+# Python O(NlogN + N) O(1) Sorting
+class Solution:
+    def asteroidsDestroyed(self, mass: int, asteroids: List[int]) -> bool:
+        asteroids.sort()
+        for num in asteroids:
+            if mass < num: return False
+            mass += num
+        return True
+
+# C++ O(NlogN + N) O(1) Sorting
+class Solution {
+public:
+    bool asteroidsDestroyed(int mass, vector<int>& asteroids) {
+        std::sort(asteroids.begin(), asteroids.end());
+        long long tmp = mass;
+        for (int& num : asteroids) {
+            if (tmp < num) return false;
+            tmp += num;
+        }
+        return true;
+    }
+};
