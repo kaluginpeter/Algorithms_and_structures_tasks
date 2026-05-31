@@ -27,3 +27,12 @@
 # So the expected result is [960, 480, 60].
 #
 # MathematicsPuzzlesAlgorithms
+# Solution
+def bin_mul(m, n):
+    m, n = max(m, n), min(m, n)
+    output = []
+    while m:
+        if m & 1 and n: output.append(n)
+        m //= 2
+        n *= 2
+    return output[::-1]
