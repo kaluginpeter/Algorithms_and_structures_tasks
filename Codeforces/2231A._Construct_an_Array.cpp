@@ -43,3 +43,30 @@ In the second example, all elements and adjacent sums form the set 6,2,3,8,5
 In the third example, all elements and adjacent sums form the set 8,1,11,2,3,4,9,12,13,5,7
 , whose elements are also distinct.
 */
+// Solution
+// C++ O(N) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    int ptr = 1, count = 0;
+    for (size_t i = 0; i < n; ++i) {
+        if (count == n) break;
+        std::cout << ptr << " ";
+        ++count;
+        ptr += 2;
+        if (count < n) {
+            std::cout << ptr + n - 2 << " ";
+            ++count;
+        }
+    }
+    std::cout << "\n";
+}
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
