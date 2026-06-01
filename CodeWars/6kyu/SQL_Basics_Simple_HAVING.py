@@ -10,3 +10,8 @@
 # NOTE: Your solution should use pure SQL. Ruby is used within the test cases to do the actual testing.
 #
 # SQLFundamentals
+# Solution
+SELECT age, COUNT(*) AS total_people
+FROM people
+GROUP BY age
+HAVING COUNT(*) >= 10;
