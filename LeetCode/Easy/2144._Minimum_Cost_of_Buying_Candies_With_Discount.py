@@ -47,3 +47,33 @@ class Solution(object):
                 continue
             count += cost[i]
         return count
+
+
+# Python O(NlogN + N) O(1) Greedy Sorting
+class Solution:
+    def minimumCost(self, cost: List[int]) -> int:
+        cost.sort()
+        output: int = 0
+        ptr: int = len(cost) - 1
+        while ptr >= 0:
+            output += cost[ptr]
+            ptr -= 1
+            if ptr >= 0: output += cost[ptr]
+            ptr -= 2
+        return output
+
+# C++ O(NlogN + N) O(1) Sorting Greedy
+class Solution {
+public:
+    int minimumCost(vector<int>& cost) {
+        std::sort(cost.begin(), cost.end());
+        size_t output = 0;
+        int ptr = cost.size() - 1;
+        while (ptr >= 0) {
+            output += cost[ptr--];
+            if (ptr >= 0) output += cost[ptr--];
+            --ptr;
+        }
+        return output;
+    }
+};
