@@ -7,3 +7,6 @@
 # Sort the results by increasing order of id.
 #
 # DatabasesSQL
+# Solution
+SELECT * FROM students
+WHERE isactive IS true;
