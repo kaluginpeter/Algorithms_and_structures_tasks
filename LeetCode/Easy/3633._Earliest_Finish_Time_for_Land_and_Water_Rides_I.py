@@ -61,3 +61,39 @@
 # landStartTime.length == landDuration.length == n
 # waterStartTime.length == waterDuration.length == m
 # 1 <= landStartTime[i], landDuration[i], waterStartTime[j], waterDuration[j] <= 1000
+# Solution
+# Python O(N^2) O(1) BruteForce
+class Solution:
+    def earliestFinishTime(self, landStartTime: List[int], landDuration: List[int], waterStartTime: List[int], waterDuration: List[int]) -> int:
+        n: int = len(landStartTime)
+        m: int = len(waterStartTime)
+        output: int = float('inf')
+        for i in range(n):
+            for j in range(m):
+                x: int = landStartTime[i] + landDuration[i]
+                y: int = waterStartTime[j] + waterDuration[j]
+                if x <= waterStartTime[j]: output = min(output, y)
+                else: output = min(output, x + waterDuration[j])
+                if y <= landStartTime[i]: output = min(output, x)
+                else: output = min(output, y + landDuration[i])
+        return output
+
+# C++ O(N^2) O(1) BruteForce
+class Solution {
+public:
+    int earliestFinishTime(vector<int>& landStartTime, vector<int>& landDuration, vector<int>& waterStartTime, vector<int>& waterDuration) {
+       size_t n = landStartTime.size(), m = waterStartTime.size();
+       int output = INT32_MAX;
+       for (size_t i = 0; i < n; ++i) {
+        for (size_t j = 0; j < m; ++j) {
+            int x = landStartTime[i] + landDuration[i];
+            int y = waterStartTime[j] + waterDuration[j];
+            if (x <= waterStartTime[j]) output = std::min(output, y);
+            else output = std::min(output, x + waterDuration[j]);
+            if (y <= landStartTime[i]) output = std::min(output, x);
+            else output = std::min(output, y + landDuration[i]);
+        }
+       }
+       return output;
+    }
+};
