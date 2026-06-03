@@ -62,3 +62,49 @@
 # waterStartTime.length == waterDuration.length == m
 # 1 <= landStartTime[i], landDuration[i], waterStartTime[j], waterDuration[j] <= 105
 #
+# Solution
+# Python O(N + M) O(1) TwoPointers
+class Solution:
+    def earliestFinishTime(self, landStartTime: List[int], landDuration: List[int], waterStartTime: List[int], waterDuration: List[int]) -> int:
+        n: int = len(landDuration)
+        m: int = len(waterDuration)
+        land_end: int = float('inf')
+        water_end: int = float('inf')
+        for i in range(n):
+            land_end = min(land_end, landStartTime[i] + landDuration[i])
+        for i in range(m):
+            water_end = min(water_end, waterStartTime[i] + waterDuration[i])
+        output: int = float('inf')
+        for i in range(m):
+            if land_end < waterStartTime[i]:
+                output = min(output, waterStartTime[i] + waterDuration[i])
+            else:
+                output = min(output, land_end + waterDuration[i])
+        for i in range(n):
+            if water_end < landStartTime[i]:
+                output = min(output, landStartTime[i] + landDuration[i])
+            else:
+                output = min(output, water_end + landDuration[i])
+        return output
+
+# C++ O(N + M) O(1) TwoPointers
+class Solution {
+public:
+    int earliestFinishTime(vector<int>& landStartTime, vector<int>& landDuration, vector<int>& waterStartTime, vector<int>& waterDuration) {
+        size_t n = landDuration.size(), m = waterDuration.size();
+        int landEnd = INT32_MAX;
+        for (size_t i = 0; i < n; ++i) landEnd = std::min(landEnd, landStartTime[i] + landDuration[i]);
+        int waterEnd = INT32_MAX;
+        for (size_t j = 0; j < m; ++j) waterEnd = std::min(waterEnd, waterStartTime[j] + waterDuration[j]);
+        int output = INT32_MAX;
+        for (size_t j = 0; j < m; ++j) {
+            if (landEnd < waterStartTime[j]) output = std::min(output, waterStartTime[j] + waterDuration[j]);
+            else output = std::min(output, landEnd + waterDuration[j]);
+        }
+        for (size_t i = 0; i < n; ++i) {
+            if (waterEnd < landStartTime[i]) output = std::min(output, landStartTime[i] + landDuration[i]);
+            else output = std::min(output, waterEnd + landDuration[i]);
+        }
+        return output;
+    }
+};
