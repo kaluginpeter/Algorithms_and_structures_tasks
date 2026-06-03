@@ -17,3 +17,11 @@
 # NOTE: sometimes a department will not not contain a sale over $98 so just resubmit.
 #
 # SQLFundamentals
+# Solution
+SELECT id, name
+FROM departments
+WHERE id IN (
+    SELECT department_id
+    FROM sales
+    WHERE price > 98.00
+);
