@@ -55,3 +55,44 @@
 #
 # 1 <= num1 <= num2 <= 105
 #
+# Solution
+# Python O(NlogM) O(1) Math BruteForce
+class Solution:
+    def totalWaviness(self, num1: int, num2: int) -> int:
+        output: int = 0
+        for i in range(num1, num2 + 1):
+            x: int = i
+            extra: int = 0
+            left = middle = right = -1
+            while x:
+                middle, right = left, middle
+                left = x % 10
+                x //= 10
+                if right == -1: continue
+                if middle < left and middle < right: extra += 1
+                elif middle > right and middle > left: extra += 1
+            output += extra
+        return output
+
+# C++ O(NlogM) O(1) BruteForce Math
+class Solution {
+public:
+    int totalWaviness(int num1, int num2) {
+        int output = 0;
+        for (int i = num1; i <= num2; ++i) {
+            int x = i, extra = 0;
+            int left = -1, middle = -1, right = -1;
+            while (x) {
+                std::swap(middle, right);
+                std::swap(left, middle);
+                left = x % 10;
+                x /= 10;
+                if (right == -1) continue;
+                if (middle > right && middle > left) ++extra;
+                else if (middle < right && middle < left) ++extra;
+            }
+            output += extra;
+        }
+        return output;
+    }
+};
