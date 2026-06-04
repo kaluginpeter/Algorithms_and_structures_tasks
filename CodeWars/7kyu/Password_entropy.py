@@ -25,3 +25,13 @@
 # Write a function entropy which takes as its input a valid password and returns the entropy of the password, calculated using the formula above.
 #
 # MathematicsStrings
+# Solution
+from math import log2
+
+def entropy(password):
+    R: int = 0
+    if any(char.islower() for char in password): R += 26
+    if any(char.isupper() for char in password): R += 26
+    if any(char.isdigit() for char in password): R += 10
+    if any(char in "!\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~" for char in password): R += 32
+    return len(password) * log2(R)
