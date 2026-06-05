@@ -40,3 +40,16 @@
 #     Output : 33 (8+9+1+3+5+7)
 #
 # FundamentalsArraysMatrix
+# Solution
+def max_land_value(area : list[list[int]]) -> int :
+    n: int = len(area)
+    m: int = len(area[0])
+    bucket: list[list[int]] = [[0, 0], [0, 0]]
+    for i in range(n):
+        if (n & 1) and i == (n >> 1): continue
+        for j in range(m):
+            if (m & 1) and j == (m >> 1): continue
+            x: int = i >= (n >> 1)
+            y: int = j >= (m >> 1)
+            bucket[x][y] += area[i][j]
+    return max(iter(max(quad) for quad in bucket), default=0)
