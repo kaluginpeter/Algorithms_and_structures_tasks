@@ -56,3 +56,66 @@
 # Constraints:
 #
 # 1 <= num1 <= num2 <= 1015​​​​​​​
+# Solution
+# C++ O(D^3logN) O(D^2) DynamicProgramming Digit-DP
+struct State {
+    int prev, curr, tight, lead;
+    long long cnt, sum;
+};
+
+class Solution {
+public:
+    long long solve(long long num) {
+        if (num < 100) return 0;
+        std::string s = std::to_string(num);
+        int n = s.size();
+        std::vector<State> currStates;
+        currStates.push_back({10, 10, 1, 1, 1, 0});
+        for (int pos = 0; pos < n; ++pos) {
+            int limit = s[pos] - '0';
+            long long cnt[2][2][11][11] = {0};
+            long long sum[2][2][11][11] = {0};
+
+            for (const auto& st : currStates) {
+                int maxDigit = st.tight ? limit : 9;
+                for (int digit = 0; digit <= maxDigit; ++digit) {
+                    int newLead = st.lead && (digit == 0);
+                    int newPrev = st.curr;
+                    int newCurr = newLead ? 10 : digit;
+                    int newTight = st.tight && (digit == maxDigit);
+
+                    long long add = 0;
+                    if (!newLead && st.prev != 10 && st.curr != 10) {
+                        if ((st.prev < st.curr && st.curr > digit) ||
+                            (st.prev > st.curr && st.curr < digit)) {
+                            add = st.cnt;
+                        }
+                    }
+
+                    cnt[newTight][newLead][newPrev][newCurr] += st.cnt;
+                    sum[newTight][newLead][newPrev][newCurr] += st.sum + add;
+                }
+            }
+            vector<State> nextStates;
+            for (int tight = 0; tight < 2; ++tight) {
+                for (int lead = 0; lead < 2; ++lead) {
+                    for (int prev = 0; prev <= 10; ++prev) {
+                        for (int curr = 0; curr <= 10; ++curr) {
+                            long long c = cnt[tight][lead][prev][curr];
+                            long long s = sum[tight][lead][prev][curr];
+                            if (c) nextStates.push_back({prev, curr, tight, lead, c, s});
+                        }
+                    }
+                }
+            }
+            currStates.swap(nextStates);
+        }
+        long long ans = 0;
+        for (const auto& st : currStates) ans += st.sum;
+        return ans;
+    }
+
+    long long totalWaviness(long long num1, long long num2) {
+        return solve(num2) - solve(num1 - 1);
+    }
+};
