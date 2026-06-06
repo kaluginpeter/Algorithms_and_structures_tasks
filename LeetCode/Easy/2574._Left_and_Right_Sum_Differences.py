@@ -38,3 +38,30 @@ class Solution:
             nums[i] = abs(left_sm - right_sm)
             left_sm += x
         return nums
+
+# Python O(N) O(N) Prefix
+class Solution:
+    def leftRightDifference(self, nums: List[int]) -> List[int]:
+        left: int = 0
+        right: int = sum(nums)
+        output: list[int] = []
+        for num in nums:
+            right -= num
+            output.append(abs(right - left))
+            left += num
+        return output
+
+# C++ O(N) O(N) Prefix
+class Solution {
+public:
+    vector<int> leftRightDifference(vector<int>& nums) {
+        int left = 0, right = std::accumulate(nums.begin(), nums.end(), 0);
+        std::vector<int> output;
+        for (int& num : nums) {
+            right -= num;
+            output.push_back(std::abs(left - right));
+            left += num;
+        }
+        return output;
+    }
+};
