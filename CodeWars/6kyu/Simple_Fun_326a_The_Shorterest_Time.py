@@ -52,3 +52,19 @@
 # These are Dutch floors. They are numbered 0-based. (0 is usually called "begane grond".)
 #
 # PuzzlesGamesFundamentals
+# Solution
+def shorterest_time(n, m, speeds):
+    a, b, c, d = speeds
+    if n == 0: return 0
+    ans = n * d
+    for k in range(1, n + 1):
+        t = (
+            (n - k) * d +
+            abs(m - k) * a +
+            b +
+            c +
+            k * a +
+            b
+        )
+        ans = min(ans, t)
+    return ans
