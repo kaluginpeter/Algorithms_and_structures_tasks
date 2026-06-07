@@ -57,3 +57,77 @@ class Solution:
         for node in heads:
             if node not in childs:
                 return heads[node]
+
+
+# Python O(V + E) O(V + E) BreadthFirstSearch BinaryTree
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def createBinaryTree(self, descriptions: List[List[int]]) -> Optional[TreeNode]:
+        heads: dict[int, TreeNode] = dict()
+        childs: set[int] = set()
+        for path in descriptions:
+            current_head = TreeNode(path[0]) if path[0] not in heads else heads[path[0]]
+            current_child = heads[path[1]] if path[1] in heads else TreeNode(path[1])
+            if path[2]:
+                current_head.left = current_child
+            else:
+                current_head.right = current_child
+
+            heads[current_child.val] = current_child
+            heads[current_head.val] = current_head
+            childs.add(current_child.val)
+
+        for node in heads:
+            if node not in childs:
+                return heads[node]
+
+# C++ O(V + E) O(V + E) BinaryTree BreadthFirstSearch
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* createBinaryTree(vector<vector<int>>& descriptions) {
+        std::unordered_map<int, std::vector<std::vector<int>>> childrens;
+        std::unordered_set<int> seen;
+        for (std::vector<int>& edge : descriptions) {
+            childrens[edge[0]].push_back({edge[1], edge[2]});
+            seen.insert(edge[1]);
+        }
+        int startVertex = 0;
+        for (std::vector<int>& edge : descriptions) {
+            if (!seen.count(edge[0])) {
+                startVertex = edge[0];
+                break;
+            }
+        }
+        TreeNode* root = new TreeNode(startVertex);
+        std::vector<TreeNode*> curNodes = {root}, nextNodes;
+        while (!curNodes.empty()) {
+            for (TreeNode* node : curNodes) {
+                for (std::vector<int>& edge : childrens[node->val]) {
+                    TreeNode* child = new TreeNode(edge[0]);
+                    if (edge[1]) node->left = child;
+                    else node->right = child;
+                    nextNodes.push_back(child);
+                }
+            }
+            curNodes = nextNodes;
+            nextNodes.clear();
+        }
+        return root;
+    }
+};
