@@ -97,3 +97,49 @@ public:
         return nums;
     }
 };
+
+
+# Python O(N) O(N) TwoPointers
+class Solution:
+    def pivotArray(self, nums: List[int], pivot: int) -> List[int]:
+        n: int = len(nums)
+        less_than: int = 0
+        equal: int = 0
+        for num in nums:
+            if num < pivot: less_than += 1
+            elif num == pivot: equal += 1
+        left: int = 0
+        middle: int = less_than
+        right: int = middle + equal
+        output: list[int] = [0] * n
+        for num in nums:
+            if num < pivot:
+                output[left] = num
+                left += 1
+            elif num == pivot:
+                output[middle] = num
+                middle += 1
+            else:
+                output[right] = num
+                right += 1
+        return output
+
+# C++ O(N) O(N) TwoPointers
+class Solution {
+public:
+    vector<int> pivotArray(vector<int>& nums, int pivot) {
+        size_t n = nums.size(), lessThan = 0, equal = 0;
+        for (int& num : nums) {
+            if (num < pivot) ++lessThan;
+            else if (num == pivot) ++equal;
+        }
+        size_t left = 0, middle = lessThan, right = lessThan + equal;
+        std::vector<int> output(n, 0);
+        for (size_t i = 0; i < n; ++i) {
+            if (nums[i] < pivot) output[left++] = nums[i];
+            else if (nums[i] == pivot) output[middle++] = nums[i];
+            else output[right++] = nums[i];
+        }
+        return output;
+    }
+};
