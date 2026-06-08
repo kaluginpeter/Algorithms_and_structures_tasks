@@ -77,3 +77,32 @@ Call the 4
 . Their locations are now [1,1,1,1,1]
 .
 */
+// Solution
+// C++ O(N) O(1) Greedy Math
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::vector<int> nums(n, 0);
+    for (size_t i = 0; i < n; ++i) std::cin >> nums[i];
+    std::sort(nums.begin(), nums.end());
+    int target = nums[n >> 1];
+    int lessThan = 0, greaterThan = 0;
+    for (int& num : nums) {
+        if (num < target) ++lessThan;
+        else if (num > target) ++greaterThan;
+    }
+    int diff = std::min(lessThan, greaterThan);
+    std::cout << diff + std::max(lessThan, greaterThan) - diff << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
