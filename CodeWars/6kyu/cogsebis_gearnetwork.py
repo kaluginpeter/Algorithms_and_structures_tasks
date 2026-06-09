@@ -32,3 +32,25 @@
 # if theres problem or bug add a comment
 #
 # Algorithms
+# Solution
+from collections import deque
+
+def cogsebi(gears, connections, driver_id, driver_rpm):
+    n = len(gears)
+    graph = [[] for _ in range(n)]
+    for a, b in connections:
+        graph[a].append(b)
+        graph[b].append(a)
+    rpm = [0.0] * n
+    visited = [False] * n
+    rpm[driver_id] = float(driver_rpm)
+    visited[driver_id] = True
+    q = deque([driver_id])
+    while q:
+        u = q.popleft()
+        for v in graph[u]:
+            if visited[v]: continue
+            rpm[v] = -rpm[u] * gears[u] / gears[v]
+            visited[v] = True
+            q.append(v)
+    return rpm
