@@ -47,3 +47,21 @@
 # 0 <= nums[i] <= 109
 # 1 <= k <= 105
 #
+# Solution
+# Python O(N) O(1) Greedy
+class Solution:
+    def maxTotalValue(self, nums: List[int], k: int) -> int:
+        return (max(nums) - min(nums)) * k
+
+# C++ O(N) O(1) Greedy
+class Solution {
+public:
+    long long maxTotalValue(vector<int>& nums, int k) {
+        uint mx = 0, mn = 1e9 + 1;
+        for (int& num : nums) {
+            if (num > mx) mx = num;
+            if (num < mn) mn = num;
+        }
+        return (mx - mn) * 1LL * k;
+    }
+};
