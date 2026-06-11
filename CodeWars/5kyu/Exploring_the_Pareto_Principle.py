@@ -31,3 +31,36 @@
 # -----------------------+----------------------+--------------------------+
 #   7756                 | 10000                |   0.776e2                |
 # SQLDatabases
+# Solution
+WITH customer_rentals AS (
+    SELECT
+        customer_id,
+        COUNT(*) AS rentals_count
+    FROM rental
+    GROUP BY customer_id
+),
+customer_stats AS (
+    SELECT
+        COUNT(*) AS customers_count,
+        SUM(rentals_count) AS total_rentals_count
+    FROM customer_rentals
+),
+top_customers AS (
+    SELECT rentals_count
+    FROM customer_rentals
+    ORDER BY rentals_count DESC
+    LIMIT (
+        SELECT CEIL(customers_count * 0.2)::int
+        FROM customer_stats
+    )
+)
+SELECT
+    SUM(rentals_count)::int AS "top_20%_rentals_count",
+    cs.total_rentals_count::int AS "total_rentals_count",
+    ROUND(
+        100.0 * SUM(rentals_count) / cs.total_rentals_count,
+        2
+    ) AS "percentage_of_top_20%"
+FROM top_customers
+CROSS JOIN customer_stats cs
+GROUP BY cs.total_rentals_count;
