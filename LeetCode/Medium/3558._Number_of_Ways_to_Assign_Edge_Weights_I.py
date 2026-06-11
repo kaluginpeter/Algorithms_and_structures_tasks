@@ -125,3 +125,65 @@ public:
 
     }
 };
+
+
+# Python O(V + E) O(V + E) BreadthFirstSearch DynamicProgramming
+mod: int = 1000000007
+class Solution:
+    def assignEdgeWeights(self, edges: List[List[int]]) -> int:
+        adj_list: dict[int, list[int]] = defaultdict(list)
+        for u, v in edges:
+            adj_list[u].append(v)
+            adj_list[v].append(u)
+        depth: int = 0
+        cur_nodes: list[tuple[int, int]] = [(1, 0)]
+        next_nodes: list[tuple[int, int]] = []
+        pre_odd: int = 1
+        pre_even: int = 1
+        while cur_nodes:
+            depth += 1
+            for node, parent in cur_nodes:
+                for neighbor in adj_list[node]:
+                    if neighbor == parent: continue
+                    next_nodes.append((neighbor, node))
+            cur_nodes = next_nodes.copy()
+            next_nodes.clear()
+            if depth <= 2: continue
+            odd: int = (pre_even + pre_odd) % mod
+            even: int = (pre_even + pre_odd) % mod
+            pre_odd = odd
+            pre_even = even
+        return pre_odd
+
+# C++ O(V + E) O(V + E) DynamicProgramming BreadthFirstSearch
+constexpr int mod = 1000000007;
+class Solution {
+public:
+    int assignEdgeWeights(vector<vector<int>>& edges) {
+        std::unordered_map<int, std::vector<int>> adjList;
+        for (std::vector<int>& e : edges) {
+            adjList[e[0]].push_back(e[1]);
+            adjList[e[1]].push_back(e[0]);
+        }
+        int depth = 0;
+        std::vector<std::pair<int, int>> curNodes = {{1, 0}}, nextNodes;
+        int preOdd = 1, preEven = 1;
+        while (!curNodes.empty()) {
+            ++depth;
+            for (auto& [node, parent] : curNodes) {
+                for (int& neighbor : adjList[node]) {
+                    if (neighbor == parent) continue;
+                    nextNodes.push_back({neighbor, node});
+                }
+            }
+            curNodes = nextNodes;
+            nextNodes.clear();
+            if (depth <= 2) continue;
+            int odd = (preEven + preOdd) % mod;
+            int even = (preEven + preOdd) % mod;
+            preOdd = odd;
+            preEven = even;
+        }
+        return preOdd;
+    }
+};
