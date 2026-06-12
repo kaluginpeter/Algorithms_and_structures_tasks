@@ -19,3 +19,26 @@
 # Output: string - nth expression of sequence - 'a/b' where a and b are integers.
 #
 # MathematicsAlgorithms
+# Solution
+WITH diag AS (
+    SELECT
+        n,
+        CEIL((SQRT(8 * n + 1) - 1) / 2.0)::bigint AS d
+    FROM cantor
+),
+pos AS (
+    SELECT
+        n,
+        d,
+        n - (d - 1) * d / 2 AS p
+    FROM diag
+)
+SELECT
+    n,
+    CASE
+        WHEN d % 2 = 0
+            THEN p::text || '/' || (d - p + 1)::text
+        ELSE
+            (d - p + 1)::text || '/' || p::text
+    END AS res
+FROM pos;
