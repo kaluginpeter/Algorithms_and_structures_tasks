@@ -58,3 +58,17 @@ weights.length == 26
 1 <= weights[i] <= 100
 words[i] consists of lowercase English letters.
 */
+// Solution
+// C++ O(N) O(D) String
+class Solution {
+public:
+    string mapWordWeights(vector<string>& words, vector<int>& weights) {
+        std::string output = "";
+        for (std::string& word : words) {
+            int accum = 0;
+            for (char& ch : word) accum += weights[ch - 'a'];
+            output.push_back('z' - (accum % 26));
+        }
+        return output;
+    }
+};
