@@ -9,3 +9,19 @@
 # Check the test cases and Happy coding :)
 #
 # Fundamentals
+# Solution
+def knight_vs_rook(knight, rook):
+    kr, kc = knight
+    rr, rc = rook
+
+    kc = ord(kc) - ord('A')
+    rc = ord(rc) - ord('A')
+
+    dx = abs(kr - rr)
+    dy = abs(kc - rc)
+
+    if (dx, dy) in ((1, 2), (2, 1)): return "Knight"
+
+    if kr == rr or kc == rc: return "Rook"
+
+    return "None"
