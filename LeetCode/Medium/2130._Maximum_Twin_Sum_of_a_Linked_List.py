@@ -129,3 +129,57 @@ public:
         return max_sum;
     }
 };
+
+
+# Python O(N) O(N) Greedy
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def pairSum(self, head: Optional[ListNode]) -> int:
+        nums: list[int] = []
+        tmp: ListNode = head
+        while tmp:
+            nums.append(tmp.val)
+            tmp = tmp.next
+        left: int = 0
+        right: int = len(nums) - 1
+        output: int = 0
+        while left < right:
+            output = max(output, nums[left] + nums[right])
+            left += 1
+            right -= 1
+        return output
+
+# C++ O(N) O(N) Greedy
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    int pairSum(ListNode* head) {
+        std::vector<int> nums;
+        ListNode* tmp = head;
+        while (tmp) {
+            nums.push_back(tmp->val);
+            tmp = tmp->next;
+        }
+        size_t left = 0, right = nums.size() - 1;
+        int output = 0;
+        while (left < right) {
+            output = std::max(output, nums[left] + nums[right]);
+            --right;
+            ++left;
+        }
+        return output;
+    }
+};
