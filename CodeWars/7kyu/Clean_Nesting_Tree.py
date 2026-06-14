@@ -44,3 +44,12 @@
 # The Hackers' Taunt,
 # Sorting Singularly Nested Lists by Depth
 # ListsArraysRecursionTrees
+# Solution
+def is_cleanly_nested(arr):
+    if not arr: return True
+    kinds = set()
+    for child in arr:
+        if not isinstance(child, list): return False
+        kinds.add(bool(child))
+    if len(kinds) > 1: return False
+    return all(is_cleanly_nested(child) for child in arr)
