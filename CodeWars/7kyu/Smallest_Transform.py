@@ -19,3 +19,11 @@
 #
 # 7777 ➞ 0
 # AlgorithmsMathematics
+# Solution
+def smallest_transform(num):
+    tmp: str = str(num)
+    bound: int = float('inf')
+    for target_digit in tmp:
+        cost = sum(abs(int(target_digit) - int(digit)) for digit in tmp)
+        if cost < bound: bound = cost
+    return bound
