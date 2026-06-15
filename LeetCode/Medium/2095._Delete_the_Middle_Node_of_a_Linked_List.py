@@ -58,3 +58,49 @@ class Solution:
             tmp = tmp.next
         tmp.next = slow.next
         return head
+
+
+# Python O(N) O(1) TwoPointers
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def deleteMiddle(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        new_head: ListNode = ListNode(next=head)
+        pre_slow: ListNode = new_head
+        fast: ListNode = head
+        while fast.next:
+            pre_slow = pre_slow.next
+            fast = fast.next
+            if fast.next: fast = fast.next
+        pre_slow.next = pre_slow.next.next
+        return new_head.next
+
+# C++ O(N) O(1) TwoPointers
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteMiddle(ListNode* head) {
+        ListNode* newHead = new ListNode(1, head);
+        ListNode* preSlow = newHead;
+        ListNode* fast = head;
+        while (fast->next) {
+            preSlow = preSlow->next;
+            fast = fast->next;
+            if (fast->next) fast = fast->next;
+        }
+        preSlow->next = preSlow->next->next;
+        return newHead->next;
+    }
+};
