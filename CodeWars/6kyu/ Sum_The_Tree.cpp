@@ -24,3 +24,16 @@ Examples:
 => 3
 TreesRecursionBinary TreesBinary Search TreesData StructuresFundamentals
 */
+// Solution
+// Return the sum of all values in the tree, including the root
+void dfs(node* root, int& output) {
+    if (!root) return;
+    output += root->value;
+    dfs(root->left, output);
+    dfs(root->right, output);
+}
+int sumTheTreeValues(node* root) {
+    int output = 0;
+    dfs(root, output);
+    return output;
+}
