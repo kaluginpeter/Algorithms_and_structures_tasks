@@ -46,3 +46,29 @@
 #
 # 1 <= s.length <= 20
 # s consists of only lowercase English letters and special characters *, #, and %.
+# Solution
+# Python O(N^2) O(N) Simulation String
+class Solution:
+    def processStr(self, s: str) -> str:
+        output: list[str] = []
+        for ch in s:
+            if ch == '*' and output: output.pop()
+            elif ch == '#': output.extend(output)
+            elif ch == '%': output.reverse()
+            elif ch.islower(): output.append(ch)
+        return ''.join(output)
+
+# C++ O(N^2) O(N) String Simulation
+class Solution {
+public:
+    string processStr(string s) {
+        std::string output = "";
+        for (char& ch : s) {
+            if (ch == '*' && output.size()) output.pop_back();
+            else if (ch == '#') output += output;
+            else if (ch == '%') std::reverse(output.begin(), output.end());
+            else if (std::islower(ch)) output.push_back(ch);
+        }
+        return output;
+    }
+};
