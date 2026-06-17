@@ -69,3 +69,31 @@ s consists of only lowercase English letters and special characters '*', '#', an
 0 <= k <= 1015
 The length of result after processing s will not exceed 1015.
 */
+// Solution
+// C++ O(N) O(1) String
+class Solution {
+public:
+    char processStr(string s, long long k) {
+        long long len = 0;
+        for (char& c : s) {
+            if (c == '*') {
+                if (len) --len;
+            } else if (c == '#') len *= 2;
+            else if (c == '%') continue;
+            else ++len;
+        }
+        if (k + 1 > len) return '.';
+        for (int i = s.size() - 1; i >= 0; --i) {
+            if (s[i] == '*') ++len;
+            else if (s[i] == '#') {
+                if (k + 1 > (len + 1) >> 1) k -= len >> 1;
+                len = (len + 1) >> 1;
+            } else if (s[i] == '%') k = len - k - 1;
+            else {
+                if (k + 1 == len) return s[i];
+                else --len;
+            }
+        }
+        return '.';
+    }
+};
