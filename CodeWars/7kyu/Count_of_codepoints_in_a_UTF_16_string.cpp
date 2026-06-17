@@ -30,3 +30,21 @@ Same task but in UTF-8, also a variable-length Unicode encoding.
 
 UnicodeStringsLanguage FeaturesTutorials
 */
+// Solution
+#include <string>
+
+size_t GetRealLength(const std::u16string &utf16)
+{
+    size_t count = 0;
+
+    for (size_t i = 0; i < utf16.size(); ++i)
+    {
+        if (utf16[i] >= 0xD800 && utf16[i] <= 0xDBFF)
+        {
+            ++count;
+            ++i;
+        } else ++count;
+    }
+
+    return count;
+}
