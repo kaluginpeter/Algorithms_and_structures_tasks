@@ -10,3 +10,10 @@
 # For the same data and binWidth=2 the result will be [4, 2, 0, 1]
 # For input data [7] and binWidth=1 the result will be [0, 0, 0, 0, 0, 0, 0, 1]
 # FundamentalsAlgorithmsArraysData Science
+# Solution
+def histogram(values: list[int], bin_width: int) -> list[int]:
+    bound: int = max(values, default=0)
+    chunks: list[int] = [0] * (bound // bin_width + int(bound // bin_width != 0))
+    for value in values:
+        chunks[value // bin_width] += 1
+    return chunks
