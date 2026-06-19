@@ -42,3 +42,46 @@ This isn't a performance kata at all, but your solution still shouldn't be too s
 
 MetaprogrammingFundamentalsLanguage FeaturesIteratorsRestricted
 */
+// Solution
+#include <tuple>
+#include <vector>
+#include <algorithm>
+#include <iterator>
+
+template <typename... Containers>
+auto zip(const Containers&... containers)
+{
+    using tuple_type =
+        std::tuple<typename Containers::value_type...>;
+
+    const auto min_size =
+        std::min({ containers.size()... });
+
+    std::vector<tuple_type> result;
+    result.reserve(min_size);
+
+    auto iters = std::make_tuple(containers.begin()...);
+
+    for (size_t i = 0; i < min_size; ++i)
+    {
+        result.emplace_back(
+            std::apply(
+                [](auto const&... it)
+                {
+                    return tuple_type(*it...);
+                },
+                iters
+            )
+        );
+
+        std::apply(
+            [](auto&... it)
+            {
+                ((++it), ...);
+            },
+            iters
+        );
+    }
+
+    return result;
+}
