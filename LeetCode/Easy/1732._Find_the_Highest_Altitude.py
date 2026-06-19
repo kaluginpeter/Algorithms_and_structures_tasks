@@ -26,3 +26,26 @@ class Solution:
             l.append(c)
             c += i
         return max(l + [c])
+
+
+# Python O(N) O(1) Greedy
+class Solution:
+    def largestAltitude(self, gain: List[int]) -> int:
+        cur: int = 0
+        mx: int = 0
+        for num in gain:
+            cur += num
+            if cur > mx: mx = cur
+        return mx
+# C++ O(N) O(1) Greedy
+class Solution {
+public:
+    int largestAltitude(vector<int>& gain) {
+        int cur = 0, mx = 0;
+        for (int& num : gain) {
+            cur += num;
+            if (cur > mx) mx = cur;
+        }
+        return mx;
+    }
+};
