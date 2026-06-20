@@ -16,3 +16,9 @@
 # x may be positive, negative, or zero.
 # Your solution should be efficient enough to handle large inputs.
 # Mathematics
+# Solution
+def evaluate_polynomial(coefficients: list[int], x: int) -> int:
+    output = 0
+    for coeff in coefficients:
+        output = output * x + coeff
+    return output
