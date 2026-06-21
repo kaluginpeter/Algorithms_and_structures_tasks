@@ -34,3 +34,35 @@
 # 1 <= costs[i] <= 105
 # 1 <= coins <= 108
 #
+# Solution
+# Python O(N + D) O(D) CountingSort
+class Solution:
+    def maxIceCream(self, costs: List[int], coins: int) -> int:
+        hashmap: list[int] = [0] * 100001
+        for cost in costs:
+            hashmap[cost] += 1
+        output: int = 0
+        for i in range(1, 100001):
+            if i > coins or not coins: break
+            can_get: int = min(hashmap[i], coins // i)
+            output += can_get
+            coins -= can_get * i
+        return output
+
+# C++ O(N + D) O(D) CountingSort
+class Solution {
+public:
+    int maxIceCream(vector<int>& costs, int coins) {
+        std::array<int, 100001> hashmap{};
+        for (int& cost : costs) ++hashmap[cost];
+        int output = 0;
+        for (int i = 1; i < 100001; ++i) {
+            int x = std::min(hashmap[i], coins / i);
+            output += x;
+            hashmap[i] -= x;
+            coins -= i * x;
+            if (!coins || i > coins) break;
+        }
+        return output;
+    }
+};
