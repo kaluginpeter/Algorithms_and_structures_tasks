@@ -38,3 +38,33 @@ class Solution:
             if flag:
                 break
         return count // 7
+
+
+# Python O(N) O(D) HashMap
+class Solution:
+    def maxNumberOfBalloons(self, text: str) -> int:
+        hashmap: dict[str, int] = defaultdict(int)
+        for ch in text: hashmap[ch] += 1
+        mx: int = float('inf')
+        mx = min(mx, hashmap['b'])
+        mx = min(mx, hashmap['a'])
+        mx = min(mx, hashmap['l'] >> 1)
+        mx = min(mx, hashmap['o'] >> 1)
+        mx = min(mx, hashmap['n'])
+        return mx
+
+# C++ O(N) O(D) HashMap
+class Solution {
+public:
+    int maxNumberOfBalloons(string text) {
+        std::array<int, 26> hashmap{};
+        for (char& ch : text) ++hashmap[ch - 'a'];
+        int mx = INT32_MAX;
+        mx = std::min(mx, hashmap['b' - 'a']);
+        mx = std::min(mx, hashmap['a' - 'a']);
+        mx = std::min(mx, hashmap['l' - 'a'] >> 1);
+        mx = std::min(mx, hashmap['o' - 'a'] >> 1);
+        mx = std::min(mx, hashmap['n' - 'a']);
+        return mx;
+    }
+};
