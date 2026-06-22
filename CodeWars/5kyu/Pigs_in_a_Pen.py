@@ -98,3 +98,44 @@
 # Car Park Escape
 #
 # PuzzlesArraysFundamentals
+# Solution
+class Game:
+
+    def __init__(self, board):
+        self.board = board
+        self.squares = []
+        n = board
+        horizontal = [[0] * n for _ in range(n + 1)]
+        vertical = [[0] * (n + 1) for _ in range(n)]
+        line = 1
+        for r in range(n):
+            for c in range(n):
+                horizontal[r][c] = line
+                line += 1
+            for c in range(n + 1):
+                vertical[r][c] = line
+                line += 1
+        for c in range(n):
+            horizontal[n][c] = line
+            line += 1
+        for r in range(n):
+            for c in range(n):
+                self.squares.append({
+                    horizontal[r][c],
+                    horizontal[r + 1][c],
+                    vertical[r][c],
+                    vertical[r][c + 1]
+                })
+
+    def play(self, lines):
+        lines = set(lines)
+        changed = True
+        while changed:
+            changed = False
+            for square in self.squares:
+                missing = square - lines
+                if len(missing) == 1:
+                    lines.add(next(iter(missing)))
+                    changed = True
+
+        return sorted(lines)
