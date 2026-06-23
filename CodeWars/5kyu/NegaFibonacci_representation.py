@@ -16,3 +16,41 @@
 # This is not intended to be a performance kata, but there will be ~3000 tests over the full range of Int ( Python: abs(n) <= 2^64 ). Your naive Fibonacci implementation will bomb. :]
 # I take no responsibility for the content of external resources.
 # Number TheoryPuzzlesAlgorithms
+# Solution
+from typing import List
+from functools import lru_cache
+
+def negative_fibonacci_representation(n: int) -> List[int]:
+    if n == 0: return []
+    fib = [0, 1, 1]
+    limit = 1 << 65
+    while fib[-1] < limit: fib.append(fib[-1] + fib[-2])
+    negfib = [0]
+    for i in range(1, len(fib)): negfib.append(fib[i] if i & 1 else -fib[i])
+
+    @lru_cache(None)
+    def bounds(i: int, blocked: bool):
+        if i == 0: return (0, 0)
+        if blocked: return bounds(i - 1, False)
+        mn0, mx0 = bounds(i - 1, False)
+        mn1, mx1 = bounds(i - 1, True)
+        v = negfib[i]
+        return (min(mn0, mn1 + v), max(mx0, mx1 + v))
+    m = len(negfib) - 1
+    while m > 0:
+        mn, mx = bounds(m, False)
+        if mn <= n <= mx: break
+        m -= 1
+    target = n
+    result = []
+    blocked = False
+    for i in range(m, 0, -1):
+        if blocked:
+            blocked = False
+            continue
+        mn, mx = bounds(i - 1, True)
+        if mn <= target - negfib[i] <= mx:
+            result.append(negfib[i])
+            target -= negfib[i]
+            blocked = True
+    return result
