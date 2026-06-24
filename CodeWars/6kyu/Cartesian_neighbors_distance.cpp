@@ -17,3 +17,24 @@ For Example:
 (0, 0, 2) --> {1.0, 1.4142135624, 2.0, 2.2360679775, 2.8284271247}
 FundamentalsMathematics
 */
+// Solution
+#include <vector>
+#include <set>
+#include <cmath>
+
+using std::vector;
+
+vector<double> cartesianNeighborsDistance(int x, int y, int range)
+{
+    std::set<int> squares;
+    for (int dx = -range; dx <= range; ++dx) {
+        for (int dy = -range; dy <= range; ++dy) {
+            if (dx == 0 && dy == 0) continue;
+            squares.insert(dx * dx + dy * dy);
+        }
+    }
+
+    vector<double> result;
+    for (int d2 : squares) result.push_back(std::sqrt(static_cast<double>(d2)));
+    return result;
+}
