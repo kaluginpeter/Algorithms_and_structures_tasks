@@ -51,3 +51,31 @@
 # 1 <= nums[i] <= 10​​​​​​​9
 # 1 <= target <= 109
 #
+# Solution
+# Python O(N^2) O(1) Counting HashMap
+class Solution:
+    def countMajoritySubarrays(self, nums: List[int], target: int) -> int:
+        n: int = len(nums)
+        output: int = 0
+        for i in range(n):
+            appeared: int = 0
+            for j in range(i, n):
+                if nums[j] == target: appeared += 1
+                if appeared > (j - i + 1) >> 1: output += 1
+        return output
+
+# C++ O(N^2) O(1) Counting HashMap
+class Solution {
+public:
+    int countMajoritySubarrays(vector<int>& nums, int target) {
+        size_t n = nums.size(), output = 0;
+        for (size_t i = 0; i < n; ++i) {
+            size_t appeared = 0;
+            for (size_t j = i; j < n; ++j) {
+                if (nums[j] == target) ++appeared;
+                if (appeared > (j - i + 1) >> 1) ++output;
+            }
+        }
+        return output;
+    }
+};
