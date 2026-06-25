@@ -37,3 +37,21 @@
 # Write a function choose_best_home(places, preferences, priorities) that computes the top destination!
 #
 # FundamentalsListsAlgorithms
+# Solution
+def choose_best_home(places, preferences, priorities):
+    weights = {
+        trait: len(priorities) - i
+        for i, trait in enumerate(priorities)
+    }
+    best_name = min(places)
+    best_score = -1
+    for name in places:
+        score = 0
+        home = places[name]
+        for trait, pref in preferences.items():
+            if home.get(trait) == pref: score += weights.get(trait, 0)
+        if score > best_score:
+            best_score = score
+            best_name = name
+        elif score == best_score and name < best_name: best_name = name
+    return best_name
