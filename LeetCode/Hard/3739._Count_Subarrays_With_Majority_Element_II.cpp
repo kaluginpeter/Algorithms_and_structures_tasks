@@ -52,3 +52,43 @@ Constraints:
 1 <= nums[i] <= 10​​​​​​​9
 1 <= target <= 109
 */
+// Solution
+// C++ O(NlogN) O(N) FenwickTree
+class Solution {
+public:
+    long long countMajoritySubarrays(vector<int>& nums, int target) {
+        size_t n = nums.size();
+        std::vector<int> prefix(n + 1, 0);
+        for (size_t i = 0; i < n; ++i) prefix[i + 1] = prefix[i] + (nums[i] == target ? 1 : -1);
+        std::vector<int> sPrefix = prefix;
+        std::sort(sPrefix.begin(), sPrefix.end());
+        sPrefix.erase(std::unique(sPrefix.begin(), sPrefix.end()), sPrefix.end());
+        auto get_ = [&](int x) {
+            return std::lower_bound(sPrefix.begin(), sPrefix.end(), x) - sPrefix.begin() + 1;
+        };
+        size_t m = sPrefix.size();
+        std::vector<long long> FIT(m + 1, 0);
+        auto upd = [&](size_t i) {
+            while (i <= m) {
+                ++FIT[i];
+                i += i & -i;
+            }
+        };
+        auto q = [&](size_t i) {
+            long long out = 0;
+            while (i > 0) {
+                out += FIT[i];
+                i -= i & -i;
+            }
+            return out;
+        };
+        long long output = 0;
+        upd(get_(prefix[0]));
+        for (size_t i = 1; i <= n; ++i) {
+            size_t j = get_(prefix[i]);
+            output += q(j - 1);
+            upd(j);
+        }
+        return output;
+    }
+};
