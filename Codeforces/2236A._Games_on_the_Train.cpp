@@ -62,4 +62,28 @@ OutputCopy
 6
 1
 */
+// Solution
+// C++ O(N) O(1) Greedy Math
+#include <iostream>
+#include <cstdint>
 
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    int mx = 0, mn = INT32_MAX;
+    for (size_t i = 0; i < n; ++i) {
+        int x;
+        std::cin >> x;
+        if (x > mx) mx = x;
+        if (x < mn) mn = x;
+    }
+    std::cout << (mx - mn + 1) << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
