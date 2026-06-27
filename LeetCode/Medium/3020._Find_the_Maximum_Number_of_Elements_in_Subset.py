@@ -24,3 +24,62 @@
 # 2 <= nums.length <= 105
 # 1 <= nums[i] <= 109
 #
+# Solution
+# Python O(Nlog2(10^9)) O(D) HashMap Math
+class Solution:
+    def maximumLength(self, nums: List[int]) -> int:
+        hashmap: dict[int, int] = defaultdict(int)
+        mx: int = 0
+        for num in nums:
+            hashmap[num] += 1
+            mx = max(mx, num)
+        output: int = 1
+        for num in nums:
+            if hashmap[num] == 1: continue
+            tmp: int = num
+            bound: int = hashmap[tmp] if tmp == 1 else 0
+            while tmp > 1 and hashmap[tmp] > 1:
+                bound += 2
+                if tmp >= mx:
+                    tmp += 1
+                    break
+                tmp = tmp * tmp
+            if tmp == 1:
+                if hashmap[tmp] % 2 == 0: bound -= 1
+            elif not hashmap[tmp]: bound -= 1
+            else: bound += 1
+            output = max(output, bound)
+        return output
+
+# C++ O(Nlog2(10^9)) O(D) HashMap Math
+class Solution {
+public:
+    int maximumLength(vector<int>& nums) {
+        std::unordered_map<int, int> hashmap;
+        int mx = 0;
+        for (int& num : nums) {
+            ++hashmap[num];
+            mx = std::max(mx, num);
+        }
+        int output = 1;
+        for (int& num : nums) {
+            if (hashmap[num] == 1) continue;
+            long long tmp = num;
+            int bound = (tmp == 1 ? hashmap[tmp] : 0);
+            while (tmp > 1 && hashmap[tmp] > 1) {
+                bound += 2;
+                if (tmp >= mx) {
+                    ++tmp;
+                    break;
+                }
+                tmp = tmp * tmp;
+            }
+            if (tmp == 1) {
+                if (hashmap[tmp] % 2 == 0) --bound;
+            } else if (!hashmap[tmp]) --bound;
+            else ++bound;
+            output = std::max(output, bound);
+        }
+        return output;
+    }
+};
