@@ -3,3 +3,12 @@
 # Keep in mind that numbers, as well as other characters, can be part of the input, and you should keep them like they are. You should also test if the input is a string. If it is not, return "Input is not a string".
 #
 # StringsAlgorithmsPuzzles
+# Solution
+def decode(string_):
+    if not isinstance(string_, str): return "Input is not a string"
+    res = []
+    for c in string_:
+        if 'a' <= c <= 'z': res.append(chr(ord('z') - (ord(c) - ord('a'))))
+        elif 'A' <= c <= 'Z': res.append(chr(ord('Z') - (ord(c) - ord('A'))))
+        else: res.append(c)
+    return ''.join(res)
