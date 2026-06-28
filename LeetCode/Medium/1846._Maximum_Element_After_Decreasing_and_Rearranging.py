@@ -47,3 +47,17 @@ class Solution(object):
         for i in arr:
             top = min(top + 1, i)
         return top
+
+
+# C++ O(NlogN) O(1) Sorting Greedy
+class Solution {
+public:
+    int maximumElementAfterDecrementingAndRearranging(vector<int>& arr) {
+        std::sort(arr.begin(), arr.end());
+        int bound = 0;
+        for (int& num : arr) {
+            if (num > bound) ++bound;
+        }
+        return bound;
+    }
+};
