@@ -23,3 +23,7 @@
 # Please rank the kata and tell me what you think in discourse. All your feedback is very important!
 # Huge thanks to 'National Treasure' for the inspiration! Now let's go steal the Declaration of Independence.
 # StringsCombinatoricsAlgorithmsPermutations
+# Solution
+from itertools import product
+def get_passwords(keys, length):
+    return sorted((''.join(p) for p in product(keys, repeat=length) if len(set(p)) == len(keys)))
