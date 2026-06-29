@@ -43,3 +43,24 @@
 class Solution:
     def numOfStrings(self, patterns: List[str], word: str) -> int:
         return sum(item in word for item in patterns)
+
+
+# Python O(N^2) O(1) String
+class Solution:
+    def numOfStrings(self, patterns: List[str], word: str) -> int:
+        output: int = 0
+        for p in patterns:
+            if p in word: output += 1
+        return output
+
+# C++ O(N^2) O(1) String
+class Solution {
+public:
+    int numOfStrings(vector<string>& patterns, string word) {
+        size_t output = 0;
+        for (std::string& p : patterns) {
+            if (word.find(p) != std::string::npos) ++output;
+        }
+        return output;
+    }
+};
