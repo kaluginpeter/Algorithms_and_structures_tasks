@@ -40,3 +40,21 @@
 #
 # IEEE 754 floating point numbers
 # BinaryFundamentals
+# Solution
+import struct
+from preloaded import FloatType
+
+def get_float_type(number: float) -> FloatType:
+    bits = struct.unpack(">Q", struct.pack(">d", number))[0]
+    sign = bits >> 63
+    exponent = (bits >> 52) & 0x7FF
+    mantissa = bits & ((1 << 52) - 1)
+    prefix = "NEGATIVE_" if sign else "POSITIVE_"
+    if exponent == 0x7FF:
+        if mantissa == 0: return getattr(FloatType, prefix + "INFINITY")
+        if mantissa & (1 << 51): return getattr(FloatType, prefix + "QUIET_NAN")
+        else: return getattr(FloatType, prefix + "SIGNALING_NAN")
+    if exponent == 0:
+        if mantissa == 0: return getattr(FloatType, prefix + "ZERO")
+        return getattr(FloatType, prefix + "DENORMALIZED")
+    return getattr(FloatType, prefix + "NORMALIZED")
