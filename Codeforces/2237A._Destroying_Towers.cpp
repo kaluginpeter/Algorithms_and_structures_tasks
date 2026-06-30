@@ -97,3 +97,28 @@ In the third test case, one optimal order is 4,1,3,2
 Therefore the final sum is 3+2+2+1=8
 .
 */
+// Solution
+// C++ O(N) O(1) Math
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::vector<int> nums(n, 0);
+    for (size_t i = 0; i < n; ++i) std::cin >> nums[i];
+    size_t output = 0, bound = -1;
+    for (int& num : nums) {
+        if (num < bound) bound = num;
+        output += bound;
+    }
+    std::cout << output << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
