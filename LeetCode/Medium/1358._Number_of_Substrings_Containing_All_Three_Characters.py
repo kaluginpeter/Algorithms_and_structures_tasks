@@ -61,3 +61,50 @@ public:
         return output;
     }
 };
+
+
+# Python O(N) O(1) Math
+class Solution:
+    def numberOfSubstrings(self, s: str) -> int:
+        output: int = 0
+        left: int = 0
+        a: int = 0
+        b: int = 0
+        c: int = 0
+        n: int = len(s)
+        acc: int = 0
+        for i in range(n):
+            if s[i] == 'a': a += 1
+            elif s[i] == 'b': b += 1
+            else: c += 1
+            while a and b and c:
+                if s[left] == 'a': a -= 1
+                elif s[left] == 'b': b -= 1
+                else: c -= 1
+                acc += 1
+                left += 1
+            output += acc
+        return output
+
+# C++ O(N) O(1) Math
+class Solution {
+public:
+    int numberOfSubstrings(string s) {
+        size_t output = 0, left = 0, a = 0, b = 0, c = 0, n = s.size();
+        size_t acc = 0;
+        for (size_t i = 0; i < n; ++i) {
+            if (s[i] == 'a') ++a;
+            else if (s[i] == 'b') ++b;
+            else ++c;
+            while (a && b && c) {
+                if (s[left] == 'a') --a;
+                else if (s[left] == 'b') --b;
+                else --c;
+                ++acc;
+                ++left;
+            }
+            output += acc;
+        }
+        return output;
+    }
+};
