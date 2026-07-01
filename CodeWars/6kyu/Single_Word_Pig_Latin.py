@@ -17,3 +17,13 @@
 # For example, the word "spaghetti" becomes "aghettispay" because the first two letters ("sp") are consonants, so they are moved to the end of the string and "ay" is appended.
 #
 # StringsGamesRegular Expressions
+# Solution
+def pig_latin(s):
+    if not s or any(not char.isalpha() for char in s): return
+    s = s.lower()
+    vowels: str = 'aeiou'
+    if all(v not in s for v in vowels): return s + 'ay'
+    if s[0] in vowels: return s + 'way'
+    i: int = 0
+    while s[i] not in vowels: i += 1
+    return s[i:] + s[:i] + 'ay'
