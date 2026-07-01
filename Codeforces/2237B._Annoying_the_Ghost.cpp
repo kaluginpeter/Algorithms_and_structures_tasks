@@ -128,3 +128,41 @@ In the fourth test case, no ducks need to be added. Ja only needs to reorder the
 In the fifth test case, no ducks need to be added. Again, Ja only needs to reorder the piles into increasing order. The minimum number of adjacent swaps is 12
 .
 */
+// Solution
+// C++ O(N^2) O(1) Greedy
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::vector<int> a(n, 0), b(n, 0);
+    for (size_t i = 0; i < n; ++i) std::cin >> a[i];
+    for (size_t i = 0; i < n; ++i) std::cin >> b[i];
+    size_t ops = 0;
+    for (int i = 0; i < n; ++i) {
+        if (a[i] <= b[i]) continue;
+        bool isValid = false;
+        for (int j = i + 1; j < n; ++j) {
+            if (a[j] <= b[i]) {
+                for (int k = j - 1; k >= i; --k) std::swap(a[k], a[k + 1]);
+                ops += (j - i);
+                isValid = true;
+                break;
+            }
+        }
+        if (!isValid) {
+            std::cout << "-1\n";
+            return;
+        }
+    }
+    std::cout << ops << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
