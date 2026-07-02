@@ -18,3 +18,13 @@
 # Use π = math.pi
 # 1 inch = 25.4 mm
 # Regular ExpressionsMathematicsParsingFundamentals
+# Solution
+import re
+from math import pi
+
+def tire_rotations(tire_size: str, distance_km: float) -> float:
+    width, aspect, rim = map(int, re.fullmatch(r"(\d+)/(\d+)(?:R|ZR|B|D)(\d+)", tire_size).groups())
+    sidewall = width * aspect / 100
+    diameter = 2 * sidewall + rim * 25.4
+    circumference = pi * diameter
+    return distance_km * 1_000_000 / circumference
