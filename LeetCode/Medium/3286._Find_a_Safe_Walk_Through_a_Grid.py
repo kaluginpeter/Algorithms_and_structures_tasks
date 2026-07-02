@@ -114,3 +114,62 @@ public:
         return false;
     }
 };
+
+
+# Python O(NM) O(NM) BreadthFirstSearch
+class Solution:
+    def findSafeWalk(self, grid: List[List[int]], health: int) -> bool:
+        n: int = len(grid)
+        m: int = len(grid[0])
+        moves: list[tuple[int, int]] = [
+            (0, 1), (0, -1), (1, 0), (-1, 0)
+        ]
+        cost: list[list[int]] =[[-1] * m for _ in range(n)]
+        cost[0][0] = health - grid[0][0]
+        cur_nodes: list[tuple[int, int]] = [(0, cost[0][0])]
+        next_nodes: list[tuple[int, int]] = []
+        while cur_nodes:
+            for cell, points in cur_nodes:
+                i: int = cell // m
+                j: int = cell % m
+                for x, y in moves:
+                    ni: int = i + x
+                    nj: int = j + y
+                    if not (0 <= ni < n) or not (0 <= nj < m): continue
+                    new_points: int = points - grid[ni][nj]
+                    if new_points <= cost[ni][nj]: continue
+                    cost[ni][nj] = new_points
+                    next_nodes.append((ni * m + nj, new_points))
+            cur_nodes = next_nodes.copy()
+            next_nodes.clear()
+        return cost[n - 1][m - 1] >= 1
+
+# C++ O(NM) O(NM) BreadthFirstSearch
+class Solution {
+public:
+    bool findSafeWalk(vector<vector<int>>& grid, int health) {
+        size_t n = grid.size(), m = grid[0].size();
+        std::vector<std::pair<int, int>> moves = {
+            {0, 1}, {0, -1}, {1, 0}, {-1, 0}
+        };
+        std::vector<std::vector<int>> cost(n, std::vector<int>(m, -1));
+        std::vector<std::pair<int, int>> curNodes = {{0, (grid[0][0] ? health - 1 : health)}}, nextNodes;
+        cost[0][0] = (grid[0][0] ? health - 1 : health);
+        while (!curNodes.empty()) {
+            for (auto [cell, points] : curNodes) {
+                int i = cell / m, j = cell % m;
+                for (auto [x, y] : moves) {
+                    int ni = i + x, nj = j + y;
+                    if (!(ni >= 0 && ni < n) || !(nj >= 0 && nj < m)) continue;
+                    int newPoints = (grid[ni][nj] ? points - 1 : points);
+                    if (newPoints < 1 || newPoints <= cost[ni][nj]) continue;
+                    cost[ni][nj] = newPoints;
+                    nextNodes.push_back({ni * m + nj, newPoints});
+                }
+            }
+            curNodes = nextNodes;
+            nextNodes.clear();
+        }
+        return cost[n - 1][m - 1] >= 1;
+    }
+};
