@@ -17,3 +17,40 @@ More examples in test cases. Good luck!
 
 Algorithms
 */
+// Solution
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+static string options(char c) {
+    if (c == 'a') return "b";
+    if (c == 'z') return "y";
+    return string{char(c - 1), char(c + 1)};
+}
+
+bool solve(string st) {
+    int l = 0, r = st.size() - 1;
+
+    while (l < r) {
+        string left = options(st[l]);
+        string right = options(st[r]);
+
+        bool ok = false;
+        for (char a : left) {
+            for (char b : right) {
+                if (a == b) {
+                    ok = true;
+                    break;
+                }
+            }
+            if (ok) break;
+        }
+
+        if (!ok) return false;
+        ++l;
+        --r;
+    }
+
+    return true;
+}
