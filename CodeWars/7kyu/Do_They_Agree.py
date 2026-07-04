@@ -47,3 +47,12 @@
 # Shuffle an Integer
 # Minimum Percentage of Visitors that Ate All Foods
 # The Jumbler
+# Solution
+def do_they_agree(alice, bob):
+    pos = {x: i for i, x in enumerate(bob)}
+    last = -1
+    for x in alice:
+        if x in pos:
+            if pos[x] < last: return False
+            last = pos[x]
+    return True
