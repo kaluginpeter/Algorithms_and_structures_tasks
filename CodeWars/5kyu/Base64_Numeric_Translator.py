@@ -15,3 +15,11 @@
 # "BC"  -->  66
 # "WIN" -->  90637
 # Puzzles
+# Solution
+def base64_to_base10(s):
+    digits = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+    mp = {c: i for i, c in enumerate(digits)}
+    ans = 0
+    for c in s:
+        ans = ans * 64 + mp[c]
+    return ans
