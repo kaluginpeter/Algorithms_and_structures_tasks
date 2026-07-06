@@ -24,3 +24,36 @@
 # 0 <= li < ri <= 105
 # All the given intervals are unique.
 #
+# Solution
+# Python O(NlogN) O(1) Greedy Sorting
+class Solution:
+    def removeCoveredIntervals(self, intervals: List[List[int]]) -> int:
+        intervals.sort(key=lambda pair: (pair[0], -pair[1]))
+        ptr: int = 0
+        output: int = 1
+        for i in range(1, len(intervals)):
+            if intervals[ptr][1] >= intervals[i][1]: continue
+            output += 1
+            ptr = i
+        return output
+
+# C++ O(NlogN) O(1) Sorting Greedy
+class Solution {
+public:
+    int removeCoveredIntervals(vector<vector<int>>& intervals) {
+        std::sort(intervals.begin(), intervals.end(), [](const std::vector<int>& x, const std::vector<int>& y){
+            if (x[0] != y[0]) return x[0] < y[0];
+            return -x[1] < -y[1];
+        });
+        size_t output = 1;
+        auto cur = intervals.begin();
+        for (auto it = ++intervals.begin(); it < intervals.end(); ++it) {
+            if ((*cur)[1] >= (*it)[1]) continue;
+            else {
+                ++output;
+                cur = it;
+            }
+        }
+        return output;
+    }
+};
