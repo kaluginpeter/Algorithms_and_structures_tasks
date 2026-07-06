@@ -106,3 +106,44 @@ In the sixth test case, the array can be rearranged as follows: [14,20,20]
 . It can be seen that the cost will then be 5+(14−12)+(20−18)+(20−17)=12
 .
 */
+// Solution
+// C++ O(NlogN + MlogM) O(1) Sorting Greedy
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+void solution() {
+    size_t n;
+    int c = 0;
+    std::cin >> n >> c;
+    std::vector<int> a(n, 0), b(n, 0);
+    for (size_t i = 0; i < n; ++i) std::cin >> a[i];
+    for (size_t i = 0; i < n; ++i) std::cin >> b[i];
+    bool was = true;
+    int cost1 = 0;
+    for (size_t i = 0; i < n; ++i) {
+        if (a[i] < b[i]) {
+            was = false;
+            break;
+        } else cost1 += a[i] - b[i];
+    }
+    std::sort(a.begin(), a.end());
+    std::sort(b.begin(), b.end());
+    int cost2 = c;
+    for (size_t i = 0; i < n; ++i) {
+        if (a[i] < b[i]) {
+            std::cout << "-1\n";
+            return;
+        }
+        cost2 += a[i] - b[i];
+    }
+    std::cout << std::min((was ? cost1 : cost2), cost2) << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
