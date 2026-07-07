@@ -81,3 +81,26 @@
 # Car Park Escape
 #
 # ArraysFundamentals
+# Solution
+class VendingMachine():
+
+    def __init__(self, items, money):
+        self.items = dict()
+        for item in items:
+            self.items[item["code"]] = item
+        self.money = money
+
+    def vend(self, selection, item_money):
+        if selection not in self.items:
+            return f"Invalid selection! : Money in vending machine = {self.money:.2f}"
+        product_name: str = self.items[selection]["name"]
+        if self.items[selection]["price"] > item_money:
+            return "Not enough money!"
+        if not self.items[selection]["quantity"]:
+            return f"{product_name}: Out of stock!"
+        self.items[selection]["quantity"] -= 1
+        self.money += self.items[selection]["price"]
+        change: float = item_money - self.items[selection]["price"]
+        if not change:
+            return f"Vending {product_name}"
+        return f"Vending {product_name} with {change:.2f} change."
