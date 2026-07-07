@@ -34,3 +34,38 @@
 # Constraints:
 #
 # 0 <= n <= 109
+# Solution
+# Python O(log10(N)) O(1) Math
+class Solution:
+    def sumAndMultiply(self, n: int) -> int:
+        output: int = 0
+        tmp: int = 0
+        acc: int = 0
+        while n:
+            tmp = tmp * 10 + n % 10
+            acc += n % 10
+            n //= 10
+        while tmp:
+            if tmp % 10: output = output * 10 + tmp % 10
+            tmp //= 10
+        return output * acc
+
+# C++ O(log10(N)) O(1) Math
+class Solution {
+public:
+    long long sumAndMultiply(int n) {
+        long long output = 0;
+        uint8_t acc = 0;
+        long long tmp = 0;
+        while (n) {
+            tmp = tmp * 10 + n % 10;
+            acc += n % 10;
+            n /= 10;
+        }
+        while (tmp) {
+            if (tmp % 10) output = output * 10 + tmp % 10;
+            tmp /= 10;
+        }
+        return output * acc;
+    }
+};
