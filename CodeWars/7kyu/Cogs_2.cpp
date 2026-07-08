@@ -24,3 +24,16 @@ Cogs
 Cogs 2
 Fundamentals
 */
+// Solution
+#include <utility>
+#include <vector>
+
+std::pair<double, double> cog_rpm(const std::vector<int> &cogs, int n)
+{
+    int m = cogs.size();
+    std::vector<double> rpm(m);
+    rpm[n] = 1.0;
+    for (int i = n; i > 0; --i) rpm[i - 1] = -rpm[i] * cogs[i] / cogs[i - 1];
+    for (int i = n; i + 1 < m; ++i) rpm[i + 1] = -rpm[i] * cogs[i] / cogs[i + 1];
+    return {rpm.front(), rpm.back()};
+}
