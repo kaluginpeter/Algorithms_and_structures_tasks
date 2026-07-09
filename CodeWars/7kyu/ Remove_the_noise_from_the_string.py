@@ -9,3 +9,6 @@
 # remove_noise("h%e&·%$·llo w&%or&$l·$%d")
 # # returns hello world
 # Regular ExpressionsFundamentals
+# Solution
+def remove_noise(st):
+    return ''.join((ch for ch in st if ch not in "%$&/#·@|º\ª"))
