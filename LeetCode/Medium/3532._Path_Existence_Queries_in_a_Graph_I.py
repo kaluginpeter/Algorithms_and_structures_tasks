@@ -135,3 +135,88 @@ public:
         return output;
     }
 };
+
+
+# C++ O(V) O(V) DSU
+class DSU {
+private:
+    size_t n;
+    std::vector<int> rank, parent;
+public:
+    DSU (int& n) {
+        this->n = n;
+        rank.resize(n, 1);
+        for (size_t i = 0; i < this->n; ++i) parent.push_back(i);
+
+    };
+    int find(int x) {
+        while (x != parent[x]) {
+            parent[x] = parent[parent[x]];
+            x = parent[x];
+        }
+        return x;
+    }
+    void union_(int x, int y) {
+        int pX = find(x), pY = find(y);
+        if (pX == pY) return;
+        if (rank[pX] >= rank[pY]) {
+            rank[pX] += rank[pY];
+            parent[pY] = pX;
+        } else {
+            rank[pY] += rank[pX];
+            parent[pX] = pY;
+        }
+    }
+};
+
+class Solution {
+public:
+    vector<bool> pathExistenceQueries(int n, vector<int>& nums, int maxDiff, vector<vector<int>>& queries) {
+        DSU dsu = DSU(n);
+        std::vector<std::pair<int, int>> nodes;
+        for (int i = 0; i < n - 1; ++i) {
+            if (std::abs(nums[i] - nums[i + 1]) <= maxDiff) dsu.union_(i, i + 1);
+        }
+        std::vector<bool> output;
+        for (std::vector<int>& q : queries) {
+            output.push_back(dsu.find(q[0]) == dsu.find(q[1]));
+        }
+        return output;
+    }
+};
+# Python O(V) O(V) DSU
+class DSU:
+    def __init__(self, n: int) -> None:
+        self.rank: list[int] = [0] * n
+        self.parent: list[int] = list(range(n))
+
+    def find(self, i: int) -> int:
+        while i != self.parent[i]:
+            self.parent[i] = self.parent[self.parent[i]]
+            i = self.parent[i]
+        return i
+
+    def union(self, x: int, y: int) -> None:
+        x_parent: int = self.find(x)
+        y_parent: int = self.find(y)
+        if x_parent == y_parent: return
+
+        if self.rank[x_parent] < self.rank[y_parent]:
+            self.parent[x_parent] = y_parent
+        elif self.rank[y_parent] < self.rank[x_parent]:
+            self.parent[y_parent] = x_parent
+        else:
+            self.parent[y_parent] = x_parent
+            self.rank[x_parent] += 1
+
+
+class Solution:
+    def pathExistenceQueries(self, n: int, nums: List[int], maxDiff: int, queries: List[List[int]]) -> List[bool]:
+        ds: DSU = DSU(n)
+        for i in range(n - 1):
+            if nums[i + 1] - nums[i] <= maxDiff:
+                ds.union(i, i + 1)
+        output: list[bool] = []
+        for v, u in queries:
+            output.append(ds.find(v) == ds.find(u))
+        return output
