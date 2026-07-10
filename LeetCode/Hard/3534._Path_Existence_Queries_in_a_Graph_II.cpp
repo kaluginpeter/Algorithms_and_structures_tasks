@@ -75,3 +75,40 @@ Constraints:
 queries[i] == [ui, vi]
 0 <= ui, vi < n
 */
+// Solution
+// C++ O(NlogN + QlogN) O(NlogN) Sorting Math Bit
+class Solution {
+public:
+    vector<int> pathExistenceQueries(int n, vector<int>& nums, int maxDiff, vector<vector<int>>& queries) {
+        std::vector<int> idx(n), pos(n), output;
+        std::iota(idx.begin(), idx.end(), 0);
+        std::sort(idx.begin(), idx.end(), [&](int a, int b) { return nums[a] < nums[b]; });
+        for (int i = 0; i < n; ++i) pos[idx[i]] = i;
+        int m = 32 - __builtin_clz(n);
+        std::vector<std::vector<int>> f(n, std::vector<int>(m));
+        for (int i = 0, left = 0; i < n; ++i) {
+            while (nums[idx[i]] - nums[idx[left]] > maxDiff) ++left;
+            f[i][0] = left;
+        }
+        for (int j = 1; j < m; ++j) {
+            for (int i = 0; i < n; ++i) f[i][j] = f[f[i][j - 1]][j - 1];
+        }
+        for (auto& q : queries) {
+            auto [x, y] = std::pair(pos[q[0]], pos[q[1]]);
+            if (x > y) std::swap(x, y);
+            if (x == y) {
+                output.push_back(0);
+                continue;
+            }
+            int step = 0;
+            for (int i = m - 1; i >= 0; --i) {
+                if (f[y][i] > x) {
+                    y = f[y][i];
+                    step += 1 << i;
+                }
+            }
+            output.push_back(f[y][0] <= x ? step + 1 : -1);
+        }
+        return output;
+    }
+};
