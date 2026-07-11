@@ -46,3 +46,11 @@
 # get and set are definitely possible. Implementing those, however, means either using encoded numerals or dealing with numerical arithmetic and comparison operators, which is beyond the scope of this kata. For a real challenge, solve class List ( JS only ) using this encoding.
 #
 # Algorithms
+# Solution
+cons = lambda x: lambda xs: lambda c: lambda n: c(x)(xs(c)(n))
+
+snoc = lambda x: lambda xs: xs(lambda y: lambda ys: lambda c: lambda n: c(y)(ys(c)(n)))(lambda c: lambda n: c(x)(n))
+
+map = lambda f: lambda xs: xs(lambda x: lambda ys: lambda c: lambda n: c(f(x))(ys(c)(n)))(nil)
+
+filter = lambda p: lambda xs: xs(lambda x: lambda ys:p(x)(lambda c: lambda n: c(x)(ys(c)(n)))(ys))(nil)
