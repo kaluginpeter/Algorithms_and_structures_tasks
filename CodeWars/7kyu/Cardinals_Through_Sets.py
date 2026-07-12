@@ -114,3 +114,11 @@
 # Good luck!
 #
 # Set Theory
+# Solution
+memo: dict[int, str] = {}
+memo[0] = '{}'
+for i in range(1, 25 + 1):
+    memo[i] = '{' + ','.join(memo[j] for j in range(i)) + '}'
+
+def zfc_definition(n: int) -> str:
+    return memo[n]
