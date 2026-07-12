@@ -89,3 +89,33 @@ std::optional<size_t> popFromSet(std::unordered_map<int, std::unordered_set<size
     return std::nullopt;
 }
 };
+
+
+# Python O(NlogN) O(N) Sorting HashMap
+class Solution:
+    def arrayRankTransform(self, arr: List[int]) -> List[int]:
+        hashmap: dict[int, int] = dict()
+        ptr: int = 1
+        for num in sorted(arr):
+            if num not in hashmap:
+                hashmap[num] = ptr
+                ptr += 1
+        for i in range(len(arr)):
+            arr[i] = hashmap[arr[i]]
+        return arr
+
+# C++ O(NlogN) O(N) HashMap Sorting
+class Solution {
+public:
+    vector<int> arrayRankTransform(vector<int>& arr) {
+        std::vector<int> tmp = arr;
+        std::sort(tmp.begin(), tmp.end());
+        std::unordered_map<int, int> pos;
+        int ptr = 1;
+        for (size_t i = 0; i < arr.size(); ++i) {
+            if (!pos.count(tmp[i])) pos[tmp[i]] = ptr++;
+        }
+        for (size_t i = 0; i < arr.size(); ++i) arr[i] = pos[arr[i]];
+        return arr;
+    }
+};
