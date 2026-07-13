@@ -70,3 +70,35 @@ In the fourth example, you can make the string aab, aba, or baa. None of these s
 
 In the fifth example, you can make the string aabab, which contains two bigrams ab.
 */
+// Solution
+// C++ O(N) O(1) Greedy
+#include <iostream>
+#include <vector>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    std::vector<int> nums;
+    for (size_t i = 0; i < n; ++i) {
+        int c;
+        std::cin >> c;
+        nums.push_back(c);
+    }
+    bool isValid = false, single = false;
+    for (size_t i = 0; i < n; ++i) {
+        if (nums[i] > 2) isValid = true;
+        if (nums[i] >= 2) {
+            if (single) isValid = true;
+            single = true;
+        }
+    }
+    std::cout << (isValid ? "YES" : "NO") << "\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
