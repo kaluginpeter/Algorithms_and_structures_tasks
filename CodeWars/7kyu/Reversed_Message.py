@@ -6,3 +6,11 @@
 # Returns: '!egassem Desrever A Fo Elpmaxe Na Si Siht'
 #
 # FundamentalsStrings
+# Solution
+def reverse_message(text):
+    output: list[str] = []
+    for word in text.lower().split():
+        word = word[::-1]
+        if word[0] in '!#,>0123456789': output.append(word)
+        else: output.append(word[0].upper() + word[1:])
+    return ' '.join(reversed(output))
