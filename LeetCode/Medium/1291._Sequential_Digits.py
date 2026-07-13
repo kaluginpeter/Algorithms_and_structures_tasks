@@ -34,3 +34,36 @@ class Solution:
                     break
             n1 += 1
         return ans
+
+
+# Python O(log10(10^9)) O(log10(10^9)) Math
+class Solution:
+    def dfs(self, source: int, number: int, low: int, high: int, output: list[int]) -> None:
+        if low <= number <= high: output.append(number)
+        elif number > high: return
+        if source < 9:
+            self.dfs(source + 1, number * 10 + (source + 1), low, high, output)
+
+    def sequentialDigits(self, low: int, high: int) -> List[int]:
+        output: list[int] = []
+        for i in range(1, 10):
+            self.dfs(i, i, low, high, output)
+        output.sort()
+        return output
+
+# C++ O(log10(10^9)) O(log10(10^9)) Math
+class Solution {
+public:
+    void dfs(int source, int number, const int& low, const int& high, std::vector<int>& output) {
+        if (number >= low && number <= high) {
+            output.push_back(number);
+        } else if (number > high) return;
+        if (source < 9) dfs(source + 1, number * 10 + (source + 1), low, high, output);
+    }
+    vector<int> sequentialDigits(int low, int high) {
+        std::vector<int> output;
+        for (int source = 1; source <= 9; ++source) dfs(source, source, low, high, output);
+        std::sort(output.begin(), output.end());
+        return output;
+    }
+};
