@@ -23,3 +23,16 @@ For any valid input string there exists one and only one correct integer answer.
 
 MathematicsGamesPuzzlesProbability
 */
+// Solution
+#include <string>
+#include <algorithm>
+
+int spinning_wheel(std::string wheel) {
+    int num = 0, denom = 0;
+    for (char& ch : wheel) {
+        if (ch == 'W') ++num;
+        else ++denom;
+    }
+    if (!num) return 0;
+    return (num + denom) * 100 / (num + (denom << 1));
+}
