@@ -39,3 +39,15 @@
 #
 # 1 <= n <= 10​​​​​​​00
 #
+# Solution
+# Python O(1) O(1) Math
+class Solution:
+    def gcdOfOddEvenSums(self, n: int) -> int: return n
+
+# C++ O(1) O(1) Math
+class Solution {
+public:
+    int gcdOfOddEvenSums(int n) {
+        return n;
+    }
+};
