@@ -9,3 +9,18 @@
 # f2hex('99/98') → '1.029cbc'
 # f2hex('7/7') → '1'
 # Mathematics
+# Solution
+def f2hex(fraction):
+    num, den = map(int, fraction.split("/"))
+    whole = num // den
+    rem = num % den
+    whole_hex = hex(whole)[2:]
+    if not rem: return whole_hex
+    digits = []
+    for _ in range(6):
+        rem *= 16
+        digits.append("0123456789abcdef"[rem // den])
+        rem %= den
+    while digits and digits[-1] == "0": digits.pop()
+    if digits: return whole_hex + "." + "".join(digits)
+    return whole_hex
