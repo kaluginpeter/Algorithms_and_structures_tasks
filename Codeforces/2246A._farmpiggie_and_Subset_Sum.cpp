@@ -87,3 +87,21 @@ We can show that the permutation given in the second test case satisfies the con
 results in c=1
  at the end.
 */
+// Solution
+// C++ O(N) O(1) Math
+#include <iostream>
+
+
+void solution() {
+    size_t n;
+    std::cin >> n;
+    for (size_t i = 0; i < n - 1; ++i) std::cout << (n - i) << " ";
+    std::cout << "1\n";
+}
+
+
+int main() {
+    size_t t;
+    std::cin >> t;
+    while (t--) solution();
+}
