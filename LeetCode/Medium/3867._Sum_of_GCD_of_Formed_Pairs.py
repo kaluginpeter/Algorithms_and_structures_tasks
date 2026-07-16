@@ -59,3 +59,39 @@
 #
 # 1 <= n == nums.length <= 105
 # 1 <= nums[i] <= 10​​​​​​​9
+# Solution
+# Python O(NlogN) O(N) Constructive
+from math import gcd
+class Solution:
+    def gcdSum(self, nums: list[int]) -> int:
+        mx: int = 0
+        prefix: list[int] = []
+        for num in nums:
+            mx = max(mx, num)
+            prefix.append(gcd(mx, num))
+        prefix.sort()
+        n: int = len(nums)
+        return sum(gcd(prefix[i], prefix[n - i - 1]) for i in range(n >> 1))
+
+# C++ O(NlogN) O(N) Constructive
+class Solution {
+public:
+    long long gcdSum(vector<int>& nums) {
+        size_t n = nums.size();
+        int mx = 0;
+        std::vector<int> prefix;
+        for (size_t i = 0; i < n; ++i) {
+            mx = std::max(mx, nums[i]);
+            prefix.push_back(std::gcd(nums[i], mx));
+        }
+        std::sort(prefix.begin(), prefix.end());
+        long long output = 0LL;
+        size_t left = 0, right = n - 1;
+        while (left < right) {
+            output += std::gcd(prefix[left], prefix[right]);
+            ++left;
+            --right;
+        }
+        return output;
+    }
+};
