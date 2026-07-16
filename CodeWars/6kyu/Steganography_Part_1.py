@@ -51,3 +51,19 @@
 # Notice how each RGB pixel group contains off-by-one differences, this is the bitmask array applied to the input pixels LSB bit-by-bit.
 #
 # CryptographyFundamentals
+# Solution
+def conceal(msg: str, pixels: list[list[int]]):
+    bits = []
+    for ch in msg:
+        x = ord(ch)
+        for i in range(7, -1, -1): bits.append((x >> i) & 1)
+    writable = []
+    for i, pixel in enumerate(pixels):
+        for c in range(3):
+            if c == 2 and i % 3 == 2: continue
+            writable.append((i, c))
+    if len(bits) > len(writable): return None
+    out = [p[:] for p in pixels]
+    for bit, (pi, ci) in zip(bits, writable):
+        out[pi][ci] = (out[pi][ci] & ~1) | bit
+    return out
