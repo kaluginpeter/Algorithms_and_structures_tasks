@@ -55,3 +55,30 @@ Constraints:
 0 <= queries[i] < n * (n - 1) / 2
 
 */
+// Solution
+// C++ O(MlogM + QlogM) O(M) Prefix
+class Solution {
+public:
+    vector<int> gcdValues(vector<int>& nums, vector<long long>& queries) {
+        int m = *std::max_element(nums.begin(), nums.end());
+        std::vector<long long> cnt(m + 1);
+        for (int& num : nums) ++cnt[num];
+        for (int i = 1; i <= m; ++i) {
+            for (int j = i << 1; j <= m; j += i) cnt[i] += cnt[j];
+        }
+        for (int i = 1; i <= m; ++i) {
+            cnt[i] = cnt[i] * (cnt[i] - 1) >> 1;
+        }
+        for (int i = m; i >= 1; --i) {
+            for (int j = i << 1; j <= m; j += i) cnt[i] -= cnt[j];
+        }
+        for (int i = 1; i <= m; ++i) cnt[i] += cnt[i - 1];
+        std::vector<int> output;
+        for (long long& q : queries) {
+            ++q;
+            int pos = std::lower_bound(cnt.begin(), cnt.end(), q) - cnt.begin();
+            output.push_back(pos);
+        }
+        return output;
+    }
+};
