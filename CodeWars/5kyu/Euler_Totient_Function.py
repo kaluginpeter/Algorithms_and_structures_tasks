@@ -24,3 +24,19 @@
 # Input range: 1 ≤ n ≤ 1e10
 #
 # MathematicsAlgorithms
+# Solution
+import math
+
+def totient(n):
+    if not isinstance(n, int) or isinstance(n, bool) or n < 1:
+        return 0
+    output = n
+    x = n
+    p = 2
+    while p * p <= x:
+        if x % p == 0:
+            while x % p == 0: x //= p
+            output -= output // p
+        p += 1 if p == 2 else 2
+    if x > 1: output -= output // x
+    return output
