@@ -50,3 +50,22 @@ class Solution:
                 break
             lcd += 1
         return ma * mi // lcd
+
+
+# Python O(log1000) O(1) Math
+class Solution:
+    def findGCD(self, nums: List[int]) -> int:
+        return gcd(min(nums), max(nums))
+
+# C++ O(log1000) O(1) Math
+class Solution {
+public:
+    int findGCD(vector<int>& nums) {
+        int mn = 1000, mx = 1;
+        for (int& num : nums) {
+            if (num < mn) mn = num;
+            if (num > mx) mx = num;
+        }
+        return std::gcd(mn, mx);
+    }
+};
