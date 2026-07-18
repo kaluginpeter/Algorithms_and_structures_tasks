@@ -37,3 +37,38 @@ This problem was inspired by this challenge on LeetCode. Except this is the perf
 
 PerformanceAlgorithmsPuzzles
 */
+// Solution
+#include <string>
+#include <vector>
+using namespace std;
+
+string longest_palindrome(string s) {
+    if (s.empty()) return "";
+    string t = "^";
+    for (char c : s) {
+        t += "#";
+        t += c;
+    }
+    t += "#$";
+    int n = t.size();
+    vector<int> p(n);
+    int center = 0;
+    int right = 0;
+    int bestLen = 0;
+    int bestCenter = 0;
+    for (int i = 1; i < n - 1; ++i) {
+        int mirror = 2 * center - i;
+        if (i < right) p[i] = min(right - i, p[mirror]);
+        while (t[i + p[i] + 1] == t[i - p[i] - 1]) ++p[i];
+        if (i + p[i] > right) {
+            center = i;
+            right = i + p[i];
+        }
+        if (p[i] > bestLen) {
+            bestLen = p[i];
+            bestCenter = i;
+        }
+    }
+    int start = (bestCenter - bestLen) >> 1;
+    return s.substr(start, bestLen);
+}
