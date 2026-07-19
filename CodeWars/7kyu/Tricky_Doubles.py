@@ -17,3 +17,9 @@
 # trickyDoubles(100)  // should return 200
 # trickyDoubles(4343) // should return 4343
 # Fundamentals
+# Solution
+def tricky_doubles(num):
+    tmp: str = str(num)
+    n: int = len(tmp) >> 1
+    if tmp[:n] == tmp[n:]: return num
+    return num << 1
