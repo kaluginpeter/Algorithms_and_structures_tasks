@@ -39,3 +39,20 @@
 # left(text,' ') # -> 'Hello'
 # left(text, 'xyz') # -> '' (substring not found)
 # StringsFundamentals
+# Solution
+def left(s: str, i=1) -> str:
+    if isinstance(i, int):
+        if i == 0: return ""
+        if i < 0: return s[:len(s) + i]
+        return s[:i]
+    pos = s.find(i)
+    return "" if pos == -1 else s[:pos]
+
+
+def right(s: str, i=1) -> str:
+    if isinstance(i, int):
+        if i == 0: return ""
+        if i < 0: return s[-(len(s) + i):]
+        return s[-i:] if i <= len(s) else s
+    pos = s.rfind(i)
+    return "" if pos == -1 else s[pos + len(i):]
