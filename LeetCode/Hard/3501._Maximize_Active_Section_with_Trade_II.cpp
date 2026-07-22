@@ -99,3 +99,112 @@ s[i] is either '0' or '1'.
 queries[i] = [li, ri]
 0 <= li <= ri < n
 */
+// Solution
+// C++ O(N + QlogN) O(N) SegmentTree
+class SegmentTree {
+public:
+    int n;
+    vector<int> arr,segment;
+    SegmentTree(vector<int> &nums) {
+        n = nums.size();
+        arr = nums;
+        segment.assign(std::max(1, n) << 2, 0);
+        if (n) build(1, 0, n - 1);
+    }
+    void build(int node, int left, int right) {
+        if (left == right){
+            segment[node] = arr[left];
+            return;
+        }
+        if (left > right) return;
+        int mid = left + ((right - left) >> 1);
+        build(node << 1, left, mid);
+        build((node << 1) + 1, mid + 1, right);
+        segment[node] = std::max(segment[node << 1], segment[(node << 1) + 1]);
+    }
+    int internalQuery(int node, int st, int en, int left, int right) {
+        if (left <= st && en <= right) return segment[node];
+        if (st == en) return segment[node];
+        if (right < st || en < left) return 0;
+        int mid = st + ((en - st) >> 1);
+        int res = 0;
+        if (mid >= left) res = std::max(res, internalQuery(node << 1, st, mid, left, right));
+        if (right > mid) res = std::max(res, internalQuery((node << 1) + 1, mid + 1, en, left, right));
+        return res;
+    }
+    int query(int l, int r) {
+        if (l > r || n == 0) return 0;
+        return internalQuery(1, 0, n - 1, l, r);
+    }
+};
+class Solution {
+public:
+    int segmentz = 0;
+    int lowerBound(std::vector<int>& v, int x) {
+        int l = 0, r = segmentz;
+        while (l < r) {
+            int m = l + ((r - l) >> 1);
+            if (v[m] >= x) r = m;
+            else l = m + 1;
+        }
+        return l;
+    }
+    int upperBound(vector<int> &v, int x) {
+        int l = 0, r = segmentz;
+        while (l < r){
+            int m = l + ((r - l) >> 1);
+            if (v[m] <= x) l = m + 1;
+            else r = m;
+        }
+        return l;
+    }
+    vector<int> maxActiveSectionsAfterTrade(string s, vector<vector<int>> &q) {
+        int n = s.size(), cnt1 = 0;
+        for (char& c: s) {
+            if (c == '1') ++cnt1;
+        }
+        std::vector<int> zeroBlocks, zeroLeft, zeroRight;
+        int idx = 0;
+        while (idx < n) {
+            int r = idx;
+            while (r < n && s[idx] == s[r]) ++r;
+            int len = r - idx;
+            if (s[idx] == '0') {
+                zeroBlocks.push_back(len);
+                zeroLeft.push_back(idx);
+                zeroRight.push_back(r - 1);
+            }
+            idx = r;
+        }
+        int m = zeroBlocks.size();
+        segmentz = m;
+        std::vector<int> ans;
+        if (m <= 1) {
+            for (int i = 0; i < q.size(); ++i) ans.push_back(cnt1);
+            return ans;
+        }
+        std::vector<int> nums(m - 1);
+        for (int i = 0; i < m - 1; ++i) nums[i] = zeroBlocks[i] + zeroBlocks[i + 1];
+        SegmentTree st(nums);
+        for (int i = 0; i < q.size(); ++i) {
+            int l = q[i][0], r = q[i][1];
+            int lidx = lowerBound(zeroRight, l);
+            int ridx = upperBound(zeroLeft, r) - 1;
+            if (lidx > m - 1 || ridx < 0 || lidx >= ridx) {
+                ans.push_back(cnt1);
+                continue;
+            }
+            int leftLen = zeroRight[lidx] - std::max(zeroLeft[lidx], l) + 1;
+            int rightLen = std::min(r, zeroRight[ridx]) - zeroLeft[ridx] + 1;
+            if (lidx + 1 == ridx) {
+                ans.push_back(cnt1 + leftLen + rightLen);
+                continue;
+            }
+            int leftContri = leftLen + zeroBlocks[lidx + 1];
+            int rightContri = rightLen + zeroBlocks[ridx - 1];
+            int middleContri = st.query(lidx + 1, ridx - 2);
+            ans.push_back(cnt1 + std::max(leftContri, std::max(rightContri, middleContri)));
+        }
+        return ans;
+    }
+};
