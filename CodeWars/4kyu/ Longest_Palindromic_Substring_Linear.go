@@ -37,3 +37,45 @@ This problem was inspired by this challenge on LeetCode. Except this is the perf
 
 PerformanceAlgorithmsPuzzles
 */
+// Solution
+package kata
+
+
+func LongestPalindrome(s string) string {
+  if len(s) == 0 {
+    return ""
+  }
+  t := make([]byte, 0, 2*len(s)+3)
+
+  t = append(t, '^')
+  for i := 0; i < len(s); i++ {
+      t = append(t, '#')
+      t = append(t, s[i])
+  }
+  t = append(t, '#', '$')
+  var n int = len(t)
+  var p []int = make([]int, n)
+  var center int = 0
+  var right int = 0
+  var bestLen int = 0
+  var bestCenter int = 0
+  for i := 1; i < n - 1; i++ {
+    var mirror int = (center << 1) - i
+    if i < right {
+      p[i] = min(right - i, p[mirror])
+    }
+    for t[i + p[i] + 1] == t[i - p[i] - 1] {
+      p[i]++
+    }
+    if i + p[i] > right {
+      center = i
+      right = i + p[i]
+    }
+    if p[i] > bestLen {
+      bestLen = p[i]
+      bestCenter = i
+    }
+  }
+  var start int = (bestCenter - bestLen) >> 1
+  return s[start:start + bestLen]
+}
