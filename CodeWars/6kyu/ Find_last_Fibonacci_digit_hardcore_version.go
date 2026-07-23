@@ -10,3 +10,10 @@ LastFibDigit(1000) == 5
 LastFibDigit(1000000) == 5
 Algorithms
 */
+// Solution
+package kata
+
+
+func LastFibDigit(n int) int {
+	  return int("011235831459437077415617853819099875279651673033695493257291"[n % 60] - '0')
+}
