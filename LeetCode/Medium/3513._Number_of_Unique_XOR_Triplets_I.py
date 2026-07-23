@@ -73,3 +73,18 @@ public:
         return pow(2, exponent);
     }
 };
+
+
+# Python O(1) O(1) Math
+class Solution:
+    def uniqueXorTriplets(self, nums: List[int]) -> int:
+        return n if (n := len(nums)) < 3 else 1 << n.bit_length()
+
+# C++ O(1) O(1) Math
+class Solution {
+public:
+    int uniqueXorTriplets(vector<int>& nums) {
+        size_t n = nums.size();
+        return (n > 2 ? 1 << std::bit_width(n): n);
+    }
+};
