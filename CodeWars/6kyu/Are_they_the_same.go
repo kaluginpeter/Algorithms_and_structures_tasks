@@ -27,3 +27,29 @@ If a or b are nil (or null or None, depending on the language), the problem does
 
 Fundamentals
 */
+// Solution
+package kata
+
+import "slices"
+
+func Comp(array1 []int, array2 []int) bool {
+  if len(array1) != len(array2) {
+    return false
+    }
+  if array1 == nil || array2 == nil {
+    return false;
+  }
+  for i, num := range array1 {
+    array1[i] = num * num
+  }
+  slices.Sort(array1)
+  slices.Sort(array2)
+  var i int = 0
+  for i < len(array1) {
+    if (array1[i] != array2[i]) {
+      return false
+      }
+    i += 1
+  }
+  return true
+}
