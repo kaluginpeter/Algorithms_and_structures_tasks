@@ -81,3 +81,33 @@ public:
         return left * right;
     }
 };
+
+
+# Python O(logN) O(1) Math
+class Solution:
+    def maxProduct(self, n: int) -> int:
+        x: int = 0
+        y: int = 0
+        while n:
+            z: int = n % 10
+            n //= 10
+            if z > x: y, x = x, z
+            elif z > y: y = z
+        return x * y
+
+# C+ O(logN) O(1) Math
+class Solution {
+public:
+    int maxProduct(int n) {
+        int8_t x = 0, y = 0;
+        while (n) {
+            int8_t z = n % 10;
+            n /= 10;
+            if (z > x) {
+                y = x;
+                x = z;
+            } else if (z > y) y = z;
+        }
+        return (int32_t)x * y;
+    }
+};
