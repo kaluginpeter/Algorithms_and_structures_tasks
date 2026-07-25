@@ -37,3 +37,7 @@
 # Good luck!!!
 #
 # Arrays
+# Solution
+is_valid = lambda sheep: sorted(sheep) == sorted('sheep')
+def reload_sheeps(arr):
+    return ['sheep' for sheep in arr if is_valid(sheep)]
