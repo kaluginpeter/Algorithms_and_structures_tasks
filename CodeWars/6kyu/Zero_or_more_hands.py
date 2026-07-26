@@ -39,3 +39,21 @@
 # "type"   ->  BOTH
 # Credit
 # This kata was inspired by One or Two Hands? ( retired ) by Gonzalo Vidal.
+# Solution
+from collections.abc import Iterable;
+from preloaded import Hand;
+(NONE,LEFT,RIGHT,BOTH) = Hand;
+
+def which_hand(word: Iterable[str]) -> Hand:
+    left: str = 'qwertasdfgzxcvb'
+    right: str = 'yuiophjklnm'
+    was: bool = False
+    is_left: bool = False
+    is_right: bool = False
+    for ch in word:
+        was = True
+        if ch in left: is_left = True
+        elif ch in right: is_right = True
+        if is_left and is_right: break
+    if not was: return NONE
+    return BOTH if (is_left and is_right) else [RIGHT, LEFT][is_left]
