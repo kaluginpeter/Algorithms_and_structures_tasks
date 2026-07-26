@@ -39,3 +39,20 @@ class Solution:
         if second_min != float('inf'):
             return max(first_min * second_min * first_max, first_max * second_max * third_max)
         return first_max * second_max * third_max
+
+
+# Python O(NlogN) O(1) Sorting Math
+class Solution:
+    def maximumProduct(self, nums: List[int]) -> int:
+        nums.sort()
+        return max(nums[0] * nums[1] * nums[-1], nums[-1] * nums[-2] * nums[-3])
+
+# C++ O(NlogN) O(1) Math Sorting
+class Solution {
+public:
+    int maximumProduct(vector<int>& nums) {
+        std::sort(nums.begin(), nums.end());
+        size_t n = nums.size();
+        return std::max(nums[0] * nums[1] * nums[n - 1], nums[n - 1] * nums[n - 2] * nums[n - 3]);
+    }
+};
