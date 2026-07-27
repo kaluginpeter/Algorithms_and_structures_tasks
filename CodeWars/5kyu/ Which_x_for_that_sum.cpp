@@ -17,3 +17,10 @@ You pass the tests if abs(actual - expected) <= 1e-12
 
 FundamentalsMathematics
 */
+// Solution
+#include <cmath>
+
+double solve(double m)
+{
+    return (2.0 * m + 1.0 - std::sqrt(4.0 * m + 1.0)) / (2.0 * m);
+}
