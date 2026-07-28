@@ -8,3 +8,29 @@ Examples:
 "Weird string case" => "WeIrD StRiNg CaSe"
 StringsAlgorithms
 */
+// Solution
+#include <string>
+#include <string_view>
+#include <cctype>
+
+std::string to_weird_case(std::string_view str) {
+    std::string result;
+    result.reserve(str.size());
+
+    int idx = 0;
+
+    for (char ch : str) {
+        if (ch == ' ') {
+            result += ch;
+            idx = 0;
+        } else {
+            if (idx % 2 == 0)
+                result += std::toupper(static_cast<unsigned char>(ch));
+            else
+                result += std::tolower(static_cast<unsigned char>(ch));
+            ++idx;
+        }
+    }
+
+    return result;
+}
