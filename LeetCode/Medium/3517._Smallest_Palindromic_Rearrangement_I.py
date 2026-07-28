@@ -85,3 +85,40 @@ public:
         return palindrom;
     }
 };
+
+
+# Python O(N) O(26) HashMap Greedy
+from array import array
+class Solution:
+    def smallestPalindrome(self, s: str) -> str:
+        hashmap: list[int] = array('I', [0]) * 26
+        for ch in s: hashmap[ord(ch) - 97] += 1
+        tie: int = 26
+        output: list[int] = []
+        for i in range(26):
+            if hashmap[i] & 1: tie = i # only once possible
+            for _ in range(hashmap[i] >> 1): output.append(i)
+        if tie < 26: output.append(tie)
+        for i in range(26):
+            for _ in range(hashmap[26 - i - 1] >> 1): output.append(26 - i - 1)
+        return ''.join(chr(ch + 97) for ch in output)
+
+# C++ O(N) O(26) Greedy HashMap
+class Solution {
+public:
+    string smallestPalindrome(string s) {
+        std::array<int, 26> hashmap{};
+        for (char& ch : s) ++hashmap[ch - 'a'];
+        std::string output = "";
+        size_t tie = 26;
+        for (size_t i = 0; i < 26; ++i) {
+            if (hashmap[i] & 1) tie = i; // only once possible
+            for (size_t j = 0; j < hashmap[i] >> 1; ++j) output.push_back(i + 'a');
+        }
+        if (tie < 26) output.push_back(tie + 'a');
+        for (size_t i = 26; i > 0; --i) {
+            for (size_t j = 0; j < hashmap[i - 1] >> 1; ++j) output.push_back((i - 1) + 'a');
+        }
+        return output;
+    }
+};
