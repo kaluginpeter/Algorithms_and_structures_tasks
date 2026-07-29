@@ -49,3 +49,71 @@ You may have noticed that symbols are not always consecutive, but just in proxim
 
 ListsPuzzlesAlgorithms
 */
+// Solution
+#include <algorithm>
+#include <string>
+#include <utility>
+#include <vector>
+
+std::pair<std::string, int> encode(const std::string &s) {
+    if (s.empty()) return {"", 0};
+
+    int n = s.size();
+    std::vector<std::string> rotations;
+
+    for (int i = 0; i < n; ++i)
+        rotations.push_back(s.substr(i) + s.substr(0, i));
+
+    std::sort(rotations.begin(), rotations.end());
+
+    std::string last;
+    int idx = 0;
+
+    for (int i = 0; i < n; ++i) {
+        last += rotations[i].back();
+        if (rotations[i] == s)
+            idx = i;
+    }
+
+    return {last, idx};
+}
+std::string decode(const std::string& last, int row) {
+    if (last.empty()) return "";
+
+    int n = last.size();
+
+    std::string first = last;
+    std::sort(first.begin(), first.end());
+
+    std::vector<int> occLast(n), occFirst(n);
+    int cnt[256] = {};
+
+    for (int i = 0; i < n; ++i)
+        occLast[i] = ++cnt[(unsigned char)last[i]];
+
+    std::fill(cnt, cnt + 256, 0);
+
+    for (int i = 0; i < n; ++i)
+        occFirst[i] = ++cnt[(unsigned char)first[i]];
+
+    std::vector<int> lf(n);
+
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            if (last[i] == first[j] && occLast[i] == occFirst[j]) {
+                lf[i] = j;
+                break;
+            }
+        }
+    }
+
+    std::string ans(n, ' ');
+    int cur = row;
+
+    for (int i = n - 1; i >= 0; --i) {
+        ans[i] = last[cur];
+        cur = lf[cur];
+    }
+
+    return ans;
+}
