@@ -14,3 +14,34 @@ Note Second argument: number is always declared, passed and displayed as a regul
 
 Algorithms
 */
+// Solution
+#include <climits>
+#include <vector>
+
+int Zeroes(int base, int number)
+{
+    std::vector<std::pair<int,int>> factors;
+    for (int p = 2; p * p <= base; ++p) {
+        if (base % p) continue;
+        int cnt = 0;
+        while (base % p == 0) {
+            base /= p;
+            ++cnt;
+        }
+        factors.push_back({p, cnt});
+    }
+    if (base > 1) factors.push_back({base, 1});
+    int ans = INT_MAX;
+    for (auto [p, need] : factors) {
+        long long have = 0;
+        long long pw = p;
+        while (pw <= number) {
+            have += number / pw;
+            if (pw > number / p) break;
+            pw *= p;
+        }
+        ans = std::min(ans, static_cast<int>(have / need));
+    }
+
+    return ans;
+}
