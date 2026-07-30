@@ -61,3 +61,30 @@ class Solution:
             if n == 8:
                 n, top = 0, top + 1
         return count
+
+
+# Python O(N) O(1) Math
+class Solution:
+    def minimumPushes(self, word: str) -> int:
+        cost: int = 1
+        pushes: int = 0
+        output: int = 0
+        for _ in word:
+            output += cost
+            pushes += 1
+            if pushes % 8 == 0: cost += 1
+        return output
+
+# C++ O(N) O(1) Math
+class Solution {
+public:
+    int minimumPushes(string word) {
+        int cost = 1, pushes = 0, output = 0;
+        for (char& ch : word) {
+            output += cost;
+            ++pushes;
+            if (pushes % 8 == 0) ++cost;
+        }
+        return output;
+    }
+};
