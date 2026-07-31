@@ -93,3 +93,41 @@ class Solution:
                 button = 2
                 letters_in_button += 1
         return total_cost
+
+
+# Python O(NlogN) O(D) HashMap
+from array import array
+class Solution:
+    def minimumPushes(self, word: str) -> int:
+        hashmap: list[int] = array('I', [0]) * 26
+        for ch in word: hashmap[ord(ch) - 97] += 1
+        dataset: list[int] = sorted((hashmap[i] for i in range(26) if hashmap[i]), reverse=True)
+        output: int = 0
+        cost: int = 1
+        pushes: int = 0
+        for freq in dataset:
+            output += cost * freq
+            pushes += 1
+            if pushes % 8 == 0: cost += 1
+        return output
+
+# C++ O(NlogN) O(D) HashMap
+class Solution {
+public:
+    int minimumPushes(string word) {
+        std::array<int, 26> hashmap{};
+        for (char& ch : word) ++hashmap[ch - 'a'];
+        std::vector<int> dataset;
+        for (int i = 0; i < 26; ++i) {
+            if (hashmap[i]) dataset.push_back(hashmap[i]);
+        }
+        std::sort(dataset.begin(), dataset.end(), std::greater<int>());
+        int cost = 1, pushes = 0, output = 0;
+        for (int& d : dataset) {
+            output += cost * d;
+            ++pushes;
+            if (pushes % 8 == 0) ++cost;
+        }
+        return output;
+    }
+};
