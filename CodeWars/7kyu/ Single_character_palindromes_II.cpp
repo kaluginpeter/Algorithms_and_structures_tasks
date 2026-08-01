@@ -14,3 +14,19 @@ Please also try Single Character Palindromes
 
 Algorithms
 */
+// Solution
+#include <string>
+
+bool solve(const std::string& s){
+    int left = 0, right = s.size() - 1;
+    bool was = false;
+    while (left < right) {
+        if (s[left] != s[right]) {
+            if (was) return false;
+            was = true;
+        }
+        ++left;
+        --right;
+    }
+    return was || (s.size() & 1);
+}
