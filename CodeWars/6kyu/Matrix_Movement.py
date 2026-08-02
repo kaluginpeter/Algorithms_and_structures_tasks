@@ -30,3 +30,34 @@
 # Movement wraps around: going off one edge should bring the 1 to the opposite side.
 # The returned function should support being called repeatedly any number of times before "stop" is issued.
 # Arrays
+# Solution
+from copy import deepcopy
+
+def move(matrix):
+    m, n = len(matrix), len(matrix[0])
+    for i in range(m):
+        for j in range(n):
+            if matrix[i][j]:
+                row, col = i, j
+                break
+        else: continue
+        break
+    def f(cmd):
+        nonlocal row, col
+        if cmd == "up":
+            row = (row - 1) % m
+            return f
+        if cmd == "down":
+            row = (row + 1) % m
+            return f
+        if cmd == "left":
+            col = (col - 1) % n
+            return f
+        if cmd == "right":
+            col = (col + 1) % n
+            return f
+        if cmd == "stop":
+            ans = [[0] * n for _ in range(m)]
+            ans[row][col] = 1
+            return ans
+    return f
