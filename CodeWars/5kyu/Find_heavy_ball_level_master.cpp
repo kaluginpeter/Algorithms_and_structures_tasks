@@ -27,3 +27,25 @@ Still too easy ? Try this kata - ubermaster (made by by bellmyer)
 
 PuzzlesLogicRiddles
 */
+// Solution
+#include <vector>
+
+unsigned int findBall(Scales scales) {
+    std::vector<int> left{0, 1, 2};
+    std::vector<int> right{3, 4, 5};
+    int res = scales.getWeight(left, right);
+    if (res == -1) {
+        res = scales.getWeight({0}, {1});
+        if (res == -1) return 0;
+        if (res == 1) return 1;
+        return 2;
+    }
+    if (res == 1) {
+        res = scales.getWeight({3}, {4});
+        if (res == -1) return 3;
+        if (res == 1) return 4;
+        return 5;
+    }
+    res = scales.getWeight({6}, {7});
+    return (res == -1) ? 6 : 7;
+}
