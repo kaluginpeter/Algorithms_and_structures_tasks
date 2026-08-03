@@ -38,3 +38,27 @@ Constraints:
 1 <= stoneValue.length <= 5 * 104
 -1000 <= stoneValue[i] <= 1000
 */
+// Solution
+// C++ O(N) O(N) DynamicProgramming
+class Solution {
+public:
+    static constexpr int MIN = -50000001;
+    static inline string s[] = {"Bob", "Tie", "Alice"};
+    string stoneGameIII(vector<int>& A) {
+        size_t n = A.size();
+        std::vector<int> dp(n, MIN);
+        auto maxDiff = [&](this auto&& maxDiff, int i) -> int {
+            if (i == n) return 0;
+            int& res = dp[i];
+            if (res != MIN) return res;
+            int sum = 0;
+            for (int j = 1; j <= 3 && i + j <= n; j++) {
+                sum += A[i + j - 1];
+                res = max(res, sum - maxDiff(i + j));
+            }
+            return res;
+        };
+        int d = maxDiff(0);
+        return s[(d > 0) - (d < 0) + 1];
+    }
+};
