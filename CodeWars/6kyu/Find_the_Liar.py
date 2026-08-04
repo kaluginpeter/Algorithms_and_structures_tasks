@@ -55,3 +55,34 @@
 # Minimum Percentage of Visitors that Ate All Foods
 # The Jumbler
 # Do They Agree?
+# Solution
+from collections import defaultdict
+
+def find_the_liar(office):
+    majority = defaultdict(int)
+    for report in office:
+        pos = {x: i for i, x in enumerate(report)}
+        people = report
+        m = len(people)
+        for i in range(m):
+            for j in range(i + 1, m):
+                a, b = people[i], people[j]
+                if a < b:
+                    majority[(a, b)] += 1
+                else: majority[(b, a)] -= 1
+    best_idx = -1
+    best_bad = -1
+    for idx, report in enumerate(office):
+        bad = 0
+        m = len(report)
+        for i in range(m):
+            for j in range(i + 1, m):
+                a, b = report[i], report[j]
+                if a < b:
+                    if majority[(a, b)] < 0: bad += 1
+                else:
+                    if majority[(b, a)] > 0: bad += 1
+        if bad > best_bad:
+            best_bad = bad
+            best_idx = idx
+    return best_idx
