@@ -45,3 +45,30 @@
 # 2 <= nums.length <= 100
 # 1 <= nums[i] <= 100
 #
+# Solution
+# Python O(N) O(N) Counting
+class Solution:
+    def findMissingElements(self, nums: List[int]) -> List[int]:
+        hashset: set[int] = set(nums)
+        mn: int = min(nums)
+        mx: int = max(nums)
+        return [num for num in range(mn, mx + 1) if num not in hashset]
+
+# C++ O(N) O(N) HashSet
+class Solution {
+public:
+    vector<int> findMissingElements(vector<int>& nums) {
+        std::unordered_set<int> hashset;
+        int mn = 100, mx = 1;
+        for (int& num : nums) {
+            mn = std::min(mn, num);
+            mx = std::max(mx, num);
+            hashset.insert(num);
+        }
+        std::vector<int> output;
+        for (int num = mn; num <= mx; ++num) {
+            if (!hashset.count(num)) output.push_back(num);
+        }
+        return output;
+    }
+};
