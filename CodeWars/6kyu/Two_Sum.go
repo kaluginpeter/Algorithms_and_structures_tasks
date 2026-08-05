@@ -12,3 +12,24 @@ TwoSum([]int{1, 2, 3}, 4) // returns [2]int{0, 2}
 // untill it's fixed, please sort your result in go.
 ArraysFundamentalsAlgorithms
 */
+// Solution
+package kata
+import "sort"
+func TwoSum(numbers []int, target int) [2]int {
+    sort.Slice(numbers, func(i, j int) bool {
+        return numbers[i] < numbers[j]
+    })
+    var left int = 0
+    var right int = len(numbers) - 1
+    for left < right {
+        var sm int = numbers[left] + numbers[right];
+        if sm == target {
+            return [2]int{left, right}
+        } else if sm > target {
+            right--
+        } else {
+            left++
+        }
+    }
+    return [2]int{}
+}
