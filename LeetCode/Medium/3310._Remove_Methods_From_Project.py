@@ -136,3 +136,79 @@ public:
         return output;
     }
 };
+
+
+# C++ O(V + E) O(V + E) DisjoinSetUntion DepthFirstSearch
+class DSU {
+private:
+    std::vector<int> rank, parent;
+public:
+    DSU(int n) {
+        rank.resize(n, 1);
+        for (int vertex = 0; vertex < n; ++vertex) {
+            parent.push_back(vertex);
+        }
+    }
+    int find(int vertex) {
+        while (vertex != parent[vertex]) {
+            parent[vertex] = parent[parent[vertex]];
+            vertex = parent[vertex];
+        }
+        return vertex;
+    }
+    bool union_(int u, int v) {
+        int pU = find(u), pV = find(v);
+        if (pU == pV) return false;
+        if (rank[pU] >= rank[pV]) {
+            rank[pU] += rank[pV];
+            parent[pV] = pU;
+        } else {
+            rank[pV] += rank[pU];
+            parent[pU] = pV;
+        }
+        return true;
+    }
+};
+
+class Solution {
+public:
+    vector<int> remainingMethods(int n, int k, vector<vector<int>>& invocations) {
+        // Build DSU and adjList
+        std::vector<std::vector<int>> adjList(n, std::vector<int>());
+        DSU dsu = DSU(n);
+        std::vector<bool> inDegree(n, false);
+        for (std::vector<int>& edge : invocations) {
+            adjList[edge[0]].push_back(edge[1]);
+            dsu.union_(edge[0], edge[1]);
+            inDegree[edge[1]] = 1;
+        }
+        // Mark infected vertices
+        std::vector<bool> infected(n, false), seen(n, false);
+        std::vector<int> nodes = {k};
+        seen[k] = true;
+        infected[k] = true;
+        while (!nodes.empty()) {
+            int node = nodes.back();
+            nodes.pop_back();
+            for (int& neighbor : adjList[node]) {
+                if (seen[neighbor]) continue;
+                seen[neighbor] = true;
+                infected[neighbor] = true;
+                nodes.push_back(neighbor);
+            }
+        }
+        // Find a safest ones and combine them in DSU
+        int saveNode = -1;
+        for (int vertex = 0; vertex < n; ++vertex) {
+            if (infected[vertex]) continue;
+            if (saveNode == -1) saveNode = vertex;
+            else dsu.union_(saveNode, vertex);
+        }
+        // Collect all vertices that are linked with safe component
+        std::vector<int> output;
+        for (int vertex = 0; vertex < n && saveNode != -1; ++vertex) {
+            if (dsu.find(vertex) == dsu.find(saveNode)) output.push_back(vertex);
+        }
+        return output;
+    }
+};
