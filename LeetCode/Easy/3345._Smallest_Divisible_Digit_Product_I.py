@@ -28,3 +28,27 @@
 #
 # 1 <= n <= 100
 # 1 <= t <= 10
+# Solution
+# Python O(100log10(100)) O(1) Math
+class Solution:
+    def smallestNumber(self, n: int, t: int) -> int:
+        return next(i for i in range(n, 101) if (lambda x: prod(map(int, str(x))))(i) % t == 0)
+
+# C++ O(100log10(100)) O(1) Math
+class Solution {
+public:
+    int f(int x) {
+        int acc = 1;
+        while (x) {
+            acc *= x % 10;
+            x /= 10;
+        }
+        return acc;
+    }
+    int smallestNumber(int n, int t) {
+        for (int i = n; i <= 100; ++i) {
+            if (f(i) % t == 0) return i;
+        }
+        return -1;
+    }
+};
