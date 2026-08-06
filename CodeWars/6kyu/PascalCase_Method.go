@@ -10,3 +10,30 @@ Note: for historical reasons, the function is named camelCase() or similar in so
 
 FundamentalsAlgorithmsStrings
 */
+// Solution
+package kata
+
+import (
+  "strings"
+)
+
+func CamelCase(s string) string {
+    var output strings.Builder
+    var i int = 0
+    for i < len(s) {
+        for i < len(s) && s[i] == ' ' {
+            i++
+        }
+        var was bool = false
+        for i < len(s) && s[i] != ' ' {
+            if !was {
+                output.WriteByte(s[i] - 'a' + 'A')
+                was = true
+            } else {
+                output.WriteByte(s[i])
+            }
+            i++
+        }
+    }
+    return output.String()
+}
