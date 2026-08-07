@@ -43,3 +43,27 @@ If you enjoyed this kata, be sure to check out my other katas.
 
 Fundamentals
 */
+// Solution
+package kata
+
+import "math"
+
+func HarvesterRescue(data Data) string {
+	harvester := data.Harvester
+	worm := data.Worm
+	carryall := data.Carryall
+	wormDist := math.Hypot(
+		float64(harvester[0]-worm[0]),
+		float64(harvester[1]-worm[1]),
+	)
+	carryDist := math.Hypot(
+		float64(harvester[0]-carryall[0]),
+		float64(harvester[1]-carryall[1]),
+	)
+	wormTime := wormDist / float64(worm[2])
+	carryTime := carryDist/float64(carryall[2]) + 1.0
+	if carryTime < wormTime {
+		return "The spice must flow! Rescue the harvester!"
+	}
+	return "Damn the spice! I'll rescue the miners!"
+}
