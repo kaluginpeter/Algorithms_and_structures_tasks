@@ -9,3 +9,15 @@ Courtesy of projecteuler.net (Problem 1)
 
 MathematicsAlgorithms
 */
+// Solution
+package kata
+
+func Multiple3And5(number int) int {
+  var output int = 0
+  for i := 3; i < number; i++ {
+    if (i % 3 == 0 || i % 5 == 0) {
+      output += i
+    }
+  }
+  return output
+}
