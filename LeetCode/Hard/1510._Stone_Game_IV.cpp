@@ -31,3 +31,21 @@ Constraints:
 
 1 <= n <= 105
 */
+// Solution
+// C++ O(10^5) O(10^5) DynamicProgramming
+static constexpr int MAX = 100000;
+class Solution {
+public:
+    inline static std::bitset<MAX + 1> dp;
+    inline static bool init = []() {
+        for (int i = 0; i <= MAX; ++i) {
+            if (dp.test(i)) continue;
+            for (int j = 1; j * j <= MAX - i; ++j) dp.set(i + j * j);
+        }
+        return false;
+    }();
+
+    bool winnerSquareGame(int n) {
+        return dp.test(n);
+    }
+};
