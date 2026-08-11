@@ -28,3 +28,49 @@ N = 5 Output: [[1,2,3,4,5],[16,17,18,19,6],[15,24,25,20,7],[14,23,22,21,8],[13,1
 13  12  11  10  9
 ArraysPuzzles
 */
+// Solution
+package kata
+
+func CreateSpiral(n int) [][]int {
+	if n < 1 {
+		return [][]int{}
+	}
+
+	result := make([][]int, n)
+	for i := range result {
+		result[i] = make([]int, n)
+	}
+
+	top, bottom := 0, n-1
+	left, right := 0, n-1
+	num := 1
+
+	for top <= bottom && left <= right {
+		for col := left; col <= right; col++ {
+			result[top][col] = num
+			num++
+		}
+		top++
+		for row := top; row <= bottom; row++ {
+			result[row][right] = num
+			num++
+		}
+		right--
+		if top <= bottom {
+			for col := right; col >= left; col-- {
+				result[bottom][col] = num
+				num++
+			}
+			bottom--
+		}
+		if left <= right {
+			for row := bottom; row >= top; row-- {
+				result[row][left] = num
+				num++
+			}
+			left++
+		}
+	}
+
+	return result
+}
