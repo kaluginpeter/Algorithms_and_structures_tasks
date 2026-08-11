@@ -34,3 +34,36 @@ class Solution:
         while s in nums:
             s += 1
         return s
+
+
+# Python O(N) O(D) HashSet
+class Solution:
+    def missingInteger(self, nums: List[int]) -> int:
+        seen: set[int] = set()
+        n: int = len(nums)
+        is_valid: bool = True
+        prefix_sum: int = 0
+        for i in range(n):
+            seen.add(nums[i])
+            if is_valid and (not i or nums[i - 1] + 1 == nums[i]): prefix_sum += nums[i]
+            else: is_valid = False
+        while prefix_sum in seen: prefix_sum += 1
+        return prefix_sum
+
+# C++ O(N) O(D) HashSet
+class Solution {
+public:
+    int missingInteger(vector<int>& nums) {
+        std::unordered_set<int> seen;
+        bool isValid = true;
+        int prefixSum = 0;
+        size_t n = nums.size();
+        for (size_t i = 0; i < n; ++i) {
+            seen.insert(nums[i]);
+            if (isValid && (!i || nums[i - 1] + 1 == nums[i])) prefixSum += nums[i];
+            else isValid = false;
+        }
+        while (seen.count(prefixSum)) ++prefixSum;
+        return prefixSum;
+    }
+};
