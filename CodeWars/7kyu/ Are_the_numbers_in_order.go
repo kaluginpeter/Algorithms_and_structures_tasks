@@ -16,3 +16,16 @@ N.B. If your solution passes all fixed tests but fails at the random tests, make
 
 FundamentalsMathematicsAlgorithms
 */
+// Solution
+package kata
+
+func InAscOrder(numbers []int) bool {
+    var prev int = -10000000
+    for _, num := range(numbers) {
+          if prev > num {
+               return false
+          }
+          prev = num
+    }
+    return true
+}
