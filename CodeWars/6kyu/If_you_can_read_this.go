@@ -24,3 +24,27 @@ Every word and punctuation mark should be seperated by a space ' '.
 There should be no trailing whitespace
 Fundamentals
 */
+// Solution
+package kata
+
+import (
+	"strings"
+	"unicode"
+)
+
+func ToNato(words string) string {
+	var result []string
+
+	for _, r := range words {
+		if unicode.IsLetter(r) {
+			result = append(result, NATO[string(unicode.ToUpper(r))])
+			continue
+		}
+
+		if strings.ContainsRune(",.!?", r) {
+			result = append(result, string(r))
+		}
+	}
+
+	return strings.Join(result, " ")
+}
