@@ -39,3 +39,41 @@ Constraints:
 1 <= stones.length <= 105
 1 <= stones[i] <= 104
 */
+// Solution
+// C++ O(N) O(1) Math
+class Solution {
+public:
+    bool f(int x, int y, int z, bool isFirst) {
+        if ((isFirst && !x) || (!isFirst && !y)) return false;
+        bool isAlice = false;
+        int cur = (isFirst ? 1 : 2);
+        if (isFirst) --x;
+        else --y;
+        while (x || y || z) {
+            if (cur == 1) {
+                if (z) --z;
+                else if (x) {
+                    ++cur;
+                    --x;
+                } else return !isAlice;
+            } else if (cur == 2) {
+                if (z) --z;
+                else if (y) {
+                    cur = 1;
+                    --y;
+                } else return !isAlice;
+            }
+            isAlice = !isAlice;
+        }
+        return false;
+    }
+    bool stoneGameIX(vector<int>& stones) {
+        int x = 0, y = 0, z = 0;
+        for (int& num : stones) {
+            if (num % 3 == 1) ++x;
+            else if (num % 3 == 2) ++y;
+            else ++z;
+        }
+        return f(x, y, z, 0) || f(x, y, z, 1);
+    }
+};
