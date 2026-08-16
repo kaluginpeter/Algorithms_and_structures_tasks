@@ -34,3 +34,75 @@ sumLudic(10) -> 107
 sumLudic(25) -> 1100
 Algorithms
 */
+// Solution
+package kata
+
+import "math/bits"
+
+func SumLudic(n int) int {
+	limit := 300000
+
+	for {
+		size := limit - 1
+		bit := make([]int, size+1)
+
+		for i := 1; i <= size; i++ {
+			bit[i]++
+			if j := i + (i & (-i)); j <= size {
+				bit[j] += bit[i]
+			}
+		}
+
+		update := func(i, delta int) {
+			for ; i <= size; i += i & (-i) {
+				bit[i] += delta
+			}
+		}
+
+		logn := bits.Len(uint(size))
+		findKth := func(k int) int {
+			pos, rem := 0, k
+			for pw := logn; pw >= 0; pw-- {
+				if next := pos + (1 << uint(pw)); next <= size && bit[next] < rem {
+					pos = next
+					rem -= bit[next]
+				}
+			}
+			return pos + 1
+		}
+
+		alive := size
+		ludic := make([]int, 0, n)
+		ludic = append(ludic, 1)
+		ok := true
+
+		for len(ludic) < n {
+			if alive == 0 {
+				ok = false
+				break
+			}
+			step := findKth(1) + 1
+			ludic = append(ludic, step)
+			if len(ludic) == n {
+				break
+			}
+
+			countThisPass := (alive-1)/step + 1
+			for i := 1; i <= countThisPass; i++ {
+				r := 1 + (i-1)*(step-1)
+				idx := findKth(r)
+				update(idx, -1)
+			}
+			alive -= countThisPass
+		}
+
+		if ok && len(ludic) == n {
+			sum := 0
+			for _, v := range ludic {
+				sum += v
+			}
+			return sum
+		}
+		limit *= 2
+	}
+}
