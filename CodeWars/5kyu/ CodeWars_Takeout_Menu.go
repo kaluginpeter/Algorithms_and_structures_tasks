@@ -49,3 +49,52 @@ goodbye
     goodbye
 Fundamentals
 */
+// Solution
+package kata
+
+import (
+	"fmt"
+	"strings"
+)
+
+func PhoneCall(hear chan string, say chan<- string, done chan bool) {
+	menu := GetMenu()
+	var total float32
+
+	for {
+		select {
+		case msg := <-hear:
+			switch {
+			case msg == "place an order":
+				total = 0
+				say <- "ok"
+
+			case msg == "that is all":
+				say <- fmt.Sprintf("%.2f", total)
+
+			case msg == "goodbye":
+				say <- "goodbye"
+
+			case strings.HasPrefix(msg, "price "):
+				item := strings.TrimPrefix(msg, "price ")
+				if price, ok := menu[item]; ok {
+					say <- fmt.Sprintf("%.2f", price)
+				} else {
+					say <- "unavailable"
+				}
+
+			case strings.HasPrefix(msg, "order "):
+				item := strings.TrimPrefix(msg, "order ")
+				if price, ok := menu[item]; ok {
+					total += price
+					say <- "ok"
+				} else {
+					say <- "unavailable"
+				}
+			}
+
+		case <-done:
+			return
+		}
+	}
+}
