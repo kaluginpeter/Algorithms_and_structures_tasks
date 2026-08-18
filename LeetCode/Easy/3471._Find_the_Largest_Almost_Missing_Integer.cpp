@@ -56,3 +56,67 @@ Constraints:
 0 <= nums[i] <= 50
 1 <= k <= nums.length
 */
+// Solution
+// Python O(N) O(D) HashMap
+from collections import Counter
+class Solution:
+    def largestInteger(self, nums: List[int], k: int) -> int:
+        seen: dict[int, int] = Counter(nums)
+        output: int = -1
+        overall: int = -1
+        for num, freq in seen.items():
+            if freq == 1: output = max(output, num)
+            overall = max(overall, num)
+        if k == len(nums): return overall
+        elif k == 1: return output
+        x: int = nums[0] if seen[nums[0]] == 1 else -1
+        y: int = nums[-1] if seen[nums[-1]] == 1 else -1
+        return max(x, y)
+
+// C++ O(N) O(D) HashMap
+class Solution {
+public:
+    int largestInteger(vector<int>& nums, int k) {
+        std::unordered_map<int, size_t> seen;
+        for (int& num : nums) ++seen[num];
+        int output = -1, overall = -1;
+        for (auto& p : seen) {
+            if (p.second == 1) output = std::max(output, p.first);
+            overall = std::max(overall, p.first);
+        }
+        if (k == nums.size()) return overall;
+        if (k == 1) return output;
+        int x = nums[0], y = *--nums.end();
+        if (seen[x] > 1) x = -1;
+        if (seen[y] > 1) y = -1;
+        return std::max(x, y);
+    }
+};
+
+// Go O(N) O(D) HashMap
+func largestInteger(nums []int, k int) int {
+    seen := make(map[int]int)
+    for _, num := range(nums) {
+        seen[num]++
+    }
+    var output, overall int = -1, -1
+    for num, freq := range(seen) {
+        if freq == 1 {
+            output = max(output, num)
+        }
+        overall = max(overall, num)
+    }
+    if k == len(nums) {
+        return overall
+    } else if k == 1 {
+        return output
+    }
+    var x, y int = nums[0], nums[len(nums) - 1]
+    if seen[x] > 1 {
+        x = -1
+    }
+    if seen[y] > 1 {
+        y = -1
+    }
+    return max(x, y)
+}
