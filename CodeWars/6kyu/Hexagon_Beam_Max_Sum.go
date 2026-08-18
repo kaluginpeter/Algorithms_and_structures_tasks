@@ -54,3 +54,69 @@ If you enjoyed this kata, be sure to check out my other katas
 
 PuzzlesArraysAlgorithms
 */
+// Solution
+package kata
+
+func MaxHexagonBeam(n int, seq []int) int {
+	L := len(seq)
+	idx := 0
+	totalRows := 2*n - 1
+
+	grid := make([][]int, totalRows)
+	for i := 0; i < totalRows; i++ {
+		z := i - (n - 1)
+		absZ := z
+		if absZ < 0 {
+			absZ = -absZ
+		}
+		rowLen := 2*n - 1 - absZ
+		row := make([]int, rowLen)
+		for c := 0; c < rowLen; c++ {
+			row[c] = seq[idx%L]
+			idx++
+		}
+		grid[i] = row
+	}
+
+	xsum := make(map[int]int)
+	ysum := make(map[int]int)
+
+	best := 0
+	for _, val := range grid[0] {
+		best += val
+	}
+
+	for i, row := range grid {
+		z := i - (n - 1)
+		minZ0 := 0
+		if z < minZ0 {
+			minZ0 = z
+		}
+		xMin := -(n - 1) - minZ0
+
+		rowSum := 0
+		for c, val := range row {
+			rowSum += val
+			x := xMin + c
+			y := -x - z
+			xsum[x] += val
+			ysum[y] += val
+		}
+		if rowSum > best {
+			best = rowSum
+		}
+	}
+
+	for _, v := range xsum {
+		if v > best {
+			best = v
+		}
+	}
+	for _, v := range ysum {
+		if v > best {
+			best = v
+		}
+	}
+
+	return best
+}
