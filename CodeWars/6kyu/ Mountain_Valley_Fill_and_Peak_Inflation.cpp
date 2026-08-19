@@ -63,3 +63,40 @@ Output: [10, 10, 10]
 
 AlgorithmsArraysSimulationFundamentals
 */
+// Solution
+#include <vector>
+
+std::vector<int> mountain(const std::vector<int>& arr_in) {
+    std::vector<int> arr = arr_in;
+
+    if (arr.size() >= 3) {
+        bool changed = true;
+        while (changed) {
+            changed = false;
+            for (size_t i = 1; i + 1 < arr.size(); ++i) {
+                if (arr[i-1] > arr[i] && arr[i] < arr[i+1]) {
+                    arr[i] = arr[i-1] + arr[i+1];
+                    changed = true;
+                    break;
+                }
+            }
+        }
+    }
+    if (arr.size() >= 3) {
+        bool changed = true;
+        while (changed) {
+            changed = false;
+            for (size_t i = 1; i + 1 < arr.size(); ++i) {
+                if (arr[i-1] < arr[i] && arr[i] > arr[i+1]) {
+                    int newVal = arr[i-1] + arr[i] + arr[i+1];
+                    arr.erase(arr.begin() + (i-1), arr.begin() + (i+2));
+                    arr.insert(arr.begin() + (i-1), newVal);
+                    changed = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    return arr;
+}
