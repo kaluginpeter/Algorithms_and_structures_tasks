@@ -44,3 +44,44 @@ class Solution:
             else:
                 ans2.append(nums[i])
         return ans1 + ans2
+
+# Python O(N) O(N) Simulation
+class Solution:
+    def resultArray(self, nums: List[int]) -> List[int]:
+        first: list[int] = [nums[0]]
+        second: list[int] = [nums[1]]
+        for i in range(2, len(nums)):
+            if first[-1] > second[-1]: first.append(nums[i])
+            else: second.append(nums[i])
+        return first + second
+
+# C++ O(N) O(N) Simulation
+class Solution {
+public:
+    vector<int> resultArray(vector<int>& nums) {
+        std::vector<int> first = {nums[0]}, second = {nums[1]};
+        for (std::vector<int>::iterator it = nums.begin() + 2; it < nums.end(); ++it) {
+            if (first.back() > second.back()) first.push_back(*it);
+            else second.push_back(*it);
+        }
+        first.insert(first.end(), second.begin(), second.end());
+        return first;
+    }
+};
+
+# Go O(N) O(N) Simulation
+func resultArray(nums []int) []int {
+    first := []int{nums[0]}
+    second := []int{nums[1]}
+    for i := 2; i < len(nums); i++ {
+        if (first[len(first) - 1] > second[len(second) - 1]) {
+            first =append(first, nums[i])
+        } else {
+            second = append(second, nums[i])
+        }
+    }
+    for _, num := range(second) {
+        first = append(first, num)
+    }
+    return first
+}
