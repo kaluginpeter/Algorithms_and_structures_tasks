@@ -32,3 +32,33 @@ If you need the constant pi you can use pi = 3.14159265358979323846
 
 FundamentalsGeometry
 */
+// Solution
+package kata
+
+import "math"
+func Solve(a, b, c, alpha, beta, gamma int) []int {
+	d1 := degToRad(float64(alpha))
+	d2 := degToRad(90 + float64(beta))
+	d3 := degToRad(180 + float64(gamma))
+
+	ax, ay := float64(a)*math.Cos(d1), float64(a)*math.Sin(d1)
+	bx, by := ax+float64(b)*math.Cos(d2), ay+float64(b)*math.Sin(d2)
+	cx, cy := bx+float64(c)*math.Cos(d3), by+float64(c)*math.Sin(d3)
+
+	co := math.Hypot(cx, cy)
+
+	angle := radToDeg(math.Atan2(cy, cx))
+	if angle < 0 {
+		angle += 360
+	}
+
+	degrees := int(angle)
+	minutesFloat := (angle - float64(degrees)) * 60
+	minutes := int(minutesFloat)
+	seconds := int((minutesFloat - float64(minutes)) * 60)
+
+	return []int{int(math.Round(co)), degrees, minutes, seconds}
+}
+
+func degToRad(deg float64) float64 { return deg * math.Pi / 180 }
+func radToDeg(rad float64) float64 { return rad * 180 / math.Pi }
