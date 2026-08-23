@@ -13,3 +13,10 @@ Note: N may be 1 or less (in the latter case, the first array will be []).
 
 ArraysAlgorithms
 */
+// Solution
+using namespace std;
+#include <bits/stdc++.h>
+int findDeletedNumber(list<int> startingList, list<int> mixedList)
+{
+    return std::accumulate(startingList.begin(), startingList.end(), 0) - std::accumulate(mixedList.begin(), mixedList.end(), 0);
+}
