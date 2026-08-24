@@ -33,3 +33,13 @@
 # 1000≤n≤10000000.
 
 # MathematicsAlgorithmsPerformance
+# Solution
+def power_mod(x, y, n):
+    if n == 1: return 0
+    x %= n
+    result = 1
+    while y > 0:
+        if y & 1 == 1: result = (result * x) % n
+        x = (x * x) % n
+        y >>= 1
+    return result
