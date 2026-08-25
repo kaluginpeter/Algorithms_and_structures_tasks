@@ -17,3 +17,28 @@ Good luck!
 
 AlgorithmsFundamentalsArrays
 */
+// Solution
+package kata
+
+import "sort"
+
+func Mirror(data []int) []int {
+	n := len(data)
+	if n == 0 {
+		return []int{}
+	}
+
+	sorted := make([]int, n)
+	copy(sorted, data)
+	sort.Ints(sorted)
+
+	result := make([]int, 2*n-1)
+	center := n - 1
+	result[center] = sorted[n-1]
+	for i := 1; i < n; i++ {
+		v := sorted[n-1-i]
+		result[center-i] = v
+		result[center+i] = v
+	}
+	return result
+}
