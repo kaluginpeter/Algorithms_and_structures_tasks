@@ -33,3 +33,16 @@ Constraints:
 1 <= nums[i] <= 100
 1 <= k <= 100
 */
+// Solution
+// C++ O(NlogN) O(1) Sorting
+class Solution {
+public:
+    int missingMultiple(vector<int>& nums, int k) {
+        std::sort(nums.begin(), nums.end());
+        int acc = k;
+        for (int& num : nums) {
+            if (num == acc) acc += k;
+        }
+        return acc;
+    }
+};
