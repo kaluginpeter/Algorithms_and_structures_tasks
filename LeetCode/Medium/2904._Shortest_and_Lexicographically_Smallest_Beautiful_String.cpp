@@ -50,3 +50,29 @@ Constraints:
  
 
 */
+// Solution
+// C++ O(N^2) O(N) SlidingWindow
+class Solution {
+public:
+    string shortestBeautifulSubstring(string s, int k) {
+        std::string output = "";
+        size_t left = 0, n = s.size(), ones = 0;
+        for (size_t right = 0; right < n; ++right) {
+            if (s[right] == '1') ++ones;
+            while (ones > k || (left < right && s[left] == '0')) {
+                if (s[left] == '1') --ones;
+                ++left;
+            }
+            if (ones == k) {
+                std::string tmp = "";
+                for (size_t i = left; i <= right; ++i) tmp.push_back(s[i]);
+                if (
+                    output.empty()
+                    || (tmp.size() < output.size())
+                    || (tmp.size() == output.size() && tmp < output)
+                 ) output = tmp;
+            }
+        }
+        return output;
+    }
+};
