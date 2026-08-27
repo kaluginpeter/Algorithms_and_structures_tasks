@@ -66,3 +66,30 @@ merged := Merge(a, b, c, d)
 // afterwards the combined channel must be closed
 ConcurrencyLanguage Features
 */
+// Solution
+package kata
+
+import "sync"
+
+func Merge(c ...chan string) <-chan string {
+	out := make(chan string)
+
+	var wg sync.WaitGroup
+	wg.Add(len(c))
+
+	for _, ch := range c {
+		go func(ch chan string) {
+			defer wg.Done()
+			for msg := range ch {
+				out <- msg
+			}
+		}(ch)
+	}
+
+	go func() {
+		wg.Wait()
+		close(out)
+	}()
+
+	return out
+}
