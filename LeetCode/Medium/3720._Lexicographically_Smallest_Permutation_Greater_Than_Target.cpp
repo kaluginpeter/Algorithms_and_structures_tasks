@@ -44,3 +44,63 @@ Constraints:
 1 <= s.length == target.length <= 300
 s and target consist of only lowercase English letters.
 */
+// Solution
+// C++ O(N^2) O(N) Greedy
+class Solution {
+public:
+    void insertSmallest(std::string& s, std::string& target, std::array<int, 26>& hashmap, std::array<int,  26>& targetHashmap, size_t& i, std::string& output) {
+        --targetHashmap[target[i] - 'a'];
+        for (size_t ptr = 0; ptr < 26; ++ptr) {
+            if (hashmap[ptr]) {
+                output.push_back(ptr + 'a');
+                --hashmap[ptr];
+                break;
+            }
+        }
+    };
+    bool canSkip(std::string& s, std::string& target, std::array<int, 26> hashmap, size_t start) {
+        for (size_t i = start; i < target.size(); ++i) {
+            for (size_t ptr = target[i] - 'a' + 1; ptr < 26; ++ptr) {
+                if (hashmap[ptr]) return true;
+            }
+            if (!hashmap[target[i] - 'a']) return false;
+            --hashmap[target[i] - 'a'];
+        }
+        return false;
+    };
+    string lexGreaterPermutation(string s, string target) {
+        std::array<int, 26> hashmap{}, targetHashmap{};
+        for (char& ch : s) ++hashmap[ch - 'a'];
+        for (char& ch : target) ++targetHashmap[ch - 'a'];
+        size_t n = s.size();
+        std::string output = "";
+        bool isGreater = false;
+        for (size_t i = 0; i < n; ++i) {
+            if (isGreater) {
+                insertSmallest(s, target, hashmap, targetHashmap, i, output);
+                continue;
+            }
+            if (hashmap[target[i] - 'a']) {
+                --hashmap[target[i] - 'a'];
+                bool can = canSkip(s, target, hashmap, i + 1);
+                if (can) {
+                    --targetHashmap[target[i] - 'a'];
+                    output.push_back(target[i]);
+                    continue;
+                }
+                ++hashmap[target[i] - 'a'];
+            }
+            // try to find a peak
+            for (size_t ptr = target[i] - 'a' + 1; ptr < 26; ++ptr) {
+                if (!hashmap[ptr]) continue;
+                isGreater = true;
+                --hashmap[ptr];
+                output.push_back(ptr + 'a');
+                --targetHashmap[target[i] - 'a'];
+                break;
+            }
+        }
+        if (!(output > target)) return "";
+        return output;
+    }
+};
