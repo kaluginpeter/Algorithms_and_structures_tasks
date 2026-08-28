@@ -36,3 +36,43 @@ Shell tests only lengthSupUk
 
 AlgorithmsRecursion
 */
+// Solution
+package kata
+
+func buildU(n int) []int {
+	if n < 1 {
+		return []int{0}
+	}
+	u := make([]int, n+1) 
+	if n >= 1 {
+		u[1] = 1
+	}
+	if n >= 2 {
+		u[2] = 1
+	}
+	for i := 3; i <= n; i++ {
+		u[i] = u[i-u[i-1]] + u[i-u[i-2]]
+	}
+	return u
+}
+
+func LengthSupUk(n, k int) int {
+	u := buildU(n)
+	count := 0
+	for i := 1; i <= n; i++ {
+		if u[i] >= k {
+			count++
+		}
+	}
+	return count
+}
+func Comp(n int) int {
+	u := buildU(n)
+	count := 0
+	for i := 2; i <= n; i++ {
+		if u[i] < u[i-1] {
+			count++
+		}
+	}
+	return count
+}
