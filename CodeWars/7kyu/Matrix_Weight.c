@@ -38,3 +38,38 @@ If a Width or a Height is negative, return None
 
 Matrix
 */
+// Solution
+#include <stddef.h>
+#include <math.h>
+
+enum matrix_weight { NONE, THIN, FAT, PERFECT };
+
+enum matrix_weight thin_or_fat(size_t size, const int matrix[size][size]) {
+    double width_sum = 0.0;
+    double height_sum = 0.0;
+
+    for (size_t i = 0; i < size; i++) {
+        long width = 0;
+        long height = 0;
+        for (size_t j = 0; j < size; j++) {
+            width += matrix[i][j]; 
+            height += matrix[j][i]; 
+        }
+        if (width < 0 || height < 0) {
+            return NONE;
+        }
+        width_sum += sqrt((double)width);
+        height_sum += sqrt((double)height);
+    }
+
+    double diff = width_sum - height_sum;
+    const double eps = 1e-10;
+
+    if (diff > eps) {
+        return FAT;
+    } else if (diff < -eps) {
+        return THIN;
+    } else {
+        return PERFECT;
+    }
+}
