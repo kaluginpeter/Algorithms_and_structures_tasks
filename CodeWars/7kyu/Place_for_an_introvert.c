@@ -34,3 +34,43 @@ Examples
 "10101" -> None / nil
 StringsArrays
 */
+// Solution
+#include <stddef.h>
+#include <string.h>
+
+char *introverted_seat(char *seats)
+{
+    size_t len = strlen(seats);
+    long best_index = -1;
+    int best_threats = 3;
+
+    for (size_t i = 0; i < len; i++) {
+        if (seats[i] != '0') {
+            continue;
+        }
+
+        int threats = 0;
+        if (i > 0 && seats[i - 1] != ' ') {
+            threats++;
+        }
+        if (i + 1 < len && seats[i + 1] != ' ') {
+            threats++;
+        }
+
+        if (threats >= 2) {
+            continue; 
+        }
+
+        if (threats < best_threats) {
+            best_threats = threats;
+            best_index = (long)i;
+        }
+    }
+
+    if (best_index == -1) {
+        return NULL;
+    }
+
+    seats[best_index] = '1';
+    return seats;
+}
