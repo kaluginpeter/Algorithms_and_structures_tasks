@@ -68,3 +68,78 @@ class Solution:
         max_distance: int = distances[-1] - distances[0]
         min_distance: int = min(y - x for x, y in zip(distances, distances[1::]))
         return [min_distance, max_distance]
+
+
+# Go O(N) O(1) TwoPointers
+/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+func nodesBetweenCriticalPoints(head *ListNode) []int {
+    var output = []int{-1, -1}
+    var first, prev, idx int = -1, -1, 1
+    var tail *ListNode = head
+    var ptr *ListNode = head.Next;
+    for ptr != nil && ptr.Next != nil {
+        if (ptr.Val > max(tail.Val, ptr.Next.Val)) || (ptr.Val < min(tail.Val, ptr.Next.Val)) {
+            if first == -1 {
+                first = idx
+            }
+            if first != -1 && prev != -1 {
+                if (output[0] == -1) {
+                    output[0] = idx - prev
+                } else {
+                    output[0] = min(idx - prev, output[0])
+                }
+                output[1] = max(idx - first, output[1])
+            }
+            prev = idx
+        }
+        idx++
+        tail = tail.Next
+        ptr = ptr.Next
+    }
+    return output
+}
+
+# C++ O(N) O(1) TwoPointers
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> nodesBetweenCriticalPoints(ListNode* head) {
+        std::vector<int> output = {-1, -1};
+        int first = -1, prev = -1, idx = 1;
+        ListNode* tail = head;
+        ListNode* ptr = head->next;
+        while (ptr && ptr->next) {
+            if (
+                (ptr->val > std::max(tail->val, ptr->next->val))
+                || (ptr->val < std::min(tail->val, ptr->next->val))
+            ) {
+                if (first == -1) first = idx;
+                if (prev == -1) prev = idx;
+                if (first != -1 && prev != idx) {
+                    output[0] = std::min(idx - prev, (output[0] == -1 ? idx - prev : output[0]));
+                    output[1] = std::max(idx - first, output[1]);
+                } 
+                prev = idx;
+            }
+            ++idx;
+            tail = ptr;
+            ptr = ptr->next;
+        }
+        return output;
+    }
+};
