@@ -46,3 +46,33 @@
 # Optimal solution has time complexity O(N).
 
 # AlgorithmsPerformance
+# Solution
+def binary_duplication(s):
+    n = len(s)
+    if n < 2 or s[0] != '0' or s[-1] != '1':
+        return None
+    run_lengths = []
+    i = 0
+    while i < n:
+        j = i
+        while j < n and s[j] == s[i]:
+            j += 1
+        run_lengths.append(j - i)
+        i = j
+    k = len(run_lengths)
+
+    ops = []
+
+    half = k // 2
+    cur_len = 2
+    for _ in range(half - 1):
+        ops.append((cur_len - 2, cur_len))
+        cur_len += 2
+
+    prefix = 0
+    for length in run_lengths:
+        for _ in range(length - 1):
+            ops.append((prefix, prefix + 1))
+        prefix += length
+
+    return ops
