@@ -43,3 +43,43 @@ nums1 consists of distinct integers.
  
 
 */
+// Solution
+// Go O(N) O(1) Math
+func uniformArray(nums1 []int) bool {
+    var odd, even, n int = 0, 0, len(nums1)
+    for _, num := range(nums1) {
+        if (num & 1 == 1) {
+            odd++
+        } else {
+            even++
+        }
+    }
+    if (odd == n || even == n) {
+        return true;
+    }
+    return odd > 2 || (even > 0 && odd > 0)
+}
+// C++ O(N) O(1) Math
+class Solution {
+public:
+    bool uniformArray(vector<int>& nums1) {
+        size_t odd = 0, even = 0, n = nums1.size();
+        for (int& num : nums1) {
+            if (num & 1) ++odd;
+            else ++even;
+        }
+        if (odd == n || even == n) return true;
+        return odd > 2 || (even && odd);
+    }
+};
+// Python O(N) O(1) Math
+class Solution:
+    def uniformArray(self, nums1: list[int]) -> bool:
+        odd: int = 0
+        even: int = 0
+        n: int = len(nums1)
+        for num in nums1:
+            if num & 1: odd += 1
+            else: even += 1
+        if max(odd, even) == n: return True
+        return bool(odd > 2 or (even and odd))
