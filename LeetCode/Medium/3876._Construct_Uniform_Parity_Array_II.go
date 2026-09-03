@@ -52,3 +52,46 @@ Constraints:
 1 <= nums1[i] <= 109
 nums1 consists of distinct integers.
 */
+// Solution
+// Go O(NlogN) O(1) Sorting TwoPointers
+func uniformArray(nums1 []int) bool {
+    slices.Sort(nums1)
+    var odd, left, n int = 0, 0, len(nums1)
+    var isEven, isOdd bool = nums1[0] & 1 == 0, nums1[0] & 1 == 1
+    for i := 1; i < n; i++ {
+        for nums1[i] - nums1[left] >= 1 {
+            if (nums1[left] & 1 == 1) {
+                odd++
+            }
+            left++
+        }
+        if (nums1[i] & 1 == 1) {
+            isEven = isEven && odd > 0
+        } else {
+            isOdd = isOdd && odd > 0
+        }
+    }
+    return isEven || isOdd
+}
+
+// C++ O(NlogN) O(1) Sorting TwoPointers
+class Solution {
+public:
+    bool uniformArray(vector<int>& nums1) {
+        std::sort(nums1.begin(), nums1.end());
+        size_t odd = 0, left = 0, n = nums1.size();
+        bool isOdd = nums1[0] & 1, isEven = nums1[0] % 2 == 0;
+        for (size_t i = 1; i < n; ++i) {
+            while (nums1[i] - nums1[left] >= 1) {
+                if (nums1[left] & 1) ++odd;
+                ++left;
+            }
+            if (nums1[i] & 1) { // cur number is odd
+                isEven &= odd > 0;
+            } else { // cur number is even
+                isOdd &= odd > 0;
+            }
+        }
+        return isOdd || isEven;
+    }
+};
