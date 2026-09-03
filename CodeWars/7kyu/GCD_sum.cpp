@@ -15,3 +15,12 @@ Good luck!
 
 Fundamentals
 */
+// Solution
+#include <utility>
+
+std::pair<int, int> solve(int s, int g) {
+    if (g <= 0 || s % g != 0) return std::make_pair(-1, -1);
+    int m = s / g;
+    if (m < 2) return std::make_pair(-1, -1);
+    return std::make_pair(g, s - g);
+}
