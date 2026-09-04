@@ -12,3 +12,55 @@ Common letters in "ABCD ABCd" will be [ABC], for "ABCD ABCd AbCD" it will be [AB
 Algorithms
 
 */
+// Solution
+package kata
+
+import (
+	"sort"
+	"strings"
+)
+
+func MinQuine(s string) []string {
+	words := strings.Fields(s)
+
+	seen := map[string]bool{}
+	unique := make([]string, 0, len(words))
+	for _, w := range words {
+		if !seen[w] {
+			seen[w] = true
+			unique = append(unique, w)
+		}
+	}
+
+	resultSet := map[string]bool{}
+	for i := 0; i < len(unique); i++ {
+		for j := i + 1; j < len(unique); j++ {
+			a, b := unique[i], unique[j]
+			if len(a) != len(b) {
+				continue
+			}
+			diffCount := 0
+			diffPos := -1
+			for k := 0; k < len(a); k++ {
+				if a[k] != b[k] {
+					diffCount++
+					diffPos = k
+					if diffCount > 1 {
+						break
+					}
+				}
+			}
+			if diffCount == 1 {
+				merged := a[:diffPos] + a[diffPos+1:]
+				resultSet[merged] = true
+			}
+		}
+	}
+
+	result := make([]string, 0, len(resultSet))
+	for k := range resultSet {
+		result = append(result, k)
+	}
+	sort.Strings(result)
+	return result
+}
