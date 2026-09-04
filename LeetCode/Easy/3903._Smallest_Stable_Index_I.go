@@ -58,3 +58,34 @@ Constraints:
  
 
 */
+// Solution
+// Go O(N) O(N) Prefix
+func firstStableIndex(nums []int, k int) int {
+    var n int = len(nums)
+    var suffix []int = make([]int, n + 1)
+    suffix[n] = nums[n - 1]
+    for i := n - 1; i >= 0; i-- {
+        suffix[i] = min(nums[i], suffix[i + 1])
+    }
+    var mx int = 0
+    for i := 0; i < n; i++ {
+        mx = max(mx, nums[i])
+        if mx - suffix[i] <= k {
+            return i
+        }
+    }
+    return -1
+}
+
+// Python O(N) O(N) Prefix
+class Solution:
+    def firstStableIndex(self, nums: list[int], k: int) -> int:
+        n: int = len(nums)
+        suffix: list[int] = [float('inf')] * (n + 1)
+        for i in range(n - 1, -1, -1):
+            suffix[i] = min(suffix[i + 1], nums[i])
+        mx: int = 0
+        for i in range(n):
+            mx = max(mx, nums[i])
+            if mx - suffix[i] <= k: return i
+        return -1
