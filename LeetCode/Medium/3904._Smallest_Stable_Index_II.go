@@ -58,3 +58,40 @@ Constraints:
  
 
 */
+// Solution
+// Go O(N) O(N) Suffix
+func firstStableIndex(nums []int, k int) int {
+    var n int = len(nums)
+    var suffix []int = make([]int, n + 1)
+    suffix[n] = nums[n - 1]
+    for i := n - 1; i >= 0; i-- {
+        suffix[i] = min(suffix[i + 1], nums[i])
+    }
+    var mx int = 0
+    for i := 0; i < n; i++ {
+        mx = max(mx, nums[i])
+        if mx - suffix[i] <= k {
+            return i
+        }
+    }
+    return -1
+}
+
+// C++ O(N) O(N) Suffix
+class Solution {
+public:
+    int firstStableIndex(vector<int>& nums, int k) {
+        size_t n = nums.size();
+        int mx = 0;
+        std::vector<int> prefix(n + 1, INT32_MAX);
+        for (int i = n - 1; i >= 0; --i) {
+            prefix[i] = std::min(prefix[i + 1], nums[i]);
+        }
+        for (size_t i = 0; i < n; ++i) {
+            mx = std::max(mx, nums[i]);
+            int mn = prefix[i];
+            if (mx - mn <= k) return i;
+        }
+        return -1;
+    }
+};
