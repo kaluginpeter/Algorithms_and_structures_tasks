@@ -28,3 +28,23 @@ There are performance tests consisted of very big numbers and arrays of size at 
 
 AlgorithmsMathematicsArrays
 */
+// Solution
+package kata
+
+func gcd(a, b int) int {
+	for b != 0 {
+		a, b = b, a%b
+	}
+	return a
+}
+
+func Solution(ar []int) int {
+	g := ar[0]
+	for _, v := range ar[1:] {
+		g = gcd(g, v)
+		if g == 1 {
+			break
+		}
+	}
+	return g * len(ar)
+}
