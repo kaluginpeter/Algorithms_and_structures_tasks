@@ -26,3 +26,26 @@ Constraints:
 1 <= s.length <= 2000
 s consists of lowercase English letters.
 */
+// Solution
+// C++ O(N) O(N) DynamicProgramming
+constexpr const int32_t MOD = 1e9 + 7;
+class Solution {
+public:
+    int distinctSubseqII(string s) {
+        const size_t n = s.length();
+        std::vector<int> dp(n + 1);
+        dp[0] = 1;
+        std::array<int, 26> last;
+        last.fill(-1);
+        for(size_t i = 0; i < n; ++i) {
+            uint8_t x = s[i] - 'a';
+            dp[i + 1] = (dp[i] << 1) % MOD;
+            if (last[x] >= 0) dp[i + 1] -= dp[last[x]];
+            dp[i + 1] %= MOD;
+            last[x] = i;
+        }
+        --dp[n];
+        if(dp[n] < 0) dp[n] += MOD;
+        return dp[n];
+    }
+};
