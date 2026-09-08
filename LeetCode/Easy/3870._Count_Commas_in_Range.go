@@ -35,3 +35,34 @@ Constraints:
 
 1 <= n <= 105
 */
+// Solution
+// Go O(log10(N)) O(1) Math
+func countCommas(n int) int {
+    var output, cur, cost, step int = 0, 1000, 1, 0
+    for cur <= n {
+        var nextCur int = min(cur * 10 - 1, n)
+        output += (nextCur - cur + 1) * cost
+        step++
+        if (step % 3 == 0) {
+            cost++
+        }
+        cur = nextCur + 1
+    }
+    return output
+}
+
+// C++ O(log10(N)) O(1) Math
+class Solution {
+public:
+    int countCommas(int n) {
+        int output = 0, cur = 1'000, cost = 1, step = 0;
+        while (cur <= n) {
+            int nextCur = std::min(cur * 10 - 1, n);
+            output += (nextCur - cur + 1) * cost;
+            ++step;
+            if (step % 3 == 0) ++cost;
+            cur = nextCur + 1;
+        }
+        return output;
+    }
+};
