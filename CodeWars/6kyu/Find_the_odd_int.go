@@ -12,3 +12,18 @@ Examples
 
 Fundamentals
 */
+// Solution
+package kata
+
+func FindOdd(seq []int) int {
+    hashmap := map[int]int{}
+    for _, num := range seq {
+        hashmap[num]++
+    }
+    for num, freq := range hashmap {
+        if freq & 1 == 1 {
+            return num
+        }
+    }
+    return -1
+}
