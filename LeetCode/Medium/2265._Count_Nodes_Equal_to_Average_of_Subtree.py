@@ -53,3 +53,63 @@ class Solution:
     def averageOfSubtree(self, root: TreeNode) -> int:
         self.dfs(root)
         return self.correct_nodes
+
+
+
+# Go O(N) O(H) DepthFirstSearch
+/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */
+func dfs(root *TreeNode, output *int) (int, int) {
+    if root == nil {
+        return 0, 0
+    }
+    var leftN, leftSum int = dfs(root.Left, output)
+    var rightN, rightSum int = dfs(root.Right, output)
+    var n int = leftN + rightN + 1
+    var treeSum int = root.Val + leftSum + rightSum
+    if treeSum / n == root.Val {
+        (*output)++
+    }
+    return n, treeSum
+}
+func averageOfSubtree(root *TreeNode) int {
+    var output int = 0
+    dfs(root, &output)
+    return output
+}
+
+# C++ O(N) O(H) DepthFirstSearch
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    std::pair<size_t, size_t> dfs(TreeNode* root, size_t& output) {
+        if (!root) return {0, 0};
+        auto [leftSum, leftN] = dfs(root->left, output);
+        auto [rightSum, rightN] = dfs(root->right, output);
+        size_t totalSum = leftSum + rightSum + root->val;
+        size_t n = leftN + rightN + 1;
+        if (totalSum / n == root->val) ++output;
+        return {totalSum, n};
+    }
+    int averageOfSubtree(TreeNode* root) {
+        size_t output = 0;
+        dfs(root, output);
+        return output;
+    }
+};
