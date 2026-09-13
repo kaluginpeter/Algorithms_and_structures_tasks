@@ -38,3 +38,32 @@ img2[i][j] is either 0 or 1.
  
 
 */
+// Solution
+// Go O(4 * N^4) O(1) Matrix Greedy
+func count(img1 [][]int, img2 [][]int, row int, col int) int {
+    var n, output int = len(img1), 0
+    for i := 0; i < n; i++ {
+        for j := 0; j < n; j++ {
+            var ni, nj int = i + row, j + col;
+            if !(ni >= 0 && ni < n && nj >= 0 && nj < n) {
+                continue
+            }
+            if img1[i][j] == 1 && img2[ni][nj] == 1 {
+                output++
+            }
+        }
+    }
+    return output
+}
+func largestOverlap(img1 [][]int, img2 [][]int) int {
+    var n, output int = len(img1), 0
+    for i := 0; i < n; i++ {
+        for j := 0; j < n; j++ {
+            output = max(output, count(img1, img2, i, j))
+            output = max(output, count(img1, img2, i, -j))
+            output = max(output, count(img1, img2, -i, j))
+            output = max(output, count(img1, img2, -i, -j))
+        }
+    }
+    return output
+}
