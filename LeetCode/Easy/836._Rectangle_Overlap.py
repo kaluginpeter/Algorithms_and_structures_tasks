@@ -40,3 +40,8 @@ public:
         return (std::min(rec1[2], rec2[2]) > std::max(rec1[0], rec2[0])) && (std::min(rec1[3], rec2[3]) > std::max(rec1[1], rec2[1]));
     }
 };
+
+# Go O(1) O(1) Math
+func isRectangleOverlap(rec1 []int, rec2 []int) bool {
+    return !((rec1[1] >= rec2[3]) || (rec1[3] <= rec2[1]) || (rec1[2] <= rec2[0]) || (rec1[0] >= rec2[2]))
+}
