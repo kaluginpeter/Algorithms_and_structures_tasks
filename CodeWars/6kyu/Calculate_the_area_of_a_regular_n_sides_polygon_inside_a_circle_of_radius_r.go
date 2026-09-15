@@ -17,3 +17,14 @@ Note: if you need to use Pi in your code, use the native value of your language 
 
 MathematicsGeometryFundamentals
 */
+// Solution
+package kata
+
+import "math"
+
+const PI = 3.141592653589793 
+func AreaOfPolygonInsideCircle(r float64, n int) float64 {
+	fn := float64(n)
+	area := math.Sin(2.0*PI/fn) * r * r * fn / 2
+	return math.Round(area*1000) / 1000
+}
