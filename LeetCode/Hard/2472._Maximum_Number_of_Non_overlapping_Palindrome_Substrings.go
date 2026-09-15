@@ -29,3 +29,54 @@ Constraints:
 1 <= k <= s.length <= 2000
 s consists of lowercase English letters.
 */
+// Solution
+// Go O(NK) O(1) TwoPointers Greedy
+func isPalindrom(s *string, left int, right int) bool {
+    for left < right {
+        if (*s)[left] != (*s)[right] {
+            return false;
+        }
+        left++
+        right--
+    }
+    return true
+}
+func maxPalindromes(s string, k int) int {
+    var output, n, i int = 0, len(s), 0
+    for i + k <= n {
+        if isPalindrom(&s, i, i + k - 1) {
+            output++
+            i += k
+        } else if i + k + 1 <= n && isPalindrom(&s, i, i + k) {
+            output++
+            i += k + 1
+        } else { i++ }
+    }
+    return output
+}
+
+// C++ O(NK) O(1) Greedy TwoPointers
+class Solution {
+public:
+    bool f(std::string& s, size_t i, size_t j) {
+        while (i < j) {
+            if (s[i] != s[j]) return false;
+            ++i;
+            --j;
+        }
+        return true;
+    }
+    int maxPalindromes(string s, int k) {
+        size_t n = s.size(), i = 0, output = 0;
+        while (i + k <= n) {
+            if (f(s, i, i + k - 1)) {
+                ++output;
+                i += k;
+            } else if (i + k + 1 <= n && f(s, i, i + k)) {
+                ++output;
+                i += k + 1;
+            } else ++i;
+        }
+        return output;
+    }
+};
