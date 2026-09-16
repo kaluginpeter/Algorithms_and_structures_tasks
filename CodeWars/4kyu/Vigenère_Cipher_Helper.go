@@ -33,3 +33,52 @@ Note: any character not in the alphabet must be left alone. For example in the a
 "CODEWARS"  --> encode -->  "CODEWARS"
 AlgorithmsCiphersSecurityObject-oriented ProgrammingStrings
 */
+// Solution
+package kata
+
+import "strings"
+
+type VigenèreCipher struct {
+	Key   string
+	Alpha string
+}
+
+func (c VigenèreCipher) Encode(str string) string {
+	return c.process(str, false)
+}
+
+func (c VigenèreCipher) Decode(str string) string {
+	return c.process(str, true)
+}
+
+func (c VigenèreCipher) process(str string, decode bool) string {
+	key := []rune(strings.Repeat(c.Key, 10))
+	alpha := []rune(strings.Repeat(c.Alpha, 2))
+	half := len(alpha) / 2
+
+	var sb strings.Builder
+	for i, ch := range []rune(str) {
+		if strings.ContainsRune(c.Alpha, ch) {
+			keyIdx := indexFrom(alpha, key[i], 0)
+			if decode {
+				chIdx := indexFrom(alpha, ch, half)
+				sb.WriteRune(alpha[chIdx-keyIdx])
+			} else {
+				chIdx := indexFrom(alpha, ch, 0)
+				sb.WriteRune(alpha[chIdx+keyIdx])
+			}
+		} else {
+			sb.WriteRune(ch)
+		}
+	}
+	return sb.String()
+}
+
+func indexFrom(runes []rune, target rune, start int) int {
+	for i := start; i < len(runes); i++ {
+		if runes[i] == target {
+			return i
+		}
+	}
+	return -1
+}
