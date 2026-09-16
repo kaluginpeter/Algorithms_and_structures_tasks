@@ -29,3 +29,53 @@ Constraints:
 2 <= n <= 1000
 1 <= k <= n-1
 */
+// Solution
+// Go O(N) O(N) Math
+var mod int64 = 1_000_000_007
+func modpow(base int64, exp int64) int64 {
+    var output int64 = 1
+    base %= mod
+    for exp > 0 {
+        if exp & 1 == 1 {output = output * base % mod }
+        base = base * base % mod
+        exp >>= 1
+    }
+    return output
+}
+func numberOfSets(n int, k int) int {
+    var m, r int = n + k - 1, k << 1
+    var fact, invFact []int64 = make([]int64, m + 1), make([]int64, m + 1)
+    fact[0] = 1
+    for i := 1; i <= m; i++ { fact[i] = fact[i - 1] * int64(i) % mod }
+    invFact[m] = modpow(fact[m], mod - 2)
+    for i := m; i >= 1; i-- { invFact[i - 1] = invFact[i] * int64(i) % mod }
+    return int(fact[m] * invFact[r] % mod * invFact[m - r] % mod)
+}
+
+// C++ O(N) O(N) Math
+constexpr int MOD = 1'000'000'007;
+
+class Solution {
+private:
+    long long modpow(long long base, long long exp) {
+        long long result = 1;
+        base %= MOD;
+        while (exp > 0) {
+            if (exp & 1) result = result * base % MOD;
+            base = base * base % MOD;
+            exp >>= 1;
+        }
+        return result;
+    }
+public:
+    int numberOfSets(int n, int k) {
+        int m = n + k - 1, r = k << 1;
+        vector<long long> fact(m + 1), invFact(m + 1);
+        fact[0] = 1;
+        for (int i = 1; i <= m; ++i) fact[i] = fact[i - 1] * i % MOD;
+        invFact[m] = modpow(fact[m], MOD - 2);
+        for (int i = m; i >= 1; --i) invFact[i - 1] = invFact[i] * i % MOD;
+        long long output = fact[m] * invFact[r] % MOD * invFact[m - r] % MOD;
+        return output;
+    }
+};
