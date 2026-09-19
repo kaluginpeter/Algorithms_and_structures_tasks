@@ -32,3 +32,27 @@ Very often xk will be n-1.
 
 MathematicsAlgorithms
 */
+// Solution
+package kata
+func dfs(remain int64, maxVal int64, output *[]int64) bool {
+  if remain == 0 { return true }
+  for i := maxVal; i > 0; i-- {
+    var sq int64 = i * i
+    if sq > remain { continue }
+    *output = append(*output, i)
+    if dfs(remain - sq, i - 1, output) { return true }
+    *output = (*output)[:len(*output) - 1]
+  }
+  return false
+}
+
+
+func Decompose(n int64) []int64 {     
+  var output []int64 = make([]int64, 0, n)
+  if dfs(n * n, n - 1, &output) {
+    var tmp []int64 = make([]int64, len(output))
+    for i := 0; i < len(output); i++ { tmp[i] = output[len(output) - i - 1] }
+    return tmp
+  }
+  return []int64{}
+}
