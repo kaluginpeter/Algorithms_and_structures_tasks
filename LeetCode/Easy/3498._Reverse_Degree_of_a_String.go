@@ -45,3 +45,23 @@ Constraints:
 1 <= s.length <= 1000
 s contains only lowercase English letters.
 */
+// Solution
+// Go O(N) O(1) Math
+func reverseDegree(s string) int {
+    var output int = 0
+    for i, ch := range s {
+        output += (i + 1) * (26 - int(ch - 'a'))
+    }
+    return output
+}
+// C++ O(N) O(1) Math
+class Solution {
+public:
+    int reverseDegree(string s) {
+        int output = 0;
+        for (int i = 0; i < s.size(); ++i) {
+            output += (i + 1) * (26 - (s[i] - 'a'));
+        }
+        return output;
+    }
+};
