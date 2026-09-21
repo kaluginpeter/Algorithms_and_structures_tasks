@@ -64,3 +64,20 @@ Constraints:
 1 <= nums.length <= 105
 1 <= k <= 5
 */
+// Solution
+// Go O(NK) O(K) DynamicProgramming
+func resultArray(nums []int, k int) []int64 {
+	output := make([]int64, k)
+	count := make([]int64, k)
+	for _, num := range nums {
+		newCount := make([]int64, k)
+		r := num % k
+		for v := 0; v < k; v++ {
+			if count[v] > 0 { newCount[(v*r)%k] += count[v] }
+		}
+		newCount[r]++
+		count = newCount
+		for v := 0; v < k; v++ { output[v] += count[v] }
+	}
+	return output
+}
