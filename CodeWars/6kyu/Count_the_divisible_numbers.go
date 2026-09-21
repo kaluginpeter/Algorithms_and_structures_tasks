@@ -9,3 +9,12 @@ Given x = 6, y = 11, k = 2 the function should return 3, because there are three
 Note: The test cases are very large. You will need a O(log n) solution or better to pass. (A constant time solution is possible.)
 FundamentalsAlgorithms
 */
+// Solution
+package kata
+
+func DivisibleCount(x, y, k uint64) uint64 {
+	hi := y / k
+	if x == 0 { return hi + 1 }
+	lo := (x - 1) / k
+	return hi - lo
+}
