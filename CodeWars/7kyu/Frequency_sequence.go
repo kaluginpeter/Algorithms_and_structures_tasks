@@ -8,3 +8,19 @@ Example (s, sep --> Output)
 "^^^**$"     , "x" --> "3x3x3x2x2x1"
 StringsFundamentals
 */
+// Solution
+package kata
+
+func FreqSeq(str string, sep string) string {
+  var hashmap map[rune]int = map[rune]int{}
+  for _, ch := range str {
+    hashmap[ch]++
+  }
+  var output []byte = []byte{}
+  for _, ch := range str {
+    output = append(output, byte(rune(hashmap[ch]) + '0'))
+    for _, ch := range sep { output = append(output, byte(ch)) }
+  }
+  if len(output) > 0 { output = output[:len(output) - len(sep)]}
+  return string(output)
+}
