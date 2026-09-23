@@ -62,3 +62,46 @@ public:
         return (output != -1 ? n - output : -1);
     }
 };
+
+
+# Go O(N) O(1) SlidingWindow
+func minOperations(nums []int, x int) int {
+    var n int = len(nums)
+    var overall, window, output int = 0, 0, -1
+    for _, num := range nums { overall += num }
+    if overall < x { return -1 }
+    var left int = 0
+    for right := 0; right < n; right++ {
+        window += nums[right]
+        for overall - window < x {
+            window -= nums[left]
+            left++
+        }
+        if overall - window == x {
+            if output == -1 || n - (right - left + 1) < output {
+                output = n - (right - left + 1)
+            }
+        }
+    }
+    return output
+}
+
+# C++ O(N) O(1) SlidingWindow
+class Solution {
+public:
+    int minOperations(vector<int>& nums, int x) {
+        size_t n = nums.size(), left = 0, output = -1;
+        uint overall = std::accumulate(nums.begin(), nums.end(), 0U), window = 0;
+        if (overall < x) return -1;
+        for (size_t right = 0; right < n; ++right) {
+            window += nums[right];
+            while (overall - window < x) window -= nums[left++];
+            if (overall - window == x) {
+                if (output == -1 || output > n - (right - left + 1)) {
+                    output = n - (right - left + 1);
+                }
+            }
+        }
+        return output;
+    }
+};
