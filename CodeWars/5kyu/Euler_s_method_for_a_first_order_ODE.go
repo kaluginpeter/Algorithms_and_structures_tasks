@@ -405,3 +405,23 @@ Below comparison between approximation (red curve) and exact solution(blue curve
 Thanks to @rge123 for a better description
 Algorithms
 */
+// Solution
+package kata
+
+import "math"
+
+func ExEuler(nb int) float64 {
+	h := 1.0 / float64(nb)
+	x, y := 0.0, 1.0
+	var sumErr float64
+	for k := 0; k <= nb; k++ {
+		z := 1 + 0.5*math.Exp(-4*x) - 0.5*math.Exp(-2*x)
+		sumErr += math.Abs(y-z) / z
+
+		f := 2 - math.Exp(-4*x) - 2*y
+		y += f * h
+		x += h
+	}
+	mean := sumErr / float64(nb+1)
+	return math.Trunc(mean*1e6) / 1e6
+}
