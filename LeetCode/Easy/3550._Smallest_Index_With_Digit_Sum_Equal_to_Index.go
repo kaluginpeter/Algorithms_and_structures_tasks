@@ -43,3 +43,31 @@ Constraints:
 1 <= nums.length <= 100
 0 <= nums[i] <= 1000
 */
+// Solution
+// Go O(Nlog10(max(N))) O(1) Math
+func smallestIndex(nums []int) int {
+    for i, num := range nums {
+        var acc int = 0
+        for num > 0 {
+            acc += num % 10;
+            num /= 10
+        }
+        if i == acc { return i }
+    }
+    return -1
+}
+// C++ O(Nlog10(max(N))) O(1) Math
+class Solution {
+public:
+    int smallestIndex(vector<int>& nums) {
+        for (size_t i = 0; i < nums.size(); ++i) {
+            size_t acc = 0;
+            while (nums[i]) {
+                acc += nums[i] % 10;
+                nums[i] /= 10;
+            }
+            if (i == acc) return i;
+        }
+        return -1;
+    }
+};
