@@ -28,3 +28,52 @@ HINT II: See https://web.archive.org/web/20220614001843/https://mitpress.mit.edu
 
 MathematicsAlgorithms
 */
+// Solution
+package kata
+
+import "math/big"
+
+type matrix [2][2]*big.Int
+
+func mul(a, b matrix) matrix {
+	var r matrix
+	for i := 0; i < 2; i++ {
+		for j := 0; j < 2; j++ {
+			r[i][j] = new(big.Int)
+			for k := 0; k < 2; k++ {
+				r[i][j].Add(r[i][j], new(big.Int).Mul(a[i][k], b[k][j]))
+			}
+		}
+	}
+	return r
+}
+
+func fib(n int64) *big.Int {
+	e := n
+	if e < 0 {
+		e = -e
+	}
+
+	result := matrix{
+		{big.NewInt(1), big.NewInt(0)},
+		{big.NewInt(0), big.NewInt(1)},
+	}
+	base := matrix{
+		{big.NewInt(1), big.NewInt(1)},
+		{big.NewInt(1), big.NewInt(0)},
+	}
+
+	for e > 0 {
+		if e&1 == 1 {
+			result = mul(result, base)
+		}
+		base = mul(base, base)
+		e >>= 1
+	}
+
+	out := result[0][1]
+	if n%2 == 0 && n < 0 {
+		out = new(big.Int).Neg(out)
+	}
+	return out
+}
