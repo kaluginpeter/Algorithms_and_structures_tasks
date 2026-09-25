@@ -38,3 +38,57 @@ Constraints:
 expression[i] consists of '{', '}', ','or lowercase English letters.
 The given expression represents a set of words based on the grammar given in the description.
 */
+// Solution
+// Go O(NM) O(NM) Stack String
+func braceExpansionII(expression string) []string {
+    op := []byte{}
+    stk := []map[string]bool{}
+    ope := func() {
+        l, r := len(stk)-2, len(stk)-1
+        if op[len(op)-1] == '+' {
+            for k := range stk[r] {
+                stk[l][k] = true
+            }
+        } else {
+            tmp := make(map[string]bool)
+            for left := range stk[l] {
+                for right := range stk[r] {
+                    tmp[left+right] = true
+                }
+            }
+            stk[l] = tmp
+        }
+        op = op[:len(op)-1]
+        stk = stk[:len(stk)-1]
+    }
+
+    for i := 0; i < len(expression); i++ {
+        if expression[i] == ',' {
+            for len(op) > 0 && op[len(op)-1] == '*' {
+                ope()
+            }
+            op = append(op, '+')
+        } else if expression[i] == '{' {
+            if i > 0 && (expression[i-1] == '}' || (expression[i-1] >= 'a' && expression[i-1] <= 'z')) {
+                op = append(op, '*')
+            }
+            op = append(op, '{')
+        } else if expression[i] == '}' {
+            for len(op) > 0 && op[len(op)-1] != '{' {
+                ope()
+            }
+            op = op[:len(op)-1]
+        } else {
+            if i > 0 && (expression[i-1] == '}' || (expression[i-1] >= 'a' && expression[i-1] <= 'z')) {
+                op = append(op, '*')
+            }
+            set := map[string]bool{string(expression[i]): true}
+            stk = append(stk, set)
+        }
+    }
+    for len(op) > 0 { ope() }
+    result := make([]string, 0, len(stk[0]))
+    for k := range stk[0] { result = append(result, k) }
+    sort.Strings(result)
+    return result
+}
