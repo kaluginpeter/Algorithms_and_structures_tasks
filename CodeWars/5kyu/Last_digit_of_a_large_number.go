@@ -70,3 +70,42 @@ Remarks
 C++, R, PureScript, COBOL
 AlgorithmsMathematics
 */
+// Solution
+package kata
+
+func LastDigit(n1, n2 string) int {
+	isZero := true
+	for _, c := range n2 {
+		if c != '0' {
+			isZero = false
+			break
+		}
+	}
+	if isZero {
+		return 1
+	}
+	if len(n1) == 0 {
+		return 0
+	}
+
+	d := int(n1[len(n1)-1] - '0')
+
+	tail := n2
+	if len(tail) > 2 {
+		tail = tail[len(tail)-2:]
+	}
+	e := 0
+	for _, c := range tail {
+		e = e*10 + int(c-'0')
+	}
+	e %= 4
+	if e == 0 {
+		e = 4
+	}
+
+	r := 1
+	for i := 0; i < e; i++ {
+		r = r * d % 10
+	}
+	return r
+}
