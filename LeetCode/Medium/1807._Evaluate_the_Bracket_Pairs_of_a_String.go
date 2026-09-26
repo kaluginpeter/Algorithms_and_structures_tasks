@@ -48,3 +48,41 @@ There will not be any nested bracket pairs in s.
 keyi and valuei consist of lowercase English letters.
 Each keyi in knowledge is unique.
 */
+// Solution
+// Go O(N) O(N) String TwoPointers
+import "unicode/utf8"
+func evaluate(s string, knowledge [][]string) string {
+    var hashmap map[string]string = make(map[string]string)
+    for _, pair := range knowledge {
+        hashmap[pair[0]] = pair[1]
+    }
+    var output []byte = []byte{}
+    var ptr, bound int = 0, utf8.RuneCountInString(s)
+    for ptr < bound {
+        if s[ptr] == '(' {
+            // parse key
+            ptr++
+            var tmpKey []byte = []byte{}
+            for s[ptr] != ')' {
+                tmpKey = append(tmpKey, byte(s[ptr]))
+                ptr++
+            }
+            ptr++
+            var key string = string(tmpKey)
+            value, was := hashmap[key]; if was {
+                for _, ch := range value {
+                    output = append(output, byte(ch))
+                }
+            } else {
+                output = append(output, byte('?'))
+            }
+        } else {
+            // parse plain word
+            for ptr < bound && s[ptr] != '(' {
+                output = append(output, byte(s[ptr]))
+                ptr++
+            }
+        }
+    }
+    return string(output)
+}
