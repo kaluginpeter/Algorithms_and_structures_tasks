@@ -48,3 +48,32 @@ class Solution:
             else:
                 current_substring.append(char)
         return ''.join(current_substring)
+
+
+# Go O(N) O(N) Stack
+import "unicode/utf8"
+func reverseParentheses(s string) string {
+    var output []byte = []byte{}
+    var ptr int = 0
+    var prev [][]byte = [][]byte{}
+    for ptr < utf8.RuneCountInString(s) {
+        if s[ptr] == '(' {
+            prev = append(prev, output)
+            output = []byte{}
+        } else if s[ptr] == ')' {
+            var left, right int = 0, len(output) - 1
+            for left < right {
+                output[left], output[right] = output[right], output[left]
+                left++
+                right--
+            }
+            for _, b := range output { 
+                prev[len(prev) - 1] = append(prev[len(prev) - 1], b)
+            }
+            output = prev[len(prev) - 1]
+            prev = prev[:len(prev) - 1]
+        } else { output = append(output, byte(s[ptr])) }
+        ptr++
+    }
+    return string(output)
+}
