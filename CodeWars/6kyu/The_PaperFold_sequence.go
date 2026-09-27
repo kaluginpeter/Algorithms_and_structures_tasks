@@ -21,3 +21,17 @@ It will be tested for up to 1 000 000 values.
 
 Algorithms
 */
+// Solution
+package kata
+
+func PaperFold(ch chan <- int) {
+  var n int = 0
+  for n >= 0 {
+    var m int = n + 1
+    for (m & 1) == 0 { m >>= 1 }
+    if m % 4 == 1 {
+      ch <- 1
+    } else { ch <- 0 }
+    n++
+  }
+}
