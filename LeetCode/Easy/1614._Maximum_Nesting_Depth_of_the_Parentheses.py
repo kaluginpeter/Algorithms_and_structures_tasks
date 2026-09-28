@@ -47,3 +47,31 @@ class Solution:
                     continue
                 stack.pop()
         return ans
+
+
+# Go O(N) O(1) Stack
+func maxDepth(s string) int {
+    var depth, output int = 0, 0
+    for _, ch := range s {
+        if ch == '(' {
+            depth++
+            if depth > output { output = depth }
+        } else if ch == ')' { depth-- }
+    }
+    return output
+}
+
+# C++ O(N) O(1) Stack
+class Solution {
+public:
+    int maxDepth(string s) {
+        size_t depth = 0, output = 0;
+        for (char& ch : s) {
+            if (ch == '(') {
+                ++depth;
+                if (depth > output) output = depth;
+            } else if (ch == ')') --depth;
+        }
+        return output;
+    }
+};
