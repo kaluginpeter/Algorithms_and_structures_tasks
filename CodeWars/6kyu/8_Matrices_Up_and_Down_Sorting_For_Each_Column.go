@@ -26,3 +26,26 @@ The kata is available at Python 2, Typescript, Javascript and Ruby at the moment
 
 FundamentalsAlgorithmsData StructuresMathematicsMatrixSorting
 */
+// Solution
+package kata
+
+import "slices"
+
+func UpDownColSort(matrix [][]int) [][]int {
+  var flat []int = []int{}
+  for _, row := range matrix {
+    for _, num := range row { flat = append(flat, num) }
+  }
+  slices.Sort(flat)
+  var n, m int = len(matrix), len(matrix[0])
+  var ptr int = 0
+  for j := 0; j < m; j++ {
+    for i := 0; i < n; i++ {
+      if j % 2 == 0 {
+        matrix[i][j] = flat[ptr]
+      } else { matrix[n - i - 1][j] = flat[ptr] }
+      ptr++
+    }
+  }
+  return matrix
+}
