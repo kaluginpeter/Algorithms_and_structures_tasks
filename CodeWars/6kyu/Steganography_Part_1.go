@@ -53,3 +53,44 @@ Notice how each RGB pixel group contains off-by-one differences, this is the bit
 
 CryptographyFundamentals
 */
+// Solution
+package kata
+
+func Conceal(msg string, pixels [][]uint8) [][]uint8 {
+	var bits []uint8
+	for i := 0; i < len(msg); i++ {
+		x := msg[i]
+		for b := 7; b >= 0; b-- {
+			bits = append(bits, (x>>uint(b))&1)
+		}
+	}
+
+	type coord struct{ pi, ci int }
+	var writable []coord
+	for i := range pixels {
+		for c := 0; c < 3; c++ {
+			if c == 2 && i%3 == 2 {
+				continue
+			}
+			writable = append(writable, coord{i, c})
+		}
+	}
+
+	if len(bits) > len(writable) {
+		return nil
+	}
+
+	out := make([][]uint8, len(pixels))
+	for i, p := range pixels {
+		row := make([]uint8, len(p))
+		copy(row, p)
+		out[i] = row
+	}
+
+	for k, bit := range bits {
+		w := writable[k]
+		out[w.pi][w.ci] = (out[w.pi][w.ci] &^ 1) | bit
+	}
+
+	return out
+}
