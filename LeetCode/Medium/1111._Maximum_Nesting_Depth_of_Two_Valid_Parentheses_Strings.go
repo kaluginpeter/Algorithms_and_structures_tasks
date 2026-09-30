@@ -41,3 +41,38 @@ Constraints:
 
 1 <= seq.size <= 10000
 */
+// Solution
+// Go O(N) O(1) Greedy
+func maxDepthAfterSplit(seq string) []int {
+    var cur int = 1
+    var output []int = []int{}
+    for _, ch := range seq {
+        if ch == '(' {
+            cur++
+            output = append(output, cur % 2)
+        } else {
+            output = append(output, cur % 2)
+            cur--
+        } 
+    }
+    return output
+}
+
+// C++ O(N) O(1) Greedy
+class Solution {
+public:
+    vector<int> maxDepthAfterSplit(string seq) {
+        std::vector<int> output;
+        size_t cur = 0;
+        for (char& ch : seq) {
+            if (ch == '(') {
+                ++cur;
+                output.push_back(cur & 1);
+            } else {
+                output.push_back(cur & 1);
+                --cur;
+            }
+        }
+        return output;
+    }
+};
