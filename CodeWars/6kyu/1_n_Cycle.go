@@ -23,3 +23,73 @@ n = 22 --> Should return -1 since 1/22 ~ 0.0 45 45 45 45 ...
 Please ask before translating..
 FundamentalsMathematics
 */
+// Solution
+package kata
+
+import "sort"
+
+func gcd(a, b int) int {
+	for b != 0 {
+		a, b = b, a%b
+	}
+	return a
+}
+
+func totient(n int) int {
+	result := n
+	p := 2
+	for p*p <= n {
+		if n%p == 0 {
+			for n%p == 0 {
+				n /= p
+			}
+			result -= result / p
+		}
+		p++
+	}
+	if n > 1 {
+		result -= result / n
+	}
+	return result
+}
+
+func modPow(base, exponent, modulus int) int {
+	result := 1
+	base %= modulus
+	for exponent > 0 {
+		if exponent%2 == 1 {
+			result = (result * base) % modulus
+		}
+		base = (base * base) % modulus
+		exponent /= 2
+	}
+	return result
+}
+
+func divisors(n int) []int {
+	var divs []int
+	for i := 1; i*i <= n; i++ {
+		if n%i == 0 {
+			divs = append(divs, i)
+			if i != n/i {
+				divs = append(divs, n/i)
+			}
+		}
+	}
+	sort.Ints(divs)
+	return divs
+}
+
+func Cycle(n int) int {
+	if gcd(n, 10) != 1 {
+		return -1
+	}
+
+	phiN := totient(n)
+	for _, k := range divisors(phiN) {
+		if modPow(10, k, n) == 1 {
+			return k
+		}
+	}
+	return 0
+}
