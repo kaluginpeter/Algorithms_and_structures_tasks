@@ -24,3 +24,22 @@ Input range: 1 ≤ n ≤ 1e10
 
 MathematicsAlgorithms
 */
+// Solution
+package kata
+
+
+func Totient(n int) int {
+  if n < 1 { return 0 }
+  var output, x, p int = n, n, 2
+  for p * p <= x {
+    if x % p == 0 {
+      for x % p == 0 { x /= p }
+      output -= output / p
+    }
+    if p == 2 {
+      p += 1
+    } else { p += 2 }
+  }
+  if x > 1 { output -= output / x}
+  return output
+}
