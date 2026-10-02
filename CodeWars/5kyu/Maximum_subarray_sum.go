@@ -11,3 +11,14 @@ Empty list is considered to have zero greatest sum. Note that the empty list or 
 
 AlgorithmsListsDynamic ProgrammingFundamentalsPerformance
 */
+// Solution
+package kata
+
+func MaximumSubarraySum(numbers []int) int {
+  var output, cur int = 0, 0
+  for _, num := range numbers {
+    cur = max(num, cur + num)
+    output = max(output, cur)
+  }
+  return output
+}
