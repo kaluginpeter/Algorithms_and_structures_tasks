@@ -26,3 +26,29 @@ n <= 20000
 m <= 20000
 MathematicsDynamic ProgrammingPerformanceAlgorithms
 */
+// Solution
+package kata
+
+import "math/big"
+
+func Height(n, m *big.Int) *big.Int {
+	total := big.NewInt(0)
+	if n.Sign() == 0 || m.Sign() == 0 {
+		return total
+	}
+	limit := n
+	if m.Cmp(n) < 0 {
+		limit = m
+	}
+	steps := limit.Int64()
+
+	c := big.NewInt(1)
+	tmp := new(big.Int)
+	for i := int64(1); i <= steps; i++ {
+		tmp.Sub(m, big.NewInt(i-1)) // m - i + 1
+		c.Mul(c, tmp)
+		c.Quo(c, big.NewInt(i))
+		total.Add(total, c)
+	}
+	return total
+}
