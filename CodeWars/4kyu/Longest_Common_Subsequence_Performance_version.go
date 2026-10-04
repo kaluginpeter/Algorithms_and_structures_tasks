@@ -27,3 +27,42 @@ Wikipedia has an article that may be helpful.
 
 PerformanceStringsDynamic ProgrammingMemoizationAlgorithms
 */
+// Solution
+package kata
+
+func LCS(x, y string) string {
+	n, m := len(x), len(y)
+	w := m + 1
+	dp := make([]int, (n+1)*w)
+
+	for i := 1; i <= n; i++ {
+		for j := 1; j <= m; j++ {
+			if x[i-1] == y[j-1] {
+				dp[i*w+j] = dp[(i-1)*w+j-1] + 1
+			} else if dp[(i-1)*w+j] >= dp[i*w+j-1] {
+				dp[i*w+j] = dp[(i-1)*w+j]
+			} else {
+				dp[i*w+j] = dp[i*w+j-1]
+			}
+		}
+	}
+
+	res := make([]byte, 0, dp[n*w+m])
+	i, j := n, m
+	for i > 0 && j > 0 {
+		if x[i-1] == y[j-1] {
+			res = append(res, x[i-1])
+			i--
+			j--
+		} else if dp[(i-1)*w+j] >= dp[i*w+j-1] {
+			i--
+		} else {
+			j--
+		}
+	}
+
+	for l, r := 0, len(res)-1; l < r; l, r = l+1, r-1 {
+		res[l], res[r] = res[r], res[l]
+	}
+	return string(res)
+}
