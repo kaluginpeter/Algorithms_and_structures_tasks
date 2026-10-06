@@ -20,3 +20,18 @@ Tests include some extraordinarily high pyramids so as you can guess, brute-forc
 
 AlgorithmsDynamic Programming
 */
+// Solution
+package kata
+
+
+func LongestSlideDown(pyramid [][]int) int {
+  var prevRow []int = pyramid[len(pyramid) - 1]
+  for row := len(pyramid) - 2; row >= 0; row-- {
+    var currentRow []int = pyramid[row]
+    for col := 0; col < len(pyramid[row]); col++ {
+      currentRow[col] = max(prevRow[col], prevRow[col + 1]) + currentRow[col]
+    }
+    prevRow = currentRow
+  }
+  return prevRow[0]
+}
