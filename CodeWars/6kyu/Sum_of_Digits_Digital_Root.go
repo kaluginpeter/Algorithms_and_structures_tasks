@@ -10,3 +10,30 @@ Examples
 493193  -->  4 + 9 + 3 + 1 + 9 + 3 = 29  -->  2 + 9 = 11  -->  1 + 1 = 2
 MathematicsAlgorithms
 */
+// Solution
+package kata
+
+func f(n int) bool {
+  var steps int = 0
+  for n > 0 {
+    n /= 10
+    steps++
+  }
+  return steps > 1
+}
+
+func decompose(n int) int {
+  var acc int = 0
+  for n > 0 {
+    acc += n % 10
+    n /= 10
+  }
+  return acc
+}
+
+func DigitalRoot(n int) int {
+  for f(n) {
+    n = decompose(n)
+  }
+  return n
+}
