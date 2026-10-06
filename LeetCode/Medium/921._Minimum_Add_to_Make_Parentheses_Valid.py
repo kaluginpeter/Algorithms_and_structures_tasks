@@ -60,3 +60,39 @@ class Solution:
                 count += 1
                 close_br -= 1
         return count + max(open_br - close_br, 0)
+
+
+# C++ O(N) O(1) Greedy
+class Solution {
+public:
+    int minAddToMakeValid(string s) {
+        int cur = 0, output = 0;
+        for (char& ch : s) {
+            if (ch == '(') ++cur;
+            else {
+                --cur;
+                if (cur < 0) {
+                    ++cur; ++output;
+                }
+            }
+        }
+        return output + cur;
+    }
+};
+
+# Go O(N) O(1) Greedy
+func minAddToMakeValid(s string) int {
+    var cnt, output int = 0, 0
+    for _, ch := range s {
+        if ch == '(' {
+            cnt++
+        } else {
+            cnt--
+            if cnt < 0 {
+                output++
+                cnt++
+            }
+        }
+    }
+    return output + cnt
+}
