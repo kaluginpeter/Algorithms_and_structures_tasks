@@ -30,3 +30,20 @@ m < |A|
 
 CombinatoricsPerformanceDynamic ProgrammingFundamentals
 */
+// Solution
+package kata
+
+const mod = 1_000_000_007
+
+func ProductSum(a []int, m int) int {
+	dp := make([]int, m+1)
+	dp[0] = 1
+
+	for _, x := range a {
+		x %= mod
+		for j := m; j >= 1; j-- {
+			dp[j] = (dp[j] + dp[j-1]*x) % mod
+		}
+	}
+	return dp[m]
+}
