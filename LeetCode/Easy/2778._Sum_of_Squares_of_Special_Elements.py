@@ -49,3 +49,26 @@ public:
         return total_sum;
     }
 };
+
+
+
+# C++ O(N) O(1) Math
+class Solution {
+public:
+    int sumOfSquares(vector<int>& nums) {
+        size_t output = 0, n = nums.size();
+        for (size_t i = 0; i < n; ++i) {
+            if (n % (i + 1) == 0) output += nums[i] * nums[i];
+        }
+        return output;
+    }
+};
+
+# Go O(N) O(1) Math
+func sumOfSquares(nums []int) int {
+    var output, n int = 0, len(nums)
+    for i, num := range nums {
+        if n % (i + 1) == 0 { output += num * num }
+    }
+    return output
+}
