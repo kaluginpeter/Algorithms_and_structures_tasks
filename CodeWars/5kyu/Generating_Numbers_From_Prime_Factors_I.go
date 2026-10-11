@@ -41,3 +41,32 @@ Enjoy!
 
 AlgorithmsData StructuresMathematicsDynamic Programming
 */
+// Solution
+package kata
+
+func CountFindNum(primes []int, limit int) []int {
+	base := 1
+	for _, p := range primes {
+		if base > limit/p {
+			return []int{}
+		}
+		base *= p
+	}
+
+	count, largest := 0, 0
+	var dfs func(n, idx int)
+	dfs = func(n, idx int) {
+		count++
+		if n > largest {
+			largest = n
+		}
+		for i := idx; i < len(primes); i++ {
+			if n <= limit/primes[i] {
+				dfs(n*primes[i], i)
+			}
+		}
+	}
+	dfs(base, 0)
+
+	return []int{count, largest}
+}
