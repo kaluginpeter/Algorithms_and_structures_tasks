@@ -8,3 +8,19 @@ For example (Input --> Output):
 4 --> 0 (because 4 is already a one-digit number, there is no multiplication)
 FundamentalsMathematics
 */
+// Solution
+package kata
+
+func Persistence(n int) int {
+	var steps int = 0
+  for n > 9 {
+    steps++
+    var newN int = 1
+    for n > 0 {
+      newN *= n % 10
+      n /= 10
+    }
+    n = newN
+  }
+  return steps
+}
