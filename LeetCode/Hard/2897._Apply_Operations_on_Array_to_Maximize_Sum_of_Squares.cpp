@@ -35,3 +35,30 @@ Constraints:
 1 <= k <= nums.length <= 105
 1 <= nums[i] <= 109
 */
+// Solution
+// C++ O(30N) O(30) BitTheory
+constexpr int mod = 1'000'000'007;
+class Solution {
+public:
+    int maxSum(vector<int>& nums, int k) {
+        std::array<int, 30> cnt{};
+        for (int x : nums) {
+            for (int b = 0; b < 30; ++b) {
+                if ((x >> b) & 1) ++cnt[b];
+            }
+        }
+
+        long long output = 0;
+        while (k--) {
+            long long x = 0;
+            for (int b = 0; b < 30; ++b) {
+                if (cnt[b] > 0) {
+                    --cnt[b];
+                    x |= 1LL << b;
+                }
+            }
+            output = (output + x * x % mod) % mod;
+        }
+        return (int)output;
+    }
+};
