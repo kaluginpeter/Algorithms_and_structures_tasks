@@ -43,3 +43,40 @@ Constraints:
 1 <= nums.length <= 105
 -4 * 104 <= nums[i] <= 4 * 104
 */
+// Solution
+// C++ O(NlogN) O(1) Greedy TwoPointers
+class Solution {
+public:
+    long long maxAlternatingSum(vector<int>& nums) {
+        for (int& num : nums) num *= (num <= 0 ? -1 : 1);
+        std::sort(nums.begin(), nums.end());
+        long long output = 0;
+        int left = 0, right = nums.size() - 1;
+        while (left <= right) {
+            output += std::pow(static_cast<long long>(nums[right]), 2LL);
+            if (left == right) break;
+            output -= std::pow(static_cast<long long>(nums[left]), 2LL);
+            ++left;
+            --right;
+        }
+        return output;
+    }
+};
+
+// Go O(NlogN) O(1) TwoPointers Greedy
+import "slices"
+func maxAlternatingSum(nums []int) int64 {
+    for i := 0; i < len(nums); i++ {
+        if nums[i] < 0 { nums[i] *= -1 }
+    }
+    slices.Sort(nums)
+    var left, right int = 0, len(nums) - 1
+    var output int64 = 0
+    for left < right {
+        output += int64(nums[right] * nums[right]) - int64(nums[left] * nums[left])
+        left++
+        right--
+    }
+    if len(nums) & 1 == 1 { output += int64(nums[right] * nums[right]) }
+    return output
+}
