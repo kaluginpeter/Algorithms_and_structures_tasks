@@ -17,3 +17,44 @@ Enjoy it and happy coding! (Memoization is advisable)
 
 FundamentalsMathematicsData StructuresDynamic ProgrammingMemoization
 */
+// Solution
+package kata
+
+import "math"
+
+var primes = []int{2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79}
+var memo = map[int]int{}
+
+func FindMinNum(num int) int {
+	if v, ok := memo[num]; ok {
+		return v
+	}
+	best := math.MaxInt64
+
+	var dfs func(idx, rem, maxExp, cur int)
+	dfs = func(idx, rem, maxExp, cur int) {
+		if rem == 1 {
+			if cur < best {
+				best = cur
+			}
+			return
+		}
+		if idx >= len(primes) {
+			return
+		}
+		p, v := primes[idx], cur
+		for e := 1; e <= maxExp; e++ {
+			if v > best/p {
+				break
+			}
+			v *= p
+			if rem%(e+1) == 0 {
+				dfs(idx+1, rem/(e+1), e, v)
+			}
+		}
+	}
+
+	dfs(0, num, num-1, 1)
+	memo[num] = best
+	return best
+}
