@@ -57,3 +57,30 @@ Constraints:
 1 <= num <= 2 * 105
 1 <= sum <= 2 * 106
 */
+// Solution
+// C++ O(N) O(N) Greedy
+class Solution {
+public:
+    string maxSumOfSquares(int num, int sum) {
+        std::string output = "";
+        for (int i = 0; i < num; ++i) {
+            int canTake = std::min(9, sum);
+            output.push_back(canTake + '0');
+            sum -= canTake;
+        }
+        if (sum) return "";
+        return output;
+    }
+};
+
+// Go O(N) O(N) Greedy
+func maxSumOfSquares(num int, sum int) string {
+    var output []byte = []byte{}
+    for i := 0; i < num; i++ {
+        var x int = min(9, sum)
+        sum -= x
+        output = append(output, '0' + byte(x))
+    }
+    if sum > 0 { return "" }
+    return string(output)
+}
