@@ -30,3 +30,38 @@ Enjoy it and happy coding!!
 
 AlgorithmsMathematicsMemoizationDynamic Programming
 */
+// Solution
+package kata
+
+var seq []int 
+var limit = 1
+func grow() {
+	newLimit := limit * 2
+	if newLimit < 1024 {
+		newLimit = 1024
+	}
+	sigma := make([]int, newLimit+1)
+	for d := 1; d <= newLimit; d++ {
+		for m := d; m <= newLimit; m += d {
+			sigma[m] += d
+		}
+	}
+	for x := limit + 1; x <= newLimit; x++ {
+		if x == 1 {
+			continue
+		}
+		s := sigma[x]
+		r := x % s
+		if r*r%s*r%s == 0 {
+			seq = append(seq, x)
+		}
+	}
+	limit = newLimit
+}
+
+func IntCubeSumDiv(n int) int {
+	for len(seq) < n {
+		grow()
+	}
+	return seq[n-1]
+}
