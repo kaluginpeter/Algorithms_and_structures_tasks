@@ -44,3 +44,37 @@ class Solution:
             for j in range(i, len(nums)):
                 count += len(set(nums[i:j+1]))**2
         return count
+
+
+# C++ O(N^2) O(N) BruteForce
+class Solution {
+public:
+    int sumCounts(vector<int>& nums) {
+        size_t n = nums.size(), output = 0;
+        for (size_t i = 0; i < n; ++i) {
+            std::bitset<101> seen;
+            for (size_t j = i; j < n; ++j) {
+                seen.set(nums[j]);
+                output += seen.count() * seen.count();
+            }
+        }
+        return output;
+    }
+};
+
+# Go O(N^2) O(N) BruteForce
+func sumCounts(nums []int) int {
+    var n, output int = len(nums), 0
+    for i := 0; i < n; i++ {
+        var hashmap map[int]bool = map[int]bool{}
+        var uniq int = 0
+        for j := i; j < n; j++ {
+            if _, ok := hashmap[nums[j]]; !ok {
+                uniq++
+                hashmap[nums[j]] = true
+            }
+            output += uniq * uniq
+        }
+    }
+    return output
+}
