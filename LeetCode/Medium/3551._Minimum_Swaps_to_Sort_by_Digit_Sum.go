@@ -48,3 +48,45 @@ Constraints:
 1 <= nums[i] <= 109
 nums consists of distinct positive integers.
 */
+// Solution
+// Go O(N) O(N) Greedy
+import (
+    "cmp"
+    "slices"
+)
+
+func getSum(x int) int {
+    s := 0
+    for x > 0 {
+        s += x % 10
+        x /= 10
+    }
+    return s
+}
+
+func minSwaps(nums []int) int {
+    n := len(nums)
+    sorted := make([]int, n)
+    copy(sorted, nums)
+    slices.SortFunc(sorted, func(x, y int) int {
+        if sx, sy := getSum(x), getSum(y); sx != sy {
+            return cmp.Compare(sx, sy)
+        }
+        return cmp.Compare(x, y)
+    })
+    pos := make(map[int]int, n)
+    for i, v := range sorted { pos[v] = i }
+
+    swaps := 0
+    seen := make([]bool, n)
+    for i := 0; i < n; i++ {
+        if seen[i] { continue }
+        cycleLen := 0
+        for j := i; !seen[j]; j = pos[nums[j]] {
+            seen[j] = true
+            cycleLen++
+        }
+        swaps += cycleLen - 1
+    }
+    return swaps
+}
