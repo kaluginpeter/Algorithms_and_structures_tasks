@@ -33,3 +33,29 @@ Alphabet wars - nuclear strike
 Alphabet war - Wo lo loooooo priests join the war
 FundamentalsStrings
 */
+// Solution
+package kata
+
+func AlphabetWar(fight string) string {
+	power := map[byte]int{
+		'w': -4, 'p': -3, 'b': -2, 's': -1,
+		'm': 4, 'q': 3, 'd': 2, 'z': 1,
+	}
+	n := len(fight)
+	score := 0
+	for i := 0; i < n; i++ {
+		if fight[i] == '*' ||
+			(i > 0 && fight[i-1] == '*') ||
+			(i+1 < n && fight[i+1] == '*') {
+			continue
+		}
+		score += power[fight[i]]
+	}
+	switch {
+	case score < 0:
+		return "Left side wins!"
+	case score > 0:
+		return "Right side wins!"
+	}
+	return "Let's fight again!"
+}
