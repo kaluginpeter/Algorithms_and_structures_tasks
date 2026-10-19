@@ -39,3 +39,21 @@ Not all paths can be made simpler. The path ["NORTH", "WEST", "SOUTH", "EAST"] i
 if you want to translate, please ask before translating.
 Fundamentals
 */
+// Solution
+package kata
+
+func DirReduc(arr []string) []string {
+	opposite := map[string]string{
+		"NORTH": "SOUTH", "SOUTH": "NORTH",
+		"EAST": "WEST", "WEST": "EAST",
+	}
+	stack := []string{}
+	for _, d := range arr {
+		if n := len(stack); n > 0 && stack[n-1] == opposite[d] {
+			stack = stack[:n-1]
+		} else {
+			stack = append(stack, d)
+		}
+	}
+	return stack
+}
