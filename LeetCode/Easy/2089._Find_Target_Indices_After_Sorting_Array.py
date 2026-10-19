@@ -33,3 +33,28 @@ class Solution:
             if v == target:
                 l.append(k)
         return l
+
+
+# C++ O(NlogN) O(N) Sorting
+class Solution {
+public:
+    vector<int> targetIndices(vector<int>& nums, int target) {
+        std::sort(nums.begin(), nums.end());
+        std::vector<int> output;
+        for (int i = 0; i < nums.size(); ++i) {
+            if (nums[i] == target) output.push_back(i);
+        }
+        return output;
+    }
+};
+
+# Go O(NlogN) O(N) Sorting
+import "slices"
+func targetIndices(nums []int, target int) []int {
+    slices.Sort(nums)
+    var output []int = []int{}
+    for i, num := range nums {
+        if num == target { output = append(output, i) }
+    }
+    return output
+}
