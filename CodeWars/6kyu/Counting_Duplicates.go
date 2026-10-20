@@ -13,3 +13,17 @@ Example
 
 StringsFundamentals
 */
+// Solution
+package kata
+
+import "unicode"
+
+func duplicate_count(s1 string) int {
+  var hashmap map[rune]int = map[rune]int{}
+  var output int = 0
+  for _, ch := range s1 {
+    if hashmap[unicode.ToLower(ch)] == 1 { output++ }
+    hashmap[unicode.ToLower(ch)]++
+  }
+  return output
+}
