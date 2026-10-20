@@ -52,3 +52,43 @@ Constraints:
  
 
 */
+// Solution
+// Go O(Nsqrt(N)) O(1) Math
+import "math"
+
+func check(nums []int, target int) bool {
+    var leftMx int = 0
+    var start int = 0
+    for start < len(nums) {
+        var rightMx, rightMn int = 0, 1e5
+        var inValid int = 0
+        for i := start; i < start + target; i++ {
+            rightMx = max(rightMx, nums[i])
+            rightMn = min(rightMn, nums[i])
+            if (i - 1 >= start) && (nums[i - 1] > nums[i]) {
+                inValid++
+                if inValid > 1 { return false }
+                for j := i; j < i + target - 1; j++ {
+                    if nums[start + (j % target)] > nums[start + ((j + 1) % target)] {
+                        return false
+                    }
+                }
+            }
+        }
+        if leftMx > rightMn { return false }
+        leftMx = rightMx
+        start += target
+    }
+    return true
+}
+
+func sortableIntegers(nums []int) int {
+    var n, output int = len(nums), 0
+    var bound int = int(math.Sqrt(float64(n)) + 1)
+    for i := 1; i < bound; i++ {
+        if n % i != 0 { continue }
+        if check(nums, i) { output += i }
+        if n / i != i && check(nums, n / i) { output += n / i }
+    }
+    return output
+}
