@@ -14,3 +14,14 @@ Your function should only return a number, not the explanation about how you get
 
 FundamentalsAlgorithms
 */
+// SOlution
+package kata
+
+
+func GetSum(a, b int) int {
+  var output int = 0
+  for i := min(a, b); i <= max(a, b); i++ {
+    output += i
+  }
+  return output
+}
