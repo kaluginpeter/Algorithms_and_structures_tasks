@@ -34,3 +34,19 @@ a = 47129212243960
 (m = a + 1, n = 50) --> -1
 CombinatoricsMathematics
 */
+// Solution
+package kata
+
+import "math/bits"
+
+func CheckChoose(m, n int) int {
+	c := uint64(1)
+	for x := 0; x <= n/2; x++ {
+		if c == uint64(m) { return x }
+		if c > uint64(m) { break }
+		hi, lo := bits.Mul64(c, uint64(n-x))
+		if hi >= uint64(x+1) { break }
+		c, _ = bits.Div64(hi, lo, uint64(x+1))
+	}
+	return -1
+}
