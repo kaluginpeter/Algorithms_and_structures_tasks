@@ -45,3 +45,32 @@ Constraints:
 0 <= nums[i] <= n - 1
 nums is a permutation of integers from 0 to n - 1.
 */
+// Solution
+// C++ O(N) O(1) Greedy Bit
+class Solution {
+public:
+    int sortPermutation(vector<int>& nums) {
+        int output = -1;
+        for (int i = 0; i < nums.size(); ++i) {
+            if (nums[i] != i) {
+                if (output == -1) output = nums[i];
+                else output &= nums[i];
+            }
+        }
+        return (output >= 0 ? output : 0);
+    }
+};
+
+// Go O(N) O(1) Greedy Bit
+func sortPermutation(nums []int) int {
+    var output int = -1
+    for i, num := range nums {
+        if i != num {
+            if output == -1 {
+                output = num
+            } else { output &= num }
+        }
+    }
+    if output == -1 { return 0 }
+    return output
+}
