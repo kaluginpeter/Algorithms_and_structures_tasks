@@ -27,3 +27,34 @@ All dates are provided in the format "MM-DD".
 Alice and Bob's arrival dates are earlier than or equal to their leaving dates.
 The given dates are valid dates of a non-leap year.
 */
+// Solution
+// Go O(1) O(1) Math Greedy
+import "strconv"
+func countDaysTogether(arriveAlice string, leaveAlice string, arriveBob string, leaveBob string) int {
+    var months []int = []int{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
+    aliceStartMonth, _ := strconv.Atoi(arriveAlice[:2])
+    aliceStartDay, _ := strconv.Atoi(arriveAlice[3:])
+    bobStartMonth, _ := strconv.Atoi(arriveBob[:2])
+    bobStartDay, _ := strconv.Atoi(arriveBob[3:])
+    var startMonth, startDay int = aliceStartMonth, aliceStartDay
+    if (bobStartMonth > startMonth) || (bobStartMonth == startMonth && bobStartDay > startDay) {
+        startMonth = bobStartMonth
+        startDay = bobStartDay
+    }
+    aliceEndMonth, _ := strconv.Atoi(leaveAlice[:2])
+    aliceEndDay, _ := strconv.Atoi(leaveAlice[3:])
+    bobEndMonth, _ := strconv.Atoi(leaveBob[:2])
+    bobEndDay, _ := strconv.Atoi(leaveBob[3:])
+    var endMonth, endDay int = aliceEndMonth, aliceEndDay
+    if (bobEndMonth < endMonth) || (bobEndMonth == endMonth && bobEndDay < endDay) {
+        endMonth = bobEndMonth
+        endDay = bobEndDay
+    }
+    var together int = 0
+    for i := startMonth; i <= endMonth; i++ {
+        together += months[i - 1]
+        if i == startMonth { together -= startDay - 1 }
+        if i == endMonth { together -= months[i - 1] - endDay }
+    }
+    return max(0, together)
+}
