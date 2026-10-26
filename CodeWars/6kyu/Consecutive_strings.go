@@ -25,3 +25,24 @@ consecutive strings : follow one after another without an interruption
 
 Fundamentals
 */
+// Solution
+package kata
+
+func LongestConsec(strarr []string, k int) string {
+  var n int = len(strarr)
+  if n == 0 || k > n || k <= 0 { return "" }
+  var start, score int = 0, 0
+  for i := 0; i < n - k + 1; i++ {
+    var acc int = 0
+    for j := i; j < i + k; j++ { acc += len(strarr[j]) }
+    if acc > score {
+      score = acc
+      start = i
+    }
+  }
+  var output []byte = []byte{}
+  for i := start; i < start + k; i++ {
+    output = append(output, []byte(strarr[i])...)
+  }
+  return string(output)
+}
