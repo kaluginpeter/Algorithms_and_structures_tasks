@@ -40,3 +40,35 @@ n == grid[i].length
 0 <= grid[i][j] <= 106
 1 <= k <= 106
 */
+// Solution
+// Go O(NM) O(NM) DFS Matrix
+func dfs(grid *[][]int, start, n, m, k int, output *int) {
+    var moves [][]int = [][]int{{-1, 0}, {1, 0}, {0, -1}, {0, 1}}
+    var value int = (*grid)[start / m][start % m]
+    (*grid)[start / m][start % m] = 0
+    var data []int = []int{start}
+    for len(data) > 0 {
+        var cell int = data[len(data) - 1]
+        data = data[:len(data) - 1]
+        var i, j int = cell / m, cell % m
+        for _, move := range moves {
+            var ni, nj int = i + move[0], j + move[1]
+            if ni < 0 || ni == n || nj < 0 || nj == m { continue }
+            if (*grid)[ni][nj] == 0 { continue }
+            value += (*grid)[ni][nj]
+            (*grid)[ni][nj] = 0
+            data = append(data, ni * m + nj)
+        }
+    }
+    if value % k == 0 { (*output)++ }
+}
+
+func countIslands(grid [][]int, k int) int {
+    var n, m, output int = len(grid), len(grid[0]), 0
+    for i := 0; i < n; i++ {
+        for j := 0; j < m; j++ {
+            if grid[i][j] > 0 { dfs(&grid, i * m + j, n, m, k, &output) }
+        }
+    }
+    return output
+}
