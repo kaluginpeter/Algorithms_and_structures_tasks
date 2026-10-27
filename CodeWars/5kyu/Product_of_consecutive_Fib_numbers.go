@@ -70,3 +70,23 @@ Examples:
 --> since F(8) = 21, F(9) = 34, F(10) = 55 and 21 * 34 < 800 < 34 * 55
 AlgorithmsMathematics
 */
+// Solution
+package kata
+
+var f[]uint64 = []uint64{0, 1}
+
+func ProductFib(prod uint64) [3]uint64 {
+  for f[len(f) - 2] * f[len(f) - 1] < prod {
+    f = append(f, f[len(f) - 2] + f[len(f) - 1])
+  }
+  var left, right int = 0, len(f) - 2
+  for left <= right {
+    var middle int = left + ((right - left) >> 1)
+    if f[middle] * f[middle + 1] == prod {
+      return [3]uint64{f[middle], f[middle + 1], 1}
+    } else if f[middle] * f[middle + 1] > prod {
+      right = middle - 1
+    } else { left = middle + 1}
+  }
+  return [3]uint64{f[left], f[left + 1], 0}
+}
