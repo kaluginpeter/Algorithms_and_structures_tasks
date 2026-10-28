@@ -21,3 +21,25 @@ In Shell bash a1 and a2 are strings. The return is a string where words are sepa
 Beware: In some languages r must be without duplicates.
 ArraysListsStringsRefactoring
 */
+// Solution
+package kata
+
+import (
+  "strings"
+  "slices"
+)
+
+func InArray(array1 []string, array2 []string) []string {
+  var output []string = []string{}
+  slices.Sort(array1)
+  for _, target := range array1 {
+    if len(output) > 0 && target == output[len(output) - 1] { continue }
+    for _, data := range array2 {
+      if strings.Contains(data, target) {
+        output = append(output, target)
+        break
+      }
+    }
+  }
+  return output
+}
