@@ -63,3 +63,59 @@ m * n <= 1000
  
 
 */
+// Solution
+// C++ O(NMK) O(NMK) Matrix Bit
+class Solution {
+public:
+    int minCost(vector<vector<int>>& grid) {
+        size_t n = grid.size(), m = grid[0].size();
+        std::vector<std::vector<std::unordered_set<int>>> dp(n, std::vector<std::unordered_set<int>>(m));
+        dp[0][0].insert(grid[0][0]);
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < m; ++j) {
+                if (j) {
+                    for (const int& num : dp[i][j - 1]) dp[i][j].insert(num ^ grid[i][j]);
+                }
+                if (i) {
+                    for (const int& num : dp[i - 1][j]) dp[i][j].insert(num ^ grid[i][j]);
+                }
+            }
+        }
+        return *std::min_element(dp[n - 1][m - 1].begin(), dp[n - 1][m - 1].end());
+    }
+};
+
+// Go O(NMK) O(NMK) Bit Matrix
+func newDpState(n, upperBound int) *[][]bool {
+    var state [][]bool = make([][]bool, n)
+    for i := 0; i < n; i++ {
+        state[i] = make([]bool, upperBound)
+    }
+    return &state
+}
+func minCost(grid [][]int) int {
+    var m, n, upperBound int = len(grid), len(grid[0]), 1024
+    var prevDp [][]bool = *newDpState(n, upperBound)
+    for i := 0; i < m; i++ {
+        var curDp [][]bool = *newDpState(n, upperBound)
+        if i == 0 { curDp[0][grid[0][0]] = true }
+        for j := 0; j < n; j++ {
+            for target := 0; target < upperBound; target++ {
+                // move from above cell
+                if i > 0 && prevDp[j][target] { 
+                    curDp[j][target ^ grid[i][j]] = true
+                }
+                // move from left cell to right
+                if j > 0 && curDp[j - 1][target] {
+                    curDp[j][target ^ grid[i][j]] = true
+                }
+            }
+        }
+        copy(prevDp, curDp)
+        curDp = *newDpState(n, upperBound)
+    }
+    for target := 0; target < upperBound; target++ {
+        if prevDp[n - 1][target] { return target }
+    }
+    return -1
+}
