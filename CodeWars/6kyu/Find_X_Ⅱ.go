@@ -25,3 +25,16 @@ Input Range
 
 FundamentalsPerformance
 */
+// Solution
+package kata
+
+var dp []int = []int{0, 3}
+
+var mod int = 1000000007
+
+func FindX(n int) int {
+  for n >= len(dp) {
+    dp = append(dp, (2 * dp[len(dp) - 1] + 3 * len(dp)) % mod)
+  }
+  return dp[n]
+}
