@@ -14,7 +14,6 @@ Note: despite its name in some languages, your function should handle any Unicod
 "🐐🦊🐐" --> "🦊"
 StringsAlgorithms
 */
-// Solution
 package kata
 
 import "unicode"
