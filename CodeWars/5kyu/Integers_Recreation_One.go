@@ -22,3 +22,27 @@ In Fortran - as in any other language - the returned string is not permitted to 
 
 FundamentalsAlgorithms
 */
+// Solution
+package kata
+
+import "math"
+
+func ListSquared(m, n int) [][]int {
+  var output [][]int = [][]int{}
+  for x := m; x <= n; x++ {
+    sum := 0
+    for d := 1; d*d <= x; d++ {
+      if x%d == 0 {
+        sum += d * d
+        if d != x/d {
+          sum += (x / d) * (x / d)
+        }
+      }
+    }
+    r := int(math.Sqrt(float64(sum)))
+    if r*r == sum {
+      output = append(output, []int{x, sum})
+    }
+  }
+  return output
+}
