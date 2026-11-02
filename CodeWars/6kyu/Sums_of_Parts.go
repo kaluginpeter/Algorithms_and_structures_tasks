@@ -26,3 +26,18 @@ Take a look at performance: some lists have thousands of elements.
 Please ask before translating.
 FundamentalsPerformanceAlgorithms
 */
+// Solution
+package kata
+
+
+func PartsSums(ls []uint64) []uint64 {
+  var acc uint64 = 0
+  var output []uint64 = []uint64{}
+  for _, num := range ls { acc += num }
+  for _, num := range ls {
+    output = append(output, acc)
+    acc -= num
+  }
+  output = append(output, acc)
+  return output
+}
