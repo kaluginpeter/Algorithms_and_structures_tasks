@@ -57,3 +57,17 @@ public:
         return output;
     }
 };
+
+
+# Go O(NlogN) O(1) Sorting Math
+import "slices"
+
+func minMoves2(nums []int) int {
+    var n int = len(nums)
+    slices.Sort(nums)
+    var target, ops int = nums[n >> 1], 0
+    for _, num := range nums {
+        ops += max(num, target) - min(num, target)
+    }
+    return ops
+}
