@@ -31,3 +31,17 @@ Return the string "nil" with Bash, PowerShell, Pascal and Fortran.
 
 FundamentalsGeometryPuzzles
 */
+// Solution
+package kata
+
+func SquaresInRect(lng int, wdth int) []int {
+  if lng == wdth { return nil }
+  var output []int = []int{}
+  for lng > 0 && wdth > 0 {
+    output = append(output, min(lng, wdth))
+    if lng > wdth {
+      lng -= wdth
+    } else { wdth -= lng }
+  }
+  return output
+}
