@@ -43,3 +43,21 @@ Constraints:
 1 <= nums.length <= 100
 1 <= nums[i] <= 100
 */
+// Solution
+// C++ O(N) O(1) Greedy Math
+class Solution {
+public:
+    int minMoves(vector<int>& nums) {
+        int mx = *std::max_element(nums.begin(), nums.end());
+        int total = 0;
+        for (int& num : nums) total += std::max(0, mx - num);
+        return total;
+    }
+};
+// Go O(N) O(1) Math Greedy
+func minMoves(nums []int) int {
+    var output, mx int = 0, 0
+    for _, num := range nums { mx = max(mx, num) }
+    for _, num := range nums { output += mx - num }
+    return output
+}
