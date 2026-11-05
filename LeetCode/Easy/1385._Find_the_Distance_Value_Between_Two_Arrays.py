@@ -46,4 +46,42 @@ class Solution:
             c = 0
         return s
 
-1385. Find the Distance Value Between Two Arrays
+
+# C++ O(NlogN + MlogM + N + M) O(1) TwoPointers Sorting
+class Solution {
+public:
+    int findTheDistanceValue(vector<int>& arr1, vector<int>& arr2, int d) {
+        std::sort(arr1.begin(), arr1.end());
+        std::sort(arr2.begin(), arr2.end());
+        size_t n = arr1.size(), m = arr2.size(), j = 0, output = 0;
+        for (size_t i = 0; i < n; ++i) {
+            while (j < m && (std::abs(arr1[i] - arr2[j]) > d && arr1[i] >= arr2[j])) ++j;
+            if (j < m && std::abs(arr1[i] - arr2[j]) <= d) ++output;
+        }
+        return n - output;
+    }
+};
+
+# Go O(NlogN + MlogM + N + M) O(1) Sorting TwoPointers
+import "slices"
+
+func AbsDiff(x, y *int) int {
+    var diff int = *x - *y
+    if diff < 0 { diff *= -1 }
+    return diff
+}
+
+func findTheDistanceValue(arr1 []int, arr2 []int, d int) int {
+    slices.Sort(arr1)
+    slices.Sort(arr2)
+    var output int = 0
+    var n, m int = len(arr1), len(arr2)
+    var j int = 0
+    for i := 0; i < n; i++ {
+        for j < m && AbsDiff(&arr1[i], &arr2[j]) > d && arr1[i] >= arr2[j] {
+            j++
+        }
+        if j < m && AbsDiff(&arr1[i], &arr2[j]) <= d { output++ }
+    }
+    return n - output
+}
