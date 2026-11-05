@@ -38,3 +38,49 @@ s2 = "my frie n d Joh n has ma n y ma n y frie n ds n&"
 mix(s1, s2) --> "1:mmmmmm/E:nnnnnn/1:aaaa/1:hhh/2:yyy/2:dd/2:ff/2:ii/2:rr/E:ee/E:ss"
 FundamentalsStringsData Visualization
 */
+// Solution
+package kata
+
+import (
+	"sort"
+	"strings"
+)
+
+func Mix(s1, s2 string) string {
+	type entry struct {
+		count int
+		str   string
+	}
+	var entries []entry
+
+	for ch := 'a'; ch <= 'z'; ch++ {
+		c := string(ch)
+		val1, val2 := strings.Count(s1, c), strings.Count(s2, c)
+		m := val1
+		if val2 > m {
+			m = val2
+		}
+		if m > 1 {
+			which := "="
+			if val1 > val2 {
+				which = "1"
+			} else if val2 > val1 {
+				which = "2"
+			}
+			entries = append(entries, entry{m, which + ":" + strings.Repeat(c, m)})
+		}
+	}
+
+	sort.Slice(entries, func(i, j int) bool {
+		if entries[i].count != entries[j].count {
+			return entries[i].count > entries[j].count
+		}
+		return entries[i].str < entries[j].str
+	})
+
+	parts := make([]string, len(entries))
+	for i, e := range entries {
+		parts[i] = e.str
+	}
+	return strings.Join(parts, "/")
+}
