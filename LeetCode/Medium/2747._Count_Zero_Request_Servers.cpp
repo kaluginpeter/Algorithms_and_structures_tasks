@@ -38,3 +38,37 @@ logs[i].length == 2
 1 <= x <= 105
 x < queries[i] <= 106
 */
+// Solution
+// C++ O(MlogM + KlogK + N + M + K) O(N + K) TwoPointers Sorting
+class Solution {
+public:
+    vector<int> countServers(int n, vector<vector<int>>& logs, int x, vector<int>& queries) {
+        size_t m = logs.size(), k = queries.size();
+        std::sort(logs.begin(), logs.end(), [](const std::vector<int>& x, const std::vector<int>& y) {
+            return x[1] < y[1];
+        });
+        std::unordered_map<int, std::vector<size_t>> queryToStart;
+        for (size_t i = 0; i < k; ++i) queryToStart[queries[i]].push_back(i);
+        std::sort(queries.begin(), queries.end());
+        std::unordered_map<int, int> was;
+        std::vector<int> output(k, 0);
+        size_t wasCalled = 0;
+        size_t lM = 0, rM = 0;
+        for (int& end : queries) {
+            int start = end - x;
+            while (rM < m && logs[rM][1] <= end) {
+                if (!was[logs[rM][0]]) ++wasCalled;
+                ++was[logs[rM][0]];
+                ++rM;
+            }
+            while (lM < m && logs[lM][1] < start) {
+                --was[logs[lM][0]];
+                if (!was[logs[lM][0]]) --wasCalled;
+                ++lM;
+            }
+            output[queryToStart[end].back()] = n - wasCalled;
+            queryToStart[end].pop_back();
+        }
+        return output;
+    }
+};
