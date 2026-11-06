@@ -21,3 +21,33 @@ Example of a string rotated to the left by one position:
 s = "123456" gives "234561".
 AlgorithmsStrings
 */
+// Solution
+package kata
+
+import "strings"
+
+func Revrot(s string, n int) string {
+	if n <= 0 || n > len(s) || len(s) == 0 {
+		return ""
+	}
+	var sb strings.Builder
+	for i := 0; i+n <= len(s); i += n { 
+		chunk := s[i : i+n]
+
+		sum := 0
+		for _, ch := range chunk {
+			d := int(ch - '0')
+			sum += d * d * d
+		}
+
+		if sum%2 == 0 {
+			for j := n - 1; j >= 0; j-- {
+				sb.WriteByte(chunk[j])
+			}
+		} else {
+			sb.WriteString(chunk[1:])
+			sb.WriteByte(chunk[0])
+		}
+	}
+	return sb.String()
+}
