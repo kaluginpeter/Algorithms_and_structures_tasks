@@ -42,3 +42,35 @@ https://en.wikipedia.org/wiki/Prime_gap
 
 Fundamentals
 */
+// Solution
+package kata
+
+func isPrime(i int) bool {
+  if i <= 0 || i == 1 { return false }
+  d := 2
+  for (d * d <= i) {
+    if i % d == 0 { return false }
+    d++
+  }
+  return true
+}
+
+func Gap(g, m, n int) []int {
+  var first, second int = 0, 0
+  for i := m; i <= n; i++ {
+    if isPrime(i) {
+      if first == 0 {
+        first = i
+      } else if second == 0 {
+        second = i
+      } else {
+        first = second
+        second = i
+      }
+    }
+    if second - first == g {
+      return []int{first, second}
+    }
+  }
+  return nil
+}
