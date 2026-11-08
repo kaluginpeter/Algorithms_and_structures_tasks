@@ -79,3 +79,33 @@ public:
         return communicate;
     }
 };
+
+
+# Go O(NM) O(NM) HashMap Matrix
+func countServers(grid [][]int) int {
+    var m, n int = len(grid), len(grid[0])
+    var rows, cols [][]int = make([][]int, m), make([][]int, n)
+    var connected map[int]bool = map[int]bool{}
+    for i := 0; i < m; i++ {
+        for j := 0; j < n; j++ {
+            if (grid[i][j] == 0) { continue }
+            // Union with row
+            if rows[i] == nil { rows[i] = []int{i * n + j} }
+            if i * n + j != rows[i][0] {
+                connected[i * n + j] = true
+                connected[rows[i][0]] = true
+            }
+            // Union with column
+            if cols[j] == nil { cols[j] = []int{i * n + j} }
+            if i * n + j != cols[j][0] {
+                connected[i * n + j] = true
+                connected[cols[j][0]] = true
+            }
+        }
+    }
+    var output int = 0
+    for _, c := range connected {
+        if c { output++ }
+    }
+    return output
+}
