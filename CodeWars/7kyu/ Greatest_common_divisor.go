@@ -5,3 +5,10 @@ The inputs x and y are always greater or equal to 1, so the greatest common divi
 
 AlgorithmsFundamentalsRecursion
 */
+// Solution
+package kata
+
+func Gcd(x, y uint32) uint32 {
+  if y == 0 { return x }
+  return Gcd(y, x % y)
+}
