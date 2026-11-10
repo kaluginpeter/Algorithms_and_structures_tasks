@@ -24,3 +24,27 @@ try not to modify the input list of distances ls
 in some languages this "list" is in fact a string (see the Sample Tests).
 Fundamentals
 */
+// Solution
+package kata
+
+func ChooseBestSum(t, k int, ls []int) int {
+	best := -1
+	var choose func(start, left, sum int)
+	choose = func(start, left, sum int) {
+		if sum > t {
+			return
+		}
+		if left == 0 {
+			if sum > best {
+				best = sum
+			}
+			return
+		}
+		for i := start; i <= len(ls)-left; i++ {
+			choose(i+1, left-1, sum+ls[i])
+		}
+	}
+
+	choose(0, k, 0)
+	return best
+}
