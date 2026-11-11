@@ -53,3 +53,22 @@ Constraints:
  
 
 */
+// Solution
+// C++ O(1) O(1) Math
+class Solution {
+public:
+    long long minimumCost(int cost1, int cost2, int costBoth, int need1, int need2) {
+        if (cost1 + cost2 <= costBoth) return 1LL * cost1 * need1 + 1LL * cost2 * need2;
+        int bound = std::min(need1, need2);
+        return 1LL * bound * costBoth + std::min(1LL* costBoth * (std::max(need1, need2) - bound), 1LL * (need1 - bound) * cost1 + 1LL * (need2 - bound) * cost2);
+    }
+};
+
+// Go O(1) O(1) Math
+func minimumCost(cost1 int, cost2 int, costBoth int, need1 int, need2 int) int64 {
+    if cost1 + cost2 <= costBoth {
+        return int64(cost1) * int64(need1) + int64(cost2) * int64(need2)
+    }
+    lambda := min(need1, need2)
+    return int64(lambda) * int64(costBoth) + min(int64(costBoth) * int64(max(need1, need2) - lambda), int64(need1 - lambda) * int64(cost1) + int64(need2 - lambda) * int64(cost2))
+}
