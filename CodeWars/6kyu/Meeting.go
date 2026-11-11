@@ -17,3 +17,37 @@ Notes
 You can see another examples in the "Sample tests".
 Fundamentals
 */
+// Solution
+package kata
+
+import (
+	"sort"
+	"strings"
+)
+
+func Meeting(s string) string {
+	s = strings.ToUpper(s)
+	var n, ptr int = len(s), 0
+	var entries []string
+
+	for ptr < n {
+		start := ptr
+		for s[ptr] != ':' {
+			ptr++
+		}
+		first := s[start:ptr]
+		ptr++
+
+		start = ptr
+		for ptr < n && s[ptr] != ';' {
+			ptr++
+		}
+		last := s[start:ptr]
+		ptr++
+
+		entries = append(entries, "("+last+", "+first+")")
+	}
+
+	sort.Strings(entries)
+	return strings.Join(entries, "")
+}
