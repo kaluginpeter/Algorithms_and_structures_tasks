@@ -122,3 +122,39 @@ public:
         return maxLength;
     }
 };
+
+# C++ O(N) O(1) Greedy
+class Solution {
+public:
+    int longestMonotonicSubarray(vector<int>& nums) {
+        int output = 1, mx = 1, mn = 1;
+        for (size_t i = 1; i < nums.size(); ++i) {
+            if (nums[i] > nums[i - 1]) {
+                ++mx; mn = 1;
+            } else if (nums[i] < nums[i - 1]) {
+                ++mn; mx = 1;
+            } else { mx = 1; mn = 1; }
+            output = std::max({output, mx, mn});
+        }
+        return output;
+    }
+};
+
+# Go O(N) O(1) Greedy
+func longestMonotonicSubarray(nums []int) int {
+    var output, mn, mx int = 1, 1, 1
+    for i := 1; i < len(nums); i++ {
+        if nums[i] > nums[i - 1] {
+            mx++
+            mn = 1
+        } else if nums[i] < nums[i - 1] {
+            mn++
+            mx = 1
+        } else {
+            mx = 1
+            mn = 1
+        }
+        output = max(output, mx, mn)
+    }
+    return output
+}
