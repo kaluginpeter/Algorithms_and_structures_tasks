@@ -37,3 +37,27 @@ We don't take care of a deposit of savings in a bank:-)
 
 FundamentalsMathematics
 */
+// Solution
+package kata
+
+import "math"
+
+func NbMonths(startPriceOld, startPriceNew, savingperMonth int, percentLossByMonth float64) [2]int {
+	old := float64(startPriceOld)
+	newP := float64(startPriceNew)
+	savings := 0.0
+	months := 0
+
+	for old+savings < newP {
+		months++
+		savings += float64(savingperMonth)
+		if months%2 == 0 {
+			percentLossByMonth += 0.5
+		}
+		factor := (100 - percentLossByMonth) / 100
+		old *= factor
+		newP *= factor
+	}
+
+	return [2]int{months, int(math.Round(old + savings - newP))}
+}
