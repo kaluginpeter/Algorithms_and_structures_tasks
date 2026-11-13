@@ -39,3 +39,48 @@ Constraints:
 1 <= nums[i] <= 109
 1 <= k <= 109
 */
+// Solution
+// C++ O(NlogN) O(N) PriorityQueue SlidingWindow
+class Solution {
+public:
+    long long countNonDecreasingSubarrays(vector<int>& nums, int k) {
+        int n = nums.size();
+        long long ans = 0;
+        long long operations = 0;
+        // Maintain the window maximum with a priority queue
+        priority_queue<pair<int, int>> q;
+        // Record the set of elements covered by this index
+        vector<vector<int>> cnt(n);
+        // Index of the first greater-or-equal element to the right
+        vector<int> pos(n, n);
+        // Decreasing monotonic stack
+        stack<int> st;
+
+        for (int left = 0, right = 0; right < n; right++) {
+            while (!st.empty() && nums[right] >= nums[st.top()]) {
+                pos[st.top()] = right;
+                st.pop();
+            }
+            if (!st.empty()) {
+                cnt[st.top()].push_back(right);
+            }
+            st.push(right);
+            q.emplace(nums[right], right);
+            operations += max(0, q.top().first - nums[right]);
+            while (operations > k) {
+                for (int i : cnt[left]) {
+                    operations -=
+                        (long long)(nums[left] - nums[i]) *
+                        (min(pos[i], right + 1) - i);
+                }
+                left++;
+            }
+            while (!q.empty() && q.top().second < left) {
+                q.pop();
+            }
+            ans += right - left + 1;
+        }
+
+        return ans;
+    }
+};
