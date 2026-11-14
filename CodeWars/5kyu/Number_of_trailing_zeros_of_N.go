@@ -15,3 +15,11 @@ Hint: You're not meant to calculate the factorial. Find another way to find the 
 
 AlgorithmsLogicMathematics
 */
+// Solution
+package kata
+
+
+func Zeros(n int) int {
+  if n == 0 { return 0}
+  return n / 5 + Zeros(n / 5)
+}
