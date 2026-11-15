@@ -18,3 +18,19 @@ Notes and tips: using the solution to the other kata to check your function may 
 
 MathematicsCombinatoricsAlgorithmsListsArrays
 */
+// Solution
+package kata
+
+func JosephusSurvivor(n, k int) int {
+	var i, j int = 0, 0
+  var z []int = []int{}
+  for p := 1; p <= n; p++ { z = append(z, p) }
+  for len(z) > 0 {
+    i = (i + k - 1) % len(z)
+    j = z[i]
+    var nZ []int = z[:i]
+    nZ = append(nZ, z[i + 1:]...)
+    z = nZ
+  }
+  return j
+}
