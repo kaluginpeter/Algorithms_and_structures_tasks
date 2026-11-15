@@ -70,3 +70,50 @@ public:
         return output;
     }
 };
+
+
+# Go O(N) O(1) DynamicProgramming Math
+func numOfSubarrays(arr []int) int {
+    var dp [2]int = [2]int{0, 0}
+    var output, mod int = 0, 1000000007
+    for _, num := range arr {
+        if num & 1 == 1 { // current number is odd
+            output = (output + dp[0] + 1) % mod
+            var newDp0 int = dp[1] % mod
+            dp[1] = (dp[0] + 1) % mod
+            dp[0] = newDp0
+        } else { // current number is even
+            output = (output + dp[1]) % mod
+            dp[0] = (dp[0] + 1) % mod
+        }
+    }
+    return output
+}
+
+
+// The length of the array is the 10^5
+// So we need to find a soluton less than or equal to O(NlogN)
+
+// Let's notice that the numbers by itself is in range from 1 to 100
+// How that fact can help us?
+
+// Generally, we don't care about the exact subarray sum,
+// but more about parity of that sum
+
+// Since we need to return answer by module, it means
+// that the overall number of subarrays will be greater than 10^9
+// which means that we cannot just to count all the subarrays
+// This leads us to some kind of combinatorial approach
+
+// The combinatorial approach can be resolved through dynamic programming
+// So what is the state of dp?
+
+// Since we don't care about the exact sum, let's consider
+// all previous subarray subs my module 2, just as '0' and '1'
+
+// So then i'th element will be the "end" of current window
+// Then we use some module arithmetic
+// And the answer will be the sum of all 0 <= i < n computations
+
+// Time complexity is O(N)
+// Memory complexity is O(1)
