@@ -51,3 +51,22 @@ for n = 1234567 it calculates 178, then 87, then 87 and returns 87.
 for n = 321 it calculates 48, 48 and returns 48
 FundamentalsAlgorithmsMathematics
 */
+// Solution
+package kata
+
+func Thirt(n int) int {
+  var pattern []int = []int{1, 10, 9, 12, 3, 4}
+  var acc int = 0
+  for {
+    var curAcc, i int = 0, 0
+    for n > 0 {
+      curAcc += n % 10 * pattern[i % len(pattern)]
+      i++
+      n /= 10
+    }
+    if acc == curAcc { return acc }
+    acc = curAcc
+    n = curAcc
+  }
+  return -1
+}
