@@ -52,3 +52,26 @@ class Solution:
                 w, step = '', 0
             s = ''.join(str(sum(int(i) for i in j)) for j in l)
         return s
+
+
+# Go O(MN) O(N) Simulation
+import "strconv"
+
+func digitSum(s string, k int) string {
+    for len(s) > k {
+        var newS string = ""
+        var acc int = 0
+        for i := 0; i < len(s); i++ {
+            acc += int(s[i] - '0')
+            if (i + 1) % k == 0 {
+                newS += strconv.Itoa(acc)
+                acc = 0
+            }
+        }
+        if len(s) % k != 0 {
+            newS += strconv.Itoa(acc)
+        }
+        s = newS
+    }
+    return s
+}
