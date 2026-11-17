@@ -12,3 +12,15 @@ input = ["red", "red", "red", "red", "red", "red"]
 result = 3 (3 red pairs)
 ArraysPuzzles
 */
+// Solution
+package kata
+
+func NumberOfPairs(gloves []string) int {
+  var hashmap map[string]int = map[string]int{}
+  var output int = 0
+  for _, g := range gloves {
+    hashmap[g]++
+    if hashmap[g] & 1 == 0 { output++ }
+  }
+  return output
+}
