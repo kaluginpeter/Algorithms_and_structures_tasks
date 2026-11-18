@@ -59,3 +59,23 @@ class Solution:
             if s[idx] != s[idx - 1]:
                 count += 1
         return count
+
+
+# C++ O(N) O(1) TwoPointers
+class Solution {
+public:
+    int minChanges(string s) {
+        size_t n = s.size(), left = 0, right = 0;
+        int output = 0;
+        while (left < n) {
+            while (right < n && s[left] == s[right]) ++right;
+            size_t diff = right - left;
+            left = right;
+            if ((diff & 1) == 0) continue;
+            s[left] = s[left - 1];
+            ++left; right = left;
+            ++output;
+        }
+        return output;
+    }
+};
