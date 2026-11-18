@@ -34,3 +34,38 @@ input is a string, e.g "2,4,2,6,2,8" output is then "6 12 4 12 3 12"
 
 FundamentalsAlgorithmsMathematics
 */
+// Solution
+package kata
+
+import (
+	"strconv"
+	"strings"
+)
+
+func gcd(a, b int) int {
+	for b != 0 {
+		a, b = b, a%b
+	}
+	return a
+}
+
+func ConvertFracts(a [][]int) string {
+	fr := make([][2]int, len(a))
+	for i, f := range a {
+		g := gcd(f[0], f[1])
+		fr[i] = [2]int{f[0] / g, f[1] / g}
+	}
+	D := 1
+	for _, f := range fr {
+		D = D / gcd(D, f[1]) * f[1]
+	}
+	var sb strings.Builder
+	for _, f := range fr {
+		sb.WriteString("(")
+		sb.WriteString(strconv.Itoa(D / f[1] * f[0]))
+		sb.WriteString(",")
+		sb.WriteString(strconv.Itoa(D))
+		sb.WriteString(")")
+	}
+	return sb.String()
+}
