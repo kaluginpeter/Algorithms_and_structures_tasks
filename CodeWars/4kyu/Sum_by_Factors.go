@@ -21,3 +21,45 @@ Example: I = [15, 30, -45] 5 divides 15, 30 and (-45) so 5 appears in the result
 In Fortran - as in any other language - the returned string is not permitted to contain any redundant trailing whitespace: you can use dynamically allocated character strings.
 ArraysAlgorithmsMathematics
 */
+// Solution
+package kata
+
+import (
+	"fmt"
+	"sort"
+	"strings"
+)
+
+func SumOfDivided(lst []int) string {
+	sums := make(map[int]int)
+
+	for _, num := range lst {
+		x := num
+		if x < 0 {
+			x = -x
+		}
+		for p := 2; p*p <= x; p++ {
+			if x%p == 0 {
+				sums[p] += num
+				for x%p == 0 {
+					x /= p
+				}
+			}
+		}
+		if x > 1 {
+			sums[x] += num
+		}
+	}
+
+	primes := make([]int, 0, len(sums))
+	for p := range sums {
+		primes = append(primes, p)
+	}
+	sort.Ints(primes)
+
+	var sb strings.Builder
+	for _, p := range primes {
+		fmt.Fprintf(&sb, "(%d %d)", p, sums[p])
+	}
+	return sb.String()
+}
