@@ -37,3 +37,33 @@ Constraints:
 3 <= nums.length <= 105
 1 <= nums[i] <= 109
 */
+// Solution
+// C++ O(NlogN) O(1) Sorting Greedy
+class Solution {
+public:
+    int minimizeSum(vector<int>& nums) {
+        std::sort(nums.begin(), nums.end());
+        size_t n = nums.size();
+        // First case: transform two biggest
+        // Since both biggest integers will be transformed equally
+        // the minimal difference will be zero
+        int output = nums[n - 3] - nums[0];
+        // Second case: transform two smallest
+        output = std::min(output, nums[n - 1] - nums[2]);
+        // Third case: transfrom one biggest and one smallest
+        output = std::min(output, nums[n - 2] - nums[1]);
+        return output;
+    }
+};
+
+// We need to find a solution faster than or equal to O(NlogN)
+// We can consider to try all possible "optimal" choices:
+// Transfrom either: two biggest, two smallest, one biggest and one smallest
+// And amongs all results choose the smallest one
+// Go O(NlogN) O(1) Sorting Greedy
+import "slices"
+func minimizeSum(nums []int) int {
+    slices.Sort(nums)
+    var n int = len(nums)
+    return min(nums[n - 3] - nums[0], nums[n - 1] - nums[2], nums[n - 2] - nums[1])
+}
