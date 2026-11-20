@@ -11,3 +11,20 @@ xbonacci {1,0,0,0,0,0,1} 10 = {1,0,0,0,0,0,1,2,3,6}
 xbonacci {1,1} produces the Fibonacci sequence
 ArraysListsNumber TheoryFundamentals
 */
+// Solution
+package kata
+
+func Xbonacci(signature []int, n int) []int {
+	k := len(signature)
+	result := make([]int, 0, max(n, k))
+	result = append(result, signature...)
+
+	for len(result) < n {
+		sum := 0
+		for _, v := range result[len(result)-k:] {
+			sum += v
+		}
+		result = append(result, sum)
+	}
+	return result[:n]
+}
