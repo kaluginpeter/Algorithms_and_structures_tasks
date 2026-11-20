@@ -28,3 +28,22 @@ Constraints:
 1 <= nums.length <= 105
 1 <= nums[i] <= 106
 */
+// Solution
+// C++ O(NlogN) O(N) HashMap DynamicProgramming Sorting
+class Solution {
+public:
+    int maxSelectedElements(vector<int>& nums) {
+        std::sort(nums.begin(), nums.end());
+        std::unordered_map<int, int> hashmap;
+        for (int& num : nums) {
+            int x = hashmap[num] + 1, y = hashmap[num - 1] + 1;
+            hashmap[num + 1] = x;
+            hashmap[num] = y;
+        }
+        int output = 0;
+        for (auto& p : hashmap) {
+            output = std::max(output, p.second);
+        }
+        return output;
+    }
+};
