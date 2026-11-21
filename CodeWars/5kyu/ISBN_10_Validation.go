@@ -20,3 +20,26 @@ Examples
 X123456788   -->  false
 Regular ExpressionsAlgorithms
 */
+// Solution
+package kata
+
+func ValidISBN10(isbn string) bool {
+	if len(isbn) != 10 {
+		return false
+	}
+	sum := 0
+	for i := 0; i < 10; i++ {
+		c := isbn[i]
+		var v int
+		switch {
+		case c >= '0' && c <= '9':
+			v = int(c - '0')
+		case (c == 'X' || c == 'x') && i == 9:
+	    v = 10
+		default:
+			return false
+		}
+		sum += v * (i + 1)
+	}
+	return sum%11 == 0
+}
