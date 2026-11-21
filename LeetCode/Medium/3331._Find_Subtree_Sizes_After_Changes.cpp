@@ -49,3 +49,61 @@ s consists only of lowercase English letters.
  
 
 */
+// Solution
+// C++ O(N) O(N) Breadth-First-Search
+class Solution {
+public:
+    vector<int> findSubtreeSizes(vector<int>& parent, string s) {
+        std::unordered_map<int, std::vector<int>> adjList, newAdjList;
+        int n = parent.size();
+        for (int i = 0; i < n; ++i) adjList[parent[i]].push_back(i);
+
+        std::vector<std::pair<int, std::array<int, 26>>> curNodes = {{0, std::array<int, 26>{}}}, nextNodes;
+        curNodes[0].second[s[0] - 'a'] = 0;
+        for (int i = 0; i < 26; ++i) {
+            if (i != (s[0] - 'a')) curNodes[0].second[i] = -1;
+        }
+
+        std::vector<int> inDegree(n, 0);
+        std::vector<bool> startingVertex(n, true);
+        while (!curNodes.empty()) {
+            for (auto& p : curNodes) {
+                for (int& child : adjList[p.first]) {
+                    if (p.second[s[child] - 'a'] != -1) {
+                        newAdjList[child].push_back(p.second[s[child] - 'a']);
+                        startingVertex[p.second[s[child] - 'a']] = false;
+                        ++inDegree[p.second[s[child] - 'a']];
+                    } else {
+                        newAdjList[child].push_back(p.first);
+                        startingVertex[p.first] = false;
+                        ++inDegree[p.first];
+                    }
+                    std::pair<int, std::array<int, 26>> nextState = {child, p.second};
+                    nextState.second[s[child] - 'a'] = child;
+                    nextNodes.push_back(nextState);
+                }
+            }
+            curNodes = nextNodes;
+            nextNodes.clear();
+        }
+
+        std::vector<int> output(n, 1);
+        std::vector<int> newCurNodes, newNextNodes;
+        for (int i = 0; i < n; ++i) {
+            if (startingVertex[i]) newCurNodes.push_back(i);
+        }
+
+        while (!newCurNodes.empty()) {
+            for (int& child : newCurNodes) {
+                for (int& parent : newAdjList[child]) {
+                    output[parent] += output[child];
+                    --inDegree[parent];
+                    if (!inDegree[parent]) newNextNodes.push_back(parent);
+                }
+            }
+            newCurNodes = newNextNodes;
+            newNextNodes.clear();
+        }
+        return output;
+    }
+};
