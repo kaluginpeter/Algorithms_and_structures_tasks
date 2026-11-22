@@ -30,3 +30,24 @@ Constraints:
 1 <= s.length <= 100
 s[i] is either 'a' or 'b'.
 */
+// Solution
+// C++ O(N) O(1) Greedy TwoPointers
+class Solution {
+public:
+    bool checkString(string s) {
+        size_t left = 0, right = s.size() - 1;
+        while (left < right && s[left] == 'a') ++left;
+        while (right > left && s[right] == 'b') --right;
+        return left >= right;
+    }
+};
+// Go O(N) O(1) Greedy
+func checkString(s string) bool {
+    var seen bool = false
+    for _, ch := range s {
+        if ch == 'b' {
+            seen = true;
+        } else if seen { return false }
+    }
+    return true
+}
