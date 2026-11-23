@@ -95,3 +95,35 @@ public:
  * obj->add(num);
  * int param_2 = obj->getProduct(k);
  */
+
+
+ # Go O(1) O(N) Prefix
+ type ProductOfNumbers struct {
+    prefix []int
+}
+
+func Constructor() ProductOfNumbers {
+    return ProductOfNumbers{prefix: []int{1}}
+}
+
+func (this *ProductOfNumbers) Add(num int)  {
+    if (num == 0) {
+        this.prefix = this.prefix[:0]
+        this.prefix = append(this.prefix, 1)
+    } else {
+        this.prefix = append(this.prefix, num * this.prefix[len(this.prefix) - 1])
+    }
+}
+
+func (this *ProductOfNumbers) GetProduct(k int) int {
+    if len(this.prefix) <= k { return 0 }
+    return this.prefix[len(this.prefix) - 1] / this.prefix[len(this.prefix) - 1 - k]
+}
+
+
+/**
+ * Your ProductOfNumbers object will be instantiated and called as such:
+ * obj := Constructor();
+ * obj.Add(num);
+ * param_2 := obj.GetProduct(k);
+ */
