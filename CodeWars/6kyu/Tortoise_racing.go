@@ -26,3 +26,11 @@ Think of calculation by hand using only integers (in your code use or simulate i
 or Google: "convert decimal time to hours minutes seconds"
 FundamentalsMathematicsAlgorithms
 */
+// Solution
+package kata
+
+func Race(v1, v2, g int) [3]int {
+  if v1 >= v2 { return [3]int{-1, -1, -1} }
+  var catchup int =  3600 * g / (v2 - v1)
+  return [3]int{catchup / 3600, catchup % 3600 / 60, catchup % 3600 % 60}
+}
