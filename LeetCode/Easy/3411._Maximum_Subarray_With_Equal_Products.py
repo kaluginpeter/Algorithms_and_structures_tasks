@@ -85,3 +85,34 @@ public:
         return ans;
     }
 };
+
+
+# Go O(N^2log(M)) O(1) Math SlidingWindow BruteForce
+func gcd(x, y int) int {
+    if x == 0 { return y }
+    return gcd(y % x, x)
+}
+
+func lcm(x, y int) int {
+    return x * y / gcd(x, y)
+}
+
+func maxLength(nums []int) int {
+    var n, output int = len(nums), 0
+    for i := 0; i < n; i++ {
+        var acc, g, l int = 1, -1, -1
+        for j := i; j < n; j++ {
+            if i == j {
+                g = nums[j]
+                l = nums[j]
+            }
+            g = gcd(g, nums[j])
+            l = lcm(l, nums[j])
+            acc *= nums[j]
+            if acc == g * l && (j - i + 1 > output) {
+                output = j - i + 1
+            }
+        }
+    }
+    return output
+}
