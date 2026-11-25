@@ -26,3 +26,48 @@ If you enjoyed this kata, be sure to check out my other katas
 
 AlgorithmsPuzzles
 */
+// Solution
+package kata
+
+import "strconv"
+
+func MysteryRange(s string, n int) [2]int {
+	for start := 1; start <= 100; start++ {
+		total := 0
+		for i := start; i < start+n; i++ {
+			total += len(strconv.Itoa(i))
+		}
+		if total != len(s) {
+			continue
+		}
+
+		need := map[int]int{}
+		for i := start; i < start+n; i++ {
+			need[i]++
+		}
+		if canSplit(s, 0, need) {
+			return [2]int{start, start + n - 1}
+		}
+	}
+	return [2]int{-1, -1}
+}
+
+func canSplit(s string, pos int, need map[int]int) bool {
+	if pos == len(s) {
+		return true
+	}
+	if s[pos] == '0' {
+		return false
+	}
+	for l := 1; l <= 3 && pos+l <= len(s); l++ {
+		v, _ := strconv.Atoi(s[pos : pos+l])
+		if need[v] > 0 {
+			need[v]--
+			if canSplit(s, pos+l, need) {
+				return true
+			}
+			need[v]++
+		}
+	}
+	return false
+}
