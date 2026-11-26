@@ -49,3 +49,182 @@ Best of luck !
 
 Algorithms
 */
+// Solution
+package kata
+
+import (
+	"math"
+	"strconv"
+	"strings"
+)
+
+type node struct {
+	op   string 
+	val  float64
+	args []*node
+}
+
+func num(v float64) *node { return &node{op: "num", val: v} }
+
+func (n *node) isNum() bool       { return n.op == "num" }
+func (n *node) is(v float64) bool { return n.op == "num" && n.val == v }
+
+func (n *node) String() string {
+	switch n.op {
+	case "num":
+		v := n.val
+		if v == 0 {
+			v = 0
+		}
+		return strconv.FormatFloat(v, 'f', -1, 64)
+	case "x":
+		return "x"
+	}
+	parts := []string{n.op}
+	for _, a := range n.args {
+		parts = append(parts, a.String())
+	}
+	return "(" + strings.Join(parts, " ") + ")"
+}
+
+
+func tokenize(s string) []string {
+	s = strings.ReplaceAll(s, "(", " ( ")
+	s = strings.ReplaceAll(s, ")", " ) ")
+	return strings.Fields(s)
+}
+
+func parse(tokens []string, pos *int) *node {
+	t := tokens[*pos]
+	*pos++
+	if t != "(" {
+		if t == "x" {
+			return &node{op: "x"}
+		}
+		v, _ := strconv.ParseFloat(t, 64)
+		return num(v)
+	}
+	op := tokens[*pos]
+	*pos++
+	n := &node{op: op}
+	for tokens[*pos] != ")" {
+		n.args = append(n.args, parse(tokens, pos))
+	}
+	*pos++ 
+	return n
+}
+
+func add(a, b *node) *node {
+	switch {
+	case a.isNum() && b.isNum():
+		return num(a.val + b.val)
+	case a.is(0):
+		return b
+	case b.is(0):
+		return a
+	}
+	return &node{op: "+", args: []*node{a, b}}
+}
+
+func sub(a, b *node) *node {
+	switch {
+	case a.isNum() && b.isNum():
+		return num(a.val - b.val)
+	case b.is(0):
+		return a
+	}
+	return &node{op: "-", args: []*node{a, b}}
+}
+
+func mul(a, b *node) *node {
+	switch {
+	case a.isNum() && b.isNum():
+		return num(a.val * b.val)
+	case a.is(0) || b.is(0):
+		return num(0)
+	case a.is(1):
+		return b
+	case b.is(1):
+		return a
+	}
+	return &node{op: "*", args: []*node{a, b}}
+}
+
+func div(a, b *node) *node {
+	switch {
+	case a.isNum() && b.isNum():
+		return num(a.val / b.val)
+	case a.is(0):
+		return num(0)
+	case b.is(1):
+		return a
+	}
+	return &node{op: "/", args: []*node{a, b}}
+}
+
+func pow(a, b *node) *node {
+	switch {
+	case b.is(0):
+		return num(1)
+	case b.is(1):
+		return a
+	case a.isNum() && b.isNum():
+		return num(math.Pow(a.val, b.val))
+	}
+	return &node{op: "^", args: []*node{a, b}}
+}
+
+func fn(name string, a *node) *node { return &node{op: name, args: []*node{a}} }
+
+func diff(n *node) *node {
+	switch n.op {
+	case "num":
+		return num(0)
+	case "x":
+		return num(1)
+	}
+
+	a := n.args[0]
+	da := diff(a)
+
+	switch n.op {
+	case "+":
+		return add(da, diff(n.args[1]))
+	case "-":
+		return sub(da, diff(n.args[1]))
+	case "*": 
+		b := n.args[1]
+		return add(mul(da, b), mul(a, diff(b)))
+	case "/": 
+		b := n.args[1]
+		return div(sub(mul(da, b), mul(a, diff(b))), pow(b, num(2)))
+	case "^":
+		b := n.args[1]
+		if b.isNum() {
+			return mul(mul(b, pow(a, num(b.val-1))), da)
+		}
+		db := diff(b)
+		return mul(n, add(mul(db, fn("ln", a)), div(mul(b, da), a)))
+	}
+
+	var outer *node
+	switch n.op {
+	case "sin":
+		outer = fn("cos", a)
+	case "cos":
+		outer = mul(num(-1), fn("sin", a))
+	case "tan":
+		outer = add(num(1), pow(fn("tan", a), num(2)))
+	case "exp":
+		outer = fn("exp", a)
+	case "ln":
+		outer = div(num(1), a)
+	}
+	return mul(da, outer)
+}
+
+func Diff(expression string) string {
+	tokens := tokenize(expression)
+	pos := 0
+	return diff(parse(tokens, &pos)).String()
+}
