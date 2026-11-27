@@ -30,3 +30,17 @@ The number of inner points with integer coordinates.
 
 Puzzles
 */
+// Solution
+package kata
+
+import "math"
+
+func RectangleRotation(a, b int) int {
+    A := int(math.Floor(float64(a) / math.Sqrt2))
+    B := int(math.Floor(float64(b) / math.Sqrt2))
+    evenA := 2*(A/2) + 1
+    oddA := 2*((A+1)/2)
+    evenB := 2*(B/2) + 1
+    oddB := 2*((B+1)/2)
+    return evenA*evenB + oddA*oddB
+}
